@@ -1,0 +1,35 @@
+ManifestFileVersion: 0
+CRC: 2007186157
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1b1e035afd87ffac8848244eba10c428
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 78ad36cf2df00121832114dc19a9542f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/Bolt/bolt1.prefab
+Dependencies: []

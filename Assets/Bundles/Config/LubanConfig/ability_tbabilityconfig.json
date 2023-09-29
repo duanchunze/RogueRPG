@@ -1,0 +1,2425 @@
+[
+  {
+    "id": 10000,
+    "alias": "待机",
+    "view_name": "Idle",
+    "desc": "",
+    "star": 0,
+    "cooldown": 0,
+    "mana_cost": 0,
+    "detect_range": 0,
+    "numeric_nodes": [],
+    "tags": [
+      12,
+      5
+    ],
+    "caster": {
+      "$type": "Null"
+    },
+    "target_tags": [],
+    "caster_evaluates": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": -1,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 0,
+      "resist_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 5,
+        "duration": -1,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "idle"
+          }
+        ]
+      }
+    ],
+    "affixes": []
+  },
+  {
+    "id": 10001,
+    "alias": "停止",
+    "view_name": "Stop",
+    "desc": "",
+    "star": 0,
+    "cooldown": 0,
+    "mana_cost": 0,
+    "detect_range": 0,
+    "numeric_nodes": [],
+    "tags": [
+      12,
+      6
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 1,
+      "support_continue": false
+    },
+    "target_tags": [],
+    "caster_evaluates": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 41,
+      "resist_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": []
+      }
+    ],
+    "affixes": []
+  },
+  {
+    "id": 10002,
+    "alias": "方向移动",
+    "view_name": "DirectionMove",
+    "desc": "",
+    "star": 0,
+    "cooldown": 0,
+    "mana_cost": 0,
+    "detect_range": 0,
+    "numeric_nodes": [],
+    "tags": [
+      12,
+      7,
+      9
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 2,
+      "support_continue": true
+    },
+    "target_tags": [],
+    "caster_evaluates": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 41,
+      "resist_pri": 40,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 5,
+        "duration": -1,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "run"
+          },
+          {
+            "$type": "MoveInfo",
+            "model": 1,
+            "origin": 0,
+            "dest": 1,
+            "move_model": 0
+          }
+        ]
+      }
+    ],
+    "affixes": []
+  },
+  {
+    "id": 10003,
+    "alias": "点击移动",
+    "view_name": "PointMove",
+    "desc": "",
+    "star": 0,
+    "cooldown": 0,
+    "mana_cost": 0,
+    "detect_range": 0,
+    "numeric_nodes": [],
+    "tags": [
+      12,
+      7,
+      8
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 3,
+      "support_continue": true
+    },
+    "target_tags": [],
+    "caster_evaluates": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 15,
+      "resist_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 5,
+        "duration": -1,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "run"
+          },
+          {
+            "$type": "MoveInfo",
+            "model": 1,
+            "origin": 0,
+            "dest": 1,
+            "move_model": 1
+          }
+        ]
+      }
+    ],
+    "affixes": []
+  },
+  {
+    "id": 10004,
+    "alias": "点击移动-内部",
+    "view_name": "PointMove_Internal",
+    "desc": "",
+    "star": 0,
+    "cooldown": 0,
+    "mana_cost": 0,
+    "detect_range": 0,
+    "numeric_nodes": [],
+    "tags": [
+      12,
+      7,
+      8
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 4,
+      "support_continue": true
+    },
+    "target_tags": [],
+    "caster_evaluates": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        3
+      ],
+      "enter_pri": 1,
+      "resist_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 0,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 5,
+        "duration": -1,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "run"
+          },
+          {
+            "$type": "MoveInfo",
+            "model": 1,
+            "origin": 0,
+            "dest": 1,
+            "move_model": 1
+          }
+        ]
+      }
+    ],
+    "affixes": []
+  },
+  {
+    "id": 10005,
+    "alias": "跃进",
+    "view_name": "Leap",
+    "desc": "",
+    "star": 0,
+    "cooldown": 0,
+    "mana_cost": 0,
+    "detect_range": 0,
+    "numeric_nodes": [],
+    "tags": [
+      12,
+      7
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 0,
+      "support_continue": true
+    },
+    "target_tags": [],
+    "caster_evaluates": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 15,
+      "resist_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [
+        7
+      ],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 5,
+        "duration": -1,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "sprint"
+          },
+          {
+            "$type": "LeapInfo",
+            "model": 1,
+            "origin": 0,
+            "dest": 1
+          }
+        ]
+      }
+    ],
+    "affixes": []
+  },
+  {
+    "id": 10100,
+    "alias": "劈砍",
+    "view_name": "pikan",
+    "desc": "这是英雄使用的普攻",
+    "star": 1,
+    "cooldown": 1,
+    "mana_cost": -10,
+    "detect_range": 1.8,
+    "numeric_nodes": [
+      {
+        "type": 40,
+        "layer": 2,
+        "model": 0,
+        "value": 1.8,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 75,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      11,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 30,
+      "resist_pri": 30,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.15,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "attack1"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
+          {
+            "$type": "HarmOfTargetedInfo",
+            "model": 1,
+            "point": 0,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 1,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack2"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 0.333,
+        "actions": []
+      }
+    ],
+    "affixes": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "受击硬直"
+      }
+    ]
+  },
+  {
+    "id": 10101,
+    "alias": "劈砍2",
+    "view_name": "pikan2",
+    "desc": "这是英雄使用的普攻",
+    "star": 2,
+    "cooldown": 1,
+    "mana_cost": -15,
+    "detect_range": 1.8,
+    "numeric_nodes": [
+      {
+        "type": 40,
+        "layer": 2,
+        "model": 0,
+        "value": 1.8,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 2,
+        "sign": ""
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 75,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      11,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 30,
+      "resist_pri": 30,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.15,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "attack1"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
+          {
+            "$type": "HarmOfTargetedInfo",
+            "model": 1,
+            "point": 0,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 2,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack2"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 0.333,
+        "actions": []
+      }
+    ],
+    "affixes": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "受击硬直"
+      }
+    ]
+  },
+  {
+    "id": 10102,
+    "alias": "劈砍3",
+    "view_name": "pikan3",
+    "desc": "这是英雄使用的普攻",
+    "star": 3,
+    "cooldown": 1,
+    "mana_cost": -20,
+    "detect_range": 1.8,
+    "numeric_nodes": [
+      {
+        "type": 40,
+        "layer": 2,
+        "model": 0,
+        "value": 1.8,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 3,
+        "sign": ""
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 75,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      11,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 30,
+      "resist_pri": 30,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.15,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "attack1"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
+          {
+            "$type": "HarmOfTargetedInfo",
+            "model": 1,
+            "point": 0,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 3,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack2"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 0.333,
+        "actions": []
+      }
+    ],
+    "affixes": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "受击硬直"
+      }
+    ]
+  },
+  {
+    "id": 10300,
+    "alias": "月之投射",
+    "view_name": "moonfire",
+    "desc": "",
+    "star": 1,
+    "cooldown": 1,
+    "mana_cost": -10,
+    "detect_range": 1.8,
+    "numeric_nodes": [
+      {
+        "type": 40,
+        "layer": 2,
+        "model": 0,
+        "value": 8,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 29,
+        "layer": 2,
+        "model": 0,
+        "value": 8,
+        "sign": "f"
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 50,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      11,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 30,
+      "resist_pri": 30,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.15,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "attack1"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
+          {
+            "$type": "HarmOfTargetedBoltInfo",
+            "model": 1,
+            "point": 0,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 0.7,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "model_name": "bolt_yuebiao",
+            "speed": 0,
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack1"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 0.333,
+        "actions": []
+      }
+    ],
+    "affixes": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "受击硬直"
+      }
+    ]
+  },
+  {
+    "id": 10301,
+    "alias": "月之投射2",
+    "view_name": "moonfire2",
+    "desc": "",
+    "star": 1,
+    "cooldown": 1,
+    "mana_cost": -15,
+    "detect_range": 1.8,
+    "numeric_nodes": [
+      {
+        "type": 40,
+        "layer": 2,
+        "model": 0,
+        "value": 8,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 2,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 29,
+        "layer": 2,
+        "model": 0,
+        "value": 8,
+        "sign": "f"
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 50,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      11,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 30,
+      "resist_pri": 30,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.15,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "attack1"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
+          {
+            "$type": "HarmOfTargetedBoltInfo",
+            "model": 1,
+            "point": 0,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 1.4,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "model_name": "bolt_yuebiao",
+            "speed": 0,
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack1"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 0.333,
+        "actions": []
+      }
+    ],
+    "affixes": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "受击硬直"
+      }
+    ]
+  },
+  {
+    "id": 10302,
+    "alias": "月之投射3",
+    "view_name": "moonfire3",
+    "desc": "",
+    "star": 1,
+    "cooldown": 1,
+    "mana_cost": -20,
+    "detect_range": 1.8,
+    "numeric_nodes": [
+      {
+        "type": 40,
+        "layer": 2,
+        "model": 0,
+        "value": 8,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 3,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 29,
+        "layer": 2,
+        "model": 0,
+        "value": 8,
+        "sign": "f"
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 50,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      11,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 30,
+      "resist_pri": 30,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.15,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "attack1"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
+          {
+            "$type": "HarmOfTargetedBoltInfo",
+            "model": 1,
+            "point": 0,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 2.1,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "model_name": "bolt_yuebiao",
+            "speed": 0,
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack1"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 0.333,
+        "actions": []
+      }
+    ],
+    "affixes": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "受击硬直"
+      }
+    ]
+  },
+  {
+    "id": 10200,
+    "alias": "大蒜",
+    "view_name": "dasuan",
+    "desc": "范围持续伤害",
+    "star": 1,
+    "cooldown": 0.75,
+    "mana_cost": -2,
+    "detect_range": 0,
+    "numeric_nodes": [
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": -1,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 4,
+        "sign": "f"
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 0,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        2
+      ],
+      "enter_pri": 1,
+      "resist_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 0,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 5,
+        "duration": 0.1,
+        "actions": [
+          {
+            "$type": "HarmOfSphereColliderInfo",
+            "model": 1,
+            "origin": 0,
+            "dest": 1,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 0.2,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "hit_fx": "fx_hit",
+            "hit_sound": "xxx"
+          }
+        ]
+      }
+    ],
+    "affixes": []
+  },
+  {
+    "id": 10600,
+    "alias": "跳劈",
+    "view_name": "tiaopi",
+    "desc": "",
+    "star": 1,
+    "cooldown": 1,
+    "mana_cost": 30,
+    "detect_range": 1.8,
+    "numeric_nodes": [
+      {
+        "type": 40,
+        "layer": 2,
+        "model": 0,
+        "value": 1.8,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 3,
+        "sign": ""
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 75,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.ManaCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 40,
+      "resist_pri": 40,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.15,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "attack3"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
+          {
+            "$type": "HarmOfTargetedInfo",
+            "model": 1,
+            "point": 0,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 2,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack2"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 0.333,
+        "actions": []
+      }
+    ],
+    "affixes": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "受击硬直"
+      }
+    ]
+  },
+  {
+    "id": 10700,
+    "alias": "烈火刀法",
+    "view_name": "liehuodaofa",
+    "desc": "",
+    "star": 1,
+    "cooldown": 1,
+    "mana_cost": 30,
+    "detect_range": 1.8,
+    "numeric_nodes": [
+      {
+        "type": 40,
+        "layer": 2,
+        "model": 0,
+        "value": 1.8,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 100,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.ManaCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 40,
+      "resist_pri": 40,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.15,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "attack3"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
+          {
+            "$type": "HarmOfColliderInfo",
+            "model": 1,
+            "origin": 0,
+            "dest": 1,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 3,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "collider_name": "col_abi_liehuodaofa",
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack2"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 0.333,
+        "actions": []
+      }
+    ],
+    "affixes": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "受击硬直"
+      },
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "燃烧"
+      }
+    ]
+  },
+  {
+    "id": 10800,
+    "alias": "屠戮刀法",
+    "view_name": "tuludaofa",
+    "desc": "",
+    "star": 1,
+    "cooldown": 1,
+    "mana_cost": 30,
+    "detect_range": 1.8,
+    "numeric_nodes": [
+      {
+        "type": 40,
+        "layer": 2,
+        "model": 0,
+        "value": 1.8,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 100,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.ManaCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 40,
+      "resist_pri": 40,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.15,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "attack3"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
+          {
+            "$type": "HarmOfColliderInfo",
+            "model": 1,
+            "origin": 0,
+            "dest": 1,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 2,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "collider_name": "col_abi_tuludaofa",
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack2"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 0.333,
+        "actions": []
+      }
+    ],
+    "affixes": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "受击硬直"
+      },
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "流血"
+      }
+    ]
+  },
+  {
+    "id": 20000,
+    "alias": "怪物横砍",
+    "view_name": "gw_hengkan",
+    "desc": "骷髅怪的普攻",
+    "star": 0,
+    "cooldown": 3.5,
+    "mana_cost": -10,
+    "detect_range": 2,
+    "numeric_nodes": [
+      {
+        "type": 40,
+        "layer": 2,
+        "model": 0,
+        "value": 1.75,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 0,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      11,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 30,
+      "resist_pri": 30,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [
+        9
+      ],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.85,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 0,
+            "point": 0.1,
+            "anim": "attack1"
+          },
+          {
+            "$type": "OpenWarningBoardInfo",
+            "model": 0,
+            "point": 0.1,
+            "warn_name": "wb_gw_hengkan"
+          },
+          {
+            "$type": "InflictionStatusToSelfInfo",
+            "model": 0,
+            "point": 0.1,
+            "status_alias": "霸体"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0.05,
+        "actions": [
+          {
+            "$type": "CloseWarningBoardInfo",
+            "model": 1,
+            "point": 0,
+            "warn_name": "wb_gw_hengkan"
+          },
+          {
+            "$type": "HarmOfColliderInfo",
+            "model": 1,
+            "origin": 0,
+            "dest": 1,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 1,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "collider_name": "col_abi_gw_hengkan",
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack1"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 1.5,
+        "actions": [
+          {
+            "$type": "RemoveStatusFromSelfInfo",
+            "model": 1,
+            "point": 0,
+            "status_alias": "霸体"
+          }
+        ]
+      }
+    ],
+    "affixes": []
+  },
+  {
+    "id": 20005,
+    "alias": "怪物快射",
+    "view_name": "gw_kuaishe",
+    "desc": "骷髅弓箭手的普攻",
+    "star": 0,
+    "cooldown": 3.5,
+    "mana_cost": -10,
+    "detect_range": 2,
+    "numeric_nodes": [
+      {
+        "type": 40,
+        "layer": 2,
+        "model": 0,
+        "value": 8,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 0,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      11,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 30,
+      "resist_pri": 30,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [
+        9
+      ],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.85,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "idle"
+          },
+          {
+            "$type": "OpenWarningBoardInfo",
+            "model": 0,
+            "point": 0.1,
+            "warn_name": "wb_gw_kuaishe"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0.3,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "attack1"
+          },
+          {
+            "$type": "HarmOfDirectionBoltInfo",
+            "model": 1,
+            "point": 0,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 1,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "model_name": "bolt_gw_kuaishe",
+            "distance": 8,
+            "speed": 7,
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack1"
+          },
+          {
+            "$type": "HarmOfDirectionBoltInfo",
+            "model": 1,
+            "point": 0.5,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 1,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "model_name": "bolt_gw_kuaishe",
+            "distance": 8,
+            "speed": 7,
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack1"
+          },
+          {
+            "$type": "HarmOfDirectionBoltInfo",
+            "model": 1,
+            "point": 1,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 1,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "model_name": "bolt_gw_kuaishe",
+            "distance": 8,
+            "speed": 7,
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack1"
+          },
+          {
+            "$type": "CloseWarningBoardInfo",
+            "model": 1,
+            "point": 0,
+            "warn_name": "wb_gw_kuaishe"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 1.5,
+        "actions": []
+      }
+    ],
+    "affixes": []
+  },
+  {
+    "id": 20006,
+    "alias": "怪物劈砍",
+    "view_name": "gw_pikan",
+    "desc": "骷髅怪的普攻",
+    "star": 0,
+    "cooldown": 3.5,
+    "mana_cost": -10,
+    "detect_range": 2,
+    "numeric_nodes": [
+      {
+        "type": 40,
+        "layer": 2,
+        "model": 0,
+        "value": 1.75,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 0,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      11,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 30,
+      "resist_pri": 30,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [
+        9
+      ],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.85,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 0,
+            "point": 0.1,
+            "anim": "attack1"
+          },
+          {
+            "$type": "OpenWarningBoardInfo",
+            "model": 0,
+            "point": 0.1,
+            "warn_name": "wb_gw_pikan"
+          },
+          {
+            "$type": "InflictionStatusToSelfInfo",
+            "model": 0,
+            "point": 0.1,
+            "status_alias": "霸体"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0.05,
+        "actions": [
+          {
+            "$type": "CloseWarningBoardInfo",
+            "model": 1,
+            "point": 0,
+            "warn_name": "wb_gw_pikan"
+          },
+          {
+            "$type": "HarmOfColliderInfo",
+            "model": 1,
+            "origin": 0,
+            "dest": 1,
+            "harm_formulas": [
+              {
+                "damage_formulas": [
+                  {
+                    "type": 12,
+                    "pct": 1,
+                    "fix": 0
+                  }
+                ],
+                "damage_type": 0
+              }
+            ],
+            "collider_name": "col_abi_gw_pikan",
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack1"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 1.5,
+        "actions": [
+          {
+            "$type": "RemoveStatusFromSelfInfo",
+            "model": 1,
+            "point": 0,
+            "status_alias": "霸体"
+          }
+        ]
+      }
+    ],
+    "affixes": []
+  }
+]

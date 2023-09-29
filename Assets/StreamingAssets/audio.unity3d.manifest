@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 517797450
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 56cfa495d181d4a591d1aec85eefc0f6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9a2ca7bdbd1871f7131daf57de908e0c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/Audio/attack4.wav
+- Assets/Bundles/Audio/attack1.mp3
+- Assets/Bundles/Audio/attack2.mp3
+Dependencies: []

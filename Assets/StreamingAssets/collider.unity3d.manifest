@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 790415116
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: fffacdadbea3db04db2efdfac19b57c4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6c703dda9dc4f8c31473b0febe213398
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/Collider/collider1.prefab
+- Assets/Bundles/Collider/pickable1.prefab
+Dependencies: []

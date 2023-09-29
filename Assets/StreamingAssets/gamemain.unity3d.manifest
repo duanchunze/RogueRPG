@@ -1,0 +1,61 @@
+ManifestFileVersion: 0
+CRC: 187646251
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5b94f1c4133c1a0521aa7fd33707fb15
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3c6b658f058339ed110e2067f5b890f8
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 89
+  Script: {instanceID: 0}
+- Class: 104
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8d105cf20ee3462ebd8865e8c259ebf8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b68e801366814ee29cb73e377f7d675e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0d03df3e23a042a08ffb271ee39e1761, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f2c0ea6d0b2f4c558c612d10ed4f8840, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5edb6fcb2dae478f8043df730274eedf, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: dc23df536af14f54ab120f9322b8c29b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7f53f3ea0b1b4b33b77bad2456973f38, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: df7424061ce04a90a4816cf3cafb62f5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c76d72fe155d4a129fad40c7150b0c5e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a4ad0a1506b84fb9b877e0f7443a8dea, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2584286cc0de4a05aa9e1e682453bca1, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 157
+  Script: {instanceID: 0}
+- Class: 196
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Scenes/GameMain.unity
+Dependencies: []

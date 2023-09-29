@@ -1,0 +1,277 @@
+[
+  {
+    "id": 10000,
+    "alias": "默认冒险",
+    "checkpoints": [
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv1",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "candidates": [
+          {
+            "checkpoint_alias": "lv2",
+            "weight": 1
+          },
+          {
+            "checkpoint_alias": "lv3",
+            "weight": 1
+          }
+        ]
+      }
+    ],
+    "monster_hp_ratio": [
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1,
+      1.1,
+      1.2,
+      1.3,
+      1.4,
+      1.5,
+      1.6,
+      1.7,
+      1.8,
+      1.9,
+      2,
+      2.1,
+      2.2,
+      2.3,
+      2.4
+    ],
+    "nodes": [
+      {
+        "$type": "ParalleNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "adventurescheme.DefaultCheckpointsAdventureInfo",
+        "parent_index": 0
+      }
+    ]
+  }
+]

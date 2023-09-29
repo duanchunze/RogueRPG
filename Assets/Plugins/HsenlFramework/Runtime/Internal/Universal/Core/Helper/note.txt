@@ -1,0 +1,35 @@
+﻿所有异常对象的基类
+　　SystemException：运行时产生的所有错误的基类。
+　　IndexOutOfRangeException：当一个数组的下标超出范围时运行时引发。
+　　NullReferenceException：当一个空对象被引用时运行时引发。
+　　InvalidOperationException：当对方法的调用对对象的当前状态无效时，由某些方法引发。
+　　ArgumentException：所有参数异常的基类。
+　　ArgumentNullException：在参数为空（不允许）的情况下，由方法引发。
+　　ArgumentOutOfRangeException：当参数不在一个给定范围之内时，由方法引发。
+　　InteropException：目标在或发生在CLR外面环境中的异常的基类。
+　　ComException：包含COM类的HRESULT信息的异常。
+　　SEHException：封装Win32结构异常处理信息的异常。
+　　SqlException：封装了SQL操作异常。
+
+　　常见具体的异常对象:
+　　ArgumentNullException 一个空参数传递给方法，该方法不能接受该参数
+　　ArgumentOutOfRangeException 参数值超出范围
+　　ArithmeticException 出现算术上溢或者下溢
+　　ArrayTypeMismatchException 试图在数组中存储错误类型的对象
+　　BadImageFormatException 图形的格式错误
+　　DivideByZeroException 除零异常
+　　DllNotFoundException 找不到引用的DLL
+　　FormatException 参数格式错误
+　　IndexOutOfRangeException 数组索引超出范围
+　　InvalidCastException 使用无效的类
+　　InvalidOperationException 方法的调用时间错误
+　　NotSupportedException 调用的方法在类中没有实现
+　　NullReferenceException 试图使用一个未分配的引用
+　　OutOfMemoryException 内存空间不够
+　　StackOverflowException 堆栈溢出
+
+
+通过反射获得类型中的函数、字段、属性
+    IgnoreCase：查找时忽视大小写
+    DeclaredOnly：查找在特定类型中声明的成员，不包括继承来的成员
+    FlattenHierarchy：会查找继承树上得到的静态成员，仅包括public和protect静态成员，不包括private静态成员，也不包括嵌套类型

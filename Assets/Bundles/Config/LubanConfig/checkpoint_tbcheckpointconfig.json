@@ -1,0 +1,20 @@
+[
+  {
+    "id": 10000,
+    "alias": "lv1",
+    "view_name": "lv1",
+    "scene_name": "Lv1"
+  },
+  {
+    "id": 10001,
+    "alias": "lv2",
+    "view_name": "lv2",
+    "scene_name": "Lv2"
+  },
+  {
+    "id": 10002,
+    "alias": "lv3",
+    "view_name": "lv3",
+    "scene_name": "Lv3"
+  }
+]

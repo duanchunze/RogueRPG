@@ -1,0 +1,37 @@
+[
+  {
+    "id": 10000,
+    "alias": "玩家自动释放技能AI",
+    "nodes": [
+      {
+        "$type": "AINodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "ai.PlayerAutoCasterInfo",
+        "parent_index": 0
+      }
+    ]
+  },
+  {
+    "id": 10001,
+    "alias": "怪物AI1",
+    "nodes": [
+      {
+        "$type": "AINodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "ai.IntelligentAssaultInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "ai.PatrolInfo",
+        "parent_index": 0,
+        "patrol_range": 3
+      }
+    ]
+  }
+]

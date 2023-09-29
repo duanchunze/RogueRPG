@@ -1,0 +1,31 @@
+ManifestFileVersion: 0
+CRC: 3114406804
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c34851096ae0303973d88443aeed4b5b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0745142b9e9ef2c3c1d98a69b2d25921
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/WarningBoard/warningboard1.prefab
+Dependencies: []

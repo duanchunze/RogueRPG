@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 564144904
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 42228630488ad0c6eb4ad87f951e63b2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: e52ceae7e6937fde138222c456e060f9
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/Appear/anna.prefab
+Dependencies: []

@@ -1,0 +1,14 @@
+[
+  {
+    "id": 10000,
+    "alias": "金币",
+    "view_name": "coin",
+    "model_name": "pik_coin",
+    "collider_name": "col_pik_coin",
+    "wrappage": {
+      "$type": "WrappageCoinInfo",
+      "count": 1
+    },
+    "radius": 0.5
+  }
+]

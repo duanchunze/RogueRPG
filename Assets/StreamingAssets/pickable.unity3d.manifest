@@ -1,0 +1,31 @@
+ManifestFileVersion: 0
+CRC: 1322390863
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2534fea3979da6bd63ad208c5ee6d64c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0745142b9e9ef2c3c1d98a69b2d25921
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/Pickable/pickable1.prefab
+Dependencies: []

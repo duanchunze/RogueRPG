@@ -1,0 +1,66 @@
+ManifestFileVersion: 0
+CRC: 3057861364
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: ui.unity3d
+      Dependencies: {}
+    Info_1:
+      Name: fx.unity3d
+      Dependencies: {}
+    Info_2:
+      Name: collider.unity3d
+      Dependencies: {}
+    Info_3:
+      Name: warningboard.unity3d
+      Dependencies: {}
+    Info_4:
+      Name: config.unity3d
+      Dependencies: {}
+    Info_5:
+      Name: pickable.unity3d
+      Dependencies: {}
+    Info_6:
+      Name: appear/kulou_qs.unity3d
+      Dependencies: {}
+    Info_7:
+      Name: test.unity3d
+      Dependencies: {}
+    Info_8:
+      Name: bolt.unity3d
+      Dependencies: {}
+    Info_9:
+      Name: input.unity3d
+      Dependencies: {}
+    Info_10:
+      Name: entry.unity3d
+      Dependencies: {}
+    Info_11:
+      Name: appear/anna.unity3d
+      Dependencies: {}
+    Info_12:
+      Name: lv1.unity3d
+      Dependencies:
+        Dependency_0: navmesh-ground.unity3d
+    Info_13:
+      Name: appear/moonpriestess.unity3d
+      Dependencies: {}
+    Info_14:
+      Name: gamemain.unity3d
+      Dependencies: {}
+    Info_15:
+      Name: appear/blademaster.unity3d
+      Dependencies: {}
+    Info_16:
+      Name: lv2.unity3d
+      Dependencies:
+        Dependency_0: navmesh-ground.unity3d
+    Info_17:
+      Name: audio.unity3d
+      Dependencies: {}
+    Info_18:
+      Name: launch.unity3d
+      Dependencies: {}
+    Info_19:
+      Name: navmesh-ground.unity3d
+      Dependencies: {}

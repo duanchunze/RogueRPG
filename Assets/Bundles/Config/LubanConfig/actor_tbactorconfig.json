@@ -1,0 +1,218 @@
+[
+  {
+    "id": 10000,
+    "alias": "战士",
+    "view_name": "zhanshi",
+    "model_name": "warrior",
+    "labels": [
+      0,
+      1
+    ],
+    "numeric_alias": "战士",
+    "ai_alias": "玩家自动释放技能AI",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "点击移动-内部",
+      "跃进"
+    ],
+    "org_cards": [
+      "劈砍卡牌"
+    ],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 20001,
+    "alias": "靶子",
+    "view_name": "靶子",
+    "model_name": "kulou_zs",
+    "labels": [
+      0,
+      3
+    ],
+    "numeric_alias": "靶子",
+    "ai_alias": "",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "点击移动-内部"
+    ],
+    "org_cards": [],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 20002,
+    "alias": "靶子-战士",
+    "view_name": "靶子",
+    "model_name": "kulou_zs",
+    "labels": [
+      0,
+      3
+    ],
+    "numeric_alias": "靶子",
+    "ai_alias": "怪物AI1",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "点击移动-内部"
+    ],
+    "org_cards": [
+      "怪物横砍卡牌"
+    ],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 20003,
+    "alias": "靶子-弓箭手",
+    "view_name": "靶子",
+    "model_name": "kulou_gjs",
+    "labels": [
+      0,
+      3
+    ],
+    "numeric_alias": "靶子",
+    "ai_alias": "怪物AI1",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "点击移动-内部"
+    ],
+    "org_cards": [
+      "怪物快射卡牌"
+    ],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 20004,
+    "alias": "骷髅战士",
+    "view_name": "骷髅战士",
+    "model_name": "kulou_zs",
+    "labels": [
+      0,
+      3
+    ],
+    "numeric_alias": "骷髅战士",
+    "ai_alias": "怪物AI1",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "点击移动-内部"
+    ],
+    "org_cards": [
+      "怪物横砍卡牌"
+    ],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 20005,
+    "alias": "骷髅骑士",
+    "view_name": "骷髅骑士",
+    "model_name": "kulou_qs",
+    "labels": [
+      0,
+      3
+    ],
+    "numeric_alias": "骷髅骑士",
+    "ai_alias": "怪物AI1",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "点击移动-内部"
+    ],
+    "org_cards": [
+      "怪物劈砍卡牌"
+    ],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 20006,
+    "alias": "骷髅弓箭手",
+    "view_name": "骷髅弓箭手",
+    "model_name": "kulou_gjs",
+    "labels": [
+      0,
+      3
+    ],
+    "numeric_alias": "骷髅弓箭手",
+    "ai_alias": "怪物AI1",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "点击移动-内部"
+    ],
+    "org_cards": [
+      "怪物快射卡牌"
+    ],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  }
+]

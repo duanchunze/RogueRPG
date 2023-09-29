@@ -1,0 +1,58 @@
+ManifestFileVersion: 0
+CRC: 2589563360
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 981ca3fdfde733c43bfe7f559bc07d5f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 472fb0fcda9daebc33488685edc18b44
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 89
+  Script: {instanceID: 0}
+- Class: 104
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: b68e801366814ee29cb73e377f7d675e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6959d61f08e4460bb79a53647767ece0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 879602b8ab8d4f70882dd106f2f7eac2, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 157
+  Script: {instanceID: 0}
+- Class: 196
+  Script: {instanceID: 0}
+- Class: 238
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Scenes/Levels/Lv2.unity
+Dependencies:
+- D:/UnityProjects/HsenlFramework/./Release/PC/StreamingAssets/navmesh-ground.unity3d

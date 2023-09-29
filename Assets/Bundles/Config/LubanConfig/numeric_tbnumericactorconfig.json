@@ -1,0 +1,1037 @@
+[
+  {
+    "id": 0,
+    "alias": "靶子",
+    "numeric_infos": [
+      {
+        "type": 1,
+        "value": 5000,
+        "sign": ""
+      },
+      {
+        "type": 2,
+        "value": 50,
+        "sign": ""
+      },
+      {
+        "type": 3,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 4,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 5,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 6,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 9,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 10,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 11,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 12,
+        "value": 5,
+        "sign": ""
+      },
+      {
+        "type": 13,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 14,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 15,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 16,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 17,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 18,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 19,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 20,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 21,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 22,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 23,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 24,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 25,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 26,
+        "value": 1.5,
+        "sign": "f"
+      },
+      {
+        "type": 27,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 28,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 29,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 30,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 31,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 32,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 33,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 34,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 35,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 36,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 37,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 38,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 39,
+        "value": 50,
+        "sign": ""
+      },
+      {
+        "type": 40,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 41,
+        "value": 7,
+        "sign": "f"
+      },
+      {
+        "type": 45,
+        "value": 1.5,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10000,
+    "alias": "战士",
+    "numeric_infos": [
+      {
+        "type": 1,
+        "value": 50,
+        "sign": ""
+      },
+      {
+        "type": 2,
+        "value": 50,
+        "sign": ""
+      },
+      {
+        "type": 3,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 4,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 5,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 6,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 7,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 8,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 9,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 10,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 11,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 12,
+        "value": 10,
+        "sign": ""
+      },
+      {
+        "type": 13,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 14,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 15,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 16,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 17,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 18,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 19,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 20,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 21,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 22,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 23,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 24,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 25,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 26,
+        "value": 4.2,
+        "sign": "f"
+      },
+      {
+        "type": 27,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 28,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 29,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 30,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 31,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 32,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 33,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 34,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 35,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 36,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 37,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 38,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 40,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 42,
+        "value": 0.5,
+        "sign": "f"
+      },
+      {
+        "type": 45,
+        "value": 1.8,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 20000,
+    "alias": "骷髅战士",
+    "numeric_infos": [
+      {
+        "type": 1,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 2,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 3,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 4,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 5,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 6,
+        "value": 50,
+        "sign": ""
+      },
+      {
+        "type": 9,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 10,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 11,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 12,
+        "value": 10,
+        "sign": ""
+      },
+      {
+        "type": 13,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 14,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 15,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 16,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 17,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 18,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 19,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 20,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 21,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 22,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 23,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 24,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 25,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 26,
+        "value": 1.5,
+        "sign": "f"
+      },
+      {
+        "type": 27,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 28,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 29,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 30,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 31,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 32,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 33,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 34,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 35,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 36,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 37,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 38,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 39,
+        "value": 50,
+        "sign": ""
+      },
+      {
+        "type": 40,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 41,
+        "value": 7,
+        "sign": "f"
+      },
+      {
+        "type": 45,
+        "value": 1.5,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 20001,
+    "alias": "骷髅骑士",
+    "numeric_infos": [
+      {
+        "type": 1,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 2,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 3,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 4,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 5,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 6,
+        "value": 50,
+        "sign": ""
+      },
+      {
+        "type": 9,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 10,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 11,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 12,
+        "value": 10,
+        "sign": ""
+      },
+      {
+        "type": 13,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 14,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 15,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 16,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 17,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 18,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 19,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 20,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 21,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 22,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 23,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 24,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 25,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 26,
+        "value": 1.5,
+        "sign": "f"
+      },
+      {
+        "type": 27,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 28,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 29,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 30,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 31,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 32,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 33,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 34,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 35,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 36,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 37,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 38,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 39,
+        "value": 50,
+        "sign": ""
+      },
+      {
+        "type": 40,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 41,
+        "value": 7,
+        "sign": "f"
+      },
+      {
+        "type": 45,
+        "value": 1.5,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 20002,
+    "alias": "骷髅弓箭手",
+    "numeric_infos": [
+      {
+        "type": 1,
+        "value": 80,
+        "sign": ""
+      },
+      {
+        "type": 2,
+        "value": 80,
+        "sign": ""
+      },
+      {
+        "type": 3,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 4,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 5,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 6,
+        "value": 50,
+        "sign": ""
+      },
+      {
+        "type": 9,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 10,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 11,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 12,
+        "value": 10,
+        "sign": ""
+      },
+      {
+        "type": 13,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 14,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 15,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 16,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 17,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 18,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 19,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 20,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 21,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 22,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 23,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 24,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 25,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 26,
+        "value": 1.5,
+        "sign": "f"
+      },
+      {
+        "type": 27,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 28,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 29,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 30,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 31,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 32,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 33,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 34,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 35,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 36,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 37,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 38,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 39,
+        "value": 50,
+        "sign": ""
+      },
+      {
+        "type": 40,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 41,
+        "value": 7,
+        "sign": "f"
+      },
+      {
+        "type": 45,
+        "value": 1.5,
+        "sign": "f"
+      }
+    ]
+  }
+]

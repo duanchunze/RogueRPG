@@ -1,0 +1,382 @@
+[
+  {
+    "id": 10000,
+    "alias": "死亡",
+    "view_name": "Death",
+    "desc": "",
+    "duration": -1,
+    "numeric_nodes": [],
+    "tags": [
+      16
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "enter_pri": 1000,
+      "resist_pri": 1000,
+      "keep_pri": 1000,
+      "exclu_pri": 1000,
+      "run_pri": 1000,
+      "dis_pri": 1000,
+      "sp_pass": [
+        17
+      ],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": true
+    },
+    "main": {
+      "actions": [
+        {
+          "$type": "PlayAnimInfo",
+          "model": 1,
+          "point": 0,
+          "anim": "die"
+        },
+        {
+          "$type": "DieInfo",
+          "model": 0,
+          "point": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": 10001,
+    "alias": "复活",
+    "view_name": "Resurgence",
+    "desc": "",
+    "duration": 0,
+    "numeric_nodes": [],
+    "tags": [
+      17
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "enter_pri": 0,
+      "resist_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 0,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [
+        16
+      ],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": true
+    },
+    "main": {
+      "actions": [
+        {
+          "$type": "PlayAnimInfo",
+          "model": 1,
+          "point": 0,
+          "anim": "idle"
+        },
+        {
+          "$type": "ResurgenceInfo",
+          "model": 0,
+          "point": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": 10002,
+    "alias": "受击硬直",
+    "view_name": "HitStun",
+    "desc": "",
+    "duration": 0.25,
+    "numeric_nodes": [],
+    "tags": [
+      18,
+      19
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 60,
+      "resist_pri": 59,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": true
+    },
+    "main": {
+      "actions": [
+        {
+          "$type": "PlayAnimInfo",
+          "model": 1,
+          "point": 0,
+          "anim": "hitstun"
+        }
+      ]
+    }
+  },
+  {
+    "id": 10003,
+    "alias": "击退",
+    "view_name": "Beatback",
+    "desc": "",
+    "duration": 0.5,
+    "numeric_nodes": [],
+    "tags": [
+      19
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 90,
+      "resist_pri": 90,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "main": {
+      "actions": [
+        {
+          "$type": "PlayAnimInfo",
+          "model": 1,
+          "point": 0,
+          "anim": "hitstun"
+        },
+        {
+          "$type": "ForceMovementInfo",
+          "model": 1,
+          "origin": 0,
+          "dest": 0.5,
+          "distance": 0.5
+        }
+      ]
+    }
+  },
+  {
+    "id": 10004,
+    "alias": "流血",
+    "view_name": "Liuxue",
+    "desc": "",
+    "duration": 5,
+    "numeric_nodes": [
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 0,
+        "sign": ""
+      }
+    ],
+    "tags": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        1
+      ],
+      "enter_pri": 1,
+      "resist_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 0,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": true
+    },
+    "main": {
+      "actions": [
+        {
+          "$type": "LiuXueInfo",
+          "model": 1,
+          "origin": 0,
+          "dest": 1,
+          "harm_formulas": [
+            {
+              "damage_formulas": [
+                {
+                  "type": 12,
+                  "pct": 0.5,
+                  "fix": 0
+                }
+              ],
+              "damage_type": 5
+            }
+          ],
+          "internalTime": 0.5
+        }
+      ]
+    }
+  },
+  {
+    "id": 10005,
+    "alias": "霸体",
+    "view_name": "BaTi",
+    "desc": "",
+    "duration": 1,
+    "numeric_nodes": [],
+    "tags": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 70,
+      "resist_pri": 0,
+      "keep_pri": 1,
+      "exclu_pri": 0,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [
+        18
+      ],
+      "sp_keep": [],
+      "sp_exclu": [
+        18
+      ],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": true
+    },
+    "main": {
+      "actions": []
+    }
+  },
+  {
+    "id": 10006,
+    "alias": "无起手",
+    "view_name": "WuQishou",
+    "desc": "下次释放技能时, 无起手时间, 触发后该状态消失",
+    "duration": -1,
+    "numeric_nodes": [],
+    "tags": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        1
+      ],
+      "enter_pri": 1,
+      "resist_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 0,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "main": {
+      "actions": []
+    }
+  },
+  {
+    "id": 10007,
+    "alias": "燃烧",
+    "view_name": "Ranshao",
+    "desc": "",
+    "duration": 5,
+    "numeric_nodes": [
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 0,
+        "sign": ""
+      }
+    ],
+    "tags": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        1
+      ],
+      "enter_pri": 1,
+      "resist_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 0,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": true
+    },
+    "main": {
+      "actions": [
+        {
+          "$type": "RanshaoInfo",
+          "model": 1,
+          "origin": 0,
+          "dest": 1,
+          "harm_formulas": [
+            {
+              "damage_formulas": [
+                {
+                  "type": 12,
+                  "pct": 0.5,
+                  "fix": 0
+                }
+              ],
+              "damage_type": 0
+            }
+          ],
+          "internalTime": 0.5
+        }
+      ]
+    }
+  }
+]
