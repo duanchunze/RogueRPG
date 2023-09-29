@@ -1,9 +1,11 @@
 ﻿using System;
 using Hsenl.cast;
 using MemoryPack;
+using Sirenix.OdinInspector;
 
 namespace Hsenl {
     public abstract class PlwInfo : IProcedureLineWorker {
+        [ShowInInspector]
         [MemoryPackIgnore]
         public ProcedureLineNode ProcedureLineNode { get; private set; }
 

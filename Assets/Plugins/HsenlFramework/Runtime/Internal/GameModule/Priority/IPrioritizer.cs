@@ -229,7 +229,6 @@ namespace Hsenl {
             // 遍历所有当前状态想要进入的通道，并和通道里的所有状态一一对比，全部通过，才判定为可以进入。
             var aisles = state.Aisles;
             var multiAisle = aisles.Count > 1;
-            // if (multiAisle) this.ContrastedCache.Clear();
             if (multiAisle) this.ResetHandledTokens();
             // 遍历要进入的状态的通道
             for (int i = 0, len = aisles.Count; i < len; i++) {
@@ -242,7 +241,6 @@ namespace Hsenl {
                 // 遍历该通道里所有的状态
                 foreach (var other in states) {
                     // 如果该状态已经存在于临时区，则继续
-                    // if (multiAisle && this.ContrastedCache.Contains(other)) continue;
                     if (multiAisle && other.HandledFlag) continue;
 
                     // 获得这个对比者，用它和要进入的状态做对比
@@ -303,7 +301,6 @@ namespace Hsenl {
             var aisles = state.Aisles;
             var multiAisle = aisles.Count > 1;
             this.ExclusionsCache.Clear();
-            // if (multiAisle) this.ContrastedCache.Clear();
             if (multiAisle) this.ResetHandledTokens();
             // 遍历对比者要求的所有通道
             for (int i = 0, len = aisles.Count; i < len; i++) {
@@ -316,14 +313,12 @@ namespace Hsenl {
                 // 遍历通道里的每个状态
                 foreach (var other in states) {
                     // 如果该状态已经被排挤过了
-                    // if (multiAisle && this.ContrastedCache.Contains(other)) continue;
                     if (multiAisle && other.HandledFlag) continue;
 
                     if (this.ContrastExclusion(other, state)) {
                         this.ExclusionsCache.Add(other);
                     }
 
-                    // if (multiAisle) this.ContrastedCache.Add(other);
                     if (multiAisle) other.HandledFlag = true;
                 }
             }

@@ -8,7 +8,9 @@ namespace Hsenl.View {
             var ui = UISelectHero.instance;
             using var allHeroCandidates = ListComponent<ActorConfig>.Create();
             foreach (var actorConfig in Tables.Instance.TbActorConfig.DataList) {
-                if (!actorConfig.Labels.Contains(TagType.Hero)) continue;
+                if (!actorConfig.Labels.Contains(TagType.Hero))
+                    continue;
+
                 allHeroCandidates.Add(actorConfig);
             }
 

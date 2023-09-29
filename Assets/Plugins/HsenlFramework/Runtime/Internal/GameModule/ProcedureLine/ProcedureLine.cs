@@ -38,7 +38,7 @@ namespace Hsenl {
         }
 
         public void RemoveWorker(IProcedureLineWorker worker) {
-            this._workerDict.Remove(worker.GetType());
+            this._workerDict.Remove(worker.GetType(), worker);
             worker.OnRemoveFromProcedureLine(this);
         }
 

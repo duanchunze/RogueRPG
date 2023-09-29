@@ -9,6 +9,12 @@ namespace Hsenl {
             typeCacher.Add(lhs.Entity.componentTypeCacher);
             typeCacher.Add(rhs.Entity.componentTypeCacher);
         }
+        
+#if UNITY_EDITOR
+        [ShowInInspector]
+        [MemoryPackIgnore]
+        public string ViewName => this.Name;
+#endif
 
         [NonSerialized]
         [MemoryPackIgnore]

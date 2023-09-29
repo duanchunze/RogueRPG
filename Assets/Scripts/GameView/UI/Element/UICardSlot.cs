@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace Hsenl.View {
     public class UICardSlot : UIDragSlot<Card> {
+        public Image image;
         public TextMeshProUGUI text;
 
         [ReadOnly]

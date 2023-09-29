@@ -19,6 +19,7 @@ namespace Hsenl {
                     break;
                 }
                 case StageType.Lifting: {
+                    // 如果技能的施法者有"无起手"状态, 那就把起手时间归零, 且给他一个BufferSpeed的提速
                     var status = abi.GetHolder().FindSubstaintiveInChildren<StatusBar>().GetStatus(StatusAlias.Wuqishou);
                     if (status is { IsEnter: true }) {
                         item.stageLine.BufferSpeed = 5.2f;

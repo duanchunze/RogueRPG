@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createOfAnother: 0
-  configId: 20004
+  configId: 20005
   mainMan: 0
   controlable: 0
   autoSpawn: 0
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createOfAnother: 0
-  configId: 20004
+  configId: 20005
   mainMan: 0
   controlable: 0
   autoSpawn: 0
@@ -623,7 +623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createOfAnother: 0
-  configId: 20004
+  configId: 20006
   mainMan: 0
   controlable: 0
   autoSpawn: 0
@@ -929,6 +929,7 @@ MonoBehaviour:
   refreshGroups:
   - {fileID: 1447283249}
   aliveHolder: {fileID: 742521684}
+  hpRatio: 1
 --- !u!1 &1295502524
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,7 +1167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createOfAnother: 0
-  configId: 20004
+  configId: 20006
   mainMan: 0
   controlable: 0
   autoSpawn: 0
@@ -1492,6 +1493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca5e5481e959472f9706f498294ab8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterHpRatio: 1
   monsterRefreshManager: {fileID: 1279607439}
 --- !u!1 &1916894974
 GameObject:
@@ -1538,7 +1540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createOfAnother: 0
-  configId: 20004
+  configId: 20005
   mainMan: 0
   controlable: 0
   autoSpawn: 0
@@ -1588,7 +1590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createOfAnother: 0
-  configId: 20004
+  configId: 20005
   mainMan: 0
   controlable: 0
   autoSpawn: 0

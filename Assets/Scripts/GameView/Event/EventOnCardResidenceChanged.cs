@@ -20,7 +20,7 @@ namespace Hsenl.View {
                         uiSlot.SlotInstanceId = slot.InstanceId;
                         uiSlot.FillIn(slot.StayCard);
 
-                        uiSlot.button.image.color = slot.freeze ? Color.blue : Color.white;
+                        uiSlot.image.color = slot.freeze ? Color.blue : Color.white;
                     }
 
                     var cards = cardStore.CardPoolHoder.GetComponentsInChildren<Card>(true);

@@ -34,7 +34,12 @@ namespace Hsenl {
 
             var prefab = ResourcesHelper.GetAsset<GameObject>(bundleName, modelName);
             this.model = UnityEngine.Object.Instantiate(prefab, this.Holder.GameObject.transform, false);
-            this.onModelLoaded?.Invoke(this.model);
+            try {
+                this.onModelLoaded?.Invoke(this.model);
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
 
             this._spriteRenderer = this.model.GetComponentInChildren<SpriteRenderer>();
             if (this._spriteRenderer) {

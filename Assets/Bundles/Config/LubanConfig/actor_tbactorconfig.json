@@ -14,12 +14,40 @@
       "待机",
       "停止",
       "方向移动",
-      "点击移动",
-      "点击移动-内部",
-      "跃进"
+      "点击移动"
     ],
     "org_cards": [
       "劈砍卡牌"
+    ],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 10001,
+    "alias": "猎人",
+    "view_name": "lieren",
+    "model_name": "huntsman",
+    "labels": [
+      0,
+      1
+    ],
+    "numeric_alias": "猎人",
+    "ai_alias": "玩家自动释放技能AI",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动"
+    ],
+    "org_cards": [
+      "月之投射卡牌"
     ],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],

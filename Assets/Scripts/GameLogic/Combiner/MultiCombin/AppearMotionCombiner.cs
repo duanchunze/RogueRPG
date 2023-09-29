@@ -8,7 +8,7 @@ namespace Hsenl.MultiCombiner {
         private StringBuilder _stringBuilder = new();
         
         protected override void OnCombin(Appearance arg1, Motion arg2) {
-            arg1.onModelLoaded += this.EnqueueAction(new Action<GameObject>(model => {
+            arg1.onModelLoaded += this.EnqueueAction<Action<GameObject>>(model => {
                 arg2.animation = model.GetComponentInChildren<Animation>();
                 if (arg2.animation != null) {
                     arg2.useLegacy = true;
@@ -28,7 +28,7 @@ namespace Hsenl.MultiCombiner {
                 // anima control 和模型同名
                 var animControl = ResourcesHelper.GetAsset<AnimatorController>(Constant.AnimControlBundleName, arg1.assetName);
                 arg2.animator.runtimeAnimatorController = animControl;
-            }));
+            });
         }
 
         protected override void OnDecombin(Appearance arg1, Motion arg2) {

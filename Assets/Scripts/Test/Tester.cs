@@ -80,7 +80,19 @@ namespace Test {
             Numerator.InitNumerator(3);
         }
 
+
+        private List<Action> _actions = new();
+        public void Fun(Action action) {
+            this._actions.Add(action);
+        }
+
         private void Update() {
+            this.Fun(new Action(() => { }));
+            // this.Fun(this.Action);
+            // this.Fun(() => { });
+        }
+
+        private void Action() {
             
         }
     }

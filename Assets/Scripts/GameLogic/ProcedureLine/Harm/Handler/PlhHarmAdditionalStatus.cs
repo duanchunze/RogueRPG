@@ -1,4 +1,5 @@
-﻿namespace Hsenl {
+﻿
+namespace Hsenl {
     [ProcedureLineHandlerPriority(PliDamageArbitramentPriority.AdditionalStatus)]
     public class PlhHarmAdditionalStatus : AProcedureLineHandler<PliDamageArbitramentForm, PlwAdditionalStatusOnAbilityHarm> {
         protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliDamageArbitramentForm item,

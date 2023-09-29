@@ -95,6 +95,7 @@ namespace Hsenl {
                         dis -= castRange;
                         var dir = (target.transform.Position - this._tran.Position).normalized;
                         var point = this._tran.Position + dir * dis;
+                        this._control.SetValue(ControlCode.Leap, point);
                         this._control.SetValue(ControlCode.MoveOfPoint, point);
                         // 检测距离够, 但施法距离不够
                         return NodeStatus.Running;

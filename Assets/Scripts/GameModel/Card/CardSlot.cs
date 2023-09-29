@@ -43,14 +43,32 @@ namespace Hsenl {
             if (childSubs is not Card card)
                 return;
 
-            this.onCardPutin?.Invoke(card);
+            this.OnCardPutin(card);
         }
 
         protected override void OnChildSubstantiveRemove(Substantive childSubs) {
             if (childSubs is not Card card)
                 return;
 
-            this.onCardTakeout?.Invoke(card);
+            this.OnCardTakeout(card);
+        }
+
+        protected virtual void OnCardPutin(Card card) {
+            try {
+                this.onCardPutin?.Invoke(card);
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
+        }
+
+        protected virtual void OnCardTakeout(Card card) {
+            try {
+                this.onCardTakeout?.Invoke(card);
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
         }
     }
 }

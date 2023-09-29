@@ -6,18 +6,18 @@ using UnityEngine.UI;
 
 namespace Hsenl.View {
     public abstract class UISlot<TFiller> : MonoBehaviour {
-        public Button button;
-
         public TFiller Filler { get; protected set; }
 
+        protected UnityEventListener eventListener;
+
         protected virtual void Start() {
-            this.button.onClick.AddListener(this.OnButtonClick);
-            UnityEventListener.Get(this.button).onClick += this.OnPointerClick;
+            this.eventListener = UnityEventListener.Get(this);
+            this.eventListener.onClick += this.OnPointerClick;
         }
 
         protected virtual void OnDestroy() {
-            this.button.onClick.RemoveListener(this.OnButtonClick);
-            UnityEventListener.Get(this.button).onClick -= this.OnPointerClick;
+            if (this.eventListener)
+                this.eventListener.onClick -= this.OnPointerClick;
         }
 
         public virtual void FillIn(TFiller filler) {
@@ -43,7 +43,10 @@ namespace Hsenl.View {
 
 
         public void OnPointerClick(PointerEventData eventData) {
-            if (eventData.button == PointerEventData.InputButton.Right) {
+            if (eventData.button == PointerEventData.InputButton.Left) {
+                this.OnButtonClick();
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right) {
                 this.OnRightButtonClick();
             }
         }

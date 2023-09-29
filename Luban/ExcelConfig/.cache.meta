@@ -1,6 +1,6 @@
 ﻿D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/ability_assist_tbabilityassistconfig.json,F354443755928E57A32BA2E6EA994DD,441,1693136411309
-D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/ability_tbabilityconfig.json,BCE6D83C34AC43E0365A118D7042D14B,50288,1695909315113
-D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/actor_tbactorconfig.json,8B1D426D3010FDD1C2AC9EF379F167E,4305,1695899691339
+D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/ability_tbabilityconfig.json,AAB23C4029215174F6D1299DE6C17574,50288,1696003028115
+D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/actor_tbactorconfig.json,E8ACFECEDF94DC68B4D1CBCDD68D2BB7,4850,1696003225899
 D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/adventure_tbadventureconfig.json,F0F74B1830531741C326A4EC66EE47F7,5271,1695909949635
 D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/ai_tbaiconfig.json,4BAF7D953EBA819A36E261DC768A767,669,1694022966359
 D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/card_tbcardconfig.json,233B33A56E08737DC78C9A9F2582BD,3048,1695906982876
@@ -9,7 +9,7 @@ D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/card_tbcardsyn
 D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/checkpoint_tbcheckpointconfig.json,A5412C666D4107EBBB51815E9CCECC,303,1695290014267
 D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/faction_tbfactionconfig.json,255A72B646B8D3EFE05A3A3FE3880AB,2089,1689927229610
 D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/game_tbgamesingletonconfig.json,BE93522E6693F8939F713E6D5D57F1,100,1695899811611
-D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/numeric_tbnumericactorconfig.json,F7479CADA29C584CFDA3EF9EBC2774F,16807,1695885515281
+D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/numeric_tbnumericactorconfig.json,E7885389676C4BC03CEB1AFAA62AD51D,20228,1695990579674
 D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/pickable_tbpickableconfig.json,55C85D11F3697BD8A70DB4C8C352,251,1695802298170
 D:/UnityProjects/HsenlFramework/Assets/Bundles/Config/LubanConfig/status_tbstatusconfig.json,7D3F7FD6D380E7498D62C42C3AAC769F,7371,1695891496828
 D:/UnityProjects/HsenlFramework/Assets/Scripts/Generate/Config/ConfigGenerate/ability_assist/AbilityAssistConfig.cs,DF31C51634E53C1219ED61E2CCFAFB,3972,1689931091540
@@ -151,8 +151,8 @@ D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/__beans__.xlsx,7FFDF5D5B
 D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/__enums__.xlsx,2981E9832C9978894C21F7CCC3F88A4,19310,1693314260018
 D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/__tables__.xlsx,A7A1888EB324B13C15230881CA2604A,10426,1695906457652
 D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/ability_assist.xlsx,DB219017D74BBDDB6E22FF5B82AA969,11396,1693136103989
-D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/ability.xlsx,F6BAC4A8CEC1A4BA9FB8269211C8AECE,20599,1695909311086
-D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/actor.xlsx,5C7357B4FBE672B3BC735AA3DEC78CE,11187,1695899691177
+D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/ability.xlsx,2CD8854ADACFD7133EF17A58281039BE,20625,1696003027965
+D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/actor.xlsx,681D6E7CD43C58D47B55D568AA9DE75,11260,1696003225733
 D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/adventure.xlsx,AEBC5749DD9C231853F33EDF166FA,9487,1695909949447
 D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/ai.xlsx,FA88EF9D92A0E0433C7BBFA19759F67D,9430,1694599612758
 D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/card_singleton.xlsx,22C28DE2E37B69A5801FD49898E16B18,8944,1695901822178
@@ -161,6 +161,6 @@ D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/card.xlsx,C6425C2C309213
 D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/checkpoint.xlsx,B08D7E6F26D51BD02A181D1C09A8EBE,9099,1695290014107
 D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/faction_relation.xlsx,B824B74ECA936AC5E89AC130ED9FEB4D,9476,1689928842285
 D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/game_singleton.xlsx,5FBA7442AAD9432AF0E16F3DEBFD242,8971,1695899811445
-D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/numeric_actor.xlsx,A7CF4F8C1199E98F16BACA472D0DCE5,15648,1695885515134
+D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/numeric_actor.xlsx,6535FD24F0C6C788E8A6A2C194B7CB3,16149,1695990486980
 D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/pickable.xlsx,CF2524DCA922A34ED83B6D088249,9134,1695802298029
 D:/UnityProjects/HsenlFramework/Luban/ExcelConfig/Datas/status.xlsx,619C4C9248128101A5918426C72AE,11611,1695891496670

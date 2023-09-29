@@ -9,14 +9,14 @@ namespace Hsenl.MultiCombiner {
             // 由阶段线的模式来决定施法器的模式
             arg1.getCastModelInvoke = () => (CastModel)(int)arg2.TimeStageLineModel;
 
-            arg1.onEnter += this.EnqueueAction(new Action(arg2.Reset));
+            arg1.onEnter += this.EnqueueAction<Action>(arg2.Reset);
 
-            arg1.onUpdate += this.EnqueueAction(new Action<float>(deltaTime => {
+            arg1.onUpdate += this.EnqueueAction<Action<float>>(deltaTime => {
                 var status = arg2.Run(deltaTime);
                 if (status != StageStatus.Running) {
                     arg1.CastEnd();
                 }
-            }));
+            });
 
             // 施法器结束时, 做判断, 看是什么原因导致离开的, 如果是特殊情况, 比如被中断了, 或者被
             arg1.onLeaveDetails += this.EnqueueAction<Action<CasterLeaveDetails>>(details => {

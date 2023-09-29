@@ -35,8 +35,8 @@ namespace Hsenl {
                         this._tweener = DOTween.To(() => position, p => {
                             position = p;
                             this._leaper.transform.Position = p;
-                        }, point, 5.5f).SetSpeedBased().OnComplete(() => {
-                            this._tweener = null;
+                        }, point, 6.5f).SetSpeedBased().OnComplete(() => {
+                            this.manager.Abort();
                         }).SetEase(Ease.Linear);
                     }
 
@@ -56,7 +56,7 @@ namespace Hsenl {
             this._tweener = null;
             if (this._meshAgent != null) {
                 this._meshAgent.enabled = true;
-                this._meshAgent.destination = this._meshAgent.transform.position;
+                this._meshAgent.isStopped = true;
                 this._meshAgent = null;
             }
         }

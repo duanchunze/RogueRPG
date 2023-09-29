@@ -340,7 +340,7 @@
     ],
     "caster": {
       "$type": "ControlCastInfo",
-      "code": 0,
+      "code": 5,
       "support_continue": true
     },
     "target_tags": [],
@@ -402,7 +402,7 @@
     "star": 1,
     "cooldown": 1,
     "mana_cost": -10,
-    "detect_range": 1.8,
+    "detect_range": 2.5,
     "numeric_nodes": [
       {
         "type": 40,
@@ -543,7 +543,7 @@
     "star": 2,
     "cooldown": 1,
     "mana_cost": -15,
-    "detect_range": 1.8,
+    "detect_range": 2.5,
     "numeric_nodes": [
       {
         "type": 40,
@@ -684,7 +684,7 @@
     "star": 3,
     "cooldown": 1,
     "mana_cost": -20,
-    "detect_range": 1.8,
+    "detect_range": 2.5,
     "numeric_nodes": [
       {
         "type": 40,
@@ -825,7 +825,7 @@
     "star": 1,
     "cooldown": 1,
     "mana_cost": -10,
-    "detect_range": 1.8,
+    "detect_range": 2.5,
     "numeric_nodes": [
       {
         "type": 40,
@@ -982,7 +982,7 @@
     "star": 1,
     "cooldown": 1,
     "mana_cost": -15,
-    "detect_range": 1.8,
+    "detect_range": 2.5,
     "numeric_nodes": [
       {
         "type": 40,
@@ -1139,7 +1139,7 @@
     "star": 1,
     "cooldown": 1,
     "mana_cost": -20,
-    "detect_range": 1.8,
+    "detect_range": 2.5,
     "numeric_nodes": [
       {
         "type": 40,
@@ -1418,7 +1418,7 @@
     "star": 1,
     "cooldown": 1,
     "mana_cost": 30,
-    "detect_range": 1.8,
+    "detect_range": 2.5,
     "numeric_nodes": [
       {
         "type": 40,
@@ -1562,7 +1562,7 @@
     "star": 1,
     "cooldown": 1,
     "mana_cost": 30,
-    "detect_range": 1.8,
+    "detect_range": 2.5,
     "numeric_nodes": [
       {
         "type": 40,
@@ -1719,7 +1719,7 @@
     "star": 1,
     "cooldown": 1,
     "mana_cost": 30,
-    "detect_range": 1.8,
+    "detect_range": 2.5,
     "numeric_nodes": [
       {
         "type": 40,

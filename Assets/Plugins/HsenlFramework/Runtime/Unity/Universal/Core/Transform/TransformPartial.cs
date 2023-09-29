@@ -87,6 +87,7 @@ namespace Hsenl {
             }
 
             this.NavMeshAgent.enabled = true;
+            this.NavMeshAgent.isStopped = false;
             this.NavMeshAgent.destination = point;
             this.NavMeshAgent.speed = speed;
             this.NavMeshAgent.stoppingDistance = stopDis;
@@ -98,8 +99,10 @@ namespace Hsenl {
 
             this.NavMeshAgent.enabled = true;
 
-            if (this.NavMeshAgent.isOnNavMesh)
+            if (this.NavMeshAgent.isOnNavMesh) {
+                this.NavMeshAgent.isStopped = false;
                 this.NavMeshAgent.destination = point;
+            }
         }
 
         public void LookAtLerp(float3 forward, float t) {

@@ -828,6 +828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   refreshGroups: []
   aliveHolder: {fileID: 0}
+  hpRatio: 1
 --- !u!4 &600204933
 Transform:
   m_ObjectHideFlags: 0

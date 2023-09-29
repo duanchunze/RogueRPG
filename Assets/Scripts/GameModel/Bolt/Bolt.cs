@@ -78,7 +78,13 @@ namespace Hsenl {
                     var dir = math.normalize(this._targetPoint - pos);
                     this._selfTra.Translate(dir * (this.ballisticSpeed * TimeInfo.DeltaTime));
                     if (math.distancesq(this._origin, pos) > math.distancesq(this._origin, this._targetPoint)) {
-                        this._onReached?.Invoke();
+                        try {
+                            this._onReached?.Invoke();
+                        }
+                        catch (Exception e) {
+                            Log.Error(e);
+                        }
+
                         this.Dormancy();
                     }
 
@@ -90,7 +96,13 @@ namespace Hsenl {
                     var dir = math.normalize(targetPos - pos);
                     this._selfTra.Translate(dir * (this.ballisticSpeed * TimeInfo.DeltaTime));
                     if (math.distancesq(this._selfTra.Position, this._target.Position) < 0.25f) {
-                        this._onReached?.Invoke();
+                        try {
+                            this._onReached?.Invoke();
+                        }
+                        catch (Exception e) {
+                            Log.Error(e);
+                        }
+
                         this.Dormancy();
                     }
 
@@ -100,7 +112,13 @@ namespace Hsenl {
                     var pos = (float3)this._selfTra.Position;
                     this._selfTra.Translate(this._direction * (this.ballisticSpeed * TimeInfo.DeltaTime));
                     if (math.distancesq(this._origin, pos) > this._maxDistance) {
-                        this._onReached?.Invoke();
+                        try {
+                            this._onReached?.Invoke();
+                        }
+                        catch (Exception e) {
+                            Log.Error(e);
+                        }
+
                         this.Dormancy();
                     }
 

@@ -11,12 +11,6 @@ namespace Hsenl {
     public partial class PriorityState : Unbodied, IPriorityState {
         private bool _handledFlag;
 
-#if UNITY_EDITOR
-        [ShowInInspector]
-        [MemoryPackIgnore]
-        public string ViewName => this.Name;
-#endif
-        
         /// 该时间缩放应该用在游戏逻辑上, 而不是用在比如击败boss的慢动作上, 那个应该用TimeInfo.TimeScale
         [SerializeField, PropertyRange(0f, 5f), LabelText("时间缩放"), FoldoutGroup("优先级")]
         public float timeScale = 1f;

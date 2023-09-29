@@ -59,7 +59,8 @@ namespace Hsenl {
         }
 
         protected override void OnTimeSegmentTerminate(bool timeout) {
-            this._moveTarget.transform.MoveToPoint(this._meshAgent.transform.position);
+            if (this._meshAgent.isOnNavMesh)
+                this._meshAgent.isStopped = true;
         }
     }
 }

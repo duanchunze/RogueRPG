@@ -8,7 +8,7 @@ namespace Hsenl.MultiCombiner {
         protected override void OnCombin(Caster caster, PriorityState priorityState) {
             // caster 控制 priority的 进与出
             // 而 priority 会触发 进入、运行、退出的回调, 调用回 caster
-            caster.castStartInvoke += this.EnqueueAction(new Action(() => { priorityState.EnterState(); }));
+            caster.castStartInvoke += this.EnqueueAction<Action>(() => { priorityState.EnterState(); });
 
             caster.castEndInvoke += this.EnqueueAction<Action>(() => { priorityState.LeaveState(); });
 
