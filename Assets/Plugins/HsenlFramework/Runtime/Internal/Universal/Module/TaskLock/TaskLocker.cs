@@ -9,7 +9,7 @@ namespace Hsenl {
         internal TaskLockManager taskLockManager;
 
         public static TaskLocker Create(int type, long k, int count) {
-            var taskLocker = ObjectPool.Fetch<TaskLocker>();
+            var taskLocker = ObjectPool.Rent<TaskLocker>();
             taskLocker._type = type;
             taskLocker._key = k;
             taskLocker._level = count;
@@ -23,7 +23,7 @@ namespace Hsenl {
             this._key = 0;
             this._level = 0;
 
-            ObjectPool.Recycle(this);
+            ObjectPool.Return(this);
         }
     }
 }

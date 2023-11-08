@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using MemoryPack;
+// ReSharper disable NonReadonlyMemberInGetHashCode
 
 namespace Hsenl {
     public interface IReadOnlyComponentTypeCacher {
@@ -13,12 +14,12 @@ namespace Hsenl {
 
     [Serializable]
     [MemoryPackable()]
-    public sealed unsafe partial class ComponentTypeCacher : Bitlist, IReadOnlyComponentTypeCacher {
+    public sealed unsafe partial class ComponentTypeCacher : Bitlist, IReadOnlyComponentTypeCacher, IEquatable<ComponentTypeCacher> {
         [MemoryPackInclude]
-        public readonly int baseIndex;
+        public readonly int originalIndex;
 
-        public static ComponentTypeCacher Create(int baseIndex) {
-            return new ComponentTypeCacher(baseIndex, Entity.CacherCount);
+        public static ComponentTypeCacher Create(int originalIndex) {
+            return new ComponentTypeCacher(originalIndex, Entity.CacherCount);
         }
 
         public static ComponentTypeCacher CreateNull() {
@@ -26,12 +27,12 @@ namespace Hsenl {
         }
 
         [MemoryPackConstructor]
-        private ComponentTypeCacher(int baseIndex) {
-            this.baseIndex = baseIndex;
+        private ComponentTypeCacher(int originalIndex) {
+            this.originalIndex = originalIndex;
         }
-        
-        private ComponentTypeCacher(int baseIndex, int capacity) : base(capacity) {
-            this.baseIndex = baseIndex;
+
+        private ComponentTypeCacher(int originalIndex, int capacity) : base(capacity) {
+            this.originalIndex = originalIndex;
         }
 
         public ContainsEnumerable Contains(ComponentTypeCacher cacher) => this.Contains((Bitlist)cacher);
@@ -42,11 +43,13 @@ namespace Hsenl {
 
         public bool ContainsAny(ComponentTypeCacher cacher, out int idx) => this.ContainsAny((Bitlist)cacher, out idx);
 
+        public int ContainsCount(ComponentTypeCacher cacher) => this.ContainsCount((Bitlist)cacher);
+
         public override string ToString() {
             var list = this.ToList();
             StringBuilder builder = new();
-            if (this.baseIndex != -1) {
-                builder.Append(this.baseIndex);
+            if (this.originalIndex != -1) {
+                builder.Append(this.originalIndex);
                 builder.Append(';');
             }
 
@@ -56,6 +59,28 @@ namespace Hsenl {
             }
 
             return builder.ToString();
+        }
+
+        public bool Equals(ComponentTypeCacher other) {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            if (this.originalIndex != other.originalIndex) return false;
+            if (this.BucketLength != other.BucketLength) return false;
+            for (int i = 0, len = this.BucketLength; i < len; i++) {
+                if (this[i] != other[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        public override bool Equals(object obj) {
+            if (obj is not ComponentTypeCacher cacher) return false;
+            return this.Equals(cacher);
+        }
+
+        public override int GetHashCode() {
+            return HashCode.Combine(base.GetHashCode(), this.originalIndex);
         }
     }
 }

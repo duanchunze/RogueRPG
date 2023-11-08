@@ -1,28 +1,34 @@
 
-9
-assets/bundles/appear/anna
-appear/anna.unity3danna
-N
-!assets/bundles/appear/blademaster)
-appear/blademaster.unity3dblademaster
+b
+)assets/bundles/appear/abi/bolt_gw_kuaishe5
+"appear/abi/bolt_gw_kuaishe.unity3dbolt_gw_kuaishe
+Y
+&assets/bundles/appear/abi/bolt_yuebiao/
+appear/abi/bolt_yuebiao.unity3dbolt_yuebiao
 E
-assets/bundles/appear/huntsman#
-appear/huntsman.unity3dhuntsman
-H
-assets/bundles/appear/kulou_gjs%
-appear/kulou_gjs.unity3d	kulou_gjs
-E
-assets/bundles/appear/kulou_qs#
-appear/kulou_qs.unity3dkulou_qs
-E
-assets/bundles/appear/kulou_zs#
-appear/kulou_zs.unity3dkulou_zs
+ assets/bundles/appear/actor/anna!
+appear/actor/anna.unity3danna
+Z
+'assets/bundles/appear/actor/blademaster/
+ appear/actor/blademaster.unity3dblademaster
+Q
+$assets/bundles/appear/actor/huntsman)
+appear/actor/huntsman.unity3dhuntsman
 T
-#assets/bundles/appear/moonpriestess-
-appear/moonpriestess.unity3dmoonpriestess
-B
-assets/bundles/appear/warrior!
-appear/warrior.unity3dwarrior
+%assets/bundles/appear/actor/kulou_gjs+
+appear/actor/kulou_gjs.unity3d	kulou_gjs
+Q
+$assets/bundles/appear/actor/kulou_qs)
+appear/actor/kulou_qs.unity3dkulou_qs
+Q
+$assets/bundles/appear/actor/kulou_zs)
+appear/actor/kulou_zs.unity3dkulou_zs
+`
+)assets/bundles/appear/actor/moonpriestess3
+"appear/actor/moonpriestess.unity3dmoonpriestess
+N
+#assets/bundles/appear/actor/warrior'
+appear/actor/warrior.unity3dwarrior
 @
  assets/bundles/ui/uicardbackpack
 

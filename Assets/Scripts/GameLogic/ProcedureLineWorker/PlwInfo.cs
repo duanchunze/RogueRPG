@@ -1,5 +1,5 @@
 ﻿using System;
-using Hsenl.cast;
+using Hsenl.procedureline;
 using MemoryPack;
 using Sirenix.OdinInspector;
 
@@ -57,7 +57,7 @@ namespace Hsenl {
     }
 
     [ProcedureLineWorker]
-    public abstract class PlwInfo<T> : PlwInfo, IProcedureLineWorkerInitializer<procedureline.WorkerInfo> where T : procedureline.WorkerInfo {
+    public abstract class PlwInfo<T> : PlwInfo, IConfigInfoInitializer<procedureline.WorkerInfo> where T : procedureline.WorkerInfo {
         [MemoryPackIgnore]
         public T info;
 
@@ -67,19 +67,19 @@ namespace Hsenl {
             if (this.info == null && this.infoInstanceId != 0) {
                 var inf = procedureline.WorkerInfo.GetInfo(this.infoInstanceId);
                 if (inf != null) {
-                    this.Init(inf);
+                    this.InitInfo(inf);
                 }
             }
         }
 
-        public void Init(procedureline.WorkerInfo inf) {
-            var t = (T)inf;
+        public void InitInfo(WorkerInfo configInfo) {
+            var t = (T)configInfo;
             this.info = t;
             this.infoInstanceId = t.InstanceId;
 
-            this.OnInit(t);
+            this.OnConfigInfoInit(t);
         }
 
-        protected virtual void OnInit(T arg) { }
+        protected virtual void OnConfigInfoInit(T arg) { }
     }
 }

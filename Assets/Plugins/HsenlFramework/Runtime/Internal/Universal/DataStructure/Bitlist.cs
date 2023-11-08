@@ -10,6 +10,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using MemoryPack;
 
+// ReSharper disable NonReadonlyMemberInGetHashCode
+
 namespace Hsenl {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class BitListShowOfEnumAttribute : Attribute {
@@ -26,9 +28,13 @@ namespace Hsenl {
 
     public interface IReadOnlyBitlist {
         internal ulong this[int bucketIndex] { get; set; }
-        internal int BucketLength { get; }
+
+        int BucketLength { get; }
+
         int Length { get; }
+
         bool Contains(int value);
+
         Bitlist.ContainsEnumerable Contains(IReadOnlyBitlist other);
 
         bool ContainsAll(IReadOnlyBitlist other);
@@ -40,21 +46,63 @@ namespace Hsenl {
         List<int> ToList();
     }
 
-    // public interface IBitlist {
-    //     int Length { get; }
-    //     void Add(int value);
-    //     void Add(IList<int> values);
-    //     void Add(IBitlist other);
-    //     void Set(IBitlist other);
-    //     void Remove(int value);
-    //     void Remove(IBitlist other);
-    //     bool Contains(int value);
-    //     Bitlist.ContainsEnumerable Contains(IBitlist other);
-    //     bool ContainsAll(IBitlist other);
-    //     bool ContainsAny(IBitlist other);
-    //     bool ContainsAny(IBitlist other, out int num);
-    //     List<int> ToList();
-    // }
+    public static class BitlistAssistant {
+        // 预算出byte范围内, 每个数有多少个二进制的1, 同时每个数也是其index
+        private static readonly int[] _lookupTable = new int[256];
+
+        static BitlistAssistant() {
+            for (var i = 0; i < 256; i++) {
+                //   0   1   2   3   4   5   6   7
+                // 000 001 010 011 100 101 110 111
+                // 把这个数分两个情况看, 一个是偶数还是奇数, 偶数为0, 奇数为1, 第二个看这个数能塞下几个2 4 8 16 32....这些数, 能塞下几个就计数几个
+                // 最后把二者相加
+                _lookupTable[i] = (i & 1) + _lookupTable[i / 2];
+            }
+        }
+
+        // 获得二进制位为1的位置
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int GetBitPosition(ulong value) {
+            var mask = 0xffffffffffffffff;
+            var position_r = 0;
+            var position_l = 0;
+            var counter = 1;
+            const int maxCounter = 7; // ulong是64位, 总共可以对折6次, 所以是1 + 6 = 7
+
+            while (counter < maxCounter) {
+                var bitnum = Bitlist.NumOfBits >> counter;
+                var tempmask = mask >> (bitnum + position_r);
+                tempmask <<= position_r;
+                var orv = value & tempmask;
+                if (orv != 0) {
+                    position_l += bitnum;
+                    mask = tempmask;
+                }
+                else {
+                    position_r += bitnum;
+                    mask <<= bitnum + position_l;
+                    mask >>= position_l;
+                }
+
+                counter++;
+            }
+
+            // pr和pl是相对关系, pl = 63 - pr
+            return position_r;
+        }
+
+        // 一个数作为二进制时, 有多少个1
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int GetBitOneCount(ulong value) {
+            var count = 0;
+            while (value > 0) {
+                count += _lookupTable[value & 0xff];
+                value >>= 8;
+            }
+
+            return count;
+        }
+    }
 
     // 位列表, 主要用于判存, 代替List<Enum> 这种, 速度极快
     // 注意: 不要用于大数值, 那不适合. 数值从0开始, 这样不会浪费内存.
@@ -62,14 +110,15 @@ namespace Hsenl {
     [MemoryPackable()]
     public
 #if UNSAFE_SERIALIZATION // memory pack 不支持不安全代码
-    unsafe
+        unsafe
 #endif
-        partial class Bitlist : IEnumerable<int>, IReadOnlyBitlist {
-        protected const int DefaultLength = 64;
-        protected const int SizeOfElement = 8; // bits数组里存的元素, 每个元素占几个字节大小
-        protected const int NumberOfBits = 64; // bits数组里存的元素, 是多少位数的
+        partial class Bitlist : IEnumerable<int>, IReadOnlyBitlist, IEquatable<Bitlist> {
+        public const int DefaultLength = 64;
+        public const int SizeOfElement = 8; // bits数组里存的元素, 每个元素占几个字节大小
+        public const int NumOfBits = 64; // bits数组里存的元素, 是多少位数的
 
-        protected const ulong One = 1L;
+        public const ulong One = 1L;
+
 
 #if UNSAFE_SERIALIZATION
         [MemoryPackInclude]
@@ -80,21 +129,26 @@ namespace Hsenl {
         protected ulong[] bits;
 
         [MemoryPackInclude]
-        protected int bucketLength;
-
-        [MemoryPackInclude]
         protected int capacity;
 
+#if UNSAFE_SERIALIZATION
+        [MemoryPackInclude]
+        protected int bucketLength;
+        
         [MemoryPackIgnore]
-        int IReadOnlyBitlist.BucketLength => this.bucketLength;
+        public int BucketLength => this.bucketLength;
+#else
+        [MemoryPackIgnore]
+        public int BucketLength => this.bits.Length;
+#endif
 
         [MemoryPackIgnore]
         // Length总是64的倍数
-        public int Length => this.bucketLength * NumberOfBits;
+        public int Length => this.BucketLength * NumOfBits;
 
         public static bool IsNullOrEmpty(Bitlist bitlist) {
             if (bitlist == null) return true;
-            for (int i = 0, len = bitlist.bucketLength; i < len; i++) {
+            for (int i = 0, len = bitlist.BucketLength; i < len; i++) {
                 if (bitlist[i] != 0) {
                     return false;
                 }
@@ -112,22 +166,23 @@ namespace Hsenl {
             if (capacity <= 0) throw new ArgumentOutOfRangeException(capacity.ToString());
             this.capacity = capacity;
             capacity--;
-            this.arrayLength = capacity / NumberOfBits + 1;
-            this.ptr = (ulong*)Marshal.AllocHGlobal(this.arrayLength * SizeOfElement);
-            this.Clear(); // Marshal.AllocHGlobal分配的内存是不保证内存为空的, 所以, 刚申请的内存需要清理一下
-            GC.AddMemoryPressure(this.arrayLength * SizeOfElement);
+            this.bucketLength = capacity / NumOfBits + 1;
+            var bytelen = this.bucketLength * SizeOfElement;
+            this.ptr = (ulong*)Marshal.AllocHGlobal(bytelen);
+            GC.AddMemoryPressure(this.bucketLength * SizeOfElement);
+            // Marshal.AllocHGlobal分配的内存是不保证内存为空的, 所以, 刚申请的内存需要清理一下
+            Unsafe.InitBlockUnaligned(this.ptr, 0, (uint)bytelen);
         }
-#endif
-
+#else
         // capacity每次拓展都是64的倍数
         [MemoryPackConstructor]
         public Bitlist(int capacity) {
             if (capacity <= 0) throw new ArgumentOutOfRangeException(capacity.ToString());
             this.capacity = capacity;
             capacity--;
-            this.bucketLength = capacity / NumberOfBits + 1;
-            this.bits = new ulong[this.bucketLength];
+            this.bits = new ulong[capacity / NumOfBits + 1];
         }
+#endif
 
         // 这里获取的并不是每个位的值, 而是ulong[]的元素值.
         // 为什么不像列表那样, 根据索引获取值呢?
@@ -136,19 +191,42 @@ namespace Hsenl {
 #if UNSAFE_SERIALIZATION
         internal ulong this[int bucketIndex] {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => *(this.ptr + bucketIndex);
+            get {
+                if (bucketIndex >= this.BucketLength) {
+                    throw new IndexOutOfRangeException(bucketIndex.ToString());
+                }
+
+                return *(this.ptr + bucketIndex);
+            }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            set => *(this.ptr + bucketIndex) = value;
+            set {
+                if (bucketIndex >= this.BucketLength) {
+                    throw new IndexOutOfRangeException(bucketIndex.ToString());
+                }
+
+                *(this.ptr + bucketIndex) = value;
+            }
         }
-        
+
         ulong IReadOnlyBitlist.this[int bucketIndex] {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => *(this.ptr + bucketIndex);
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            set => *(this.ptr + bucketIndex) = value;
-        }
-#endif
+            get {
+                if (bucketIndex >= this.BucketLength) {
+                    throw new IndexOutOfRangeException(bucketIndex.ToString());
+                }
 
+                return *(this.ptr + bucketIndex);
+            }
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set {
+                if (bucketIndex >= this.BucketLength) {
+                    throw new IndexOutOfRangeException(bucketIndex.ToString());
+                }
+
+                *(this.ptr + bucketIndex) = value;
+            }
+        }
+#else
         internal ulong this[int bucketIndex] {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => this.bits[bucketIndex];
@@ -162,6 +240,7 @@ namespace Hsenl {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set => this.bits[bucketIndex] = value;
         }
+#endif
 
         public void Add(int value) {
             if (value < 0)
@@ -181,29 +260,31 @@ namespace Hsenl {
         }
 
         public void Add(Bitlist other) {
-            this.Resize(other.bucketLength);
-            for (var i = 0; i < other.bucketLength; i++) {
+            this.Resize(other.BucketLength);
+            for (var i = 0; i < other.BucketLength; i++) {
                 this[i] |= other[i];
             }
         }
 
 #if UNSAFE_SERIALIZATION
-        public void Set(BitList other) {
-            this.Clear();
-            Buffer.MemoryCopy(other.ptr, this.ptr, other.arrayLength, other.arrayLength);
+        public void Set(Bitlist other) {
+            this.Resize(other.BucketLength, false);
+            Buffer.MemoryCopy(other.ptr, this.ptr, this.BucketLength, other.BucketLength);
+        }
+#else
+        public void Set(Bitlist other) {
+            this.Resize(other.BucketLength, false);
+            Array.Copy(other.bits, this.bits, other.bits.Length);
         }
 #endif
 
-        public void Set(Bitlist other) {
-            this.Clear();
-            var len = Math.Min(this.bits.Length, other.bits.Length);
-            Array.Copy(other.bits, this.bits, len);
-        }
-
         public void Remove(int value) {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(value.ToString());
+
             var bucketIndex = value >> 6;
             var bucketLen = bucketIndex + 1;
-            if (this.bucketLength < bucketLen) {
+            if (this.BucketLength < bucketLen) {
                 return;
             }
 
@@ -212,7 +293,7 @@ namespace Hsenl {
         }
 
         public void Remove(Bitlist other) {
-            for (int i = 0, len = other.bucketLength, selfLen = this.bucketLength; i < len; i++) {
+            for (int i = 0, len = other.BucketLength, selfLen = this.BucketLength; i < len; i++) {
                 if (i > selfLen - 1) {
                     break;
                 }
@@ -227,7 +308,7 @@ namespace Hsenl {
 
             var bucketIndex = value >> 6;
             var bucketLen = bucketIndex + 1;
-            if (this.bucketLength < bucketLen) {
+            if (this.BucketLength < bucketLen) {
                 return false;
             }
 
@@ -240,9 +321,14 @@ namespace Hsenl {
         }
 
         public bool ContainsAll(IReadOnlyBitlist other) {
-            for (int i = 0, len = other.BucketLength, selfLen = this.bucketLength; i < len; i++) {
-                if (i > selfLen - 1) {
-                    return false;
+            // 对比分两种情况, 一种是other 的 bucket len比自己短, 那就正常遍历完other就行了, 另一种是other 的 bucket len 比自己长, 那就要判断比自己长的部分, 是否为空, 只有全部为
+            // 空, 才算true
+            var maxIndex = this.BucketLength - 1;
+            for (int i = 0, len = other.BucketLength; i < len; i++) {
+                if (i > maxIndex) {
+                    if (other[i] != 0) {
+                        return false;
+                    }
                 }
 
                 if ((this[i] & other[i]) != other[i]) {
@@ -254,11 +340,8 @@ namespace Hsenl {
         }
 
         public bool ContainsAny(IReadOnlyBitlist other) {
-            for (int i = 0, len = other.BucketLength, selfLen = this.bucketLength; i < len; i++) {
-                if (i > selfLen - 1) {
-                    break;
-                }
-
+            var min = Math.Min(other.BucketLength, this.BucketLength);
+            for (int i = 0; i < min; i++) {
                 var orv = this[i] & other[i];
                 if (orv != 0) {
                     return true;
@@ -270,14 +353,11 @@ namespace Hsenl {
 
         public bool ContainsAny(IReadOnlyBitlist other, out int num) {
             num = 0;
-            for (int i = 0, len = other.BucketLength, selfLen = this.bucketLength; i < len; i++) {
-                if (i > selfLen - 1) {
-                    break;
-                }
-
+            var min = Math.Min(other.BucketLength, this.BucketLength);
+            for (int i = 0; i < min; i++) {
                 var orv = this[i] & other[i];
                 if (orv != 0) {
-                    num = this.GetBitPosition(orv) + i * NumberOfBits;
+                    num = BitlistAssistant.GetBitPosition(orv) + i * NumOfBits;
                     return true;
                 }
             }
@@ -285,14 +365,32 @@ namespace Hsenl {
             return false;
         }
 
+        public int ContainsCount(IReadOnlyBitlist other) {
+            var count = 0;
+            var min = Math.Min(other.BucketLength, this.BucketLength);
+            for (int i = 0; i < min; i++) {
+                var orv = this[i] & other[i];
+                if (orv != 0) {
+                    count += BitlistAssistant.GetBitOneCount(orv);
+                }
+            }
+
+            return count;
+        }
+
         // 挑出所有两个位列表同时存在的数
         public ContainsEnumerable Contains(Bitlist other) => new(this, other);
 
         // 必须包含 other 中所有的值, 才算 true
         public bool ContainsAll(Bitlist other) {
-            for (int i = 0, len = other.bucketLength, selfLen = this.bucketLength; i < len; i++) {
-                if (i > selfLen - 1) {
-                    return false;
+            // 对比分两种情况, 一种是other 的 bucket len比自己短, 那就正常遍历完other就行了, 另一种是other 的 bucket len 比自己长, 那就要判断比自己长的部分, 是否为空, 只有全部为
+            // 空, 才算true
+            var maxIndex = this.BucketLength - 1;
+            for (int i = 0, len = other.BucketLength; i < len; i++) {
+                if (i > maxIndex) {
+                    if (other[i] != 0) {
+                        return false;
+                    }
                 }
 
                 if ((this[i] & other[i]) != other[i]) {
@@ -305,11 +403,8 @@ namespace Hsenl {
 
         // 只要有任意存在即为true
         public bool ContainsAny(Bitlist other) {
-            for (int i = 0, len = other.bucketLength, selfLen = this.bucketLength; i < len; i++) {
-                if (i > selfLen - 1) {
-                    break;
-                }
-
+            var min = Math.Min(other.BucketLength, this.BucketLength);
+            for (int i = 0; i < min; i++) {
                 var orv = this[i] & other[i];
                 if (orv != 0) {
                     return true;
@@ -322,50 +417,30 @@ namespace Hsenl {
         // 判存, 只要存在即刻返回, 且提供该数
         public bool ContainsAny(Bitlist other, out int num) {
             num = 0;
-            for (int i = 0, len = other.bucketLength, selfLen = this.bucketLength; i < len; i++) {
-                if (i > selfLen - 1) {
-                    break;
-                }
-
+            var min = Math.Min(other.BucketLength, this.BucketLength);
+            for (int i = 0; i < min; i++) {
                 var orv = this[i] & other[i];
                 if (orv != 0) {
-                    num = this.GetBitPosition(orv) + i * NumberOfBits;
+                    num = BitlistAssistant.GetBitPosition(orv) + i * NumOfBits;
                     return true;
                 }
             }
 
             return false;
         }
-        
-        // 获得二进制位为1的位置
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private int GetBitPosition(ulong value) {
-            var mask = 0xffffffffffffffff;
-            var position_r = 0;
-            var position_l = 0;
-            var counter = 1;
-            const int maxCounter = 7; // ulong是64位, 总共可以对折6次, 所以是1 + 6 = 7
 
-            while (counter < maxCounter) {
-                var bitnum = NumberOfBits >> counter;
-                var tempmask = mask >> (bitnum + position_r);
-                tempmask <<= position_r;
-                var orv = value & tempmask;
+        /// 判断二者有多少个共存位
+        public int ContainsCount(Bitlist other) {
+            var count = 0;
+            var min = Math.Min(other.BucketLength, this.BucketLength);
+            for (int i = 0; i < min; i++) {
+                var orv = this[i] & other[i];
                 if (orv != 0) {
-                    position_l += bitnum;
-                    mask = tempmask;
+                    count += BitlistAssistant.GetBitOneCount(orv);
                 }
-                else {
-                    position_r += bitnum;
-                    mask <<= (bitnum + position_l);
-                    mask >>= position_l;
-                }
-
-                counter++;
             }
 
-            // pr和pl是相对关系, pl = 63 - pr
-            return position_r;
+            return count;
         }
 
         public ForeachEnumerator GetEnumerator() => new(this);
@@ -376,43 +451,66 @@ namespace Hsenl {
 
 #if UNSAFE_SERIALIZATION
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void Resize(int size) {
-            if (size < this.arrayLength) return;
-            GC.RemoveMemoryPressure(this.arrayLength * SizeOfElement);
-            var oldLength = this.arrayLength;
-            this.arrayLength = size;
-            var cb = size * SizeOfElement;
-            this.ptr = (ulong*)Marshal.ReAllocHGlobal((IntPtr)this.ptr, new IntPtr(cb));
-            // Marshal.ReAllocHGlobal方法不会确保分配的内存一定是初始化过的, 所以, 我们拿到这段新内存时, 要自己初始化下
-            for (var i = oldLength; i < size; i++) {
-                this[i] = 0;
-            }
+        protected void Resize(int bucketLen, bool onlyExpand = true) {
+            if (bucketLen == this.bucketLength) return;
+            if (bucketLen < this.bucketLength && onlyExpand) return;
 
-            GC.AddMemoryPressure(cb);
+            var oldLen = this.bucketLength;
+            this.bucketLength = bucketLen;
+            var cb = bucketLen * SizeOfElement;
+            // 重新分配内存, 多了剪裁掉(从后面剪), 少了扩张, 如果ptr为空, 默认会重新分配一个ptr
+            this.ptr = (ulong*)Marshal.ReAllocHGlobal((nint)this.ptr, (nint)cb);
+
+            if (bucketLen > oldLen) {
+                GC.AddMemoryPressure((bucketLen - oldLen) * SizeOfElement);
+                // Marshal.ReAllocHGlobal方法不能保证分配的内存一定是初始化过的, 所以, 我们拿到这段新内存时, 要自己初始化下
+                for (var i = oldLen; i < bucketLen; i++) {
+                    this[i] = 0;
+                }
+            }
+            else {
+                GC.RemoveMemoryPressure((oldLen - bucketLen) * SizeOfElement);
+            }
+        }
+#else
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected void Resize(int bucketLen, bool onlyExpand = true) {
+            if (bucketLen == this.BucketLength) return;
+            if (bucketLen < this.BucketLength && onlyExpand) return;
+
+            var newBits = new ulong[bucketLen];
+            var copylen = bucketLen > this.BucketLength ? this.BucketLength : bucketLen;
+            Array.Copy(this.bits, newBits, copylen);
+            this.bits = newBits;
         }
 #endif
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void Resize(int size) {
-            if (size < this.bucketLength) return;
-            this.bucketLength = size;
-            var newBits = new ulong[size];
-            Array.Copy(this.bits, newBits, this.bits.Length);
-            this.bits = newBits;
-        }
-
         public void Clear() {
-            for (var i = 0; i < this.bucketLength; i++) {
+            for (var i = 0; i < this.BucketLength; i++) {
                 this[i] = 0;
             }
         }
 
+#if UNSAFE_SERIALIZATION
+        public void ClearThorough() {
+            if (this.ptr != null) {
+                Marshal.FreeHGlobal((nint)this.ptr);
+                GC.RemoveMemoryPressure(this.bucketLength * SizeOfElement);
+                this.ptr = null;
+            }
+        }
+#else
+        public void ClearThorough() {
+            this.bits = Array.Empty<ulong>();
+        }
+#endif
+
         public List<int> ToList() {
             List<int> list = new();
-            for (var i = 0; i < this.bucketLength; i++) {
-                for (var j = 0; j < NumberOfBits; j++) {
+            for (var i = 0; i < this.BucketLength; i++) {
+                for (var j = 0; j < NumOfBits; j++) {
                     if ((this[i] & (One << j)) != 0) {
-                        list.Add(i * NumberOfBits + j);
+                        list.Add(i * NumOfBits + j);
                     }
                 }
             }
@@ -434,10 +532,42 @@ namespace Hsenl {
 
 #if UNSAFE_SERIALIZATION
         ~BitList() {
-            Marshal.FreeHGlobal((nint)this.ptr);
-            GC.RemoveMemoryPressure(this.arrayLength * SizeOfElement);
+            this.ClearThorough();
         }
 #endif
+
+        public bool Equals(Bitlist other) {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            // 只要内核相等, 就算相等, 其他的两个字段忽略
+            if (this.BucketLength != other.BucketLength) return false;
+            for (int i = 0, len = this.BucketLength; i < len; i++) {
+                if (this[i] != other[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        public override bool Equals(object obj) {
+            if (obj is not Bitlist bitlist) return false;
+            return this.Equals(bitlist);
+        }
+
+        public override int GetHashCode() {
+            unchecked {
+                var hash = 17;
+                hash = hash * 23 + this.capacity.GetHashCode();
+                hash = hash * 23 + this.BucketLength.GetHashCode();
+                if (this.bits != null) {
+                    foreach (var item in this.bits) {
+                        hash = hash * 23 + item.GetHashCode();
+                    }
+                }
+
+                return hash;
+            }
+        }
 
         public readonly struct ContainsEnumerable : IEnumerable<int> {
             private readonly Bitlist _list1;
@@ -456,6 +586,7 @@ namespace Hsenl {
         public struct ContainsEnumerator : IEnumerator<int> {
             private Bitlist _lhs;
             private Bitlist _rhs;
+            private int _minBucketLen;
 
             public int Current { get; private set; }
 
@@ -463,20 +594,21 @@ namespace Hsenl {
                 this._lhs = l;
                 this._rhs = r;
                 this.Current = -1;
+                this._minBucketLen = Math.Min(this._lhs.BucketLength, this._rhs.BucketLength);
             }
 
             public bool MoveNext() {
                 this.Current++;
                 var bucketIndex = this.Current >> 6;
                 var bitIndex = this.Current & 0x3f;
-                for (int i = bucketIndex, leftLen = this._lhs.bucketLength, rightLen = this._rhs.bucketLength; i < leftLen && i < rightLen; i++, bitIndex = 0) {
+                for (int i = bucketIndex; i < this._minBucketLen; i++, bitIndex = 0) {
                     var bit1 = this._lhs[i];
                     var bit2 = this._rhs[i];
                     var orv = bit1 & bit2;
                     if (orv == 0) continue;
-                    for (var j = bitIndex; j < NumberOfBits; j++) {
+                    for (var j = bitIndex; j < NumOfBits; j++) {
                         if ((orv & (One << j)) != 0) {
-                            this.Current = i * NumberOfBits + j;
+                            this.Current = i * NumOfBits + j;
                             return true;
                         }
                     }
@@ -489,6 +621,7 @@ namespace Hsenl {
                 this._lhs = null;
                 this._rhs = null;
                 this.Current = -1;
+                this._minBucketLen = 0;
             }
 
             object IEnumerator.Current => this.Current;
@@ -513,12 +646,12 @@ namespace Hsenl {
                 this.Current++;
                 var bucketIndex = this.Current >> 6;
                 var bitIndex = this.Current & 0x3f;
-                for (int i = bucketIndex, len = this._list.bucketLength; i < len; i++, bitIndex = 0) {
+                for (int i = bucketIndex, len = this._list.BucketLength; i < len; i++, bitIndex = 0) {
                     var bit = this._list[i];
                     if (bit == 0) continue;
-                    for (var j = bitIndex; j < NumberOfBits; j++) {
+                    for (var j = bitIndex; j < NumOfBits; j++) {
                         if ((bit & (One << j)) != 0) {
-                            this.Current = i * NumberOfBits + j;
+                            this.Current = i * NumOfBits + j;
                             return true;
                         }
                     }

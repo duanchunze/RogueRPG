@@ -69,6 +69,7 @@ public abstract partial class Info :  Bright.Config.BeanBase
             case "timeline.HarmOfTargetedBoltInfo": return new timeline.HarmOfTargetedBoltInfo(_json);
             case "timeline.HarmOfDirectionBoltInfo": return new timeline.HarmOfDirectionBoltInfo(_json);
             case "timeline.HarmOfPointBoltInfo": return new timeline.HarmOfPointBoltInfo(_json);
+            case "timeline.HarmOfDibozhanBoltInfo": return new timeline.HarmOfDibozhanBoltInfo(_json);
             case "timeline.MoveInfo": return new timeline.MoveInfo(_json);
             case "timeline.ModifyTagsInfo": return new timeline.ModifyTagsInfo(_json);
             case "timeline.ForceMovementInfo": return new timeline.ForceMovementInfo(_json);

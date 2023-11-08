@@ -13,7 +13,7 @@
                         // 先放卡牌栏, 如果放入失败, 再尝试放卡牌背包
                         item.slot = cardBar.PutinCardEvaluate(item.card, item.slot as CardBarSlot);
                         if (item.slot == null) {
-                            var cardBackpack = cardBar.GetHolder().FindSubstaintiveInChildren<CardBackpack>();
+                            var cardBackpack = cardBar.Owner.FindScopeInBodied<CardBackpack>();
                             item.slot = cardBackpack.PutinCardEvaluate(item.card, item.slot as CardBackpackSlot);
                             if (item.slot == null) {
                                 // 都失败直接跳出, 购买失败

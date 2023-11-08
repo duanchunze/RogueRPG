@@ -61,7 +61,7 @@ namespace Hsenl {
 
         public void PutinCards(Card[] cards, bool cover = false) {
             var index = 0;
-            foreach (var slot in this.FindSubstaintivesInChildren<CardStoreSlot>()) {
+            foreach (var slot in this.FindScopesInBodied<CardStoreSlot>()) {
                 var card = slot.StayCard;
                 if (card != null) {
                     if (cover) {
@@ -102,7 +102,7 @@ namespace Hsenl {
             }
 
             var count = 0;
-            foreach (var storeSlot in this.FindSubstaintivesInChildren<CardStoreSlot>()) {
+            foreach (var storeSlot in this.FindScopesInBodied<CardStoreSlot>()) {
                 if (storeSlot.freeze)
                     continue;
 

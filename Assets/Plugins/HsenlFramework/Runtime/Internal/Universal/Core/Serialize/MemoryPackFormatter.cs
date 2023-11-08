@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using MemoryPack;
 using MemoryPack.Formatters;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 namespace Hsenl {
     // 这是另一种方式, 也可以注册, 但不优雅
@@ -23,7 +22,7 @@ namespace Hsenl {
         private static void RegisterFormatter() {
             RegisterUnion<Object>();
             RegisterUnion<Component>();
-            RegisterUnion<Substantive>();
+            RegisterUnion<Bodied>();
             RegisterUnion<Unbodied>();
 
             RegisterUnion<IBlackboard>();
@@ -36,6 +35,8 @@ namespace Hsenl {
             RegisterUnion<ITimeNode>();
             RegisterUnion<IProcedureLineWorker>();
             RegisterUnion<IRecord>();
+            
+            // RegisterUnion<Collider>();
             
             foreach (var type in AssemblyHelper.GetSubTypes(typeof(MemoryPackFormatter), EventSystem.GetAssemblies())) {
                 var formatter = (MemoryPackFormatter)Activator.CreateInstance(type);

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Test;
 
 namespace Hsenl.EventType {
     // 移动卡牌, 如实的表达移往何地, 其所代表的意义不管
@@ -71,7 +69,7 @@ namespace Hsenl.EventType {
     }
 
     public struct OnAbilityCasted {
-        public Substantive caster;
+        public Bodied caster;
         public Ability ability;
     }
 

@@ -3,7 +3,7 @@ using Hsenl.status;
 
 namespace Hsenl {
     [Serializable]
-    public class Status : Substantive {
+    public class Status : Bodied {
         public int configId;
         public StatusConfig Config => Tables.Instance.TbStatusConfig.GetById(this.configId);
 
@@ -16,7 +16,7 @@ namespace Hsenl {
 
         public bool IsEnter => this.isEnterInvoke.Invoke();
 
-        public Substantive inflictor; // 施加的那个人
+        public Bodied inflictor; // 施加的那个人
 
         public void Begin() {
             try {

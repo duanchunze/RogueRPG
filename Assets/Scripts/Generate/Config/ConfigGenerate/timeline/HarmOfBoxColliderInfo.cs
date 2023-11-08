@@ -21,13 +21,15 @@ public sealed partial class HarmOfBoxColliderInfo :  timeline.TsHarmInfo
 {
     public HarmOfBoxColliderInfo(JSONNode _json)  : base(_json) 
     {
+        { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
         { if(!_json["hit_fx"].IsString) { throw new SerializationException(); }  HitFx = _json["hit_fx"]; }
         { if(!_json["hit_sound"].IsString) { throw new SerializationException(); }  HitSound = _json["hit_sound"]; }
         PostInit();
     }
 
-    public HarmOfBoxColliderInfo(int model, float origin, float dest, System.Collections.Generic.List<numeric.DamageFormulaInfo> harm_formulas, string hit_fx, string hit_sound )  : base(model,origin,dest,harm_formulas) 
+    public HarmOfBoxColliderInfo(int model, float origin, float dest, numeric.DamageFormulaInfo harm_formula, string hit_fx, string hit_sound )  : base(model,origin,dest) 
     {
+        this.HarmFormula = harm_formula;
         this.HitFx = hit_fx;
         this.HitSound = hit_sound;
         PostInit();
@@ -38,6 +40,7 @@ public sealed partial class HarmOfBoxColliderInfo :  timeline.TsHarmInfo
         return new timeline.HarmOfBoxColliderInfo(_json);
     }
 
+    public numeric.DamageFormulaInfo HarmFormula { get; private set; }
     public string HitFx { get; private set; }
     public string HitSound { get; private set; }
 
@@ -47,12 +50,14 @@ public sealed partial class HarmOfBoxColliderInfo :  timeline.TsHarmInfo
     public override void Resolve(Dictionary<string, object> _tables)
     {
         base.Resolve(_tables);
+        HarmFormula?.Resolve(_tables);
         PostResolve();
     }
 
     public override void TranslateText(System.Func<string, string, string> translator)
     {
         base.TranslateText(translator);
+        HarmFormula?.TranslateText(translator);
     }
 
     public override string ToString()
@@ -61,7 +66,7 @@ public sealed partial class HarmOfBoxColliderInfo :  timeline.TsHarmInfo
         + "Model:" + Model + ","
         + "Origin:" + Origin + ","
         + "Dest:" + Dest + ","
-        + "HarmFormulas:" + Bright.Common.StringUtil.CollectionToString(HarmFormulas) + ","
+        + "HarmFormula:" + HarmFormula + ","
         + "HitFx:" + HitFx + ","
         + "HitSound:" + HitSound + ","
         + "}";

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using MemoryPack;
 using Sirenix.OdinInspector;
@@ -18,9 +19,13 @@ namespace Hsenl {
 
         public static int CacherCount => _cacherCount;
 
-        // 在框架里, 只要是和组件类有关的 (包括父类、继承的接口), 都会被指定一个编号, 并记录再此, 该编号是唯一的, 该编号是按01234...顺序分配的,
-        // 该编号被保存在ComponentTypeCacher的baseIndex中
-        private static readonly Dictionary<int, ComponentTypeCacher> _typeHashtable = new(); // key: 类型的哈希值, value: 类型缓存器
+        // 在框架里, 只要是和组件类有关的 (包括父类、继承的接口), 都会被指定一个编号, 并记录再此, 该编号是唯一的, 该编号是按01234...顺序分配的, 该编号为ComponentTypeIndex
+        // ComponentTypeCacher.originalIndex == 该缓存器所代表的类型的编号
+        // ComponentTypeCacher.bits 里保存了该类型所有的子类型的TypeIndex, 包括该类型自己的TypeIndex
+        private static readonly Dictionary<int, ComponentTypeCacher> _typeLookupTable = new(); // key: 某类型的哈希值, value: 某类型的'组件类型缓存器'
+
+        private static readonly MultiList<Type, (ComponentTypeCacher require, Type add)> _requireComponentLookupTable = new();
+        internal static readonly Dictionary<int, ComponentTypeCacher> requireInverseLookupTable = new();
 
         // 缓冲类型映射表是许多操作的基础, 所以应该被最先执行
         [OnEventSystemInitialized, Order(-500)]
@@ -37,10 +42,10 @@ namespace Hsenl {
             // Class1: 0, 1, 2
             // Class2: 1, 2
             // Class3: 2,
-            // 第一位是自己的编号, 后面的是他所有子类的编号, 但因为位列表是不存在严格意义上的"第一位"的, 所以我们需要一个额外的basIdx来记录每个类自己的基础编号
+            // 第一位是自己的编号, 后面的是他所有子类的编号, 但因为位列表是不存在严格意义上的"第一位"的, 所以我们需要一个额外的originalIndex来记录每个类自己的原始编号
 
             // 第一步, 提前做一些缓存, 留作后用
-            _typeHashtable.Clear();
+            _typeLookupTable.Clear();
             var map = new MultiList<Type, Type>(); // key: selfType, value: baseTypes
             var uniques = new HashSet<Type>(); // 所有会被分配编号的类、接口
             var componentType = typeof(Component);
@@ -77,17 +82,52 @@ namespace Hsenl {
             foreach (var type in uniques) {
                 var hashCode = type.GetHashCode();
                 var cacher = ComponentTypeCacher.Create(num++);
-                cacher.Add(cacher.baseIndex);
-                _typeHashtable[hashCode] = cacher;
+                cacher.Add(cacher.originalIndex);
+                _typeLookupTable[hashCode] = cacher;
             }
 
             // 第三步, 给每个类添加基类到映射表
             foreach (var kv in map) {
-                var cacher = _typeHashtable[kv.Key.GetHashCode()];
+                var cacher = _typeLookupTable[kv.Key.GetHashCode()];
                 foreach (var baseType in kv.Value) {
                     if (baseType == null) continue;
-                    _typeHashtable[baseType.GetHashCode()].Add(cacher.baseIndex);
+                    _typeLookupTable[baseType.GetHashCode()].Add(cacher.originalIndex);
                 }
+            }
+        }
+
+        [OnEventSystemInitialized]
+        private static void CacheRequireTypes() {
+            _requireComponentLookupTable.Clear();
+            foreach (var type in EventSystem.GetTypesOfAttribute(typeof(RequireComponentAttribute))) {
+                var att = type.GetCustomAttribute<RequireComponentAttribute>(true);
+                if (_requireComponentLookupTable.TryGetValue(type, out var list1)) {
+                    foreach (var tuple in list1) {
+                        if (tuple.add == att.addType) {
+                            // 一个组件A重复Require了组件B
+                            throw new Exception($"require component repetition, '{type.Name}' - '{att.addType.Name}'");
+                        }
+                    }
+                }
+
+                if (_requireComponentLookupTable.TryGetValue(att.addType, out var list2)) {
+                    foreach (var tuple in list2) {
+                        if (tuple.add == type) {
+                            // 一个组件A Require了组件B, 同时, 组件B也Require了组件A
+                            throw new Exception($"require component conflict, '{type.Name}' - '{att.addType.Name}'");
+                        }
+                    }
+                }
+
+                var typeCacher = _typeLookupTable[att.requireType.GetHashCode()];
+                _requireComponentLookupTable.Add(type, (typeCacher, att.addType));
+                var componentIndex = GetComponentIndex(type);
+                if (!requireInverseLookupTable.TryGetValue(componentIndex, out var value)) {
+                    value = ComponentTypeCacher.CreateNull();
+                    requireInverseLookupTable[componentIndex] = value;
+                }
+                
+                value.Add(GetComponentIndex(type));
             }
         }
 
@@ -95,7 +135,7 @@ namespace Hsenl {
             if (length == -1) length = types.Count;
             var result = ComponentTypeCacher.CreateNull();
             for (var i = start; i < length; i++) {
-                result.Add(_typeHashtable[types[i].GetHashCode()].baseIndex);
+                result.Add(_typeLookupTable[types[i].GetHashCode()].originalIndex);
             }
 
             return result;
@@ -104,29 +144,29 @@ namespace Hsenl {
         public static ComponentTypeCacher CombineComponentType(params Type[] types) {
             var result = ComponentTypeCacher.CreateNull();
             for (int i = 0, len = types.Length; i < len; i++) {
-                result.Add(_typeHashtable[types[i].GetHashCode()].baseIndex);
+                result.Add(_typeLookupTable[types[i].GetHashCode()].originalIndex);
             }
 
             return result;
         }
 
         public static void CombineComponentType(ComponentTypeCacher cacher, Type type) {
-            cacher.Add(_typeHashtable[type.GetHashCode()].baseIndex);
+            cacher.Add(_typeLookupTable[type.GetHashCode()].originalIndex);
         }
 
         public static void CombineComponentType(ComponentTypeCacher cacher, params Type[] types) {
             for (int i = 0, len = types.Length; i < len; i++) {
-                cacher.Add(_typeHashtable[types[i].GetHashCode()].baseIndex);
+                cacher.Add(_typeLookupTable[types[i].GetHashCode()].originalIndex);
             }
         }
 
-        public static int GetComponentIndex<T>() where T : Component {
+        public static int GetComponentIndex<T>() where T : class {
             return GetComponentIndex(typeof(T));
         }
 
         public static int GetComponentIndex(Type componentType) {
-            if (_typeHashtable.TryGetValue(componentType.GetHashCode(), out var cacher)) {
-                return cacher.baseIndex;
+            if (_typeLookupTable.TryGetValue(componentType.GetHashCode(), out var cacher)) {
+                return cacher.originalIndex;
             }
 
             return -1;
@@ -171,10 +211,10 @@ namespace Hsenl {
                 if (this.active == value) return;
                 this.active = value;
                 if (this.active) {
-                    this.InternalOnActive();
+                    this.OnActiveInternal();
                 }
                 else {
-                    this.InternalOnInactive();
+                    this.OnInactiveInternal();
                 }
 
                 this.PartialOnActiveSelfChanged(value);
@@ -300,7 +340,7 @@ namespace Hsenl {
             this.InitializeBySerizlizationRestorationRelation();
             this.InitializeBySerizlizationInvokeEvent();
 
-            this.InternalOnSerialized();
+            this.OnSerializedOverallInternal();
         }
 
         private void InitializeBySerizlizationRestorationRelation() {
@@ -308,7 +348,7 @@ namespace Hsenl {
             if (this.componentsOfSerialize != null) {
                 foreach (var componentSerialize in this.componentsOfSerialize) {
                     var type = componentSerialize.GetType();
-                    if (!_typeHashtable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
+                    if (!_typeLookupTable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
                     if (componentSerialize.entity != null)
                         throw new InvalidOperationException($"this component has been added to other entities '{this.Name}' '{componentSerialize.Name}'");
 
@@ -319,8 +359,8 @@ namespace Hsenl {
 
                     EventSystemManager.Instance.RegisterInstanced(componentSerialize);
 
-                    this.componentTypeCacher.Add(cacher.baseIndex);
-                    this.GetOrCreateComponents().Add(cacher.baseIndex, componentSerialize);
+                    this.componentTypeCacher.Add(cacher.originalIndex);
+                    this.GetOrCreateComponents().Add(cacher.originalIndex, componentSerialize);
 
                     if (componentSerialize is Transform t) {
                         this.transform = t;
@@ -350,27 +390,21 @@ namespace Hsenl {
             if (this.componentsOfSerialize != null) {
                 for (int i = 0, len = this.componentsOfSerialize.Count; i < len; i++) {
                     var component = this.componentsOfSerialize[i];
-                    if (component is IAheadUpdate aheadUpdate) EventSystem.RegisterAheadUpdate(aheadUpdate);
                     if (component is IUpdate update) EventSystem.RegisterUpdate(update);
                     if (component is ILateUpdate lateUpdate) EventSystem.RegisterLateUpdate(lateUpdate);
 
-                    this.PartialOnComponentAdd(component);
                     component.InternalOnDeserialized();
-                    // 这里向后顺位触发OnComponentAdd事件, 因为不能a触发b的同时, b也同时触发a, 这不符合逻辑
-                    for (var j = i + 1; j < len; j++) {
-                        this.componentsOfSerialize[j].InternalOnComponentAdd(component);
-                    }
 
                     component.InternalOnConstruction();
 
+                    this.PartialOnComponentAdd(component);
+                    // 这里向后顺位触发OnComponentAdd事件, 因为不能a触发b的同时, b也同时触发a, 这不符合逻辑
+                    // for (var j = i + 1; j < len; j++) {
+                    //     this.componentsOfSerialize[j].InternalOnComponentAdd(component);
+                    // }
+
                     if (realActive) {
                         component.InternalOnEnable();
-                    }
-
-                    if (!component.enable) {
-                        component.enable = true;
-                        component.InternalOnDisable();
-                        component.enable = false;
                     }
                 }
 
@@ -380,11 +414,7 @@ namespace Hsenl {
             if (this.children != null) {
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
-                    child.InternalOnParentChanged(null);
-                    child.InternalOnDomainChanged();
-                    this.InternalOnChildAdd(child);
-                    child.PartialOnAfterParentChanged();
-                    child.InternalOnAfterParentChanged(null);
+                    child.PartialOnParentChanged();
 
                     child.InitializeBySerizlizationInvokeEvent();
                 }
@@ -393,29 +423,45 @@ namespace Hsenl {
             this.PartialOnActiveSelfChanged(false);
         }
 
-        public void SetParent(Entity parentEntity, Scene targetScene = null) {
-            this.SetParentInternal(parentEntity, targetScene);
+        public void SetParent(Entity value, Scene targetScene = null) {
+            this.SetParentInternal(value, targetScene);
         }
 
-        internal void SetParentInternal(Entity parentEntity, Scene targetScene = null) {
-            if (parentEntity == this)
+        internal void SetParentInternal(Entity futrueParent, Scene targetScene = null) {
+            if (futrueParent == this)
                 throw new Exception("you cannot set yourself as the parent");
 
-            this.InternalOnBeforeParentChange(parentEntity); // 触发时, 一切都还没有变
+            // 父级变化之前, 此时什么事情都还没有发生
+            this.OnBeforeParentChangeInternal(futrueParent);
 
-            var oldScene = this.scene;
-            var oldParent = this.parent;
-            this.parent = parentEntity;
+            // 先把父子关系处理好
+            var prevScene = this.scene;
+            var prevParent = this.parent;
+            this.parent = futrueParent;
 
-            this.InternalOnParentChanged(oldParent); // 父级改变的第一时间触发
+            if (prevParent != null) {
+                prevParent.children.Remove(this);
+                if (prevParent.children.Count == 0) {
+                    prevParent.children = null;
+                }
+            }
+
+            this.parent?.GetOrCreateChildren().Add(this);
+
+            // 然后触发事件
+            this.PartialOnParentChanged();
+            this.OnParentChangedInternal(prevParent);
+            prevParent?.OnChildRemoveInternal(this);
+            this.parent?.OnChildAddInternal(this);
 
             // 有父级, 则直接设置为父级的场景
-            if (parentEntity != null) {
-                this.SetScene(parentEntity.scene);
+            Scene futrueScene = null;
+            if (futrueParent != null) {
+                futrueScene = futrueParent.scene;
             }
             // 如果指定了场景, 则设置为指定场景
             else if (targetScene != null) {
-                this.SetScene(targetScene);
+                futrueScene = targetScene;
             }
             // 既没有父级, 也没有指定场景, 则保持本来的场景, 如果缺少本来场景, 则设置为当前激活的场景
             else {
@@ -424,24 +470,25 @@ namespace Hsenl {
                         throw new Exception("active scene is null");
                     }
 
-                    this.SetScene(SceneManager.activeScene);
+                    futrueScene = SceneManager.activeScene;
                 }
             }
 
-            if (oldScene != this.scene || oldParent != this.parent) {
-                if (oldScene != null && oldParent == null) {
-                    oldScene.rootEntities.Remove(this);
-                }
+            if (futrueScene != null) {
+                this.SetScene(futrueScene);
 
-                if (this.parent == null) {
-                    this.scene.rootEntities.Add(this);
+                if (prevScene != futrueScene || prevParent != this.parent) {
+                    if (prevScene != null && prevParent == null) {
+                        prevScene.rootEntities.Remove(this);
+                    }
+
+                    if (this.parent == null) {
+                        futrueScene.rootEntities.Add(this);
+                    }
                 }
             }
 
-            oldParent?.InternalRemoveChild(this);
-            this.parent?.InternalAddChild(this);
-            this.PartialOnAfterParentChanged();
-            this.InternalOnAfterParentChanged(oldParent); // 当触发时, 所有该变的都已经变过了
+            this.OnSceneChangedInternal();
         }
 
         public int GetOrder() {
@@ -463,27 +510,17 @@ namespace Hsenl {
             if (value == null)
                 throw new NullReferenceException("set scene is null");
 
-            if (this.scene != value) {
-                this.RecursionSetScene(value);
-            }
-        }
-
-        private void RecursionSetScene(Scene value) {
+            if (this.scene == value) return;
             this.scene = value;
-            if (this.children != null) {
-                for (int i = 0, len = this.children.Count; i < len; i++) {
-                    this.children[i].RecursionSetScene(value);
-                }
-            }
 
-            this.InternalOnDomainChanged();
-        }
+            RecursionSetScene(this.children);
 
-        private void InternalOnDomainChanged() {
-            if (this.components != null) {
-                foreach (var kv in this.components) {
-                    foreach (var component in kv.Value) {
-                        component.InternalOnDomainChanged();
+            void RecursionSetScene(List<Entity> childlist) {
+                if (childlist != null) {
+                    for (int i = 0, len = childlist.Count; i < len; i++) {
+                        var child = childlist[i];
+                        childlist[i].scene = value;
+                        RecursionSetScene(child.children);
                     }
                 }
             }
@@ -501,7 +538,15 @@ namespace Hsenl {
         /// <returns></returns>
         public T AddComponent<T>(Action<T> initializeInvoke, bool enabled = true) where T : Component {
             var type = typeof(T);
-            if (!_typeHashtable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
+            if (_requireComponentLookupTable.TryGetValue(type, out var requires)) {
+                foreach (var tuple in requires) {
+                    if (!this.HasComponentsAny(tuple.require)) {
+                        this.AddComponent(tuple.add);
+                    }
+                }
+            }
+
+            if (!_typeLookupTable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
             var component = (T)Activator.CreateInstance(type);
             component.entity = this;
             component.instanceId = Guid.NewGuid().GetHashCode();
@@ -518,13 +563,15 @@ namespace Hsenl {
 
             EventSystemManager.Instance.RegisterInstanced(component);
 
-            if (component is IAheadUpdate aheadUpdate) EventSystem.RegisterAheadUpdate(aheadUpdate);
             if (component is IUpdate update) EventSystem.RegisterUpdate(update);
             if (component is ILateUpdate lateUpdate) EventSystem.RegisterLateUpdate(lateUpdate);
 
-            this.InternalAddComponent(cacher.baseIndex, component);
+            this.InternalAddComponent(cacher.originalIndex, component);
 
             component.InternalOnConstruction();
+
+            this.PartialOnComponentAdd(component);
+            this.OnComponentAddInternal(component);
 
             if (this.RealActive) {
                 component.InternalOnEnable();
@@ -534,7 +581,15 @@ namespace Hsenl {
         }
 
         public Component AddComponent(Type type, Action<Component> initializeInvoke = null, bool enabled = true) {
-            if (!_typeHashtable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
+            if (_requireComponentLookupTable.TryGetValue(type, out var requires)) {
+                foreach (var tuple in requires) {
+                    if (!this.HasComponentsAny(tuple.require)) {
+                        this.AddComponent(tuple.add);
+                    }
+                }
+            }
+
+            if (!_typeLookupTable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
             var component = (Component)Activator.CreateInstance(type);
             component.entity = this;
             component.instanceId = Guid.NewGuid().GetHashCode();
@@ -551,13 +606,15 @@ namespace Hsenl {
 
             EventSystemManager.Instance.RegisterInstanced(component);
 
-            if (component is IAheadUpdate aheadUpdate) EventSystem.RegisterAheadUpdate(aheadUpdate);
             if (component is IUpdate update) EventSystem.RegisterUpdate(update);
             if (component is ILateUpdate lateUpdate) EventSystem.RegisterLateUpdate(lateUpdate);
 
-            this.InternalAddComponent(cacher.baseIndex, component);
+            this.InternalAddComponent(cacher.originalIndex, component);
 
             component.InternalOnConstruction();
+
+            this.PartialOnComponentAdd(component);
+            this.OnComponentAddInternal(component);
 
             if (this.RealActive) {
                 component.InternalOnEnable();
@@ -568,7 +625,15 @@ namespace Hsenl {
 
         public Component AddComponent(Component component) {
             var type = component.GetType();
-            if (!_typeHashtable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
+            if (_requireComponentLookupTable.TryGetValue(type, out var requires)) {
+                foreach (var tuple in requires) {
+                    if (!this.HasComponentsAny(tuple.require)) {
+                        this.AddComponent(tuple.add);
+                    }
+                }
+            }
+
+            if (!_typeLookupTable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
             component.entity = this;
             component.instanceId = Guid.NewGuid().GetHashCode();
             component.uniqueId = component.instanceId;
@@ -576,13 +641,15 @@ namespace Hsenl {
 
             EventSystemManager.Instance.RegisterInstanced(component);
 
-            if (component is IAheadUpdate aheadUpdate) EventSystem.RegisterAheadUpdate(aheadUpdate);
             if (component is IUpdate update) EventSystem.RegisterUpdate(update);
             if (component is ILateUpdate lateUpdate) EventSystem.RegisterLateUpdate(lateUpdate);
 
-            this.InternalAddComponent(cacher.baseIndex, component);
+            this.InternalAddComponent(cacher.originalIndex, component);
 
             component.InternalOnConstruction();
+
+            this.PartialOnComponentAdd(component);
+            this.OnComponentAddInternal(component);
 
             if (this.RealActive) {
                 component.InternalOnEnable();
@@ -594,49 +661,45 @@ namespace Hsenl {
         private void InternalAddComponent(int index, Component component) {
             this.componentTypeCacher.Add(index);
             this.GetOrCreateComponents().Add(index, component);
-            // this.InternalAddComponentDB(component);
-            this.PartialOnComponentAdd(component);
-            this.InternalOnComponentAdd(component);
-        }
-
-        private void InternalAddComponentDB(Component component) {
-            // if (!(component is ISerializable)) {
-            //     return;
-            // }
-
-            this.componentsOfSerialize ??= new List<Component>();
-            this.componentsOfSerialize.Add(component);
         }
 
         internal void InternalRemoveComponent(Component component) {
             if (this.components == null) return;
             if (component.entity != this) return;
 
-            if (!_typeHashtable.TryGetValue(component.GetType().GetHashCode(), out var cacher))
+            if (!_typeLookupTable.TryGetValue(component.GetType().GetHashCode(), out var cacher))
                 throw new Exception($"component type is not register '{component.GetType().Name}'");
-            if (this.components.TryGetValue(cacher.baseIndex, out var list)) {
-                list.Remove(component);
+            if (this.components.TryGetValue(cacher.originalIndex, out var list)) {
+                var remove = list.Remove(component);
                 if (list.Count == 0) {
-                    this.componentTypeCacher.Remove(cacher.baseIndex);
+                    this.componentTypeCacher.Remove(cacher.originalIndex);
+                }
+
+                if (remove) {
+                    this.OnComponentRemoveInternal(component);
                 }
             }
-
-            // this.InternalRemoveComponentDB(component);
-            this.InternalOnComponentRemove(component);
         }
 
-        private void InternalRemoveComponentDB(Component component) {
-            if (this.componentsOfSerialize == null) return;
-            // if (!(component is ISerializable)) {
-            //     return;
-            // }
-
-            this.componentsOfSerialize.Remove(component);
+        public bool HasComponent<T>(bool declaredOnly = false) where T : class {
+            return this.HasComponent(typeof(T), declaredOnly);
         }
 
-        public bool HasComponent<T>() where T : class {
-            if (!_typeHashtable.TryGetValue(typeof(T).GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{typeof(T).Name}'");
-            return this.componentTypeCacher.ContainsAny(cacher);
+        public bool HasComponent(Type type, bool declaredOnly = false) {
+            if (this.components == null) return false;
+            if (!_typeLookupTable.TryGetValue(type.GetHashCode(), out var cacher))
+                throw new Exception($"component type is not register '{type.Name}'");
+
+            if (declaredOnly) {
+                return this.components.ContainsKey(cacher.originalIndex);
+            }
+            else {
+                return this.componentTypeCacher.ContainsAny(cacher);
+            }
+        }
+
+        public bool HasComponent(int componentIndex) {
+            return this.components.ContainsKey(componentIndex);
         }
 
         public bool HasComponentsAny(ComponentTypeCacher typeCacher) {
@@ -651,12 +714,18 @@ namespace Hsenl {
             return this.componentTypeCacher.ContainsAll(typeCacher);
         }
 
-        public T GetComponent<T>() where T : class {
-            if (!_typeHashtable.TryGetValue(typeof(T).GetHashCode(), out var cacher))
+        public T GetComponent<T>(bool declaredOnly = false) where T : class {
+            if (!_typeLookupTable.TryGetValue(typeof(T).GetHashCode(), out var cacher))
                 throw new Exception($"component type is not register '{typeof(T).Name}'");
 
-            if (!this.componentTypeCacher.ContainsAny(cacher, out var idx)) return null;
-            return this.components[idx][0] as T;
+            if (declaredOnly) {
+                if (this.components.TryGetValue(cacher.originalIndex, out var list)) return list[0] as T;
+                return null;
+            }
+            else {
+                if (!this.componentTypeCacher.ContainsAny(cacher, out var idx)) return null;
+                return this.components[idx][0] as T;
+            }
         }
 
         // 直接通过组件的编号来获取组件
@@ -675,25 +744,38 @@ namespace Hsenl {
             return null;
         }
 
-        public T[] GetComponents<T>() where T : class {
+        public T[] GetComponents<T>(bool declaredOnly = false) where T : class {
             using var list = ListComponent<T>.Create();
-            this.InternalGetComponents(list);
+            this.InternalGetComponents(list, declaredOnly);
             return list.ToArray();
         }
 
-        public void GetComponents<T>(List<T> results) where T : class {
-            this.InternalGetComponents(results);
+        public void GetComponents<T>(List<T> results, bool declaredOnly = false) where T : class {
+            this.InternalGetComponents(results, declaredOnly);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void InternalGetComponents<T>(List<T> results) where T : class {
+        private void InternalGetComponents<T>(List<T> results, bool declaredOnly) where T : class {
             if (this.components == null) return;
-            if (!_typeHashtable.TryGetValue(typeof(T).GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{typeof(T).Name}'");
-            foreach (var idx in this.componentTypeCacher.Contains(cacher)) {
-                var list = this.components[idx];
-                for (int i = 0, len = list.Count; i < len; i++) {
-                    if (list[i] is T t) {
-                        results.Add(t);
+            if (!_typeLookupTable.TryGetValue(typeof(T).GetHashCode(), out var cacher))
+                throw new Exception($"component type is not register '{typeof(T).Name}'");
+
+            if (declaredOnly) {
+                if (this.components.TryGetValue(cacher.originalIndex, out var list)) {
+                    for (int i = 0, len = list.Count; i < len; i++) {
+                        if (list[i] is T t) {
+                            results.Add(t);
+                        }
+                    }
+                }
+            }
+            else {
+                foreach (var idx in this.componentTypeCacher.Contains(cacher)) {
+                    var list = this.components[idx];
+                    for (int i = 0, len = list.Count; i < len; i++) {
+                        if (list[i] is T t) {
+                            results.Add(t);
+                        }
                     }
                 }
             }
@@ -720,11 +802,11 @@ namespace Hsenl {
             }
         }
 
-        public T GetComponentInParent<T>(bool includeInactive = false) where T : class {
+        public T GetComponentInParent<T>(bool includeInactive = false, bool declaredOnly = false) where T : class {
             var curr = this;
             while (curr != null) {
                 if (!includeInactive && !curr.active) goto NEXT;
-                var t = curr.GetComponent<T>();
+                var t = curr.GetComponent<T>(declaredOnly);
                 if (t != null) return t;
 
                 NEXT:
@@ -734,22 +816,22 @@ namespace Hsenl {
             return null;
         }
 
-        public T[] GetComponentsInParent<T>(bool includeInactive = false) where T : class {
+        public T[] GetComponentsInParent<T>(bool includeInactive = false, bool declaredOnly = false) where T : class {
             using var list = ListComponent<T>.Create();
-            this.InternalGetComponentsInParent(list, includeInactive);
+            this.InternalGetComponentsInParent(list, includeInactive, declaredOnly);
             return list.ToArray();
         }
 
-        public void GetComponentsInParent<T>(List<T> results, bool includeInactive = false) where T : class {
-            this.InternalGetComponentsInParent(results, includeInactive);
+        public void GetComponentsInParent<T>(List<T> results, bool includeInactive = false, bool declaredOnly = false) where T : class {
+            this.InternalGetComponentsInParent(results, includeInactive, declaredOnly);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void InternalGetComponentsInParent<T>(List<T> results, bool includeInactive) where T : class {
+        private void InternalGetComponentsInParent<T>(List<T> results, bool includeInactive, bool declaredOnly) where T : class {
             var curr = this;
             while (curr != null) {
                 if (!includeInactive && !curr.active) goto NEXT;
-                curr.InternalGetComponents(results);
+                curr.InternalGetComponents(results, declaredOnly);
 
                 NEXT:
                 curr = curr.parent;
@@ -778,14 +860,14 @@ namespace Hsenl {
             }
         }
 
-        public T GetComponentInChildren<T>(bool includeInactive = false) where T : class {
-            var t = this.GetComponent<T>();
+        public T GetComponentInChildren<T>(bool includeInactive = false, bool declaredOnly = false) where T : class {
+            var t = this.GetComponent<T>(declaredOnly);
             if (t != null) return t;
             if (this.children != null) {
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
                     if (!includeInactive && !child.active) continue;
-                    t = child.GetComponentInChildren<T>(includeInactive);
+                    t = child.GetComponentInChildren<T>(includeInactive, declaredOnly);
                     if (t != null) return t;
                 }
             }
@@ -793,25 +875,25 @@ namespace Hsenl {
             return null;
         }
 
-        public T[] GetComponentsInChildren<T>(bool includeInactive = false) where T : class {
+        public T[] GetComponentsInChildren<T>(bool includeInactive = false, bool declaredOnly = false) where T : class {
             using var list = ListComponent<T>.Create();
-            this.InternalGetComponentsInChildren(list, includeInactive);
+            this.InternalGetComponentsInChildren(list, includeInactive, declaredOnly);
             return list.ToArray();
         }
 
-        public void GetComponentsInChildren<T>(List<T> result, bool includeInactive = false) where T : class {
+        public void GetComponentsInChildren<T>(List<T> result, bool includeInactive = false, bool declaredOnly = false) where T : class {
             result.Clear();
-            this.InternalGetComponentsInChildren(result, includeInactive);
+            this.InternalGetComponentsInChildren(result, includeInactive, declaredOnly);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void InternalGetComponentsInChildren<T>(List<T> results, bool includeInactive) where T : class {
-            this.InternalGetComponents(results);
+        private void InternalGetComponentsInChildren<T>(List<T> results, bool includeInactive, bool declaredOnly) where T : class {
+            this.InternalGetComponents(results, declaredOnly);
             if (this.children != null) {
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
                     if (!includeInactive && !child.active) continue;
-                    child.InternalGetComponentsInChildren(results, includeInactive);
+                    child.InternalGetComponentsInChildren(results, includeInactive, declaredOnly);
                 }
             }
         }
@@ -838,34 +920,36 @@ namespace Hsenl {
             }
         }
 
-        public void ForeachComponents(Action<Component> callback) {
+        public void ForeachComponents(Action<Component> callback, bool includeGrandson = false) {
             if (this.components == null) return;
             if (callback == null) throw new ArgumentNullException();
             foreach (var kv in this.components) {
-                foreach (var component in kv.Value) {
-                    callback.Invoke(component);
+                var list = kv.Value;
+                for (int i = 0, len = list.Count; i < len; i++) {
+                    callback.Invoke(list[i]);
                 }
+            }
+
+            if (!includeGrandson) return;
+            if (this.children == null) return;
+
+            foreach (var child in this.children) {
+                child.ForeachComponents(callback, true);
             }
         }
 
-        public void ForeachChildren(Action<Entity> callback, bool all = false) {
+        public void ForeachChildren(Action<Entity> callback, bool includeGrandson = false) {
             if (this.children == null) return;
             if (callback == null) throw new ArgumentNullException();
             foreach (var child in this.children) {
                 callback.Invoke(child);
-                if (all) {
+                if (includeGrandson) {
                     child.ForeachChildren(callback, true);
                 }
             }
         }
 
-        public ForeachChildrenEnumerable ForeachChildren() => new(this);
-
-        public void Foreach(Action<Entity> callback) {
-            if (callback == null) throw new ArgumentNullException();
-            callback.Invoke(this);
-            this.ForeachChildren(callback, true);
-        }
+        public ForeachChildrenEnumerable ForeachChildren() => new(this.children);
 
         internal void ForeachSerialize(Action<Entity> callback) {
             if (callback == null) throw new ArgumentNullException();
@@ -882,30 +966,30 @@ namespace Hsenl {
             ForeachChildrenSerialize(this, callback);
         }
 
-        private void InternalAddChild(Entity child) {
-            this.GetOrCreateChildren().Add(child);
-            // this.InternalAddChildDB(child);
-            this.InternalOnChildAdd(child);
+        public bool IsParentOf(Entity targetParent) {
+            var p = targetParent.parent;
+            while (p != null) {
+                if (p == this)
+                    return true;
+
+                p = p.parent;
+            }
+
+            return false;
         }
 
-        private void InternalAddChildDB(Entity child) {
-            this.childrenOfSerialize ??= new List<Entity>();
-            this.childrenOfSerialize.Add(child);
-        }
+        public bool IsParentOf(Entity targetParent, out int layer) {
+            layer = 0;
+            var p = this.parent;
+            while (p != null) {
+                layer++;
+                if (p == targetParent)
+                    return true;
+                p = p.parent;
+            }
 
-        private void InternalRemoveChild(Entity child) {
-            if (this.children == null) return;
-
-            this.children.Remove(child);
-            if (this.children.Count == 0)
-                this.children = null;
-
-            // this.InternalRemoveChildDB(child);
-            this.InternalOnChildRemove(child);
-        }
-
-        private void InternalRemoveChildDB(Entity child) {
-            this.childrenOfSerialize?.Remove(child);
+            layer = -1;
+            return false;
         }
 
         public Entity GetChild(int index) {
@@ -949,17 +1033,7 @@ namespace Hsenl {
             this.children[idx2] = child1;
         }
 
-        // private void InternalOnSerialize() {
-        //     if (this.components != null) {
-        //         foreach (var kv in this.components) {
-        //             foreach (var component in kv.Value) {
-        //                 component.InternalOnDeserialize();
-        //             }
-        //         }
-        //     }
-        // }
-
-        private void InternalOnSerialized() {
+        private void OnSerializedOverallInternal() {
             if (this.components != null) {
                 foreach (var kv in this.components) {
                     foreach (var component in kv.Value) {
@@ -971,13 +1045,13 @@ namespace Hsenl {
             if (this.children != null) {
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
-                    child.InternalOnSerialized();
+                    child.OnSerializedOverallInternal();
                 }
             }
         }
 
         // 通知所有组件, 自己的父级将要改变了
-        private void InternalOnBeforeParentChange(Entity futrueParent) {
+        private void OnBeforeParentChangeInternal(Entity futrueParent) {
             if (this.components != null) {
                 foreach (var kv in this.components) {
                     foreach (var component in kv.Value) {
@@ -987,8 +1061,7 @@ namespace Hsenl {
             }
         }
 
-        // 通知所有组件, 自己的父级已经改变了
-        private void InternalOnParentChanged(Entity previousParent) {
+        private void OnParentChangedInternal(Entity previousParent) {
             if (this.components != null) {
                 foreach (var kv in this.components) {
                     foreach (var component in kv.Value) {
@@ -998,18 +1071,39 @@ namespace Hsenl {
             }
         }
 
-        private void InternalOnAfterParentChanged(Entity previousParent) {
+        private void OnSceneChangedInternal() {
             if (this.components != null) {
                 foreach (var kv in this.components) {
                     foreach (var component in kv.Value) {
-                        component.InternalOnAfterParentChanged(previousParent);
+                        component.InternalOnSceneChanged();
+                    }
+                }
+            }
+
+            Recursion(this.children);
+
+            void Recursion(List<Entity> childlist) {
+                if (childlist != null) {
+                    for (int i = 0, len = childlist.Count; i < len; i++) {
+                        var child = childlist[i];
+                        if (child.components != null) {
+                            foreach (var kv in child.components) {
+                                foreach (var component in kv.Value) {
+                                    component.InternalOnSceneChanged();
+                                }
+                            }
+                        }
+                    }
+
+                    for (int i = 0, len = childlist.Count; i < len; i++) {
+                        Recursion(childlist[i].children);
                     }
                 }
             }
         }
 
         // 通知所有组件, 有新组件被添加
-        private void InternalOnComponentAdd(Component component) {
+        private void OnComponentAddInternal(Component component) {
             if (this.components != null) {
                 foreach (var kv in this.components) {
                     foreach (var c in kv.Value) {
@@ -1021,7 +1115,7 @@ namespace Hsenl {
         }
 
         // 通知所有组件, 有组件被移除
-        private void InternalOnComponentRemove(Component component) {
+        private void OnComponentRemoveInternal(Component component) {
             if (this.components != null) {
                 foreach (var kv in this.components) {
                     foreach (var c in kv.Value) {
@@ -1033,7 +1127,7 @@ namespace Hsenl {
         }
 
         // 通知所有组件, 有子物体被添加
-        private void InternalOnChildAdd(Entity child) {
+        private void OnChildAddInternal(Entity child) {
             if (this.components != null) {
                 foreach (var kv in this.components) {
                     foreach (var component in kv.Value) {
@@ -1044,7 +1138,7 @@ namespace Hsenl {
         }
 
         // 通知所有组件有子物体被移除
-        private void InternalOnChildRemove(Entity child) {
+        private void OnChildRemoveInternal(Entity child) {
             if (this.components != null) {
                 foreach (var kv in this.components) {
                     foreach (var component in kv.Value) {
@@ -1055,7 +1149,7 @@ namespace Hsenl {
         }
 
         // 启用时, 自上而下, 自组件到子物体, 依次打开
-        private void InternalOnActive() {
+        private void OnActiveInternal() {
             if (this.components != null) {
                 foreach (var kv in this.components) {
                     foreach (var component in kv.Value) {
@@ -1068,18 +1162,18 @@ namespace Hsenl {
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
                     if (!child.active) continue;
-                    child.InternalOnActive();
+                    child.OnActiveInternal();
                 }
             }
         }
 
         // 禁用时, 自下而上, 自子物体到组件, 依次禁用
-        private void InternalOnInactive() {
+        private void OnInactiveInternal() {
             if (this.children != null) {
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
                     if (!child.active) continue;
-                    child.InternalOnInactive();
+                    child.OnInactiveInternal();
                 }
             }
 
@@ -1096,47 +1190,51 @@ namespace Hsenl {
 
         internal partial void PartialOnCreated();
         internal partial void PartialOnActiveSelfChanged(bool act);
-        internal partial void PartialOnAfterParentChanged();
+        internal partial void PartialOnParentChanged();
         internal partial void PartialOnComponentAdd(Component component);
         internal partial void PartialOnDestroy();
 
         #endregion
 
         public readonly struct ForeachChildrenEnumerable : IEnumerable<Entity> {
-            private readonly Entity _entity;
+            private readonly List<Entity> _children;
 
-            public ForeachChildrenEnumerable(Entity entity) {
-                this._entity = entity;
+            public ForeachChildrenEnumerable(List<Entity> children) {
+                this._children = children;
             }
 
-            public ForeachChildrenEnumerator GetEnumerator() => new(this._entity);
-            IEnumerator<Entity> IEnumerable<Entity>.GetEnumerator() => new ForeachChildrenEnumerator(this._entity);
-            IEnumerator IEnumerable.GetEnumerator() => new ForeachChildrenEnumerator(this._entity);
+            public ForeachChildrenEnumerator GetEnumerator() => new(this._children);
+            IEnumerator<Entity> IEnumerable<Entity>.GetEnumerator() => new ForeachChildrenEnumerator(this._children);
+            IEnumerator IEnumerable.GetEnumerator() => new ForeachChildrenEnumerator(this._children);
         }
 
         public struct ForeachChildrenEnumerator : IEnumerator<Entity> {
-            private Entity _entity;
+            private List<Entity> _children;
             private int _index;
+            private int _len;
 
             public Entity Current { get; private set; }
 
             object IEnumerator.Current => this.Current;
 
-            public ForeachChildrenEnumerator(Entity entity) {
-                this._entity = entity;
+            public ForeachChildrenEnumerator(List<Entity> children) {
+                this._children = children;
                 this.Current = null;
                 this._index = 0;
+                this._len = children?.Count ?? 0;
             }
 
             public bool MoveNext() {
-                if (this._entity.children == null) return false;
-                if (this._index >= this._entity.children.Count) return false;
-                this.Current = this._entity.children[this._index++];
+                if (this._children == null) return false;
+                if (this._index >= this._children.Count) return false;
+                if (this._len != this._children.Count) throw new Exception("cannot add or delete a child during foreach");
+                // 至于换位置的问题暂时就不问了, 就当是一个坑
+                this.Current = this._children[this._index++];
                 return true;
             }
 
             public void Reset() {
-                this._entity = null;
+                this._children = null;
                 this._index = 0;
                 this.Current = null;
             }

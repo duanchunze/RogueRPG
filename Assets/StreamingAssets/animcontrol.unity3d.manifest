@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 4133550461
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e51a086fe714d3bc3230eaabf49f6bb2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: e8df1f9f82371e82de919a94edcc7dd6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/AnimControl/blademaster.controller
+- Assets/Bundles/AnimControl/warrior.controller
+- Assets/Bundles/AnimControl/kulou_gjs.controller
+- Assets/Bundles/AnimControl/moonpriestess.controller
+- Assets/Bundles/AnimControl/kulou_qs.controller
+- Assets/Bundles/AnimControl/kulou_zs.controller
+Dependencies: []

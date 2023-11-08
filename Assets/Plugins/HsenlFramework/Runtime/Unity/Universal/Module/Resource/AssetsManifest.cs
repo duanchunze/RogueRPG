@@ -62,7 +62,7 @@ namespace Hsenl {
         /// <param name="bundleName"></param>
         /// <param name="lowest">能检测的最低位置</param>
         /// <returns></returns>
-        public bool GetOptimalBundle(IList<string> list, out string bundleName, int lowest = 0) {
+        public bool GetOptimalBundleName(IList<string> list, out string bundleName, int lowest = 0) {
             bundleName = null;
             if (list.Count == 1) {
                 Log.Error("if length is 1, it is not necessary to use AssetManifest");

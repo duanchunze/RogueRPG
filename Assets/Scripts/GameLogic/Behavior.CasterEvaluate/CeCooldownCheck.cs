@@ -5,7 +5,7 @@ namespace Hsenl {
     [MemoryPackable()]
     public partial class CeCooldownCheck : CeInfo<CooldownCheckInfo> {
         protected override NodeStatus OnNodeTick() {
-            switch (this.manager.Substantive) {
+            switch (this.manager.Bodied) {
                 case Ability ability: {
                     if (!ability.IsCooldown) {
                         this.manager.status = CastEvaluateStatus.Cooldown;

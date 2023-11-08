@@ -14,10 +14,10 @@ namespace Hsenl {
                 return;
             }
 
-            var agent = go.GetOrAddComponent<NavMeshAgent>();
-            agent.angularSpeed = 0;
-            agent.acceleration = float.MaxValue;
-            agent.stoppingDistance = 0.1f;
+            // var agent = go.GetOrAddComponent<NavMeshAgent>();
+            // agent.angularSpeed = 0;
+            // agent.acceleration = float.MaxValue;
+            // agent.stoppingDistance = 0.1f;
         }
     }
 }

@@ -11,13 +11,13 @@ namespace Hsenl {
         private CardBar _cardBar;
         private List<Caster> _casters = new();
 
-        private float maxFrameTime = 1f / 30;
-        private float frametime = 0;
+        // private float maxFrameTime = 1f / 30;
+        // private float frametime = 0;
 
         // private int currentTryingPosition;
 
         protected override void OnNodeOpen() {
-            this._cardBar = this.manager.Substantive.GetSubstaintiveInChildren<CardBar>();
+            this._cardBar = this.manager.Owner.FindScopeInBodied<CardBar>();
             if (this._cardBar != null) {
                 this._cardBar.onChanged += this.OnCardBarChanged;
                 this.OnCardBarChanged();

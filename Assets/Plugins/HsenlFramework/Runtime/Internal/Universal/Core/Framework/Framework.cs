@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Hsenl {
     [Serializable]
     public class Framework : Singleton<Framework> {
         public static bool AppQuit { get; private set; }
 
-        public bool displayMono;
+        [SerializeField]
+        private bool displayMono;
+
+        public bool DisplayMono => Define.IsEditor && this.displayMono;
 
         public static void OnAppStart() {
             AppQuit = false;
@@ -19,7 +23,6 @@ namespace Hsenl {
         }
 
         public void Update() {
-            EventSystemManager.Instance.AheadUpdate();
             EventSystemManager.Instance.Update();
         }
 

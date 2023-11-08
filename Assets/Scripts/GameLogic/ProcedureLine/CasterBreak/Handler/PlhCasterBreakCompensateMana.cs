@@ -5,7 +5,7 @@ namespace Hsenl.Handler {
     [ProcedureLineHandlerPriority(PliCasterBreakPriority.CompensateMana)]
     public class PlhCasterBreakCompensateMana : AProcedureLineHandler<PliCasterBreakForm> {
         protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliCasterBreakForm item) {
-            switch (item.caster.Substantive) {
+            switch (item.caster.Bodied) {
                 case Ability ability: {
                     
                     // todo 以下的补偿都可以做成状态, 然后使用worker来处理, 这里处理比较临时, 不规范

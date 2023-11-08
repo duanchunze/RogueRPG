@@ -1,8 +1,13 @@
 ﻿namespace Hsenl {
     public static class TimeInfo {
-        public static float DeltaTime => TimeInfoManager.Instance?.DeltaTime ?? 0;
-        public static int FrameCount => TimeInfoManager.Instance?.FrameCount ?? 0;
-        public static long Now => TimeInfoManager.Instance?.Now ?? 0;
-        public static float Time => TimeInfoManager.Instance?.GameTime ?? 0;
+        public static float DeltaTime => TimeInfoManager.Instance.DeltaTime;
+        public static int FrameCount => TimeInfoManager.Instance.FrameCount;
+        public static long Now => TimeInfoManager.Instance.Now;
+        public static float Time => TimeInfoManager.Instance.Time;
+
+        public static float TimeScale {
+            get => TimeInfoManager.Instance.TimeScale;
+            set => TimeInfoManager.Instance.TimeScale = value;
+        }
     }
 }

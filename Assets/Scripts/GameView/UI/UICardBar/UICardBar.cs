@@ -23,7 +23,7 @@ namespace Hsenl.View {
         }
 
         protected override void OnOpen() {
-            var cardbar = GameManager.Instance.MainMan?.GetSubstaintiveInChildren<CardBar>();
+            var cardbar = GameManager.Instance.MainMan?.FindScopeInBodied<CardBar>();
             if (cardbar == null) return;
             EventSystem.Publish(new OnCardResidenceChanged() { residence = cardbar });
         }

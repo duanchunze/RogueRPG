@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 2515708130
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4dd323b20bc5f8fe6a5a1d43706549dd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5941c3541d8b403f80e37b0d697371e8
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/AnimClip/huntsman/hitstun.anim
+- Assets/Bundles/AnimClip/huntsman/run.anim
+- Assets/Bundles/AnimClip/huntsman/WK_archer_02_walk.anim
+- Assets/Bundles/AnimClip/huntsman/WK_archer_06_combat_walk.anim
+- Assets/Bundles/AnimClip/huntsman/attack2.anim
+- Assets/Bundles/AnimClip/huntsman/WK_archer_10_death_B.anim
+- Assets/Bundles/AnimClip/huntsman/idle.anim
+- Assets/Bundles/AnimClip/huntsman/attack3.anim
+- Assets/Bundles/AnimClip/huntsman/idle2.anim
+- Assets/Bundles/AnimClip/huntsman/attack1.anim
+- Assets/Bundles/AnimClip/huntsman/die.anim
+Dependencies: []

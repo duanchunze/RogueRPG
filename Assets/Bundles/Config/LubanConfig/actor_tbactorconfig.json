@@ -60,7 +60,7 @@
     }
   },
   {
-    "id": 20001,
+    "id": 20000,
     "alias": "靶子",
     "view_name": "靶子",
     "model_name": "kulou_zs",
@@ -68,14 +68,40 @@
       0,
       3
     ],
-    "numeric_alias": "靶子",
+    "numeric_alias": "靶子战士",
     "ai_alias": "",
+    "org_abilitys": [
+      "待机",
+      "停止"
+    ],
+    "org_cards": [],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 20001,
+    "alias": "靶子战士",
+    "view_name": "靶子战士",
+    "model_name": "kulou_zs",
+    "labels": [
+      0,
+      3
+    ],
+    "numeric_alias": "靶子战士",
+    "ai_alias": "怪物AI1",
     "org_abilitys": [
       "待机",
       "停止",
       "方向移动",
       "点击移动",
-      "点击移动-内部"
+      "怪物横砍"
     ],
     "org_cards": [],
     "possible_drops_by_probability": [],
@@ -90,25 +116,23 @@
   },
   {
     "id": 20002,
-    "alias": "靶子-战士",
-    "view_name": "靶子",
-    "model_name": "kulou_zs",
+    "alias": "靶子骑士",
+    "view_name": "靶子骑士",
+    "model_name": "kulou_qs",
     "labels": [
       0,
       3
     ],
-    "numeric_alias": "靶子",
+    "numeric_alias": "靶子骑士",
     "ai_alias": "怪物AI1",
     "org_abilitys": [
       "待机",
       "停止",
       "方向移动",
       "点击移动",
-      "点击移动-内部"
+      "怪物劈砍"
     ],
-    "org_cards": [
-      "怪物横砍卡牌"
-    ],
+    "org_cards": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -121,25 +145,23 @@
   },
   {
     "id": 20003,
-    "alias": "靶子-弓箭手",
-    "view_name": "靶子",
+    "alias": "靶子弓箭手",
+    "view_name": "靶子弓箭手",
     "model_name": "kulou_gjs",
     "labels": [
       0,
       3
     ],
-    "numeric_alias": "靶子",
+    "numeric_alias": "靶子弓箭手",
     "ai_alias": "怪物AI1",
     "org_abilitys": [
       "待机",
       "停止",
       "方向移动",
       "点击移动",
-      "点击移动-内部"
+      "怪物快射"
     ],
-    "org_cards": [
-      "怪物快射卡牌"
-    ],
+    "org_cards": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -166,11 +188,9 @@
       "停止",
       "方向移动",
       "点击移动",
-      "点击移动-内部"
+      "怪物横砍"
     ],
-    "org_cards": [
-      "怪物横砍卡牌"
-    ],
+    "org_cards": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -197,11 +217,9 @@
       "停止",
       "方向移动",
       "点击移动",
-      "点击移动-内部"
+      "怪物劈砍"
     ],
-    "org_cards": [
-      "怪物劈砍卡牌"
-    ],
+    "org_cards": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -228,11 +246,9 @@
       "停止",
       "方向移动",
       "点击移动",
-      "点击移动-内部"
+      "怪物快射"
     ],
-    "org_cards": [
-      "怪物快射卡牌"
-    ],
+    "org_cards": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {

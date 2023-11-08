@@ -21,13 +21,15 @@ public sealed partial class HarmOfTargetedInfo :  timeline.TpHarmInfo
 {
     public HarmOfTargetedInfo(JSONNode _json)  : base(_json) 
     {
+        { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
         { if(!_json["hit_fx"].IsString) { throw new SerializationException(); }  HitFx = _json["hit_fx"]; }
         { if(!_json["hit_sound"].IsString) { throw new SerializationException(); }  HitSound = _json["hit_sound"]; }
         PostInit();
     }
 
-    public HarmOfTargetedInfo(int model, float point, System.Collections.Generic.List<numeric.DamageFormulaInfo> harm_formulas, string hit_fx, string hit_sound )  : base(model,point,harm_formulas) 
+    public HarmOfTargetedInfo(int model, float point, numeric.DamageFormulaInfo harm_formula, string hit_fx, string hit_sound )  : base(model,point) 
     {
+        this.HarmFormula = harm_formula;
         this.HitFx = hit_fx;
         this.HitSound = hit_sound;
         PostInit();
@@ -38,6 +40,10 @@ public sealed partial class HarmOfTargetedInfo :  timeline.TpHarmInfo
         return new timeline.HarmOfTargetedInfo(_json);
     }
 
+    /// <summary>
+    /// 伤害的配方
+    /// </summary>
+    public numeric.DamageFormulaInfo HarmFormula { get; private set; }
     public string HitFx { get; private set; }
     public string HitSound { get; private set; }
 
@@ -47,12 +53,14 @@ public sealed partial class HarmOfTargetedInfo :  timeline.TpHarmInfo
     public override void Resolve(Dictionary<string, object> _tables)
     {
         base.Resolve(_tables);
+        HarmFormula?.Resolve(_tables);
         PostResolve();
     }
 
     public override void TranslateText(System.Func<string, string, string> translator)
     {
         base.TranslateText(translator);
+        HarmFormula?.TranslateText(translator);
     }
 
     public override string ToString()
@@ -60,7 +68,7 @@ public sealed partial class HarmOfTargetedInfo :  timeline.TpHarmInfo
         return "{ "
         + "Model:" + Model + ","
         + "Point:" + Point + ","
-        + "HarmFormulas:" + Bright.Common.StringUtil.CollectionToString(HarmFormulas) + ","
+        + "HarmFormula:" + HarmFormula + ","
         + "HitFx:" + HitFx + ","
         + "HitSound:" + HitSound + ","
         + "}";

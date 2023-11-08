@@ -1,66 +1,98 @@
 ManifestFileVersion: 0
-CRC: 3057861364
+CRC: 1051275948
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: ui.unity3d
-      Dependencies: {}
-    Info_1:
       Name: fx.unity3d
       Dependencies: {}
+    Info_1:
+      Name: ui.unity3d
+      Dependencies: {}
     Info_2:
-      Name: collider.unity3d
-      Dependencies: {}
-    Info_3:
-      Name: warningboard.unity3d
-      Dependencies: {}
-    Info_4:
-      Name: config.unity3d
-      Dependencies: {}
-    Info_5:
-      Name: pickable.unity3d
-      Dependencies: {}
-    Info_6:
-      Name: appear/kulou_qs.unity3d
-      Dependencies: {}
-    Info_7:
-      Name: test.unity3d
-      Dependencies: {}
-    Info_8:
-      Name: bolt.unity3d
-      Dependencies: {}
-    Info_9:
-      Name: input.unity3d
-      Dependencies: {}
-    Info_10:
-      Name: entry.unity3d
-      Dependencies: {}
-    Info_11:
-      Name: appear/anna.unity3d
-      Dependencies: {}
-    Info_12:
       Name: lv1.unity3d
       Dependencies:
         Dependency_0: navmesh-ground.unity3d
-    Info_13:
-      Name: appear/moonpriestess.unity3d
+    Info_3:
+      Name: collider.unity3d
       Dependencies: {}
-    Info_14:
-      Name: gamemain.unity3d
+    Info_4:
+      Name: warningboard.unity3d
       Dependencies: {}
-    Info_15:
-      Name: appear/blademaster.unity3d
+    Info_5:
+      Name: test.unity3d
       Dependencies: {}
-    Info_16:
+    Info_6:
       Name: lv2.unity3d
       Dependencies:
         Dependency_0: navmesh-ground.unity3d
-    Info_17:
+    Info_7:
+      Name: config.unity3d
+      Dependencies: {}
+    Info_8:
+      Name: gamemain.unity3d
+      Dependencies:
+        Dependency_0: navmesh-ground.unity3d
+    Info_9:
+      Name: pickable.unity3d
+      Dependencies: {}
+    Info_10:
       Name: audio.unity3d
       Dependencies: {}
-    Info_18:
+    Info_11:
       Name: launch.unity3d
       Dependencies: {}
+    Info_12:
+      Name: entry.unity3d
+      Dependencies: {}
+    Info_13:
+      Name: animcontrol.unity3d
+      Dependencies: {}
+    Info_14:
+      Name: animclip/warrior.unity3d
+      Dependencies: {}
+    Info_15:
+      Name: appear/anna.unity3d
+      Dependencies: {}
+    Info_16:
+      Name: appear/blademaster.unity3d
+      Dependencies:
+        Dependency_0: animcontrol.unity3d
+    Info_17:
+      Name: appear/kulou_gjs.unity3d
+      Dependencies:
+        Dependency_0: animcontrol.unity3d
+    Info_18:
+      Name: appear/kulou_qs.unity3d
+      Dependencies:
+        Dependency_0: animcontrol.unity3d
     Info_19:
+      Name: appear/kulou_zs.unity3d
+      Dependencies:
+        Dependency_0: animcontrol.unity3d
+    Info_20:
+      Name: appear/moonpriestess.unity3d
+      Dependencies:
+        Dependency_0: animcontrol.unity3d
+    Info_21:
+      Name: appear/warrior.unity3d
+      Dependencies: {}
+    Info_22:
+      Name: bolt.unity3d
+      Dependencies: {}
+    Info_23:
+      Name: lv3.unity3d
+      Dependencies:
+        Dependency_0: navmesh-ground.unity3d
+    Info_24:
+      Name: lv4.unity3d
+      Dependencies:
+        Dependency_0: navmesh-ground.unity3d
+    Info_25:
       Name: navmesh-ground.unity3d
+      Dependencies: {}
+    Info_26:
+      Name: appear/huntsman.unity3d
+      Dependencies: {}
+    Info_27:
+      Name: animclip/huntsman.unity3d
       Dependencies: {}

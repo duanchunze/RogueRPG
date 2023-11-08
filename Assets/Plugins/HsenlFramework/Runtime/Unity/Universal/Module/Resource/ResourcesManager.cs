@@ -8,7 +8,8 @@ using UnityEngine;
 namespace Hsenl {
     [DisallowMultipleComponent]
     public class ResourcesManager : UnitySingleton<ResourcesManager> {
-        public bool editorMode;
+        [SerializeField]
+        private bool editorMode;
 
         private readonly Dictionary<string, string> _bundleNameToLowerCache = new();
         public readonly Dictionary<string, string> stringToBundleCache = new();
@@ -16,14 +17,17 @@ namespace Hsenl {
         // 依赖、包、资源，三个缓存
         private readonly Dictionary<string, string[]> _dependenciesCache = new();
         private readonly Dictionary<string, BundleInfo> _bundleCache = new();
-        [ShowInInspector, ReadOnly] private readonly MultiDictionary<string, string, UnityEngine.Object> _assetCache = new();
+
+        [ShowInInspector, ReadOnly]
+        private readonly MultiDictionary<string, string, UnityEngine.Object> _assetCache = new();
+
         private UnityEngine.AssetBundleManifest _assetBundleManifest;
 
-        private bool UseEditor => Define.IsEditor && this.editorMode;
+        public bool EditorMode => Define.IsEditor && this.editorMode;
 
         protected override void Awake() {
             base.Awake();
-            if (!this.UseEditor) {
+            if (!this.EditorMode) {
                 LoadOneBundle("StreamingAssets");
                 this._assetBundleManifest = (UnityEngine.AssetBundleManifest)GetAsset("StreamingAssets", "AssetBundleManifest");
                 UnloadOneBundle("StreamingAssets", false);
@@ -119,7 +123,7 @@ namespace Hsenl {
                 return dependencies;
             }
 
-            if (Instance.UseEditor) {
+            if (Instance.EditorMode) {
                 dependencies = AssetBundleHelper.GetAssetBundleDependencies(assetBundleName, true);
             }
             else {
@@ -137,7 +141,7 @@ namespace Hsenl {
                 return;
             }
 
-            if (Instance.UseEditor) {
+            if (Instance.EditorMode) {
                 var realPaths = AssetBundleHelper.GetAssetPathsFromAssetBundle(assetBundleName);
                 // 缓存资源
                 foreach (var realPath in realPaths) {
@@ -287,7 +291,7 @@ namespace Hsenl {
                 return null;
             }
 
-            if (Instance.UseEditor) {
+            if (Instance.EditorMode) {
                 var realPaths = AssetBundleHelper.GetAssetPathsFromAssetBundle(assetBundleName);
                 foreach (var realPath in realPaths) {
                     var assetName = Path.GetFileNameWithoutExtension(realPath);
@@ -337,7 +341,7 @@ namespace Hsenl {
             Instance._bundleNameToLowerCache[name] = result;
             return result;
         }
-        
+
         private class BundleInfo {
             public string name;
             public int refCount;
@@ -371,7 +375,7 @@ namespace Hsenl {
             ResourcesManager.Instance.stringToBundleCache[self] = result;
             return result;
         }
-        
+
         public static UnityEngine.Object LoadAssetAtPath(string s) {
 #if UNITY_EDITOR
             return UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(s);

@@ -29,11 +29,11 @@ namespace Hsenl {
         private readonly MultiDictionary<Type, Type, List<PropertyInfo>> _instancePropertiesOfAttribute = new();
         private readonly MultiDictionary<Type, Type, List<MethodInfo>> _instanceMethodsOfAttribute = new();
 
-        private readonly Queue<AheadUpdateWrap> _aheadUpdaters = new();
         private readonly Queue<UpdateWrap> _updaters = new();
         private readonly Queue<LateUpdateWrap> _lateUpaters = new();
 
         private readonly Dictionary<int, Object> _instances = new();
+
         private readonly MultiDictionary<int, int, int> _links = new();
 
         private readonly HashSet<Type> _confineAttributeTypes = new() {
@@ -159,7 +159,6 @@ namespace Hsenl {
                             switch (member) {
                                 case FieldInfo fieldInfo: {
                                     if (fieldInfo.IsStatic) {
-                                        // if (!this._staticFieldsOfAttribute.ContainsKey(attType))
                                         this._staticFieldsOfAttribute.Add(attType, fieldInfo);
                                     }
                                     else {
@@ -176,7 +175,6 @@ namespace Hsenl {
 
                                 case PropertyInfo propertyInfo: {
                                     if (!propertyInfo.CanRead ? propertyInfo.GetSetMethod(true).IsStatic : propertyInfo.GetGetMethod(true).IsStatic) {
-                                        // if (!this._staticPropertiesOfAttribute.ContainsKey(attType))
                                         this._staticPropertiesOfAttribute.Add(attType, propertyInfo);
                                     }
                                     else {
@@ -193,7 +191,6 @@ namespace Hsenl {
 
                                 case MethodInfo methodInfo: {
                                     if (methodInfo.IsStatic) {
-                                        // if (!this._staticMethodsOfAttribute.ContainsKey(attType))
                                         this._staticMethodsOfAttribute.Add(attType, methodInfo);
                                     }
                                     else {
@@ -355,10 +352,6 @@ namespace Hsenl {
             return this._instances.Values.ToArray();
         }
 
-        public void RegisterAheadUpdate(IAheadUpdate update) {
-            this._aheadUpdaters.Enqueue(new AheadUpdateWrap() { instanceId = update.InstanceId, update = update });
-        }
-
         public void RegisterUpdate(IUpdate update) {
             this._updaters.Enqueue(new UpdateWrap() { instanceId = update.InstanceId, update = update });
         }
@@ -372,7 +365,7 @@ namespace Hsenl {
                 return;
             }
 
-            // = 0的事件, 是并行执行的, 大于或小于0的事件, 是按顺序依次执行的, 这么做的目的是为了保持并行的速度, 因为有时候我们可能并不在意执行顺序, 所以如果都统一按顺序依次执行,
+            // == 0的事件, 是并行执行的, 大于或小于0的事件, 是按顺序依次执行的, 这么做的目的是为了保持并行的速度, 因为有时候我们可能并不在意执行顺序, 所以如果都统一按顺序依次执行,
             // 对于异步事件来说, 会大大影响速度
             using var asyncEvents = ListComponent<ETTask>.Create();
 
@@ -532,21 +525,6 @@ namespace Hsenl {
             return aInvokeHandler.Handle(args);
         }
 
-        public void AheadUpdate() {
-            var count = this._aheadUpdaters.Count;
-            while (count-- > 0) {
-                var updater = this._aheadUpdaters.Dequeue();
-                if (updater.update.InstanceId != updater.instanceId) continue;
-                if (!updater.update.RealEnable) {
-                    this._aheadUpdaters.Enqueue(updater);
-                    continue;
-                }
-
-                this._aheadUpdaters.Enqueue(updater);
-                updater.update.AheadUpdate();
-            }
-        }
-
         public void Update() {
             var count = this._updaters.Count;
             while (count-- > 0) {
@@ -624,7 +602,6 @@ namespace Hsenl {
             this._instanceFieldsOfAttribute.Clear();
             this._instancePropertiesOfAttribute.Clear();
             this._instanceMethodsOfAttribute.Clear();
-            this._aheadUpdaters.Clear();
             this._updaters.Clear();
             this._lateUpaters.Clear();
             this._instances.Clear();
@@ -640,11 +617,6 @@ namespace Hsenl {
 
         private class InvokeInfo {
             public IInvoke iInvoke;
-        }
-
-        private struct AheadUpdateWrap {
-            public int instanceId;
-            public IAheadUpdate update;
         }
 
         private struct UpdateWrap {

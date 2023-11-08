@@ -1,6 +1,6 @@
 ﻿namespace Hsenl {
     public struct PliAbilityCastChangedForm {
-        public Substantive caster;
+        public Bodied caster;
         private Numerator _casterNumerator;
         public Ability ability;
         private Numerator _abilityNumerator;

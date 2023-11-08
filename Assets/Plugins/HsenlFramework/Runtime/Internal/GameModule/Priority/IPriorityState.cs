@@ -22,17 +22,17 @@ namespace Hsenl {
         public int EnterPriority { get; set; } // 该等级必须 > 对方的阻碍等级才可以进入
         public int ResistPriorityAnchor { get; set; } // 当状态重新进入时, ResistPriority会重置为该值
         public int ResistPriority { get; set; } // 该等级只要 >= 对方的进入等级就可以阻止对方进入
-        public int KeepPriority { get; set; } // 该等级 >= 对方的排挤等级才可以保持住自己
         public int ExclusionPriority { get; set; } // 该等级必须 > 对方的保持等级才可以排挤掉对方
-        public int RunPriority { get; set; } // 该等级 >= 对方的禁用等级才可以保证自己继续运行
+        public int KeepPriority { get; set; } // 该等级 >= 对方的排挤等级才可以保持住自己
         public int DisablePriority { get; set; } // 该等级必须 > 对方的运行等级才可以禁用掉对方
+        public int RunPriority { get; set; } // 该等级 >= 对方的禁用等级才可以保证自己继续运行
 
         public Bitlist SpecialPassLabels { get; set; }
         public Bitlist SpecialInterceptLabels { get; set; }
-        public Bitlist SpecialKeepLabels { get; set; }
         public Bitlist SpecialExclusionLabels { get; set; }
-        public Bitlist SpecialRunLabels { get; set; }
+        public Bitlist SpecialKeepLabels { get; set; }
         public Bitlist SpecialDisableLabels { get; set; }
+        public Bitlist SpecialRunLabels { get; set; }
 
         protected bool PausedPrevious { get; set; }
         public bool Paused { get; set; } // 暂停后，OnRunning将不再运行
@@ -44,7 +44,7 @@ namespace Hsenl {
         public bool IsEntered => this.Manager != null;
 
         internal void InternalOnEnter(IPrioritizer manager) {
-            this.Reset();
+            this.ResetState();
             try {
                 this.OnEnter(manager);
             }
@@ -98,7 +98,7 @@ namespace Hsenl {
                 Log.Error($"<行为离开错误> {this.Name} --- {e}");
             }
             finally {
-                this.Reset();
+                this.ResetState();
             }
         }
 
@@ -110,7 +110,7 @@ namespace Hsenl {
                 Log.Error($"<行为离开错误(详细)> {this.Name} --- {e}");
             }
             finally {
-                this.Reset();
+                this.ResetState();
             }
         }
 
@@ -119,19 +119,19 @@ namespace Hsenl {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool ContainsSpecialInterceptOfLabels(Bitlist lbs) => this.SpecialInterceptLabels?.ContainsAny(lbs) ?? false;
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool ContainsSpecialKeepOfLabels(Bitlist lbs) => this.SpecialKeepLabels?.ContainsAny(lbs) ?? false;
-
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool ContainsSpecialExclusionOfLabels(Bitlist lbs) => this.SpecialExclusionLabels?.ContainsAny(lbs) ?? false;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool ContainsSpecialRunOfLabels(Bitlist lbs) => this.SpecialRunLabels?.ContainsAny(lbs) ?? false;
-
+        public bool ContainsSpecialKeepOfLabels(Bitlist lbs) => this.SpecialKeepLabels?.ContainsAny(lbs) ?? false;
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool ContainsSpecialDisableOfLabels(Bitlist lbs) => this.SpecialDisableLabels?.ContainsAny(lbs) ?? false;
-        
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool ContainsSpecialRunOfLabels(Bitlist lbs) => this.SpecialRunLabels?.ContainsAny(lbs) ?? false;
+
         public void AddSpecialPassedOfLabels(List<int> lbs) {
             if (lbs == null || lbs.Count == 0) return;
             this.SpecialPassLabels ??= new Bitlist();
@@ -144,16 +144,22 @@ namespace Hsenl {
             this.SpecialInterceptLabels.Add(lbs);
         }
 
+        public void AddSpecialExclusionOfLabels(List<int> lbs) {
+            if (lbs == null || lbs.Count == 0) return;
+            this.SpecialExclusionLabels ??= new Bitlist();
+            this.SpecialExclusionLabels.Add(lbs);
+        }
+
         public void AddSpecialKeepOfLabels(List<int> lbs) {
             if (lbs == null || lbs.Count == 0) return;
             this.SpecialKeepLabels ??= new Bitlist();
             this.SpecialKeepLabels.Add(lbs);
         }
 
-        public void AddSpecialExclusionOfLabels(List<int> lbs) {
+        public void AddSpecialDisableOfLabels(List<int> lbs) {
             if (lbs == null || lbs.Count == 0) return;
-            this.SpecialExclusionLabels ??= new Bitlist();
-            this.SpecialExclusionLabels.Add(lbs);
+            this.SpecialDisableLabels ??= new Bitlist();
+            this.SpecialDisableLabels.Add(lbs);
         }
 
         public void AddSpecialRunOfLabels(List<int> lbs) {
@@ -162,12 +168,6 @@ namespace Hsenl {
             this.SpecialRunLabels.Add(lbs);
         }
 
-        public void AddSpecialDisableOfLabels(List<int> lbs) {
-            if (lbs == null || lbs.Count == 0) return;
-            this.SpecialDisableLabels ??= new Bitlist();
-            this.SpecialDisableLabels.Add(lbs);
-        }
-        
         public void AddSpecialPassedOfLabels<T>(List<T> lbs) where T : Enum {
             if (lbs == null || lbs.Count == 0) return;
             this.SpecialPassLabels ??= new Bitlist();
@@ -180,22 +180,16 @@ namespace Hsenl {
             this.SpecialInterceptLabels.Add(lbs);
         }
 
-        public void AddSpecialKeepOfLabels<T>(List<T> lbs) where T : Enum {
-            if (lbs == null || lbs.Count == 0) return;
-            this.SpecialKeepLabels ??= new Bitlist();
-            this.SpecialKeepLabels.Add(lbs);
-        }
-
         public void AddSpecialExclusionOfLabels<T>(List<T> lbs) where T : Enum {
             if (lbs == null || lbs.Count == 0) return;
             this.SpecialExclusionLabels ??= new Bitlist();
             this.SpecialExclusionLabels.Add(lbs);
         }
 
-        public void AddSpecialRunOfLabels<T>(List<T> lbs) where T : Enum {
+        public void AddSpecialKeepOfLabels<T>(List<T> lbs) where T : Enum {
             if (lbs == null || lbs.Count == 0) return;
-            this.SpecialRunLabels ??= new Bitlist();
-            this.SpecialRunLabels.Add(lbs);
+            this.SpecialKeepLabels ??= new Bitlist();
+            this.SpecialKeepLabels.Add(lbs);
         }
 
         public void AddSpecialDisableOfLabels<T>(List<T> lbs) where T : Enum {
@@ -204,7 +198,13 @@ namespace Hsenl {
             this.SpecialDisableLabels.Add(lbs);
         }
 
-        public void Reset() {
+        public void AddSpecialRunOfLabels<T>(List<T> lbs) where T : Enum {
+            if (lbs == null || lbs.Count == 0) return;
+            this.SpecialRunLabels ??= new Bitlist();
+            this.SpecialRunLabels.Add(lbs);
+        }
+
+        public void ResetState() {
             this.Paused = false;
             this.PausedPrevious = true; // 让行为初次进入时, 也能触发一次OnEnable
             this.ResistPriority = this.ResistPriorityAnchor;

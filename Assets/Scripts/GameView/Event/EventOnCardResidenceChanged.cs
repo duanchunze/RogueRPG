@@ -10,7 +10,7 @@ namespace Hsenl.View {
                     if (store == null) return;
                     store.goldText.text = GameManager.Instance.gold.ToString();
 
-                    var slots = cardStore.GetSubstaintivesInChildren<CardStoreSlot>();
+                    var slots = cardStore.FindScopesInBodied<CardStoreSlot>();
                     var len = slots.Length;
 
                     store.storeHolder.NormalizeChildren(store.storeSlotTemplate, len);
@@ -38,12 +38,12 @@ namespace Hsenl.View {
                 }
 
                 case CardBar cardBar: {
-                    if (cardBar.GetHolder() != GameManager.Instance.MainMan) return;
+                    if (cardBar.Owner != GameManager.Instance.MainMan) return;
 
                     var bar = UICardBar.instance;
                     if (bar == null) return;
 
-                    var headSlots = cardBar.FindSubstaintivesInChildren<CardBarHeadSlot>();
+                    var headSlots = cardBar.FindScopesInBodied<CardBarHeadSlot>();
                     bar.holder.NormalizeChildren(bar.lineTemplate.transform, headSlots.Length);
                     bar.cardsMapToSlots.Clear();
                     bar.abilitiesMapToSlots.Clear();
@@ -58,7 +58,7 @@ namespace Hsenl.View {
                             bar.abilitiesMapToSlots[(Ability)headSlot.StayCard.Source] = line.headSlot;
                         }
 
-                        var assistSlots = headSlot.FindSubstaintivesInChildren<CardBarAssistSlot>();
+                        var assistSlots = headSlot.FindScopesInBodied<CardBarAssistSlot>();
                         line.assistSlotHoder.NormalizeChildren(line.assistSlotTemplate.transform, assistSlots.Length);
                         for (int j = 0; j < assistSlots.Length; j++) {
                             var uiAssistSlot = line.assistSlotHoder.GetChild(j).GetComponent<UICardBarAssistSlot>();
@@ -77,11 +77,11 @@ namespace Hsenl.View {
                 }
 
                 case CardBackpack cardBackpack: {
-                    if (cardBackpack.GetHolder() != GameManager.Instance.MainMan) return;
+                    if (cardBackpack.Owner != GameManager.Instance.MainMan) return;
 
                     var backpack = UICardBackpack.instance;
                     if (backpack == null) return;
-                    var slots = cardBackpack.GetSubstaintivesInChildren<CardBackpackSlot>();
+                    var slots = cardBackpack.FindScopesInBodied<CardBackpackSlot>();
                     var len = slots.Length;
 
                     backpack.holder.NormalizeChildren(backpack.template, len);

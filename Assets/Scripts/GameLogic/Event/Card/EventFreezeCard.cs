@@ -11,7 +11,7 @@ namespace Hsenl {
                 return;
 
             cardStoreSlot.freeze = !cardStoreSlot.freeze;
-            var cardStore = cardStoreSlot.GetParentSubstantiveAs<CardStore>();
+            var cardStore = cardStoreSlot.FindScopeInParent<CardStore>();
             cardStore.OnChanged();
         }
     }

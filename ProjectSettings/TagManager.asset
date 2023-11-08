@@ -11,8 +11,8 @@ TagManager:
   - Obstacles
   - Water
   - UI
-  - Body
-  - BodyTrigger
+  - Receptor
+  - Detection
   - Pickable
   - Picker
   - 

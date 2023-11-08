@@ -1,8 +1,8 @@
-﻿using Hsenl.casterevaluate;
+﻿using Hsenl.behavior;
 
 namespace Hsenl {
     [BehaviorNode]
-    public abstract class CeInfo<T> : ActionNode<CasterEvaluate>, IBehaviorNodeInitializer where T : casterevaluate.CasterEvaluateInfo {
+    public abstract class CeInfo<T> : ActionNode<CasterEvaluate>, IConfigInfoInitializer<behavior.Info> where T : casterevaluate.CasterEvaluateInfo {
         protected T info;
         
         public int infoInstanceId;
@@ -11,19 +11,19 @@ namespace Hsenl {
             if (this.info == null && this.infoInstanceId != 0) {
                 var inf = behavior.Info.GetInfo(this.infoInstanceId);
                 if (inf != null) {
-                    this.Init(inf);
+                    this.InitInfo(inf);
                 }
             }
         }
 
-        public void Init(behavior.Info inf) {
-            var t = (T)inf;
+        public void InitInfo(Info configInfo) {
+            var t = (T)configInfo;
             this.info = t;
             this.infoInstanceId = t.InstanceId;
             
-            this.OnInit(t);
+            this.OnConfigInfoInit(t);
         }
-        
-        protected virtual void OnInit(T arg) { }
+
+        protected virtual void OnConfigInfoInit(T arg) { }
     }
 }

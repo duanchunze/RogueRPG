@@ -9,9 +9,6 @@ namespace Hsenl {
     [Serializable]
     [MemoryPackable()]
     public partial class CePickTarget : CeInfo<PickTargetInfo> {
-        private Substantive _self;
-        private Transform _tran;
-        private Control _control;
         private Selector _selector;
         private List<Numerator> _numerators = new(2);
         private Faction _faction;
@@ -19,28 +16,23 @@ namespace Hsenl {
         private bool _success;
 
         protected override void OnNodeOpen() {
-            switch (this.manager.Substantive) {
+            var owner = this.manager.Owner;
+            switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._self = ability;
-                    this._tran = ability.GetHolder()?.transform;
-                    this._control = ability.GetHolder()?.GetComponent<Control>();
-                    this._selector = ability.GetHolder()?.GetComponent<Selector>();
+                    this._selector = owner?.GetComponent<Selector>();
                     // 技能的数值需要合并自己与持有者的数值组件
                     this._numerators.Clear();
                     var numerator = ability.GetComponent<Numerator>();
                     if (numerator != null) this._numerators.Add(numerator);
-                    numerator = ability.GetHolder()?.GetComponent<Numerator>();
+                    numerator = owner?.GetComponent<Numerator>();
                     if (numerator != null) this._numerators.Add(numerator);
-                    this._faction = ability.GetHolder()?.GetComponent<Faction>();
+                    this._faction = owner?.GetComponent<Faction>();
                     break;
                 }
             }
         }
 
         protected override void OnNodeClose() {
-            this._self = null;
-            this._tran = null;
-            this._control = null;
             this._selector = null;
             this._numerators.Clear();
             this._faction = null;
@@ -49,7 +41,7 @@ namespace Hsenl {
         }
 
         protected override NodeStatus OnNodeTick() {
-            switch (this._self) {
+            switch (this.manager.Bodied) {
                 case Ability ability: {
                     if (this._numerators.Count == 0) goto FAILURE;
 
@@ -57,7 +49,12 @@ namespace Hsenl {
                     var targetCount = GameAlgorithm.MergeCalculateNumeric(this._numerators, NumericType.Ttc);
                     var constrainsTags = this._faction?.GetTagsOfFactionTypes(ability.factionTypes);
                     ability.targets.Clear();
-                    this._selector.SelectShpereAliveNearestTargets(castRange, targetCount, ability.targets, constrainsTags: constrainsTags);
+                    this._selector
+                        .SearcherSphereBody(castRange)
+                        .FilterAlive()
+                        .FilterTags(constrainsTags, null)
+                        .SelectNearests(targetCount)
+                        .Wrap(ability.targets);
                     if (ability.targets.Count == 0) {
                         goto FAILURE; // todo 后续继续规范
                     }

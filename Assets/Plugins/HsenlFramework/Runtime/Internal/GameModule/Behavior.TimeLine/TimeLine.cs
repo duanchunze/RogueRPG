@@ -32,7 +32,7 @@ namespace Hsenl {
             }
         }
 
-        public override void Reset() {
+        protected override void OnReset() {
             this.Time = 0;
             this.LoopCount = 0;
             this.entryNode.ResetNode();

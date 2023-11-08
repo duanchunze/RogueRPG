@@ -19,10 +19,7 @@ namespace Hsenl {
         protected INode currentNode;
 
         [MemoryPackIgnore]
-        public IBlackboard Blackboard {
-            get => this.blackboard;
-            set => this.blackboard = value;
-        }
+        public virtual IBlackboard Blackboard => this.blackboard ??= new Blackboard();
 
         [MemoryPackIgnore]
         public T EntryNode => this.entryNode;
@@ -45,7 +42,7 @@ namespace Hsenl {
             this.entryNode = node;
             if (node == null)
                 return;
-            
+
             this.entryNode.StartNode(this);
             if (this.RealEnable) {
                 // 刚设置的时候, 如果tree已经enable过了, 则需要补一次
@@ -82,7 +79,7 @@ namespace Hsenl {
             return status;
         }
 
-        public virtual void Reset() {
+        protected override void OnReset() {
             this.entryNode?.ResetNode();
         }
 
@@ -94,10 +91,6 @@ namespace Hsenl {
     [Serializable]
     [MemoryPackable()]
     public partial class BehaviorTree : BehaviorTree<INode>, IBehaviorTree<BehaviorTree>, IUpdate {
-        protected override void OnAwake() {
-            this.Blackboard = new Blackboard();
-        }
-
         public void Update() {
             this.DeltaTime = TimeInfo.DeltaTime;
             this.Tick();

@@ -32,6 +32,7 @@ namespace Hsenl {
             return results;
         }
 
+        // 归并排序
         public static void MergeSort<T>(IList<T> array, Comparer<T> comparer = null) {
             comparer ??= Comparer<T>.Default;
 

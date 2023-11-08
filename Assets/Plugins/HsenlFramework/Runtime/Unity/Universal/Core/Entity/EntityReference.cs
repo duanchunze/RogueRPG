@@ -21,9 +21,9 @@ namespace Hsenl {
         // mono 和 framework的销毁是双向的, 无论谁在销毁时都会把对方也销毁
         private void OnDestroy() {
             var entity = this.Entity;
-            if (entity == null) 
+            if (entity == null)
                 return;
-            
+
             this._entity = null;
             ((IGameObjectReference)entity).SetUnityReference(null);
             Object.Destroy(entity);
@@ -37,6 +37,7 @@ namespace Hsenl {
         }
     }
 
+#if UNITY_EDITOR
     [CustomEditor(typeof(EntityReference))]
     public class EntityReferenceEditor : OdinEditor {
         private EntityReference _t;
@@ -59,4 +60,5 @@ namespace Hsenl {
             }
         }
     }
+#endif
 }

@@ -47,7 +47,7 @@ namespace Hsenl {
             private bool IsManaged => this.Manager != null;
 
             public static Routine Create(int key, IEnumerator enumerator, Manager manager, Routine custodian) {
-                var routine = ObjectPool.Fetch<Routine>();
+                var routine = ObjectPool.Rent<Routine>();
                 routine.Key = key;
                 routine.Core = enumerator;
                 routine.Custodian = custodian;
@@ -61,7 +61,7 @@ namespace Hsenl {
             }
 
             public static void Recycle(Routine routine) {
-                ObjectPool.Recycle(routine);
+                ObjectPool.Return(routine);
             }
 
             public Status MoveNext() {

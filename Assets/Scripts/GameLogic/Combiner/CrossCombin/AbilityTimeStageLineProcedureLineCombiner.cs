@@ -1,12 +1,12 @@
 ﻿using System;
 
 namespace Hsenl.CrossCombiner {
-    [Combiner(2)]
+    [CombinerOptions(crossSplitPosition = 2)]
     public class AbilityTimeStageLineProcedureLineCombiner : CrossCombiner<Ability, StageLine, ProcedureLine> {
         protected override void OnCombin(Ability arg1, StageLine arg2, ProcedureLine arg3) {
             arg2.onStageChanged += this.EnqueueAction<Action<int, int>>((prev, curr) => {
                 var form = new PliAbilityCastChangedForm() {
-                    caster = arg3.Substantive,
+                    caster = arg3.Bodied,
                     ability = arg1,
                     currStage = curr,
                     stageLine = arg2,

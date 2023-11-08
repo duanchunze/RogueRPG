@@ -2,8 +2,8 @@
     public struct PliStatusChangesForm {
         public int changeType; // 0: infliction, 1: termination
 
-        public Substantive inflictor; // 施加者
-        public Substantive target; // 被施加目标
+        public Bodied inflictor; // 施加者
+        public Bodied target; // 被施加目标
         public string statusAlias; // 状态名
         public float duration; // 持续时间
 

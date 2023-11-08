@@ -21,6 +21,20 @@ namespace Hsenl {
             return default;
         }
 
+        public T GetOrCreateData<T>(string name) where T : new() {
+            if (!this._data.TryGetValue(name, out var o)) {
+                var newT = new T();
+                o = newT;
+                this._data[name] = o;
+                return newT;
+            }
+
+            if (o is T t)
+                return t;
+
+            return default;
+        }
+
         public bool TryGetData<T>(string name, out T result) {
             if (this._data.TryGetValue(name, out var o)) {
                 result = (T)o;

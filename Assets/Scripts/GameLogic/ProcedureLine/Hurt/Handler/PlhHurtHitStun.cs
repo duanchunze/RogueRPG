@@ -6,7 +6,7 @@
             var stunDiff = item.astun - item.hstun;
             if (stunDiff > 0) {
                 var duration = GameFormula.HitStun2StatusDuration(stunDiff);
-                var status = Shortcut.InflictionStatus(item.harmable.Substantive, item.hurtable.Substantive, StatusAlias.HitStun, duration);
+                var status = Shortcut.InflictionStatus(item.harmable.Bodied, item.hurtable.Bodied, StatusAlias.HitStun, duration);
                 item.frameSlower = !status.IsEnter;
             }
 

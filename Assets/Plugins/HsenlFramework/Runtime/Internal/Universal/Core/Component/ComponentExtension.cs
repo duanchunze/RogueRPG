@@ -40,8 +40,8 @@ namespace Hsenl {
             self.entity.SwapChild(idx1, idx2);
         }
 
-        public static bool HasComponent<T>(this Component self) where T : class {
-            return self.entity.HasComponent<T>();
+        public static bool HasComponent<T>(this Component self, bool declaredOnly = false) where T : class {
+            return self.entity.HasComponent<T>(declaredOnly);
         }
 
         public static bool HasComponentsAny(this Component self, ComponentTypeCacher typeCacher) {
@@ -64,8 +64,8 @@ namespace Hsenl {
             return self.entity.AddComponent(type);
         }
 
-        public static T GetComponent<T>(this Component self) where T : class {
-            return self.entity.GetComponent<T>();
+        public static T GetComponent<T>(this Component self, bool declaredOnly = false) where T : class {
+            return self.entity.GetComponent<T>(declaredOnly);
         }
 
         public static Component GetComponent(this Component self, int componentIndex) {
@@ -76,12 +76,12 @@ namespace Hsenl {
             return self.entity.GetComponent<T>(componentIndex);
         }
 
-        public static T[] GetComponents<T>(this Component self) where T : class {
-            return self.entity.GetComponents<T>();
+        public static T[] GetComponents<T>(this Component self, bool declaredOnly = false) where T : class {
+            return self.entity.GetComponents<T>(declaredOnly);
         }
 
-        public static void GetComponents<T>(this Component self, List<T> results) where T : class {
-            self.entity.GetComponents(results);
+        public static void GetComponents<T>(this Component self, List<T> results, bool declaredOnly = false) where T : class {
+            self.entity.GetComponents(results, declaredOnly);
         }
 
         public static Component[] GetComponentsOfTypeCacher(this Component self, ComponentTypeCacher typeCacher) {
@@ -92,12 +92,12 @@ namespace Hsenl {
             self.entity.GetComponentsOfTypeCacher(typeCacher, results);
         }
 
-        public static T GetComponentInParent<T>(this Component self, bool includeInactive = false) where T : class {
-            return self.entity.GetComponentInParent<T>(includeInactive);
+        public static T GetComponentInParent<T>(this Component self, bool includeInactive = false, bool declaredOnly = false) where T : class {
+            return self.entity.GetComponentInParent<T>(includeInactive, declaredOnly);
         }
 
-        public static T[] GetComponentsInParent<T>(this Component self, bool includeInactive = false) where T : class {
-            return self.entity.GetComponentsInParent<T>(includeInactive);
+        public static T[] GetComponentsInParent<T>(this Component self, bool includeInactive = false, bool declaredOnly = false) where T : class {
+            return self.entity.GetComponentsInParent<T>(includeInactive, declaredOnly);
         }
 
         public static Component[] GetComponentsInParentOfTypeCacher(this Component self, ComponentTypeCacher typeCacher, bool includeInactive = false) {
@@ -109,20 +109,20 @@ namespace Hsenl {
             self.entity.GetComponentsInParentOfTypeCacher(typeCacher, results, includeInactive);
         }
 
-        public static void GetComponentsInParent<T>(this Component self, List<T> results, bool includeInactive = false) where T : class {
-            self.entity.GetComponentsInParent(results, includeInactive);
+        public static void GetComponentsInParent<T>(this Component self, List<T> results, bool includeInactive = false, bool declaredOnly = false) where T : class {
+            self.entity.GetComponentsInParent(results, includeInactive, declaredOnly);
         }
 
-        public static T GetComponentInChildren<T>(this Component self, bool includeInactive = false) where T : class {
-            return self.entity.GetComponentInChildren<T>(includeInactive);
+        public static T GetComponentInChildren<T>(this Component self, bool includeInactive = false, bool declaredOnly = false) where T : class {
+            return self.entity.GetComponentInChildren<T>(includeInactive, declaredOnly);
         }
 
-        public static T[] GetComponentsInChildren<T>(this Component self, bool includeInactive = false) where T : class {
-            return self.entity.GetComponentsInChildren<T>(includeInactive);
+        public static T[] GetComponentsInChildren<T>(this Component self, bool includeInactive = false, bool declaredOnly = false) where T : class {
+            return self.entity.GetComponentsInChildren<T>(includeInactive, declaredOnly);
         }
 
-        public static void GetComponentsInChildren<T>(this Component self, List<T> results, bool includeInactive = false) where T : class {
-            self.entity.GetComponentsInChildren(results, includeInactive);
+        public static void GetComponentsInChildren<T>(this Component self, List<T> results, bool includeInactive = false, bool declaredOnly = false) where T : class {
+            self.entity.GetComponentsInChildren(results, includeInactive, declaredOnly);
         }
 
         public static Component[] GetComponentsInChildrenOfTypeCacher(this Component self, ComponentTypeCacher typeCacher, bool includeInactive = false) {
@@ -134,15 +134,15 @@ namespace Hsenl {
             self.entity.GetComponentsInChildrenOfTypeCacher(typeCacher, results, includeInactive);
         }
 
-        public static T GetOrAddComponent<T>(this Component self) where T : Component {
-            var c = self.entity.GetComponent<T>();
+        public static T GetOrAddComponent<T>(this Component self, bool declaredOnly = false) where T : Component {
+            var c = self.entity.GetComponent<T>(declaredOnly);
             c ??= self.entity.AddComponent<T>();
 
             return c;
         }
         
-        public static T GetOrAddComponent<T>(this Entity self) where T : Component {
-            var c = self.GetComponent<T>();
+        public static T GetOrAddComponent<T>(this Entity self, bool declaredOnly = false) where T : Component {
+            var c = self.GetComponent<T>(declaredOnly);
             c ??= self.AddComponent<T>();
 
             return c;

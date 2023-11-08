@@ -17,7 +17,7 @@ namespace Hsenl {
                 // }
 
                 case Ability ability: {
-                    var holder = arg.cardBar.GetHolder().FindSubstaintiveInChildren<AbilityBar>();
+                    var abilityBar = arg.cardBar.Owner.FindScopeInBodied<AbilityBar>();
                     var trigger = ability.GetComponent<ControlTrigger>();
                     if (trigger != null) {
                         // 如果技能本身的控制码==0, 那就用槽的控制码作为他的控制码
@@ -26,7 +26,7 @@ namespace Hsenl {
                         }
                     }
 
-                    holder.EquipAbility(ability);
+                    abilityBar.EquipAbility(ability);
                     break;
                 }
             }

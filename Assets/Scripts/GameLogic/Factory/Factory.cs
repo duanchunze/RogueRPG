@@ -7,7 +7,7 @@ namespace Hsenl {
         private Entity _rootEntity;
 
         public static Factory Create(Entity root) {
-            var factory = ObjectPool.Fetch<Factory>();
+            var factory = ObjectPool.Rent<Factory>();
             factory._rootEntity = root;
             return factory;
         }
@@ -26,7 +26,7 @@ namespace Hsenl {
 
         public void Dispose() {
             this._builders.Clear();
-            ObjectPool.Recycle(this);
+            ObjectPool.Return(this);
         }
     }
 }

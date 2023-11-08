@@ -23,37 +23,37 @@ public sealed partial class StateInfo :  priority.Info
         { var __json0 = _json["aisles"]; if(!__json0.IsArray) { throw new SerializationException(); } Aisles = new System.Collections.Generic.List<int>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { int __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = __e0; }  Aisles.Add(__v0); }   }
         { if(!_json["enter_pri"].IsNumber) { throw new SerializationException(); }  EnterPri = _json["enter_pri"]; }
         { if(!_json["resist_pri"].IsNumber) { throw new SerializationException(); }  ResistPri = _json["resist_pri"]; }
-        { if(!_json["keep_pri"].IsNumber) { throw new SerializationException(); }  KeepPri = _json["keep_pri"]; }
         { if(!_json["exclu_pri"].IsNumber) { throw new SerializationException(); }  ExcluPri = _json["exclu_pri"]; }
-        { if(!_json["run_pri"].IsNumber) { throw new SerializationException(); }  RunPri = _json["run_pri"]; }
+        { if(!_json["keep_pri"].IsNumber) { throw new SerializationException(); }  KeepPri = _json["keep_pri"]; }
         { if(!_json["dis_pri"].IsNumber) { throw new SerializationException(); }  DisPri = _json["dis_pri"]; }
+        { if(!_json["run_pri"].IsNumber) { throw new SerializationException(); }  RunPri = _json["run_pri"]; }
         { var __json0 = _json["sp_pass"]; if(!__json0.IsArray) { throw new SerializationException(); } SpPass = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  SpPass.Add(__v0); }   }
         { var __json0 = _json["sp_inter"]; if(!__json0.IsArray) { throw new SerializationException(); } SpInter = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  SpInter.Add(__v0); }   }
-        { var __json0 = _json["sp_keep"]; if(!__json0.IsArray) { throw new SerializationException(); } SpKeep = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  SpKeep.Add(__v0); }   }
         { var __json0 = _json["sp_exclu"]; if(!__json0.IsArray) { throw new SerializationException(); } SpExclu = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  SpExclu.Add(__v0); }   }
-        { var __json0 = _json["sp_run"]; if(!__json0.IsArray) { throw new SerializationException(); } SpRun = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  SpRun.Add(__v0); }   }
+        { var __json0 = _json["sp_keep"]; if(!__json0.IsArray) { throw new SerializationException(); } SpKeep = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  SpKeep.Add(__v0); }   }
         { var __json0 = _json["sp_dis"]; if(!__json0.IsArray) { throw new SerializationException(); } SpDis = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  SpDis.Add(__v0); }   }
+        { var __json0 = _json["sp_run"]; if(!__json0.IsArray) { throw new SerializationException(); } SpRun = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  SpRun.Add(__v0); }   }
         { if(!_json["allow_reenter"].IsBoolean) { throw new SerializationException(); }  AllowReenter = _json["allow_reenter"]; }
         PostInit();
     }
 
-    public StateInfo(float time_scale, float duration, System.Collections.Generic.List<int> aisles, int enter_pri, int resist_pri, int keep_pri, int exclu_pri, int run_pri, int dis_pri, System.Collections.Generic.List<TagType> sp_pass, System.Collections.Generic.List<TagType> sp_inter, System.Collections.Generic.List<TagType> sp_keep, System.Collections.Generic.List<TagType> sp_exclu, System.Collections.Generic.List<TagType> sp_run, System.Collections.Generic.List<TagType> sp_dis, bool allow_reenter )  : base() 
+    public StateInfo(float time_scale, float duration, System.Collections.Generic.List<int> aisles, int enter_pri, int resist_pri, int exclu_pri, int keep_pri, int dis_pri, int run_pri, System.Collections.Generic.List<TagType> sp_pass, System.Collections.Generic.List<TagType> sp_inter, System.Collections.Generic.List<TagType> sp_exclu, System.Collections.Generic.List<TagType> sp_keep, System.Collections.Generic.List<TagType> sp_dis, System.Collections.Generic.List<TagType> sp_run, bool allow_reenter )  : base() 
     {
         this.TimeScale = time_scale;
         this.Duration = duration;
         this.Aisles = aisles;
         this.EnterPri = enter_pri;
         this.ResistPri = resist_pri;
-        this.KeepPri = keep_pri;
         this.ExcluPri = exclu_pri;
-        this.RunPri = run_pri;
+        this.KeepPri = keep_pri;
         this.DisPri = dis_pri;
+        this.RunPri = run_pri;
         this.SpPass = sp_pass;
         this.SpInter = sp_inter;
-        this.SpKeep = sp_keep;
         this.SpExclu = sp_exclu;
-        this.SpRun = sp_run;
+        this.SpKeep = sp_keep;
         this.SpDis = sp_dis;
+        this.SpRun = sp_run;
         this.AllowReenter = allow_reenter;
         PostInit();
     }
@@ -68,16 +68,16 @@ public sealed partial class StateInfo :  priority.Info
     public System.Collections.Generic.List<int> Aisles { get; private set; }
     public int EnterPri { get; private set; }
     public int ResistPri { get; private set; }
-    public int KeepPri { get; private set; }
     public int ExcluPri { get; private set; }
-    public int RunPri { get; private set; }
+    public int KeepPri { get; private set; }
     public int DisPri { get; private set; }
+    public int RunPri { get; private set; }
     public System.Collections.Generic.List<TagType> SpPass { get; private set; }
     public System.Collections.Generic.List<TagType> SpInter { get; private set; }
-    public System.Collections.Generic.List<TagType> SpKeep { get; private set; }
     public System.Collections.Generic.List<TagType> SpExclu { get; private set; }
-    public System.Collections.Generic.List<TagType> SpRun { get; private set; }
+    public System.Collections.Generic.List<TagType> SpKeep { get; private set; }
     public System.Collections.Generic.List<TagType> SpDis { get; private set; }
+    public System.Collections.Generic.List<TagType> SpRun { get; private set; }
     public bool AllowReenter { get; private set; }
 
     public const int __ID__ = -1949098763;
@@ -102,16 +102,16 @@ public sealed partial class StateInfo :  priority.Info
         + "Aisles:" + Bright.Common.StringUtil.CollectionToString(Aisles) + ","
         + "EnterPri:" + EnterPri + ","
         + "ResistPri:" + ResistPri + ","
-        + "KeepPri:" + KeepPri + ","
         + "ExcluPri:" + ExcluPri + ","
-        + "RunPri:" + RunPri + ","
+        + "KeepPri:" + KeepPri + ","
         + "DisPri:" + DisPri + ","
+        + "RunPri:" + RunPri + ","
         + "SpPass:" + Bright.Common.StringUtil.CollectionToString(SpPass) + ","
         + "SpInter:" + Bright.Common.StringUtil.CollectionToString(SpInter) + ","
-        + "SpKeep:" + Bright.Common.StringUtil.CollectionToString(SpKeep) + ","
         + "SpExclu:" + Bright.Common.StringUtil.CollectionToString(SpExclu) + ","
-        + "SpRun:" + Bright.Common.StringUtil.CollectionToString(SpRun) + ","
+        + "SpKeep:" + Bright.Common.StringUtil.CollectionToString(SpKeep) + ","
         + "SpDis:" + Bright.Common.StringUtil.CollectionToString(SpDis) + ","
+        + "SpRun:" + Bright.Common.StringUtil.CollectionToString(SpRun) + ","
         + "AllowReenter:" + AllowReenter + ","
         + "}";
     }

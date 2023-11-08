@@ -63,7 +63,7 @@ namespace Hsenl {
     public class SortedAwakeEditor : Editor {
         private SortedAwake _sortedAwake;
         private string _assetPath;
-        private int _orderSet = -1;
+        // private int _orderSet = -1;
         private readonly List<string> _errorScriptNames = new();
     
         private void OnEnable() {

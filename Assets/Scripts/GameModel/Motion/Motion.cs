@@ -1,6 +1,4 @@
 ﻿using System;
-using Sirenix.OdinInspector;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Hsenl {

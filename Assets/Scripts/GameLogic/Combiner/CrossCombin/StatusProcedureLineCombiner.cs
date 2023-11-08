@@ -7,7 +7,7 @@ namespace Hsenl.MultiCombiner {
                 var form = new PliStatusChangesForm() {
                     changeType = 0,
                     inflictor = arg1.inflictor,
-                    target = arg1.GetHolder(),
+                    target = arg1.Owner,
                     statusAlias = arg1.Name,
                     duration = arg1.GetComponent<TimeLine>().TillTime,
                 };
@@ -18,7 +18,7 @@ namespace Hsenl.MultiCombiner {
                 var form = new PliStatusChangesForm() {
                     changeType = 1,
                     inflictor = arg1.inflictor,
-                    target = arg1.GetHolder(),
+                    target = arg1.Owner,
                     statusAlias = arg1.Name,
                     finishDetails = details,
                 };

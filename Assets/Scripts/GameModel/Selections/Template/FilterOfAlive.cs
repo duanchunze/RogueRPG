@@ -2,23 +2,18 @@
 
 namespace Hsenl {
     public class FilterOfAlive : ASelectionsFilter {
-        public override ASelectionsFilter Filter(IReadOnlyList<SelectionTarget> ins) {
-            if (!this.IsObsolete) {
-                return this;
-            }
-
+        public override ASelectionsFilter Filter(IReadOnlyList<SelectionTarget> sts) {
             this.filtered.Clear();
 
-            for (int i = 0, len = ins.Count; i < len; i++) {
-                var target = ins[i];
+            for (int i = 0, len = sts.Count; i < len; i++) {
+                var target = sts[i];
 
                 // 如果死亡, 则跳过
-                if (Shortcut.IsDead(target.Substantive)) continue;
+                if (Shortcut.IsDead(target.Bodied)) continue;
 
                 this.filtered.Add(target);
             }
 
-            this.RecalculateObsoleteFrame();
             return this;
         }
     }

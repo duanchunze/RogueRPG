@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3654092744
+CRC: 3924581152
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 66a9ba99f031b787d32784aa9f3908a5
+    Hash: 9f3135828c13569c9621c25877287f7d
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 9e013ff9e22e7d2e741e21769d12053e
+    Hash: f69d0e23a17410ec6a467704eca26aa6
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -22,21 +22,35 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: bac469de2d7b4a648493f5ec8ce48250, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 69374e59f139444bb4b85f7057454861, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 89fecacf7b564f77bc38de11a8f990b9, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: d8a0ed8ae5424a72ae7f34778901a617, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 10b6548b25ba439dae43db341fdf138b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 90cc1a9836f04a97bae365a7ad380700, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2d1848f6a49f41e88dc256d62314513f, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: fd58c4946f1642f1ba7dc8c1fd64a1b4, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 4899f7903c374a01a6a4b7e0c13b91e0, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 73311fee1a3a4dafb0f3780f78e73291, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
 - Class: 114
@@ -46,15 +60,15 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: af683b197c7344e892a7c96d26cac71d, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: a9211b8974664afa92dcce4c1fd87149, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 91c002488ab741ab9400dca6e78c2420, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: ba17579e96374151ae1e5941058cc879, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 928984ce4f9d4bf494f64b8fecb68aef, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 114
@@ -63,6 +77,8 @@ ClassTypes:
   Script: {fileID: 11500000, guid: baf9440bd4c547fb8041c4c19b3ecb26, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 15a7a47a019846c0aacaa337295b9161, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -125,14 +141,21 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.Navigation
 - AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.ScrollRect/ScrollRectEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Scrollbar/ScrollEvent
+- AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.Slider/SliderEvent
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.SpriteState
 Assets:
+- Assets/Bundles/UI/UISceneLoading.prefab
 - Assets/Bundles/UI/UISelectHero.prefab
-- Assets/Bundles/UI/UIHeadFollow.prefab
+- Assets/Bundles/UI/UIHeadFollow_Hero.prefab
+- Assets/Bundles/UI/UIHeadFollow_Monster.prefab
 - Assets/Bundles/UI/UIFollowMessage.prefab
 - Assets/Bundles/UI/UICardBackpack.prefab
+- Assets/Bundles/UI/UIShopping.prefab
 - Assets/Bundles/UI/UICardBar.prefab
 - Assets/Bundles/UI/UIJumpMessage.prefab
 - Assets/Bundles/UI/UIMainInterface.prefab

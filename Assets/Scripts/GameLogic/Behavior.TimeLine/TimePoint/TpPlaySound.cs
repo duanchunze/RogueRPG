@@ -7,9 +7,9 @@ namespace Hsenl {
     [MemoryPackable()]
     public partial class TpPlaySound : TpInfo<timeline.PlaySoundInfo> {
         protected override void OnTimePointTrigger() {
-            switch (this.manager.Substantive) {
+            switch (this.manager.Bodied) {
                 case Ability ability: {
-                    var sound = ability.ParentSubstantive.GetComponent<Sound>();
+                    var sound = ability.Owner.GetComponent<Sound>();
                     sound.Play(this.info.ClipName);
                     break;
                 }

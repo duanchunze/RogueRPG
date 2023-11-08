@@ -16,7 +16,7 @@ namespace Hsenl {
         
         partial void PartialOnEnableSelfChanged(bool enab) {
             if (this.Entity.GameObject == null) return;
-            if (!Framework.Instance.displayMono) return;
+            if (!Framework.Instance.DisplayMono) return;
             this.MonoBehaviour.enabled = enab;
         }
     }

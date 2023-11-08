@@ -8,6 +8,7 @@
 
 using UnityEngine;
 using Hsenl.View;
+using Sirenix.OdinInspector;
 
 #if UNITY_EDITOR
 using Sirenix.OdinInspector.Editor;
@@ -16,22 +17,23 @@ using UnityEditor;
 
 namespace Hsenl.Mono {
     public class CardBackpackComponent : MonoBehaviour, IHsenlComponentReference<CardBackpack> {
+        [ReadOnly]
+        public int hsenlComponentInstanceId;
+    
         [SerializeField]
         private CardBackpack _hsenlComponent;
     
         public CardBackpack HsenlComponent => this._hsenlComponent;
         
         private void Awake() {
-            if (this._hsenlComponent != null) {
-                // 如果hsenlComponent为空, 且没有Entity, 说明该组件是由mono反序列化出来的, 需要及时添加
-                if (this._hsenlComponent != null && this._hsenlComponent.IsInvalid()) {
-                    var entity = this.GetComponent<EntityReference>()?.Entity;
-                    if (entity == null) {
-                        entity = Entity.Create(this.gameObject);
-                    }
-                    
-                    entity.AddComponent(this._hsenlComponent);
+            // 如果是从资源加载go对象的话, hsenlComponentInstanceId一定等于0, 而如果是Object.InstantiateWithUnity创建的话, hsenlComponentInstanceId则一定不为0
+            if (this.hsenlComponentInstanceId == 0 && this._hsenlComponent != null) {
+                var entity = this.GetComponent<EntityReference>()?.Entity;
+                if (entity == null) {
+                    entity = Entity.Create(this.gameObject);
                 }
+                    
+                entity.AddComponent(this._hsenlComponent);
             }
         }
         
@@ -39,6 +41,7 @@ namespace Hsenl.Mono {
         
         void IHsenlComponentReference.SetFrameworkReference(Component reference) {
             this._hsenlComponent = (CardBackpack)reference;
+            this.hsenlComponentInstanceId = this._hsenlComponent.InstanceId;
         }
     }
     

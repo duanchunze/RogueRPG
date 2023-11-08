@@ -22,6 +22,7 @@ namespace Hsenl {
                         entity.InitializeBySerialization();
                     }
 
+                    _caches.Clear();
                     return t;
                 }
                 

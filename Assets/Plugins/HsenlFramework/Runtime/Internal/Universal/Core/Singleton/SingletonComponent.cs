@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Hsenl {
     public class SingletonComponent<T> : Component, ISingleton where T : SingletonComponent<T>, new() {
@@ -22,8 +23,6 @@ namespace Hsenl {
             t.Dispose();
         }
 
-        protected virtual void Dispose() { }
-
         internal override void OnAwakeInternal() {
             if (!SingletonManager.IsDisposed<T>()) {
                 SingletonManager.Unregister<T>();
@@ -31,5 +30,7 @@ namespace Hsenl {
 
             SingletonManager.Register((T)this);
         }
+
+        protected virtual void Dispose() { }
     }
 }

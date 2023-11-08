@@ -5,37 +5,36 @@ namespace Hsenl {
     // 挂载该组件可以捡起拾取物
     [Serializable]
     public class Picker : Unbodied {
+        private SphereCollider _collider;
+
         public float Radius {
-            get => this._sphereCollider.Radius;
-            set => this._sphereCollider.Radius = value;
+            get => this._collider.Radius;
+            set => this._collider.Radius = value;
         }
 
         public float3 Center {
-            get => this._sphereCollider.Center;
-            set => this._sphereCollider.Center = value;
+            get => this._collider.Center;
+            set => this._collider.Center = value;
         }
-
-        private SphereCollider _sphereCollider;
 
         public Action<Pickable> onPickUp;
 
         protected override void OnAwake() {
-            if (this._sphereCollider != null) {
-                Object.Destroy(this._sphereCollider.Entity);
+            if (this._collider != null) {
+                Object.Destroy(this._collider.Entity);
             }
 
-            this._sphereCollider = ColliderFactory.CreateCollider<SphereCollider>("Piaker Collider", GameColliderPurpose.Picker);
-            this._sphereCollider.SetParent(this.Entity);
+            this._collider = ColliderManager.Instance.Rent<SphereCollider>("Picker Collider");
+            this._collider.IsTrigger = true;
+            this._collider.SetUsage(GameColliderPurpose.Picker);
+            this._collider.SetParent(this.Entity);
+            var listener = CollisionEventListener.Get(this._collider.Entity);
 
-            this._sphereCollider.AddTriggerEnterListening(this.OnTrigger);
-        }
-
-        protected override void OnDestroy() {
-            this._sphereCollider?.RemoveTriggerEnterListening(this.OnTrigger);
+            listener.onTriggerEnter = this.OnTrigger;
         }
 
         private void OnTrigger(Collider collider) {
-            var pickable = collider.Substantive.GetComponent<Pickable>();
+            var pickable = collider.Bodied.GetComponent<Pickable>();
             if (pickable == null) return;
 
             this.OnPickUp(pickable);

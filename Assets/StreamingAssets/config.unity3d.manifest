@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 10445498
+CRC: 3487180629
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 43bc8c3b081b28bb2f0698e49e1ec3b1
+    Hash: b7cd30e20c0053b72d0a820f3c636330
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -14,12 +14,18 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Bundles/Config/AssetsManifest.bytes
+- Assets/Bundles/Config/LubanConfig/faction_tbfactionconfig.json
 - Assets/Bundles/Config/LubanConfig/card_tbcardsynthesisconfig.json
+- Assets/Bundles/Config/LubanConfig/card_tbcardsingletonconfig.json
+- Assets/Bundles/Config/LubanConfig/numeric_tbnumericactorconfig.json
 - Assets/Bundles/Config/LubanConfig/actor_tbactorconfig.json
-- Assets/Bundles/Config/LubanConfig/actor_tbactorstatusconfig.json
+- Assets/Bundles/Config/LubanConfig/adventure_tbadventureconfig.json
 - Assets/Bundles/Config/LubanConfig/pickable_tbpickableconfig.json
-- Assets/Bundles/Config/LubanConfig/actor_tbactorabilityconfig.json
-- Assets/Bundles/Config/LubanConfig/chapter_tbchapterconfig.json
+- Assets/Bundles/Config/LubanConfig/ability_tbabilityconfig.json
+- Assets/Bundles/Config/LubanConfig/ability_assist_tbabilityassistconfig.json
+- Assets/Bundles/Config/LubanConfig/status_tbstatusconfig.json
+- Assets/Bundles/Config/LubanConfig/ai_tbaiconfig.json
 - Assets/Bundles/Config/LubanConfig/card_tbcardconfig.json
-- Assets/Bundles/Config/LubanConfig/actor_tbactornumericconfig.json
+- Assets/Bundles/Config/LubanConfig/checkpoint_tbcheckpointconfig.json
+- Assets/Bundles/Config/LubanConfig/game_tbgamesingletonconfig.json
 Dependencies: []

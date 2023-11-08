@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1322390863
+CRC: 3563881612
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2534fea3979da6bd63ad208c5ee6d64c
+    Hash: d5e78bde6472394edeefde7e14d7c9b5
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 0745142b9e9ef2c3c1d98a69b2d25921
+    Hash: 2d32290e67067481e95786723f9c8485
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -23,9 +23,7 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
-- Class: 64
-  Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Bundles/Pickable/pickable1.prefab
+- Assets/Bundles/Pickable/pik_coin.prefab
 Dependencies: []

@@ -9,13 +9,14 @@ namespace Hsenl {
         private Motion _motion;
 
         protected override void OnNodeOpen() {
-            switch (this.manager.Substantive) {
+            var owner = this.manager.Owner;
+            switch (this.manager.Bodied) {
                 case Ability ability:
-                    this._motion = ability.GetHolder()?.GetComponent<Motion>();
+                    this._motion = owner?.GetComponent<Motion>();
                     break;
 
                 case Status status:
-                    this._motion = status.GetHolder()?.GetComponent<Motion>();
+                    this._motion = owner?.GetComponent<Motion>();
                     break;
             }
         }

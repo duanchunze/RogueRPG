@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 517797450
+CRC: 751239950
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 56cfa495d181d4a591d1aec85eefc0f6
+    Hash: 66de4eb7002bed750165490006a292bc
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9a2ca7bdbd1871f7131daf57de908e0c
@@ -13,7 +13,7 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Bundles/Audio/attack4.wav
-- Assets/Bundles/Audio/attack1.mp3
-- Assets/Bundles/Audio/attack2.mp3
+- Assets/Bundles/Audio/ad_attack4.wav
+- Assets/Bundles/Audio/ad_attack1.mp3
+- Assets/Bundles/Audio/ad_attack2.mp3
 Dependencies: []

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 790415116
+CRC: 3648359047
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: fffacdadbea3db04db2efdfac19b57c4
+    Hash: 9d648068e25c6c94e419f7c49dfdfd1b
   TypeTreeHash:
     serializedVersion: 2
     Hash: 6c703dda9dc4f8c31473b0febe213398
@@ -31,6 +31,10 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Bundles/Collider/collider1.prefab
-- Assets/Bundles/Collider/pickable1.prefab
+- Assets/Bundles/Collider/col_abi_gw_hengkan.prefab
+- Assets/Bundles/Collider/col_abi_gw_pikan.prefab
+- Assets/Bundles/Collider/col_abi_tuludaofa.prefab
+- Assets/Bundles/Collider/col_abi_liehuodaofa.prefab
+- Assets/Bundles/Collider/col_pik_coin.prefab
+- Assets/Bundles/Collider/col_abi_pikan.prefab
 Dependencies: []

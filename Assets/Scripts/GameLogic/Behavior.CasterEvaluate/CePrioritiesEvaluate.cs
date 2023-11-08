@@ -1,25 +1,22 @@
 ﻿using MemoryPack;
+using UnityEngine;
 
 namespace Hsenl {
     [MemoryPackable()]
     public partial class CePrioritiesEvaluate : CeInfo<casterevaluate.PrioritiesEvaluateInfo> {
-        private PriorityState _selfPriorityState;
+        private PriorityState _priorityState;
 
         protected override void OnNodeOpen() {
-            switch (this.manager.Substantive) {
-                case Ability ability: {
-                    this._selfPriorityState = ability.GetComponent<PriorityState>();
-                    break;
-                }
-            }
+            this._priorityState = this.manager.Bodied.GetComponent<PriorityState>();
         }
 
         protected override NodeStatus OnNodeTick() {
-            if (this._selfPriorityState == null) {
+            if (this._priorityState == null) {
                 return NodeStatus.Success;
             }
 
-            var ret = this._selfPriorityState.EvaluateState(true);
+            var detail = new PriorityStateEnterFailDetails();
+            var ret = this._priorityState.EvaluateState(true, detail);
             if (!ret) {
                 this.manager.status = CastEvaluateStatus.PriorityStateEnterFailure;
             }

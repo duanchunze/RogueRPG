@@ -86,7 +86,7 @@ namespace Hsenl {
 
             var aliases = RandomHelper.RandomArrayOfWeight(checkpointAliases, weights, 1);
             var checkpointConfig = Tables.Instance.TbCheckpointConfig.GetByAlias(aliases[0]);
-            Procedure.ChangeState<ProcedureChangeScene, (string, UnityEngine.SceneManagement.LoadSceneMode)>((checkpointConfig.Alias,
+            Procedure.ChangeState<ProcedureChangeScene, (string, UnityEngine.SceneManagement.LoadSceneMode)>((checkpointConfig.SceneName,
                 UnityEngine.SceneManagement.LoadSceneMode.Single));
         }
     }

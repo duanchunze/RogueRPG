@@ -44,6 +44,10 @@ namespace Hsenl {
 			activePlatform = PlatformType.None;
 #endif
             this._platformType = this._activePlatform;
+
+            this._clearFolder = EditorPrefs.GetBool("build_clear_folder", this._clearFolder);
+            this._isBuildExe = EditorPrefs.GetBool("build_buildexe", this._isBuildExe);
+            this._isContainAB = EditorPrefs.GetBool("build_containbuildstreamming", this._isContainAB);
         }
 
         private void OnGUI() {
@@ -74,7 +78,8 @@ namespace Hsenl {
                 }
 
                 if (this._platformType != this._activePlatform) {
-                    switch (EditorUtility.DisplayDialogComplex("Warning!", $"current platform is {this._activePlatform}, if change to {this._platformType}, may be take a long time",
+                    switch (EditorUtility.DisplayDialogComplex("Warning!",
+                                $"current platform is {this._activePlatform}, if change to {this._platformType}, may be take a long time",
                                 "change",
                                 "cancel", "no change")) {
                         case 0:
@@ -88,7 +93,14 @@ namespace Hsenl {
                     }
                 }
 
-                BuildHelper.Build(this._platformType, this._buildAssetBundleOptions, this._buildOptions, this._isBuildExe, this._isContainAB, this._clearFolder);
+                BuildHelper.Build(this._platformType, this._buildAssetBundleOptions, this._buildOptions, this._isBuildExe, this._isContainAB,
+                    this._clearFolder);
+            }
+
+            if (GUI.changed) {
+                EditorPrefs.SetBool("build_clear_folder", this._clearFolder);
+                EditorPrefs.SetBool("build_buildexe", this._isBuildExe);
+                EditorPrefs.SetBool("build_containbuildstreamming", this._isContainAB);
             }
         }
     }

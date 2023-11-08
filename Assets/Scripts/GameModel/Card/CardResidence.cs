@@ -4,14 +4,14 @@ using Hsenl.EventType;
 
 namespace Hsenl {
     [Serializable]
-    public abstract class CardResidence<TSlot> : Substantive, ICardResidence where TSlot : CardSlot {
+    public abstract class CardResidence<TSlot> : Bodied, ICardResidence where TSlot : CardSlot {
         public Action<TSlot, Card> onPutinCard;
         public Action<TSlot, Card> onTakeoutCard;
 
         public Action onChanged;
 
         public Card GetCard(string cardName) {
-            foreach (var card in this.GetSubstaintivesInChildren<Card>()) {
+            foreach (var card in this.FindScopesInBodied<Card>()) {
                 if (card.Name == cardName) {
                     return card;
                 }
@@ -31,7 +31,7 @@ namespace Hsenl {
             }
 
             // 没有指定槽, 就遍历所有槽, 哪个能放就放哪个
-            foreach (var cardSlot in this.GetSubstaintivesInChildren<TSlot>()) {
+            foreach (var cardSlot in this.FindScopesInBodied<TSlot>()) {
                 if (cardSlot.PutinCardEvaluate(card))
                     return cardSlot;
             }
@@ -46,7 +46,7 @@ namespace Hsenl {
             }
 
             // 没有指定槽, 就遍历所有槽, 哪个能放就放哪个
-            foreach (var cardSlot in this.GetSubstaintivesInChildren<TSlot>()) {
+            foreach (var cardSlot in this.FindScopesInBodied<TSlot>()) {
                 if (cardSlot.PutinCard(card))
                     return true;
             }

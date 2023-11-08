@@ -15,7 +15,7 @@ namespace Hsenl.cast
 { 
 
 /// <summary>
-/// 系统自动施法, 比如龙王的被动技能(自动型施法)
+/// 隐藏的但需要持续释放的技能, 比如多数被动技能
 /// </summary>
 public sealed partial class AlwaysCastInfo :  cast.Info 
 {

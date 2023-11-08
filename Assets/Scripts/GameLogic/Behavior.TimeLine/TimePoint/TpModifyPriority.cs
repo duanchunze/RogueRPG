@@ -6,7 +6,7 @@ namespace Hsenl {
     [MemoryPackable()]
     public partial class TpModifyPriority : TpInfo<timeline.ModifyPriorityInfo> {
         protected override void OnTimePointTrigger() {
-            switch (this.manager.Substantive) {
+            switch (this.manager.Bodied) {
                 case Ability ability: {
                     var priorityState = ability.GetComponent<IPriorityState>();
                     if (priorityState == null) return;

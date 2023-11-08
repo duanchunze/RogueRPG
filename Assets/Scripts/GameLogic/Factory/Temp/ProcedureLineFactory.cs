@@ -1,21 +1,39 @@
 ﻿using System;
-using Hsenl.cast;
+using System.Collections.Generic;
 
 namespace Hsenl {
+    [FrameworkMember]
     public static class ProcedureLineFactory {
-        public static T CreateWorker<T>(ConditionCastOfWorkerInfo info) where T : IProcedureLineWorker {
-            var nodeType = ProcedureLineWorkerManager.GetTypeOfInfoType(info.GetType());
+        private static readonly Dictionary<Type, Type> caches = new();
+
+        [OnEventSystemInitialized]
+        private static void Cache() {
+            caches.Clear();
+            foreach (var type in EventSystem.GetTypesOfAttribute(typeof(ProcedureLineWorkerAttribute))) {
+                var infoType = type.BaseType?.GetGenericArguments()[0];
+                if (infoType == null) throw new Exception($"{type}'s base type is error");
+                caches[infoType] = type;
+            }
+        }
+
+        private static Type GetTypeOfInfoType(Type type) {
+            caches.TryGetValue(type, out var result);
+            return result;
+        }
+
+        public static T CreateWorker<T>(cast.ConditionCastOfWorkerInfo info) where T : IProcedureLineWorker {
+            var nodeType = GetTypeOfInfoType(info.GetType());
             if (nodeType == null) throw new Exception($"cant find procedure line worker info of '{info.GetType()}'");
             var node = (T)Activator.CreateInstance(nodeType);
-            ((IProcedureLineWorkerInitializer<ConditionCastOfWorkerInfo>)node).Init(info);
+            ((IConfigInfoInitializer<cast.ConditionCastOfWorkerInfo>)node).InitInfo(info);
             return node;
         }
-        
+
         public static T CreateWorker<T>(procedureline.WorkerInfo info) where T : IProcedureLineWorker {
-            var nodeType = ProcedureLineWorkerManager.GetTypeOfInfoType(info.GetType());
+            var nodeType = GetTypeOfInfoType(info.GetType());
             if (nodeType == null) throw new Exception($"cant find procedure line worker info of '{info.GetType()}'");
             var node = (T)Activator.CreateInstance(nodeType);
-            ((IProcedureLineWorkerInitializer<procedureline.WorkerInfo>)node).Init(info);
+            ((IConfigInfoInitializer<procedureline.WorkerInfo>)node).InitInfo(info);
             return node;
         }
     }

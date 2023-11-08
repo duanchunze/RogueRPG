@@ -53,14 +53,13 @@ namespace Hsenl {
                 }
             });
 
-            entity.AddComponent<TimeLine>(initializeInvoke: line => {
-                line.SetEntryNode(new ParallelNode<ITimeLine, ActionNode<ITimeLine>>());
-                line.TillTime = config.Duration;
-                foreach (var actionInfo in config.Main.Actions) {
-                    var action = BehaviorNodeFactory.CreateNode<ActionNode<ITimeLine>>(actionInfo);
-                    line.EntryNode.AddChild(action);
-                }
-            });
+            var timeline = entity.AddComponent<TimeLine>();
+            timeline.SetEntryNode(new ParallelNode<ITimeLine, ActionNode<ITimeLine>>());
+            timeline.TillTime = config.Duration;
+            foreach (var actionInfo in config.Main.Actions) {
+                var action = BehaviorNodeFactory.CreateNode<ActionNode<ITimeLine>>(actionInfo);
+                timeline.EntryNode.AddChild(action);
+            }
 
             return status;
         }

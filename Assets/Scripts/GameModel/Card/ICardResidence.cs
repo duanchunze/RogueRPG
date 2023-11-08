@@ -1,3 +1,3 @@
 ﻿namespace Hsenl {
-    public interface ICardResidence : ISubstantive { }
+    public interface ICardResidence { }
 }

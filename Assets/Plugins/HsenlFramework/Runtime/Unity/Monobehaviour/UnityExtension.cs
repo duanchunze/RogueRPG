@@ -65,7 +65,7 @@ namespace Hsenl {
 
             return self.gameObject.AddComponent<T>();
         }
-        
+
         public static UnityEngine.Component GetOrAddComponent(this MonoBehaviour self, Type type) {
             var t = self.GetComponent(type);
             if (t) {
@@ -75,13 +75,20 @@ namespace Hsenl {
             return self.gameObject.AddComponent(type);
         }
 
-
         public static UnityEngine.Transform FindOrCreateChild(this UnityEngine.Transform self, string holderName) {
             var tra = self.Find(holderName);
             if (tra != null) return tra;
             tra = new GameObject(holderName).transform;
             tra.SetParent(self, false);
             return tra;
+        }
+
+        public static void ForeachChildren(this UnityEngine.Transform self, Action<UnityEngine.Transform> action) {
+            for (int i = 0, len = self.childCount; i < len; i++) {
+                var child = self.GetChild(i);
+                action.Invoke(child);
+                child.ForeachChildren(action);
+            }
         }
 
         /// <summary>

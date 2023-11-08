@@ -2,7 +2,7 @@
 
 namespace Hsenl {
     // 词缀
-    public abstract class Affixes : Substantive {
+    public abstract class Affixes : Bodied {
         
     }
 }

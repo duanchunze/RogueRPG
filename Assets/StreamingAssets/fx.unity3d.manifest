@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 578651432
+CRC: 2742809467
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2734ab7bdb40d2291fc701f10c25f762
+    Hash: ebcab3cac3b5d795a3b571de1e97a7a9
   TypeTreeHash:
     serializedVersion: 2
     Hash: dfd4d0af64049518232a7be03a0c4d78
@@ -27,6 +27,6 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Bundles/Fx/hit2.prefab
-- Assets/Bundles/Fx/hit.prefab
+- Assets/Bundles/Fx/fx_hit2.prefab
+- Assets/Bundles/Fx/fx_hit.prefab
 Dependencies: []

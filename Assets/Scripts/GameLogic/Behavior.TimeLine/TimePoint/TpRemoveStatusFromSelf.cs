@@ -4,9 +4,9 @@ namespace Hsenl {
     [MemoryPackable()]
     public partial class TpRemoveStatusFromSelf : TpInfo<timeline.RemoveStatusFromSelfInfo>{
         protected override void OnTimePointTrigger() {
-            switch (this.manager.Substantive) {
+            switch (this.manager.Bodied) {
                 case Ability ability: {
-                    var inflictior = ability.GetHolder();
+                    var inflictior = ability.Owner;
                     Shortcut.TerminationStatus(inflictior, inflictior, this.info.StatusAlias);
                     break;
                 }

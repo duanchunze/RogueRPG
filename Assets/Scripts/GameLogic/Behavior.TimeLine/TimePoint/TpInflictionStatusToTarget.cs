@@ -6,11 +6,11 @@ namespace Hsenl {
     [MemoryPackable()]
     public partial class TpInflictionStatusToTarget : TpInfo<timeline.InflictionStatusToTargetInfo> {
         protected override void OnTimePointTrigger() {
-            switch (this.manager.Substantive) {
+            switch (this.manager.Bodied) {
                 case Ability ability: {
-                    var inflictior = ability.ParentSubstantive;
+                    var inflictior = ability.Owner;
                     foreach (var selectionTarget in ability.targets) {
-                        Shortcut.InflictionStatus(inflictior, selectionTarget.Substantive, this.info.StatusAlias);
+                        Shortcut.InflictionStatus(inflictior, selectionTarget.Bodied, this.info.StatusAlias);
                     }
                     
                     break;

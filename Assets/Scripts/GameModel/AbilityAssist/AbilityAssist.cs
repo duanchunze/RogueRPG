@@ -4,7 +4,7 @@ using MemoryPack;
 
 namespace Hsenl {
     [MemoryPackable(GenerateType.CircularReference)]
-    public partial class AbilityAssist : Substantive {
+    public partial class AbilityAssist : Bodied {
         [MemoryPackOrder(50)]
         [MemoryPackInclude]
         public int configId;

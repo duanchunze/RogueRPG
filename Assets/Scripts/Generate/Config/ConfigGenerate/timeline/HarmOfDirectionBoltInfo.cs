@@ -21,7 +21,8 @@ public sealed partial class HarmOfDirectionBoltInfo :  timeline.TpHarmInfo
 {
     public HarmOfDirectionBoltInfo(JSONNode _json)  : base(_json) 
     {
-        { if(!_json["model_name"].IsString) { throw new SerializationException(); }  ModelName = _json["model_name"]; }
+        { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
+        { if(!_json["bolt_name"].IsString) { throw new SerializationException(); }  BoltName = _json["bolt_name"]; }
         { if(!_json["distance"].IsNumber) { throw new SerializationException(); }  Distance = _json["distance"]; }
         { if(!_json["speed"].IsNumber) { throw new SerializationException(); }  Speed = _json["speed"]; }
         { if(!_json["hit_fx"].IsString) { throw new SerializationException(); }  HitFx = _json["hit_fx"]; }
@@ -29,9 +30,10 @@ public sealed partial class HarmOfDirectionBoltInfo :  timeline.TpHarmInfo
         PostInit();
     }
 
-    public HarmOfDirectionBoltInfo(int model, float point, System.Collections.Generic.List<numeric.DamageFormulaInfo> harm_formulas, string model_name, float distance, float speed, string hit_fx, string hit_sound )  : base(model,point,harm_formulas) 
+    public HarmOfDirectionBoltInfo(int model, float point, numeric.DamageFormulaInfo harm_formula, string bolt_name, float distance, float speed, string hit_fx, string hit_sound )  : base(model,point) 
     {
-        this.ModelName = model_name;
+        this.HarmFormula = harm_formula;
+        this.BoltName = bolt_name;
         this.Distance = distance;
         this.Speed = speed;
         this.HitFx = hit_fx;
@@ -44,10 +46,11 @@ public sealed partial class HarmOfDirectionBoltInfo :  timeline.TpHarmInfo
         return new timeline.HarmOfDirectionBoltInfo(_json);
     }
 
+    public numeric.DamageFormulaInfo HarmFormula { get; private set; }
     /// <summary>
     /// 投射物名
     /// </summary>
-    public string ModelName { get; private set; }
+    public string BoltName { get; private set; }
     /// <summary>
     /// 最大距离
     /// </summary>
@@ -65,12 +68,14 @@ public sealed partial class HarmOfDirectionBoltInfo :  timeline.TpHarmInfo
     public override void Resolve(Dictionary<string, object> _tables)
     {
         base.Resolve(_tables);
+        HarmFormula?.Resolve(_tables);
         PostResolve();
     }
 
     public override void TranslateText(System.Func<string, string, string> translator)
     {
         base.TranslateText(translator);
+        HarmFormula?.TranslateText(translator);
     }
 
     public override string ToString()
@@ -78,8 +83,8 @@ public sealed partial class HarmOfDirectionBoltInfo :  timeline.TpHarmInfo
         return "{ "
         + "Model:" + Model + ","
         + "Point:" + Point + ","
-        + "HarmFormulas:" + Bright.Common.StringUtil.CollectionToString(HarmFormulas) + ","
-        + "ModelName:" + ModelName + ","
+        + "HarmFormula:" + HarmFormula + ","
+        + "BoltName:" + BoltName + ","
         + "Distance:" + Distance + ","
         + "Speed:" + Speed + ","
         + "HitFx:" + HitFx + ","

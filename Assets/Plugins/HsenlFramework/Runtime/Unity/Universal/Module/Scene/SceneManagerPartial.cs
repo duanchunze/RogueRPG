@@ -8,9 +8,7 @@ namespace Hsenl {
     public static partial class SceneManager {
         public static event Action<Scene> OnUnitySceneLoaded;
 
-        static SceneManager() {
-            
-        }
+        static SceneManager() { }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize() {
@@ -21,7 +19,7 @@ namespace Hsenl {
 
         public static async ETTask<Scene> LoadSceneWithUnity(string name, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode) {
             var scene = LoadScene(name, (LoadSceneMode)(int)loadSceneMode);
-            if (ResourcesManager.Instance.editorMode) {
+            if (ResourcesManager.Instance.EditorMode) {
                 var paths = AssetBundleHelper.GetAssetPathsFromAssetBundle(name.ToBundleName());
                 if (paths.Length == 0) return null;
                 UnityEngine.SceneManagement.SceneManager.LoadScene(paths[0], loadSceneMode);

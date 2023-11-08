@@ -9,7 +9,6 @@ namespace Hsenl {
     [MemoryPackable()]
     // 自动靠近目标
     public partial class CePickAndApproachTarget : CeInfo<PickAndApproachTargetInfo> {
-        private Substantive _self;
         private Transform _tran;
         private Control _control;
         private Selector _selector;
@@ -18,32 +17,28 @@ namespace Hsenl {
 
         private float _distance;
 
-        // private int _status; // 0: success, 1: 角度不够, 2: 距离不够, 3: failure
-
         protected override void OnNodeOpen() {
-            switch (this.manager.Substantive) {
+            var owner = this.manager.Owner;
+            switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._self = ability;
-                    this._tran = ability.GetHolder()?.transform;
-                    this._control = ability.GetHolder()?.GetComponent<Control>();
-                    this._selector = ability.GetHolder()?.GetComponent<Selector>();
+                    this._tran = owner?.transform;
+                    this._control = owner?.GetComponent<Control>();
+                    this._selector = owner?.GetComponent<Selector>();
 
                     this._numerators.Clear();
                     var numerator = ability.GetComponent<Numerator>();
-                    if (numerator != null)
-                        this._numerators.Add(numerator);
-                    numerator = ability.GetHolder()?.GetComponent<Numerator>();
-                    if (numerator != null)
-                        this._numerators.Add(numerator);
+                    if (numerator != null) this._numerators.Add(numerator);
+                    numerator = owner?.GetComponent<Numerator>();
+                    if (numerator != null) this._numerators.Add(numerator);
 
-                    this._faction = ability.GetHolder()?.GetComponent<Faction>();
+                    this._faction = owner?.GetComponent<Faction>();
                     break;
                 }
             }
         }
 
         protected override NodeStatus OnNodeTick() {
-            switch (this._self) {
+            switch (this.manager.Bodied) {
                 case Ability ability: {
                     if (this._numerators.Count == 0)
                         // 没数值器
@@ -60,7 +55,12 @@ namespace Hsenl {
                     // 根据施法范围获取目标
                     ability.targets.Clear();
                     SelectionTarget target = null;
-                    this._selector.SelectShpereAliveNearestTargets(castRange, targetCount, ability.targets, constrainsTags: constrainsTags);
+                    this._selector
+                        .SearcherSphereBody(castRange)
+                        .FilterAlive()
+                        .FilterTags(constrainsTags, null)
+                        .SelectNearests(targetCount)
+                        .Wrap(ability.targets);
 
                     if (ability.targets.Count != 0)
                         target = ability.targets[0];
@@ -72,7 +72,7 @@ namespace Hsenl {
                         var dir = target.transform.Position - this._tran.Position;
                         dir.y = 0;
                         var angle = Vector3.Angle(forward, dir);
-                        if (angle > 5f) {
+                        if (angle > 2.1f) {
                             this._tran.LookAtLerp(dir.normalized, TimeInfo.DeltaTime * 25);
                             // 距离够了, 但角度不够
                             return NodeStatus.Running;
@@ -85,7 +85,12 @@ namespace Hsenl {
                     // 如果施法范围内没有获取到目标, 则根据检测范围来获取目标
                     // 获取检测范围 = 技能的检测范围 + 技能本身的施法范围
                     var detectRange = ability.Config.DetectRange + castRange;
-                    this._selector.SelectShpereAliveNearestTargets(detectRange, targetCount, ability.targets, constrainsTags: constrainsTags);
+                    this._selector
+                        .SearcherSphereBody(detectRange)
+                        .FilterAlive()
+                        .FilterTags(constrainsTags, null)
+                        .SelectNearests(targetCount)
+                        .Wrap(ability.targets);
 
                     if (ability.targets.Count != 0)
                         target = ability.targets[0];

@@ -20,6 +20,7 @@ namespace Hsenl.faction {
             }
         }
 
+        // 根据阵营模式以及阵营类型, 来获取目标tags
         public void GetFactionRelations(FactionModel factionModel, FactionType factionType, Bitlist cache) {
             var dict = this._factionRelations[factionModel];
             foreach (var num in this.factionTypes) {

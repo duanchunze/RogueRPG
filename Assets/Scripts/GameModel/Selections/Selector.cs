@@ -13,9 +13,9 @@ namespace Hsenl {
         // 上面三个均带过期判断
         // 该系统提供了一些快捷操作, 也可以自行选择自定义操作, 基本可以满足任何情况下的选择需求
 
-        private Dictionary<Type, ASelectionsSearcher> _searcherCaches = new();
-        private Dictionary<Type, ASelectionsFilter> _filterCaches = new();
-        private Dictionary<Type, ASelectionsSelector> _selectorCaches = new();
+        private Dictionary<Type, ASelectionsSearcher> _searchers = new();
+        private Dictionary<Type, ASelectionsFilter> _filters = new();
+        private Dictionary<Type, ASelectionsSelect> _selects = new();
 
         private SelectionTarget _primarySelection;
 
@@ -35,9 +35,9 @@ namespace Hsenl {
         }
 
         public T GetSearcher<T>() where T : ASelectionsSearcher, new() {
-            if (!this._searcherCaches.TryGetValue(typeof(T), out var result)) {
+            if (!this._searchers.TryGetValue(typeof(T), out var result)) {
                 result = new T();
-                this._searcherCaches[typeof(T)] = result;
+                this._searchers[typeof(T)] = result;
             }
 
             result.selector = this;
@@ -45,19 +45,19 @@ namespace Hsenl {
         }
 
         public T GetFilter<T>() where T : ASelectionsFilter, new() {
-            if (!this._filterCaches.TryGetValue(typeof(T), out var result)) {
+            if (!this._filters.TryGetValue(typeof(T), out var result)) {
                 result = new T();
-                this._filterCaches[typeof(T)] = result;
+                this._filters[typeof(T)] = result;
             }
 
             result.selector = this;
             return (T)result;
         }
 
-        public T GetSelector<T>() where T : ASelectionsSelector, new() {
-            if (!this._selectorCaches.TryGetValue(typeof(T), out var result)) {
+        public T GetSelect<T>() where T : ASelectionsSelect, new() {
+            if (!this._selects.TryGetValue(typeof(T), out var result)) {
                 result = new T();
-                this._selectorCaches[typeof(T)] = result;
+                this._selects[typeof(T)] = result;
             }
 
             result.selector = this;

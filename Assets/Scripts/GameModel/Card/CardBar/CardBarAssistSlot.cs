@@ -4,7 +4,7 @@ namespace Hsenl {
     [Serializable]
     public class CardBarAssistSlot : CardBarSlot {
         public override bool PutinCardEvaluate(Card card) {
-            var headSlot = this.GetParentSubstantiveAs<CardBarHeadSlot>();
+            var headSlot = this.FindScopeInParent<CardBarHeadSlot>();
             if (headSlot == null)
                 return false;
 

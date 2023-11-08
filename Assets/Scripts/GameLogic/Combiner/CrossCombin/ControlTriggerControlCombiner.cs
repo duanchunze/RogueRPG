@@ -1,4 +1,5 @@
 ﻿using Hsenl;
+using UnityEngine;
 
 namespace Hsenl.CrossCombiner {
     public class ControlTriggerControlCombiner : CrossCombiner<ControlTrigger, Control> {

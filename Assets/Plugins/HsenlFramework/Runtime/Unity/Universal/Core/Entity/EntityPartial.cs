@@ -10,8 +10,6 @@ namespace Hsenl {
         [MemoryPackIgnore]
         public UnityEngine.Transform UnityTransform => this.GameObject.transform;
 
-        public bool GameObjectEventLocked { get; set; } // 小开关, 针对一个小功能使用, 不必在意其意义
-
         void IGameObjectReference.SetUnityReference(GameObject reference) {
             this.GameObject = reference;
             if (reference == null)
@@ -20,6 +18,7 @@ namespace Hsenl {
         }
 
         private Entity(GameObject gameObject) {
+            this.active = gameObject.activeSelf;
             this.name = gameObject.name;
             this.instanceId = Guid.NewGuid().GetHashCode();
             this.uniqueId = this.instanceId;
@@ -59,7 +58,7 @@ namespace Hsenl {
             ((IGameObjectReference)this).SetUnityReference(gameObject);
         }
 
-        internal partial void PartialOnAfterParentChanged() {
+        internal partial void PartialOnParentChanged() {
             if (this.GameObject == null) return;
             if (this.parent == null) {
                 this.GameObject.transform.SetParent(null);
@@ -78,22 +77,18 @@ namespace Hsenl {
         }
 
         internal partial void PartialOnComponentAdd(Component component) {
-            if (Framework.Instance.displayMono) {
+            if (Framework.Instance.DisplayMono) {
                 var type = MonoComponentManager.GetMonoComponentType(component.GetType());
-                // 这里做了一个处理, 因为Hsenl是支持添加一个默认enable为false的组件的, 但unity不支持, 所以这里使用一点小技巧
                 if (component.enable == false) {
-                    this.GameObjectEventLocked = true;
-                    // 这里关闭go不用担心其下面的mono组件也会控制hsenl的组件关闭, 因为mono控制hsenl组件关闭的条件是必须是它自身的enabled关闭了
-                    // 但是go的关闭会把entity也关闭了, 所以上面加了一个针对性的锁, 以阻止entity被关闭
+                    // 这里做了一个处理, 因为Hsenl是支持添加一个默认enable为false的组件的, 但unity不支持, 所以这里使用了这个方案, 就是把go先关闭, 然后再添加mono组件, 
+                    // 如此就能实现添加一个enable为false的mono组件
                     this.GameObject.SetActive(false);
                 }
 
                 var mono = (MonoBehaviour)this.GameObject.GetOrAddComponent(type);
                 mono.enabled = component.enable;
-                if (component.enable == false) {
-                    this.GameObject.SetActive(true);
-                    this.GameObjectEventLocked = false;
-                }
+
+                this.GameObject.SetActive(this.active);
 
                 ((IMonoBehaviourReference)component).SetUnityReference(mono);
                 ((IHsenlComponentReference)mono).SetFrameworkReference(component);

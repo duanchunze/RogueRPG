@@ -22,7 +22,7 @@ namespace Hsenl {
                     break;
                 }
                 case StageType.Lifting: {
-                    var status = abi.GetHolder().FindSubstaintiveInChildren<StatusBar>().GetStatus(StatusAlias.Wuqishou);
+                    var status = abi.Owner.FindScopeInBodied<StatusBar>().GetStatus(StatusAlias.Wuqishou);
                     if (status is { IsEnter: true }) {
                         item.stageLine.BufferSpeed = 5.2f;
                         item.stageLine.TillTime = 0;

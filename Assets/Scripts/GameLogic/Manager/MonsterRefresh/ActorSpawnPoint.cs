@@ -31,7 +31,7 @@ namespace Hsenl {
 
                 foreach (var oriCard in this.oriCards) {
                     var card = CardFactory.Create(oriCard);
-                    actor.GetSubstaintiveInChildren<CardBar>().PutinCard(card);
+                    actor.FindScopeInBodied<CardBar>().PutinCard(card);
                 }
             }
         }

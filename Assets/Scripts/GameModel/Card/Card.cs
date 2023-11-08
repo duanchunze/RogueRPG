@@ -7,7 +7,7 @@ namespace Hsenl {
     // 卡牌可以包裹技能、状态、装备等等, 被包裹的技能就可以被当做卡牌来使用
     [Serializable]
     [MemoryPackable(GenerateType.CircularReference)]
-    public partial class Card : Substantive {
+    public partial class Card : Bodied {
         [MemoryPackOrder(50)]
         [MemoryPackInclude]
         public int cardId;
@@ -22,16 +22,16 @@ namespace Hsenl {
         // 看, 这里使用了循环引用, 实例化之后, 该字段引用的和Entity中Components里的是一个引用
         [MemoryPackOrder(52)]
         [MemoryPackInclude]
-        public Substantive Source { get; private set; }
+        public Bodied Source { get; private set; }
 
         [MemoryPackIgnore]
-        public CardSlot StaySlot => this.GetParentSubstantiveAs<CardSlot>();
+        public CardSlot StaySlot => this.FindScopeInParent<CardSlot>();
 
         protected override void OnDeserializedOverall() {
             this.Source.Link(this);
         }
 
-        public void Wrap(Substantive src) {
+        public void Wrap(Bodied src) {
             switch (src) {
                 case Ability ability: {
                     this.Source = ability;
@@ -51,7 +51,7 @@ namespace Hsenl {
             src.Link(this);
         }
 
-        public void Reset() {
+        protected override void OnReset() {
             switch (this.Source) {
                 case Ability ability: {
                     ability.SetParent(this.Entity);

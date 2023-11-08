@@ -50,10 +50,9 @@ namespace Hsenl {
                 }
             }
 
-            entity.AddComponent<CasterEvaluate>(initializeInvoke: evaluate => {
-                var entryNode = BehaviorNodeFactory.CreateNodeLink<CasterEvaluate>(config.CasterEvaluates);
-                evaluate.SetEntryNode(entryNode);
-            });
+            var evaluate = entity.AddComponent<CasterEvaluate>();
+            var entryNode = BehaviorNodeFactory.CreateNodeLink<CasterEvaluate>(config.CasterEvaluates);
+            evaluate.SetEntryNode(entryNode);
 
             entity.AddComponent<Numerator>();
 
@@ -99,30 +98,29 @@ namespace Hsenl {
                 state.allowReenter = config.PriorityState.AllowReenter;
             });
 
-            entity.AddComponent<StageLine>(initializeInvoke: stageLine => {
-                stageLine.SetEntryNode(new SelectorNode<ITimeLine, IStageNode>());
-                foreach (var stageInfo in config.Stages) {
-                    Stage stage = null;
-                    foreach (var actionInfo in stageInfo.Actions) {
-                        stage ??= new Stage {
-                            StageType = (int)stageInfo.StageType,
-                            Duration = stageInfo.Duration,
-                        };
-
-                        var action = BehaviorNodeFactory.CreateNode<ITimeNode>(actionInfo);
-                        stage.AddChild(action);
-                    }
-
+            var stageline = entity.AddComponent<StageLine>();
+            stageline.SetEntryNode(new SelectorNode<ITimeLine, IStageNode>());
+            foreach (var stageInfo in config.Stages) {
+                Stage stage = null;
+                foreach (var actionInfo in stageInfo.Actions) {
                     stage ??= new Stage {
                         StageType = (int)stageInfo.StageType,
                         Duration = stageInfo.Duration,
                     };
 
-                    stageLine.EntryNode.AddChild(stage);
+                    var action = BehaviorNodeFactory.CreateNode<ITimeNode>(actionInfo);
+                    stage.AddChild(action);
                 }
 
-                stageLine.EntryNode.AddChild(new FinishStageAction());
-            });
+                stage ??= new Stage {
+                    StageType = (int)stageInfo.StageType,
+                    Duration = stageInfo.Duration,
+                };
+
+                stageline.EntryNode.AddChild(stage);
+            }
+
+            stageline.EntryNode.AddChild(new FinishStageAction());
 
             return ability;
         }

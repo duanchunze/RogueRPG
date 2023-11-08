@@ -3,10 +3,15 @@
 namespace Hsenl.View {
     public class EventOnNumericChanged : AEventSync<OnNumericChanged> {
         protected override void Handle(OnNumericChanged arg) {
+            // 当人物的数值发生变化时, 对应的view层做出什么表现
             var numerator = arg.numerator;
+            var bodied = numerator.Bodied;
+            if (bodied is not Actor)
+                return;
+
             switch ((NumericType)arg.numType) {
                 case NumericType.Hp: {
-                    var headMessage = numerator.Substantive.GetComponent<HeadMessage>();
+                    var headMessage = bodied.GetComponent<HeadMessage>();
                     if (headMessage != null) {
                         var max = numerator.GetValue(NumericType.MaxHp);
                         max.ToFloat();
@@ -29,7 +34,7 @@ namespace Hsenl.View {
                 // }
 
                 case NumericType.Mana: {
-                    var headMessage = numerator.Substantive.GetComponent<HeadMessage>();
+                    var headMessage = bodied.GetComponent<HeadMessage>();
                     if (headMessage != null) {
                         var max = numerator.GetValue(NumericType.MaxMana);
                         max.ToFloat();
@@ -40,12 +45,12 @@ namespace Hsenl.View {
                 }
 
                 case NumericType.Height: {
-                    var headMessage = numerator.Substantive.GetComponent<HeadMessage>();
+                    var headMessage = bodied.GetComponent<HeadMessage>();
                     if (headMessage != null) {
                         headMessage.UpdateFollowHeight(arg.now);
                     }
 
-                    var followMessage = numerator.Substantive.GetComponent<FollowMessage>();
+                    var followMessage = bodied.GetComponent<FollowMessage>();
                     if (followMessage != null) {
                         followMessage.UpdateFollowHeight(arg.now + 1.1f);
                     }

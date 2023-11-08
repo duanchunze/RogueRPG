@@ -18,7 +18,7 @@
                 score = item.score,
             };
 
-            item.hurt.Substantive.GetComponent<ProcedureLine>().StartLineAsync(hurtForm).Coroutine();
+            item.hurt.Bodied.GetComponent<ProcedureLine>().StartLineAsync(hurtForm).Coroutine();
             return ProcedureLineHandleResult.Success;
         }
     }

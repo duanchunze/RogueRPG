@@ -12,24 +12,22 @@ namespace Hsenl {
     public partial class TpHarmOfTargeted : TpHarm<timeline.HarmOfTargetedInfo> {
         private Faction _faction;
 
-        private List<SelectionTarget> _targetsCache = new();
-
         protected override void OnNodeOpen() {
             base.OnNodeOpen();
-            switch (this.manager.Substantive) {
+            switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._faction = ability.GetHolder()?.GetComponent<Faction>();
+                    this._faction = this.manager.Owner?.GetComponent<Faction>();
                     break;
                 }
             }
         }
 
         protected override void OnTimePointTrigger() {
-            switch (this.manager.Substantive) {
+            switch (this.manager.Bodied) {
                 case Ability ability: {
                     if (ability.targets.Count != 0) {
                         var targetCount = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Ttc);
-                        Coroutine.Start(this.HarmTargets1(ability.targets[0], ability.factionTypes, targetCount));
+                        Coroutine.Start(this.HarmTargets(ability.targets[0], ability.factionTypes, targetCount));
                     }
 
                     break;
@@ -37,44 +35,7 @@ namespace Hsenl {
             }
         }
 
-        // private IEnumerator HarmTargets(SelectionTarget target, IList<FactionType> factionTypes, int count) {
-        //     var constrainsTags = this._faction.GetTagsOfFactionTypes(factionTypes);
-        //     this._targetsCache.Clear();
-        //     target.GetComponent<Selections>()?.SelectShpereAliveNearestTargets(8f, count + 1, this._targetsCache, constrainsTags: constrainsTags);
-        //
-        //     var hurtable = target.Substantive.GetComponent<Hurtable>();
-        //     if (hurtable != null) {
-        //         this.Harm(hurtable);
-        //         FxManager.instance.Play(this.info.HitFx, hurtable.transform.position);
-        //         hurtable.GetComponent<Sound>()?.Play(this.info.HitSound);
-        //     }
-        //
-        //     yield return new WaitSeconds(150);
-        //
-        //     var harmCounter = this._targetsCache.Count;
-        //     var startIndex = 0;
-        //     var damageRate = 1f;
-        //     while (harmCounter > 0) {
-        //         for (var i = startIndex; i < startIndex + 3 && i < this._targetsCache.Count; i++) {
-        //             var selectTarget = this._targetsCache[i];
-        //             harmCounter++;
-        //             hurtable = selectTarget.Substantive.GetComponent<Hurtable>();
-        //             if (hurtable != null) {
-        //                 this.Harm(hurtable, damageRate);
-        //                 FxManager.instance.Play(this.info.HitFx, hurtable.transform.position);
-        //                 hurtable.GetComponent<Sound>()?.Play(this.info.HitSound);
-        //             }
-        //         }
-        //
-        //         startIndex += 3;
-        //         damageRate -= 0.2f;
-        //         if (damageRate < 0.3f) 
-        //             damageRate = 0.3f;
-        //         yield return new WaitSeconds(150);
-        //     }
-        // }
-
-        private IEnumerator HarmTargets1(SelectionTarget target, IList<FactionType> factionTypes, int count) {
+        private IEnumerator HarmTargets(SelectionTarget target, IList<FactionType> factionTypes, int count) {
             var constrainsTags = this._faction.GetTagsOfFactionTypes(factionTypes);
             using var currentTargets = ListComponent<SelectionTarget>.Create();
             using var buffers = HashSetComponent<SelectionTarget>.Create();
@@ -88,9 +49,9 @@ namespace Hsenl {
                 Sound sound = null;
                 foreach (var currentTarget in currentTargets) {
                     harmedTargets.Add(currentTarget);
-                    var hurtable = currentTarget.Substantive.GetComponent<Hurtable>();
+                    var hurtable = currentTarget.Bodied.GetComponent<Hurtable>();
                     if (hurtable != null) {
-                        this.Harm(hurtable, damageRate);
+                        this.Harm(hurtable, this.info.HarmFormula, damageRate);
                         FxManager.Instance.Play(this.info.HitFx, hurtable.transform.Position);
 
                         float v = 0;
@@ -115,15 +76,23 @@ namespace Hsenl {
                     if (count <= 0)
                         break;
 
-                    this._targetsCache.Clear();
-                    currentTarget.GetComponent<Selector>()?.SelectShpereAliveNearestTargets(2.1f, -1, this._targetsCache, constrainsTags: constrainsTags);
-                    var maxBuffer = (this._targetsCache.Count / 2);
+                    var targets = currentTarget.GetComponent<Selector>()?
+                        .SearcherSphereBody(2.1f)
+                        .FilterAlive()
+                        .FilterTags(constrainsTags, null)
+                        .SelectNearests(-1).Targets;
+
+                    if (targets == null)
+                        continue;
+
+                    var maxBuffer = (targets.Count / 2);
                     if (maxBuffer > 3)
                         maxBuffer = 3;
-                    foreach (var selectionTarget in this._targetsCache) {
+                    for (int i = 0, len = targets.Count; i < len; i++) {
                         if (count == 0)
                             break;
 
+                        var selectionTarget = targets[i];
                         if (!buffers.Contains(selectionTarget) && !harmedTargets.Contains(selectionTarget)) {
                             count--;
                             buffers.Add(selectionTarget);
@@ -144,44 +113,6 @@ namespace Hsenl {
                     damageRate = 0.3f;
 
                 yield return new WaitSeconds(150);
-            }
-        }
-
-        private IEnumerator HarmTargets2(SelectionTarget target, IList<FactionType> factionTypes, int count) {
-            var constrainsTags = this._faction.GetTagsOfFactionTypes(factionTypes);
-            using var harmedTargets = HashSetComponent<SelectionTarget>.Create();
-            var currentTarget = target;
-            count--;
-
-            var damageRate = 1f;
-            while (currentTarget != null) {
-                harmedTargets.Add(currentTarget);
-                var hurtable = currentTarget.Substantive.GetComponent<Hurtable>();
-                if (hurtable != null) {
-                    this.Harm(hurtable, damageRate);
-                    FxManager.Instance.Play(this.info.HitFx, hurtable.transform.Position);
-                    hurtable.GetComponent<Sound>()?.Play(this.info.HitSound);
-                }
-
-                if (count <= 0)
-                    break;
-
-                this._targetsCache.Clear();
-                currentTarget.GetComponent<Selector>()?.SelectShpereAliveNearestTargets(2.5f, -1, this._targetsCache, constrainsTags: constrainsTags);
-                currentTarget = null;
-                foreach (var selectionTarget in this._targetsCache) {
-                    if (!harmedTargets.Contains(selectionTarget)) {
-                        count--;
-                        currentTarget = selectionTarget;
-                        break;
-                    }
-                }
-
-                // damageRate -= 0.2f;
-                // if (damageRate < 0.3f)
-                //     damageRate = 0.3f;
-
-                yield return new WaitSeconds(120);
             }
         }
     }

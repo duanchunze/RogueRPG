@@ -18,17 +18,24 @@ namespace Hsenl {
         [ShowInInspector, LabelText("UniqueID"), ReadOnly]
         [MemoryPackOrder(0)]
         [MemoryPackInclude]
-        internal int uniqueId;
+        protected internal int uniqueId;
 
         [ShowInInspector, LabelText("InstanceID"), ReadOnly]
         [MemoryPackIgnore]
         internal int instanceId;
 
         [MemoryPackIgnore]
+        public int UniqueId => this.uniqueId;
+
+        [MemoryPackIgnore]
         public int InstanceId => this.instanceId;
 
         [MemoryPackIgnore]
         public bool IsDisposed => this.InstanceId == 0;
+
+        /// 是否是通过序列化创建的
+        [MemoryPackIgnore]
+        public bool IsDeserialized => this.uniqueId != this.instanceId;
 
         [MemoryPackIgnore]
         internal bool imminentDispose; // 即将被销毁
@@ -101,20 +108,6 @@ namespace Hsenl {
             InternalDestroy(entity, false);
         }
 
-        public static void DestroyComponents(Entity entity) {
-            if (entity.components == null) return;
-            using var cache = ListComponent<Component>.Create();
-            foreach (var list in entity.components) {
-                foreach (var component in list.Value) {
-                    cache.Add(component);
-                }
-            }
-
-            for (int i = 0, len = cache.Count; i < len; i++) {
-                Destroy(cache[i]);
-            }
-        }
-
         public static void DestroyChildren(Entity entity) {
             if (entity.children == null) return;
             for (var i = entity.children.Count - 1; i >= 0; i--) {
@@ -132,7 +125,7 @@ namespace Hsenl {
 
             entity.imminentDispose = true;
 
-            // 销毁一个实体时, 首先也只会把他的父级设置为null, 而不会把其他子实体的父级设置为null. 也就是说, 销毁一个实体, 并不会让实体解体, 不会改变其所有子实体的父子关系
+            // 销毁一个实体时, 首先也只会把他自己的父级设置为null, 而不会把其他子实体的父级设置为null. 也就是说, 销毁一个实体, 并不会让实体解体, 不会改变其所有子实体的父子关系
             if (!internalInvoke) {
                 entity.SetParent(null);
                 _destroyComponentsCache.Clear();

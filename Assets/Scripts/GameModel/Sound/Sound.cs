@@ -5,9 +5,28 @@ using UnityEngine;
 namespace Hsenl {
     [Serializable]
     public class Sound : Unbodied, IUpdate {
-        public AudioSource audioSource;
+        private AudioSource _audioSource;
 
         public HashSet<int> clipsCurrentFrame = new();
+
+        public bool PlayOnAwake {
+            get => this._audioSource.playOnAwake;
+            set => this._audioSource.playOnAwake = value;
+        }
+
+        protected override void OnDeserialized() {
+            this._audioSource = this.GetMonoComponent<UnityEngine.AudioSource>();
+            if (this._audioSource == null) {
+                this._audioSource = this.Entity.GameObject.AddComponent<UnityEngine.AudioSource>();
+            }
+        }
+
+        protected override void OnConstruction() {
+            this._audioSource = this.GetMonoComponent<UnityEngine.AudioSource>();
+            if (this._audioSource == null) {
+                this._audioSource = this.Entity.GameObject.AddComponent<UnityEngine.AudioSource>();
+            }
+        }
 
         public void Play(string clipName, float volume = 1f, bool allowRepeatPlay = false) {
             if (!allowRepeatPlay) {
@@ -20,10 +39,11 @@ namespace Hsenl {
 
             if (clipName == "xxx")
                 return;
+
             var clip = ResourcesHelper.GetAsset<AudioClip>(Constant.AudioBundleName, clipName);
-            this.audioSource.clip = clip;
-            this.audioSource.volume = volume;
-            this.audioSource.Play();
+            this._audioSource.clip = clip;
+            this._audioSource.volume = volume;
+            this._audioSource.Play();
         }
 
         public void Update() {

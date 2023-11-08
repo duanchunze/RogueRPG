@@ -9,21 +9,21 @@ namespace Hsenl {
             switch (dst) {
                 case CardBar cardBar: {
                     // 判断是否符合合成条件
-                    if (this.CardSynthesisEvaluate(ref item, cardBar, cardBar.GetHolder().FindSubstaintiveInChildren<CardBackpack>(),
+                    if (this.CardSynthesisEvaluate(ref item, cardBar, cardBar.Owner.FindScopeInBodied<CardBackpack>(),
                             out var synthesisInfos)) { }
 
                     break;
                 }
 
                 case CardBackpack cardBackpack: {
-                    var cardBar = cardBackpack.GetHolder().FindSubstaintiveInChildren<CardBar>();
+                    var cardBar = cardBackpack.Owner.FindScopeInBodied<CardBar>();
                     // 判断是否符合合成条件
                     if (this.CardSynthesisEvaluate(ref item, cardBar, cardBackpack,
                             out var synthesisInfos)) { }
 
                     break;
                 }
-                
+
                 default:
                     throw new Exception("buy card dst residence must card bar of card backpack"); // 购买卡牌流程要求目标仓库不能是其他
             }

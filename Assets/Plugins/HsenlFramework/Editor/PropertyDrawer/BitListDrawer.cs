@@ -106,6 +106,7 @@ namespace Hsenl {
             else {
                 // - 得到该枚举里所有的元素
                 var enumType = attr.enumType;
+                if (enumType == null) return;
                 if (!enumType.IsEnum) throw new Exception($"arg must be a enum type! {targetObject.name} - {property.name}");
                 this._enumDict.Clear();
                 foreach (var enumName in Enum.GetNames(enumType)) {
@@ -319,6 +320,7 @@ namespace Hsenl {
             var bitList = this.ValueEntry.SmartValue;
             // - 得到该枚举里所有的元素
             var enumType = this.Attribute.enumType;
+            if (enumType == null) return;
             if (!enumType.IsEnum) throw new Exception($"arg must be a enum type! {this.Property} - {this.Property.Name}");
             this._enumDict.Clear();
             foreach (var enumName in Enum.GetNames(enumType)) {

@@ -1,6 +1,8 @@
-﻿using MemoryPack;
+﻿using System;
+using MemoryPack;
 
 namespace Hsenl {
+    [Serializable]
     [MemoryPackable()]
     public partial class CasterEvaluate : BehaviorTree<INode<CasterEvaluate>> {
         public CastEvaluateStatus status;

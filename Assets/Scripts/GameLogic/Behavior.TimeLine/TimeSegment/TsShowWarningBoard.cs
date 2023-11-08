@@ -8,7 +8,7 @@ namespace Hsenl {
         private Entity _warningBoard;
 
         protected override void OnNodeReset() {
-            switch (this.manager.Substantive) {
+            switch (this.manager.Bodied) {
                 case Ability ability: {
                     if (this._warningBoard == null) {
                         this._warningBoard = WarningBoardFactory.Create(this.info.WarnName);

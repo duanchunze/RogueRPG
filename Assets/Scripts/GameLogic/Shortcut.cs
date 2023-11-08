@@ -8,8 +8,8 @@ namespace Hsenl {
     public static class Shortcut {
         #region Status Related
 
-        public static Status InflictionStatus(Substantive inflictor, Substantive target, string alias, float duration = float.MinValue) {
-            var statusBar = target.FindSubstaintiveInChildren<StatusBar>();
+        public static Status InflictionStatus(Bodied inflictor, Bodied target, string alias, float duration = float.MinValue) {
+            var statusBar = target.FindScopeInBodied<StatusBar>();
             var config = Tables.Instance.TbStatusConfig.GetByAlias(alias);
             var status = statusBar.GetStatus(config.Alias);
             if (status == null) {
@@ -26,8 +26,8 @@ namespace Hsenl {
             return status;
         }
 
-        public static Status TerminationStatus(Substantive remover, Substantive target, string alias) {
-            var statusHolder = target.FindSubstaintiveInChildren<StatusBar>();
+        public static Status TerminationStatus(Bodied remover, Bodied target, string alias) {
+            var statusHolder = target.FindScopeInBodied<StatusBar>();
             var status = statusHolder.GetStatus(alias);
             status?.Finish();
             return status;
@@ -177,8 +177,8 @@ namespace Hsenl {
 
         #endregion
 
-        public static bool IsDead(Substantive substantive) {
-            var priorities = substantive.GetComponent<Prioritizer>();
+        public static bool IsDead(Bodied bodied) {
+            var priorities = bodied.GetComponent<Prioritizer>();
             if (priorities == null) return false;
             return priorities.ContainsState(StatusAlias.Death);
         }

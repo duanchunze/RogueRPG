@@ -13,10 +13,10 @@ namespace Hsenl {
         protected override void OnTimeSegmentOrigin() {
             Transform inflictorTra = null;
             Transform tra = null;
-            switch (this.manager.Substantive) {
+            switch (this.manager.Bodied) {
                 case Status status: {
                     inflictorTra = status.inflictor.transform;
-                    tra = this.manager.Substantive.ParentSubstantive.transform;
+                    tra = this.manager.Owner.transform;
                     break;
                 }
             }

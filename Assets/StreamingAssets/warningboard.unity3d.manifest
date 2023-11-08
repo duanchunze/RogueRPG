@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3114406804
+CRC: 67990365
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c34851096ae0303973d88443aeed4b5b
+    Hash: 0d9009e76e919a1af1007f22d715df83
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 0745142b9e9ef2c3c1d98a69b2d25921
+    Hash: fb3e1a51942c252ef5c22332ec2c25b2
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -15,17 +15,17 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 21
   Script: {instanceID: 0}
-- Class: 23
-  Script: {instanceID: 0}
-- Class: 33
-  Script: {instanceID: 0}
-- Class: 43
+- Class: 28
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
-- Class: 64
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Bundles/WarningBoard/warningboard1.prefab
+- Assets/Bundles/WarningBoard/wb_gw_hengkan.prefab
+- Assets/Bundles/WarningBoard/wb_gw_pikan.prefab
+- Assets/Bundles/WarningBoard/wb_gw_kuaishe.prefab
 Dependencies: []

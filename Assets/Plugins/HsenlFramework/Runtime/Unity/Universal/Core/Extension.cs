@@ -52,6 +52,10 @@
         public static T GetMonoComponent<T>(this Component self) {
             return self.Entity.GameObject.GetComponent<T>();
         }
+        
+        public static T[] GetMonoComponents<T>(this Component self) {
+            return self.Entity.GameObject.GetComponents<T>();
+        }
 
         public static T GetMonoComponentInParent<T>(this Component self) {
             return self.Entity.GameObject.GetComponentInParent<T>();
@@ -59,6 +63,10 @@
 
         public static T GetMonoComponentInChildren<T>(this Component self) {
             return self.Entity.GameObject.GetComponentInChildren<T>();
+        }
+        
+        public static T[] GetMonoComponentsInChildren<T>(this Component self) {
+            return self.Entity.GameObject.GetComponentsInChildren<T>();
         }
     }
 }

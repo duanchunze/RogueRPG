@@ -1,5 +1,8 @@
 ﻿namespace Hsenl {
     public static class Constant {
+        public const string AppearActorBundleRootDir = "Assets/Bundles/Appear/Actor";
+        public const string AppearAbilityBundleRootDir = "Assets/Bundles/Appear/Abi";
+        
         public const string UIBundleName = "ui.unity3d";
         public const string InputBundleName = "input.unity3d";
         public const string ConfigBundleName = "config.unity3d";
@@ -15,18 +18,9 @@
         public const string AnimControlBundleName = "animcontrol.unity3d";
         public const string AnimClipBundleName = "animclip.unity3d";
 
-        public const int BodyLayer = 6;
-        public const int BodyTriggerLayer = 7;
+        public const int ReceptorLayer = 6;
+        public const int DetectionLayer = 7;
         public const int PickableLayer = 8;
         public const int PickerLayer = 9;
-        
-        public const int BodyLayerIncludeMask = 1 << 6;
-        public const int BodyLayerExcludeMask = ~BodyLayerIncludeMask;
-        public const int BodyTriggerLayerIncludeMask = 1 << 7;
-        public const int BodyTriggerLayerExcludeMask = ~BodyTriggerLayerIncludeMask;
-        public const int PickableLayerIncludeMask = 1 << 8;
-        public const int PickableLayerExcludeMask = ~PickableLayerIncludeMask;
-        public const int PickerLayerIncludeMask = 1 << 9;
-        public const int PickerLayerExcludeMask = ~PickerLayerIncludeMask;
     }
 }

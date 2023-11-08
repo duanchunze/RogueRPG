@@ -19,18 +19,22 @@ namespace Hsenl {
         private long _nowRaw;
 
         [ShowInInspector, ReadOnly]
-        private float _gameTime;
+        private float _time;
 
         private long _previousTime;
 
 #if UNITY_5_3_OR_NEWER
         public float DeltaTime => UnityEngine.Time.deltaTime;
         public int FrameCount => UnityEngine.Time.frameCount;
-        public float GameTime => UnityEngine.Time.time;
+        public float Time => UnityEngine.Time.time;
+        public float TimeScale {
+            get => UnityEngine.Time.timeScale;
+            set => UnityEngine.Time.timeScale = value;
+        }
 #else
         public float DeltaTime => this._deltaTime;
         public int FrameCount => this._frameCount;
-        public float GameTime => this._gameTime;
+        public float Time => this._time;
 #endif
         public long Now => this._now;
 
@@ -45,7 +49,7 @@ namespace Hsenl {
             this._frameCount++;
             this._deltaTime = (this._nowRaw - this._previousTime) * 0.0000001f;
             this._previousTime = this._nowRaw;
-            this._gameTime += this.DeltaTime;
+            this._time += this.DeltaTime;
         }
 
         // 当前时间总量（毫秒）

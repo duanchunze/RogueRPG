@@ -18,12 +18,14 @@ public sealed partial class RanshaoInfo :  timeline.TsHarmInfo
 {
     public RanshaoInfo(JSONNode _json)  : base(_json) 
     {
+        { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
         { if(!_json["internalTime"].IsNumber) { throw new SerializationException(); }  InternalTime = _json["internalTime"]; }
         PostInit();
     }
 
-    public RanshaoInfo(int model, float origin, float dest, System.Collections.Generic.List<numeric.DamageFormulaInfo> harm_formulas, float internalTime )  : base(model,origin,dest,harm_formulas) 
+    public RanshaoInfo(int model, float origin, float dest, numeric.DamageFormulaInfo harm_formula, float internalTime )  : base(model,origin,dest) 
     {
+        this.HarmFormula = harm_formula;
         this.InternalTime = internalTime;
         PostInit();
     }
@@ -33,6 +35,7 @@ public sealed partial class RanshaoInfo :  timeline.TsHarmInfo
         return new timeline.RanshaoInfo(_json);
     }
 
+    public numeric.DamageFormulaInfo HarmFormula { get; private set; }
     /// <summary>
     /// 时间间隔
     /// </summary>
@@ -44,12 +47,14 @@ public sealed partial class RanshaoInfo :  timeline.TsHarmInfo
     public override void Resolve(Dictionary<string, object> _tables)
     {
         base.Resolve(_tables);
+        HarmFormula?.Resolve(_tables);
         PostResolve();
     }
 
     public override void TranslateText(System.Func<string, string, string> translator)
     {
         base.TranslateText(translator);
+        HarmFormula?.TranslateText(translator);
     }
 
     public override string ToString()
@@ -58,7 +63,7 @@ public sealed partial class RanshaoInfo :  timeline.TsHarmInfo
         + "Model:" + Model + ","
         + "Origin:" + Origin + ","
         + "Dest:" + Dest + ","
-        + "HarmFormulas:" + Bright.Common.StringUtil.CollectionToString(HarmFormulas) + ","
+        + "HarmFormula:" + HarmFormula + ","
         + "InternalTime:" + InternalTime + ","
         + "}";
     }

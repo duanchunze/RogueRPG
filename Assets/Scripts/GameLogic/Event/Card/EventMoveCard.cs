@@ -14,7 +14,7 @@ namespace Hsenl {
             }
 
             // 获取卡牌的起源地
-            var cardOriginal = cardRaw.StaySlot?.GetSubstantiveInParent<ICardResidence>();
+            var cardOriginal = cardRaw.StaySlot?.FindScopeInParent<ICardResidence>();
             var destSlot = EventSystem.GetInstance<CardSlot>(arg.slotInstanceId);
 
             switch (cardOriginal) {
@@ -27,9 +27,9 @@ namespace Hsenl {
                         // var dstResidence = GameManager.Instance.MainMan.FindSubstaintiveInChildren<CardBar>();
                         // dstResidence.PutinCard(card);
 
-                        var dstResidence = destSlot?.GetSubstantiveInParent<CardBar>(); // 如果指定了slot, 就获得指定的residence
-                        dstResidence ??= GameManager.Instance.MainMan.FindSubstaintiveInChildren<CardBar>(); // 否则, 就使用main man的 card bar
-                        var pl = dstResidence.GetHolder().GetComponent<ProcedureLine>(); // 获取card bar的持有者
+                        var dstResidence = destSlot?.FindScopeInParent<CardBar>(); // 如果指定了slot, 就获得指定的residence
+                        dstResidence ??= GameManager.Instance.MainMan.FindScopeInBodied<CardBar>(); // 否则, 就使用main man的 card bar
+                        var pl = dstResidence.Owner.GetComponent<ProcedureLine>(); // 获取card bar的持有者
                         pl.StartLine(new PliBuyCardForm() {
                             buyOriginal = null,
                             buyDestination = dstResidence,
@@ -40,7 +40,7 @@ namespace Hsenl {
                     }
                     else if (arg.destination == typeof(CardBackpack)) {
                         // 放到卡牌背包里
-                        var dstResidence = GameManager.Instance.MainMan.FindSubstaintiveInChildren<CardBackpack>();
+                        var dstResidence = GameManager.Instance.MainMan.FindScopeInBodied<CardBackpack>();
                         dstResidence.PutinCard(card);
                     }
 
@@ -52,9 +52,9 @@ namespace Hsenl {
                     }
                     else if (arg.destination == typeof(CardBar)) {
                         // 购买卡牌放到卡牌栏里
-                        var dstResidence = destSlot?.GetSubstantiveInParent<CardBar>(); // 如果指定了slot, 就获得指定的residence
-                        dstResidence ??= GameManager.Instance.MainMan.FindSubstaintiveInChildren<CardBar>(); // 否则, 就使用main man的 card bar
-                        var pl = dstResidence.GetHolder().GetComponent<ProcedureLine>(); // 获取card bar的持有者
+                        var dstResidence = destSlot?.FindScopeInParent<CardBar>(); // 如果指定了slot, 就获得指定的residence
+                        dstResidence ??= GameManager.Instance.MainMan.FindScopeInBodied<CardBar>(); // 否则, 就使用main man的 card bar
+                        var pl = dstResidence.Owner.GetComponent<ProcedureLine>(); // 获取card bar的持有者
                         pl.StartLine(new PliBuyCardForm() {
                             buyOriginal = cardStore,
                             buyDestination = dstResidence,
@@ -64,9 +64,9 @@ namespace Hsenl {
                     }
                     else if (arg.destination == typeof(CardBackpack)) {
                         // 购买卡牌放到卡牌背包里
-                        var dstResidence = destSlot?.GetSubstantiveInParent<CardBackpack>(); // 如果指定了slot, 就获得指定的residence
-                        dstResidence ??= GameManager.Instance.MainMan.FindSubstaintiveInChildren<CardBackpack>(); // 否则, 就使用main man的 card bar
-                        var pl = dstResidence.GetHolder().GetComponent<ProcedureLine>(); // 获取card bar的持有者
+                        var dstResidence = destSlot?.FindScopeInParent<CardBackpack>(); // 如果指定了slot, 就获得指定的residence
+                        dstResidence ??= GameManager.Instance.MainMan.FindScopeInBodied<CardBackpack>(); // 否则, 就使用main man的 card bar
+                        var pl = dstResidence.Owner.GetComponent<ProcedureLine>(); // 获取card bar的持有者
                         pl.StartLine(new PliBuyCardForm() {
                             buyOriginal = cardStore,
                             buyDestination = dstResidence,
@@ -81,9 +81,9 @@ namespace Hsenl {
                 case CardBar cardBar: {
                     if (arg.destination == typeof(CardStore)) {
                         // 卖掉卡牌
-                        var dstResidence = destSlot?.GetSubstantiveInParent<CardStore>(); // 如果指定了slot, 就获得指定的residence
+                        var dstResidence = destSlot?.FindScopeInParent<CardStore>(); // 如果指定了slot, 就获得指定的residence
                         dstResidence ??= CardStore.Instance;
-                        var pl = cardBar.GetHolder().GetComponent<ProcedureLine>();
+                        var pl = cardBar.Owner.GetComponent<ProcedureLine>();
                         pl.StartLine(new PliSellCardForm() {
                             sellOriginal = cardBar,
                             sellDestination = dstResidence,
@@ -104,7 +104,7 @@ namespace Hsenl {
                     }
                     else if (arg.destination == typeof(CardBackpack)) {
                         // 把卡牌从卡牌栏拿到卡牌背包中
-                        var dstResidence = cardBar.GetHolder().FindSubstaintiveInChildren<CardBackpack>();
+                        var dstResidence = cardBar.Owner.FindScopeInBodied<CardBackpack>();
                         dstResidence.PutinCard(card);
                     }
 
@@ -114,9 +114,9 @@ namespace Hsenl {
                 case CardBackpack cardBackpack: {
                     if (arg.destination == typeof(CardStore)) {
                         // 卖掉卡牌
-                        var dstResidence = destSlot?.GetSubstantiveInParent<CardStore>(); // 如果指定了slot, 就获得指定的residence
+                        var dstResidence = destSlot?.FindScopeInParent<CardStore>(); // 如果指定了slot, 就获得指定的residence
                         dstResidence ??= CardStore.Instance;
-                        var pl = cardBackpack.GetHolder().GetComponent<ProcedureLine>();
+                        var pl = cardBackpack.Owner.GetComponent<ProcedureLine>();
                         pl.StartLine(new PliSellCardForm() {
                             sellOriginal = cardBackpack,
                             sellDestination = dstResidence,
@@ -125,7 +125,7 @@ namespace Hsenl {
                     }
                     else if (arg.destination == typeof(CardBar)) {
                         // 把卡牌从卡牌背包拿到卡牌栏
-                        var dstResidence = cardBackpack.GetHolder().FindSubstaintiveInChildren<CardBar>();
+                        var dstResidence = cardBackpack.Owner.FindScopeInBodied<CardBar>();
                         dstResidence.PutinCard(card);
                     }
                     else if (arg.destination == typeof(CardBackpack)) {

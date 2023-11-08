@@ -2,11 +2,6 @@
 
 namespace Hsenl {
     public class MultiQueue<TKey, TValue> : Dictionary<TKey, Queue<TValue>> {
-        /// <summary>
-        /// 返回内部的list
-        /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
         public new Queue<TValue> this[TKey t] => this.TryGetValue(t, out var queue) ? queue : null;
 
         public bool Contains(TKey key, TValue value) {

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2368420562
+CRC: 1097939679
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: af623eba64bf7035879e12bd92260b64
+    Hash: 3de45fa9d6f5221e781a5a479cbb99f2
   TypeTreeHash:
     serializedVersion: 2
     Hash: bc28b7adf343c0b5d21b44ebc2703253
@@ -13,6 +13,8 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Scenes/Levels/Lv4/NavMesh-Ground.asset
+- Assets/Scenes/Levels/Lv3/NavMesh-Ground.asset
 - Assets/Scenes/Levels/Lv2/NavMesh-Ground.asset
 - Assets/Scenes/Levels/Lv1/NavMesh-Ground.asset
 Dependencies: []

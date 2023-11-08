@@ -27,18 +27,18 @@ namespace Hsenl {
         [ShowInInspector, LabelText("阻拦等级"), DisableInEditorMode, FoldoutGroup("优先级")]
         [MemoryPackInclude]
         protected int resistPriority;
+        
+        [SerializeField, LabelText("排挤等级"), FoldoutGroup("优先级")]
+        public int exclusionPriority;
 
         [SerializeField, LabelText("保持等级"), FoldoutGroup("优先级")]
         public int keepPriority;
 
-        [SerializeField, LabelText("排挤等级"), FoldoutGroup("优先级")]
-        public int exclusionPriority;
+        [SerializeField, LabelText("禁用等级"), FoldoutGroup("优先级")]
+        public int disablePriority;
 
         [SerializeField, LabelText("运行等级"), FoldoutGroup("优先级")]
         public int runPriority;
-
-        [SerializeField, LabelText("禁用等级"), FoldoutGroup("优先级")]
-        public int disablePriority;
 
         [SerializeField, LabelText("指定通过"), FoldoutGroup("优先级")]
         public Bitlist specialPassLabels;
@@ -46,17 +46,17 @@ namespace Hsenl {
         [SerializeField, LabelText("指定拦截"), FoldoutGroup("优先级")]
         public Bitlist specialInterceptLabels;
 
-        [SerializeField, LabelText("指定保持"), FoldoutGroup("优先级")]
-        public Bitlist specialKeepLabels;
-
         [SerializeField, LabelText("指定排挤"), FoldoutGroup("优先级")]
         public Bitlist specialExclusionLabels;
 
-        [SerializeField, LabelText("指定运行"), FoldoutGroup("优先级")]
-        public Bitlist specialRunLabels;
+        [SerializeField, LabelText("指定保持"), FoldoutGroup("优先级")]
+        public Bitlist specialKeepLabels;
 
         [SerializeField, LabelText("指定禁用"), FoldoutGroup("优先级")]
         public Bitlist specialDisableLabels;
+
+        [SerializeField, LabelText("指定运行"), FoldoutGroup("优先级")]
+        public Bitlist specialRunLabels;
 
         [ShowInInspector, ReadOnly, LabelText("上一帧暂停"), FoldoutGroup("优先级")]
         [MemoryPackInclude]
@@ -113,10 +113,10 @@ namespace Hsenl {
             this.disablePriority = 0;
             this.specialPassLabels?.Clear();
             this.specialInterceptLabels?.Clear();
-            this.specialKeepLabels?.Clear();
             this.specialExclusionLabels?.Clear();
-            this.specialRunLabels?.Clear();
+            this.specialKeepLabels?.Clear();
             this.specialDisableLabels?.Clear();
+            this.specialRunLabels?.Clear();
             this.pausedPrevious = false;
             this.paused = false;
             this.duration = 0;
@@ -167,24 +167,24 @@ namespace Hsenl {
             set => this.resistPriority = value;
         }
 
-        int IPriorityState.KeepPriority {
-            get => this.keepPriority;
-            set => this.keepPriority = value;
-        }
-
         int IPriorityState.ExclusionPriority {
             get => this.exclusionPriority;
             set => this.exclusionPriority = value;
         }
 
-        int IPriorityState.RunPriority {
-            get => this.runPriority;
-            set => this.runPriority = value;
+        int IPriorityState.KeepPriority {
+            get => this.keepPriority;
+            set => this.keepPriority = value;
         }
 
         int IPriorityState.DisablePriority {
             get => this.disablePriority;
             set => this.disablePriority = value;
+        }
+
+        int IPriorityState.RunPriority {
+            get => this.runPriority;
+            set => this.runPriority = value;
         }
 
         Bitlist IPriorityState.SpecialPassLabels {
@@ -197,24 +197,24 @@ namespace Hsenl {
             set => this.specialInterceptLabels = value;
         }
 
-        Bitlist IPriorityState.SpecialKeepLabels {
-            get => this.specialKeepLabels;
-            set => this.specialKeepLabels = value;
-        }
-
         Bitlist IPriorityState.SpecialExclusionLabels {
             get => this.specialExclusionLabels;
             set => this.specialExclusionLabels = value;
         }
 
-        Bitlist IPriorityState.SpecialRunLabels {
-            get => this.specialRunLabels;
-            set => this.specialRunLabels = value;
+        Bitlist IPriorityState.SpecialKeepLabels {
+            get => this.specialKeepLabels;
+            set => this.specialKeepLabels = value;
         }
 
         Bitlist IPriorityState.SpecialDisableLabels {
             get => this.specialDisableLabels;
             set => this.specialDisableLabels = value;
+        }
+
+        Bitlist IPriorityState.SpecialRunLabels {
+            get => this.specialRunLabels;
+            set => this.specialRunLabels = value;
         }
 
         bool IPriorityState.PausedPrevious {

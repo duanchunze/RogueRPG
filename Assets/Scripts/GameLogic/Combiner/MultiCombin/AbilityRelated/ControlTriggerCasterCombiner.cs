@@ -1,9 +1,12 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Hsenl.MultiCombiner {
     public class ControlTriggerCasterCombiner : MultiCombiner<ControlTrigger, Caster> {
         protected override void OnCombin(ControlTrigger arg1, Caster arg2) {
-            arg1.onBegin += this.EnqueueAction<Action>(() => { arg2.CastStart(true); });
+            arg1.onBegin += this.EnqueueAction<Action>(() => {
+                arg2.CastStart(true); // 
+            });
 
             arg1.onFinish += this.EnqueueAction<Action>(() => { 
                 // 当施法器的模式是无限时间的时候, 才由控制器控制结束

@@ -9,6 +9,8 @@ using UnityEditor;
 namespace Hsenl {
     public class SceneObjectReference : ReferenceCollector { }
 
+#if UNITY_EDITOR
     [CustomEditor(typeof(SceneObjectReference))]
     public class SceneObjectReferenceEditor : ReferenceCollectorEditor { }
+#endif
 }

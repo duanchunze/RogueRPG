@@ -3,12 +3,30 @@ using System.Collections.Generic;
 using Hsenl.behavior;
 
 namespace Hsenl {
+    [FrameworkMember]
     public static class BehaviorNodeFactory {
+        private static readonly Dictionary<Type, Type> caches = new(); // key: info的具体类型, value: node
+
+        [OnEventSystemInitialized]
+        private static void Cache() {
+            caches.Clear();
+            foreach (var type in EventSystem.GetTypesOfAttribute(typeof(BehaviorNodeAttribute))) {
+                var infoType = type.BaseType?.GetGenericArguments()[0];
+                if (infoType == null) throw new Exception($"{type}'s base type is error");
+                caches[infoType] = type;
+            }
+        }
+
+        private static Type GetTypeOfInfoType(Type type) {
+            caches.TryGetValue(type, out var result);
+            return result;
+        }
+
         public static T CreateNode<T>(behavior.Info info) where T : INode {
-            var nodeType = BehaviorNodeManager.GetTypeOfInfoType(info.GetType());
+            var nodeType = GetTypeOfInfoType(info.GetType());
             if (nodeType == null) throw new Exception($"cant find behavior info of '{info.GetType()}'");
             var node = (T)Activator.CreateInstance(nodeType);
-            ((IBehaviorNodeInitializer)node).Init(info);
+            ((IConfigInfoInitializer<behavior.Info>)node).InitInfo(info);
             return node;
         }
 

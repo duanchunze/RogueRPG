@@ -14,7 +14,7 @@ namespace Hsenl {
                 if (arg.controlCode == (int)ControlCode.MoveOfPoint) {
                     
                 }
-                
+
                 Set(target, arg);
             }
 

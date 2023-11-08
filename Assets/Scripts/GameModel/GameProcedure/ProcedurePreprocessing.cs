@@ -11,14 +11,15 @@ namespace Hsenl {
             InputMaptable.RegisterControlCode(InputCode.Alpha4, ControlCode.Ability4);
             InputMaptable.RegisterControlCode(InputCode.Alpha5, ControlCode.Ability5);
             InputMaptable.RegisterControlCode(InputCode.Alpha6, ControlCode.Ability6);
-            
+
             // 初始化数值系统
             Numerator.InitNumerator(NumericLayer.Max);
-            
-            // 加载场景
+
+            // 加载初始场景
             SceneManager.GetOrLoadDontDestroyScene();
             await SceneManager.LoadSceneWithUnity("GameMain", UnityEngine.SceneManagement.LoadSceneMode.Single);
-            manager.ChangeState<ProcedureMainInterface>();
+
+            manager.ChangeState<ProcedureCodeClipping>();
         }
 
         protected override void OnLeave(ProcedureManager manager, FsmState<ProcedureManager> next) { }

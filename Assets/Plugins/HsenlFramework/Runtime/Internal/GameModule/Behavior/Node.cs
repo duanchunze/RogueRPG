@@ -189,15 +189,6 @@ namespace Hsenl {
             }
         }
 
-        internal void InternalDestroy() {
-            try {
-                this.OnNodeDestroy();
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
-        }
-
         internal void InternalReset() {
             try {
                 this.OnNodeReset();
@@ -228,6 +219,15 @@ namespace Hsenl {
 
             this.OnNodeAbort();
         }
+        
+        internal void InternalDestroy() {
+            try {
+                this.OnNodeDestroy();
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
+        }
 
         /* 对比下面几个回调函数
          *
@@ -235,9 +235,9 @@ namespace Hsenl {
          * OnNodeStart:
          * OnNodeOpen:
          * OnNodeClose:
-         * OnNodeDestroy: 
          * OnNodeReset:
          * OnNodeAbort:
+         * OnNodeDestroy: 
          *
          * 由Tick时驱动的
          * OnNodeEvaluate
@@ -258,14 +258,14 @@ namespace Hsenl {
         /// 当节点被外部关闭, 类比 OnDisable
         protected virtual void OnNodeClose() { }
 
-        /// 当节点从行为树移除时触发
-        protected virtual void OnNodeDestroy() { }
-
         /// 当节点被外部重置, 比Open调用的频繁, 适合重置数据, 比如技能cd, 比如每次进入技能的时候, 调用该函数.
         protected virtual void OnNodeReset() { }
 
         /// 当节点被终止时
         protected virtual void OnNodeAbort() { }
+        
+        /// 当节点从行为树移除时触发
+        protected virtual void OnNodeDestroy() { }
 
 
         // 当节点评估, 返回的结果将决定还是否需要进入该节点

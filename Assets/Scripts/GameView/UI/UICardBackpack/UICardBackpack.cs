@@ -19,7 +19,7 @@ namespace Hsenl.View {
         }
 
         protected override void OnOpen() {
-            var cardBackpack = GameManager.Instance.MainMan?.GetSubstaintiveInChildren<CardBackpack>();
+            var cardBackpack = GameManager.Instance.MainMan?.FindScopeInBodied<CardBackpack>();
             if (cardBackpack == null) return;
             EventSystem.Publish(new OnCardResidenceChanged() { residence = cardBackpack });
         }

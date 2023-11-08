@@ -29,7 +29,6 @@ namespace Hsenl {
         public static void SetEventEnable<TEventKey, TEvent>(bool value) => EventSystemManager.Instance.SetEventEnable<TEventKey, TEvent>(value);
         public static Object GetInstance(int instanceId) => EventSystemManager.Instance.GetInstance(instanceId);
         public static T GetInstance<T>(int instanceId) where T : Object => EventSystemManager.Instance.GetInstance<T>(instanceId);
-        public static void RegisterAheadUpdate(IAheadUpdate update) => EventSystemManager.Instance.RegisterAheadUpdate(update);
         public static void RegisterUpdate(IUpdate update) => EventSystemManager.Instance.RegisterUpdate(update);
         public static void RegisterLateUpdate(ILateUpdate update) => EventSystemManager.Instance.RegisterLateUpdate(update);
         public static async ETTask PublishAsync<T>(T a) where T : struct => await EventSystemManager.Instance.PublishAsync(a);

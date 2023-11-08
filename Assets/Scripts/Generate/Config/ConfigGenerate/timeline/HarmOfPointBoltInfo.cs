@@ -21,14 +21,16 @@ public sealed partial class HarmOfPointBoltInfo :  timeline.TpHarmInfo
 {
     public HarmOfPointBoltInfo(JSONNode _json)  : base(_json) 
     {
-        { if(!_json["model_name"].IsString) { throw new SerializationException(); }  ModelName = _json["model_name"]; }
+        { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
+        { if(!_json["bolt_name"].IsString) { throw new SerializationException(); }  BoltName = _json["bolt_name"]; }
         { if(!_json["speed"].IsNumber) { throw new SerializationException(); }  Speed = _json["speed"]; }
         PostInit();
     }
 
-    public HarmOfPointBoltInfo(int model, float point, System.Collections.Generic.List<numeric.DamageFormulaInfo> harm_formulas, string model_name, float speed )  : base(model,point,harm_formulas) 
+    public HarmOfPointBoltInfo(int model, float point, numeric.DamageFormulaInfo harm_formula, string bolt_name, float speed )  : base(model,point) 
     {
-        this.ModelName = model_name;
+        this.HarmFormula = harm_formula;
+        this.BoltName = bolt_name;
         this.Speed = speed;
         PostInit();
     }
@@ -38,10 +40,11 @@ public sealed partial class HarmOfPointBoltInfo :  timeline.TpHarmInfo
         return new timeline.HarmOfPointBoltInfo(_json);
     }
 
-    public string ModelName { get; private set; }
+    public numeric.DamageFormulaInfo HarmFormula { get; private set; }
     /// <summary>
     /// 弹道速度
     /// </summary>
+    public string BoltName { get; private set; }
     public float Speed { get; private set; }
 
     public const int __ID__ = 1182886171;
@@ -50,12 +53,14 @@ public sealed partial class HarmOfPointBoltInfo :  timeline.TpHarmInfo
     public override void Resolve(Dictionary<string, object> _tables)
     {
         base.Resolve(_tables);
+        HarmFormula?.Resolve(_tables);
         PostResolve();
     }
 
     public override void TranslateText(System.Func<string, string, string> translator)
     {
         base.TranslateText(translator);
+        HarmFormula?.TranslateText(translator);
     }
 
     public override string ToString()
@@ -63,8 +68,8 @@ public sealed partial class HarmOfPointBoltInfo :  timeline.TpHarmInfo
         return "{ "
         + "Model:" + Model + ","
         + "Point:" + Point + ","
-        + "HarmFormulas:" + Bright.Common.StringUtil.CollectionToString(HarmFormulas) + ","
-        + "ModelName:" + ModelName + ","
+        + "HarmFormula:" + HarmFormula + ","
+        + "BoltName:" + BoltName + ","
         + "Speed:" + Speed + ","
         + "}";
     }

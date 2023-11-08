@@ -43,7 +43,7 @@ namespace Hsenl {
             foreach (var kv in this._tcss) {
                 foreach (var boxKv in kv.Value) {
                     boxKv.Value.Dispose();
-                    ObjectPoolManager.Instance.Recycle(boxKv.Value);
+                    ObjectPoolManager.Instance.Return(boxKv.Value);
                 }
             }
         }
@@ -252,7 +252,7 @@ namespace Hsenl {
             public Queue<ETTask> Tcss => this._tcss ??= new Queue<ETTask>();
 
             public static WaitBox Create() {
-                var box = ObjectPool.Fetch<WaitBox>();
+                var box = ObjectPool.Rent<WaitBox>();
                 return box;
             }
 
@@ -286,7 +286,7 @@ namespace Hsenl {
             public bool IsDisposed { get; private set; }
 
             public static TaskLineWaiter Create(TaskLine taskLine, Type type, int position) {
-                var lineWaiter = ObjectPoolManager.Instance.Fetch<TaskLineWaiter>();
+                var lineWaiter = ObjectPoolManager.Instance.Rent<TaskLineWaiter>();
                 lineWaiter.taskLine = taskLine;
                 lineWaiter.type = type;
                 lineWaiter.position = position;
@@ -300,7 +300,7 @@ namespace Hsenl {
                 this.taskLine = null;
                 this.type = null;
                 this.position = 0;
-                ObjectPoolManager.Instance.Recycle(this);
+                ObjectPoolManager.Instance.Return(this);
             }
         }
     }

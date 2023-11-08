@@ -54,7 +54,6 @@ namespace Hsenl {
 
         public void Init() {
             this.ProcedureLine = this.GetComponent<ProcedureLine>();
-            this.AddComponent<Harmable>();
         }
 
         public void SetCameraFocus(UnityEngine.Transform tra) {

@@ -9,11 +9,11 @@ namespace Hsenl {
             typeCacher.Add(lhs.Entity.componentTypeCacher);
             typeCacher.Add(rhs.Entity.componentTypeCacher);
         }
-        
+
 #if UNITY_EDITOR
         [ShowInInspector]
         [MemoryPackIgnore]
-        public string ViewName => this.Name;
+        public string ViewName => this.IsDisposed ? "Null" : this.Name;
 #endif
 
         [NonSerialized]
@@ -26,16 +26,24 @@ namespace Hsenl {
         [MemoryPackIgnore]
         protected bool IsAwake => this._awake;
 
-        [MemoryPackOrder(10)]
+        [MemoryPackOrder(1)]
         [MemoryPackInclude]
-        internal bool enable = true;
+        protected internal bool enable = true;
+
+        [MemoryPackIgnore]
+        private int _componentIndex = -1;
 
         [MemoryPackIgnore]
         public int ComponentIndex {
             get {
-                var index = Entity.GetComponentIndex(this.GetType());
-                if (index == -1) throw new Exception($"get component index fail '{this.GetType().Name}'");
-                return index;
+                // component index 是由框架在这次进程, 给每个组件分配的唯一编号
+                if (this._componentIndex == -1) {
+                    this._componentIndex = Entity.GetComponentIndex(this.GetType());
+                    if (this._componentIndex == -1)
+                        throw new Exception($"get component index fail '{this.GetType().Name}'");
+                }
+
+                return this._componentIndex;
             }
         }
 
@@ -99,14 +107,19 @@ namespace Hsenl {
         [MemoryPackIgnore]
         public Transform transform => this.Entity.transform;
 
-        // internal Component() { }
-
         public void Reenable() {
             this.Enable = false;
             this.Enable = true;
         }
 
         internal void InternalOnDeserialized() {
+            try {
+                this.OnDeserializedInternal();
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
+            
             try {
                 this.OnDeserialized();
             }
@@ -116,6 +129,13 @@ namespace Hsenl {
         }
 
         internal void InternalOnDeserializedOverall() {
+            try {
+                this.OnDeserializedOverallInternal();
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
+            
             try {
                 this.OnDeserializedOverall();
             }
@@ -131,7 +151,7 @@ namespace Hsenl {
             catch (Exception e) {
                 Log.Error(e);
             }
-            
+
             try {
                 this.OnConstruction();
             }
@@ -202,7 +222,7 @@ namespace Hsenl {
             }
         }
 
-        internal void InternalOnReset() {
+        public void Reset() {
             try {
                 this.OnReset();
             }
@@ -237,22 +257,6 @@ namespace Hsenl {
 
             try {
                 this.OnParentChanged(previousParent);
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
-        }
-        
-        internal void InternalOnAfterParentChanged(Entity previousParent) {
-            try {
-                this.OnAfterParentChangedInternal(previousParent);
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
-
-            try {
-                this.OnAfterParentChanged(previousParent);
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -332,30 +336,51 @@ namespace Hsenl {
             }
         }
 
-        internal void InternalOnDomainChanged() {
+        internal void InternalOnSceneChanged() {
             try {
-                this.OnDomainChanged();
+                this.OnSceneChanged();
             }
             catch (Exception e) {
                 Log.Error(e);
             }
         }
 
+        // 之所以每个函数都增加了一个Internal版本, 主要因为框架内部有时也需要用到这些函数, 但如此以来, 在框架外部实现该函数就必须要附带base.Function()的调用, 就会很乱
+        // OnDeserialized
+        // OnDeserializedOverall
+        // OnConstruction
+        // OnAwake
+        // OnEnable
+        // OnDisable
+        // OnDestroy
+        // OnBeforeParentChange
+        // OnParentChanged
+        // OnComponentAdd
+        // OnComponentRemove
+        // OnChildAdd
+        // OnChildRemove
+        // OnAppQuit
+        // OnSceneChanged
+
+        internal virtual void OnDeserializedInternal() { }
+        
         // 当自己序列化完成时. 此时, 整个实体的组件, 父子, 都已经装配完毕, 只是此时还未触发任何事件.
         protected virtual void OnDeserialized() { }
+        
+        internal virtual void OnDeserializedOverallInternal() { }
 
         // 跟上面唯一的区别就是, 所有该触发的事件都触发了.
         protected virtual void OnDeserializedOverall() { }
-        
+
         internal virtual void OnConstructionInternal() { }
 
         // 可以理解为当构造时, 但肯定没有构造函数早. 在Awake前一步执行, 且不受Enable == false影响. 因为添加组件的时候可以选择Enable为false, 所以增加了这个一个函数, 
         // 可以简单的把他当做一个不受Enable影响的Awake使用
         protected virtual void OnConstruction() { }
 
-        internal virtual void OnAwakeInternal() { } // 专门用于内部方法
+        internal virtual void OnAwakeInternal() { }
 
-        // 常用于初始化系统方面的数据 (并不经常用到)
+        // 常用于初始化系统方面的数据
         protected virtual void OnAwake() { }
 
         // 常用于初始化游戏逻辑方面的数据 (比如添加Control的监听事件)
@@ -373,25 +398,18 @@ namespace Hsenl {
         // 可以选择使用配置文件来初始化, 也可以手动的去初始化
         protected virtual void OnReset() { }
 
-        // 之所以有了OnBeforeParentChange还要再写一个Internal版的, 是为了专门给内部一些系统使用的, 从而实际开发时, 重写方法时, 就不用纠结该方法是否需要实现base的方法.
+        // 父级改变时涉及到的函数
+        // BeforeParent => (此时赋值改变了父级) => ParentChange => OnChildRemove => OnChildAdd => AfterParent
+
+        // 实例化时不会触发
         internal virtual void OnBeforeParentChangeInternal(Entity futrueParent) { }
 
-        // 许多东西是很依赖父子关系的, 比如技能, 状态, 装备, 等等等等, 我们认为在拥有者物体下面即为被持有
-        // 在这些东西父级发生变化时, 自然要更新自己的状态
-        // 在unity中, 对象在被实例化出来的时候, 并不会触发父级改变事件. 即便 Instantiate 函数的父级参数填一个有效的, 也不会触发
-        // 而且如果其本身就存在于某物体下面, 那么加载该父物体, 也不会触发该事件.
-        // 父级改变前, 移除前父级的影响
         protected virtual void OnBeforeParentChange(Entity futrueParent) { }
 
         internal virtual void OnParentChangedInternal(Entity previousParent) { }
 
-        // 父级在改变后, 添加新父级的影响
+        // 父级在改变后, 添加新父级的影响, 实例化时也会触发
         protected virtual void OnParentChanged(Entity previousParent) { }
-        
-        internal virtual void OnAfterParentChangedInternal(Entity previousParent) { }
-
-        // 父级在改变后, 添加新父级的影响
-        protected virtual void OnAfterParentChanged(Entity previousParent) { }
 
         internal virtual void OnComponentAddInternal(Component component) { }
 
@@ -411,7 +429,7 @@ namespace Hsenl {
 
         protected virtual void OnAppQuit() { }
 
-        protected virtual void OnDomainChanged() { }
+        protected virtual void OnSceneChanged() { }
 
         #region partial
 

@@ -2,13 +2,13 @@
 
 namespace Hsenl {
     [Serializable]
-    public abstract class CardSlot : Substantive {
+    public abstract class CardSlot : Bodied {
         public Bitlist confineCardType = new();
 
         public Action<Card> onCardPutin;
         public Action<Card> onCardTakeout;
 
-        public Card StayCard => this.FindSubstaintiveInChildren<Card>();
+        public Card StayCard => this.FindScopeInBodied<Card>();
 
         public virtual bool PutinCardEvaluate(Card card) {
             if (!this.confineCardType.ContainsAny(card.cardType)) {
@@ -39,15 +39,15 @@ namespace Hsenl {
             return card;
         }
 
-        protected override void OnChildSubstantiveAdd(Substantive childSubs) {
-            if (childSubs is not Card card)
+        protected override void OnChildScopeAdd(Scope child) {
+            if (child is not Card card)
                 return;
 
             this.OnCardPutin(card);
         }
 
-        protected override void OnChildSubstantiveRemove(Substantive childSubs) {
-            if (childSubs is not Card card)
+        protected override void OnChildScopeRemove(Scope child) {
+            if (child is not Card card)
                 return;
 
             this.OnCardTakeout(card);

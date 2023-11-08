@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 889953775
+CRC: 3714095287
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 89118ee8a2d310bfd7a6328919c386bc
+    Hash: de52c9f0c206255a60b9fb0f8dfbe68d
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 7bebca90fc3825aa8b1d4f73aba24750
+    Hash: d710dcb70bf896fcadac42d709cd3223
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -21,8 +21,6 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
-- Class: 74
-  Script: {instanceID: 0}
 - Class: 90
   Script: {instanceID: 0}
 - Class: 91
@@ -34,4 +32,5 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Bundles/Appear/blademaster.prefab
-Dependencies: []
+Dependencies:
+- D:/UnityProjects/HsenlFramework/./Release/PC/StreamingAssets/animcontrol.unity3d

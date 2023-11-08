@@ -4,7 +4,7 @@ using MemoryPack;
 
 namespace Hsenl {
     [ProcedureLineWorker]
-    public abstract class CwInfo<T> : PlwInfo, IProcedureLineWorkerInitializer<ConditionCastOfWorkerInfo> where T : ConditionCastOfWorkerInfo {
+    public abstract class CwInfo<T> : PlwInfo, IConfigInfoInitializer<ConditionCastOfWorkerInfo> where T : ConditionCastOfWorkerInfo {
         [MemoryPackIgnore]
         public T info;
 
@@ -18,7 +18,7 @@ namespace Hsenl {
             if (this.info == null && this.infoInstanceId != 0) {
                 var inf = ConditionCastOfWorkerInfo.GetInfo(this.infoInstanceId);
                 if (inf != null) {
-                    this.Init(inf);
+                    this.InitInfo(inf);
                 }
             }
         }
@@ -27,14 +27,14 @@ namespace Hsenl {
             this.caster = null;
         }
 
-        public void Init(ConditionCastOfWorkerInfo inf) {
-            var t = (T)inf;
+        public void InitInfo(ConditionCastOfWorkerInfo configInfo) {
+            var t = (T)configInfo;
             this.info = t;
             this.infoInstanceId = t.InstanceId;
 
-            this.OnInit(t);
+            this.OnConfigInfoInit(t);
         }
 
-        protected virtual void OnInit(T arg) { }
+        protected virtual void OnConfigInfoInit(T arg) { }
     }
 }

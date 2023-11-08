@@ -21,7 +21,7 @@ namespace Hsenl {
         public int Count => this._queue.Count;
 
         public static TaskLockQueue Create(int type, long key) {
-            var taskLockQueue = ObjectPool.Fetch<TaskLockQueue>();
+            var taskLockQueue = ObjectPool.Rent<TaskLockQueue>();
             taskLockQueue._type = type;
             taskLockQueue._key = key;
             return taskLockQueue;
@@ -74,7 +74,7 @@ namespace Hsenl {
             this._key = 0;
             this._type = 0;
             this._currentTaskLock = null;
-            ObjectPool.Recycle(this);
+            ObjectPool.Return(this);
         }
     }
 }

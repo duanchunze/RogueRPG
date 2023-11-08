@@ -97,7 +97,7 @@ namespace Hsenl {
             }
         }
 
-        public override void Reset() {
+        protected override void OnReset() {
             this.BufferSpeed = this._speed;
             this.status = StageStatus.Running;
             this.entryNode?.ResetNode();

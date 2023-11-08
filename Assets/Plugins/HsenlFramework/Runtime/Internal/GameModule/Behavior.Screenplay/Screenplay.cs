@@ -19,7 +19,9 @@ namespace Hsenl {
      * 以一个档案(record)为单位, 开启一个剧本, 每个剧本下具体哪些node, 可以随便添加
      */
     [Serializable]
-    public abstract class Screenplay<TRecord, TNode> : Substantive, IBehaviorTree, IUpdate where TRecord : IRecord where TNode : INode {
+    public abstract class Screenplay<TRecord, TNode> : Bodied, IBehaviorTree, IUpdate where TRecord : IRecord where TNode : INode {
+        public Bodied Bodied => this;
+
         [ShowInInspector]
         protected TRecord record;
 
@@ -33,10 +35,8 @@ namespace Hsenl {
 
         public ref TRecord Record => ref this.record;
 
-        public Substantive Substantive => this;
-
         public IBlackboard Blackboard => null;
-        
+
         public float DeltaTime { get; protected set; }
 
         INode IBehaviorTree.CurrentNode {
@@ -119,14 +119,14 @@ namespace Hsenl {
             return status;
         }
 
-        public void Reset() {
+        protected override void OnReset() {
             this.entryNode?.ResetNode();
         }
 
         public void Abort() {
             this.entryNode?.AbortNode();
         }
-        
+
         public void Update() {
             this.DeltaTime = TimeInfo.DeltaTime;
             this.Tick();

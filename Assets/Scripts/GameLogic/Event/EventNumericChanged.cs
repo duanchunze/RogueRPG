@@ -20,20 +20,20 @@ namespace Hsenl {
             var nt = (NumericType)arg.numType;
             switch (nt) {
                 case NumericType.Height: {
-                    var body = numerator.GetComponent<PhysicBody>();
+                    var body = numerator.GetComponent<CapsuleCollider>();
                     body.Height = arg.now;
                     body.Radius = body.Height * 0.1444f;
                     body.Center = new Vector3(0, body.Height * 0.5f, 0);
 
-                    var agent = numerator.GetMonoComponent<NavMeshAgent>();
-                    agent.height = arg.now;
-                    agent.radius = agent.height * 0.15f;
+                    var agent = numerator.GetComponent<NavMeshAgent>();
+                    agent.Height = arg.now;
+                    agent.Radius = agent.Height * 0.15f;
                     break;
                 }
 
                 case NumericType.Mspd: {
-                    var agent = numerator.GetMonoComponent<NavMeshAgent>();
-                    agent.speed = arg.now;
+                    var agent = numerator.GetComponent<NavMeshAgent>();
+                    agent.Speed = arg.now;
                     break;
                 }
 

@@ -8,7 +8,7 @@ namespace Hsenl {
             if (card == null) throw new Exception($"cant find card with instance id '{arg.cardInstanceId}'");
             var slot = EventSystem.GetInstance<CardBarHeadSlot>(arg.cardBarSlotInstanceId);
             if (slot == null) throw new Exception($"cant find card bar head slot with instance id '{arg.cardBarSlotInstanceId}'");
-            var cardBar = slot.GetParentSubstantiveAs<CardBar>();
+            var cardBar = slot.FindScopeInParent<CardBar>();
             if (cardBar == null) throw new Exception($"get card bar fail"); 
 
             if (card.Source is Ability ability) {

@@ -16,14 +16,20 @@ namespace Hsenl {
 
             entity.Tags.Add(config.Labels);
 
-            var rig = entity.GameObject.AddComponent<Rigidbody>();
-            var bodyTrigger = entity.AddComponent<PhysicBody>();
-            var agent = entity.GameObject.AddComponent<NavMeshAgent>();
-            var audioSource = entity.GameObject.AddComponent<AudioSource>();
-            var sound = entity.AddComponent<Sound>();
             var actor = entity.AddComponent<Actor>();
+            actor.configId = configId;
+            var rig = entity.AddComponent<Rigidbody>();
+            rig.IsKinematic = true;
+            var col = entity.AddComponent<CapsuleCollider>();
+            col.IsTrigger = true;
+            col.SetUsage(GameColliderPurpose.Receptor);
+            var agent = entity.AddComponent<NavMeshAgent>();
+            agent.AngularSpeed = 0;
+            agent.Acceleration = float.MaxValue;
+            agent.StoppingDistance = 0.1f;
+            var sound = entity.AddComponent<Sound>();
+            sound.PlayOnAwake = false;
             var pl = entity.AddComponent<ProcedureLine>();
-            var tl = entity.AddComponent<TaskLine>();
             var control = entity.AddComponent<Control>();
             var priorities = entity.AddComponent<Prioritizer>();
             var tree = entity.AddComponent<BehaviorTree>();
@@ -36,37 +42,14 @@ namespace Hsenl {
             if (entity.Tags.Contains(TagType.Hero))
                 entity.AddComponent<Picker>();
             var faction = entity.AddComponent<Faction>();
+            faction.FactionModel = FactionModel.Enemy;
             var appear = entity.AddComponent<Appearance>();
+            appear.LoadModel(config.ModelName);
             var headMessage = entity.AddComponent<HeadMessage>();
             var followMessage = entity.AddComponent<FollowMessage>();
-            var dropable = entity.AddComponent<Dropable>();
-
-            var abilityBar = Entity.Create("AbilityBar", entity).AddComponent<AbilityBar>();
-            var statusBar = Entity.Create("StatusBar", entity).AddComponent<StatusBar>();
-            var cardBar = Entity.Create("CardBar", entity).AddComponent<CardBar>();
-            var cardBackpack = Entity.Create("CardBackpack", entity).AddComponent<CardBackpack>(initializeInvoke: backpack => {
-                backpack.capacity = Tables.Instance.TbGameSingletonConfig.CardBackpackCap;
-            });
-
             followMessage.uiStayTime = 0.75f;
-
-            actor.configId = configId;
-
-            audioSource.playOnAwake = false;
-            sound.audioSource = audioSource;
-
-            faction.FactionModel = FactionModel.Enemy;
-
-            rig.isKinematic = true;
-            agent.angularSpeed = 0;
-            agent.acceleration = float.MaxValue;
-            agent.stoppingDistance = 0.1f;
-            // if (entity.Tags.Contains(TagType.Hero)) {
-            //     agent.avoidancePriority = 10;
-            // }
-            // agent.autoTraverseOffMeshLink = false;
-            // agent.autoRepath = true;
-
+            var dropable = entity.AddComponent<Dropable>();
+            
             var numericConfig = Tables.Instance.TbNumericActorConfig.GetByAlias(config.NumericAlias);
             foreach (var basicValueInfo in numericConfig.NumericInfos) {
                 switch (basicValueInfo.Sign) {
@@ -79,22 +62,29 @@ namespace Hsenl {
                 }
             }
 
-            appear.LoadModel(config.ModelName);
+            var abilityBar = Entity.Create("AbilityBar", entity).AddComponent<AbilityBar>();
+            var statusBar = Entity.Create("StatusBar", entity).AddComponent<StatusBar>();
+            if (entity.Tags.Contains(TagType.Hero)) {
+                var cardBar = Entity.Create("CardBar", entity).AddComponent<CardBar>();
+                var cardBackpack = Entity.Create("CardBackpack", entity).AddComponent<CardBackpack>(initializeInvoke: backpack => {
+                    backpack.capacity = Tables.Instance.TbGameSingletonConfig.CardBackpackCap;
+                });
 
-            var aiConfig = Tables.Instance.TbAIConfig.GetByAlias(config.AiAlias);
-            if (aiConfig != null) {
-                var entryNode = BehaviorNodeFactory.CreateNodeLink<BehaviorTree>(aiConfig.Nodes);
-                tree.SetEntryNode(entryNode);
+                foreach (var orgCard in config.OrgCards) {
+                    var card = CardFactory.Create(orgCard);
+                    cardBar.PutinCard(card);
+                }
             }
 
             foreach (var abilityAlias in config.OrgAbilitys) {
                 var ability = AbilityFactory.Create(abilityAlias);
                 abilityBar.EquipAbility(ability);
             }
-
-            foreach (var orgCard in config.OrgCards) {
-                var card = CardFactory.Create(orgCard);
-                cardBar.PutinCard(card);
+            
+            var aiConfig = Tables.Instance.TbAIConfig.GetByAlias(config.AiAlias);
+            if (aiConfig != null) {
+                var entryNode = BehaviorNodeFactory.CreateNodeLink<BehaviorTree>(aiConfig.Nodes);
+                tree.SetEntryNode(entryNode);
             }
 
             foreach (var info in config.PossibleDropsByProbability) {

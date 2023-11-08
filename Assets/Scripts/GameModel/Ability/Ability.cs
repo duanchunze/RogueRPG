@@ -6,7 +6,7 @@ using MemoryPack;
 namespace Hsenl {
     [Serializable]
     [MemoryPackable(GenerateType.CircularReference)]
-    public partial class Ability : Substantive {
+    public partial class Ability : Bodied {
         [MemoryPackOrder(50)]
         [MemoryPackInclude]
         public int configId;

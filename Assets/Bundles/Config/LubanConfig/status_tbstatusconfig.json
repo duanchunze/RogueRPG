@@ -20,18 +20,18 @@
       ],
       "enter_pri": 1000,
       "resist_pri": 1000,
-      "keep_pri": 1000,
       "exclu_pri": 1000,
-      "run_pri": 1000,
+      "keep_pri": 1000,
       "dis_pri": 1000,
+      "run_pri": 1000,
       "sp_pass": [
         17
       ],
       "sp_inter": [],
-      "sp_keep": [],
       "sp_exclu": [],
-      "sp_run": [],
+      "sp_keep": [],
       "sp_dis": [],
+      "sp_run": [],
       "allow_reenter": true
     },
     "main": {
@@ -71,18 +71,18 @@
       ],
       "enter_pri": 0,
       "resist_pri": 0,
-      "keep_pri": 0,
       "exclu_pri": 0,
-      "run_pri": 0,
+      "keep_pri": 0,
       "dis_pri": 0,
+      "run_pri": 0,
       "sp_pass": [],
       "sp_inter": [],
-      "sp_keep": [],
       "sp_exclu": [
         16
       ],
-      "sp_run": [],
+      "sp_keep": [],
       "sp_dis": [],
+      "sp_run": [],
       "allow_reenter": true
     },
     "main": {
@@ -120,16 +120,16 @@
       ],
       "enter_pri": 60,
       "resist_pri": 59,
-      "keep_pri": 0,
       "exclu_pri": 1,
-      "run_pri": 0,
+      "keep_pri": 1,
       "dis_pri": 0,
+      "run_pri": 0,
       "sp_pass": [],
       "sp_inter": [],
-      "sp_keep": [],
       "sp_exclu": [],
-      "sp_run": [],
+      "sp_keep": [],
       "sp_dis": [],
+      "sp_run": [],
       "allow_reenter": true
     },
     "main": {
@@ -161,16 +161,16 @@
       ],
       "enter_pri": 90,
       "resist_pri": 90,
-      "keep_pri": 0,
       "exclu_pri": 1,
-      "run_pri": 0,
+      "keep_pri": 1,
       "dis_pri": 0,
+      "run_pri": 0,
       "sp_pass": [],
       "sp_inter": [],
-      "sp_keep": [],
       "sp_exclu": [],
-      "sp_run": [],
+      "sp_keep": [],
       "sp_dis": [],
+      "sp_run": [],
       "allow_reenter": false
     },
     "main": {
@@ -215,16 +215,16 @@
       ],
       "enter_pri": 1,
       "resist_pri": 0,
-      "keep_pri": 0,
       "exclu_pri": 0,
-      "run_pri": 0,
+      "keep_pri": 0,
       "dis_pri": 0,
+      "run_pri": 0,
       "sp_pass": [],
       "sp_inter": [],
-      "sp_keep": [],
       "sp_exclu": [],
-      "sp_run": [],
+      "sp_keep": [],
       "sp_dis": [],
+      "sp_run": [],
       "allow_reenter": true
     },
     "main": {
@@ -234,18 +234,16 @@
           "model": 1,
           "origin": 0,
           "dest": 1,
-          "harm_formulas": [
-            {
-              "damage_formulas": [
-                {
-                  "type": 12,
-                  "pct": 0.5,
-                  "fix": 0
-                }
-              ],
-              "damage_type": 5
-            }
-          ],
+          "harm_formula": {
+            "damage_formulas": [
+              {
+                "type": 12,
+                "pct": 0.5,
+                "fix": 0
+              }
+            ],
+            "damage_type": 5
+          },
           "internalTime": 0.5
         }
       ]
@@ -267,20 +265,20 @@
       ],
       "enter_pri": 70,
       "resist_pri": 0,
-      "keep_pri": 1,
       "exclu_pri": 0,
-      "run_pri": 0,
+      "keep_pri": 1,
       "dis_pri": 0,
+      "run_pri": 0,
       "sp_pass": [],
       "sp_inter": [
         18
       ],
-      "sp_keep": [],
       "sp_exclu": [
         18
       ],
-      "sp_run": [],
+      "sp_keep": [],
       "sp_dis": [],
+      "sp_run": [],
       "allow_reenter": true
     },
     "main": {
@@ -303,16 +301,16 @@
       ],
       "enter_pri": 1,
       "resist_pri": 0,
-      "keep_pri": 0,
       "exclu_pri": 0,
-      "run_pri": 0,
+      "keep_pri": 0,
       "dis_pri": 0,
+      "run_pri": 0,
       "sp_pass": [],
       "sp_inter": [],
-      "sp_keep": [],
       "sp_exclu": [],
-      "sp_run": [],
+      "sp_keep": [],
       "sp_dis": [],
+      "sp_run": [],
       "allow_reenter": false
     },
     "main": {
@@ -343,16 +341,16 @@
       ],
       "enter_pri": 1,
       "resist_pri": 0,
-      "keep_pri": 0,
       "exclu_pri": 0,
-      "run_pri": 0,
+      "keep_pri": 0,
       "dis_pri": 0,
+      "run_pri": 0,
       "sp_pass": [],
       "sp_inter": [],
-      "sp_keep": [],
       "sp_exclu": [],
-      "sp_run": [],
+      "sp_keep": [],
       "sp_dis": [],
+      "sp_run": [],
       "allow_reenter": true
     },
     "main": {
@@ -362,18 +360,16 @@
           "model": 1,
           "origin": 0,
           "dest": 1,
-          "harm_formulas": [
-            {
-              "damage_formulas": [
-                {
-                  "type": 12,
-                  "pct": 0.5,
-                  "fix": 0
-                }
-              ],
-              "damage_type": 0
-            }
-          ],
+          "harm_formula": {
+            "damage_formulas": [
+              {
+                "type": 12,
+                "pct": 0.5,
+                "fix": 0
+              }
+            ],
+            "damage_type": 0
+          },
           "internalTime": 0.5
         }
       ]

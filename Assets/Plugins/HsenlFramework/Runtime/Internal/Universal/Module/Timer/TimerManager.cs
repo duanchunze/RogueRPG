@@ -133,7 +133,7 @@ namespace Hsenl {
             public object obj;
 
             public static TimerAction Create(long id, long startTime, long time, object obj) {
-                var timerAction = ObjectPool.Fetch<TimerAction>();
+                var timerAction = ObjectPool.Rent<TimerAction>();
                 timerAction.id = id;
                 timerAction.startTime = startTime;
                 timerAction.time = time;
@@ -145,7 +145,7 @@ namespace Hsenl {
                 this.id = 0;
                 this.startTime = 0;
                 this.time = 0;
-                ObjectPool.Recycle(this);
+                ObjectPool.Return(this);
             }
         }
     }

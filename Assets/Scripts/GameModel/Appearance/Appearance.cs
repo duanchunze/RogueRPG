@@ -6,8 +6,6 @@ using UnityEngine;
 namespace Hsenl {
     [Serializable]
     public class Appearance : Unbodied, IUpdate {
-        private static readonly List<string> _bundleNameCache = new();
-
         public string assetName;
         public GameObject model;
         public int modelType = 0; // 0: 3d, 1: 2d
@@ -27,12 +25,13 @@ namespace Hsenl {
 
         public GameObject LoadModel(string modelName) {
             this.assetName = modelName;
-            _bundleNameCache.Clear();
-            _bundleNameCache.Add("Assets/Bundles/Appear");
-            _bundleNameCache.Add(this.assetName);
-            if (!AssetsManifest.Instance.GetOptimalBundle(_bundleNameCache, out var bundleName)) return null;
+            ResourcesHelper.Clear();
+            ResourcesHelper.Append(Constant.AppearActorBundleRootDir);
+            ResourcesHelper.Append(this.assetName);
+            var prefab = ResourcesHelper.GetOptimalAsset<GameObject>(modelName);
+            if (prefab == null)
+                return null;
 
-            var prefab = ResourcesHelper.GetAsset<GameObject>(bundleName, modelName);
             this.model = UnityEngine.Object.Instantiate(prefab, this.Holder.GameObject.transform, false);
             try {
                 this.onModelLoaded?.Invoke(this.model);

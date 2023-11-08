@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1441297814
+CRC: 1026176337
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7b299d80f44ec7f2161e5ce10da13676
+    Hash: dbbe6459c67084f252084a886f5fa1c7
   TypeTreeHash:
     serializedVersion: 2
-    Hash: e52ceae7e6937fde138222c456e060f9
+    Hash: ea4b33cfb04aa7ef118cd058f245ccec
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -21,13 +21,14 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
-- Class: 74
+- Class: 91
   Script: {instanceID: 0}
-- Class: 111
+- Class: 95
   Script: {instanceID: 0}
 - Class: 137
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Bundles/Appear/kulou_qs.prefab
-Dependencies: []
+Dependencies:
+- D:/UnityProjects/HsenlFramework/./Release/PC/StreamingAssets/animcontrol.unity3d

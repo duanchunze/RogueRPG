@@ -12,15 +12,15 @@ namespace Hsenl {
             set => this._factionModel = value;
         }
 
-        private Bitlist _cache = new();
+        private Bitlist _tagCache = new();
 
         public IReadOnlyBitlist GetTagsOfFactionTypes(IList<FactionType> factionTypes) {
-            this._cache.Clear();
+            this._tagCache.Clear();
             for (int i = 0, len = factionTypes.Count; i < len; i++) {
-                this.AppendTagsOfFactionType(factionTypes[i], this._cache);
+                this.AppendTagsOfFactionType(factionTypes[i], this._tagCache);
             }
 
-            return this._cache;
+            return this._tagCache;
         }
 
         public void GetTagsOfFactionTypes(IList<FactionType> factionTypes, Bitlist bitlist) {
@@ -37,9 +37,9 @@ namespace Hsenl {
         }
 
         public IReadOnlyBitlist GetTagsOfFactionType(FactionType factionType) {
-            this._cache.Clear();
-            this.AppendTagsOfFactionType(factionType, this._cache);
-            return this._cache;
+            this._tagCache.Clear();
+            this.AppendTagsOfFactionType(factionType, this._tagCache);
+            return this._tagCache;
         }
 
         public void GetTagsOfFactionType(FactionType factionType, Bitlist bitlist) {

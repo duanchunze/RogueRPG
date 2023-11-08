@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Hsenl.MultiCombiner {
@@ -26,8 +25,9 @@ namespace Hsenl.MultiCombiner {
 
                 arg2.animator = model.GetComponentInChildren<Animator>();
                 // anima control 和模型同名
-                var animControl = ResourcesHelper.GetAsset<AnimatorController>(Constant.AnimControlBundleName, arg1.assetName);
-                arg2.animator.runtimeAnimatorController = animControl;
+                // AnimatorController是一个编辑器类, 无法动态操作
+                // var animControl = ResourcesHelper.GetAsset<AnimatorController>(Constant.AnimControlBundleName, arg1.assetName);
+                // arg2.animator.runtimeAnimatorController = animControl;
             });
         }
 

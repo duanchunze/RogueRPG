@@ -48,6 +48,7 @@ public abstract partial class TimeActionInfo :  timeline.TimeLineInfo
             case "HarmOfTargetedBoltInfo": return new timeline.HarmOfTargetedBoltInfo(_json);
             case "HarmOfDirectionBoltInfo": return new timeline.HarmOfDirectionBoltInfo(_json);
             case "HarmOfPointBoltInfo": return new timeline.HarmOfPointBoltInfo(_json);
+            case "HarmOfDibozhanBoltInfo": return new timeline.HarmOfDibozhanBoltInfo(_json);
             case "MoveInfo": return new timeline.MoveInfo(_json);
             case "ModifyTagsInfo": return new timeline.ModifyTagsInfo(_json);
             case "ForceMovementInfo": return new timeline.ForceMovementInfo(_json);

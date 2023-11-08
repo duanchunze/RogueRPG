@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 3932690240
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 17fcd6ddbb37f27051ff3fccbbddba2c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5941c3541d8b403f80e37b0d697371e8
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/AnimClip/warrior/die.anim
+- Assets/Bundles/AnimClip/warrior/hitstun.anim
+- Assets/Bundles/AnimClip/warrior/attack2.anim
+- Assets/Bundles/AnimClip/warrior/walk.anim
+- Assets/Bundles/AnimClip/warrior/sprint.anim
+- Assets/Bundles/AnimClip/warrior/idle.anim
+- Assets/Bundles/AnimClip/warrior/run.anim
+- Assets/Bundles/AnimClip/warrior/attack3.anim
+- Assets/Bundles/AnimClip/warrior/attack1.anim
+Dependencies: []

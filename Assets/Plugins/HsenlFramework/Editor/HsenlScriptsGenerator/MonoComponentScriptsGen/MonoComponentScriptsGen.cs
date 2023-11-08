@@ -31,7 +31,7 @@ public class MonoComponentScriptsGen : HsenlScriptsGeneratorEditor {
                 continue;
 
             switch (hsenlComponentType.Name) {
-                case "Substantive":
+                // case "Substantive":
                 case "Unbodied":
                     continue;
             }

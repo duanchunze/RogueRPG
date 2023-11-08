@@ -7,29 +7,23 @@ namespace Hsenl {
         public IReadOnlyBitlist constrainsTags;
         public IReadOnlyBitlist exclusivesTags;
 
-        public override ASelectionsFilter Filter(IReadOnlyList<SelectionTarget> ins) {
-            if (!this.IsObsolete) {
-                return this;
-            }
-
+        public override ASelectionsFilter Filter(IReadOnlyList<SelectionTarget> sts) {
             this.filtered.Clear();
 
             var constrainsNull = this.constrainsTags.IsNullOrEmpty();
             var exclusivesNull = this.exclusivesTags.IsNullOrEmpty();
 
-            for (int i = 0, len = ins.Count; i < len; i++) {
-                var target = ins[i];
+            for (int i = 0, len = sts.Count; i < len; i++) {
+                var target = sts[i];
 
-                if (!constrainsNull && !target.ContainsAll(this.constrainsTags)) continue;
-                if (!exclusivesNull && target.ContainsAny(this.exclusivesTags)) continue;
+                if (!constrainsNull && !target.Tags.ContainsAny(this.constrainsTags)) continue;
+                if (!exclusivesNull && target.Tags.ContainsAny(this.exclusivesTags)) continue;
 
                 this.filtered.Add(target);
             }
 
             this.constrainsTags = null;
             this.exclusivesTags = null;
-
-            this.RecalculateObsoleteFrame();
 
             return this;
         }

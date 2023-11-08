@@ -1,9 +1,10 @@
-﻿using Hsenl.timeline;
+﻿using Hsenl.behavior;
+using Hsenl.timeline;
 using MemoryPack;
 
 namespace Hsenl {
     [BehaviorNode]
-    public abstract class TpInfo<T> : TimePoint, IBehaviorNodeInitializer where T : timeline.TimePointInfo {
+    public abstract class TpInfo<T> : TimePoint, IConfigInfoInitializer<behavior.Info> where T : timeline.TimePointInfo {
         protected T info;
 
         public int infoInstanceId;
@@ -12,21 +13,21 @@ namespace Hsenl {
             if (this.info == null && this.infoInstanceId != 0) {
                 var inf = behavior.Info.GetInfo(this.infoInstanceId);
                 if (inf != null) {
-                    this.Init(inf);
+                    this.InitInfo(inf);
                 }
             }
         }
 
-        public void Init(behavior.Info inf) {
-            var t = (T)inf;
+        public void InitInfo(Info configInfo) {
+            var t = (T)configInfo;
             this.info = t;
             this.infoInstanceId = t.InstanceId;
             this.checkModel = (TimePointModel)t.Model;
             this.point = t.Point;
 
-            this.OnInit(t);
+            this.OnConfigInfoInit(t);
         }
 
-        protected virtual void OnInit(T arg) { }
+        protected virtual void OnConfigInfoInit(T arg) { }
     }
 }

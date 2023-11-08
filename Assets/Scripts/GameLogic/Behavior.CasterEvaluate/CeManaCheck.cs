@@ -6,16 +6,16 @@ namespace Hsenl {
         private Numerator _numerator;
 
         protected override void OnNodeOpen() {
-            switch (this.manager.Substantive) {
+            switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._numerator = ability.GetHolder()?.GetComponent<Numerator>();
+                    this._numerator = ability.Owner?.GetComponent<Numerator>();        
                     break;
                 }
             }
         }
 
         protected override NodeStatus OnNodeTick() {
-            switch (this.manager.Substantive) {
+            switch (this.manager.Bodied) {
                 case Ability ability: {
                     if (ability.manaCost > 0) {
                         var mana = this._numerator.GetValue(NumericType.Mana);

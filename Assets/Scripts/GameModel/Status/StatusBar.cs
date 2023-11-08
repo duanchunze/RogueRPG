@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Hsenl {
-    public class StatusBar : Substantive {
+    public class StatusBar : Bodied {
         private readonly MultiList<string, Status> _statuses = new();
 
         public Action<Status> onStatusEnter;
@@ -24,20 +24,20 @@ namespace Hsenl {
         public void RemoveStatus(Status status) {
             status.SetParent(null);
         }
-        
-        protected override void OnChildSubstantiveAdd(Substantive childSubs) {
-            if (childSubs is not Status status)
+
+        protected override void OnChildScopeAdd(Scope child) {
+            if (child is not Status status)
                 return;
-            
+
             status.transform.NormalTransfrom();
             status.Reactivation();
             this._statuses.Add(status.Name, status);
         }
 
-        protected override void OnChildSubstantiveRemove(Substantive childSubs) {
-            if (childSubs is not Status status)
+        protected override void OnChildScopeRemove(Scope child) {
+            if (child is not Status status)
                 return;
-            
+
             this._statuses.Remove(status.Name);
         }
 
@@ -49,7 +49,7 @@ namespace Hsenl {
                 Log.Error(e);
             }
         }
-        
+
         public void OnStatusLeave(Status status, StatusFinishDetails details) {
             try {
                 this.onStatusLeave?.Invoke(status);

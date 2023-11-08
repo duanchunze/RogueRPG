@@ -8,7 +8,6 @@ namespace Hsenl {
         private float3 _originPosition;
         private float3 _targetPosition;
 
-        private Substantive _self;
         private Control _selfControl;
 
         private float2 breathingTimeRange = new(6, 10);
@@ -16,15 +15,10 @@ namespace Hsenl {
         private float breathingTimer;
 
         protected override void OnNodeOpen() {
-            switch (this.manager.Substantive) {
-                case Actor actor: {
-                    this._self = actor;
-                    this._selfControl = actor.GetComponent<Control>();
-                    this._originPosition = actor.transform.Position;
-                    this._targetPosition = this._originPosition;
-                    break;
-                }
-            }
+            var owner = this.manager.Owner;
+            this._selfControl = owner.GetComponent<Control>();
+            this._originPosition = owner.transform.Position;
+            this._targetPosition = this._originPosition;
         }
 
         protected override bool Check() {
@@ -34,7 +28,8 @@ namespace Hsenl {
         protected override void Enter() { }
 
         protected override void Running() {
-            if (!this._self.transform.IsNavMoveDone()) {
+            var owner = this.manager.Owner;
+            if (!owner.transform.IsNavMoveDone()) {
                 return;
             }
 
@@ -48,7 +43,7 @@ namespace Hsenl {
             var min = this._originPosition - this.info.PatrolRange;
             var max = this._originPosition + this.info.PatrolRange;
             this._targetPosition = RandomHelper.mtRandom.NextFloat3(min, max);
-            this._targetPosition.y = this._self.transform.Position.y;
+            this._targetPosition.y = owner.transform.Position.y;
             this._selfControl.SetValue(ControlCode.MoveOfPoint, this._targetPosition);
         }
 

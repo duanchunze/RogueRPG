@@ -1,68 +1,43 @@
-﻿using Unity.VisualScripting;
+﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Hsenl {
     public static class ColliderFactory {
-        // 不规则的Collider通过资源加载获得
-        public static Collider CreateIrregularCollider(string colliderName, GameColliderPurpose colliderPurpose, bool nonEvent = false, bool enabled = true) {
+        public static CollisionEventListener Create(string colliderName, bool enable = true) {
             var prefab = ResourcesHelper.GetAsset<GameObject>(Constant.ColliderBundleName, colliderName);
-            var entity = Entity.Create(UnityEngine.Object.Instantiate(prefab));
-            var collider = entity.AddComponent<IrregularCollider>(enabled: enabled, initializeInvoke: col => { col.NonEvent = nonEvent; });
-            if ((colliderPurpose & GameColliderPurpose.Body) == GameColliderPurpose.Body) {
-                collider.SetLayer(Constant.BodyLayer);
-                collider.SetExcludeLayers(Constant.BodyTriggerLayerExcludeMask);
-            }
-            
-            if ((colliderPurpose & GameColliderPurpose.BodyTrigger) == GameColliderPurpose.BodyTrigger) {
-                collider.SetLayer(Constant.BodyTriggerLayer);
-                collider.SetExcludeLayers(Constant.BodyLayerExcludeMask);
-            }
-            
-            if ((colliderPurpose & GameColliderPurpose.Pickable) == GameColliderPurpose.Pickable) {
-                collider.SetLayer(Constant.PickableLayer);
-                collider.SetExcludeLayers(Constant.PickerLayerExcludeMask);
-            }
+            prefab.SetActive(enable);
+            var go = UnityEngine.Object.Instantiate(prefab);
+            go.name = colliderName;
+            var entity = Entity.Create(go);
 
-            if ((colliderPurpose & GameColliderPurpose.Picker) == GameColliderPurpose.Picker) {
-                collider.SetLayer(Constant.PickerLayer);
-                collider.SetExcludeLayers(Constant.PickableLayerExcludeMask);
-            }
+            // foreach (var rigidbody in entity.GameObject.GetComponentsInChildren<UnityEngine.Rigidbody>()) {
+            //     rigidbody.gameObject.GetOrCreateEntityReference().Entity.AddComponent<Rigidbody>();
+            // }
+            //
+            // foreach (var collider in entity.GameObject.GetComponentsInChildren<UnityEngine.Collider>()) {
+            //     switch (collider) {
+            //         case UnityEngine.BoxCollider: {
+            //             collider.gameObject.GetOrCreateEntityReference().Entity.AddComponent<BoxCollider>();
+            //             break;
+            //         }
+            //         
+            //         case UnityEngine.SphereCollider: {
+            //             collider.gameObject.GetOrCreateEntityReference().Entity.AddComponent<SphereCollider>();
+            //             break;
+            //         }
+            //         
+            //         case UnityEngine.CapsuleCollider: {
+            //             collider.gameObject.GetOrCreateEntityReference().Entity.AddComponent<CapsuleCollider>();
+            //             break;
+            //         }
+            //     }
+            // }
 
-            return collider;
-        }
-
-        public static T CreateCollider<T>(Entity entity, GameColliderPurpose colliderPurpose, bool nonEvent = false, bool enabled = true) where T : Collider {
-            var collider = entity.AddComponent<T>(enabled: enabled, initializeInvoke: col => { col.NonEvent = nonEvent; });
-            if ((colliderPurpose & GameColliderPurpose.Body) == GameColliderPurpose.Body) {
-                collider.SetLayer(Constant.BodyLayer);
-                collider.SetExcludeLayers(Constant.BodyTriggerLayerExcludeMask);
-            }
-            
-            if ((colliderPurpose & GameColliderPurpose.BodyTrigger) == GameColliderPurpose.BodyTrigger) {
-                collider.SetLayer(Constant.BodyTriggerLayer);
-                collider.SetExcludeLayers(Constant.BodyLayerExcludeMask);
-            }
-            
-            if ((colliderPurpose & GameColliderPurpose.Pickable) == GameColliderPurpose.Pickable) {
-                collider.SetLayer(Constant.PickableLayer);
-                collider.SetExcludeLayers(Constant.PickerLayerExcludeMask);
-            }
-
-            if ((colliderPurpose & GameColliderPurpose.Picker) == GameColliderPurpose.Picker) {
-                collider.SetLayer(Constant.PickerLayer);
-                collider.SetExcludeLayers(Constant.PickableLayerExcludeMask);
-            }
-
-            return collider;
-        }
-
-        public static T CreateCollider<T>(string name, GameColliderPurpose colliderPurpose, bool nonEvent = false, bool enabled = true) where T : Collider {
-            var entity = Entity.Create(name);
-            return CreateCollider<T>(entity, colliderPurpose, nonEvent, enabled);
-        }
-
-        public static T CreateCollider<T>(GameColliderPurpose colliderPurpose, bool nonEvent = false, bool enabled = true) where T : Collider {
-            return CreateCollider<T>(typeof(T).Name, colliderPurpose, nonEvent, enabled);
+            // 这里为了简单, 就只添加了 listener, 其他的想rig collider之类的, 都不深究了
+            // 所以, 碰撞体资源, 要保证, 最上级的go上, 要么有collider, 要么有rigidbody
+            var listener = entity.AddComponent<CollisionEventListener>();
+            return listener;
         }
     }
 }
