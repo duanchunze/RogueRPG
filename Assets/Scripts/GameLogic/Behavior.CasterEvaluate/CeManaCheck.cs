@@ -8,7 +8,7 @@ namespace Hsenl {
         protected override void OnNodeOpen() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._numerator = ability.Owner?.GetComponent<Numerator>();        
+                    this._numerator = ability.AttachedBodied?.GetComponent<Numerator>();        
                     break;
                 }
             }

@@ -21,14 +21,6 @@ namespace Hsenl {
             return result;
         }
 
-        public static T CreateWorker<T>(cast.ConditionCastOfWorkerInfo info) where T : IProcedureLineWorker {
-            var nodeType = GetTypeOfInfoType(info.GetType());
-            if (nodeType == null) throw new Exception($"cant find procedure line worker info of '{info.GetType()}'");
-            var node = (T)Activator.CreateInstance(nodeType);
-            ((IConfigInfoInitializer<cast.ConditionCastOfWorkerInfo>)node).InitInfo(info);
-            return node;
-        }
-
         public static T CreateWorker<T>(procedureline.WorkerInfo info) where T : IProcedureLineWorker {
             var nodeType = GetTypeOfInfoType(info.GetType());
             if (nodeType == null) throw new Exception($"cant find procedure line worker info of '{info.GetType()}'");

@@ -9,7 +9,7 @@ namespace Hsenl {
 
         public Actor Rent(int configId, Vector3 position, Entity entity = null) {
             var key = PoolKey.Create(this._actorType, configId);
-            var actor = Pool.Rent<Actor>(key, autoActive: false) ?? ActorFactory.Create(configId, entity);
+            var actor = Pool.Rent<Actor>(key, active: false) ?? ActorFactory.Create(configId, entity);
 
             actor.transform.NavMeshAgent.Enable = true;
             actor.transform.Position = position;
@@ -21,7 +21,7 @@ namespace Hsenl {
         }
 
         public void Return(Actor actor) {
-            var key = PoolKey.Create(typeof(Actor), actor.configId);
+            var key = PoolKey.Create(this._actorType, actor.configId);
             Pool.Return(key, actor);
         }
     }

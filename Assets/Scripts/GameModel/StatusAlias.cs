@@ -5,5 +5,6 @@
         public const string HitStun = "受击硬直";
         public const string BaTi = "霸体";
         public const string Wuqishou = "无起手";
+        public const string Jitui = "击退";
     }
 }

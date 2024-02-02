@@ -9,7 +9,7 @@ namespace Hsenl {
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    var sound = ability.Owner.GetComponent<Sound>();
+                    var sound = ability.AttachedBodied.GetComponent<Sound>();
                     sound.Play(this.info.ClipName);
                     break;
                 }

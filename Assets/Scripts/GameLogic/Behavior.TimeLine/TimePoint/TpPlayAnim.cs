@@ -9,7 +9,7 @@ namespace Hsenl {
         private Motion _motion;
 
         protected override void OnNodeOpen() {
-            var owner = this.manager.Owner;
+            var owner = this.manager.AttachedBodied;
             switch (this.manager.Bodied) {
                 case Ability ability:
                     this._motion = owner?.GetComponent<Motion>();

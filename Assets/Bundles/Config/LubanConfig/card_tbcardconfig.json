@@ -100,6 +100,16 @@
     "price": 3
   },
   {
+    "id": 10011,
+    "alias": "地波斩卡牌",
+    "view_name": "dibozhan",
+    "wrappage": {
+      "$type": "WrappageAbilityInfo",
+      "alias": "地波斩"
+    },
+    "price": 3
+  },
+  {
     "id": 20001,
     "alias": "怪物横砍卡牌",
     "view_name": "gw_hengkan",

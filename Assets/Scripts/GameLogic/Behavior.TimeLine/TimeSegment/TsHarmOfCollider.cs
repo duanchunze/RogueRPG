@@ -15,7 +15,7 @@ namespace Hsenl {
             base.OnNodeOpen();
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._faction = ability.Owner?.GetComponent<Faction>();
+                    this._faction = ability.AttachedBodied?.GetComponent<Faction>();
 
                     if (this._collisionEventListener == null) {
                         this._collisionEventListener = ability.FindChild<CollisionEventListener>();
@@ -39,7 +39,7 @@ namespace Hsenl {
                 case Ability ability: {
                     var bod = collider.Bodied;
                     if (bod == null) return;
-                    if (bod == this.manager.Owner) return;
+                    if (bod == this.manager.AttachedBodied) return;
                     var tags = this._faction.GetTagsOfFactionTypes(ability.factionTypes);
                     if (!bod.Tags.ContainsAny(tags)) {
                         return;

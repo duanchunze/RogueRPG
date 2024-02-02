@@ -38,7 +38,7 @@ namespace Hsenl.View {
                 }
 
                 case CardBar cardBar: {
-                    if (cardBar.Owner != GameManager.Instance.MainMan) return;
+                    if (cardBar.AttachedBodied != GameManager.Instance.MainMan) return;
 
                     var bar = UICardBar.instance;
                     if (bar == null) return;
@@ -77,7 +77,7 @@ namespace Hsenl.View {
                 }
 
                 case CardBackpack cardBackpack: {
-                    if (cardBackpack.Owner != GameManager.Instance.MainMan) return;
+                    if (cardBackpack.AttachedBodied != GameManager.Instance.MainMan) return;
 
                     var backpack = UICardBackpack.instance;
                     if (backpack == null) return;

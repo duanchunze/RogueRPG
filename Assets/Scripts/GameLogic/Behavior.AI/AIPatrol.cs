@@ -15,7 +15,7 @@ namespace Hsenl {
         private float breathingTimer;
 
         protected override void OnNodeOpen() {
-            var owner = this.manager.Owner;
+            var owner = this.manager.AttachedBodied;
             this._selfControl = owner.GetComponent<Control>();
             this._originPosition = owner.transform.Position;
             this._targetPosition = this._originPosition;
@@ -28,7 +28,7 @@ namespace Hsenl {
         protected override void Enter() { }
 
         protected override void Running() {
-            var owner = this.manager.Owner;
+            var owner = this.manager.AttachedBodied;
             if (!owner.transform.IsNavMoveDone()) {
                 return;
             }

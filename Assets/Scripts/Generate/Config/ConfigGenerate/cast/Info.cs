@@ -37,8 +37,6 @@ public abstract partial class Info :  Bright.Config.BeanBase
             case "Null": return new cast.Null(_json);
             case "ControlCastInfo": return new cast.ControlCastInfo(_json);
             case "AlwaysCastInfo": return new cast.AlwaysCastInfo(_json);
-            case "HarmProbabilisticCastInfo": return new cast.HarmProbabilisticCastInfo(_json);
-            case "HealthRatioCastInfo": return new cast.HealthRatioCastInfo(_json);
             default: throw new SerializationException();
         }
     }

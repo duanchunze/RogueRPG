@@ -34,7 +34,11 @@ public abstract partial class Info :  Bright.Config.BeanBase
         string type = _json["$type"];
         switch (type)
         {
+            case "Null": return new procedureline.Null(_json);
+            case "WorkerNull": return new procedureline.WorkerNull(_json);
             case "AdditionalStatusOnAbilityDamageInfo": return new procedureline.AdditionalStatusOnAbilityDamageInfo(_json);
+            case "HarmProbabilisticCastInfo": return new procedureline.HarmProbabilisticCastInfo(_json);
+            case "HealthRatioCastInfo": return new procedureline.HealthRatioCastInfo(_json);
             default: throw new SerializationException();
         }
     }

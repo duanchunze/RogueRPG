@@ -18,7 +18,7 @@ namespace Hsenl {
             // 而因为我们用的是dotween来进行运动, 而不是用OnTimeSegmentRunning来运动, 所以更适合写在这里
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._leaper = ability.Owner;
+                    this._leaper = ability.AttachedBodied;
                     this._controlTrigger = ability.GetComponent<ControlTrigger>();
 
                     this._tweener?.Kill();

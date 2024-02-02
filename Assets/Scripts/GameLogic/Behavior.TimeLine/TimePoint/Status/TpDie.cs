@@ -8,7 +8,7 @@ namespace Hsenl {
     [MemoryPackable()]
     public partial class TpDie : TpInfo<timeline.DieInfo> {
         protected override async void OnTimePointTrigger() {
-            switch (this.manager.Owner) {
+            switch (this.manager.AttachedBodied) {
                 case Actor actor: {
                     actor.transform.NavMeshAgent.Enable = false;
 

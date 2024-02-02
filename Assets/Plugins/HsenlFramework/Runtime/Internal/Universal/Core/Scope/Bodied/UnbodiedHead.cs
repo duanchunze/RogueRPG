@@ -32,7 +32,7 @@ namespace Hsenl {
         }
 
         [MemoryPackIgnore]
-        public Bodied Owner => this.Bodied?.Owner;
+        public Bodied AttachedBodied => this.Bodied?.AttachedBodied;
 
         public override Scope ParentScope {
             get => this.parentScope;
@@ -64,7 +64,7 @@ namespace Hsenl {
                     });
                 }
 
-                // 确定父子关系后, head要处理的就是, 找到自己的bodied
+                // 重写添加了这句 -> 确定父子关系后, head要处理的就是, 找到自己的bodied
                 this.Bodied = this.FindScopeInParent<Bodied>();
 
                 if (value != null) {

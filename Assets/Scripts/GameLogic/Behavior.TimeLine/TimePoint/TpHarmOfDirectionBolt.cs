@@ -14,7 +14,7 @@ namespace Hsenl {
 
         protected override void OnNodeOpen() {
             base.OnNodeOpen();
-            var owner = this.manager.Owner;
+            var owner = this.manager.AttachedBodied;
             switch (this.manager.Bodied) {
                 case Ability ability: {
                     this._faction = owner?.GetComponent<Faction>();
@@ -71,7 +71,7 @@ namespace Hsenl {
             collider.SetUsage(GameColliderPurpose.Detection);
             var listener = CollisionEventListener.Get(collider.Entity);
             listener.onTriggerEnter = col => {
-                if (col.Owner == this.harmable.Owner)
+                if (col.AttachedBodied == this.harmable.AttachedBodied)
                     return;
 
                 if (!col.Tags.ContainsAny(constrainsTags))

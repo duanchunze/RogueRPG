@@ -68,7 +68,7 @@ namespace Hsenl {
             if (this.actionCounters.TryGetValue(hashcode, out var counter)) {
                 if (counter != this.actionCounter) {
                     // 调用过多少次EnqueueAction, 那么断开组合时, 就必须要DequeueAction多少次. 以保证每个回调都被正确的移除了
-                    Log.Error($"decombin action counter error '{this.actionCounter}'-'{counter}' '{this.GetType().Name}'");
+                    Log.Error($"decombin action counter error '{this.actionCounter}/{counter}' '{this.GetType().Name}'");
                 }
 
                 this.actionCounters.Remove(hashcode);
@@ -156,7 +156,7 @@ namespace Hsenl {
             if (this.actionCounters.TryGetValue(hashcode, out var counter)) {
                 if (counter != this.actionCounter) {
                     // 调用过多少次EnqueueAction, 那么断开组合时, 就必须要DequeueAction多少次. 以保证每个回调都被正确的移除了
-                    Log.Error($"decombin action counter error '{this.actionCounter}'-'{counter}' '{this.GetType().Name}'");
+                    Log.Error($"decombin action counter error '{this.actionCounter}/{counter}' '{this.GetType().Name}'");
                 }
 
                 this.actionCounters.Remove(hashcode);
@@ -254,7 +254,7 @@ namespace Hsenl {
             if (this.actionCounters.TryGetValue(hashcode, out var counter)) {
                 if (counter != this.actionCounter) {
                     // 调用过多少次EnqueueAction, 那么断开组合时, 就必须要DequeueAction多少次. 以保证每个回调都被正确的移除了
-                    Log.Error($"decombin action counter error '{this.actionCounter}'-'{counter}' '{this.GetType().Name}'");
+                    Log.Error($"decombin action counter error '{this.actionCounter}/{counter}' '{this.GetType().Name}'");
                 }
 
                 this.actionCounters.Remove(hashcode);
@@ -367,7 +367,7 @@ namespace Hsenl {
             if (this.actionCounters.TryGetValue(hashcode, out var counter)) {
                 if (counter != this.actionCounter) {
                     // 调用过多少次EnqueueAction, 那么断开组合时, 就必须要DequeueAction多少次. 以保证每个回调都被正确的移除了
-                    Log.Error($"decombin action counter error '{this.actionCounter}'-'{counter}' '{this.GetType().Name}'");
+                    Log.Error($"decombin action counter error '{this.actionCounter}/{counter}' '{this.GetType().Name}'");
                 }
 
                 this.actionCounters.Remove(hashcode);
@@ -423,4 +423,12 @@ namespace Hsenl {
         where T2 : Component
         where T3 : Component
         where T4 : Component { }
+
+    [Combiner(CombinerType.CrossCombiner)]
+    public abstract class CrossCombiner<T1, T2, T3, T4, T5> : Combiner<T1, T2, T3, T4, T5>
+        where T1 : Component
+        where T2 : Component
+        where T3 : Component
+        where T4 : Component
+        where T5 : Component { }
 }

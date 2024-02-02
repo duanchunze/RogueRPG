@@ -3,7 +3,7 @@
 namespace Hsenl.View {
     public class EventOnAbilityCooldown : AEventSync<OnAbilityCooldown> {
         protected override void Handle(OnAbilityCooldown arg) {
-            if (arg.ability.Owner != GameManager.Instance.MainMan) return;
+            if (arg.ability.AttachedBodied != GameManager.Instance.MainMan) return;
 
             var bar = UICardBar.instance;
             if (bar == null) return;

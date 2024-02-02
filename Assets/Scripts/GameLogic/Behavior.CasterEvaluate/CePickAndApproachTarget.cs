@@ -18,7 +18,7 @@ namespace Hsenl {
         private float _distance;
 
         protected override void OnNodeOpen() {
-            var owner = this.manager.Owner;
+            var owner = this.manager.AttachedBodied;
             switch (this.manager.Bodied) {
                 case Ability ability: {
                     this._tran = owner?.transform;
@@ -59,6 +59,7 @@ namespace Hsenl {
                         .SearcherSphereBody(castRange)
                         .FilterAlive()
                         .FilterTags(constrainsTags, null)
+                        .FilterObstacles()
                         .SelectNearests(targetCount)
                         .Wrap(ability.targets);
 
@@ -89,6 +90,7 @@ namespace Hsenl {
                         .SearcherSphereBody(detectRange)
                         .FilterAlive()
                         .FilterTags(constrainsTags, null)
+                        .FilterObstacles()
                         .SelectNearests(targetCount)
                         .Wrap(ability.targets);
 

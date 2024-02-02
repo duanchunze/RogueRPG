@@ -7,7 +7,7 @@ namespace Hsenl {
 
         public CollisionEventListener Rent(string colliderName, bool autoActive = true) {
             var key = PoolKey.Create(this._colliderType, colliderName);
-            var rent = Pool.Rent<CollisionEventListener>(key, autoActive: autoActive);
+            var rent = Pool.Rent<CollisionEventListener>(key, active: autoActive);
             if (rent == null) {
                 rent = ColliderFactory.Create(colliderName, autoActive);
             }
@@ -18,7 +18,7 @@ namespace Hsenl {
         public T Rent<T>(string name = null, bool autoActive = true) where T : Collider {
             var type = typeof(T);
             var key = PoolKey.Create(type);
-            var rent = Pool.Rent<T>(key, autoActive: autoActive);
+            var rent = Pool.Rent<T>(key, active: autoActive);
             if (rent == null) {
                 var entity = Entity.Create(string.IsNullOrEmpty(name) ? type.Name : name);
                 entity.Active = autoActive;

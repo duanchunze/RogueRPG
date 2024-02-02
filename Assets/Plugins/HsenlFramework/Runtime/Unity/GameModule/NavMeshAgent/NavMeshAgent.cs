@@ -79,6 +79,15 @@ namespace Hsenl {
             }
         }
 
+        protected override void OnEnable() {
+            this._navMeshAgent.enabled = true;
+        }
+
+        protected override void OnDisable() {
+            if (this.Enable) return;
+            this._navMeshAgent.enabled = false;
+        }
+
         public bool IsNavMoveDone() {
             return this._navMeshAgent.remainingDistance <= this._navMeshAgent.stoppingDistance;
         }

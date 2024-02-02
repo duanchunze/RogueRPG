@@ -14,7 +14,7 @@
                         case CardBar cardBar: {
                             var ret = cardBar.PutinCard(card);
                             if (!ret) {
-                                cardBar.Owner.FindScopeInBodied<CardBackpack>().PutinCard(card);
+                                cardBar.AttachedBodied.FindScopeInBodied<CardBackpack>().PutinCard(card);
                             }
 
                             break;
@@ -22,7 +22,7 @@
                         case CardBackpack cardBackpack: {
                             var ret = cardBackpack.PutinCard(card);
                             if (!ret) {
-                                cardBackpack.Owner.FindScopeInBodied<CardBar>().PutinCard(card);
+                                cardBackpack.AttachedBodied.FindScopeInBodied<CardBar>().PutinCard(card);
                             }
 
                             break;

@@ -6,7 +6,6 @@ namespace Hsenl {
     // 挂载该组件可以被拾取者捡起
     // Pickable和Dropable及Picker之间的关系
     // 
-    [Bodied(BodiedStatus.Individual)]
     [Serializable]
     public class Pickable : Bodied {
         public int configId;

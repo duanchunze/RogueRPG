@@ -25,10 +25,6 @@ namespace Hsenl {
 
             entity.AddComponent<Caster>();
             var procedureLineNode = entity.AddComponent<ProcedureLineNode>();
-            foreach (var affix in config.Affixes) {
-                var worker = ProcedureLineFactory.CreateWorker<PlwInfo>(affix);
-                procedureLineNode.AddWorker(worker);
-            }
 
             switch (config.Caster) {
                 case cast.ControlCastInfo controlCastInfo: {
@@ -43,8 +39,11 @@ namespace Hsenl {
                     break;
                 }
 
-                case cast.ConditionCastOfWorkerInfo conditionCastOfWorkerInfo: {
-                    var worker = ProcedureLineFactory.CreateWorker<PlwInfo>(conditionCastOfWorkerInfo);
+                default: {
+                    if (config.CasterOfPlw is procedureline.WorkerNull)
+                        break;
+
+                    var worker = ProcedureLineFactory.CreateWorker<PlwInfo>(config.CasterOfPlw);
                     procedureLineNode.AddWorker(worker);
                     break;
                 }
@@ -121,6 +120,11 @@ namespace Hsenl {
             }
 
             stageline.EntryNode.AddChild(new FinishStageAction());
+
+            foreach (var affix in config.Affixes) {
+                var worker = ProcedureLineFactory.CreateWorker<PlwInfo>(affix);
+                procedureLineNode.AddWorker(worker);
+            }
 
             return ability;
         }

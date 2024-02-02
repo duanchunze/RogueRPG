@@ -29,7 +29,7 @@ namespace Hsenl {
     }
 
     [Serializable]
-    public class TaskLine : Unbodied {
+    public class TaskLine : Component {
         [ShowInInspector, ReadOnly, LabelText("所有任务线类型 (静态变量)")]
         private static readonly Dictionary<Type, ITaskLineType> _lineTypesDict = new();
 

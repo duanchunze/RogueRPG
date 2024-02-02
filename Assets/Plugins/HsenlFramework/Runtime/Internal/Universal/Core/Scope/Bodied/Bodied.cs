@@ -4,39 +4,28 @@ using System.Reflection;
 using MemoryPack;
 
 namespace Hsenl {
-    // 一个有形体, 比如一个人, 一个子弹, 一个物品, 都属于一个有形体
-    // 如何去判断一个事物是bodied还是unbodied?
-    // 除非你能确定这个事物一定是一个无形体, 否则的话, 都定义成bodied, 比如数值组件, 一般来说可以定义成一个无形体, 而像有些模糊的, 比如技能, 虽然以常识来说, 技能是一个虚无缥缈的东西,
-    // 但在游戏中, 技能一般都是作为一个独立的事物存在的, 它可以拆卸, 可以拥有属于自己的组件, 所以把技能定义成一个有形体.
-    // 一个事物被定义成有形体, 那他就可以灵活的摇摆, 在独立个体与依赖者两种身份之间摇摆, 比如一个人是一个独立个体, 一个背包也是一个独立个体, 但如果人背起了背包, 那背包便不再是一个独立个体, 
-    // 而是这个人的依赖者
+    /* Bodied系统旨在定义一种关系, 将代表功能的组件(unbodied)与代表身份的组件(bodied)区分开
+     * 如果要使用该系统, 首先需要区分哪些组件是有形体, 哪些组件是无形体
+     * 一个有形体, 比如一个人, 一个子弹, 一个物品, 都属于一个有形体
+     * 如何去判断一个事物是bodied还是unbodied?
+     * 除非你能确定这个事物一定是一个无形体, 否则的话, 都定义成bodied, 比如数值组件, 一般来说可以定义成一个无形体, 而像有些模糊的, 比如技能, 虽然以常识来说, 技能是一个虚无缥缈的东西,
+     * 但在游戏中, 技能一般都是作为一个独立的事物存在的, 它可以拆卸, 可以拥有属于自己的组件, 所以把技能定义成一个有形体.
+     * 一个事物被定义成有形体, 那他就可以灵活的摇摆, 在独立个体与依赖者两种身份之间摇摆, 比如一个人是一个独立个体, 一个背包也是一个独立个体, 但如果人背起了背包, 那背包便不再是一个独立个体, 
+     * 而是这个人的依赖者
+     *
+     * attachedBodied对于unbodied而言, 就像是unity中collider的attachedRigidbody
+     */
     [MemoryPackable(GenerateType.CircularReference)]
-    [Bodied]
     public partial class Bodied : Scope, IBodied, IUnbodiedHead {
-        private static HashSet<int> DefaultPrincipal = new();
-
-        [OnEventSystemInitialized]
-        private static void Cache() {
-            DefaultPrincipal.Clear();
-            foreach (var type in EventSystem.GetTypesOfAttribute(typeof(BodiedAttribute))) {
-                var att = type.GetCustomAttribute<BodiedAttribute>();
-                var componentIndex = Entity.GetComponentIndex(type);
-                if (att.defaultStatus == BodiedStatus.Individual) {
-                    DefaultPrincipal.Add(componentIndex);
-                }
-            }
-        }
-
-
         [MemoryPackOrder(2)]
         [MemoryPackInclude]
         protected internal BodiedStatus status;
 
         [MemoryPackIgnore]
-        private Bodied _owner;
+        private Bodied _attachedBodied;
 
         [MemoryPackIgnore]
-        private Bodied _parentOwner;
+        private Bodied _parentAttachedBodied;
 
         [MemoryPackIgnore]
         public BodiedStatus Status {
@@ -50,14 +39,14 @@ namespace Hsenl {
                 switch (value) {
                     case BodiedStatus.Individual:
                         // 升为独立个体, 把自己的所有者改为自己, 原来的所有者则改为自己的父所有者
-                        var prev = this._owner;
-                        this.Owner = this;
-                        this._parentOwner = prev;
+                        var prev = this._attachedBodied;
+                        this.AttachedBodied = this;
+                        this._parentAttachedBodied = prev;
                         break;
                     case BodiedStatus.Dependent:
                         // 自己降为依赖者, 把自己的所有者改为自己上面的独立体, 而父所有者自然就是新所有者的父级, 自己原来的父级可以清空了
-                        this.Owner = this.FindScopeByStatusInParent(BodiedStatus.Individual);
-                        this._parentOwner = null;
+                        this.AttachedBodied = this.FindScopeByStatusInParent(BodiedStatus.Individual);
+                        this._parentAttachedBodied = null;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(value), value, null);
@@ -69,19 +58,19 @@ namespace Hsenl {
         Bodied IUnbodiedHead.Bodied => this;
 
         [MemoryPackIgnore]
-        public Bodied Owner {
+        public Bodied AttachedBodied {
             get {
                 if (this.IsDisposed) {
                     throw new NullReferenceException("The bodied has been destroyed, but you're still trying to get it");
                 }
 
-                return this.status == BodiedStatus.Individual ? this : this._owner;
+                return this.status == BodiedStatus.Individual ? this : this._attachedBodied;
             }
             private set {
-                if (this._owner == value)
+                if (this._attachedBodied == value)
                     return;
 
-                this._owner = value;
+                this._attachedBodied = value;
 
                 // 递归把自己所有的非独立体的子域的所有者, 都修改为目标
                 RecursiveModifiChildrenOwner(this.childrenScopes);
@@ -96,7 +85,7 @@ namespace Hsenl {
                                 continue;
                             }
 
-                            bodied._owner = value;
+                            bodied._attachedBodied = value;
                         }
 
                         // 如果是一个非独立体, 则继续向下递归
@@ -107,13 +96,13 @@ namespace Hsenl {
         }
 
         [MemoryPackIgnore]
-        public Bodied ParentOwner {
+        public Bodied ParentAttachedBodied {
             get {
                 if (this.IsDisposed) {
                     throw new NullReferenceException("The bodied has been destroyed, but you're still trying to get it");
                 }
 
-                return this.status == BodiedStatus.Individual ? this._parentOwner : this._owner?.ParentOwner;
+                return this.status == BodiedStatus.Individual ? this._parentAttachedBodied : this._attachedBodied?.ParentAttachedBodied;
             }
         }
 
@@ -142,10 +131,10 @@ namespace Hsenl {
                 // 重写父级属性, 把这段代码插入到这里, 目的是为了在形成组合时, bodied的关系也ok了
                 switch (this.status) {
                     case BodiedStatus.Individual:
-                        this._parentOwner = this.FindScopeByStatusInParent(BodiedStatus.Individual);
+                        this._parentAttachedBodied = this.FindScopeByStatusInParent(BodiedStatus.Individual);
                         break;
                     case BodiedStatus.Dependent:
-                        this.Owner = this.FindScopeByStatusInParent(BodiedStatus.Individual);
+                        this.AttachedBodied = this.FindScopeByStatusInParent(BodiedStatus.Individual);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -188,9 +177,9 @@ namespace Hsenl {
         }
 
         internal override void OnConstructionInternal() {
-            if (!this.IsDeserialized) { // 第一时间要确定status
-                this.status = DefaultPrincipal.Contains(this.ComponentIndex) ? BodiedStatus.Individual : BodiedStatus.Dependent;
-            }
+            // if (!this.IsDeserialized) { // 第一时间要确定status
+            //     this.status = DefaultPrincipal.Contains(this.ComponentIndex) ? BodiedStatus.Individual : BodiedStatus.Dependent;
+            // }
 
             base.OnConstructionInternal();
         }
@@ -222,11 +211,11 @@ namespace Hsenl {
             CrossDecombinMatch(this, component);
         }
 
-        private Bodied FindScopeByStatusInParent(BodiedStatus status) {
+        private Bodied FindScopeByStatusInParent(BodiedStatus sta) {
             var curr = this.parentScope;
             while (curr != null) {
                 if (curr is Bodied bodied) {
-                    if (bodied.status == status) {
+                    if (bodied.status == sta) {
                         return bodied;
                     }
                 }
@@ -331,6 +320,11 @@ namespace Hsenl {
 
             GetByChildren(this.childrenScopes, list);
             return list.ToArray();
+        }
+
+        protected override void OnBeforeParentScopeChanged(Scope previous) {
+            // 默认最上面的bodied为individual, 下面的其他bodied都是dependent
+            this.status = previous is Bodied ? BodiedStatus.Dependent : BodiedStatus.Individual;
         }
     }
 }

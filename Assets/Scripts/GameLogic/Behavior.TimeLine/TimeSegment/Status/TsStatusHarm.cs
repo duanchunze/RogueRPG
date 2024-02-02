@@ -11,14 +11,14 @@ namespace Hsenl {
             switch (this.manager.Bodied) {
                 case Status status: {
                     this.harmable = status.inflictor.GetComponent<Harmable>();
-                    this.procedureLine = status.Owner.GetComponent<ProcedureLine>();
+                    this.procedureLine = status.AttachedBodied.GetComponent<ProcedureLine>();
 
                     // 状态伤害计算规则
                     // 施加者伤害 + 状态本身伤害 = 伤害数值
                     // 施加者症状强化 - 被施加者症状抵抗 = 伤害强化比例
                     // 状态本身的硬直 = 伤害硬直 (状态造成的伤害硬直, 不会受施加者影响)
                     this.inflictorNumerator = status.inflictor.GetComponent<Numerator>();
-                    this.beinflictorNumerator = status.Owner.GetComponent<Numerator>();
+                    this.beinflictorNumerator = status.AttachedBodied.GetComponent<Numerator>();
                     this.statusNumerator = status.GetComponent<Numerator>();
 
                     break;
@@ -49,7 +49,7 @@ namespace Hsenl {
             var damageForm = new PliDamageArbitramentForm {
                 harm = this.harmable,
                 hurt = hurtable,
-                source = this.manager.Owner,
+                source = this.manager.AttachedBodied,
                 damageType = damageFormulaInfo.DamageType,
                 damage = dmg * damageRate,
                 astun = astun,

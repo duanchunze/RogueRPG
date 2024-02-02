@@ -2,7 +2,6 @@
 using Hsenl.actor;
 
 namespace Hsenl {
-    [Bodied(BodiedStatus.Individual)]
     [Serializable]
     public class Actor : Bodied {
         public int configId;

@@ -17,7 +17,7 @@ namespace Hsenl {
         // private int currentTryingPosition;
 
         protected override void OnNodeOpen() {
-            this._cardBar = this.manager.Owner.FindScopeInBodied<CardBar>();
+            this._cardBar = this.manager.AttachedBodied.FindScopeInBodied<CardBar>();
             if (this._cardBar != null) {
                 this._cardBar.onChanged += this.OnCardBarChanged;
                 this.OnCardBarChanged();

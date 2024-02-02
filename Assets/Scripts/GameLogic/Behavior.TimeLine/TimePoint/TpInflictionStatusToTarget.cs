@@ -8,7 +8,7 @@ namespace Hsenl {
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    var inflictior = ability.Owner;
+                    var inflictior = ability.AttachedBodied;
                     foreach (var selectionTarget in ability.targets) {
                         Shortcut.InflictionStatus(inflictior, selectionTarget.Bodied, this.info.StatusAlias);
                     }

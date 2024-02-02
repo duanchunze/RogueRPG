@@ -21,7 +21,7 @@ namespace Hsenl {
         private int ads; // 攻击欲望
 
         protected override void OnNodeOpen() {
-            var owner = this.manager.Owner;
+            var owner = this.manager.AttachedBodied;
             this._numerator = owner.GetComponent<Numerator>();
             this._selector = owner.GetComponent<Selector>();
             this._faction = owner.GetComponent<Faction>();

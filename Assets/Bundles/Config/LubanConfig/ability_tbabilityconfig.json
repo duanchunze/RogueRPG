@@ -16,6 +16,9 @@
     "caster": {
       "$type": "Null"
     },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
+    },
     "target_tags": [],
     "caster_evaluates": [],
     "priority_state": {
@@ -78,6 +81,9 @@
       "code": 1,
       "support_continue": false
     },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
+    },
     "target_tags": [],
     "caster_evaluates": [],
     "priority_state": {
@@ -133,6 +139,9 @@
       "$type": "ControlCastInfo",
       "code": 2,
       "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
     },
     "target_tags": [],
     "caster_evaluates": [],
@@ -204,6 +213,9 @@
       "code": 3,
       "support_continue": true
     },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
+    },
     "target_tags": [],
     "caster_evaluates": [],
     "priority_state": {
@@ -274,6 +286,9 @@
       "code": 4,
       "support_continue": true
     },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
+    },
     "target_tags": [],
     "caster_evaluates": [],
     "priority_state": {
@@ -342,6 +357,9 @@
       "$type": "ControlCastInfo",
       "code": 5,
       "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
     },
     "target_tags": [],
     "caster_evaluates": [],
@@ -436,6 +454,9 @@
       "$type": "ControlCastInfo",
       "code": 7,
       "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
     },
     "target_tags": [
       1
@@ -571,6 +592,9 @@
       "code": 7,
       "support_continue": true
     },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
+    },
     "target_tags": [
       1
     ],
@@ -704,6 +728,9 @@
       "$type": "ControlCastInfo",
       "code": 7,
       "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
     },
     "target_tags": [
       1
@@ -852,6 +879,9 @@
       "$type": "ControlCastInfo",
       "code": 7,
       "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
     },
     "target_tags": [
       1
@@ -1003,6 +1033,9 @@
       "code": 7,
       "support_continue": true
     },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
+    },
     "target_tags": [
       1
     ],
@@ -1153,6 +1186,9 @@
       "code": 7,
       "support_continue": true
     },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
+    },
     "target_tags": [
       1
     ],
@@ -1287,6 +1323,9 @@
       "code": 7,
       "support_continue": true
     },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
+    },
     "target_tags": [
       1
     ],
@@ -1295,14 +1334,6 @@
         "$type": "ParalleSequentialNodeInfo",
         "index": 0,
         "parent_index": -1
-      },
-      {
-        "$type": "casterevaluate.CooldownCheckInfo",
-        "parent_index": 0
-      },
-      {
-        "$type": "casterevaluate.PrioritiesEvaluateInfo",
-        "parent_index": 0
       },
       {
         "$type": "casterevaluate.CooldownCheckInfo",
@@ -1367,6 +1398,109 @@
     "affixes": []
   },
   {
+    "id": 10400,
+    "alias": "流星落",
+    "view_name": "liuxingluo",
+    "desc": "攻击时概率触发流星陨落",
+    "star": 1,
+    "cooldown": 0,
+    "mana_cost": 0,
+    "detect_range": 0,
+    "numeric_nodes": [
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": -1,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 29,
+        "layer": 2,
+        "model": 0,
+        "value": 8,
+        "sign": "f"
+      },
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 75,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      14
+    ],
+    "caster": {
+      "$type": "Null"
+    },
+    "caster_of_plw": {
+      "$type": "HarmProbabilisticCastInfo",
+      "probability": 0.2
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        2
+      ],
+      "enter_pri": 30,
+      "resist_pri": 0,
+      "exclu_pri": 0,
+      "keep_pri": 0,
+      "dis_pri": 0,
+      "run_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_exclu": [],
+      "sp_keep": [],
+      "sp_dis": [],
+      "sp_run": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": []
+      }
+    ],
+    "affixes": []
+  },
+  {
     "id": 10600,
     "alias": "跳劈",
     "view_name": "tiaopi",
@@ -1407,6 +1541,9 @@
       "$type": "ControlCastInfo",
       "code": 7,
       "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
     },
     "target_tags": [
       1
@@ -1551,6 +1688,9 @@
       "$type": "ControlCastInfo",
       "code": 7,
       "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
     },
     "target_tags": [
       1
@@ -1703,6 +1843,9 @@
       "code": 7,
       "support_continue": true
     },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
+    },
     "target_tags": [
       1
     ],
@@ -1833,7 +1976,7 @@
         "type": 30,
         "layer": 2,
         "model": 0,
-        "value": 2,
+        "value": 1.5,
         "sign": "f"
       },
       {
@@ -1860,6 +2003,9 @@
       "$type": "ControlCastInfo",
       "code": 7,
       "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
     },
     "target_tags": [
       1
@@ -1933,30 +2079,23 @@
             "$type": "HarmOfDibozhanBoltInfo",
             "model": 1,
             "point": 0,
-            "harm_formulas": [
-              {
-                "damage_formulas": [
-                  {
-                    "type": 12,
-                    "pct": 1.5,
-                    "fix": 0
-                  }
-                ],
-                "damage_type": 0
-              },
-              {
-                "damage_formulas": [
-                  {
-                    "type": 12,
-                    "pct": 1.5,
-                    "fix": 0
-                  }
-                ],
-                "damage_type": 0
-              }
-            ],
+            "harm_formula": {
+              "damage_formulas": [
+                {
+                  "type": 12,
+                  "pct": 0.8,
+                  "fix": 0
+                }
+              ],
+              "damage_type": 0
+            },
+            "num": 6,
             "internal_time": 0.1,
-            "internal_distance": 0.5
+            "internal_distance": 1,
+            "bolt_name": "bolt_dibozhan",
+            "collider_name": "col_abi_dibozhan",
+            "hit_fx": "fx_hit",
+            "hit_sound": "ad_attack2"
           }
         ]
       },
@@ -2017,6 +2156,9 @@
       "$type": "ControlCastInfo",
       "code": 7,
       "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
     },
     "target_tags": [
       1
@@ -2180,6 +2322,9 @@
       "$type": "ControlCastInfo",
       "code": 7,
       "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
     },
     "target_tags": [
       1
@@ -2383,6 +2528,9 @@
       "$type": "ControlCastInfo",
       "code": 7,
       "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "WorkerNull"
     },
     "target_tags": [
       1

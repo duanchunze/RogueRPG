@@ -10,7 +10,7 @@ namespace Hsenl {
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    var owner = ability.Owner;
+                    var owner = ability.AttachedBodied;
                     if (owner == null)
                         break;
 

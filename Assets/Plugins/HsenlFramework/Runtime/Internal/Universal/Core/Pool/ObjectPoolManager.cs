@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 
 namespace Hsenl {
+    // 该池针对的是dotnet object
     [Serializable]
     public class ObjectPoolManager : Singleton<ObjectPoolManager> {
         [ShowInInspector, ReadOnly]

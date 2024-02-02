@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 
 namespace Hsenl {
+    // 该池针对的是框架的对象
     [Serializable]
     public class PoolManager : SingletonComponent<PoolManager> {
         private readonly MultiQueue<int, Object> _pool = new(); // key: composite hashcode, value: Object
         private readonly Dictionary<string, PoolHolderCollection> _holder = new(); // key: group name, value: holder
 
-        public Object Rent(PoolKey key, Entity parent = null, bool autoActive = true) {
+        public Object Rent(PoolKey key, Entity parent = null, bool active = true) {
             var target = this._pool.Dequeue(key.key);
             if (target == null) {
                 return null;
@@ -17,13 +18,13 @@ namespace Hsenl {
             switch (target) {
                 case Hsenl.Entity e: {
                     e.SetParent(parent ?? this.EnsureHolder(key.groupName).rent);
-                    e.Active = autoActive;
+                    e.Active = active;
                     break;
                 }
 
                 case Component component: {
                     component.Entity.SetParent(parent ?? this.EnsureHolder(key.groupName).rent);
-                    component.Entity.Active = autoActive;
+                    component.Entity.Active = active;
                     break;
                 }
             }
@@ -31,7 +32,7 @@ namespace Hsenl {
             return target;
         }
 
-        public T Rent<T>(PoolKey key, Entity parent = null, bool autoActive = true) where T : Object {
+        public T Rent<T>(PoolKey key, Entity parent = null, bool active = true) where T : Object {
             var target = this._pool.Dequeue(key.key);
             if (target == null) {
                 return null;
@@ -41,13 +42,13 @@ namespace Hsenl {
             switch (target) {
                 case Entity e: {
                     e.SetParent(parent ?? this.EnsureHolder(key.groupName).rent);
-                    e.Active = autoActive;
+                    e.Active = active;
                     break;
                 }
 
                 case Component component: {
                     component.Entity.SetParent(parent ?? this.EnsureHolder(key.groupName).rent);
-                    component.Entity.Active = autoActive;
+                    component.Entity.Active = active;
                     break;
                 }
             }
@@ -67,6 +68,8 @@ namespace Hsenl {
                     Log.Warning($"pool return exceeds the upper limit 1000 '{obj}'");
                     return;
                 }
+
+                queue.Enqueue(obj);
             }
             else {
                 this._pool.Enqueue(poolKey.key, obj);
@@ -111,14 +114,14 @@ namespace Hsenl {
         public static PoolKey Create(Type type) {
             return new PoolKey() {
                 groupName = type.Name,
-                key = type.GetHashCode(),
+                key = type.Name.GetHashCode(),
             };
         }
 
         public static PoolKey Create<T>(Type type, T value) {
             return new PoolKey {
                 groupName = type.Name,
-                key = HashCode.Combine(type, value),
+                key = HashCode.Combine(type.Name, value),
             };
         }
 

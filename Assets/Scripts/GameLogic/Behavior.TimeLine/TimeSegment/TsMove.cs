@@ -15,7 +15,7 @@ namespace Hsenl {
         protected override void OnNodeReset() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._moveTarget = ability.Owner.transform;
+                    this._moveTarget = ability.AttachedBodied.transform;
                     this._controlTrigger = ability.GetComponent<ControlTrigger>();
                     this._numerator = this._moveTarget.GetComponent<Numerator>();
                     break;

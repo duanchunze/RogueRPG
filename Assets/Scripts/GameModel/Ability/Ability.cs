@@ -55,7 +55,7 @@ namespace Hsenl {
                 Log.Error(e);
             }
         }
-        
+
         public void OnAbilityLeave() {
             try {
                 this.onAbilityLeave?.Invoke();

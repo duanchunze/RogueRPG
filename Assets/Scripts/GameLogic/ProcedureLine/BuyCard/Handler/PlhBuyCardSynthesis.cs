@@ -9,14 +9,14 @@ namespace Hsenl {
             switch (dst) {
                 case CardBar cardBar: {
                     // 判断是否符合合成条件
-                    if (this.CardSynthesisEvaluate(ref item, cardBar, cardBar.Owner.FindScopeInBodied<CardBackpack>(),
+                    if (this.CardSynthesisEvaluate(ref item, cardBar, cardBar.AttachedBodied.FindScopeInBodied<CardBackpack>(),
                             out var synthesisInfos)) { }
 
                     break;
                 }
 
                 case CardBackpack cardBackpack: {
-                    var cardBar = cardBackpack.Owner.FindScopeInBodied<CardBar>();
+                    var cardBar = cardBackpack.AttachedBodied.FindScopeInBodied<CardBar>();
                     // 判断是否符合合成条件
                     if (this.CardSynthesisEvaluate(ref item, cardBar, cardBackpack,
                             out var synthesisInfos)) { }

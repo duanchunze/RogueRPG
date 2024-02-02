@@ -12,7 +12,7 @@ namespace Hsenl {
         protected override void OnNodeReset() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    var owner = ability.Owner;
+                    var owner = ability.AttachedBodied;
                     if (owner == null)
                         break;
 
@@ -35,7 +35,7 @@ namespace Hsenl {
                 if (bod == null)
                     return;
 
-                if (bod == this.manager.Owner)
+                if (bod == this.manager.AttachedBodied)
                     return;
 
                 if (!bod.Tags.ContainsAny(this._containsTags))

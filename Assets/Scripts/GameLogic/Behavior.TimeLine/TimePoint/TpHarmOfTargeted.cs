@@ -16,7 +16,7 @@ namespace Hsenl {
             base.OnNodeOpen();
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._faction = this.manager.Owner?.GetComponent<Faction>();
+                    this._faction = this.manager.AttachedBodied?.GetComponent<Faction>();
                     break;
                 }
             }

@@ -16,7 +16,7 @@ namespace Hsenl {
             switch (this.manager.Bodied) {
                 case Status status: {
                     inflictorTra = status.inflictor.transform;
-                    tra = this.manager.Owner.transform;
+                    tra = this.manager.AttachedBodied.transform;
                     break;
                 }
             }

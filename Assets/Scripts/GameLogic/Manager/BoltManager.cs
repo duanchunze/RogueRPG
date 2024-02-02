@@ -7,7 +7,7 @@ namespace Hsenl {
 
         public Bolt Rent(string bundleName, string boltName, bool autoActive = true) {
             var key = PoolKey.Create(this._boltType, HashCode.Combine(bundleName, boltName));
-            var bolt = Pool.Rent<Bolt>(key, autoActive: autoActive);
+            var bolt = Pool.Rent<Bolt>(key, active: autoActive);
             if (bolt == null) {
                 bolt = BoltFactory.Create(bundleName, boltName);
                 bolt.poolKey = key;

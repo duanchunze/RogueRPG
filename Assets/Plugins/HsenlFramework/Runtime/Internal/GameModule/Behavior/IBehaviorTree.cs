@@ -1,7 +1,7 @@
 ﻿namespace Hsenl {
     public interface IBehaviorTree {
         Bodied Bodied { get; }
-        Bodied Owner { get; }
+        Bodied AttachedBodied { get; }
         bool RealEnable { get; }
         IBlackboard Blackboard { get; }
         INode CurrentNode { get; internal set; }

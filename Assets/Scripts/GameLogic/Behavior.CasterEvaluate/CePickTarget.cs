@@ -16,7 +16,7 @@ namespace Hsenl {
         private bool _success;
 
         protected override void OnNodeOpen() {
-            var owner = this.manager.Owner;
+            var owner = this.manager.AttachedBodied;
             switch (this.manager.Bodied) {
                 case Ability ability: {
                     this._selector = owner?.GetComponent<Selector>();
@@ -53,6 +53,7 @@ namespace Hsenl {
                         .SearcherSphereBody(castRange)
                         .FilterAlive()
                         .FilterTags(constrainsTags, null)
+                        .FilterObstacles()
                         .SelectNearests(targetCount)
                         .Wrap(ability.targets);
                     if (ability.targets.Count == 0) {

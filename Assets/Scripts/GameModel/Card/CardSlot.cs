@@ -9,7 +9,7 @@ namespace Hsenl {
         public Action<Card> onCardTakeout;
 
         public Card StayCard => this.FindScopeInBodied<Card>();
-
+        
         public virtual bool PutinCardEvaluate(Card card) {
             if (!this.confineCardType.ContainsAny(card.cardType)) {
                 return false;

@@ -23,6 +23,6 @@ namespace Hsenl {
         }
 
         [MemoryPackIgnore]
-        public Bodied Owner => this.Bodied?.Owner;
+        public Bodied AttachedBodied => this.Bodied?.AttachedBodied;
     }
 }

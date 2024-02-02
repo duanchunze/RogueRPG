@@ -1040,6 +1040,217 @@
     ]
   },
   {
+    "id": 10002,
+    "alias": "法师",
+    "numeric_infos": [
+      {
+        "type": 1,
+        "value": 50,
+        "sign": ""
+      },
+      {
+        "type": 2,
+        "value": 50,
+        "sign": ""
+      },
+      {
+        "type": 3,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 4,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 5,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 6,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 7,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 8,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 9,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 10,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 11,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 12,
+        "value": 10,
+        "sign": ""
+      },
+      {
+        "type": 13,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 14,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 15,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 16,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 17,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 18,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 19,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 20,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 21,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 22,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 23,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 24,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 25,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 26,
+        "value": 4.2,
+        "sign": "f"
+      },
+      {
+        "type": 27,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 28,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 29,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 30,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 31,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 32,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 33,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 34,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 35,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 36,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 37,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 38,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 40,
+        "value": 0,
+        "sign": "f"
+      },
+      {
+        "type": 42,
+        "value": 0.5,
+        "sign": "f"
+      },
+      {
+        "type": 45,
+        "value": 1.8,
+        "sign": "f"
+      }
+    ]
+  },
+  {
     "id": 20000,
     "alias": "骷髅战士",
     "numeric_infos": [

@@ -9,7 +9,7 @@ namespace Hsenl {
         protected ProcedureLine procedureLine;
 
         protected override void OnNodeOpen() {
-            var owner = this.manager.Owner;
+            var owner = this.manager.AttachedBodied;
             switch (this.manager.Bodied) {
                 case Ability ability: {
                     this.numerators.Clear();

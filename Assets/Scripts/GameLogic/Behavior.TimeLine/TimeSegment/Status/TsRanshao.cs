@@ -15,7 +15,7 @@ namespace Hsenl {
 
                 switch (this.manager.Bodied) {
                     case Status status: {
-                        var hurtable = status.Owner.GetComponent<Hurtable>();
+                        var hurtable = status.AttachedBodied.GetComponent<Hurtable>();
                         this.Harm(hurtable, this.info.HarmFormula);
                         break;
                     }

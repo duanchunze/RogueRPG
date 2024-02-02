@@ -15,10 +15,10 @@ namespace Hsenl {
                     this.numerators.Clear();
                     var numerator = ability.GetComponent<Numerator>();
                     if (numerator != null) this.numerators.Add(numerator);
-                    numerator = ability.Owner?.GetComponent<Numerator>();
+                    numerator = ability.AttachedBodied?.GetComponent<Numerator>();
                     if (numerator != null) this.numerators.Add(numerator);
-                    this.harmable = ability.Owner?.GetComponent<Harmable>();
-                    this.procedureLine = ability.Owner?.GetComponent<ProcedureLine>();
+                    this.harmable = ability.AttachedBodied?.GetComponent<Harmable>();
+                    this.procedureLine = ability.AttachedBodied?.GetComponent<ProcedureLine>();
                     break;
                 }
             }

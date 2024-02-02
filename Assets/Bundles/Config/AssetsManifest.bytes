@@ -1,4 +1,7 @@
 
+\
+'assets/bundles/appear/abi/bolt_dibozhan1
+ appear/abi/bolt_dibozhan.unity3dbolt_dibozhan
 b
 )assets/bundles/appear/abi/bolt_gw_kuaishe5
 "appear/abi/bolt_gw_kuaishe.unity3dbolt_gw_kuaishe
@@ -23,6 +26,9 @@ $assets/bundles/appear/actor/kulou_qs)
 Q
 $assets/bundles/appear/actor/kulou_zs)
 appear/actor/kulou_zs.unity3dkulou_zs
+E
+ assets/bundles/appear/actor/mage!
+appear/actor/mage.unity3dmage
 `
 )assets/bundles/appear/actor/moonpriestess3
 "appear/actor/moonpriestess.unity3dmoonpriestess
@@ -107,6 +113,51 @@ r
 j
 5assets/bundles/animclip/huntsman/wk_archer_10_death_b1
 animclip/huntsman.unity3dWK_archer_10_death_B
+H
+$assets/bundles/animclip/mage/attack1 
+animclip/mage.unity3dattack1
+H
+$assets/bundles/animclip/mage/attack2 
+animclip/mage.unity3dattack2
+H
+$assets/bundles/animclip/mage/attack3 
+animclip/mage.unity3dattack3
+@
+ assets/bundles/animclip/mage/die
+animclip/mage.unity3ddie
+H
+$assets/bundles/animclip/mage/hitstun 
+animclip/mage.unity3dhitstun
+B
+!assets/bundles/animclip/mage/idle
+animclip/mage.unity3didle
+@
+ assets/bundles/animclip/mage/run
+animclip/mage.unity3drun
+F
+#assets/bundles/animclip/mage/sprint
+animclip/mage.unity3dsprint
+X
+,assets/bundles/animclip/mage/wk_mage_02_walk(
+animclip/mage.unity3dWK_mage_02_walk
+f
+3assets/bundles/animclip/mage/wk_mage_05_combat_idle/
+animclip/mage.unity3dWK_mage_05_combat_idle
+f
+3assets/bundles/animclip/mage/wk_mage_06_combat_walk/
+animclip/mage.unity3dWK_mage_06_combat_walk
+^
+/assets/bundles/animclip/mage/wk_mage_10_death_b+
+animclip/mage.unity3dWK_mage_10_death_B
+\
+.assets/bundles/animclip/mage/wk_mage_11_cast_a*
+animclip/mage.unity3dWK_mage_11_cast_A
+\
+.assets/bundles/animclip/mage/wk_mage_11_cast_b*
+animclip/mage.unity3dWK_mage_11_cast_B
+b
+1assets/bundles/animclip/mage/wk_mage_11_cast_load-
+animclip/mage.unity3dWK_mage_11_cast_load
 N
 'assets/bundles/animclip/warrior/attack1#
 animclip/warrior.unity3dattack1

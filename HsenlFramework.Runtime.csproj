@@ -183,7 +183,6 @@
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\EventSystem\OrderAttribute.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\ArrayHelper.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\IAssetsLoader.cs" />
-     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Scope\Combin\CrossCombinFormatter.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\ETTask\ETTaskHelper.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Extension.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\Blackboard\Blackboard.cs" />
@@ -232,7 +231,6 @@
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Assert\Assert.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\MemoryHelper.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Scope\Bodied\Bodied.cs" />
-     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Scope\Bodied\BodiedAttribute.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\ChildrenChangedListener.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Coroutine\CoroutineProxy.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior.Screenplay\IRecord.cs" />
@@ -301,6 +299,7 @@
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Serialize\JsonHelper.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\TaskLock\TaskLockQueue.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\DataStructure\NativeBuffer.cs" />
+     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Scope\Combin\ScopeCombinFormatter.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Priority\PriorityClasses.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\EventSystem\EventSystemProxy.cs" />
      <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\EventSystem\FrameworkMemberAttribute.cs" />
@@ -363,7 +362,6 @@
      <Folder Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Procedure" />
      <Folder Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\Leaf" />
      <Folder Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Component" />
-     <Folder Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Unit" />
      <None Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\note.txt" />
      <Folder Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Entity" />
      <Folder Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Input" />

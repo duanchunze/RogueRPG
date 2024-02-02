@@ -29,6 +29,7 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         { var __json0 = _json["numeric_nodes"]; if(!__json0.IsArray) { throw new SerializationException(); } NumericNodes = new System.Collections.Generic.List<numeric.AttachValueInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { numeric.AttachValueInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = numeric.AttachValueInfo.DeserializeAttachValueInfo(__e0);  }  NumericNodes.Add(__v0); }   }
         { var __json0 = _json["tags"]; if(!__json0.IsArray) { throw new SerializationException(); } Tags = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  Tags.Add(__v0); }   }
         { if(!_json["caster"].IsObject) { throw new SerializationException(); }  Caster = cast.Info.DeserializeInfo(_json["caster"]);  }
+        { if(!_json["caster_of_plw"].IsObject) { throw new SerializationException(); }  CasterOfPlw = procedureline.WorkerInfo.DeserializeWorkerInfo(_json["caster_of_plw"]);  }
         { var __json0 = _json["target_tags"]; if(!__json0.IsArray) { throw new SerializationException(); } TargetTags = new System.Collections.Generic.List<FactionType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { FactionType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (FactionType)__e0.AsInt; }  TargetTags.Add(__v0); }   }
         { var __json0 = _json["caster_evaluates"]; if(!__json0.IsArray) { throw new SerializationException(); } CasterEvaluates = new System.Collections.Generic.List<behavior.Info>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { behavior.Info __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = behavior.Info.DeserializeInfo(__e0);  }  CasterEvaluates.Add(__v0); }   }
         { if(!_json["priority_state"].IsObject) { throw new SerializationException(); }  PriorityState = priority.StateInfo.DeserializeStateInfo(_json["priority_state"]);  }
@@ -37,7 +38,7 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         PostInit();
     }
 
-    public AbilityConfig(int id, string alias, string view_name, string desc, int star, float cooldown, int mana_cost, float detect_range, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes, System.Collections.Generic.List<TagType> tags, cast.Info caster, System.Collections.Generic.List<FactionType> target_tags, System.Collections.Generic.List<behavior.Info> caster_evaluates, priority.StateInfo priority_state, System.Collections.Generic.List<ability.AbilityStageInfo> stages, System.Collections.Generic.List<procedureline.WorkerInfo> affixes ) 
+    public AbilityConfig(int id, string alias, string view_name, string desc, int star, float cooldown, int mana_cost, float detect_range, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes, System.Collections.Generic.List<TagType> tags, cast.Info caster, procedureline.WorkerInfo caster_of_plw, System.Collections.Generic.List<FactionType> target_tags, System.Collections.Generic.List<behavior.Info> caster_evaluates, priority.StateInfo priority_state, System.Collections.Generic.List<ability.AbilityStageInfo> stages, System.Collections.Generic.List<procedureline.WorkerInfo> affixes ) 
     {
         this.Id = id;
         this.Alias = alias;
@@ -50,6 +51,7 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         this.NumericNodes = numeric_nodes;
         this.Tags = tags;
         this.Caster = caster;
+        this.CasterOfPlw = caster_of_plw;
         this.TargetTags = target_tags;
         this.CasterEvaluates = caster_evaluates;
         this.PriorityState = priority_state;
@@ -95,6 +97,10 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
     /// 施法器
     /// </summary>
     public cast.Info Caster { get; private set; }
+    /// <summary>
+    /// 流水工施法器
+    /// </summary>
+    public procedureline.WorkerInfo CasterOfPlw { get; private set; }
     public System.Collections.Generic.List<FactionType> TargetTags { get; private set; }
     /// <summary>
     /// 施法器评估
@@ -111,6 +117,7 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
     {
         foreach(var _e in NumericNodes) { _e?.Resolve(_tables); }
         Caster?.Resolve(_tables);
+        CasterOfPlw?.Resolve(_tables);
         foreach(var _e in CasterEvaluates) { _e?.Resolve(_tables); }
         PriorityState?.Resolve(_tables);
         foreach(var _e in Stages) { _e?.Resolve(_tables); }
@@ -122,6 +129,7 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
     {
         foreach(var _e in NumericNodes) { _e?.TranslateText(translator); }
         Caster?.TranslateText(translator);
+        CasterOfPlw?.TranslateText(translator);
         foreach(var _e in CasterEvaluates) { _e?.TranslateText(translator); }
         PriorityState?.TranslateText(translator);
         foreach(var _e in Stages) { _e?.TranslateText(translator); }
@@ -142,6 +150,7 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         + "NumericNodes:" + Bright.Common.StringUtil.CollectionToString(NumericNodes) + ","
         + "Tags:" + Bright.Common.StringUtil.CollectionToString(Tags) + ","
         + "Caster:" + Caster + ","
+        + "CasterOfPlw:" + CasterOfPlw + ","
         + "TargetTags:" + Bright.Common.StringUtil.CollectionToString(TargetTags) + ","
         + "CasterEvaluates:" + Bright.Common.StringUtil.CollectionToString(CasterEvaluates) + ","
         + "PriorityState:" + PriorityState + ","
