@@ -13,11 +13,12 @@ namespace Hsenl.MultiCombiner {
             caster.castEndInvoke += this.EnqueueAction<Action>(() => { priorityState.LeaveState(); });
 
             priorityState.duration = -1; // 优先器的持续时间交给施法器来决定
-            priorityState.onEnter += this.EnqueueAction<Action<IPrioritizer>>((manager) => { caster.OnEnter(); });
-            priorityState.onUpdate += this.EnqueueAction<Action<IPrioritizer, float>>((manager, deltaTime) => { caster.OnUpdate(deltaTime); });
-            priorityState.onLeaveDetails += this.EnqueueAction<Action<IPrioritizer, PriorityStateLeaveDetails>>((manager, details) => {
+            priorityState.onEnter += this.EnqueueAction<Action<IPrioritizer>>((_) => { caster.OnEnter(); });
+            priorityState.onUpdate += this.EnqueueAction<Action<IPrioritizer, float>>((_, deltaTime) => { caster.OnUpdate(deltaTime); });
+            priorityState.onLeaveDetails += this.EnqueueAction<Action<IPrioritizer, PriorityStateLeaveDetails>>((_, details) => {
                 switch (details.leaveType) {
                     case PriorityStateLeaveType.TimeOut: {
+                        // 虽然priority系统也可以超时退出, 不过在与stageline合作的情况下, 都是使用stagetine的timer, 所以上面的duration才设置为-1
                         caster.OnLeaveDetail(new CasterLeaveDetails { leaveType = CasterLeaveType.Complated, initiator = (PriorityState)details.initiator });
                         break;
                     }

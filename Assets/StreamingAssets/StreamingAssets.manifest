@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1051275948
+CRC: 446492494
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -51,48 +51,60 @@ AssetBundleManifest:
       Name: animclip/warrior.unity3d
       Dependencies: {}
     Info_15:
-      Name: appear/anna.unity3d
-      Dependencies: {}
-    Info_16:
-      Name: appear/blademaster.unity3d
-      Dependencies:
-        Dependency_0: animcontrol.unity3d
-    Info_17:
-      Name: appear/kulou_gjs.unity3d
-      Dependencies:
-        Dependency_0: animcontrol.unity3d
-    Info_18:
-      Name: appear/kulou_qs.unity3d
-      Dependencies:
-        Dependency_0: animcontrol.unity3d
-    Info_19:
-      Name: appear/kulou_zs.unity3d
-      Dependencies:
-        Dependency_0: animcontrol.unity3d
-    Info_20:
-      Name: appear/moonpriestess.unity3d
-      Dependencies:
-        Dependency_0: animcontrol.unity3d
-    Info_21:
-      Name: appear/warrior.unity3d
-      Dependencies: {}
-    Info_22:
-      Name: bolt.unity3d
-      Dependencies: {}
-    Info_23:
       Name: lv3.unity3d
       Dependencies:
         Dependency_0: navmesh-ground.unity3d
-    Info_24:
+    Info_16:
       Name: lv4.unity3d
       Dependencies:
         Dependency_0: navmesh-ground.unity3d
-    Info_25:
+    Info_17:
       Name: navmesh-ground.unity3d
       Dependencies: {}
-    Info_26:
-      Name: appear/huntsman.unity3d
-      Dependencies: {}
-    Info_27:
+    Info_18:
       Name: animclip/huntsman.unity3d
+      Dependencies: {}
+    Info_19:
+      Name: appear/abi/bolt_gw_kuaishe.unity3d
+      Dependencies: {}
+    Info_20:
+      Name: appear/abi/bolt_yuebiao.unity3d
+      Dependencies: {}
+    Info_21:
+      Name: appear/actor/anna.unity3d
+      Dependencies: {}
+    Info_22:
+      Name: appear/actor/blademaster.unity3d
+      Dependencies:
+        Dependency_0: animcontrol.unity3d
+    Info_23:
+      Name: appear/actor/huntsman.unity3d
+      Dependencies: {}
+    Info_24:
+      Name: appear/actor/kulou_gjs.unity3d
+      Dependencies:
+        Dependency_0: animcontrol.unity3d
+    Info_25:
+      Name: appear/actor/kulou_qs.unity3d
+      Dependencies:
+        Dependency_0: animcontrol.unity3d
+    Info_26:
+      Name: appear/actor/kulou_zs.unity3d
+      Dependencies:
+        Dependency_0: animcontrol.unity3d
+    Info_27:
+      Name: appear/actor/moonpriestess.unity3d
+      Dependencies:
+        Dependency_0: animcontrol.unity3d
+    Info_28:
+      Name: appear/actor/warrior.unity3d
+      Dependencies: {}
+    Info_29:
+      Name: appear/actor/mage.unity3d
+      Dependencies: {}
+    Info_30:
+      Name: animclip/mage.unity3d
+      Dependencies: {}
+    Info_31:
+      Name: appear/abi/bolt_dibozhan.unity3d
       Dependencies: {}

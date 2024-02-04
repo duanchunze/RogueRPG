@@ -1,0 +1,31 @@
+ManifestFileVersion: 0
+CRC: 1983024291
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: bbd586881c447301613127c29e23c641
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5941c3541d8b403f80e37b0d697371e8
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/AnimClip/mage/WK_mage_05_combat_idle.anim
+- Assets/Bundles/AnimClip/mage/run.anim
+- Assets/Bundles/AnimClip/mage/idle.anim
+- Assets/Bundles/AnimClip/mage/WK_mage_11_cast_A.anim
+- Assets/Bundles/AnimClip/mage/hitstun.anim
+- Assets/Bundles/AnimClip/mage/die.anim
+- Assets/Bundles/AnimClip/mage/attack3.anim
+- Assets/Bundles/AnimClip/mage/attack2.anim
+- Assets/Bundles/AnimClip/mage/WK_mage_02_walk.anim
+- Assets/Bundles/AnimClip/mage/WK_mage_10_death_B.anim
+- Assets/Bundles/AnimClip/mage/WK_mage_06_combat_walk.anim
+- Assets/Bundles/AnimClip/mage/WK_mage_11_cast_load.anim
+- Assets/Bundles/AnimClip/mage/WK_mage_11_cast_B.anim
+- Assets/Bundles/AnimClip/mage/sprint.anim
+- Assets/Bundles/AnimClip/mage/attack1.anim
+Dependencies: []

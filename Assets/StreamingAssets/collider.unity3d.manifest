@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3648359047
+CRC: 1337893194
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 9d648068e25c6c94e419f7c49dfdfd1b
+    Hash: 981f1c6203000e5f886809dddce37210
   TypeTreeHash:
     serializedVersion: 2
     Hash: 6c703dda9dc4f8c31473b0febe213398
@@ -34,6 +34,7 @@ Assets:
 - Assets/Bundles/Collider/col_abi_gw_hengkan.prefab
 - Assets/Bundles/Collider/col_abi_gw_pikan.prefab
 - Assets/Bundles/Collider/col_abi_tuludaofa.prefab
+- Assets/Bundles/Collider/col_abi_dibozhan.prefab
 - Assets/Bundles/Collider/col_abi_liehuodaofa.prefab
 - Assets/Bundles/Collider/col_pik_coin.prefab
 - Assets/Bundles/Collider/col_abi_pikan.prefab

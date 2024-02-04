@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3487180629
+CRC: 894951473
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: b7cd30e20c0053b72d0a820f3c636330
+    Hash: 9cb9c27d16e4b8770e8ddf58f923dc52
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -26,6 +26,7 @@ Assets:
 - Assets/Bundles/Config/LubanConfig/status_tbstatusconfig.json
 - Assets/Bundles/Config/LubanConfig/ai_tbaiconfig.json
 - Assets/Bundles/Config/LubanConfig/card_tbcardconfig.json
+- Assets/Bundles/Config/LubanConfig/ability_upgrade_tbabilityupgradeconfig.json
 - Assets/Bundles/Config/LubanConfig/checkpoint_tbcheckpointconfig.json
 - Assets/Bundles/Config/LubanConfig/game_tbgamesingletonconfig.json
 Dependencies: []

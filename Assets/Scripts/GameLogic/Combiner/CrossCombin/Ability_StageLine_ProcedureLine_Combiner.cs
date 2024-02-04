@@ -6,7 +6,7 @@ namespace Hsenl.CrossCombiner {
         protected override void OnCombin(Ability arg1, StageLine arg2, ProcedureLine arg3) {
             arg2.onStageChanged += this.EnqueueAction<Action<int, int>>((prev, curr) => {
                 var form = new PliAbilityStageChangedForm() {
-                    caster = arg3.Bodied,
+                    attachedBodied = arg3.Bodied,
                     ability = arg1,
                     currStage = curr,
                     stageLine = arg2,

@@ -22,6 +22,7 @@ public sealed partial class Tables
     public card.TbCardSynthesisConfig TbCardSynthesisConfig {get; }
     public pickable.TbPickableConfig TbPickableConfig {get; }
     public ability.TbAbilityConfig TbAbilityConfig {get; }
+    public ability_upgrade.TbAbilityUpgradeConfig TbAbilityUpgradeConfig {get; }
     public ability_assist.TbAbilityAssistConfig TbAbilityAssistConfig {get; }
     public status.TbStatusConfig TbStatusConfig {get; }
     public numeric.TbNumericActorConfig TbNumericActorConfig {get; }
@@ -48,6 +49,8 @@ public sealed partial class Tables
         tables.Add("pickable.TbPickableConfig", TbPickableConfig);
         TbAbilityConfig = new ability.TbAbilityConfig(loader("ability_tbabilityconfig")); 
         tables.Add("ability.TbAbilityConfig", TbAbilityConfig);
+        TbAbilityUpgradeConfig = new ability_upgrade.TbAbilityUpgradeConfig(loader("ability_upgrade_tbabilityupgradeconfig")); 
+        tables.Add("ability_upgrade.TbAbilityUpgradeConfig", TbAbilityUpgradeConfig);
         TbAbilityAssistConfig = new ability_assist.TbAbilityAssistConfig(loader("ability_assist_tbabilityassistconfig")); 
         tables.Add("ability_assist.TbAbilityAssistConfig", TbAbilityAssistConfig);
         TbStatusConfig = new status.TbStatusConfig(loader("status_tbstatusconfig")); 
@@ -70,6 +73,7 @@ public sealed partial class Tables
         TbCardSynthesisConfig.Resolve(tables); 
         TbPickableConfig.Resolve(tables); 
         TbAbilityConfig.Resolve(tables); 
+        TbAbilityUpgradeConfig.Resolve(tables); 
         TbAbilityAssistConfig.Resolve(tables); 
         TbStatusConfig.Resolve(tables); 
         TbNumericActorConfig.Resolve(tables); 
@@ -89,6 +93,7 @@ public sealed partial class Tables
         TbCardSynthesisConfig.TranslateText(translator); 
         TbPickableConfig.TranslateText(translator); 
         TbAbilityConfig.TranslateText(translator); 
+        TbAbilityUpgradeConfig.TranslateText(translator); 
         TbAbilityAssistConfig.TranslateText(translator); 
         TbStatusConfig.TranslateText(translator); 
         TbNumericActorConfig.TranslateText(translator); 

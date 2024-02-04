@@ -11,7 +11,7 @@ namespace Hsenl {
                 case StageType.None:
                     break;
                 case StageType.Enter: {
-                    EventSystem.Publish(new OnAbilityCasted() { caster = item.caster, ability = abi });
+                    EventSystem.Publish(new OnAbilityCasted() { attachedBodied = item.attachedBodied, ability = abi });
 
                     break;
                 }

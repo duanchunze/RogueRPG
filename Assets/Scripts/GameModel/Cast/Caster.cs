@@ -77,22 +77,26 @@ namespace Hsenl {
         }
 
         /// <param name="keepTrying">为true则会不断的尝试, 即便不在调用该方法, 或者CastEnd, 也不会停止, 直到caster成功, 或者尝试失败</param>
-        /// <param name="igoneEvaluate">为true时, 将不进行评估, 直接释放</param>
         /// <returns></returns>
-        public CastEvaluateStatus CastStart(bool keepTrying = false, bool igoneEvaluate = false) {
-            if (!igoneEvaluate) {
-                if (this._keepTrying)
-                    return CastEvaluateStatus.Trying;
+        public CastEvaluateStatus CastStart(bool keepTrying = false) {
+            if (this._keepTrying)
+                return CastEvaluateStatus.Trying;
 
-                var evaluateStatus = this.Evaluate(TimeInfo.DeltaTime);
-                if (evaluateStatus != CastEvaluateStatus.Success) {
-                    this._keepTrying = keepTrying && evaluateStatus == CastEvaluateStatus.Trying;
-                    return evaluateStatus;
-                }
+            var evaluateStatus = this.Evaluate(TimeInfo.DeltaTime);
+            if (evaluateStatus != CastEvaluateStatus.Success) {
+                this._keepTrying = keepTrying && evaluateStatus == CastEvaluateStatus.Trying;
+                return evaluateStatus;
             }
 
             this.castStartInvoke?.Invoke();
             return CastEvaluateStatus.Success;
+        }
+
+        /// <summary>
+        /// 直接开始, 不进行评估
+        /// </summary>
+        public void CastStartDirect() {
+            this.castStartInvoke?.Invoke();
         }
 
         public void CastEnd() {

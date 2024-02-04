@@ -154,6 +154,7 @@
      <Compile Include="Assets\Scripts\Generate\Hsenl2MonoScripts\AbilityComponent.cs" />
      <Compile Include="Assets\ArtThridParty\Epic Toon FX\Demo\Scripts\ETFXProjectileScript.cs" />
      <Compile Include="Assets\Scripts\GameModel\Selections\SelectionTarget.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\ProcedureLineWorker\PlwAdditionalStatusOnAbilityHarm.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\ability\TbAbilityConfig.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Manager\MonsterRefresh\MonsterRefreshManager.cs" />
      <Compile Include="Assets\Scripts\GameModel\GameProcedure\ProcedureMainInterface.cs" />
@@ -194,7 +195,6 @@
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\drops\Info.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Event\EventNumericChanged.cs" />
      <Compile Include="Assets\Scripts\GameModel\Card\CardResidence.cs" />
-     <Compile Include="Assets\Scripts\GameLogic\ProcedureLineWorker\AdditionalStatus\PlwAdditionalStatusOnAbilityHarm.cs" />
      <Compile Include="Assets\Scripts\Generate\Hsenl2MonoScripts\MotionComponent.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\LubanLib\ByteBuf.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Behavior.CasterEvaluate\CeCooldownCheck.cs" />
@@ -241,6 +241,7 @@
      <Compile Include="Assets\Scripts\GameLogic\ProcedureLine\AbilityChanges\PliAbilityChangedForm.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\status\StatusActionInfo.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Behavior.TimeLine\TimePoint\TpHarmOfDibozhanBolt.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\ProcedureLineWorker\PlwCastOfHarmProbabilistic.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Factory\Temp\WarningBoardFactory.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Behavior.TimeLine\TpInfo.cs" />
      <Compile Include="Assets\Scripts\GameModel\LinkKey.cs" />
@@ -307,6 +308,7 @@
      <Compile Include="Assets\Scripts\GameLogic\Behavior.TimeLine\TimeSegment\TsMove.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Combiner\CrossCombin\CardBarAssistSlot_CardBar_Combiner.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\timeline\PlaySoundInfo.cs" />
+     <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\ability_upgrade\AbilityUpgradeConfig.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\numeric\AttachValueInfo.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\NumericType.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\adventure\CandidateInfo.cs" />
@@ -315,7 +317,6 @@
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\casterevaluate\ManaCheckInfo.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\timeline\TimePointInfo.cs" />
      <Compile Include="Assets\Scripts\GameLogic\NumericExtension.cs" />
-     <Compile Include="Assets\Scripts\GameLogic\ProcedureLineWorker\Cast\PlwCastOfHarmProbabilistic.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Combiner\CrossCombin\CardBarHeadSlot_CardBar_Combiner.cs" />
      <Compile Include="Assets\Scripts\GameModel\GameProcedure\ProcedureChangeScene.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Combiner\MultiCombin\Picker_ProcedureLine_Combiner.cs" />
@@ -350,6 +351,7 @@
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\game\GameSingletonConfig.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\timeline\ResurgenceInfo.cs" />
      <Compile Include="Assets\Scripts\Generate\Hsenl2MonoScripts\PriorityStateComponent.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\ProcedureLine\AbilityStageChanged\Handler\PlhAbilityStageChangedRepetitionCast.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Event\EventControlDistribute.cs" />
      <Compile Include="Assets\Scripts\Generate\Hsenl2MonoScripts\CardBarSlotComponent.cs" />
      <Compile Include="Assets\Scripts\GameLogic\ProcedureLine\Harm\Handler\PlhHarmRecoverEnergy.cs" />
@@ -501,6 +503,7 @@
      <Compile Include="Assets\Scripts\GameView\Event\EventOnHeroUnlockUpdate.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\LubanLib\StringUtil.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Combiner\MultiCombin\HarmableProcedureLineCombiner.cs" />
+     <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\procedureline\ProbabilisticRepetitionCastInfo.cs" />
      <Compile Include="Assets\Scripts\GameView\UI\UICardStore\UICardStorePoolSlot.cs" />
      <Compile Include="Assets\Scripts\Generate\Hsenl2MonoScripts\FactionComponent.cs" />
      <Compile Include="Assets\Scripts\Generate\Hsenl2MonoScripts\HeadMessageComponent.cs" />
@@ -524,6 +527,7 @@
      <Compile Include="Assets\Scripts\GameModel\Dropable\DropMode.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\numeric\Info.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\adventurescheme\DefaultCheckpointsAdventureInfo.cs" />
+     <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\ability_upgrade\TbAbilityUpgradeConfig.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Combiner\MultiCombin\UpdateDriver_Caster_Combiner.cs" />
      <Compile Include="Assets\Scripts\Generate\Hsenl2MonoScripts\ScopeComponent.cs" />
      <Compile Include="Assets\Scripts\Generate\Hsenl2MonoScripts\CardStoreComponent.cs" />
@@ -532,6 +536,7 @@
      <Compile Include="Assets\Scripts\Generate\Hsenl2MonoScripts\BehaviorTreeComponent.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Behavior.TimeLine\TimePoint\TpPlayFx.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGeneratePartial\ability\AbilityConfig.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\ProcedureLineWorker\PlwRepetitionCastOfProbabilistic.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Behavior.TimeLine\TimeSegment\Status\TsStatusHarm.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\timeline\HarmOfPointBoltInfo.cs" />
      <Compile Include="Assets\Scripts\Generate\Config\ConfigGenerate\timeline\TimeLineInfo.cs" />
@@ -687,7 +692,6 @@
      <Folder Include="Assets\ArtThridParty\Epic Toon FX\Prefabs\Interactive" />
      <Folder Include="Assets\ArtThridParty\2D Platformer Tileset\Sprites\Enemy\Goblin Axe\die" />
      <Folder Include="Assets\Scripts\Generate\Config\ConfigGenerate\cast" />
-     <Folder Include="Assets\Scripts\GameLogic\ProcedureLineWorker\AdditionalStatus" />
      <Folder Include="Assets\ArtThridParty\2D Platformer Tileset\Sprites\Separate graphic parts\NPC\Crow" />
      <Folder Include="Assets\Scripts\Generate\Config\ConfigGenerate\status" />
      <Folder Include="Assets\ArtThridParty\Epic Toon FX\Materials\Misc\Liquid" />
@@ -713,7 +717,6 @@
      <Folder Include="Assets\ArtThridParty\Tiny RPG Forest\Artwork\sprites\hero\attack-weapon\hero-attack-back" />
      <Folder Include="Assets\ArtThridParty\Epic Toon FX\Prefabs\Combat\Explosions\MegaExplosion" />
      <Folder Include="Assets\ArtThridParty\Epic Toon FX\Prefabs\Combat\Sword\Spin" />
-     <Folder Include="Assets\Scripts\GameLogic\ProcedureLineWorker\Cast" />
      <Folder Include="Assets\ArtThridParty\War3\heromoonpriestess\Materials\Textures" />
      <Folder Include="Assets\ArtThridParty\Epic Toon FX\Prefabs\Interactive\Powerups\PowerOrbElemental" />
      <Folder Include="Assets\ArtThridParty\2D Platformer Tileset\Simple UI Pack" />
@@ -1017,6 +1020,7 @@
      <Folder Include="Assets\ArtThridParty\2D Platformer Tileset\Sprites\Enemy" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
      <Folder Include="Assets\Scripts\GameLogic\Combiner" />
+     <None Include="Assets\Bundles\Config\LubanConfig\ability_upgrade_tbabilityupgradeconfig.json" />
      <Folder Include="Assets\ArtThridParty\Epic Toon FX\Demo\Materials\Skybox" />
      <Folder Include="Assets\ArtThridParty\Epic Toon FX\Demo\Missile Prefabs\Laser" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
@@ -1249,6 +1253,7 @@
      <Folder Include="Assets\Scripts\GameLogic\ProcedureLine\Hurt" />
      <Folder Include="Assets\ArtThridParty\2D Platformer Tileset\Sprites\Main_Character\Player\roll" />
      <Folder Include="Assets\ArtThridParty\2D Platformer Tileset\Sprites\Main_Character\Player Sword" />
+     <Folder Include="Assets\Scripts\Generate\Config\ConfigGenerate\ability_upgrade" />
      <Folder Include="Assets\ArtThridParty\Epic Toon FX\Demo\Animation" />
      <Folder Include="Assets\ArtThridParty\War3\heroblademaster\Materials\Textures" />
      <Folder Include="Assets\ArtThridParty\Tiny RPG Forest\Artwork\sprites\hero\attack" />
@@ -1435,6 +1440,7 @@
      <Folder Include="Assets\ArtThridParty\2D Platformer Tileset\Sprites\Main_Character\Player Bow\climb" />
      <Folder Include="Assets\Scripts\GameModel\Affix" />
      <None Include="Assets\Bundles\Config\LubanConfig\status_tbstatusconfig.json" />
+     <Folder Include="Assets\Scripts\Generate\Config\ConfigGeneratePartial\ability_upgrade" />
      <Folder Include="Assets\ArtThridParty\Epic Toon FX\Prefabs\Environment\Fire\Spiky" />
      <Folder Include="Assets\ArtThridParty\2D Platformer Tileset\Sprites\Animations\Bird\fly" />
      <Folder Include="Assets\ArtThridParty\Epic Toon FX\Prefabs\Combat\Text" />

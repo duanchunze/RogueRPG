@@ -35,6 +35,7 @@ public abstract partial class WorkerInfo :  procedureline.Info
             case "AdditionalStatusOnAbilityDamageInfo": return new procedureline.AdditionalStatusOnAbilityDamageInfo(_json);
             case "HarmProbabilisticCastInfo": return new procedureline.HarmProbabilisticCastInfo(_json);
             case "HealthRatioCastInfo": return new procedureline.HealthRatioCastInfo(_json);
+            case "ProbabilisticRepetitionCastInfo": return new procedureline.ProbabilisticRepetitionCastInfo(_json);
             default: throw new SerializationException();
         }
     }

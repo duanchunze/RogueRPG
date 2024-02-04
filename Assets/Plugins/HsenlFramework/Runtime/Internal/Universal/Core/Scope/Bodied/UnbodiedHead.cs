@@ -58,22 +58,33 @@ namespace Hsenl {
                 }
 
                 if (prevParent != null) {
-                    CrossDecombinMatchForParent(this, prevParent);
+                    if (this.crossMatchMode == CrossMatchMode.Auto) {
+                        CrossDecombinMatchForParent(this, prevParent);
+                    }
+
                     this.ForeachChildrenScope((childScope, _) => {
-                        CrossDecombinMatchForParent(childScope, prevParent); // 
+                        if (childScope.crossMatchMode == CrossMatchMode.Auto) {
+                            CrossDecombinMatchForParent(childScope, prevParent); //
+                        }
                     });
                 }
 
                 // 重写添加了这句 -> 确定父子关系后, head要处理的就是, 找到自己的bodied
                 this.Bodied = this.FindScopeInParent<Bodied>();
 
+                // 确立好父子关系后再进行跨域匹配, 保证形成组合的时候, 父子关系是正确的.
                 if (value != null) {
                     this.CalcMaximumCrossLayerInTheory();
-                    CrossCombinMatchForParent(this, value, 1);
+
+                    if (this.crossMatchMode == CrossMatchMode.Auto) {
+                        CrossCombinMatchForParent(this, value, 1);
+                    }
 
                     this.ForeachChildrenScope((childScope, layer) => {
                         childScope.CalcMaximumCrossLayerInTheory();
-                        CrossCombinMatchForParent(childScope, value, layer + 1); //
+                        if (childScope.crossMatchMode == CrossMatchMode.Auto) {
+                            CrossCombinMatchForParent(childScope, value, layer + 1); // 
+                        }
                     });
                 }
 
@@ -106,7 +117,9 @@ namespace Hsenl {
             unbodied.unbodiedHead = this;
 
             MultiCombinMatch(this, component);
-            CrossCombinMatch(this, component);
+            if (this.crossMatchMode != CrossMatchMode.Manual) {
+                CrossCombinMatchByComponent(this, component);
+            }
         }
 
         internal override void OnComponentRemoveInternal(Component component) {
@@ -118,7 +131,9 @@ namespace Hsenl {
             unbodied.unbodiedHead = null;
 
             MultiDecombinMatch(this, component);
-            CrossDecombinMatch(this, component);
+            if (this.crossMatchMode != CrossMatchMode.Manual) {
+                CrossDecombinMatchByComponent(this, component);
+            }
         }
     }
 }

@@ -69,7 +69,7 @@ namespace Hsenl.EventType {
     }
 
     public struct OnAbilityCasted {
-        public Bodied caster;
+        public Bodied attachedBodied;
         public Ability ability;
     }
 

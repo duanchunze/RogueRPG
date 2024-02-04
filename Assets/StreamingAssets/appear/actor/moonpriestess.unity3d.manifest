@@ -1,0 +1,42 @@
+ManifestFileVersion: 0
+CRC: 1443257818
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: aa4bb13728dca87b92955dab9b34081c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2b86ed7a544b35be012c00c480412601
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/Appear/Actor/moonpriestess.prefab
+Dependencies:
+- D:/UnityProjects/HsenlFramework/./Release/PC/StreamingAssets/animcontrol.unity3d

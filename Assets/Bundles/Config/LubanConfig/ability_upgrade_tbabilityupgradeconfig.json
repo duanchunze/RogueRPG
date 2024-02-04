@@ -1,0 +1,20 @@
+[
+  {
+    "id": 10000,
+    "alias": "升级1",
+    "view_name": "Idle",
+    "desc": "",
+    "target_ability": "劈砍",
+    "tags": [],
+    "cooldown": 0,
+    "mana_cost": 0,
+    "detect_range": 0,
+    "numeric_nodes": [],
+    "affixes": [
+      {
+        "$type": "ProbabilisticRepetitionCastInfo",
+        "probability": 0.5
+      }
+    ]
+  }
+]

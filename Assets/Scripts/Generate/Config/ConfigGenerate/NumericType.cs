@@ -10,7 +10,7 @@
 namespace Hsenl
 { 
     /// <summary>
-    /// 包含整个游戏内所有的关于数值方面的定义目前有几个特殊的数值, 是用int去计算float比例的, 1、法术极速2、格挡3、硬直相关4、幸运5、攻击欲望
+    /// 包含整个游戏内所有的关于数值方面的定义
     /// </summary>
     public enum NumericType
     {

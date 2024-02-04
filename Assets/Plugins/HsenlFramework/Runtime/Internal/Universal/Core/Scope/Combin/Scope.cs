@@ -5,6 +5,12 @@ using MemoryPack;
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace Hsenl {
+    public enum CrossMatchMode {
+        Auto, // 纯自动
+        Semi_Automatic, // 半自动
+        Manual, // 纯手动
+    }
+
     // 一个域, 一个具体的逻辑范围
     [MemoryPackable(GenerateType.CircularReference)]
     public partial class Scope : Component {
@@ -29,8 +35,25 @@ namespace Hsenl {
         [MemoryPackIgnore]
         internal readonly CrossMatchQueue childCrossMatchQueue = new();
 
+        // 每当父级发生改变时(包括父级以上发生改变时), 会算出一个在当前父子链下, 最大跨域层数, 默认为1
+        // 指的注意的是, CombinerOptionsAttribute中有个crossMaximumLayer参数, 虽然看起来类似, 但二者本质并不同, 那个参数是用来决定某个具体的组合的最大匹配层数,
+        // 而这个参数是决定某个scope像父域做整体匹配时的最大层数. 二者是相互独立, 互不影响的.
         [MemoryPackIgnore]
-        internal int maximumFormatterCrossLayer = 1; // 每当父级发生改变时(包括父级以上发生改变时), 会算出一个在当前父子链下, 最大跨域层数, 默认为1
+        internal int maximumFormatterCrossLayer = 1;
+
+        /// <summary>
+        /// <para>跨域匹配模式.</para>
+        /// <para>自动模式: 全由系统自动匹配.</para>
+        /// <para>半自动模式: 屏蔽父子关系改变时进行的匹配组合行为, 其他的时候都不影响. 所以该模式需要用户在父域改变时, 自行做跨域匹配(重写OnParentScopeChanged函数,
+        /// 在其中手动调用CrossDecombinMatch和CrossCombinMatch两个函数, 前者断开之前父级的组合, 后者匹配新父级的组合). 且由于该模式影响的是父子改变时的组合匹配, 所以要在父子改变前
+        /// 修改该值(OnParentScopeChanged函数调用前), 可以在OnBeforeParentScopeChanged函数中修改.</para>
+        /// <para>手动模式: 不自动进行任何跨域组合行为. 全由用户决定.(不推荐, 麻烦且容易出错, 用半自动就好了) 该模式下, 需要在添加删除组件时、销毁时以及父子关系改时, 手动调用函数</para>
+        /// <para>模式只会影响自己, 而不会影响自己的子域, 比如自己为手动模式, 而自己的子域为自动模式, 那么自己的子域依然会正常的自动匹配, 不受影响</para>
+        /// ps: 跨域组合变化可能发生在以下时刻: 被创建或被反序列化时, 添加删除组件时, 被销毁时, 父子关系发生改变时.
+        /// </summary>
+        [MemoryPackOrder(2)]
+        [MemoryPackInclude]
+        protected internal CrossMatchMode crossMatchMode;
 
         [MemoryPackIgnore]
         public virtual Scope ParentScope {
@@ -57,20 +80,30 @@ namespace Hsenl {
                 }
 
                 if (prevParent != null) {
-                    CrossDecombinMatchForParent(this, prevParent);
+                    if (this.crossMatchMode == CrossMatchMode.Auto) {
+                        CrossDecombinMatchForParent(this, prevParent);
+                    }
+
                     this.ForeachChildrenScope((childScope, _) => {
-                        CrossDecombinMatchForParent(childScope, prevParent); // 
+                        if (childScope.crossMatchMode == CrossMatchMode.Auto) {
+                            CrossDecombinMatchForParent(childScope, prevParent); //
+                        }
                     });
                 }
 
                 // 确立好父子关系后再进行跨域匹配, 保证形成组合的时候, 父子关系是正确的.
                 if (value != null) {
                     this.CalcMaximumCrossLayerInTheory();
-                    CrossCombinMatchForParent(this, value, 1);
+
+                    if (this.crossMatchMode == CrossMatchMode.Auto) {
+                        CrossCombinMatchForParent(this, value, 1);
+                    }
 
                     this.ForeachChildrenScope((childScope, layer) => {
                         childScope.CalcMaximumCrossLayerInTheory();
-                        CrossCombinMatchForParent(childScope, value, layer + 1); //
+                        if (childScope.crossMatchMode == CrossMatchMode.Auto) {
+                            CrossCombinMatchForParent(childScope, value, layer + 1); // 
+                        }
                     });
                 }
 
@@ -124,10 +157,12 @@ namespace Hsenl {
             // 域被销毁的时候, 只断开组合就行了, 其他的都不用做
             MultiDecombinMatch(this, null);
             if (this.parentScope != null) {
-                CrossDecombinMatchForParent(this, this.parentScope);
-                this.ForeachChildrenScope((childScope, _) => {
-                    CrossDecombinMatchForParent(childScope, this.parentScope); // 
-                });
+                if (this.crossMatchMode != CrossMatchMode.Manual) {
+                    CrossDecombinMatchForParent(this, this.parentScope);
+                    this.ForeachChildrenScope((childScope, _) => {
+                        CrossDecombinMatchForParent(childScope, this.parentScope); // 
+                    });
+                }
             }
         }
 
@@ -141,7 +176,9 @@ namespace Hsenl {
             }
 
             MultiCombinMatch(this, component);
-            CrossCombinMatch(this, component);
+            if (this.crossMatchMode != CrossMatchMode.Manual) {
+                CrossCombinMatchByComponent(this, component);
+            }
         }
 
         internal override void OnComponentRemoveInternal(Component component) {
@@ -151,7 +188,9 @@ namespace Hsenl {
             this.elements.Remove(component.ComponentIndex);
 
             MultiDecombinMatch(this, component);
-            CrossDecombinMatch(this, component);
+            if (this.crossMatchMode != CrossMatchMode.Manual) {
+                CrossDecombinMatchByComponent(this, component);
+            }
         }
 
         internal override void OnParentChangedInternal(Entity previousParent) {
@@ -329,20 +368,24 @@ namespace Hsenl {
         }
 
         // 跨域组合
-        internal static void CrossCombinMatch(Scope scope, Component added) {
+        internal static void CrossCombinMatchByComponent(Scope scope, Component added) {
             // 同样的, 先从跨域组合表里查询该组件到底和哪些组合有关系, 我们只对这些组合进行尝试
             if (Combiner.CrossCombinLookupTable.TryGetValue(added.ComponentIndex, out var crossCombinInfo)) {
                 // 该组件作为child的跨域组合有哪些
                 if (crossCombinInfo.childCombiners.Count != 0) {
                     if (scope.HasComponentsAny(crossCombinInfo.totalChildTypeCacher)) {
+                        // 只针对与该组件相关的组合, 进行匹配尝试
                         CrossCombinMatchForParent(scope, scope.parentScope, 1, crossCombinInfo.childCombiners);
                     }
                 }
 
                 // 该组件作为parent的跨域组合有哪些
                 if (crossCombinInfo.parentCombiners.Count != 0) {
+                    // 遍历这些组合, 一个个的试
                     foreach (var combiner in crossCombinInfo.parentCombiners) {
+                        // 先判断自己作为父域是否符合匹配条件
                         if (scope.HasComponentsAll(combiner.crossParentTypeCacher)) {
+                            // 然后再遍历自己的子域, 挨个向自己做该组合的匹配尝试
                             scope.ForeachChildrenScope((childScope, layer) => {
                                 if (childScope.HasComponentsAny(crossCombinInfo.totalChildTypeCacher)) {
                                     CrossCombinMatchForParent(childScope, scope, layer, combiner);
@@ -449,7 +492,7 @@ namespace Hsenl {
         }
 
         // 断开跨域组合
-        internal static void CrossDecombinMatch(Scope scope, Component removed) {
+        internal static void CrossDecombinMatchByComponent(Scope scope, Component removed) {
             var componentIndex = removed.ComponentIndex;
             scope.parentCrossMatchQueue.Select((parentScope, combiner) => {
                 if (combiner.crossChildTypeCacher.Contains(componentIndex)) {
@@ -482,6 +525,7 @@ namespace Hsenl {
 
         // 尝试向父域断开所有当前存在的跨域组合
         internal static void CrossDecombinMatchForParent(Scope child, Scope parent) {
+            // 遍历child所有的父级跨域组合, 然后判断每个组合中的parent scope是否是目标parent, 或者是目标parent的父级, 这两种情况都说明该组合符合断开条件.
             child.parentCrossMatchQueue.SelectMatchs(match => {
                 var parentScope = match.scope;
                 if (parentScope == parent || parentScope.Entity.IsParentOf(parent.Entity)) {
@@ -581,13 +625,78 @@ namespace Hsenl {
             Search(this.Entity);
         }
 
+        /// 手动进行一次跨域匹配
+        protected void CrossCombinMatch() {
+            if (this.parentScope == null) return;
+            CrossCombinMatchForParent(this, this.parentScope, 1);
+            this.ForeachChildrenScope((childScope, layer) => {
+                CrossCombinMatchForParent(childScope, this.parentScope, layer + 1); // 
+            });
+        }
+
+        /// 手动进行一次跨域匹配
+        protected void CrossCombinMatch(Scope parent) {
+            if (parent == null) throw new NullReferenceException("parent scope is null");
+            var parentLayer = this.GetLayerNum(parent);
+            if (parentLayer == -1) return;
+
+            CrossCombinMatchForParent(this, parent, parentLayer);
+            this.ForeachChildrenScope((childScope, layer) => {
+                CrossCombinMatchForParent(childScope, parent, layer + parentLayer); // 
+            });
+        }
+
+        /// 手动进行一次跨域匹配
+        protected void CrossCombinMatch(Component added) {
+            CrossCombinMatchByComponent(this, added);
+        }
+
+        /// 手动进行一次跨域断开
+        protected void CrossDecombinMatch() {
+            if (this.parentScope == null) return;
+            CrossDecombinMatchForParent(this, this.parentScope);
+            this.ForeachChildrenScope((childScope, _) => {
+                CrossDecombinMatchForParent(childScope, this.parentScope); // 
+            });
+        }
+
+        /// 手动进行一次跨域断开
+        protected void CrossDecombinMatch(Scope parent) {
+            if (parent == null) throw new NullReferenceException("parent scope is null");
+            CrossDecombinMatchForParent(this, parent);
+            this.ForeachChildrenScope((childScope, _) => {
+                CrossDecombinMatchForParent(childScope, parent); // 
+            });
+        }
+
+        /// 手动进行一次跨域断开
+        protected void CrossDecombinMatch(Component removed) {
+            CrossDecombinMatchByComponent(this, removed);
+        }
+
+        private int GetLayerNum(Scope parent) {
+            var layer = 0;
+            var p = this.parentScope;
+            while (p != null) {
+                layer++;
+
+                if (p == parent) {
+                    return layer;
+                }
+
+                p = p.parentScope;
+            }
+
+            return -1;
+        }
+
         #endregion
 
         #region protected events
 
-        internal virtual void OnBeforeParentScopeChangeInternal(Scope previous) {
+        internal virtual void OnBeforeParentScopeChangeInternal(Scope future) {
             try {
-                this.OnBeforeParentScopeChanged(previous);
+                this.OnBeforeParentScopeChanged(future);
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -621,7 +730,7 @@ namespace Hsenl {
             }
         }
 
-        protected virtual void OnBeforeParentScopeChanged(Scope previous) { }
+        protected virtual void OnBeforeParentScopeChanged(Scope future) { }
 
         protected virtual void OnParentScopeChanged(Scope previous) { }
 

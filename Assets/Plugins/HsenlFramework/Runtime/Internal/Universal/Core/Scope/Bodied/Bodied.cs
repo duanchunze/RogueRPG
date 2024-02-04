@@ -13,11 +13,13 @@ namespace Hsenl {
      * 一个事物被定义成有形体, 那他就可以灵活的摇摆, 在独立个体与依赖者两种身份之间摇摆, 比如一个人是一个独立个体, 一个背包也是一个独立个体, 但如果人背起了背包, 那背包便不再是一个独立个体, 
      * 而是这个人的依赖者
      *
-     * attachedBodied对于unbodied而言, 就像是unity中collider的attachedRigidbody
+     * 默认情况下, 我们规定最上面的bodied为attachedBodied, 其下其他的bodied都只是普通的bodied, 当然我们也可以自定义我们自己的规则.
+     * 例如一个actor下挂载了abilityBar, abilityBar下又挂载了一些ability, 那么actor因为在最上面的, 所以他就是ab, 而其余的像abilityBar, abilities, 都是普通的bodied, 当然这些bodied的
+     * ab, 指的就是最上面的actor.
      */
     [MemoryPackable(GenerateType.CircularReference)]
     public partial class Bodied : Scope, IBodied, IUnbodiedHead {
-        [MemoryPackOrder(2)]
+        [MemoryPackOrder(3)]
         [MemoryPackInclude]
         protected internal BodiedStatus status;
 
@@ -141,20 +143,30 @@ namespace Hsenl {
                 }
 
                 if (prevParent != null) {
-                    CrossDecombinMatchForParent(this, prevParent);
+                    if (this.crossMatchMode == CrossMatchMode.Auto) {
+                        CrossDecombinMatchForParent(this, prevParent);
+                    }
+
                     this.ForeachChildrenScope((childScope, _) => {
-                        CrossDecombinMatchForParent(childScope, prevParent); // 
+                        if (childScope.crossMatchMode == CrossMatchMode.Auto) {
+                            CrossDecombinMatchForParent(childScope, prevParent); //
+                        }
                     });
                 }
 
                 // 确立好父子关系后再进行跨域匹配, 保证形成组合的时候, 父子关系是正确的.
                 if (value != null) {
                     this.CalcMaximumCrossLayerInTheory();
-                    CrossCombinMatchForParent(this, value, 1);
+
+                    if (this.crossMatchMode == CrossMatchMode.Auto) {
+                        CrossCombinMatchForParent(this, value, 1);
+                    }
 
                     this.ForeachChildrenScope((childScope, layer) => {
                         childScope.CalcMaximumCrossLayerInTheory();
-                        CrossCombinMatchForParent(childScope, value, layer + 1); //
+                        if (childScope.crossMatchMode == CrossMatchMode.Auto) {
+                            CrossCombinMatchForParent(childScope, value, layer + 1); // 
+                        }
                     });
                 }
 
@@ -176,14 +188,6 @@ namespace Hsenl {
             });
         }
 
-        internal override void OnConstructionInternal() {
-            // if (!this.IsDeserialized) { // 第一时间要确定status
-            //     this.status = DefaultPrincipal.Contains(this.ComponentIndex) ? BodiedStatus.Individual : BodiedStatus.Dependent;
-            // }
-
-            base.OnConstructionInternal();
-        }
-
         internal override void OnComponentAddInternal(Component component) {
             if (component is Scope) throw new Exception($"one entity only one scope. '{this.Name}' '{component.GetType().Name}'");
             if (component is not Unbodied unbodied)
@@ -196,7 +200,9 @@ namespace Hsenl {
             unbodied.unbodiedHead = this;
 
             MultiCombinMatch(this, component);
-            CrossCombinMatch(this, component);
+            if (this.crossMatchMode != CrossMatchMode.Manual) {
+                CrossCombinMatchByComponent(this, component);
+            }
         }
 
         internal override void OnComponentRemoveInternal(Component component) {
@@ -208,7 +214,9 @@ namespace Hsenl {
             unbodied.unbodiedHead = null;
 
             MultiDecombinMatch(this, component);
-            CrossDecombinMatch(this, component);
+            if (this.crossMatchMode != CrossMatchMode.Manual) {
+                CrossDecombinMatchByComponent(this, component);
+            }
         }
 
         private Bodied FindScopeByStatusInParent(BodiedStatus sta) {
@@ -322,9 +330,9 @@ namespace Hsenl {
             return list.ToArray();
         }
 
-        protected override void OnBeforeParentScopeChanged(Scope previous) {
+        protected override void OnBeforeParentScopeChanged(Scope future) {
             // 默认最上面的bodied为individual, 下面的其他bodied都是dependent
-            this.status = previous is Bodied ? BodiedStatus.Dependent : BodiedStatus.Individual;
+            this.status = future is Bodied ? BodiedStatus.Dependent : BodiedStatus.Individual;
         }
     }
 }
