@@ -13,6 +13,8 @@ namespace Hsenl {
         public float timeScale = 1;
 
         private void Awake() {
+            Framework.OnAppStart();
+
             if (!SingletonManager.IsDisposed<Framework>()) {
                 SingletonManager.Unregister<Framework>();
             }
@@ -30,11 +32,6 @@ namespace Hsenl {
 
         private void LateUpdate() {
             this.framework.LateUpdate();
-        }
-
-        [RuntimeInitializeOnLoadMethod]
-        private static void OnApplicationStart() {
-            Framework.OnAppStart();
         }
 
         private void OnApplicationQuit() {

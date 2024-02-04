@@ -33,6 +33,8 @@ namespace Hsenl {
             foreach (var scene in scenes) {
                 Object.Destroy(scene.Value);
             }
+
+            scenes.Clear();
         }
 
         public static Scene LoadScene(string name, LoadSceneMode mode) {

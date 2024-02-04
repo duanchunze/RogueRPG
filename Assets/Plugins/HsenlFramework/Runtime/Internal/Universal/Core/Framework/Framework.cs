@@ -19,7 +19,6 @@ namespace Hsenl {
 
         public static void OnAppQuit() {
             AppQuit = true;
-            // SceneManager.UnloadAllScene();
         }
 
         public void Update() {
