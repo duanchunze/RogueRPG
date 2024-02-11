@@ -1,12 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3325685076
+CRC: 768623100
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c2cf964cef8bb5eb25c6b4cdd94dd2d0
+    Hash: 5e53391627300e4e8a22fd3629e7c78d
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 19f3b6c24ed4be662789151b93f72c34
+    Hash: 75b4de0fdb472bb1d75e35031573b303
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 5e53391627300e4e8a22fd3629e7c78d
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -39,8 +42,6 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 9028930043904dbca331a69bf7e351a2, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: b6e952e576b34c76ae1a883c58e27669, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: ff6cd529fd38405c9903177a1901f4cc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: efd47a392ab74862b7eb195698c69c26, type: 3}
 - Class: 114
@@ -105,5 +106,6 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Scenes/Test.unity
-Dependencies: []
+- Assets/Scenes/DynamicScenes/Test.unity
+Dependencies:
+- D:/UnityProjects/RogueRPG/./Release/PC/StreamingAssets/input.unity3d

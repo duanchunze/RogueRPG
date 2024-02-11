@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Hsenl {
@@ -22,12 +23,12 @@ namespace Hsenl {
     /* 组合器
      * 定义一个组合器, 那么当组件满足该条件时, 就会自动形成一个组合, 同样, 当组件不再满足该条件时, 组合也会被自动断开.
      * 示例: 比如你定义了一个组合MultiCombiner<A, B>, 那么当A和B组件同时存在的时候, 该组合就形成了, 如果此时B被移除了, 那该组合也自然被断开了.
-     * 
+     *
      * 条件:
      *  - 所有组合必须发生在scope下(也就是说, 该实体上至少有且只能有一个scope)
      *  - 参与组合的组件要么是scope, 要么是一个element, 否则不会有效
      *  - 之所以要限制scope和element为的是不污染原本的entity系统, 用户依然可以选择纯净的entity系统.
-     * 
+     *
      * 心路历程:
      * 编程中, 为了实现更好的模块化, 我们经常需要把功能尽可能的进行细化然后放到不同的组件中, 而不是统统塞在一个组件中. 如此就出现了一个问题, 组件与组件之间的相互引用问题
      * 变的非常严重, 虽然是不同的组件, 但却常常需要互相引用. 这就与我们的初衷背道而驰了, 我们细化组件的目的就是为了尽量的解耦, 现在因为相互引用的问题, 又导致我们的逻辑写的粘黏到了一起.
@@ -61,9 +62,10 @@ namespace Hsenl {
         internal static ComponentTypeCacher TotalMultiCombinerTypeCacher;
         internal static List<Combiner> CrossCombiners { get; } = new();
         internal static ComponentTypeCacher TotalCrossCombinerChildTypeCacher;
+        internal static List<Combiner> TotalCombiners { get; } = new(); // combiner的id就是index, 所以可以直接通过 TotalCombiners[combiner.id] 来获取到该combiner
 
-        internal static MultiList<int, int> Overrides { get; } = new(); // key: 覆盖者, value: 被覆盖者
-        internal static MultiList<int, int> InverseOverrides { get; } = new(); // key: 被覆盖者, value: 覆盖者
+        internal static MultiList<int, int> Overrides { get; } = new(); // key: 覆盖者id, value: 被覆盖者id
+        internal static MultiList<int, int> InverseOverrides { get; } = new(); // key: 被覆盖者id, value: 覆盖者id
 
         // key: componentTypeIndex, value: 与该组件有关的所有组合, 且按照组合成员数有小到大排序
         internal static Dictionary<int, MultiCombinInfo> MultiCombinLookupTable { get; } = new();
@@ -74,10 +76,10 @@ namespace Hsenl {
             TypeCombinerMap.Clear();
             MultiCombiners.Clear();
             CrossCombiners.Clear();
+            TotalCombiners.Clear();
             Overrides.Clear();
             InverseOverrides.Clear();
-            var multiId = 0;
-            var crossId = 0;
+            var uniqueId = 0;
             // 缓存所有Combiner
             foreach (var type in EventSystem.GetTypesOfAttribute(typeof(CombinerAttribute))) {
                 var att = type.GetCustomAttribute<CombinerAttribute>(true);
@@ -95,7 +97,7 @@ namespace Hsenl {
                 combiner.combinerType = att.combinerType;
                 switch (combiner.combinerType) {
                     case CombinerType.MultiCombiner: {
-                        combiner.id = multiId++;
+                        combiner.id = uniqueId++;
                         combiner.multiTypeCacher = Entity.CombineComponentType(combiner.memberTypes);
                         MultiCombiners.Add(combiner);
                         break;
@@ -104,7 +106,7 @@ namespace Hsenl {
                         var optionsAtt = type.GetCustomAttribute<CombinerOptionsAttribute>(true);
                         combiner.crossChildTypeCacher = ComponentTypeCacher.CreateNull();
                         combiner.crossParentTypeCacher = ComponentTypeCacher.CreateNull();
-                        combiner.id = crossId++;
+                        combiner.id = uniqueId++;
                         combiner.crossChildTypeCacher = Entity.CombineComponentType(combiner.memberTypes, 0, optionsAtt.crossSplitPosition);
                         combiner.crossParentTypeCacher = Entity.CombineComponentType(combiner.memberTypes, optionsAtt.crossSplitPosition);
                         combiner.crossMaximumLayer = optionsAtt.crossMaximumLayer;
@@ -116,6 +118,7 @@ namespace Hsenl {
                 }
 
                 TypeCombinerMap.Add(type, combiner);
+                TotalCombiners.Add(combiner);
             }
 
             TotalMultiCombinerTypeCacher = ComponentTypeCacher.CreateNull();
@@ -146,15 +149,18 @@ namespace Hsenl {
             }
 
             // 检查CombinerOverride是否存在冲突问题(两个组合相互覆盖)
-            foreach (var @override in Overrides) {
-                foreach (var overrideCombiner in @override.Value) {
-                    if (Overrides.TryGetValue(overrideCombiner, out var list)) {
-                        if (list.Contains(@override.Key)) {
-                            throw new Exception($"<override combiner conflict exists, '{@override.Key}' '{overrideCombiner}'>");
+            foreach (var kv in Overrides) {
+                foreach (var overrideUniqueId in kv.Value) {
+                    if (Overrides.TryGetValue(overrideUniqueId, out var list)) {
+                        if (list.Contains(kv.Key)) {
+                            var combiner1 = TotalCombiners[kv.Key];
+                            var combiner2 = TotalCombiners[overrideUniqueId];
+                            throw new Exception(
+                                $"<override combiner conflict exists, '{combiner1.GetType().Name} - {combiner1.id}' '{combiner1.GetType().Name} - {combiner2.id}'>");
                         }
                     }
 
-                    InverseOverrides.Add(overrideCombiner, @override.Key);
+                    InverseOverrides.Add(overrideUniqueId, kv.Key);
                 }
             }
 
@@ -215,7 +221,7 @@ namespace Hsenl {
         }
 
         internal CombinerType combinerType;
-        internal int id; // combiner独有的id, 并非component index
+        internal int id; // 唯一id, multi和cross之间也不会重复
         internal Type[] memberTypes;
         internal ComponentTypeCacher multiTypeCacher;
         internal ComponentTypeCacher crossChildTypeCacher;
@@ -239,20 +245,19 @@ namespace Hsenl {
         protected T EnqueueAction<T>(T action) where T : Delegate {
             var hashcode = this.GetComponentCombineHashCode();
             hashcode = HashCode.Combine(hashcode, this.actionCounter++);
-            if (this._actions.ContainsKey(hashcode)) throw new Exception($"combiner is already has combined'{typeof(T)}' '{this.GetType()}'");
-            this._actions.Add(hashcode, action);
+            if (!this._actions.TryAdd(hashcode, action)) 
+                throw new Exception($"combiner is already has combined'{typeof(T)}' '{this.GetType()}'");
             return action;
         }
 
         protected T DequeueAction<T>() where T : Delegate {
             var hashcode = this.GetComponentCombineHashCode();
             hashcode = HashCode.Combine(hashcode, this.actionCounter++);
-            if (!this._actions.TryGetValue(hashcode, out var action)) {
+            if (!this._actions.Remove(hashcode, out var action)) {
                 // enqueue和dequeue必须一一对应, 顺序也不能错
                 throw new NullReferenceException("action is null, check whether EnqueueAction and DequeueAction one-to-one correspondenceto each other");
             }
 
-            this._actions.Remove(hashcode);
             return (T)action;
         }
     }

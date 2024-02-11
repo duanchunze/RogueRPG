@@ -175,18 +175,23 @@ namespace Hsenl {
         [MemoryPackInclude]
         internal string name;
 
+        [System.NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackIgnore]
         internal ComponentTypeCacher componentTypeCacher = ComponentTypeCacher.CreateNull(); // 这个位列表是作为组件索引的存在, 作用是极大的提高组件判存, 获取等操作的速度
 
+        [System.NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackIgnore]
         internal MultiList<int, Component> components; // key: 每个组件的编号, 这个编号是我们框架自行指定的1234...那个编号
 
+        [System.NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackInclude]
         internal List<Component> componentsOfSerialize;
 
+        [System.NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackIgnore]
         internal List<Entity> children;
 
+        [System.NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackInclude]
         internal List<Entity> childrenOfSerialize;
 

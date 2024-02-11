@@ -1,5 +1,9 @@
+HybridCLRData/
+IL2CPPBuild/
 Library/
 Logs/
+MonoBuild/
 obj/
-Temp/
 Release/
+Temp/
+UserSettings/

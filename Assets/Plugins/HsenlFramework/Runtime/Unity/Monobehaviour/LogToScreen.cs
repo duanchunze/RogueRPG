@@ -4,13 +4,12 @@ using UnityEngine;
 
 namespace Hsenl {
     public class LogToScreen : MonoBehaviour {
-        private const int maxLines = 50;
-        private const int maxLineLength = 120;
-        private string _logStr = "";
-
-        private readonly List<string> _lines = new List<string>();
-
+        public int maxLines = 50;
+        public int maxLineLength = 120;
         public int fontSize = 15;
+
+        private string _logStr = "";
+        private readonly List<string> _lines = new List<string>();
 
         private void OnEnable() {
             Application.logMessageReceived += this.Log;
@@ -46,8 +45,7 @@ namespace Hsenl {
         }
 
         private void OnGUI() {
-            GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity,
-                new Vector3(Screen.width / 1200.0f, Screen.height / 800.0f, 1.0f));
+            GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(Screen.width / 1200.0f, Screen.height / 800.0f, 1.0f));
             GUI.Label(new Rect(10, 10, 800, 370), this._logStr, new GUIStyle() { fontSize = Math.Max(10, this.fontSize) });
         }
     }

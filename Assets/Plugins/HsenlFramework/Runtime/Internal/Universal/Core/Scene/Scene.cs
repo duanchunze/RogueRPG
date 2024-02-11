@@ -9,6 +9,7 @@ namespace Hsenl {
 
         internal SceneType sceneType;
 
+        [System.NonSerialized] // unity那个 depth limit 10警告
         internal List<Entity> rootEntities = new();
 
         public string SceneName => this.sceneName;

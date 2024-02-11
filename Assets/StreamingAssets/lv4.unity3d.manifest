@@ -1,12 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1097066637
+CRC: 2624595380
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 0cc346d079564bf8d97054186b149cf4
+    Hash: e69e2175537366c4a10369b0c74d0ba8
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 38eb4c56a59f1db906a331cc800420b8
+    Hash: 21aa8b21f61310711a72a4cc72f0fa18
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: e69e2175537366c4a10369b0c74d0ba8
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -59,6 +62,6 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Scenes/Levels/Lv4.unity
+- Assets/Scenes/DynamicScenes/Levels/Lv4.unity
 Dependencies:
-- D:/UnityProjects/HsenlFramework/./Release/PC/StreamingAssets/navmesh-ground.unity3d
+- D:/UnityProjects/RogueRPG/./Release/PC/StreamingAssets/navmesh-ground.unity3d

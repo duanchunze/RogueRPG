@@ -15,21 +15,21 @@ MonoBehaviour:
   bundleRootDirectory: Assets/Bundles
   assetBundleManifestPath: Assets/Bundles/Config/AssetsManifest.bytes
   rootPathsMode1:
-  - path: Assets/Bundles/*Appear
+  - path: Assets/Bundles/*Equip
     includeSub: 1
     exclusionPaths: []
     includeExtensions: []
   rootPathsMode2:
+  - path: Assets/Bundles/*Input
+    includeSub: 1
+    exclusionPaths: []
+    includeExtensions: []
   - path: Assets/Bundles/*UI
     includeSub: 1
     exclusionPaths: []
     includeExtensions: []
-  - path: Assets/Bundles/*AnimClip
-    includeSub: 1
-    exclusionPaths: []
-    includeExtensions: []
   rootPathsMode3:
-  - path: Assets/*Scenes
-    includeSub: 1
+  - path: Assets/Scenes/*DynamicScenes
+    includeSub: 0
     exclusionPaths: []
     includeExtensions: []

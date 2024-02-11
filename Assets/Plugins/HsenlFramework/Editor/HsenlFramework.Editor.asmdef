@@ -2,7 +2,9 @@
     "name": "HsenlFramework.Editor",
     "rootNamespace": "Hsenl",
     "references": [
-        "GUID:e4b7eedd58ff14d43a1b879ba2e93315"
+        "GUID:e4b7eedd58ff14d43a1b879ba2e93315",
+        "GUID:2373f786d14518f44b0f475db77ba4de",
+        "GUID:13ba8ce62aa80c74598530029cb2d649"
     ],
     "includePlatforms": [
         "Editor"

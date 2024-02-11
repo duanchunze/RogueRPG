@@ -1,12 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2450089526
+CRC: 2134035579
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c6ad5e42ce33d919aaebf03eb51cf2f6
+    Hash: 6c565e9da8e2f5fc0690654d5f0969e9
   TypeTreeHash:
     serializedVersion: 2
-    Hash: c906e1ed444dea16fa9edf0ee897d35c
+    Hash: 1b49a0a71378c62fa79b60da5b175a2b
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 6c565e9da8e2f5fc0690654d5f0969e9
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -62,6 +65,8 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: ecf61f8f1156ffe4daa6e5478a3abe44, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: cb0d9997917f489ca2994af4314e25da, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
@@ -70,11 +75,15 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 39fa3d8997a24136984ca6e2c99902bc, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: d1284eccd5f04dd9b9ea8862d800bd8f, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 93b6966b553447b587cec432bf0fec42, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: eae5d9d2670e4d2cb371cd62e015e6fb, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ea8aa746dcf94b99a35d39a55c765f95, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: c5fc9f0345a94f458ca109baa335a3ab, type: 3}
 - Class: 114
@@ -103,5 +112,6 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Scenes/Entry.unity
-Dependencies: []
+- Assets/Scenes/DynamicScenes/Entry.unity
+Dependencies:
+- D:/UnityProjects/RogueRPG/./Release/PC/StreamingAssets/input.unity3d

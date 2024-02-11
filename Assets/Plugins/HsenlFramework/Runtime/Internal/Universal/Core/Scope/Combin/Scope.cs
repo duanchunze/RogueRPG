@@ -221,6 +221,8 @@ namespace Hsenl {
             }
             else {
                 // 如果added为空, 则表示尝试所有multi组合
+                // 先与total cacher判断一次, 可能会避免不必要的循环, 比如该scope并没有形成组合的条件, 但依然要遍历所有combiner去试, 所以先与total cacher判存一次, 
+                // 如果匹配的数还不到2个, 那就说明该scope能匹配的最大数都不足2个, 自然也就不用遍历所有combiner去试了.
                 matchCount = scope.Entity.componentTypeCacher.ContainsCount(Combiner.TotalMultiCombinerTypeCacher);
                 if (matchCount < 2)
                     return;
@@ -256,7 +258,7 @@ namespace Hsenl {
                             while (matchcount-- > 0) {
                                 var id = scope.multiMatchs.Dequeue();
                                 if (id == overrideCombinerId) {
-                                    var decombiner = Combiner.MultiCombiners[overrideCombinerId];
+                                    var decombiner = Combiner.TotalCombiners[overrideCombinerId];
                                     _componentCache.Clear();
                                     scope.GetComponentsOfTypeCacher(decombiner.multiTypeCacher, _componentCache);
                                     decombiner.Decombin(_componentCache);
@@ -297,7 +299,7 @@ namespace Hsenl {
             // component可以为空, 如果为空, 则代表断开所有组合
             // 当有组件移除时, 说明有可能存在组合被断开了, 遍历已经所有已经组合的组合, 挨个匹配, 看看断掉的是哪个组合
             var componentIndex = removed?.ComponentIndex ?? -1;
-            var combiners = Combiner.MultiCombiners;
+            var combiners = Combiner.TotalCombiners;
             var count = scope.multiMatchs.Count;
             while (count-- > 0) {
                 var combinerId = scope.multiMatchs.Dequeue();

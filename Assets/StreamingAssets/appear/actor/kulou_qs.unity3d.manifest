@@ -1,12 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3746407527
+CRC: 1353207797
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f3a59cce22b55ff7f473d89fcd20b747
+    Hash: 9a285fa95a2b2ac75431123c02578e8f
   TypeTreeHash:
     serializedVersion: 2
-    Hash: ea4b33cfb04aa7ef118cd058f245ccec
+    Hash: 140175ca4e0afea957291a00d865c06a
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 9a285fa95a2b2ac75431123c02578e8f
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -31,4 +34,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Bundles/Appear/Actor/kulou_qs.prefab
 Dependencies:
-- D:/UnityProjects/HsenlFramework/./Release/PC/StreamingAssets/animcontrol.unity3d
+- D:/UnityProjects/RogueRPG/./Release/PC/StreamingAssets/animcontrol.unity3d

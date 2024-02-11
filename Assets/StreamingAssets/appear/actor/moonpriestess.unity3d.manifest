@@ -1,12 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1443257818
+CRC: 1168381181
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: aa4bb13728dca87b92955dab9b34081c
+    Hash: ca6ce51f8060a891c6f94bf090042e64
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 2b86ed7a544b35be012c00c480412601
+    Hash: c0e875a412a4c9d8c274b96e6de49680
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: ca6ce51f8060a891c6f94bf090042e64
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -39,4 +42,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Bundles/Appear/Actor/moonpriestess.prefab
 Dependencies:
-- D:/UnityProjects/HsenlFramework/./Release/PC/StreamingAssets/animcontrol.unity3d
+- D:/UnityProjects/RogueRPG/./Release/PC/StreamingAssets/animcontrol.unity3d

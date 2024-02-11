@@ -16,7 +16,7 @@ namespace Hsenl {
         public string ViewName => this.IsDisposed ? "Null" : this.Name;
 #endif
 
-        [NonSerialized]
+        [System.NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackIgnore]
         internal Entity entity;
 

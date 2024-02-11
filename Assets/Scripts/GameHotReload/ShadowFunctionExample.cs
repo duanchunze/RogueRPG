@@ -7,7 +7,7 @@
             if (self.info == null && self.infoInstanceId != 0) {
                 var inf = behavior.Info.GetInfo(self.infoInstanceId);
                 if (inf != null) {
-                    self.InitInfo(inf);
+                    self.InitInfo(inf); //
                 }
             }
         }

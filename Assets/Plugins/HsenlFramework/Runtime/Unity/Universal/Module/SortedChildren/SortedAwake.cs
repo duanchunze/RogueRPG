@@ -21,11 +21,19 @@ namespace Hsenl {
 
         public UnityEvent onAwakeDone;
 
+        private HashSet<GameObject> _inactives = new();
+
         private void Awake() {
             for (int i = 0, len = this.transform.childCount; i < len; i++) {
                 var child = this.transform.GetChild(i);
                 if (child.GetComponent<SortedAwakeIgnore>()) continue;
-                child.gameObject.SetActive(false);
+                var go = child.gameObject;
+                if (!go.activeSelf) {
+                    this._inactives.Add(go);
+                    continue;
+                }
+
+                go.SetActive(false);
             }
         }
 
@@ -39,6 +47,7 @@ namespace Hsenl {
             for (int i = 0, len = this.transform.childCount; i < len; i++) {
                 var child = this.transform.GetChild(i);
                 if (child.GetComponent<SortedAwakeIgnore>()) continue;
+                if (this._inactives.Contains(child.gameObject)) continue;
                 var sortedAwake = child.GetComponent<SortedAwake>();
                 if (sortedAwake != null) {
                     sortedAwake.gameObject.SetActive(true);
@@ -48,11 +57,12 @@ namespace Hsenl {
             for (int i = 0, len = this.transform.childCount; i < len; i++) {
                 var child = this.transform.GetChild(i);
                 if (child.GetComponent<SortedAwakeIgnore>()) continue;
+                if (this._inactives.Contains(child.gameObject)) continue;
                 child.gameObject.SetActive(true);
             }
-            
+
             yield return null;
-            
+
             this.onAwakeDone?.Invoke();
         }
     }
@@ -62,19 +72,21 @@ namespace Hsenl {
     [CustomEditor(typeof(SortedAwake))]
     public class SortedAwakeEditor : Editor {
         private SortedAwake _sortedAwake;
+
         private string _assetPath;
+
         // private int _orderSet = -1;
         private readonly List<string> _errorScriptNames = new();
-    
+
         private void OnEnable() {
             this._sortedAwake = (SortedAwake)this.target;
             var monoScript = MonoScript.FromMonoBehaviour(this._sortedAwake);
             this._assetPath = AssetDatabase.GetAssetPath(monoScript);
         }
-    
+
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();
-            
+
             // var monoImporter = (MonoImporter)AssetImporter.GetAtPath(this._assetPath);
             // var executionOrder = MonoImporter.GetExecutionOrder(monoImporter.GetScript());
             // if (executionOrder == 0) {
@@ -119,10 +131,10 @@ namespace Hsenl {
             //     MonoImporter.SetExecutionOrder(monoImporter.GetScript(), this._orderSet);
             // }
             // EditorGUILayout.EndHorizontal();
-    
+
             if (GUILayout.Button("打开窗口")) {
                 // EditorApplication.ExecuteMenuItem("Edit/Project Settings/Script Execution Order"); // 这个是用来执行菜单的功能的, 但如果菜单选项是打开窗口类的, 则会报错
-                
+
                 // 代码打开编辑器的项目设置窗口, 并定位到脚本执行顺序的分页
                 var windowType = typeof(EditorWindow).Assembly.GetType("UnityEditor.ProjectSettingsWindow");
                 var editorWindow = EditorWindow.GetWindow(windowType);
@@ -130,7 +142,7 @@ namespace Hsenl {
                 // 这是个内部方法, 所以要通过反射调用
                 var method = windowType.GetMethod("SelectProviderByName", AssemblyHelper.BindingFlagsInstanceIgnorePublic);
                 // 该函数的name参数其实是一个局部路径名
-                method?.Invoke(editorWindow, new object[]{"Project/Script Execution Order"});
+                method?.Invoke(editorWindow, new object[] { "Project/Script Execution Order" });
             }
         }
     }

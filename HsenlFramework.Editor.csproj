@@ -12,7 +12,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>Hsenl</RootNamespace>
-    <ProjectGuid>{1a697a6b-bf9a-c66c-e942-3f88bd714b62}</ProjectGuid>
+    <ProjectGuid>{c9510d36-fbb2-e0a2-ae10-a17692f8825b}</ProjectGuid>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -43,52 +43,48 @@
   <ItemGroup>
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
-    <Analyzer Include="D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack\MemoryPack.Generator\MemoryPack.Generator.Roslyn3.dll" />
-    <Analyzer Include="D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
+    <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Generator\MemoryPack.Generator.Roslyn3.dll" />
+    <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\BuildEditor\BuildHelper.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\Backups\BackupsEditor.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\StatusEditorInspector.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\Defines\GenLifeCycle.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\ScriptsCreaterEditor\ScriptsCreatorEditor.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\PropertyDrawer\BitListDrawer.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\MatchMatTextureEditor\MatTextureMatcherEditor.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\LockEntryEditor\LockEntryEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\BuildEditor\BundleLabelEditor.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\AbilityEditorInspector.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\LubanGenEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\GenUtils.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\PropertyDrawer\ReadOnlyDrawer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGenerator\IHsenlScriptsGenerateScheme.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\PropertyDrawer\CustomEnumDrawer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\Defines\GenTypes.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorDrawer\ComponentReferenceInspector.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGenerator\HsenlScriptsGeneratorEditor.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorDrawer\AbilityEditorInspector.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\GameEntryEditor\GameEntryEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\BuildEditor\BundleLabelSetting.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGenerator\HsenlScriptsGenerateScheme.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\Defines\CustomAttrs.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\ECSScriptGenerator\ScriptsCreatorEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\Helper\ShellHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\AnimationClipExtract\AnimationClipExtract.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\Helper\EditorResHelper.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\AssetPostProcessor\OnAssetPostprocessor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\CustomScriptCompile\CustomScriptCompile.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorDrawer\StatusEditorInspector.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\Defines\NamingConvertion.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGenerator\MonoComponentScriptsGen\MonoComponentScriptsGen.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\Helper\EditorHelper.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\ComponentReferenceInspector.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGenerator\ProcedureLineHandlerScriptsGen\ProcedureLineHandlerScriptsGen.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\LifeCycle\TestLifeCycle.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\Backups\EnumBackupsEditor.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\PropertyDrawer\BitListDrawer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\HybridCLR\HybridCLREditor.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\PropertyDrawer\CustomEnumDrawer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\PropertyDrawer\ReadOnlyDrawer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\LubanExportSetting.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\BuildEditor\BuildEditor.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\GameFactoryWindowEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGenerator\HsenlScriptsGenerateInfo.cs" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlFramework.Editor.asmdef" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGenerator\ProcedureLineHandlerScriptsGen\ProcedureLineItemTemplate.txt" />
-    <None Include="Assets\Plugins\HsenlFramework\Editor\ScriptTemplates\EcsComponentTemplate.cs.txt" />
+    <None Include="Assets\Plugins\HsenlFramework\Editor\ECSScriptGenerator\ScriptTemplates\EcsComponentTemplate.cs.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGenerator\MonoComponentScriptsGen\Hsenl2MonoComponentTemplate.txt" />
-    <None Include="Assets\Plugins\HsenlFramework\Editor\ScriptTemplates\EcsAuthoringTemplate.cs.txt" />
-    <None Include="Assets\Plugins\HsenlFramework\Editor\ScriptTemplates\EcsSystemTemplate.cs.txt" />
+    <None Include="Assets\Plugins\HsenlFramework\Editor\ECSScriptGenerator\ScriptTemplates\EcsAuthoringTemplate.cs.txt" />
+    <None Include="Assets\Plugins\HsenlFramework\Editor\ECSScriptGenerator\ScriptTemplates\EcsSystemTemplate.cs.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGenerator\ProcedureLineHandlerScriptsGen\ProcedureLineItemPriorityTemplate.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -349,76 +345,76 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="DemiEditor">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Demigiant\DemiLib\Core\Editor\DemiEditor.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DemiLib\Core\Editor\DemiEditor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Serialization">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Plastic.Antlr3.Runtime">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="unityplastic">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
     </Reference>
     <Reference Include="DemiLib">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Demigiant\DemiLib\Core\DemiLib.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DemiLib\Core\DemiLib.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Serialization.Config">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.OdinInspector.Editor">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.dll</HintPath>
     </Reference>
     <Reference Include="DOTweenEditor">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Plastic.Newtonsoft.Json">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="DOTweenProEditor">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Demigiant\DOTweenPro\Editor\DOTweenProEditor.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DOTweenPro\Editor\DOTweenProEditor.dll</HintPath>
     </Reference>
     <Reference Include="log4netPlastic">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.IonicZip">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.OdinInspector.Attributes">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Utilities">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
     <Reference Include="dnlib">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\dnlib.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\dnlib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="DOTweenPro">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
     </Reference>
     <Reference Include="LZ4">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\LZ4.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Utilities.Editor">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.TextureAssets">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\mscorlib.dll</HintPath>
@@ -795,22 +791,28 @@
     <Reference Include="System.Xml.XPath.XDocument">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
     </Reference>
+    <Reference Include="HybridCLR.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\HybridCLR.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="HybridCLR.Runtime">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\HybridCLR.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.TestRunner">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="HsenlFramework.Runtime.csproj">
-      <Project>{a3a27fba-8ca8-cd6f-99a8-23857c69fc46}</Project>
+      <Project>{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}</Project>
       <Name>HsenlFramework.Runtime</Name>
     </ProjectReference>
   </ItemGroup>
