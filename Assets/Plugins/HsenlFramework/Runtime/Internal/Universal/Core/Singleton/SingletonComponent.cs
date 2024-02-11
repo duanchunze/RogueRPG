@@ -2,6 +2,7 @@
 using UnityEngine;
 
 namespace Hsenl {
+    [FrameworkMember]
     public class SingletonComponent<T> : Component, ISingleton where T : SingletonComponent<T>, new() {
         public static T Instance { get; private set; }
 

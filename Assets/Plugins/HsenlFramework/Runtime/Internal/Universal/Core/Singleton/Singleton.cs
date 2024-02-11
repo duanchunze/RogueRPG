@@ -6,6 +6,7 @@ namespace Hsenl {
         void Unregister();
     }
 
+    [FrameworkMember]
     public abstract class Singleton<T> : ISingleton where T : Singleton<T>, new() {
         public static T Instance { get; private set; }
 

@@ -1,0 +1,20 @@
+{
+    "name": "GameHotReload",
+    "rootNamespace": "Hsenl",
+    "references": [
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:8c4dd21966739024fbd72155091d199e",
+        "GUID:3e7e364c8037a214986c6049744d7865",
+        "GUID:e4b7eedd58ff14d43a1b879ba2e93315",
+        "GUID:441fad963f3049943954e56f50aa7cb1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

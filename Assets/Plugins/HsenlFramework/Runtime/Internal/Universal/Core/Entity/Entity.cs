@@ -11,7 +11,7 @@ namespace Hsenl {
     //   添加一个组件时的执行顺序
     //     构造函数 -> initializeInvoke -> OnComponentAdd -> Awake -> Enable -> AheadUpdate -> Update -> LateUpdate -> Disable -> Destroy -> OnComponentRemove
     //   设置父级时的执行顺序
-    //     BeforeParentChange -> OnChildRmove -> OnDomainChange -> OnParentChanged -> OnChildAdd
+    //     BeforeParentChange -> OnParentChanged -> OnChildAdd -> OnChildRmove -> OnDomainChange
     [Serializable]
     [MemoryPackable()]
     public sealed partial class Entity : Object {

@@ -44,6 +44,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack\MemoryPack.Generator\MemoryPack.Generator.Roslyn3.dll" />
+    <Analyzer Include="D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\SomeData.cs" />
@@ -366,11 +367,17 @@
     <Reference Include="DOTween">
       <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
+    <Reference Include="dnlib">
+      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\dnlib.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="DOTweenPro">
       <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4">
+      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Utilities.Editor">
       <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
@@ -765,6 +772,9 @@
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
       <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="HybridCLR.Runtime">
+      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\ScriptAssemblies\HybridCLR.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
       <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
@@ -782,6 +792,9 @@
     </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="HybridCLR.Editor">
+      <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\ScriptAssemblies\HybridCLR.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:\UnityProjects\HsenlFramework_RougeRPG\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
@@ -899,17 +912,25 @@
       <Project>{1152f807-f425-54de-9e63-b19373f48ffe}</Project>
       <Name>UniTask.Linq</Name>
     </ProjectReference>
+    <ProjectReference Include="GameModel.csproj">
+      <Project>{ab8e19ef-4d65-6b62-894e-196a1c21e61f}</Project>
+      <Name>GameModel</Name>
+    </ProjectReference>
     <ProjectReference Include="HsenlFramework.Editor.csproj">
       <Project>{1a697a6b-bf9a-c66c-e942-3f88bd714b62}</Project>
       <Name>HsenlFramework.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="ZString.csproj">
+      <Project>{f1484e6a-24d7-e76a-0276-625d97fc74cb}</Project>
+      <Name>ZString</Name>
     </ProjectReference>
     <ProjectReference Include="Sirenix.OdinInspector.Modules.UnityMathematics.csproj">
       <Project>{8a0fb7bd-a5ad-0c0c-9aa7-417e2a8c1c90}</Project>
       <Name>Sirenix.OdinInspector.Modules.UnityMathematics</Name>
     </ProjectReference>
-    <ProjectReference Include="ZString.csproj">
-      <Project>{f1484e6a-24d7-e76a-0276-625d97fc74cb}</Project>
-      <Name>ZString</Name>
+    <ProjectReference Include="GameHotReload.csproj">
+      <Project>{c99306cc-a3e1-41eb-560a-eafde945f20e}</Project>
+      <Name>GameHotReload</Name>
     </ProjectReference>
     <ProjectReference Include="UniTask.csproj">
       <Project>{27d61a39-4b63-ab94-cc51-ffd1ae0ab932}</Project>
@@ -918,6 +939,10 @@
     <ProjectReference Include="HsenlFramework.Entry.csproj">
       <Project>{a290f674-cb99-8f92-0a8a-3be007d35d97}</Project>
       <Name>HsenlFramework.Entry</Name>
+    </ProjectReference>
+    <ProjectReference Include="GameView.csproj">
+      <Project>{12782ae4-cd68-0a2c-c07f-960adf0a753a}</Project>
+      <Name>GameView</Name>
     </ProjectReference>
     <ProjectReference Include="UniTask.TextMeshPro.csproj">
       <Project>{a91aa753-4d2c-3ac0-2af8-e1d40714a9b9}</Project>

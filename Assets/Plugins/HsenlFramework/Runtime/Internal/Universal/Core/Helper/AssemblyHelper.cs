@@ -78,7 +78,7 @@ namespace Hsenl {
                 else {
                     if (iface == interfaceType) {
                         return iface;
-                    }   
+                    }
                 }
             }
 
@@ -297,6 +297,12 @@ namespace Hsenl {
             }
 
             return result.ToArray();
+        }
+
+        public static void Invoke(this Type self, string methodName, object o1, params object[] o2) {
+            var method = self.GetMethod(methodName, All);
+            if (method == null) return;
+            method.Invoke(o1, o2);
         }
     }
 }

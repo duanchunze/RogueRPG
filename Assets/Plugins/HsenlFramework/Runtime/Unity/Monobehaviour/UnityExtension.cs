@@ -39,7 +39,7 @@ namespace Hsenl {
             }
         }
 
-        public static T GetOrAddComponent<T>(this GameObject self) where T : UnityEngine.Component {
+        public static T GetOrAddComponent<T>(this UnityEngine.GameObject self) where T : UnityEngine.Component {
             var t = self.GetComponent<T>();
             if (t) {
                 return t;
@@ -48,7 +48,7 @@ namespace Hsenl {
             return self.AddComponent<T>();
         }
 
-        public static UnityEngine.Component GetOrAddComponent(this GameObject self, Type type) {
+        public static UnityEngine.Component GetOrAddComponent(this UnityEngine.GameObject self, Type type) {
             var t = self.GetComponent(type);
             if (t) {
                 return t;
@@ -57,7 +57,7 @@ namespace Hsenl {
             return self.AddComponent(type);
         }
 
-        public static T GetOrAddComponent<T>(this MonoBehaviour self) where T : UnityEngine.Component {
+        public static T GetOrAddComponent<T>(this UnityEngine.Component self) where T : UnityEngine.Component {
             var t = self.GetComponent<T>();
             if (t) {
                 return t;
@@ -66,7 +66,7 @@ namespace Hsenl {
             return self.gameObject.AddComponent<T>();
         }
 
-        public static UnityEngine.Component GetOrAddComponent(this MonoBehaviour self, Type type) {
+        public static UnityEngine.Component GetOrAddComponent(this UnityEngine.MonoBehaviour self, Type type) {
             var t = self.GetComponent(type);
             if (t) {
                 return t;

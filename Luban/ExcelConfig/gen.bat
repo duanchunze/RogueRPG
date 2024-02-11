@@ -5,7 +5,7 @@ set INPUT_DEFINES_RELATIVE_PATH=Defines\__root__.xml
 set INPUT_DATA_RELATIVE_DIR=Datas
 set OUT_ROOT=..\..\Assets
 set OUT_DATA_RELATIVE_DIR=Bundles\Config\LubanConfig
-set OUT_CODE_RELATIVE_DIR=Scripts\Generate\Config\ConfigGenerate
+set OUT_CODE_RELATIVE_DIR=Scripts\GameModel\Generate\Config\ConfigGenerate
 set OUT_EXCLUDE_TAGS=
 
 %GEN_CLIENT% ^

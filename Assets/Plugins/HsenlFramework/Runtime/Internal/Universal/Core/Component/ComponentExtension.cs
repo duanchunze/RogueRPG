@@ -134,14 +134,7 @@ namespace Hsenl {
             self.entity.GetComponentsInChildrenOfTypeCacher(typeCacher, results, includeInactive);
         }
 
-        public static T GetOrAddComponent<T>(this Component self, bool declaredOnly = false) where T : Component {
-            var c = self.entity.GetComponent<T>(declaredOnly);
-            c ??= self.entity.AddComponent<T>();
-
-            return c;
-        }
-        
-        public static T GetOrAddComponent<T>(this Entity self, bool declaredOnly = false) where T : Component {
+        public static T GetOrAddComponent<T>(this Hsenl.Entity self, bool declaredOnly = false) where T : Hsenl.Component {
             var c = self.GetComponent<T>(declaredOnly);
             c ??= self.AddComponent<T>();
 

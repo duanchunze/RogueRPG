@@ -1,0 +1,14 @@
+﻿namespace Hsenl {
+    [ShadowFunction]
+    public partial class ProcedureAdventure : AProcedureState {
+        [ShadowFunction]
+        protected override void OnEnter(ProcedureManager manager, FsmState<ProcedureManager> prev) {
+            this.OnEnterShadow(manager, prev);
+        }
+
+        [ShadowFunction]
+        protected override void OnLeave(ProcedureManager manager, FsmState<ProcedureManager> next) {
+            this.OnLeaveShadow(manager, next);
+        }
+    }
+}

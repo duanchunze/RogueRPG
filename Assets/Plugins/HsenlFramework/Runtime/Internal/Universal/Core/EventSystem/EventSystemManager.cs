@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 
 namespace Hsenl {
     [Serializable]
@@ -85,7 +86,8 @@ namespace Hsenl {
             // attribute ：types
             this._typesOfAttribute.Clear();
             foreach (var type in types) {
-                if (type.IsAbstract) continue;
+                // 抽象类跳过, 但不包括静态类
+                if (type.IsAbstract && !type.IsSealed) continue;
 
                 var objects = type.GetCustomAttributes(true);
                 if (objects.Length == 0) continue;
@@ -109,7 +111,7 @@ namespace Hsenl {
                 }
 
                 var order = 0;
-                var orderAtt = type.GetCustomAttribute<OrderAttribute>(false);
+                var orderAtt = CustomAttributeExtensions.GetCustomAttribute<OrderAttribute>(type, false);
                 if (orderAtt != null) {
                     order = orderAtt.order;
                 }
@@ -140,7 +142,7 @@ namespace Hsenl {
             this._instancePropertiesOfAttribute.Clear();
             this._instanceMethodsOfAttribute.Clear();
             foreach (var typeRaw in types) {
-                var fm = typeRaw.GetCustomAttribute<FrameworkMemberAttribute>(true);
+                var fm = CustomAttributeExtensions.GetCustomAttribute<FrameworkMemberAttribute>(typeRaw, true);
                 if (fm == null) continue;
                 var type = typeRaw;
                 if (type.IsGenericType) continue;

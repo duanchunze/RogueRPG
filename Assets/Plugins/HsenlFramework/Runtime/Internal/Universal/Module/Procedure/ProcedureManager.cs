@@ -19,6 +19,8 @@ namespace Hsenl {
         [ShowInInspector]
         private readonly Dictionary<Type, AProcedureState> _procedureStates = new();
 
+        private readonly Dictionary<Type, AProcedureState> _procedureStateShadows = new();
+
         [ShowInInspector]
         private AProcedureState _currentState;
 
