@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 3219656971
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5e8a7468f705b76949c54a0ff0b3fa3e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 5e8a7468f705b76949c54a0ff0b3fa3e
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/DllEntry/HsenlFramework.Entry.pdb.bytes
+- Assets/Bundles/DllEntry/HsenlFramework.Entry.dll.bytes
+Dependencies: []

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -43,45 +44,70 @@ namespace Hsenl {
         }
 
         private void Start() {
-            var bundleName = "aotdllentry.unity3d";
+            const string assemblyName = "HsenlFramework.Entry";
+            const string typeName = "Entry";
+            const string methodName = "Start";
+#if UNITY_EDITOR
+            var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == assemblyName);
+            if (assembly == null) throw new Exception($"Assembly '{assembly}' cannot be found!");
+
+            Type entryType = entryType = assembly.GetTypes().FirstOrDefault(type => type.Name == typeName);
+            if (entryType == null) throw new Exception($"Type '{typeName}' cannot be found from assembly '{assembly}'!");
+
+            var method = entryType.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+            if (method == null) throw new Exception($"Method '{methodName}' cannot be found from type '{typeName}'!");
+
+            Debug.Log($"Launch Success!");
+            method.Invoke(null, null);
+#else
+            // 加载入口包
+            var bundleName = "dllentry.unity3d";
             var path = Path.Combine(AppHotfixResPath, bundleName);
-            if (File.Exists(path)) {
+            if (!File.Exists(path)) {
                 path = Path.Combine(AppResPath, bundleName);
             }
 
             var assetBundle = AssetBundle.LoadFromFile(path);
             if (assetBundle == null) {
-                Debug.LogError("asset bundle not found: 'aotdllentry.unity3d'");
-                return;
+                throw new Exception($"Asset bundle '{bundleName}' can not found!");
             }
 
             try {
+                // 加载入口程序集
                 byte[] dllBytes = null;
                 byte[] pdbBytes = null;
                 foreach (var asset in assetBundle.LoadAllAssets()) {
-                    switch (asset.name) {
-                        case "HsenlFramework.Entry.dll":
-                            dllBytes = ((TextAsset)asset).bytes;
-                            break;
-
-                        case "HsenlFramework.Entry.pdb":
-                            pdbBytes = ((TextAsset)asset).bytes;
-                            break;
+                    if (asset.name == $"{assemblyName}.dll") {
+                        dllBytes = ((TextAsset)asset).bytes;
+                    }
+                    else if (asset.name == $"{assemblyName}.pdb") {
+                        pdbBytes = ((TextAsset)asset).bytes;
                     }
                 }
 
+                if (dllBytes == null) throw new Exception($"Asset '{assemblyName}.dll' cannot found from bundle '{bundleName}'!");
+
                 var assembly = Assembly.Load(dllBytes, pdbBytes);
 
-                var entryType = assembly.GetType("Entry");
-                var method = entryType.GetMethod("Start", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+                // 找到入口类
+                Type entryType = entryType = assembly.GetTypes().FirstOrDefault(type => type.Name == typeName);
+                if (entryType == null) throw new Exception($"Type '{typeName}' cannot be found from assembly '{assemblyName}'!");
+
+                // 找到入口函数
+                var method = entryType.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+                if (method == null) throw new Exception($"Method '{methodName}' cannot be found from type '{typeName}'!");
+
+                // 执行入口函数
+                Debug.Log($"Launch Success!");
                 method.Invoke(null, null);
             }
             catch (Exception e) {
-                Debug.LogError(e);
+                UnityEngine.Debug.LogError(e);
             }
             finally {
                 assetBundle.Unload(true);
             }
+#endif
         }
     }
 }

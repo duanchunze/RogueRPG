@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.IO;
+using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
 
@@ -26,6 +27,9 @@ namespace Hsenl {
         private BuildOptions _buildOptions;
         private BuildAssetBundleOptions _buildAssetBundleOptions = BuildAssetBundleOptions.None;
 
+        private string _copySourceDirTemp = $"{Application.dataPath}/StreamingAssets";
+        private string _copyDestDirTemp = $"{Application.dataPath}/../IL2CPPBuild/RogueRPG_Data/StreamingAssets";
+
         [MenuItem("ET/Build Tool")]
         public static void ShowWindow() {
             GetWindow<BuildEditor>();
@@ -48,6 +52,8 @@ namespace Hsenl {
             this._clearFolder = EditorPrefs.GetBool("build_clear_folder", this._clearFolder);
             this._isBuildExe = EditorPrefs.GetBool("build_buildexe", this._isBuildExe);
             this._isContainAB = EditorPrefs.GetBool("build_containbuildstreamming", this._isContainAB);
+            this._copySourceDirTemp = EditorPrefs.GetString("_copySourceDirTemp", this._copySourceDirTemp);
+            this._copyDestDirTemp = EditorPrefs.GetString("_copyDestDirTemp", this._copyDestDirTemp);
         }
 
         private void OnGUI() {
@@ -97,10 +103,45 @@ namespace Hsenl {
                     this._clearFolder);
             }
 
+            GUILayout.Space(5);
+
+            this._copySourceDirTemp = EditorGUILayout.TextField("顺道拷贝: 源目录", this._copySourceDirTemp);
+            this._copyDestDirTemp = EditorGUILayout.TextField("顺道拷贝: 目标目录", this._copyDestDirTemp);
+
+            if (!string.IsNullOrEmpty(this._copySourceDirTemp) && !string.IsNullOrEmpty(this._copyDestDirTemp)) {
+                if (GUILayout.Button("Copy")) {
+                    if (Directory.Exists(this._copySourceDirTemp) && Directory.Exists(this._copyDestDirTemp)) {
+                        CopyAll(this._copySourceDirTemp, this._copyDestDirTemp);
+                    }
+                }
+            }
+
             if (GUI.changed) {
                 EditorPrefs.SetBool("build_clear_folder", this._clearFolder);
                 EditorPrefs.SetBool("build_buildexe", this._isBuildExe);
                 EditorPrefs.SetBool("build_containbuildstreamming", this._isContainAB);
+                EditorPrefs.SetString("_copySourceDirTemp", this._copySourceDirTemp);
+                EditorPrefs.SetString("_copyDestDirTemp", this._copyDestDirTemp);
+            }
+        }
+
+        // 递归方法来复制目录及其所有子目录和文件
+        public static void CopyAll(string sourcePath, string targetPath) {
+            // 创建目标目录（如果不存在）
+            Directory.CreateDirectory(targetPath);
+
+            if (sourcePath.EndsWith(".meta")) return;
+
+            // 获取源目录下所有的文件名和子目录名
+            foreach (string fileName in Directory.GetFiles(sourcePath)) {
+                string destFile = Path.Combine(targetPath, Path.GetFileName(fileName));
+                File.Copy(fileName, destFile, true); // 如果目标文件已存在则覆盖
+                Debug.Log($"copy succ {destFile}");
+            }
+
+            foreach (string directoryName in Directory.GetDirectories(sourcePath)) {
+                string destDir = Path.Combine(targetPath, new DirectoryInfo(directoryName).Name);
+                CopyAll(directoryName, destDir); // 递归调用自身以处理子目录
             }
         }
     }

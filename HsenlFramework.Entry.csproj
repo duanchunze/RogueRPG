@@ -746,6 +746,9 @@
     <Reference Include="System.Xml.XPath.XDocument">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
     </Reference>
+    <Reference Include="HybridCLR.Runtime">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\HybridCLR.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>

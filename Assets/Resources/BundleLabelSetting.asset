@@ -15,7 +15,7 @@ MonoBehaviour:
   bundleRootDirectory: Assets/Bundles
   assetBundleManifestPath: Assets/Bundles/Config/AssetsManifest.bytes
   rootPathsMode1:
-  - path: Assets/Bundles/*Equip
+  - path: Assets/Bundles/*Appear
     includeSub: 1
     exclusionPaths: []
     includeExtensions: []

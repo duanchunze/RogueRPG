@@ -14,6 +14,11 @@
     <type fullname="DG.Tweening.TweenSettingsExtensions" preserve="all" />
     <type fullname="DG.Tweening.Tweener" preserve="all" />
   </assembly>
+  <assembly fullname="HybridCLR.Runtime">
+    <type fullname="HybridCLR.HomologousImageMode" preserve="all" />
+    <type fullname="HybridCLR.LoadImageErrorCode" preserve="all" />
+    <type fullname="HybridCLR.RuntimeApi" preserve="all" />
+  </assembly>
   <assembly fullname="Sirenix.Serialization">
     <type fullname="Sirenix.OdinInspector.SerializedMonoBehaviour" preserve="all" />
     <type fullname="Sirenix.Serialization.DeserializationContext" preserve="all" />

@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1849821347
+CRC: 1244806514
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -111,8 +111,11 @@ AssetBundleManifest:
       Name: input.unity3d
       Dependencies: {}
     Info_32:
-      Name: aotdlls.unity3d
+      Name: dllentry.unity3d
       Dependencies: {}
     Info_33:
-      Name: aotdllentry.unity3d
+      Name: dlls.unity3d
+      Dependencies: {}
+    Info_34:
+      Name: dllmetadatas.unity3d
       Dependencies: {}

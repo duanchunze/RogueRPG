@@ -8,25 +8,25 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Launch.unity
     guid: e6ef6eb8257e8634ba4776aa9354f7ca
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DynamicScenes/Entry.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DynamicScenes/GameMain.unity
     guid: 7962af7841a9b2345be218ea66d89dd4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DynamicScenes/Test.unity
     guid: 0df6b0c0239a6b94da9106705cccfc22
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DynamicScenes/Levels/Lv1.unity
     guid: 109afc1e8470b9b44a616b04f8201c18
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DynamicScenes/Levels/Lv2.unity
     guid: 399608cb09247a149b3656b5435282a2
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DynamicScenes/Levels/Lv3.unity
     guid: 6a5a88bfe0e5fab48958b22cbe386059
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DynamicScenes/Levels/Lv4.unity
     guid: 6c452446fa2f47140a97211f417ccc4f
   m_configObjects: {}
