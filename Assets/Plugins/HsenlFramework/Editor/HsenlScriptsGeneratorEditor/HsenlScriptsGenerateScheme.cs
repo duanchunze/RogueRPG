@@ -67,6 +67,7 @@ namespace Hsenl {
                 using var sw = new StreamWriter(fsw);
                 sw.BaseStream.SetLength(0);
                 fsw.Write(content.ToByteArray());
+                Debug.Log($"Generate Script '{fileName}' to '{outputDir}'");
             }
 
             AssetDatabase.Refresh();

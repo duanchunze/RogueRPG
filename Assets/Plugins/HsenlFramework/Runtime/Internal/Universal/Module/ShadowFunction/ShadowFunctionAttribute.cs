@@ -8,10 +8,14 @@ namespace Hsenl {
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Struct, AllowMultiple = false, Inherited = false)]
     public partial class ShadowFunctionAttribute : BaseAttribute {
+        // 由影子端的影子类使用
         public Type targetType;
+        // 由影子端使用, 当一个源函数有多个影子函数时, 用来给每个影子函数排序, 如果在影子类上赋值, 代表该类下所有影子函数都是该priority, 除非该函数自己指定了priority
+        public int priority;
 
-        public ShadowFunctionAttribute(Type targetType = null) {
+        public ShadowFunctionAttribute(Type targetType = null, int priority = 0) {
             this.targetType = targetType;
+            this.priority = priority;
         }
     }
 }

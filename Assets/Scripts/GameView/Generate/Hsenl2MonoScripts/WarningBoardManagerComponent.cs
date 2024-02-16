@@ -27,6 +27,7 @@ namespace Hsenl.Mono {
         
         private void Awake() {
             // 如果是从资源加载go对象的话, hsenlComponentInstanceId一定等于0, 而如果是Object.InstantiateWithUnity创建的话, hsenlComponentInstanceId则一定不为0
+            // 可以通过这种方式判断是预制体加载的, 还是用一个已存在的go创建的entity, 区别在于前者使用go实例化, 已经实例化好组件了, 我们直接用这些组件, 而不是新创建组件
             if (this.hsenlComponentInstanceId == 0 && this._hsenlComponent != null) {
                 var entity = this.GetComponent<EntityReference>()?.Entity;
                 if (entity == null) {
@@ -40,8 +41,8 @@ namespace Hsenl.Mono {
         private void Start() { }
         
         void IHsenlComponentReference.SetFrameworkReference(Component reference) {
-            this._hsenlComponent = (WarningBoardManager)reference;
-            this.hsenlComponentInstanceId = this._hsenlComponent.InstanceId;
+            this._hsenlComponent = reference as WarningBoardManager;
+            this.hsenlComponentInstanceId = this._hsenlComponent?.InstanceId??0;
         }
     }
     

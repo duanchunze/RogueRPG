@@ -207,7 +207,7 @@ namespace Hsenl {
         [BitListShowOfEnum("Hsenl.TagType")]
         [ShowInInspector, EnableGUI]
         [MemoryPackInclude]
-        private Bitlist _tags = new();
+        internal Bitlist tags = new();
 
         [MemoryPackIgnore]
         public bool Active {
@@ -247,7 +247,7 @@ namespace Hsenl {
         public Entity Parent => this.parent;
 
         [MemoryPackIgnore]
-        public Bitlist Tags => this._tags;
+        public Bitlist Tags => this.tags;
 
         [MemoryPackIgnore]
         public int ChildCount => this.children?.Count ?? 0;
@@ -310,25 +310,25 @@ namespace Hsenl {
             }
         }
 
-        internal void Dispose() {
+        protected internal override void OnDestroyFinish() {
+            base.OnDestroyFinish();
             this.name = null;
             this.componentTypeCacher?.Clear();
             this.componentTypeCacher = null;
             this.components?.Clear();
-            this.componentsOfSerialize?.Clear();
             this.components = null;
+            this.componentsOfSerialize?.Clear();
             this.componentsOfSerialize = null;
             this.children?.Clear();
-            this.childrenOfSerialize?.Clear();
             this.children = null;
+            this.childrenOfSerialize?.Clear();
             this.childrenOfSerialize = null;
             this.parent = null;
             this.scene = null;
-            this._tags?.Clear();
-            this._tags = null;
-            this.uniqueId = 0;
-            this.instanceId = 0;
+            this.active = true;
+            this.tags?.Clear();
             this.transform = null;
+            this.PartialOnDestroyFinish();
         }
 
         public void Reactivation() {
@@ -1197,7 +1197,7 @@ namespace Hsenl {
         internal partial void PartialOnActiveSelfChanged(bool act);
         internal partial void PartialOnParentChanged();
         internal partial void PartialOnComponentAdd(Component component);
-        internal partial void PartialOnDestroy();
+        internal partial void PartialOnDestroyFinish();
 
         #endregion
 

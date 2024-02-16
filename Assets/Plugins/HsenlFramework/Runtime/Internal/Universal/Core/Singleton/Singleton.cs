@@ -25,9 +25,9 @@ namespace Hsenl {
 
             var t = Instance;
             Instance = null;
-            t.Dispose();
+            t.OnSingleUnregister();
         }
 
-        protected virtual void Dispose() { }
+        protected virtual void OnSingleUnregister() { }
     }
 }

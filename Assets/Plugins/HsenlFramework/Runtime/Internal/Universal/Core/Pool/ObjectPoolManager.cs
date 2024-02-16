@@ -49,9 +49,7 @@ namespace Hsenl {
             this._pool.Clear();
         }
 
-        protected override void Dispose() {
-            base.Dispose();
-
+        protected override void OnSingleUnregister() {
             this.Clear();
         }
     }

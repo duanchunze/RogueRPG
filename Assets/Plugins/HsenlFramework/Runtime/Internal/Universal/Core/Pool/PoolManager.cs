@@ -105,6 +105,11 @@ namespace Hsenl {
             this._holder[holderName] = value;
             return value;
         }
+
+        protected override void OnSingleUnregister() {
+            this._pool.Clear();
+            this._holder.Clear();
+        }
     }
 
     public struct PoolKey {

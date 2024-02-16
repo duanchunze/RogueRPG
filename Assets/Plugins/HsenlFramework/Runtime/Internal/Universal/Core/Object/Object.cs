@@ -99,8 +99,7 @@ namespace Hsenl {
             component.InternalOnDisable();
             component.InternalOnDestroy();
             component.entity.InternalRemoveComponent(component);
-            component.entity = null;
-            component.instanceId = 0;
+            component.OnDestroyFinish();
             EventSystemManager.Instance.UnregisterInstanced(instanceId);
         }
 
@@ -177,19 +176,18 @@ namespace Hsenl {
                 for (int i = 0, len = _destroyComponentsCache.Count; i < len; i++) {
                     var c = _destroyComponentsCache[i];
                     var cInstanceId = c.instanceId;
-                    c.entity = null;
-                    c.instanceId = 0;
+                    c.OnDestroyFinish();
                     EventSystemManager.Instance.UnregisterInstanced(cInstanceId);
                 }
 
                 for (int i = 0, len = _destroyEntitiesCache.Count; i < len; i++) {
                     var e = _destroyEntitiesCache[i];
                     var eInstanceId = e.instanceId;
-                    e.Dispose();
+                    e.OnDestroyFinish();
                     EventSystemManager.Instance.UnregisterInstanced(eInstanceId);
                 }
 
-                entity.PartialOnDestroy();
+                entity.OnDestroyFinish();
             }
         }
 
@@ -202,6 +200,11 @@ namespace Hsenl {
                 if (entity.scene != scene) continue;
                 Destroy(entity);
             }
+        }
+
+        protected internal virtual void OnDestroyFinish() {
+            this.uniqueId = 0;
+            this.instanceId = 0;
         }
     }
 }

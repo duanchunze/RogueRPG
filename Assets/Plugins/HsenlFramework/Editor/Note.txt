@@ -1,0 +1,36 @@
+手动迁移框架
+->  在unity根目录复制Luban文件夹
+->  安装input system包
+->  安装ai navigation包
+->  安装hybrid clr
+->  安装yoo asset
+->  设置layer
+->  添加一个text pro ui, 触发自动添加资源
+->  复制plugins文件夹
+->  复制scripts文件夹
+->  创建Resources文件夹
+->  复制art
+->  复制bundles文件夹
+->  复制scenes文件夹
+->  添加场景到scene settings
+->  执行 ET/AssetBundleTools/创建或选中“包标签设置文件”
+->  执行 ET/ScriptsGenerator/清空并生成Hsenl组件的Mono版
+->  Editor里面勾选Enter Play Mode Options, 下面两个子选项勾掉
+    
+打包顺序: 
+->  先编译遍脚本
+->  ET/Compile and Copy.. 
+->  如果我们Bundles的目录改变了还需要重新设置ab labels 
+->  Build ab包 
+->  打包
+
+热更流程: (总共分三部分 1、完全不热更的部分 2、入口 3、完全热更部分)
+->  Launch脚本和Launch场景随打包一起打包, 所以是完全无法热更的部分, Launch只会做一件事, 就是尝试加载entry包.
+    包里需要名为Entry.dll的库, 需要库里有个名为Entry的类, 类里需要有个名为Start的静态函数, Launch会调用这个函数, 作为游戏的入口
+    
+->  EntryPackage这一步相当于是缓冲, 这一步存在的理由
+    - 可以更灵活的定制化更新策略, 比如1.0版本, 游戏都是整包更新, 2.0, 我更新了entry包, 后续游戏就可以分包更新了
+    - entry包一般都非常小, 可以无察觉的更新entry包
+
+->  完全热更部分, 这一步的所有内容都可以完全热更
+->  理论上, 除了HybridCLR本体, 其他的程序集我们都能热更, 比如那些插件, yoo asset、ai nav、input system, 后续可以考虑把这些都搞成热更的

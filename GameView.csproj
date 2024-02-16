@@ -92,6 +92,7 @@
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\ScopeComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\TaskLineComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Module\UI\Element\UICardSlot.cs" />
+    <Compile Include="Assets\Scripts\GameView\ZString.Unity\TextMeshProExtensions.SetStringBuilder.cs" />
     <Compile Include="Assets\Scripts\GameView\Module\Component\HeadMessage.cs" />
     <Compile Include="Assets\Scripts\GameView\Module\UI\UICardStore\UICardStoreSlot.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\CasterComponent.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\ControlComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Module\UI\UICardBackpack\UICardBackpackSlot.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\CasterEvaluateComponent.cs" />
+    <Compile Include="Assets\Scripts\GameView\Logic\FactoryShadowFunc\ActorFactoryShadow.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\ColliderManagerComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\ProcedureLineComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\CapsuleColliderComponent.cs" />
@@ -116,7 +118,6 @@
     <Compile Include="Assets\Scripts\GameView\Module\UI\UICardBar\UICardBarAssistSlot.cs" />
     <Compile Include="Assets\Scripts\GameView\Module\UI\UICardBar\UICardBar.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\AdventureManagerComponent.cs" />
-    <Compile Include="Assets\Scripts\GameView\Module\UI\UIAssetLoader.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\HarmableComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\UnbodiedHeadComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\CardBarAssistSlotComponent.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\NumericNodeComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\CardBackpackSlotComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\UpdateDriverComponent.cs" />
+    <Compile Include="Assets\Scripts\GameView\ZString.Unity\TextMeshProExtensions.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\BoltManagerComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Module\UI\UISceneLoading.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\TimeLineComponent.cs" />
@@ -157,7 +159,6 @@
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\ControlTriggerComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoScripts\AbilityAssistComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Logic\Event\EventOnHeroUnlockUpdate.cs" />
-    <Compile Include="Assets\Scripts\GameView\Logic\Event\EventCreateActor.cs" />
     <Compile Include="Assets\Scripts\GameView\Module\UI\Element\UIDrag.cs" />
     <Compile Include="Assets\Scripts\GameView\Module\UI\UICardBar\UICardBarSlot.cs" />
     <None Include="Assets\Scripts\GameView\GameView.asmdef" />
@@ -422,6 +423,9 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">
       <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Sirenix.Reflection.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Reflection.Editor.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
@@ -866,6 +870,9 @@
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="YooAsset">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\YooAsset.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>

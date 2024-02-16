@@ -112,7 +112,7 @@ public static partial class MemoryPackSerializer
                 if (offset == buffer.Length)
                 {
                     builder.Add(buffer, returnToPool: true);
-                    buffer = ArrayPool<byte>.Shared.Rent(MathEx.NewArrayCapacity(buffer.Length));
+                    buffer = ArrayPool<byte>.Shared.Rent(MemoryPack.Internal.MathEx.NewArrayCapacity(buffer.Length));
                     offset = 0;
                 }
 

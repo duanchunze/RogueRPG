@@ -1,0 +1,1341 @@
+{
+    "FileVersion": "2.0.0",
+    "EnableAddressable": true,
+    "LocationToLower": false,
+    "IncludeAssetGUID": false,
+    "OutputNameStyle": 0,
+    "BuildPipeline": "BuiltinBuildPipeline",
+    "PackageName": "MainPackage",
+    "PackageVersion": "Simulate",
+    "AssetList": [
+        {
+            "Address": "GameHotReload.dll",
+            "AssetPath": "Assets/Bundles/CodeMain/GameHotReload.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [
+                "code"
+            ],
+            "BundleID": 0
+        },
+        {
+            "Address": "GameHotReload.pdb",
+            "AssetPath": "Assets/Bundles/CodeMain/GameHotReload.pdb.bytes",
+            "AssetGUID": "",
+            "AssetTags": [
+                "code"
+            ],
+            "BundleID": 0
+        },
+        {
+            "Address": "GameModel.dll",
+            "AssetPath": "Assets/Bundles/CodeMain/GameModel.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [
+                "code"
+            ],
+            "BundleID": 0
+        },
+        {
+            "Address": "GameModel.pdb",
+            "AssetPath": "Assets/Bundles/CodeMain/GameModel.pdb.bytes",
+            "AssetGUID": "",
+            "AssetTags": [
+                "code"
+            ],
+            "BundleID": 0
+        },
+        {
+            "Address": "GameView.dll",
+            "AssetPath": "Assets/Bundles/CodeMain/GameView.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [
+                "code"
+            ],
+            "BundleID": 0
+        },
+        {
+            "Address": "GameView.pdb",
+            "AssetPath": "Assets/Bundles/CodeMain/GameView.pdb.bytes",
+            "AssetGUID": "",
+            "AssetTags": [
+                "code"
+            ],
+            "BundleID": 0
+        },
+        {
+            "Address": "HsenlFramework.Runtime.dll",
+            "AssetPath": "Assets/Bundles/CodeMain/HsenlFramework.Runtime.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [
+                "code"
+            ],
+            "BundleID": 0
+        },
+        {
+            "Address": "HsenlFramework.Runtime.pdb",
+            "AssetPath": "Assets/Bundles/CodeMain/HsenlFramework.Runtime.pdb.bytes",
+            "AssetGUID": "",
+            "AssetTags": [
+                "code"
+            ],
+            "BundleID": 0
+        },
+        {
+            "Address": "HsenlFramework.ThirdParty.dll",
+            "AssetPath": "Assets/Bundles/CodeMain/HsenlFramework.ThirdParty.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [
+                "code"
+            ],
+            "BundleID": 0
+        },
+        {
+            "Address": "HsenlFramework.ThirdParty.pdb",
+            "AssetPath": "Assets/Bundles/CodeMain/HsenlFramework.ThirdParty.pdb.bytes",
+            "AssetGUID": "",
+            "AssetTags": [
+                "code"
+            ],
+            "BundleID": 0
+        },
+        {
+            "Address": "Framework",
+            "AssetPath": "Assets/Scenes/Main/Framework.unity",
+            "AssetGUID": "",
+            "AssetTags": [
+                "scene"
+            ],
+            "BundleID": 1
+        },
+        {
+            "Address": "GameMain",
+            "AssetPath": "Assets/Scenes/Main/GameMain.unity",
+            "AssetGUID": "",
+            "AssetTags": [
+                "scene"
+            ],
+            "BundleID": 2
+        },
+        {
+            "Address": "Lv1",
+            "AssetPath": "Assets/Scenes/Main/Levels/Lv1.unity",
+            "AssetGUID": "",
+            "AssetTags": [
+                "scene"
+            ],
+            "BundleID": 3
+        },
+        {
+            "Address": "Lv2",
+            "AssetPath": "Assets/Scenes/Main/Levels/Lv2.unity",
+            "AssetGUID": "",
+            "AssetTags": [
+                "scene"
+            ],
+            "BundleID": 4
+        },
+        {
+            "Address": "Lv3",
+            "AssetPath": "Assets/Scenes/Main/Levels/Lv3.unity",
+            "AssetGUID": "",
+            "AssetTags": [
+                "scene"
+            ],
+            "BundleID": 5
+        },
+        {
+            "Address": "Lv4",
+            "AssetPath": "Assets/Scenes/Main/Levels/Lv4.unity",
+            "AssetGUID": "",
+            "AssetTags": [
+                "scene"
+            ],
+            "BundleID": 6
+        },
+        {
+            "Address": "Test",
+            "AssetPath": "Assets/Scenes/Main/Test.unity",
+            "AssetGUID": "",
+            "AssetTags": [
+                "scene"
+            ],
+            "BundleID": 7
+        },
+        {
+            "Address": "Lv1_NavMesh-Ground",
+            "AssetPath": "Assets/Scenes/Main/Levels/Lv1/NavMesh-Ground.asset",
+            "AssetGUID": "",
+            "AssetTags": [
+                "scene"
+            ],
+            "BundleID": 8
+        },
+        {
+            "Address": "Lv2_NavMesh-Ground",
+            "AssetPath": "Assets/Scenes/Main/Levels/Lv2/NavMesh-Ground.asset",
+            "AssetGUID": "",
+            "AssetTags": [
+                "scene"
+            ],
+            "BundleID": 9
+        },
+        {
+            "Address": "Lv3_NavMesh-Ground",
+            "AssetPath": "Assets/Scenes/Main/Levels/Lv3/NavMesh-Ground.asset",
+            "AssetGUID": "",
+            "AssetTags": [
+                "scene"
+            ],
+            "BundleID": 10
+        },
+        {
+            "Address": "Lv4_NavMesh-Ground",
+            "AssetPath": "Assets/Scenes/Main/Levels/Lv4/NavMesh-Ground.asset",
+            "AssetGUID": "",
+            "AssetTags": [
+                "scene"
+            ],
+            "BundleID": 11
+        },
+        {
+            "Address": "ability_assist_tbabilityassistconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/ability_assist_tbabilityassistconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "ability_tbabilityconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/ability_tbabilityconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "ability_upgrade_tbabilityupgradeconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/ability_upgrade_tbabilityupgradeconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "actor_tbactorconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/actor_tbactorconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "adventure_tbadventureconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/adventure_tbadventureconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "ai_tbaiconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/ai_tbaiconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "card_tbcardconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/card_tbcardconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "card_tbcardsingletonconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/card_tbcardsingletonconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "card_tbcardsynthesisconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/card_tbcardsynthesisconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "checkpoint_tbcheckpointconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/checkpoint_tbcheckpointconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "faction_tbfactionconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/faction_tbfactionconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "game_tbgamesingletonconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/game_tbgamesingletonconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "numeric_tbnumericactorconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/numeric_tbnumericactorconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "pickable_tbpickableconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/pickable_tbpickableconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "status_tbstatusconfig",
+            "AssetPath": "Assets/Bundles/Config/LubanConfig/status_tbstatusconfig.json",
+            "AssetGUID": "",
+            "AssetTags": [
+                "config"
+            ],
+            "BundleID": 12
+        },
+        {
+            "Address": "UICardBackpack",
+            "AssetPath": "Assets/Bundles/UI/UICardBackpack.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "ui"
+            ],
+            "BundleID": 13
+        },
+        {
+            "Address": "UICardBar",
+            "AssetPath": "Assets/Bundles/UI/UICardBar.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "ui"
+            ],
+            "BundleID": 13
+        },
+        {
+            "Address": "UICardStore",
+            "AssetPath": "Assets/Bundles/UI/UICardStore.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "ui"
+            ],
+            "BundleID": 13
+        },
+        {
+            "Address": "UIFollowMessage",
+            "AssetPath": "Assets/Bundles/UI/UIFollowMessage.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "ui"
+            ],
+            "BundleID": 13
+        },
+        {
+            "Address": "UIHeadFollow_Hero",
+            "AssetPath": "Assets/Bundles/UI/UIHeadFollow_Hero.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "ui"
+            ],
+            "BundleID": 13
+        },
+        {
+            "Address": "UIHeadFollow_Monster",
+            "AssetPath": "Assets/Bundles/UI/UIHeadFollow_Monster.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "ui"
+            ],
+            "BundleID": 13
+        },
+        {
+            "Address": "UIJumpMessage",
+            "AssetPath": "Assets/Bundles/UI/UIJumpMessage.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "ui"
+            ],
+            "BundleID": 13
+        },
+        {
+            "Address": "UIMainInterface",
+            "AssetPath": "Assets/Bundles/UI/UIMainInterface.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "ui"
+            ],
+            "BundleID": 13
+        },
+        {
+            "Address": "UISceneLoading",
+            "AssetPath": "Assets/Bundles/UI/UISceneLoading.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "ui"
+            ],
+            "BundleID": 13
+        },
+        {
+            "Address": "UISelectHero",
+            "AssetPath": "Assets/Bundles/UI/UISelectHero.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "ui"
+            ],
+            "BundleID": 13
+        },
+        {
+            "Address": "UIShopping",
+            "AssetPath": "Assets/Bundles/UI/UIShopping.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "ui"
+            ],
+            "BundleID": 13
+        },
+        {
+            "Address": "col_abi_dibozhan",
+            "AssetPath": "Assets/Bundles/Collider/col_abi_dibozhan.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "collider"
+            ],
+            "BundleID": 14
+        },
+        {
+            "Address": "col_abi_gw_hengkan",
+            "AssetPath": "Assets/Bundles/Collider/col_abi_gw_hengkan.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "collider"
+            ],
+            "BundleID": 14
+        },
+        {
+            "Address": "col_abi_gw_pikan",
+            "AssetPath": "Assets/Bundles/Collider/col_abi_gw_pikan.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "collider"
+            ],
+            "BundleID": 14
+        },
+        {
+            "Address": "col_abi_liehuodaofa",
+            "AssetPath": "Assets/Bundles/Collider/col_abi_liehuodaofa.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "collider"
+            ],
+            "BundleID": 14
+        },
+        {
+            "Address": "col_abi_pikan",
+            "AssetPath": "Assets/Bundles/Collider/col_abi_pikan.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "collider"
+            ],
+            "BundleID": 14
+        },
+        {
+            "Address": "col_abi_tuludaofa",
+            "AssetPath": "Assets/Bundles/Collider/col_abi_tuludaofa.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "collider"
+            ],
+            "BundleID": 14
+        },
+        {
+            "Address": "col_pik_coin",
+            "AssetPath": "Assets/Bundles/Collider/col_pik_coin.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "collider"
+            ],
+            "BundleID": 14
+        },
+        {
+            "Address": "Actor_huntsman",
+            "AssetPath": "Assets/Bundles/Appear/Actor/huntsman.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "appear",
+                "appear_actor"
+            ],
+            "BundleID": 15
+        },
+        {
+            "Address": "Actor_kulou_gjs",
+            "AssetPath": "Assets/Bundles/Appear/Actor/kulou_gjs.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "appear",
+                "appear_actor"
+            ],
+            "BundleID": 15
+        },
+        {
+            "Address": "Actor_kulou_qs",
+            "AssetPath": "Assets/Bundles/Appear/Actor/kulou_qs.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "appear",
+                "appear_actor"
+            ],
+            "BundleID": 15
+        },
+        {
+            "Address": "Actor_kulou_zs",
+            "AssetPath": "Assets/Bundles/Appear/Actor/kulou_zs.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "appear",
+                "appear_actor"
+            ],
+            "BundleID": 15
+        },
+        {
+            "Address": "Actor_mage",
+            "AssetPath": "Assets/Bundles/Appear/Actor/mage.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "appear",
+                "appear_actor"
+            ],
+            "BundleID": 15
+        },
+        {
+            "Address": "Actor_warrior",
+            "AssetPath": "Assets/Bundles/Appear/Actor/warrior.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "appear",
+                "appear_actor"
+            ],
+            "BundleID": 15
+        },
+        {
+            "Address": "bolt_dibozhan",
+            "AssetPath": "Assets/Bundles/Appear/Bolt/bolt_dibozhan.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "appear",
+                "appear_bolt"
+            ],
+            "BundleID": 16
+        },
+        {
+            "Address": "bolt_gw_kuaishe",
+            "AssetPath": "Assets/Bundles/Appear/Bolt/bolt_gw_kuaishe.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "appear",
+                "appear_bolt"
+            ],
+            "BundleID": 16
+        },
+        {
+            "Address": "bolt_yuebiao",
+            "AssetPath": "Assets/Bundles/Appear/Bolt/bolt_yuebiao.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "appear",
+                "appear_bolt"
+            ],
+            "BundleID": 16
+        },
+        {
+            "Address": "huntsman_attack1",
+            "AssetPath": "Assets/Bundles/AnimClip/huntsman/attack1.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 17
+        },
+        {
+            "Address": "huntsman_attack2",
+            "AssetPath": "Assets/Bundles/AnimClip/huntsman/attack2.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 17
+        },
+        {
+            "Address": "huntsman_attack3",
+            "AssetPath": "Assets/Bundles/AnimClip/huntsman/attack3.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 17
+        },
+        {
+            "Address": "huntsman_die",
+            "AssetPath": "Assets/Bundles/AnimClip/huntsman/die.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 17
+        },
+        {
+            "Address": "huntsman_hitstun",
+            "AssetPath": "Assets/Bundles/AnimClip/huntsman/hitstun.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 17
+        },
+        {
+            "Address": "huntsman_idle",
+            "AssetPath": "Assets/Bundles/AnimClip/huntsman/idle.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 17
+        },
+        {
+            "Address": "huntsman_idle2",
+            "AssetPath": "Assets/Bundles/AnimClip/huntsman/idle2.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 17
+        },
+        {
+            "Address": "huntsman_run",
+            "AssetPath": "Assets/Bundles/AnimClip/huntsman/run.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 17
+        },
+        {
+            "Address": "huntsman_WK_archer_02_walk",
+            "AssetPath": "Assets/Bundles/AnimClip/huntsman/WK_archer_02_walk.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 17
+        },
+        {
+            "Address": "huntsman_WK_archer_06_combat_walk",
+            "AssetPath": "Assets/Bundles/AnimClip/huntsman/WK_archer_06_combat_walk.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 17
+        },
+        {
+            "Address": "huntsman_WK_archer_10_death_B",
+            "AssetPath": "Assets/Bundles/AnimClip/huntsman/WK_archer_10_death_B.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 17
+        },
+        {
+            "Address": "mage_attack1",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/attack1.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_attack2",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/attack2.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_attack3",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/attack3.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_die",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/die.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_hitstun",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/hitstun.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_idle",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/idle.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_run",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/run.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_sprint",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/sprint.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_WK_mage_02_walk",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/WK_mage_02_walk.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_WK_mage_05_combat_idle",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/WK_mage_05_combat_idle.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_WK_mage_06_combat_walk",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/WK_mage_06_combat_walk.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_WK_mage_10_death_B",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/WK_mage_10_death_B.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_WK_mage_11_cast_A",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/WK_mage_11_cast_A.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_WK_mage_11_cast_B",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/WK_mage_11_cast_B.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "mage_WK_mage_11_cast_load",
+            "AssetPath": "Assets/Bundles/AnimClip/mage/WK_mage_11_cast_load.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 18
+        },
+        {
+            "Address": "warrior_attack1",
+            "AssetPath": "Assets/Bundles/AnimClip/warrior/attack1.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 19
+        },
+        {
+            "Address": "warrior_attack2",
+            "AssetPath": "Assets/Bundles/AnimClip/warrior/attack2.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 19
+        },
+        {
+            "Address": "warrior_attack3",
+            "AssetPath": "Assets/Bundles/AnimClip/warrior/attack3.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 19
+        },
+        {
+            "Address": "warrior_die",
+            "AssetPath": "Assets/Bundles/AnimClip/warrior/die.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 19
+        },
+        {
+            "Address": "warrior_hitstun",
+            "AssetPath": "Assets/Bundles/AnimClip/warrior/hitstun.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 19
+        },
+        {
+            "Address": "warrior_idle",
+            "AssetPath": "Assets/Bundles/AnimClip/warrior/idle.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 19
+        },
+        {
+            "Address": "warrior_run",
+            "AssetPath": "Assets/Bundles/AnimClip/warrior/run.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 19
+        },
+        {
+            "Address": "warrior_sprint",
+            "AssetPath": "Assets/Bundles/AnimClip/warrior/sprint.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 19
+        },
+        {
+            "Address": "warrior_walk",
+            "AssetPath": "Assets/Bundles/AnimClip/warrior/walk.anim",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animaclip"
+            ],
+            "BundleID": 19
+        },
+        {
+            "Address": "kulou_gjs_kulou_gjs",
+            "AssetPath": "Assets/Bundles/AnimController/kulou_gjs/kulou_gjs.controller",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animacontroller"
+            ],
+            "BundleID": 20
+        },
+        {
+            "Address": "kulou_qs_kulou_qs",
+            "AssetPath": "Assets/Bundles/AnimController/kulou_qs/kulou_qs.controller",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animacontroller"
+            ],
+            "BundleID": 21
+        },
+        {
+            "Address": "kulou_zs_kulou_zs",
+            "AssetPath": "Assets/Bundles/AnimController/kulou_zs/kulou_zs.controller",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animacontroller"
+            ],
+            "BundleID": 22
+        },
+        {
+            "Address": "warrior_warrior",
+            "AssetPath": "Assets/Bundles/AnimController/warrior/warrior.controller",
+            "AssetGUID": "",
+            "AssetTags": [
+                "anima",
+                "animacontroller"
+            ],
+            "BundleID": 23
+        },
+        {
+            "Address": "wb_gw_hengkan",
+            "AssetPath": "Assets/Bundles/WarningBoard/wb_gw_hengkan.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "warningboard"
+            ],
+            "BundleID": 24
+        },
+        {
+            "Address": "wb_gw_kuaishe",
+            "AssetPath": "Assets/Bundles/WarningBoard/wb_gw_kuaishe.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "warningboard"
+            ],
+            "BundleID": 24
+        },
+        {
+            "Address": "wb_gw_pikan",
+            "AssetPath": "Assets/Bundles/WarningBoard/wb_gw_pikan.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "warningboard"
+            ],
+            "BundleID": 24
+        },
+        {
+            "Address": "fx_hit",
+            "AssetPath": "Assets/Bundles/Fx/fx_hit.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "fx"
+            ],
+            "BundleID": 25
+        },
+        {
+            "Address": "fx_hit2",
+            "AssetPath": "Assets/Bundles/Fx/fx_hit2.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "fx"
+            ],
+            "BundleID": 25
+        },
+        {
+            "Address": "ad_attack1",
+            "AssetPath": "Assets/Bundles/Audio/ad_attack1.mp3",
+            "AssetGUID": "",
+            "AssetTags": [
+                "audio"
+            ],
+            "BundleID": 26
+        },
+        {
+            "Address": "ad_attack2",
+            "AssetPath": "Assets/Bundles/Audio/ad_attack2.mp3",
+            "AssetGUID": "",
+            "AssetTags": [
+                "audio"
+            ],
+            "BundleID": 26
+        },
+        {
+            "Address": "ad_attack4",
+            "AssetPath": "Assets/Bundles/Audio/ad_attack4.wav",
+            "AssetGUID": "",
+            "AssetTags": [
+                "audio"
+            ],
+            "BundleID": 26
+        },
+        {
+            "Address": "pik_coin",
+            "AssetPath": "Assets/Bundles/Pickable/pik_coin.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "pickable"
+            ],
+            "BundleID": 27
+        }
+    ],
+    "BundleList": [
+        {
+            "BundleName": "mainpackage_assets_bundles_codemain.bundle",
+            "UnityCRC": 0,
+            "FileHash": "ea3e54c232c0b1e353f729e657865c32",
+            "FileCRC": "00000000",
+            "FileSize": 7859036,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_scenes_main_framework.bundle",
+            "UnityCRC": 0,
+            "FileHash": "4e79a3c44a2a4c23e13c808d63ff9965",
+            "FileCRC": "00000000",
+            "FileSize": 54927,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_scenes_main_gamemain.bundle",
+            "UnityCRC": 0,
+            "FileHash": "94602539eeaf1156175f3f53fbc60d5e",
+            "FileCRC": "00000000",
+            "FileSize": 76452,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_scenes_main_levels_lv1.bundle",
+            "UnityCRC": 0,
+            "FileHash": "f6890aefaf62a47cb65338bfda5a7d37",
+            "FileCRC": "00000000",
+            "FileSize": 33310,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_scenes_main_levels_lv2.bundle",
+            "UnityCRC": 0,
+            "FileHash": "2de358e81ca2fd38f9304bcc83663c30",
+            "FileCRC": "00000000",
+            "FileSize": 44716,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_scenes_main_levels_lv3.bundle",
+            "UnityCRC": 0,
+            "FileHash": "d4182c7dae49b3124c36369f7ece5aa3",
+            "FileCRC": "00000000",
+            "FileSize": 44716,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_scenes_main_levels_lv4.bundle",
+            "UnityCRC": 0,
+            "FileHash": "2755af5e180f24dccd389809298efa80",
+            "FileCRC": "00000000",
+            "FileSize": 31948,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_scenes_main_test.bundle",
+            "UnityCRC": 0,
+            "FileHash": "72f5249de48c0d91754f798df4932953",
+            "FileCRC": "00000000",
+            "FileSize": 55205,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_scenes_main_levels_lv1_navmesh-ground.bundle",
+            "UnityCRC": 0,
+            "FileHash": "bb678636e55c27b4baad17e1d512f32f",
+            "FileCRC": "00000000",
+            "FileSize": 7236,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_scenes_main_levels_lv2_navmesh-ground.bundle",
+            "UnityCRC": 0,
+            "FileHash": "7f902ea205e3b8a514750d166ef66e91",
+            "FileCRC": "00000000",
+            "FileSize": 7236,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_scenes_main_levels_lv3_navmesh-ground.bundle",
+            "UnityCRC": 0,
+            "FileHash": "4bb08f6dd7464784e71aefe500124d95",
+            "FileCRC": "00000000",
+            "FileSize": 7236,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_scenes_main_levels_lv4_navmesh-ground.bundle",
+            "UnityCRC": 0,
+            "FileHash": "4ed6f94dbbcd8a7c29fbba8d641e95cb",
+            "FileCRC": "00000000",
+            "FileSize": 14660,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_config_lubanconfig.bundle",
+            "UnityCRC": 0,
+            "FileHash": "c1b1fdcd7392c62a4d25ef072a22f703",
+            "FileCRC": "00000000",
+            "FileSize": 111514,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_ui.bundle",
+            "UnityCRC": 0,
+            "FileHash": "97114b1723aa09544dcbe5ebc7a2e8f0",
+            "FileCRC": "00000000",
+            "FileSize": 418577,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_collider.bundle",
+            "UnityCRC": 0,
+            "FileHash": "d6fa139f928beeadd802fb1466985111",
+            "FileCRC": "00000000",
+            "FileSize": 29838,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_appear_actor.bundle",
+            "UnityCRC": 0,
+            "FileHash": "6a42faabbef153872974f05baddef44a",
+            "FileCRC": "00000000",
+            "FileSize": 549494,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_appear_bolt.bundle",
+            "UnityCRC": 0,
+            "FileHash": "88ef35f29224d0b7b7cdb79e7d62890f",
+            "FileCRC": "00000000",
+            "FileSize": 731278,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_animclip_huntsman.bundle",
+            "UnityCRC": 0,
+            "FileHash": "d55280ca90db41a8fe278ae16fba63fb",
+            "FileCRC": "00000000",
+            "FileSize": 3178741,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_animclip_mage.bundle",
+            "UnityCRC": 0,
+            "FileHash": "28d8d18fc2f7e99d11b29616d7307c95",
+            "FileCRC": "00000000",
+            "FileSize": 4291398,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_animclip_warrior.bundle",
+            "UnityCRC": 0,
+            "FileHash": "b797878214086ac9088795ab41ecabcb",
+            "FileCRC": "00000000",
+            "FileSize": 2485293,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_animcontroller_kulou_gjs.bundle",
+            "UnityCRC": 0,
+            "FileHash": "a66264612d4f280b1c007e0d99109343",
+            "FileCRC": "00000000",
+            "FileSize": 19806,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_animcontroller_kulou_qs.bundle",
+            "UnityCRC": 0,
+            "FileHash": "73415dfbe7ccdf9b3459a5c7e670446c",
+            "FileCRC": "00000000",
+            "FileSize": 19857,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_animcontroller_kulou_zs.bundle",
+            "UnityCRC": 0,
+            "FileHash": "bfc9077dc76c024ae33aa8bbd26533ef",
+            "FileCRC": "00000000",
+            "FileSize": 19858,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_animcontroller_warrior.bundle",
+            "UnityCRC": 0,
+            "FileHash": "013e110d7a5cc1f5d2c445a05f309431",
+            "FileCRC": "00000000",
+            "FileSize": 23228,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_warningboard.bundle",
+            "UnityCRC": 0,
+            "FileHash": "54d0a593bb441a71730e0fb8e49efd1d",
+            "FileCRC": "00000000",
+            "FileSize": 10226,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_fx.bundle",
+            "UnityCRC": 0,
+            "FileHash": "5b20720f3b3760a3dd9f4f8300c98548",
+            "FileCRC": "00000000",
+            "FileSize": 486863,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_audio.bundle",
+            "UnityCRC": 0,
+            "FileHash": "7c5fe14254ba72c7c7eb955faeb2056d",
+            "FileCRC": "00000000",
+            "FileSize": 66122,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "mainpackage_assets_bundles_pickable.bundle",
+            "UnityCRC": 0,
+            "FileHash": "e6c8daac3ef9acb488eb4274bcbfddfe",
+            "FileCRC": "00000000",
+            "FileSize": 2517,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        }
+    ]
+}

@@ -7,7 +7,7 @@ namespace Hsenl {
         [ShadowFunction]
         protected override async void OnEnter(ProcedureManager manager, FsmState<ProcedureManager> prev) {
             await ETTask.CompletedTask;
-            this.OnEnterShadow(manager, prev);
+            this.OnEnterShadow(manager, prev).Coroutine();
         }
 
         [ShadowFunction]

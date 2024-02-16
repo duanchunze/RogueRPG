@@ -1,0 +1,61 @@
+{
+    "FileVersion": "2.0.0",
+    "EnableAddressable": true,
+    "LocationToLower": false,
+    "IncludeAssetGUID": false,
+    "OutputNameStyle": 0,
+    "BuildPipeline": "BuiltinBuildPipeline",
+    "PackageName": "EntryPackage",
+    "PackageVersion": "Simulate",
+    "AssetList": [
+        {
+            "Address": "Entry.dll",
+            "AssetPath": "Assets/Bundles/CodeEntry/Entry.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [
+                "code"
+            ],
+            "BundleID": 0
+        },
+        {
+            "Address": "Entry.pdb",
+            "AssetPath": "Assets/Bundles/CodeEntry/Entry.pdb.bytes",
+            "AssetGUID": "",
+            "AssetTags": [
+                "code"
+            ],
+            "BundleID": 0
+        },
+        {
+            "Address": "Entry",
+            "AssetPath": "Assets/Scenes/Entry/Entry.unity",
+            "AssetGUID": "",
+            "AssetTags": [
+                "scene"
+            ],
+            "BundleID": 1
+        }
+    ],
+    "BundleList": [
+        {
+            "BundleName": "entrypackage_assets_bundles_codeentry.bundle",
+            "UnityCRC": 0,
+            "FileHash": "ab38ce936a85fc9a5d5d7fe919342e72",
+            "FileCRC": "00000000",
+            "FileSize": 29264,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
+            "BundleName": "entrypackage_assets_scenes_entry.bundle",
+            "UnityCRC": 0,
+            "FileHash": "d404c8565e1e54df794e326577f18744",
+            "FileCRC": "00000000",
+            "FileSize": 4890,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        }
+    ]
+}

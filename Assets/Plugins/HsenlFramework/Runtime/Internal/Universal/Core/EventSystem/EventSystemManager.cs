@@ -591,9 +591,8 @@ namespace Hsenl {
             return liner as T;
         }
 
-        protected override void Dispose() {
-            base.Dispose();
-
+        protected override void OnSingleUnregister() {
+            this.Assemblies = Array.Empty<Assembly>();
             this._allTypes.Clear();
             this._typesOfAttribute.Clear();
             this._allEvents.Clear();
@@ -608,6 +607,8 @@ namespace Hsenl {
             this._lateUpaters.Clear();
             this._instances.Clear();
             this._links.Clear();
+            this._confineAttributeTypes.Clear();
+            this._confineAttributeTypes.Add(typeof(BaseAttribute));
         }
 
         private class EventInfo {

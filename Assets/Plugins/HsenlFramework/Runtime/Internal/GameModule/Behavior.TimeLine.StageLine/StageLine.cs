@@ -97,6 +97,11 @@ namespace Hsenl {
             }
         }
 
+        protected internal override void OnDestroyFinish() {
+            base.OnDestroyFinish();
+            this.onStageChanged = null;
+        }
+
         protected override void OnReset() {
             this.BufferSpeed = this._speed;
             this.status = StageStatus.Running;

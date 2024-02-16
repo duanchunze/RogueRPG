@@ -112,6 +112,12 @@ namespace Hsenl {
             this.Enable = true;
         }
 
+        protected internal override void OnDestroyFinish() {
+            base.OnDestroyFinish();
+            this.entity = null;
+            this.PartialOnDestroyFinish();
+        }
+
         internal void InternalOnDeserialized() {
             try {
                 this.OnDeserializedInternal();
@@ -393,9 +399,7 @@ namespace Hsenl {
         // dispose 的意义在于, 如果有其他地方做了自己的引用, 那么即使自己已经 destroy 了, 该引用依然能正常使用, 而我们可能并不知道已经被删除了, 所以, 我们要把数据全部清空, 达到一种提示的
         // 目的
         protected virtual void OnDestroy() { }
-
-        // 对于一些需要还原的数据修改, 比如怪物的初始技能有三个, 然后打了一会架, 技能增加到了五个, 重置为初始状态后, 可用于对象池回收
-        // 可以选择使用配置文件来初始化, 也可以手动的去初始化
+        
         protected virtual void OnReset() { }
 
         // 父级改变时涉及到的函数
@@ -434,6 +438,8 @@ namespace Hsenl {
         #region partial
 
         partial void PartialOnEnableSelfChanged(bool enab);
+
+        partial void PartialOnDestroyFinish();
 
         #endregion
     }

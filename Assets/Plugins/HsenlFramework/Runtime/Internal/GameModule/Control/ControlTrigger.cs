@@ -34,6 +34,12 @@ namespace Hsenl {
             }
         }
 
+        protected internal override void OnDestroyFinish() {
+            this._control = null;
+            this.onBegin = null;
+            this.onFinish = null;
+        }
+
         public void SetControl(Control control, bool onlySet = false) {
             if (this._control == control) return;
             if (!onlySet) this.UnregisterControlListening(this._control, this.controlCode);

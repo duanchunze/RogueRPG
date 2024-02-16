@@ -130,9 +130,7 @@ namespace Hsenl {
             this._iLog.Error(s);
         }
 
-        protected override void Dispose() {
-            base.Dispose();
-
+        protected override void OnSingleUnregister() {
             this._iLog = null;
             this.logLevel = 0;
         }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using YooAsset;
 
 namespace Hsenl {
     public class FxManager : MonoBehaviour {
@@ -14,7 +15,7 @@ namespace Hsenl {
             var ps = this._psPool.Dequeue(fxName);
 
             if (ps == null) {
-                var prefab = ResourcesHelper.GetAsset<GameObject>(Constant.FxBundleName, fxName);
+                var prefab = YooAssets.LoadAssetSync<GameObject>(fxName).AssetObject as GameObject;
                 prefab.gameObject.SetActive(false);
                 ps = Instantiate(prefab).GetComponent<UnityEngine.ParticleSystem>();
             }

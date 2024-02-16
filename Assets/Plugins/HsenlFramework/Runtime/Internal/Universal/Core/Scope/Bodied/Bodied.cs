@@ -188,6 +188,13 @@ namespace Hsenl {
             });
         }
 
+        protected internal override void OnDestroyFinish() {
+            base.OnDestroyFinish();
+            this.status = default;
+            this._attachedBodied = null;
+            this._parentAttachedBodied = null;
+        }
+
         internal override void OnComponentAddInternal(Component component) {
             if (component is Scope) throw new Exception($"one entity only one scope. '{this.Name}' '{component.GetType().Name}'");
             if (component is not Unbodied unbodied)

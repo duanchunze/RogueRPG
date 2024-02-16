@@ -114,7 +114,7 @@ namespace Hsenl {
             return (T)state;
         }
 
-        protected override void Dispose() {
+        protected override void OnSingleUnregister() {
             if (this._currentState != null) {
                 AProcedureState.Leave(this, this._currentState, null);
             }

@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 namespace Hsenl {
     /* 流水线系统的核心就是在原本的Event系统的基础上实现热插拔，并以此衍生的一些附带功能
      * 所以，如果不使用热插拔功能，那你完全可以把理解成一个Event来使用
-     * 
+     *
      * 何时使用Event，又何时使用Pl？
      * 牵扯到游戏逻辑的尽量都使用Pl，牵扯到代码逻辑的去使用Event
      * 例如伤害流程、死亡流程、增加经验、拾取金币、打造装备等，使用Pl
@@ -59,7 +59,8 @@ namespace Hsenl {
         }
 
 
-        protected override void OnDestroy() {
+        protected internal override void OnDestroyFinish() {
+            base.OnDestroyFinish();
             this._workerDict.Clear();
         }
 
@@ -203,7 +204,7 @@ namespace Hsenl {
                 object attribute = type.GetCustomAttribute(typeof(ProcedureLineHandlerPriorityAttribute), false);
                 if (attribute is not ProcedureLineHandlerPriorityAttribute priorityAttribute) {
                     // handler 必须实现优先级属性
-                    throw new InvalidCastException($"procedure line handler '{type}' must be implementations ProcedureLineHandlePriorityAttribute");
+                    throw new InvalidCastException($"procedure line handler '{type}' must be implementations [ProcedureLineHandlePriorityAttribute]");
                 }
 
                 if (sortedDict.TryGetValue(handler.ItemType, out var dict)) {

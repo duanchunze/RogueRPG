@@ -2,6 +2,7 @@
 using UnityEngine;
 
 namespace Hsenl {
+    // 与Singleton不同的是, 继承该类的单例, 可以被添加在实体上
     [FrameworkMember]
     public class SingletonComponent<T> : Component, ISingleton where T : SingletonComponent<T>, new() {
         public static T Instance { get; private set; }
@@ -21,7 +22,7 @@ namespace Hsenl {
 
             var t = Instance;
             Instance = null;
-            t.Dispose();
+            t.OnSingleUnregister();
         }
 
         internal override void OnAwakeInternal() {
@@ -32,6 +33,6 @@ namespace Hsenl {
             SingletonManager.Register((T)this);
         }
 
-        protected virtual void Dispose() { }
+        protected virtual void OnSingleUnregister() { }
     }
 }

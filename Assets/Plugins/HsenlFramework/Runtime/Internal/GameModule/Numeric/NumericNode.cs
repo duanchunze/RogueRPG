@@ -35,6 +35,13 @@ namespace Hsenl {
             this.Recalculate();
         }
 
+        protected internal override void OnDestroyFinish() {
+            base.OnDestroyFinish();
+            this._numerics.Clear();
+            this._finalNumerics.Clear();
+            this.linkNumerators.Clear();
+        }
+
         public bool LinkNumerator(INumerator numerator) {
             if (this.linkNumerators.Contains(numerator)) return false;
             this.linkNumerators.Add(numerator);

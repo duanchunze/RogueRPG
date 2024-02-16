@@ -14,11 +14,6 @@
     <type fullname="DG.Tweening.TweenSettingsExtensions" preserve="all" />
     <type fullname="DG.Tweening.Tweener" preserve="all" />
   </assembly>
-  <assembly fullname="HybridCLR.Runtime">
-    <type fullname="HybridCLR.HomologousImageMode" preserve="all" />
-    <type fullname="HybridCLR.LoadImageErrorCode" preserve="all" />
-    <type fullname="HybridCLR.RuntimeApi" preserve="all" />
-  </assembly>
   <assembly fullname="Sirenix.Serialization">
     <type fullname="Sirenix.OdinInspector.SerializedMonoBehaviour" preserve="all" />
     <type fullname="Sirenix.Serialization.DeserializationContext" preserve="all" />
@@ -80,7 +75,6 @@
     <type fullname="System.Linq.Enumerable" preserve="all" />
     <type fullname="System.Linq.IGrouping`2" preserve="all" />
     <type fullname="System.Linq.ILookup`2" preserve="all" />
-    <type fullname="System.Linq.IOrderedEnumerable`1" preserve="all" />
     <type fullname="System.Linq.ParallelEnumerable" preserve="all" />
     <type fullname="System.Linq.ParallelQuery`1" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.StrongBox`1" preserve="all" />
@@ -142,12 +136,7 @@
     <type fullname="UnityEngine.AnimationClip" preserve="all" />
     <type fullname="UnityEngine.AnimationState" preserve="all" />
     <type fullname="UnityEngine.Animator" preserve="all" />
-  </assembly>
-  <assembly fullname="UnityEngine.AssetBundleModule">
-    <type fullname="UnityEngine.AssetBundle" preserve="all" />
-    <type fullname="UnityEngine.AssetBundleCreateRequest" preserve="all" />
-    <type fullname="UnityEngine.AssetBundleManifest" preserve="all" />
-    <type fullname="UnityEngine.AssetBundleRequest" preserve="all" />
+    <type fullname="UnityEngine.RuntimeAnimatorController" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AudioModule">
     <type fullname="UnityEngine.AudioClip" preserve="all" />
@@ -270,6 +259,28 @@
     <type fullname="UnityEngine.Canvas" preserve="all" />
     <type fullname="UnityEngine.RectTransformUtility" preserve="all" />
   </assembly>
+  <assembly fullname="YooAsset">
+    <type fullname="YooAsset.AllAssetsHandle" preserve="all" />
+    <type fullname="YooAsset.AssetHandle" preserve="all" />
+    <type fullname="YooAsset.AssetInfo" preserve="all" />
+    <type fullname="YooAsset.AsyncOperationBase" preserve="all" />
+    <type fullname="YooAsset.ClearUnusedCacheFilesOperation" preserve="all" />
+    <type fullname="YooAsset.DownloaderOperation" preserve="all" />
+    <type fullname="YooAsset.DownloaderOperation/OnDownloadError" preserve="all" />
+    <type fullname="YooAsset.DownloaderOperation/OnDownloadProgress" preserve="all" />
+    <type fullname="YooAsset.EDefaultBuildPipeline" preserve="all" />
+    <type fullname="YooAsset.EOperationStatus" preserve="all" />
+    <type fullname="YooAsset.EditorSimulateModeHelper" preserve="all" />
+    <type fullname="YooAsset.EditorSimulateModeParameters" preserve="all" />
+    <type fullname="YooAsset.InitializationOperation" preserve="all" />
+    <type fullname="YooAsset.InitializeParameters" preserve="all" />
+    <type fullname="YooAsset.ResourceDownloaderOperation" preserve="all" />
+    <type fullname="YooAsset.ResourcePackage" preserve="all" />
+    <type fullname="YooAsset.SceneHandle" preserve="all" />
+    <type fullname="YooAsset.UpdatePackageManifestOperation" preserve="all" />
+    <type fullname="YooAsset.UpdatePackageVersionOperation" preserve="all" />
+    <type fullname="YooAsset.YooAssets" preserve="all" />
+  </assembly>
   <assembly fullname="mscorlib">
     <type fullname="System.Action" preserve="all" />
     <type fullname="System.Action`1" preserve="all" />
@@ -287,6 +298,7 @@
     <type fullname="System.Attribute" preserve="all" />
     <type fullname="System.AttributeTargets" preserve="all" />
     <type fullname="System.AttributeUsageAttribute" preserve="all" />
+    <type fullname="System.BitConverter" preserve="all" />
     <type fullname="System.Boolean" preserve="all" />
     <type fullname="System.Buffer" preserve="all" />
     <type fullname="System.Buffers.ArrayPool`1" preserve="all" />
@@ -297,6 +309,8 @@
     <type fullname="System.Buffers.ReadOnlySequence`1" preserve="all" />
     <type fullname="System.Buffers.ReadOnlySequence`1/Enumerator" preserve="all" />
     <type fullname="System.Buffers.SpanAction`2" preserve="all" />
+    <type fullname="System.Buffers.StandardFormat" preserve="all" />
+    <type fullname="System.Buffers.Text.Utf8Formatter" preserve="all" />
     <type fullname="System.Byte" preserve="all" />
     <type fullname="System.Char" preserve="all" />
     <type fullname="System.Collections.ArrayList" preserve="all" />
@@ -364,6 +378,7 @@
     <type fullname="System.GC" preserve="all" />
     <type fullname="System.Globalization.CultureInfo" preserve="all" />
     <type fullname="System.Globalization.DateTimeStyles" preserve="all" />
+    <type fullname="System.Globalization.NumberFormatInfo" preserve="all" />
     <type fullname="System.Globalization.NumberStyles" preserve="all" />
     <type fullname="System.Guid" preserve="all" />
     <type fullname="System.HashCode" preserve="all" />
@@ -449,6 +464,7 @@
     <type fullname="System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable`1" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable`1/ConfiguredValueTaskAwaiter" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.ExtensionAttribute" preserve="all" />
+    <type fullname="System.Runtime.CompilerServices.FixedBufferAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.IAsyncStateMachine" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.ICriticalNotifyCompletion" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.INotifyCompletion" preserve="all" />
@@ -459,6 +475,7 @@
     <type fullname="System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeHelpers" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.TupleElementNamesAttribute" preserve="all" />
+    <type fullname="System.Runtime.CompilerServices.UnsafeValueTypeAttribute" preserve="all" />
     <type fullname="System.Runtime.ExceptionServices.ExceptionDispatchInfo" preserve="all" />
     <type fullname="System.Runtime.InteropServices.InAttribute" preserve="all" />
     <type fullname="System.Runtime.InteropServices.Marshal" preserve="all" />
@@ -483,6 +500,7 @@
     <type fullname="System.Text.Encoding" preserve="all" />
     <type fullname="System.Text.StringBuilder" preserve="all" />
     <type fullname="System.Text.UTF8Encoding" preserve="all" />
+    <type fullname="System.Text.UnicodeEncoding" preserve="all" />
     <type fullname="System.ThreadStaticAttribute" preserve="all" />
     <type fullname="System.Threading.CancellationToken" preserve="all" />
     <type fullname="System.Threading.Interlocked" preserve="all" />
@@ -506,6 +524,7 @@
     <type fullname="System.UInt16" preserve="all" />
     <type fullname="System.UInt32" preserve="all" />
     <type fullname="System.UInt64" preserve="all" />
+    <type fullname="System.UIntPtr" preserve="all" />
     <type fullname="System.ValueTuple`1" preserve="all" />
     <type fullname="System.ValueTuple`2" preserve="all" />
     <type fullname="System.ValueTuple`3" preserve="all" />

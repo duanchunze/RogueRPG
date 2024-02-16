@@ -8,7 +8,7 @@ namespace Hsenl {
         public GameObject GameObject { get; private set; }
 
         [MemoryPackIgnore]
-        public UnityEngine.Transform UnityTransform => this.GameObject.transform;
+        public UnityEngine.Transform UnityTransform => this.GameObject != null ? this.GameObject.transform : null;
 
         void IGameObjectReference.SetUnityReference(GameObject reference) {
             this.GameObject = reference;
@@ -95,7 +95,7 @@ namespace Hsenl {
             }
         }
 
-        internal partial void PartialOnDestroy() {
+        internal partial void PartialOnDestroyFinish() {
             if (this.GameObject != null) {
                 var go = this.GameObject;
                 go.GetComponent<IEntityReference>().SetFrameworkReference(null);

@@ -6,37 +6,48 @@ using UnityEngine;
 
 namespace Hsenl {
     public static class HybridCLRCompileEditor {
-        [MenuItem("ET/Compile And Copy Dlls")]
+        private const string _codeEntryDllDir = "Assets/Bundles/CodeEntry";
+        private const string _codeDllDir = "Assets/Bundles/CodeMain";
+        private const string _entryAssemblyName = "Entry";
+
+        private static readonly string[] _metadataDlls = {
+            "mscorlib.dll",
+            "System.dll",
+            "System.Core.dll",
+            "System.Runtime.CompilerServices.Unsafe.dll",
+        };
+
+        private const string _metadataDllDir = "Assets/Bundles/MetadataDlls";
+
+        [MenuItem("ET/Compile And Copy Dlls %e")]
         private static void ActiveBuildTargetAndCopyAotDll() {
             HybridCLR.Editor.Commands.CompileDllCommand.CompileDllActiveBuildTarget();
-            CopyAotDll();
-            CopyMetadataAotDll();
+            CopyCodeDlls();
+            CopyMetadataDlls();
         }
 
-        private static void CopyAotDll() {
+        private static void CopyCodeDlls() {
             var target = EditorUserBuildSettings.activeBuildTarget;
             string fromDir = Path.Combine(HybridCLRSettings.Instance.hotUpdateDllCompileOutputRootDir, target.ToString());
-            string codeEntryDir = "Assets/Bundles/DllEntry";
-            string codeDir = "Assets/Bundles/Dlls";
 
-            if (!Directory.Exists(codeEntryDir)) {
-                Directory.CreateDirectory(codeEntryDir);
+            if (!Directory.Exists(_codeEntryDllDir)) {
+                Directory.CreateDirectory(_codeEntryDllDir);
             }
 
-            FileHelper.CleanDirectory(codeEntryDir);
+            FileHelper.CleanDirectory(_codeEntryDllDir);
 
-            if (!Directory.Exists(codeDir)) {
-                Directory.CreateDirectory(codeDir);
+            if (!Directory.Exists(_codeDllDir)) {
+                Directory.CreateDirectory(_codeDllDir);
             }
 
-            FileHelper.CleanDirectory(codeDir);
+            FileHelper.CleanDirectory(_codeDllDir);
 
             foreach (var definition in HybridCLRSettings.Instance.hotUpdateAssemblyDefinitions) {
                 var sourceDllPath = Path.Combine(fromDir, $"{definition.name}.dll");
                 var sourcePdbPath = Path.Combine(fromDir, $"{definition.name}.pdb");
                 // 入口程序集单独放一个包
-                var destDllPath = Path.Combine(definition.name == "HsenlFramework.Entry" ? codeEntryDir : codeDir, $"{definition.name}.dll.bytes");
-                var destPdbPath = Path.Combine(definition.name == "HsenlFramework.Entry" ? codeEntryDir : codeDir, $"{definition.name}.pdb.bytes");
+                var destDllPath = Path.Combine(definition.name == _entryAssemblyName ? _codeEntryDllDir : _codeDllDir, $"{definition.name}.dll.bytes");
+                var destPdbPath = Path.Combine(definition.name == _entryAssemblyName ? _codeEntryDllDir : _codeDllDir, $"{definition.name}.pdb.bytes");
                 try {
                     File.Copy(sourceDllPath, destDllPath, true);
                 }
@@ -54,33 +65,23 @@ namespace Hsenl {
                 }
             }
 
-            Debug.Log($"CopyAotDll Finish!");
+            Debug.Log($"Copy All Dlls Finish!");
 
             AssetDatabase.Refresh();
         }
 
-        private static void CopyMetadataAotDll() {
-            // 之所以明文写在这, 因为写这里怎么都丢不了, 且这东西也不经常改
-            string[] _metadataDlls = {
-                "mscorlib.dll",
-                "System.dll",
-                "System.Core.dll",
-                "System.Runtime.CompilerServices.Unsafe.dll",
-            };
-
-            string _destDir = "Assets/Bundles/DllMetadatas";
-
-            if (Directory.Exists(_destDir)) {
-                Directory.Delete(_destDir, true);
+        private static void CopyMetadataDlls() {
+            if (Directory.Exists(_metadataDllDir)) {
+                Directory.Delete(_metadataDllDir, true);
             }
 
-            Directory.CreateDirectory(_destDir);
+            Directory.CreateDirectory(_metadataDllDir);
 
             var buildTarget = EditorUserBuildSettings.activeBuildTarget;
             var sourceDir = Path.Combine(HybridCLRSettings.Instance.strippedAOTDllOutputRootDir, buildTarget.ToString());
             foreach (var dll in _metadataDlls) {
                 var sourcePath = Path.Combine(sourceDir, dll);
-                var destPath = Path.Combine(_destDir, $"{dll}.bytes");
+                var destPath = Path.Combine(_metadataDllDir, $"{dll}.bytes");
                 try {
                     File.Copy(sourcePath, destPath, true);
                     Debug.Log($"CopyMetadataDll2Bundle Success: '{destPath}'");

@@ -20,8 +20,8 @@ namespace Hsenl {
             private string scriptName;
 
             private List<string> templatePaths = new() {
-                "Assets/Plugins/HsenlFramework/Editor/HsenlScriptsGenerator/ProcedureLineHandlerScriptsGen/ProcedureLineItemTemplate.txt",
-                "Assets/Plugins/HsenlFramework/Editor/HsenlScriptsGenerator/ProcedureLineHandlerScriptsGen/ProcedureLineItemPriorityTemplate.txt",
+                "Assets/Plugins/HsenlFramework/Editor/HsenlScriptsGeneratorEditor/ProcedureLineHandlerScriptsGen/ProcedureLineItemTemplate.txt",
+                "Assets/Plugins/HsenlFramework/Editor/HsenlScriptsGeneratorEditor/ProcedureLineHandlerScriptsGen/ProcedureLineItemPriorityTemplate.txt",
             };
 
             private List<string> fileNames = new() {

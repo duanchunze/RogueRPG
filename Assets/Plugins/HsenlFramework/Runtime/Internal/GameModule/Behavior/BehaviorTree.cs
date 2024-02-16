@@ -58,6 +58,13 @@ namespace Hsenl {
             }
         }
 
+        protected internal override void OnDestroyFinish() {
+            base.OnDestroyFinish();
+            this.blackboard = null;
+            this.entryNode = default;
+            this.currentNode = null;
+        }
+
         protected override void OnEnable() {
             this.entryNode?.OpenNode();
         }

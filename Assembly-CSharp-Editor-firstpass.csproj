@@ -47,15 +47,8 @@
     <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\SomeData.cs" />
     <Compile Include="Assets\Plugins\Demigiant\DOTweenPro\Editor\DOTweenAnimationInspector.cs" />
-    <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\OverrideGetTargetsExampleWindow.cs" />
-    <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\SomeTextureToolWindow.cs" />
-    <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\BasicOdinEditorExampleWindow.cs" />
-    <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\OdinMenuStyleExample.cs" />
-    <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\QuicklyInspectObjects.cs" />
     <Compile Include="Assets\Plugins\Demigiant\DOTweenPro\Editor\DOTweenPreviewManager.cs" />
-    <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\OdinMenuEditorWindowExample.cs" />
     <None Include="Assets\Plugins\Demigiant\DemiLib\Core\Editor\DemiEditor.xml" />
     <None Include="Assets\Plugins\Sirenix\Odin Inspector\Assets\Editor\Bootstrap License.txt" />
     <Reference Include="UnityEngine">
@@ -321,6 +314,9 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">
       <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Sirenix.Reflection.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Reflection.Editor.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
@@ -772,11 +768,17 @@
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="HybridCLR.Runtime">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\HybridCLR.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="YooAsset.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\YooAsset.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
@@ -793,6 +795,9 @@
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="YooAsset">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\YooAsset.dll</HintPath>
+    </Reference>
     <Reference Include="HybridCLR.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\HybridCLR.Editor.dll</HintPath>
     </Reference>
@@ -801,6 +806,9 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Shared.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ScriptableBuildPipeline">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
@@ -889,8 +897,8 @@
     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+    <Reference Include="Unity.ScriptableBuildPipeline.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
@@ -900,6 +908,10 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{ae674535-ea69-8437-0b07-6709c0e2746d}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="Entry.csproj">
+      <Project>{1723d1f6-c553-90dc-5409-248c4f23f9da}</Project>
+      <Name>Entry</Name>
     </ProjectReference>
     <ProjectReference Include="GameModel.csproj">
       <Project>{145b793a-a13f-7ea4-aa2d-b45c024fff0a}</Project>
@@ -917,9 +929,9 @@
       <Project>{e2f41488-584b-cd26-f7c9-3ca0efd4bf6a}</Project>
       <Name>GameHotReload</Name>
     </ProjectReference>
-    <ProjectReference Include="HsenlFramework.Entry.csproj">
-      <Project>{a89dc638-cb24-a881-3dd0-e146f146e616}</Project>
-      <Name>HsenlFramework.Entry</Name>
+    <ProjectReference Include="Launch.csproj">
+      <Project>{b2d2169f-18f8-c3b4-25df-f0d72f46c115}</Project>
+      <Name>Launch</Name>
     </ProjectReference>
     <ProjectReference Include="GameView.csproj">
       <Project>{ccb96e0d-25d9-e1a0-8659-0281650049a4}</Project>
@@ -928,10 +940,6 @@
     <ProjectReference Include="HsenlFramework.ThirdParty.csproj">
       <Project>{db8e543b-9705-1e78-eb3b-5fad97947a66}</Project>
       <Name>HsenlFramework.ThirdParty</Name>
-    </ProjectReference>
-    <ProjectReference Include="ZString.csproj">
-      <Project>{661bbad4-b06e-c43f-b357-92cfa270f486}</Project>
-      <Name>ZString</Name>
     </ProjectReference>
     <ProjectReference Include="HsenlFramework.Runtime.csproj">
       <Project>{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}</Project>

@@ -1,24 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Hsenl {
     /// <summary>
     /// <para>影子系统分为两个部分, "源"和"影子", 影子函数相当于是源函数的外部实现.
     /// 二者不能在同一程序集内, 否则不起作用.
-    /// 不支持out in, 不支持泛型函数, 支持async, 支持泛型类(仅支持一个参数)</para>
+    /// 不支持out in, 不支持泛型函数, 支持async, 支持泛型类(但仅支持class<>这种写法, 这是编译器决定的, 后续可以考虑增加使用字符串的形式指定源函数, 不过那样, 就无法通过F12快速跳转了),
+    /// 支持显式接口实现的方法, 源类和影子类都分别支持静态和非静态, 支持struct</para>
     ///
-    /// <para>用途: 主要用于热重载, 让函数与数据分离, 也可以一定程度上平替Event系统</para>
+    /// <para>用途: 主要用于热重载, 让函数与数据分离, 也可以一定程度上平替Event系统, 影子系统虽然支持分发, 但需要确保分发的影子优先级不重复, 因为影子函数相当于是源函数的外部实现,
+    /// 对于函数来说, 如果没有明确的执行顺序的话, 可能会出现未知的错误</para>
+    ///
+    /// <para>为什么选择影子系统: 最主要的原因就是直观, 便捷, 性能高. 不像使用回调那么调来调去的人都调晕了, 也不像Event系统写起来那么麻烦, 而且性能比前两者都好. 但不是说
+    /// 就完全的可以代替前两者, 比如他无法支持自定义的影子函数, 也不能给影子函数分组, 实现自定义调用方案, 这在一定程度上没有event系统灵活,
+    /// 当然, 这也主要与影子系统的设计理念有关, 他就是为了做热重载而诞生的.
+    /// </para>
     /// 
-    /// <para>使用方法: 分两个程序集, 同一个程序集内无法使用.
-    /// 在一个程序集里创建类Class1, 写方法Function1(){}, 分别给Class1, 和Function1添加[ShadowFunctionAttribute]特性, 且不做任何赋值, 如此该类和函数就被标记为了"源类和源函数".
-    /// 再在另一个程序集里创建类Class1Shadow(名字不限), 写方法Function1(方法名必须和源函数完全相同), 给Class1Shadow添加[ShadowFunctionAttribute(typeof(源类))]特性.
-    /// 如此准备工作就做好了, 在源类里, 会自动生成一个函数 -> {源函数名}Shadow的函数, 这个函数与我们的源函数参数完全一致, 我们只需要根据我们自己的需要去调用该函数, 影子函数就会被调用了.</para>
+    /// <para>使用方法: 分两个程序集, 同一个程序集内无法使用. (同一个程序集没理由使用影子系统)
+    /// 程序集1 -> class1(添加[ShadowFunctionAttribute]特性) -> Function1(添加[ShadowFunctionAttribute]特性)
+    /// 程序集2 -> class1shadow(添加[ShadowFunctionAttribute(typeof(程序集1.class1))]特性) -> Function1(添加[ShadowFunctionAttribute]特性).
+    /// 影子函数与源函数的名字, 参数的类型、顺序、数量, 以及返回值类型都必须相同
+    /// </para>
     ///
-    /// <para>影子函数的名字和参数必须和源函数相同, 但参数有点例外, 就是如果你需要在影子里获取源类的实例的话, 可以把源类作为参数, 写在第一位, 代码生成时, 会自动忽略第一位参数, 然后再比较和源函数
-    /// 的参数是否相同.</para>
+    /// <para>特殊情况: 1、影子函数第一位参数写的如果是源类, 会自动忽略第一位参数进行匹配 2、当源函数是async void这种写法的时候, 影子函数需要写成async ETTask才能正常匹配</para>
+    ///
+    /// <para>影子系统并不依赖框架本身, 所以即便是和框架无关的类也可以使用, 或者单独拷贝该系统到其他项目里, 也可以正常使用, 只需要自行进行注册就行了. 不仅该系统, 框架的许多模块都不依赖
+    /// 于Hsenl框架, 不过有些需要做点小修改.</para>
     /// </summary>
+    /*
+     * 问题: todo 用户使用[ShadowFunctionMandatoryAttribute]的情况下, 假如修改了源函数, 用户不会收到任何提示说源函数已经改变了!</para>
+     * 问题: 针对同一个源函数, 同一个域内, priority不能重复, 但不同的域之间, priority却可以重复
+     */
     public static class ShadowFunction {
-        public static void Register<T>(int hashcode, T del) where T : Delegate => ShadowFunctionManager.Instance.Register(hashcode, del);
-        public static void Unregister(int hashcode) => ShadowFunctionManager.Instance.Unregister(hashcode);
-        public static bool GetFunction(int hashcode, out Delegate dl) => ShadowFunctionManager.Instance.GetFunction(hashcode, out dl);
+        public static void Register<T>(uint hashcode, string assemblyName, int priority, T del) where T : Delegate => ShadowFunctionManager.Instance.Register(hashcode, assemblyName, priority, del);
+        public static void Unregister(uint hashcode) => ShadowFunctionManager.Instance.Unregister(hashcode);
+        public static void Unregister(uint hashcode, string source, int priority) => ShadowFunctionManager.Instance.Unregister(hashcode);
+        public static bool GetFunctions(uint hashcode, out SortedDictionary<long, Delegate> dels) => ShadowFunctionManager.Instance.GetFunctions(hashcode, out dels);
     }
 }

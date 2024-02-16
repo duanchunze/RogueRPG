@@ -41,13 +41,14 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+    <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Generator\MemoryPack.Generator.Roslyn3.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
-    <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Generator\MemoryPack.Generator.Roslyn3.dll" />
     <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\ETTask\IAwaiter.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\ETTask\ETTaskExtension.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Component\IMonoBehaviourReference.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior.TimeLine\TimeSegment.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\IBreadNode.cs" />
@@ -99,7 +100,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Numeric\INumericNode.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\BehaviorTree.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\DataStructure\BitArray.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\AssetsManifest.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Entity\IEntityReference.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\ZipHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Log\Log.cs" />
@@ -111,6 +111,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Time\TimeProxy.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\EventSystem\EventSystemManager.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\GameModule\Input\InputMaptable.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Serialize\UnityFormatters.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\VolumeSlider.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Combiner\CrossCombiner\ColliderRigidbodyCrossCombiner.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\Node.cs" />
@@ -186,7 +187,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Serialize\MemoryPackFormatter.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\EventSystem\OrderAttribute.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\ArrayHelper.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\IAssetsLoader.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\ETTask\ETTaskHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Extension.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\Blackboard\Blackboard.cs" />
@@ -199,6 +199,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\ByteHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\EventSystem\IInvoke.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\DataStructure\DictionaryComponent.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\Old\AssetsManifestOld.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\LinkExtension.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Input\InputUnit.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\DataStructure\ExtensibleBuffer.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\BufferSlider.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Control\ControlTrigger.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\Coroutine\CoroutineManager.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\OptimalAssetFinder.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Scene\Scene.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Scope\Combin\Element.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\Fsm\FsmState.cs" />
@@ -235,6 +237,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Assert\Assert.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\MemoryHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Scope\Bodied\Bodied.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\Old\IAssetsLoaderOld.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\LogToScreen.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\ChildrenChangedListener.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Coroutine\CoroutineProxy.cs" />
@@ -245,7 +248,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Control\ControlTriggerModel.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\DataStructure\MyHashTable.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\EnumHelper.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\ResourcesManager.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\ProcedureLine\ProcedureLineHandlerAttribute.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Define.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\UI\UIManager.cs" />
@@ -264,13 +266,15 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\Timer\Timer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Scope\Combin\Scope.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Log\LogProxy.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\ProcedureLine\IProcedureLineWorker.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Scope\Bodied\IBodied.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\ProcedureLine\IProcedureLineWorker.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Util\LogStopwatch.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\TaskLine\TaskLine.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\GameModule\Physic\Collider.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\Procedure\Procedure.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\ProcedureLine\ProcedureLineNode.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\Resource.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\Old\ResourcesManagerOld.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Pool\Pool.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionAttribute.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\DontDestroyOnLoad.cs" />
@@ -304,6 +308,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\NetworkHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Serialize\MongoHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Serialize\JsonHelper.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Serialize\UnityProviderInitializer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\TaskLock\TaskLockQueue.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\DataStructure\NativeBuffer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Scope\Combin\ScopeCombinFormatter.cs" />
@@ -591,6 +596,9 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">
       <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Sirenix.Reflection.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Reflection.Editor.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
@@ -1035,6 +1043,9 @@
     </Reference>
     <Reference Include="Unity.InputSystem">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="YooAsset">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\YooAsset.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>

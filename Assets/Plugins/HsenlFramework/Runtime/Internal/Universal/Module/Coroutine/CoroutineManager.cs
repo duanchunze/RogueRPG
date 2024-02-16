@@ -13,13 +13,13 @@ namespace Hsenl {
             this._manager.Update();
         }
 
-        protected override void Dispose() {
-            this._manager.Dispose();
+        protected override void OnSingleUnregister() {
+            this._manager.Destroy();
         }
 
         public int Count => this._manager.RoutineCount;
         public int Start(IEnumerator enumerator) => this._manager.Start(enumerator);
-        public int SingleStart(IEnumerator enumerator) => this._manager.SingleStart(enumerator);
+        public int GlobalSingleStart(IEnumerator enumerator) => this._manager.GlobalSingleStart(enumerator);
         public bool Stop(int key) => this._manager.Stop(key);
         public void StopAll() => this._manager.StopAll();
 
@@ -188,10 +188,9 @@ namespace Hsenl {
 
         /// <summary>
         /// 1、yield 后可以识别 IWait、IEnumerator 以及 IETTask
-        /// 2、会自动移除报错的小灶
-        /// 3、可以通过一个小灶里面直接 yield return new IEnumerator 的方式来开启一个子协程，实现小灶的嵌套
-        /// 4、协程添加时，会立即执行一次MoveNext
-        /// 5、Stop的时候，会立即执行，并触发事件，但对于协程从Manager中删除，却会延迟一帧
+        /// 2、可以通过一个小灶里面直接 yield return new IEnumerator 的方式来开启一个子协程，实现小灶的嵌套
+        /// 3、协程添加时，会立即执行一次MoveNext
+        /// 4、Stop的时候，会立即执行，并触发事件，但对于协程从Manager中删除，却会延迟一帧
         /// </summary>
         private class Manager {
             [ShowInInspector, ReadOnly, LabelText("Coroutines")]
@@ -205,13 +204,12 @@ namespace Hsenl {
             public void Update() {
                 while (this._queue1.Count > 0) {
                     var routine = this._queue1.Dequeue();
-                    Status status;
+                    var status = Status.NormalHang;
                     try {
                         status = routine.MoveNext();
                     }
                     catch (Exception e) {
                         Log.Error(e);
-                        status = Status.Accident;
                     }
 
                     if (status != Status.NormalHang) {
@@ -234,7 +232,7 @@ namespace Hsenl {
             }
 
             // 一般来说, 除了对于某些全局计时, 公共检测之类的情况, 你都没有理由需要使用单例开始
-            public int SingleStart(IEnumerator enumerator) {
+            public int GlobalSingleStart(IEnumerator enumerator) {
                 // 单例模式下，使用enumerator的字符串作为key，因为该字符串对于一个协程函数来说，始终是唯一的
                 var key = enumerator.ToString().GetHashCode();
                 if (this._kv.TryGetValue(key, out var routine)) routine.Dispose(Status.Accident);
@@ -264,7 +262,7 @@ namespace Hsenl {
                 }
             }
 
-            public void Dispose() {
+            public void Destroy() {
                 foreach (var routine in this._kv.Values) {
                     routine.Dispose(Status.Accident);
                     Routine.Recycle(routine);

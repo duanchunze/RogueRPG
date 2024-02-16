@@ -4,7 +4,7 @@ using UnityEditor;
 using Component = UnityEngine.Component;
 
 public class MonoComponentScriptsGen : HsenlScriptsGeneratorEditor {
-    private static string _templatePath = "Assets/Plugins/HsenlFramework/Editor/HsenlScriptsGenerator/MonoComponentScriptsGen/Hsenl2MonoComponentTemplate.txt";
+    private static string _templatePath = "Assets/Plugins/HsenlFramework/Editor/HsenlScriptsGeneratorEditor/MonoComponentScriptsGen/Hsenl2MonoComponentTemplate.txt";
     private static string _outputDir = "Assets/Scripts/GameView/Generate/Hsenl2MonoScripts/";
 
     [MenuItem("ET/ScriptsGenerator/清空并生成Hsenl组件的Mono版")]

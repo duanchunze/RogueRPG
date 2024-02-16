@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
+using YooAsset;
 
 namespace Hsenl {
     [Serializable]
     public class Appearance : Unbodied, IUpdate {
-        public string assetName;
+        [FormerlySerializedAs("assetName")]
+        public string modelName;
         public GameObject model;
         public int modelType = 0; // 0: 3d, 1: 2d
         private SpriteRenderer _spriteRenderer;
@@ -23,13 +26,12 @@ namespace Hsenl {
             this.Holder.SetParent(this.Entity);
         }
 
-        public GameObject LoadModel(string modelName) {
-            this.assetName = modelName;
-            ResourcesHelper.Clear();
-            ResourcesHelper.Append(Constant.AppearActorBundleRootDir);
-            ResourcesHelper.Append(this.assetName);
-            var prefab = ResourcesHelper.GetOptimalAsset<GameObject>(modelName);
-            if (prefab == null)
+        public GameObject LoadModel(string modelName_) {
+            this.modelName = modelName_;
+            var assetFinder = new OptimalAssetFinder(modelName_, "appear_actor");
+            assetFinder.Append("Actor");
+            var assetInfo = Resource.GetOptimalBundleName(assetFinder);
+            if (YooAssets.LoadAssetSync(assetInfo)?.AssetObject is not GameObject prefab)
                 return null;
 
             this.model = UnityEngine.Object.Instantiate(prefab, this.Holder.GameObject.transform, false);

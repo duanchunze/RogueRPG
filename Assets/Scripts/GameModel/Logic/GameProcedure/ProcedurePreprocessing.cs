@@ -19,7 +19,7 @@ namespace Hsenl {
             SceneManager.GetOrLoadDontDestroyScene();
             await SceneManager.LoadSceneWithUnity("GameMain", UnityEngine.SceneManagement.LoadSceneMode.Single);
 
-            manager.ChangeState<ProcedureCodeClipping>();
+            manager.ChangeState<ProcedureMainInterface>();
         }
 
         protected override void OnLeave(ProcedureManager manager, FsmState<ProcedureManager> next) { }

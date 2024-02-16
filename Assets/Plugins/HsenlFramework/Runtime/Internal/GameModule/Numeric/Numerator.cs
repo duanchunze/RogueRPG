@@ -79,6 +79,15 @@ namespace Hsenl {
             this.Recalculate();
         }
 
+        protected internal override void OnDestroyFinish() {
+            base.OnDestroyFinish();
+            this.allowAttacherExpand = false;
+            this._rawNumerics.Clear();
+            this._attachNumerics.Clear();
+            this._finalNumerics.Clear();
+            this._attaches.Clear();
+        }
+
         protected override void OnAwake() {
             if (TotalLayerNum == 0)
                 throw new Exception("numerator is not initialized");

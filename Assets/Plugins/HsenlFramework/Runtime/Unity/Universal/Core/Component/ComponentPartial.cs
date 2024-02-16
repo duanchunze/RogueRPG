@@ -19,5 +19,14 @@ namespace Hsenl {
             if (!Framework.Instance.DisplayMono) return;
             this.MonoBehaviour.enabled = enab;
         }
+
+        partial void PartialOnDestroyFinish() {
+            if (this.MonoBehaviour != null) {
+                var mono = this.MonoBehaviour;
+                mono.GetComponent<IHsenlComponentReference>().SetFrameworkReference(null);
+                this.MonoBehaviour = null;
+                UnityEngine.Object.Destroy(mono);
+            }
+        }
     }
 }

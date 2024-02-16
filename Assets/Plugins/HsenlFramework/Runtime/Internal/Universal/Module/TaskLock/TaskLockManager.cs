@@ -17,9 +17,7 @@ namespace Hsenl {
             }
         }
 
-        protected override void Dispose() {
-            base.Dispose();
-
+        protected override void OnSingleUnregister() {
             this._list.Clear();
             this._nextFrameRun.Clear();
         }

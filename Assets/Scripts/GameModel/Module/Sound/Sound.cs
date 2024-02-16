@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using YooAsset;
 
 namespace Hsenl {
     [Serializable]
@@ -40,7 +41,7 @@ namespace Hsenl {
             if (clipName == "xxx")
                 return;
 
-            var clip = ResourcesHelper.GetAsset<AudioClip>(Constant.AudioBundleName, clipName);
+            var clip = YooAssets.LoadAssetSync<AudioClip>(clipName).AssetObject as AudioClip;
             this._audioSource.clip = clip;
             this._audioSource.volume = volume;
             this._audioSource.Play();

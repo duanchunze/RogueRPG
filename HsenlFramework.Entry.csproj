@@ -45,8 +45,8 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Plugins\HsenlFramework\Entry\Entry.cs" />
-    <None Include="Assets\Plugins\HsenlFramework\Entry\HsenlFramework.Entry.asmdef" />
+    <Compile Include="Assets\Scripts\Entry\Entry.cs" />
+    <None Include="Assets\Scripts\Entry\HsenlFramework.Entry.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -748,6 +748,9 @@
     </Reference>
     <Reference Include="HybridCLR.Runtime">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\HybridCLR.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="YooAsset">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\YooAsset.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>

@@ -13,6 +13,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		"Unity.InputSystem.dll",
 		"UnityEngine.AndroidJNIModule.dll",
 		"UnityEngine.CoreModule.dll",
+		"YooAsset.dll",
 		"mscorlib.dll",
 	};
 	// }}
@@ -24,12 +25,13 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// DG.Tweening.Core.DOGetter<UnityEngine.Vector3>
 	// DG.Tweening.Core.DOSetter<UnityEngine.Vector3>
 	// Sirenix.Serialization.Serializer<object>
+	// System.Action<Cysharp.Text.Utf16FormatSegment>
+	// System.Action<Cysharp.Text.Utf8FormatSegment>
 	// System.Action<Hsenl.CasterLeaveDetails>
 	// System.Action<Hsenl.StatusFinishDetails>
 	// System.Action<MemoryPack.Internal.BufferSegment>
 	// System.Action<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Action<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Action<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Action<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Action<System.Threading.CancellationToken>
 	// System.Action<System.ValueTuple<object,object>>
@@ -160,13 +162,19 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.ArraySegment<ushort>
 	// System.Buffers.ArrayPool<byte>
 	// System.Buffers.ArrayPool<object>
+	// System.Buffers.ArrayPool<ushort>
 	// System.Buffers.ConfigurableArrayPool.Bucket<byte>
 	// System.Buffers.ConfigurableArrayPool.Bucket<object>
+	// System.Buffers.ConfigurableArrayPool.Bucket<ushort>
 	// System.Buffers.ConfigurableArrayPool<byte>
 	// System.Buffers.ConfigurableArrayPool<object>
+	// System.Buffers.ConfigurableArrayPool<ushort>
 	// System.Buffers.IBufferWriter<byte>
+	// System.Buffers.IBufferWriter<object>
+	// System.Buffers.IBufferWriter<ushort>
 	// System.Buffers.MemoryManager<byte>
 	// System.Buffers.MemoryManager<object>
+	// System.Buffers.MemoryManager<ushort>
 	// System.Buffers.ReadOnlySequence.<>c<byte>
 	// System.Buffers.ReadOnlySequence.<>c<object>
 	// System.Buffers.ReadOnlySequence.Enumerator<byte>
@@ -180,10 +188,13 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Buffers.SpanAction<ushort,System.ValueTuple<System.IntPtr,int,int,object>>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.LockedStack<byte>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.LockedStack<object>
+	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.LockedStack<ushort>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.PerCoreLockedStacks<byte>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.PerCoreLockedStacks<object>
+	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.PerCoreLockedStacks<ushort>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool<byte>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool<object>
+	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool<ushort>
 	// System.ByReference<System.DateTime>
 	// System.ByReference<System.DateTimeOffset>
 	// System.ByReference<System.Decimal>
@@ -247,10 +258,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Concurrent.ConcurrentStack.Node<object>
 	// System.Collections.Concurrent.ConcurrentStack<object>
 	// System.Collections.Concurrent.IProducerConsumerCollection<object>
+	// System.Collections.Generic.ArraySortHelper<Cysharp.Text.Utf16FormatSegment>
+	// System.Collections.Generic.ArraySortHelper<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.ArraySortHelper<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.ArraySortHelper<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ArraySortHelper<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.ArraySortHelper<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.ArraySortHelper<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.ArraySortHelper<System.Threading.CancellationToken>
 	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<object,object>>
@@ -279,13 +291,14 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ArraySortHelper<int>
 	// System.Collections.Generic.ArraySortHelper<long>
 	// System.Collections.Generic.ArraySortHelper<object>
+	// System.Collections.Generic.Comparer<Cysharp.Text.Utf16FormatSegment>
+	// System.Collections.Generic.Comparer<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.Comparer<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.Comparer<Hsenl.Num>
 	// System.Collections.Generic.Comparer<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.Comparer<System.Buffers.ReadOnlySequence<byte>>
 	// System.Collections.Generic.Comparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.Comparer<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.Comparer<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.Comparer<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.Comparer<System.IntPtr>
 	// System.Collections.Generic.Comparer<System.Threading.CancellationToken>
@@ -317,13 +330,14 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Comparer<object>
 	// System.Collections.Generic.Comparer<uint>
 	// System.Collections.Generic.Comparer<ushort>
+	// System.Collections.Generic.ComparisonComparer<Cysharp.Text.Utf16FormatSegment>
+	// System.Collections.Generic.ComparisonComparer<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.ComparisonComparer<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.ComparisonComparer<Hsenl.Num>
 	// System.Collections.Generic.ComparisonComparer<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.ComparisonComparer<System.Buffers.ReadOnlySequence<byte>>
 	// System.Collections.Generic.ComparisonComparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ComparisonComparer<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.ComparisonComparer<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.ComparisonComparer<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.ComparisonComparer<System.IntPtr>
 	// System.Collections.Generic.ComparisonComparer<System.Threading.CancellationToken>
@@ -453,6 +467,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.HashSet<object>
 	// System.Collections.Generic.HashSetEqualityComparer<int>
 	// System.Collections.Generic.HashSetEqualityComparer<object>
+	// System.Collections.Generic.ICollection<Cysharp.Text.Utf16FormatSegment>
+	// System.Collections.Generic.ICollection<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.ICollection<FixedMath.FVector2>
 	// System.Collections.Generic.ICollection<FixedMath.FVector3>
 	// System.Collections.Generic.ICollection<Hsenl.MergeSortFloatWrap<object>>
@@ -497,10 +513,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<int>
 	// System.Collections.Generic.ICollection<long>
 	// System.Collections.Generic.ICollection<object>
+	// System.Collections.Generic.IComparer<Cysharp.Text.Utf16FormatSegment>
+	// System.Collections.Generic.IComparer<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.IComparer<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.IComparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IComparer<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.IComparer<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.IComparer<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IComparer<System.Threading.CancellationToken>
 	// System.Collections.Generic.IComparer<System.ValueTuple<object,object>>
@@ -532,6 +549,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IDictionary<int,object>
 	// System.Collections.Generic.IDictionary<object,object>
 	// System.Collections.Generic.IDictionary<uint,object>
+	// System.Collections.Generic.IEnumerable<Cysharp.Text.Utf16FormatSegment>
+	// System.Collections.Generic.IEnumerable<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.IEnumerable<FixedMath.ConcaveHull2.Edge>
 	// System.Collections.Generic.IEnumerable<FixedMath.FVector2>
 	// System.Collections.Generic.IEnumerable<FixedMath.FVector3>
@@ -578,6 +597,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<long>
 	// System.Collections.Generic.IEnumerable<object>
 	// System.Collections.Generic.IEnumerable<uint>
+	// System.Collections.Generic.IEnumerator<Cysharp.Text.Utf16FormatSegment>
+	// System.Collections.Generic.IEnumerator<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.IEnumerator<FixedMath.ConcaveHull2.Edge>
 	// System.Collections.Generic.IEnumerator<FixedMath.FVector2>
 	// System.Collections.Generic.IEnumerator<FixedMath.FVector3>
@@ -633,13 +654,14 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEqualityComparer<object>
 	// System.Collections.Generic.IEqualityComparer<uint>
 	// System.Collections.Generic.IEqualityComparer<ushort>
+	// System.Collections.Generic.IList<Cysharp.Text.Utf16FormatSegment>
+	// System.Collections.Generic.IList<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.IList<FixedMath.FVector2>
 	// System.Collections.Generic.IList<FixedMath.FVector3>
 	// System.Collections.Generic.IList<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.IList<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IList<System.Threading.CancellationToken>
 	// System.Collections.Generic.IList<System.ValueTuple<object,object>>
@@ -695,10 +717,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.LinkedListNode<FixedMath.ConcaveHull2.Edge>
 	// System.Collections.Generic.LinkedListNode<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.LinkedListNode<object>
+	// System.Collections.Generic.List.Enumerator<Cysharp.Text.Utf16FormatSegment>
+	// System.Collections.Generic.List.Enumerator<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.List.Enumerator<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.List.Enumerator<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.List.Enumerator<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.List.Enumerator<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.List.Enumerator<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.List.Enumerator<System.Threading.CancellationToken>
 	// System.Collections.Generic.List.Enumerator<System.ValueTuple<object,object>>
@@ -727,10 +750,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.Enumerator<int>
 	// System.Collections.Generic.List.Enumerator<long>
 	// System.Collections.Generic.List.Enumerator<object>
+	// System.Collections.Generic.List<Cysharp.Text.Utf16FormatSegment>
+	// System.Collections.Generic.List<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.List<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.List<System.Threading.CancellationToken>
 	// System.Collections.Generic.List<System.ValueTuple<object,object>>
@@ -759,13 +783,14 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List<int>
 	// System.Collections.Generic.List<long>
 	// System.Collections.Generic.List<object>
+	// System.Collections.Generic.ObjectComparer<Cysharp.Text.Utf16FormatSegment>
+	// System.Collections.Generic.ObjectComparer<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.ObjectComparer<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.ObjectComparer<Hsenl.Num>
 	// System.Collections.Generic.ObjectComparer<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.ObjectComparer<System.Buffers.ReadOnlySequence<byte>>
 	// System.Collections.Generic.ObjectComparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ObjectComparer<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.ObjectComparer<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.ObjectComparer<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.ObjectComparer<System.IntPtr>
 	// System.Collections.Generic.ObjectComparer<System.Threading.CancellationToken>
@@ -920,10 +945,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.Collection<object>
 	// System.Collections.ObjectModel.ObservableCollection.SimpleMonitor<object>
 	// System.Collections.ObjectModel.ObservableCollection<object>
+	// System.Collections.ObjectModel.ReadOnlyCollection<Cysharp.Text.Utf16FormatSegment>
+	// System.Collections.ObjectModel.ReadOnlyCollection<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.ObjectModel.ReadOnlyCollection<MemoryPack.Internal.BufferSegment>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.ObjectModel.ReadOnlyCollection<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.Threading.CancellationToken>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<object,object>>
@@ -953,13 +979,14 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.ReadOnlyCollection<long>
 	// System.Collections.ObjectModel.ReadOnlyCollection<object>
 	// System.Collections.ObjectModel.ReadOnlyObservableCollection<object>
+	// System.Comparison<Cysharp.Text.Utf16FormatSegment>
+	// System.Comparison<Cysharp.Text.Utf8FormatSegment>
 	// System.Comparison<Hsenl.MergeSortFloatWrap<object>>
 	// System.Comparison<Hsenl.Num>
 	// System.Comparison<MemoryPack.Internal.BufferSegment>
 	// System.Comparison<System.Buffers.ReadOnlySequence<byte>>
 	// System.Comparison<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Comparison<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Comparison<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Comparison<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Comparison<System.IntPtr>
 	// System.Comparison<System.Threading.CancellationToken>
@@ -992,9 +1019,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Comparison<uint>
 	// System.Comparison<ushort>
 	// System.EventHandler<object>
-	// System.Func<System.Collections.Generic.KeyValuePair<object,int>,byte>
-	// System.Func<System.Collections.Generic.KeyValuePair<object,int>,int>
-	// System.Func<System.Collections.Generic.KeyValuePair<object,int>,object>
 	// System.Func<System.Collections.Generic.KeyValuePair<object,object>,byte>
 	// System.Func<System.Threading.Tasks.VoidTaskResult>
 	// System.Func<System.ValueTuple<ushort,object>,object>
@@ -1002,6 +1026,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Func<byte>
 	// System.Func<float,float>
 	// System.Func<float,int>
+	// System.Func<int,object,object>
 	// System.Func<int>
 	// System.Func<object,System.Threading.Tasks.VoidTaskResult>
 	// System.Func<object,byte>
@@ -1022,8 +1047,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.IEquatable<FixedMath.FVector4>
 	// System.IEquatable<FixedMath.Fixp>
 	// System.IEquatable<object>
+	// System.IEquatable<ushort>
 	// System.Lazy<object>
-	// System.Linq.Buffer<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Linq.Buffer<int>
 	// System.Linq.Buffer<object>
 	// System.Linq.Enumerable.<ConcatIterator>d__59<object>
@@ -1031,7 +1056,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.Enumerable.<PrependIterator>d__63<object>
 	// System.Linq.Enumerable.<ReverseIterator>d__79<object>
 	// System.Linq.Enumerable.<SelectManyIterator>d__17<object,object>
-	// System.Linq.Enumerable.Iterator<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Linq.Enumerable.Iterator<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Linq.Enumerable.Iterator<object>
 	// System.Linq.Enumerable.WhereArrayIterator<System.Collections.Generic.KeyValuePair<object,object>>
@@ -1040,21 +1064,17 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.Enumerable.WhereEnumerableIterator<object>
 	// System.Linq.Enumerable.WhereListIterator<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Linq.Enumerable.WhereListIterator<object>
-	// System.Linq.Enumerable.WhereSelectArrayIterator<System.Collections.Generic.KeyValuePair<object,int>,object>
-	// System.Linq.Enumerable.WhereSelectEnumerableIterator<System.Collections.Generic.KeyValuePair<object,int>,object>
-	// System.Linq.Enumerable.WhereSelectListIterator<System.Collections.Generic.KeyValuePair<object,int>,object>
-	// System.Linq.EnumerableSorter<System.Collections.Generic.KeyValuePair<object,int>,int>
-	// System.Linq.EnumerableSorter<System.Collections.Generic.KeyValuePair<object,int>>
+	// System.Linq.Enumerable.WhereSelectArrayIterator<object,object>
+	// System.Linq.Enumerable.WhereSelectEnumerableIterator<object,object>
+	// System.Linq.Enumerable.WhereSelectListIterator<object,object>
 	// System.Linq.IGrouping<object,object>
 	// System.Linq.ILookup<object,object>
-	// System.Linq.OrderedEnumerable.<GetEnumerator>d__1<System.Collections.Generic.KeyValuePair<object,int>>
-	// System.Linq.OrderedEnumerable<System.Collections.Generic.KeyValuePair<object,int>,int>
-	// System.Linq.OrderedEnumerable<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Linq.Parallel.ParallelEnumerableWrapper<uint>
 	// System.Linq.ParallelQuery<uint>
 	// System.Linq.Set<object>
 	// System.Memory<byte>
 	// System.Memory<object>
+	// System.Memory<ushort>
 	// System.Nullable<System.DateTime>
 	// System.Nullable<System.DateTimeOffset>
 	// System.Nullable<System.Decimal>
@@ -1100,10 +1120,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Nullable<uint>
 	// System.Nullable<ulong>
 	// System.Nullable<ushort>
+	// System.Predicate<Cysharp.Text.Utf16FormatSegment>
+	// System.Predicate<Cysharp.Text.Utf8FormatSegment>
 	// System.Predicate<MemoryPack.Internal.BufferSegment>
 	// System.Predicate<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Predicate<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Predicate<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Predicate<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Predicate<System.Threading.CancellationToken>
 	// System.Predicate<System.ValueTuple<object,object>>
@@ -1134,6 +1155,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Predicate<object>
 	// System.ReadOnlyMemory<byte>
 	// System.ReadOnlyMemory<object>
+	// System.ReadOnlyMemory<ushort>
 	// System.ReadOnlySpan.Enumerator<System.DateTime>
 	// System.ReadOnlySpan.Enumerator<System.DateTimeOffset>
 	// System.ReadOnlySpan.Enumerator<System.Decimal>
@@ -1472,6 +1494,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// int System.HashCode.Combine<long,byte>(long,byte)
 		// int System.HashCode.Combine<object,int>(object,int)
 		// int System.HashCode.Combine<object,object>(object,object)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.AsEnumerable<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Concat<object>(System.Collections.Generic.IEnumerable<object>,System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.ConcatIterator<object>(System.Collections.Generic.IEnumerable<object>,System.Collections.Generic.IEnumerable<object>)
 		// bool System.Linq.Enumerable.Contains<object>(System.Collections.Generic.IEnumerable<object>,object)
@@ -1481,12 +1504,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Collections.Generic.KeyValuePair<object,object> System.Linq.Enumerable.ElementAt<System.Collections.Generic.KeyValuePair<object,object>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>,int)
 		// System.Collections.Generic.KeyValuePair<object,object> System.Linq.Enumerable.First<System.Collections.Generic.KeyValuePair<object,object>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>)
 		// object System.Linq.Enumerable.FirstOrDefault<object>(System.Collections.Generic.IEnumerable<object>)
-		// System.Linq.IOrderedEnumerable<System.Collections.Generic.KeyValuePair<object,int>> System.Linq.Enumerable.OrderBy<System.Collections.Generic.KeyValuePair<object,int>,int>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,int>>,System.Func<System.Collections.Generic.KeyValuePair<object,int>,int>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Prepend<object>(System.Collections.Generic.IEnumerable<object>,object)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.PrependIterator<object>(System.Collections.Generic.IEnumerable<object>,object)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Reverse<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.ReverseIterator<object>(System.Collections.Generic.IEnumerable<object>)
-		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<System.Collections.Generic.KeyValuePair<object,int>,object>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,int>>,System.Func<System.Collections.Generic.KeyValuePair<object,int>,object>)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.SelectMany<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,System.Collections.Generic.IEnumerable<object>>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.SelectManyIterator<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,System.Collections.Generic.IEnumerable<object>>)
 		// int[] System.Linq.Enumerable.ToArray<int>(System.Collections.Generic.IEnumerable<int>)
@@ -1497,12 +1519,14 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Collections.Generic.Dictionary<ushort,object> System.Linq.Enumerable.ToDictionary<System.ValueTuple<ushort,object>,ushort,object>(System.Collections.Generic.IEnumerable<System.ValueTuple<ushort,object>>,System.Func<System.ValueTuple<ushort,object>,ushort>,System.Func<System.ValueTuple<ushort,object>,object>,System.Collections.Generic.IEqualityComparer<ushort>)
 		// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>> System.Linq.Enumerable.Where<System.Collections.Generic.KeyValuePair<object,object>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>,System.Func<System.Collections.Generic.KeyValuePair<object,object>,bool>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Where<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
-		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Iterator<System.Collections.Generic.KeyValuePair<object,int>>.Select<object>(System.Func<System.Collections.Generic.KeyValuePair<object,int>,object>)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Iterator<object>.Select<object>(System.Func<object,object>)
 		// System.Linq.ParallelQuery<uint> System.Linq.ParallelEnumerable.AsParallel<uint>(System.Collections.Generic.IEnumerable<uint>)
 		// System.Memory<byte> System.MemoryExtensions.AsMemory<byte>(byte[],int)
 		// System.Memory<byte> System.MemoryExtensions.AsMemory<byte>(byte[],int,int)
 		// System.Memory<object> System.MemoryExtensions.AsMemory<object>(System.ArraySegment<object>)
 		// System.Memory<object> System.MemoryExtensions.AsMemory<object>(object[],int,int)
+		// System.Memory<ushort> System.MemoryExtensions.AsMemory<ushort>(ushort[],int)
+		// System.Memory<ushort> System.MemoryExtensions.AsMemory<ushort>(ushort[],int,int)
 		// System.Span<System.DateTime> System.MemoryExtensions.AsSpan<System.DateTime>(System.DateTime[])
 		// System.Span<System.DateTimeOffset> System.MemoryExtensions.AsSpan<System.DateTimeOffset>(System.DateTimeOffset[])
 		// System.Span<System.Decimal> System.MemoryExtensions.AsSpan<System.Decimal>(System.Decimal[])
@@ -1551,6 +1575,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Span<uint> System.MemoryExtensions.AsSpan<uint>(uint[])
 		// System.Span<ulong> System.MemoryExtensions.AsSpan<ulong>(ulong[])
 		// System.Span<ushort> System.MemoryExtensions.AsSpan<ushort>(ushort[])
+		// System.Span<ushort> System.MemoryExtensions.AsSpan<ushort>(ushort[],int)
+		// System.Span<ushort> System.MemoryExtensions.AsSpan<ushort>(ushort[],int,int)
+		// bool System.MemoryExtensions.IsTypeComparableAsBytes<ushort>(ulong&)
+		// bool System.MemoryExtensions.StartsWith<ushort>(System.ReadOnlySpan<ushort>,System.ReadOnlySpan<ushort>)
 		// object System.Reflection.CustomAttributeExtensions.GetCustomAttribute<object>(System.Reflection.MemberInfo)
 		// object System.Reflection.CustomAttributeExtensions.GetCustomAttribute<object>(System.Reflection.MemberInfo,bool)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>>(System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter&,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>&)
@@ -1595,8 +1623,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.MonoTimer.<TimeStart>d__0>(object&,Hsenl.MonoTimer.<TimeStart>d__0&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.Pickable.<LoadCollider>d__7>(object&,Hsenl.Pickable.<LoadCollider>d__7&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.ProcedureChangeScene.<OnEnter>d__0>(object&,Hsenl.ProcedureChangeScene.<OnEnter>d__0&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.ProcedureChangeScene.<OnEnterShadow>d__2>(object&,Hsenl.ProcedureChangeScene.<OnEnterShadow>d__2&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.ProcedurePreloadAssets.<OnEnterShadow>d__2>(object&,Hsenl.ProcedurePreloadAssets.<OnEnterShadow>d__2&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.ProcedurePreprocessing.<OnEnter>d__0>(object&,Hsenl.ProcedurePreprocessing.<OnEnter>d__0&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d>(object&,Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.TpDie.<OnTimePointTrigger>d__0>(object&,Hsenl.TpDie.<OnTimePointTrigger>d__0&)
@@ -1611,9 +1637,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.MonoTimer.<TimeStart>d__0>(Hsenl.MonoTimer.<TimeStart>d__0&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.Pickable.<LoadCollider>d__7>(Hsenl.Pickable.<LoadCollider>d__7&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ProcedureChangeScene.<OnEnter>d__0>(Hsenl.ProcedureChangeScene.<OnEnter>d__0&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ProcedureChangeScene.<OnEnterShadow>d__2>(Hsenl.ProcedureChangeScene.<OnEnterShadow>d__2&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ProcedurePreloadAssets.<OnEnter>d__0>(Hsenl.ProcedurePreloadAssets.<OnEnter>d__0&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ProcedurePreloadAssets.<OnEnterShadow>d__2>(Hsenl.ProcedurePreloadAssets.<OnEnterShadow>d__2&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ProcedurePreprocessing.<OnEnter>d__0>(Hsenl.ProcedurePreprocessing.<OnEnter>d__0&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d>(Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.TpDie.<OnTimePointTrigger>d__0>(Hsenl.TpDie.<OnTimePointTrigger>d__0&)
@@ -1639,6 +1663,14 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// byte& System.Runtime.CompilerServices.Unsafe.Add<byte>(byte&,int)
 		// object& System.Runtime.CompilerServices.Unsafe.Add<object>(object&,int)
 		// object& System.Runtime.CompilerServices.Unsafe.Add<object>(object&,int)
+		// ushort& System.Runtime.CompilerServices.Unsafe.Add<ushort>(ushort&,System.IntPtr)
+		// ushort& System.Runtime.CompilerServices.Unsafe.Add<ushort>(ushort&,int)
+		// byte& System.Runtime.CompilerServices.Unsafe.AddByteOffset<byte>(byte&,System.IntPtr)
+		// ushort& System.Runtime.CompilerServices.Unsafe.AddByteOffset<ushort>(ushort&,System.IntPtr)
+		// bool System.Runtime.CompilerServices.Unsafe.AreSame<ushort>(ushort&,ushort&)
+		// System.DecimalEx.DecCalc& System.Runtime.CompilerServices.Unsafe.As<System.Decimal,System.DecimalEx.DecCalc>(System.Decimal&)
+		// System.DecimalEx.DecimalBits& System.Runtime.CompilerServices.Unsafe.As<System.Decimal,System.DecimalEx.DecimalBits>(System.Decimal&)
+		// System.GuidEx& System.Runtime.CompilerServices.Unsafe.As<System.Guid,System.GuidEx>(System.Guid&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<System.DateTime,byte>(System.DateTime&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<System.DateTimeOffset,byte>(System.DateTimeOffset&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Decimal,byte>(System.Decimal&)
@@ -1686,11 +1718,17 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// byte& System.Runtime.CompilerServices.Unsafe.As<ulong,byte>(ulong&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<ushort,byte>(ushort&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<ushort,byte>(ushort&)
+		// int& System.Runtime.CompilerServices.Unsafe.As<object,int>(object&)
 		// object& System.Runtime.CompilerServices.Unsafe.As<byte,object>(byte&)
 		// object& System.Runtime.CompilerServices.Unsafe.As<object,object>(object&)
 		// object& System.Runtime.CompilerServices.Unsafe.As<object,object>(object&)
+		// uint& System.Runtime.CompilerServices.Unsafe.As<int,uint>(int&)
+		// ulong& System.Runtime.CompilerServices.Unsafe.As<long,ulong>(long&)
 		// ushort& System.Runtime.CompilerServices.Unsafe.As<byte,ushort>(byte&)
+		// ushort& System.Runtime.CompilerServices.Unsafe.As<byte,ushort>(byte&)
+		// System.Void* System.Runtime.CompilerServices.Unsafe.AsPointer<byte>(byte&)
 		// System.Void* System.Runtime.CompilerServices.Unsafe.AsPointer<object>(object&)
+		// System.Void* System.Runtime.CompilerServices.Unsafe.AsPointer<uint>(uint&)
 		// System.DateTime& System.Runtime.CompilerServices.Unsafe.AsRef<System.DateTime>(System.DateTime&)
 		// System.DateTimeOffset& System.Runtime.CompilerServices.Unsafe.AsRef<System.DateTimeOffset>(System.DateTimeOffset&)
 		// System.Decimal& System.Runtime.CompilerServices.Unsafe.AsRef<System.Decimal>(System.Decimal&)
@@ -2030,6 +2068,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// ushort& System.Runtime.InteropServices.MemoryMarshal.GetReference<ushort>(System.ReadOnlySpan<ushort>)
 		// ushort& System.Runtime.InteropServices.MemoryMarshal.GetReference<ushort>(System.Span<ushort>)
 		// bool System.Runtime.InteropServices.MemoryMarshal.TryGetArray<byte>(System.ReadOnlyMemory<byte>,System.ArraySegment<byte>&)
+		// bool System.SpanHelpers.SequenceEqual<ushort>(ushort&,ushort&,int)
 		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<UnityEngine.Vector2>(UnityEngine.Vector2&)
 		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<float>(float&)
 		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<UnityEngine.Vector2>()
@@ -2074,6 +2113,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.IntPtr UnityEngine._AndroidJNIHelper.GetFieldID<object>(System.IntPtr,string,bool)
 		// System.IntPtr UnityEngine._AndroidJNIHelper.GetMethodID<object>(System.IntPtr,string,object[],bool)
 		// string UnityEngine._AndroidJNIHelper.GetSignature<object>(object[])
+		// YooAsset.AllAssetsHandle YooAsset.ResourcePackage.LoadAllAssetsSync<object>(string)
+		// YooAsset.AssetHandle YooAsset.ResourcePackage.LoadAssetSync<object>(string)
+		// YooAsset.AllAssetsHandle YooAsset.YooAssets.LoadAllAssetsSync<object>(string)
+		// YooAsset.AssetHandle YooAsset.YooAssets.LoadAssetSync<object>(string)
 		// string string.Create<System.ValueTuple<System.Buffers.ReadOnlySequence<byte>,long,int,object>>(int,System.ValueTuple<System.Buffers.ReadOnlySequence<byte>,long,int,object>,System.Buffers.SpanAction<System.Char,System.ValueTuple<System.Buffers.ReadOnlySequence<byte>,long,int,object>>)
 		// string string.Create<System.ValueTuple<System.IntPtr,int,int,object>>(int,System.ValueTuple<System.IntPtr,int,int,object>,System.Buffers.SpanAction<System.Char,System.ValueTuple<System.IntPtr,int,int,object>>)
 		// string string.Join<float>(string,System.Collections.Generic.IEnumerable<float>)

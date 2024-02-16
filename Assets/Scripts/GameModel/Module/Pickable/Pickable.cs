@@ -1,6 +1,7 @@
 ﻿using System;
 using Hsenl.pickable;
 using UnityEngine;
+using YooAsset;
 
 namespace Hsenl {
     // 挂载该组件可以被拾取者捡起
@@ -17,7 +18,7 @@ namespace Hsenl {
         public int count;
 
         public void LoadModel(string assetName) {
-            var prefab = ResourcesHelper.GetAsset<GameObject>(Constant.PickableModelBundleName, assetName);
+            var prefab = YooAssets.LoadAssetSync<GameObject>(assetName).AssetObject as GameObject;
             this.model = UnityEngine.Object.Instantiate(prefab, this.UnityTransform, false);
         }
 

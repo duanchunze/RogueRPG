@@ -98,6 +98,15 @@ namespace Hsenl {
             }
         }
 
+        protected internal override void OnDestroyFinish() {
+            base.OnDestroyFinish();
+            this.record = default;
+            this.entryNode = default;
+            this.currentNode = null;
+            this._recordDir = null;
+            this._recordPath = null;
+        }
+
         protected override void OnEnable() {
             this.entryNode?.OpenNode();
         }

@@ -104,6 +104,11 @@ namespace Hsenl {
                 this.elements.Add(component.ComponentIndex, unbodied);
             });
         }
+        
+        protected internal override void OnDestroyFinish() {
+            base.OnDestroyFinish();
+            this._bodied = null;
+        }
 
         internal override void OnComponentAddInternal(Component component) {
             if (component is Scope) throw new Exception($"one entity only one scope. '{this.Name}' '{component.GetType().Name}'");

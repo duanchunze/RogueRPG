@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using YooAsset;
 
 namespace Hsenl {
     public enum UILayer {
@@ -14,7 +15,6 @@ namespace Hsenl {
     [DisallowMultipleComponent]
     public class UIManager : UnityOdinSingleton<UIManager> {
         public Camera uiCamera;
-        public IAssetsLoader assetsLoader;
         private readonly Dictionary<string, IUI> _singles = new();
         private readonly Dictionary<string, Queue<IUI>> _multi = new();
 
@@ -138,11 +138,12 @@ namespace Hsenl {
         }
 
         private static UnityEngine.Object GetUIAssetSync(string uiName) {
-            return Instance.assetsLoader.GetAssetSync(null, uiName);
+            return YooAssets.LoadAssetSync(uiName)?.AssetObject;
         }
 
         private static async ETTask<UnityEngine.Object> GetUIAssetAsync(string uiName) {
-            return await Instance.assetsLoader.GetAssetAsync(null, uiName);
+            var handle = await YooAssets.LoadAssetAsync(uiName);
+            return handle.AssetObject;
         }
 
         public static bool WorldToUIPosition(RectTransform rect, Vector3 worldPos, out Vector3 uiWorldPos, Camera uiCamera = null, Camera worldCamera = null) {

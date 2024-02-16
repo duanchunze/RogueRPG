@@ -1,0 +1,229 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185f6993d5150494d98da50e26cb1c25, type: 3}
+  m_Name: AssetBundleCollectorSetting
+  m_EditorClassIdentifier: 
+  ShowPackageView: 1
+  ShowEditorAlias: 1
+  UniqueBundleName: 1
+  Packages:
+  - PackageName: EntryPackage
+    PackageDesc: "\u5165\u53E3\u5305, \u7531\u5BA2\u6237\u7AEF\u542F\u52A8\u65F6,
+      \u9996\u5148\u66F4\u65B0\u6B64\u5305"
+    EnableAddressable: 1
+    LocationToLower: 0
+    IncludeAssetGUID: 0
+    IgnoreDefaultType: 1
+    AutoCollectShaders: 1
+    Groups:
+    - GroupName: CodeGroup
+      GroupDesc: "\u4EE3\u7801\u7EC4"
+      AssetTags: code
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/CodeEntry
+        CollectorGUID: 18f1cc559d3b97049a8797dcbd885a1b
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+    - GroupName: SceneGroup
+      GroupDesc: "\u573A\u666F\u7EC4"
+      AssetTags: scene
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Scenes/Entry
+        CollectorGUID: 429d3ef3991f1bc4fb82b5314df978f7
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectScene
+        AssetTags: 
+        UserData: 
+  - PackageName: MainPackage
+    PackageDesc: "\u6E38\u620F\u4E3B\u4F53\u5305, \u5305\u542B\u6240\u6709\u70ED\u66F4\u5185\u5BB9"
+    EnableAddressable: 1
+    LocationToLower: 0
+    IncludeAssetGUID: 0
+    IgnoreDefaultType: 1
+    AutoCollectShaders: 1
+    Groups:
+    - GroupName: CodeGroup
+      GroupDesc: "\u4EE3\u7801\u7EC4"
+      AssetTags: code
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/CodeMain
+        CollectorGUID: 12ec0729c71fd4146b31cf9a54f0b682
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+    - GroupName: SceneGroup
+      GroupDesc: "\u573A\u666F\u7EC4"
+      AssetTags: scene
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Scenes/Main
+        CollectorGUID: efe48fbdc2047284bad3dee8efaf502e
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackSeparately
+        FilterRuleName: CollectScene
+        AssetTags: 
+        UserData: 
+      - CollectPath: Assets/Scenes/Main
+        CollectorGUID: efe48fbdc2047284bad3dee8efaf502e
+        CollectorType: 0
+        AddressRuleName: AddressByFolderAndFileName
+        PackRuleName: PackSeparately
+        FilterRuleName: AssetFilterRule
+        AssetTags: 
+        UserData: 
+    - GroupName: ConfigGroup
+      GroupDesc: "\u914D\u7F6E\u7EC4"
+      AssetTags: config
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/Config
+        CollectorGUID: c349d01e3c295de4a98eea54ddd78f21
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+    - GroupName: UIGroup
+      GroupDesc: "UI\u7EC4"
+      AssetTags: ui
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/UI
+        CollectorGUID: 9c7066a29804a8a498a51c72524e1032
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+    - GroupName: ColliderCroup
+      GroupDesc: "\u78B0\u649E\u5668\u7EC4"
+      AssetTags: collider
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/Collider
+        CollectorGUID: 4ed6f76843fcea247beb282ef4fbea64
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+    - GroupName: AppearGroup
+      GroupDesc: "\u5916\u89C2\u7EC4(\u4E0D\u4EC5\u662F\u4EBA\u7269\u5916\u89C2,
+        \u5305\u62EC\u6280\u80FD\u5916\u89C2, \u7279\u6548\u5916\u89C2, \u53EA\u8981\u662F\u80FD\u7ED9\u73A9\u5BB6\u770B\u7684\u90FD\u5C5E\u4E8E\u5916\u89C2)"
+      AssetTags: appear
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/Appear/Actor
+        CollectorGUID: 8176ac50f74b9a644a040f04d1da98b9
+        CollectorType: 0
+        AddressRuleName: AddressByFolderAndFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: appear_actor
+        UserData: 
+      - CollectPath: Assets/Bundles/Appear/Bolt
+        CollectorGUID: 192cddb2bfec6d149a5c00d462b7f043
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: appear_bolt
+        UserData: 
+    - GroupName: AnimaGroup
+      GroupDesc: "\u52A8\u4F5C\u7EC4"
+      AssetTags: anima
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/AnimClip
+        CollectorGUID: c811fc78f0178724783635de3deb2739
+        CollectorType: 0
+        AddressRuleName: AddressByFolderAndFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: animaclip
+        UserData: 
+      - CollectPath: Assets/Bundles/AnimController
+        CollectorGUID: 1ce9e0528d1be2942b3088902ef608ad
+        CollectorType: 0
+        AddressRuleName: AddressByFolderAndFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: animacontroller
+        UserData: 
+    - GroupName: WarningBoardGroup
+      GroupDesc: "\u8B66\u544A\u6807\u7EC4"
+      AssetTags: warningboard
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/WarningBoard
+        CollectorGUID: 1e2b8a342bf4b76419d39951f2e40ae3
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+    - GroupName: FxGroup
+      GroupDesc: "\u7279\u6548\u7EC4"
+      AssetTags: fx
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/Fx
+        CollectorGUID: 0df2f37860185da48abe6c0d13cae3e4
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+    - GroupName: AudioGroup
+      GroupDesc: "\u97F3\u6548\u7EC4"
+      AssetTags: audio
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/Audio
+        CollectorGUID: cd26d87542400b34ea7b2a834162a03c
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+    - GroupName: PickableGroup
+      GroupDesc: "\u62FE\u53D6\u7269\u7EC4"
+      AssetTags: pickable
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/Pickable
+        CollectorGUID: 090351a39942ea54b8b5b78be9c49b47
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 

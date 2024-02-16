@@ -1,97 +1,0 @@
-
-\
-'assets/bundles/appear/abi/bolt_dibozhan1
- appear/abi/bolt_dibozhan.unity3dbolt_dibozhan
-b
-)assets/bundles/appear/abi/bolt_gw_kuaishe5
-"appear/abi/bolt_gw_kuaishe.unity3dbolt_gw_kuaishe
-Y
-&assets/bundles/appear/abi/bolt_yuebiao/
-appear/abi/bolt_yuebiao.unity3dbolt_yuebiao
-E
- assets/bundles/appear/actor/anna!
-appear/actor/anna.unity3danna
-Z
-'assets/bundles/appear/actor/blademaster/
- appear/actor/blademaster.unity3dblademaster
-Q
-$assets/bundles/appear/actor/huntsman)
-appear/actor/huntsman.unity3dhuntsman
-T
-%assets/bundles/appear/actor/kulou_gjs+
-appear/actor/kulou_gjs.unity3d	kulou_gjs
-Q
-$assets/bundles/appear/actor/kulou_qs)
-appear/actor/kulou_qs.unity3dkulou_qs
-Q
-$assets/bundles/appear/actor/kulou_zs)
-appear/actor/kulou_zs.unity3dkulou_zs
-E
- assets/bundles/appear/actor/mage!
-appear/actor/mage.unity3dmage
-`
-)assets/bundles/appear/actor/moonpriestess3
-"appear/actor/moonpriestess.unity3dmoonpriestess
-N
-#assets/bundles/appear/actor/warrior'
-appear/actor/warrior.unity3dwarrior
-F
-#assets/bundles/input/joystickcommon
-input.unity3dJoystickCommon
-B
-!assets/bundles/input/keybordmouse
-input.unity3dKeybordMouse
-@
- assets/bundles/ui/uicardbackpack
-
-ui.unity3dUICardBackpack
-6
-assets/bundles/ui/uicardbar
-
-ui.unity3d	UICardBar
-:
-assets/bundles/ui/uicardstore
-
-ui.unity3dUICardStore
-B
-!assets/bundles/ui/uifollowmessage
-
-ui.unity3dUIFollowMessage
-F
-#assets/bundles/ui/uiheadfollow_hero
-
-ui.unity3dUIHeadFollow_Hero
-L
-&assets/bundles/ui/uiheadfollow_monster"
-
-ui.unity3dUIHeadFollow_Monster
->
-assets/bundles/ui/uijumpmessage
-
-ui.unity3dUIJumpMessage
-B
-!assets/bundles/ui/uimaininterface
-
-ui.unity3dUIMainInterface
-@
- assets/bundles/ui/uisceneloading
-
-ui.unity3dUISceneLoading
-<
-assets/bundles/ui/uiselecthero
-
-ui.unity3dUISelectHero
-8
-assets/bundles/ui/uishopping
-
-ui.unity3d
-UIShopping
-;
-!assets/scenes/dynamicscenes/entry
-entry.unity3dEntry
-D
-$assets/scenes/dynamicscenes/gamemain
-gamemain.unity3dGameMain
-8
- assets/scenes/dynamicscenes/test
-test.unity3dTest

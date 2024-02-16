@@ -3,7 +3,7 @@
     public partial class ProcedureChangeScene : AProcedureState<(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode)> {
         [ShadowFunction]
         protected override async void OnEnter(ProcedureManager manager, FsmState<ProcedureManager> prev) {
-            this.OnEnterShadow(manager, prev);
+            this.OnEnterShadow(manager, prev).Coroutine();
             await SceneManager.LoadSceneWithUnity(this.data.sceneName, this.data.loadSceneMode);
         }
 

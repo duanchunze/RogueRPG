@@ -114,8 +114,8 @@ namespace Hsenl {
 #endif
         partial class Bitlist : IEnumerable<int>, IReadOnlyBitlist, IEquatable<Bitlist> {
         public const int DefaultLength = 64;
-        public const int SizeOfElement = 8; // bits数组里存的元素, 每个元素占几个字节大小
-        public const int NumOfBits = 64; // bits数组里存的元素, 是多少位数的
+        public const int SizeOfElement = 8; // masks数组里存的元素, 每个元素占几个字节大小
+        public const int NumOfBits = 64; // masks数组里存的元素, 是多少位数的
 
         public const ulong One = 1L;
 
@@ -127,7 +127,7 @@ namespace Hsenl {
 
         [System.NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackInclude]
-        protected ulong[] bits;
+        protected ulong[] masks;
 
         [MemoryPackInclude]
         protected int capacity;
@@ -140,7 +140,7 @@ namespace Hsenl {
         public int BucketLength => this.bucketLength;
 #else
         [MemoryPackIgnore]
-        public int BucketLength => this.bits.Length;
+        public int BucketLength => this.masks.Length;
 #endif
 
         [MemoryPackIgnore]
@@ -181,7 +181,7 @@ namespace Hsenl {
             if (capacity <= 0) throw new ArgumentOutOfRangeException(capacity.ToString());
             this.capacity = capacity;
             capacity--;
-            this.bits = new ulong[capacity / NumOfBits + 1];
+            this.masks = new ulong[capacity / NumOfBits + 1];
         }
 #endif
 
@@ -230,16 +230,16 @@ namespace Hsenl {
 #else
         internal ulong this[int bucketIndex] {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => this.bits[bucketIndex];
+            get => this.masks[bucketIndex];
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            set => this.bits[bucketIndex] = value;
+            set => this.masks[bucketIndex] = value;
         }
 
         ulong IReadOnlyBitlist.this[int bucketIndex] {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => this.bits[bucketIndex];
+            get => this.masks[bucketIndex];
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            set => this.bits[bucketIndex] = value;
+            set => this.masks[bucketIndex] = value;
         }
 #endif
 
@@ -275,7 +275,7 @@ namespace Hsenl {
 #else
         public void Set(Bitlist other) {
             this.Resize(other.BucketLength, false);
-            Array.Copy(other.bits, this.bits, other.bits.Length);
+            Array.Copy(other.masks, this.masks, other.masks.Length);
         }
 #endif
 
@@ -481,8 +481,8 @@ namespace Hsenl {
 
             var newBits = new ulong[bucketLen];
             var copylen = bucketLen > this.BucketLength ? this.BucketLength : bucketLen;
-            Array.Copy(this.bits, newBits, copylen);
-            this.bits = newBits;
+            Array.Copy(this.masks, newBits, copylen);
+            this.masks = newBits;
         }
 #endif
 
@@ -502,7 +502,7 @@ namespace Hsenl {
         }
 #else
         public void ClearThorough() {
-            this.bits = Array.Empty<ulong>();
+            this.masks = Array.Empty<ulong>();
         }
 #endif
 
@@ -560,8 +560,8 @@ namespace Hsenl {
                 var hash = 17;
                 hash = hash * 23 + this.capacity.GetHashCode();
                 hash = hash * 23 + this.BucketLength.GetHashCode();
-                if (this.bits != null) {
-                    foreach (var item in this.bits) {
+                if (this.masks != null) {
+                    foreach (var item in this.masks) {
                         hash = hash * 23 + item.GetHashCode();
                     }
                 }
