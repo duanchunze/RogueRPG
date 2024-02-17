@@ -47,26 +47,11 @@
     <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Demo\Scripts\VFX Library\ParticleEffectsLibrary.cs" />
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Scripts\ETFXPitchRandomizer.cs" />
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Demo\Scripts\ETFXProjectileScript.cs" />
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Demo\Scripts\ETFXSceneManager.cs" />
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Demo\Scripts\VFX Library\UICanvasManager.cs" />
     <Compile Include="Assets\Scripts\Test\OdinTester.cs" />
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Scripts\ETFXLightFade.cs" />
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Demo\Scripts\ETFXButtonScript.cs" />
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Demo\Scripts\ETFXFireProjectile.cs" />
     <Compile Include="Assets\Scripts\Test\Tester.cs" />
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Demo\Scripts\ETFXLoopScript.cs" />
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Demo\Scripts\ETFXMouseOrbit.cs" />
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Scripts\ETFXRotation.cs" />
     <Compile Include="Assets\Scripts\HybridCLRGenerate\AOTGenericReferences.cs" />
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Demo\Scripts\ETFXTarget.cs" />
-    <Compile Include="Assets\ArtThridParty\Epic Toon FX\Demo\Scripts\VFX Library\PEButtonScript.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
-    <None Include="Assets\ArtThridParty\Epic Toon FX\Prefabs\Environment\Environment FX.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\ArtThridParty\Epic Toon FX\Prefabs\Combat\Combat FX.txt" />
     <None Include="Assets\Bundles\Config\LubanConfig\pickable_tbpickableconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Bundles\Config\LubanConfig\numeric_tbnumericactorconfig.json" />
@@ -81,7 +66,6 @@
     <None Include="Assets\Bundles\Config\LubanConfig\checkpoint_tbcheckpointconfig.json" />
     <None Include="Assets\Bundles\Config\LubanConfig\ability_tbabilityconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
-    <None Include="Assets\ArtThridParty\Epic Toon FX\Prefabs\Interactive\Interactive FX.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\Bundles\Config\LubanConfig\ability_upgrade_tbabilityupgradeconfig.json" />
