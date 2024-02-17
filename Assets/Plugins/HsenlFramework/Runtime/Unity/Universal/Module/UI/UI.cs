@@ -57,16 +57,10 @@ namespace Hsenl {
             this.OnClose();
         }
 
-        protected virtual void OnCreate() {
-            // UIEvent<T>.InternalOnCreate(this);
-        }
+        protected virtual void OnCreate() { }
 
-        protected virtual void OnOpen() {
-            // UIEvent<T>.InternalOnOpen(this);
-        }
+        protected virtual void OnOpen() { }
 
-        protected virtual void OnClose() {
-            // UIEvent<T>.InternalOnClose(this);
-        }
+        protected virtual void OnClose() { }
     }
 }

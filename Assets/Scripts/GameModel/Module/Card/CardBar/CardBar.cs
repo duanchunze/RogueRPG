@@ -5,7 +5,7 @@ using Hsenl.EventType;
 namespace Hsenl {
     [Serializable]
     public class CardBar : CardResidence<CardBarSlot> {
-        protected override void OnAwake() {
+        protected override void OnStart() {
             Object.DestroyChildren(this.Entity);
 
             var orig = (int)ControlCode.Ability1;

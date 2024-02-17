@@ -9,9 +9,11 @@ using Sirenix.OdinInspector;
 namespace Hsenl {
     // 事件执行顺序
     //   添加一个组件时的执行顺序
-    //     构造函数 -> initializeInvoke -> OnComponentAdd -> Awake -> Enable -> AheadUpdate -> Update -> LateUpdate -> Disable -> Destroy -> OnComponentRemove
+    //     构造函数 -> initializeInvoke -> Awake -> OnComponentAdd -> Start -> Enable -> AheadUpdate -> Update -> LateUpdate -> Disable -> Destroy -> OnComponentRemove
     //   设置父级时的执行顺序
-    //     BeforeParentChange -> OnParentChanged -> OnChildAdd -> OnChildRmove -> OnDomainChange
+    //     BeforeParentChange -> OnParentChanged -> OnChildAdd -> OnChildRmove -> OnSceneChange
+    //   序列化时的顺序
+    //     OnDeserialized -> Awake -> Enable -> OnDeserializedOverall
     [Serializable]
     [MemoryPackable()]
     public sealed partial class Entity : Object {
@@ -400,7 +402,7 @@ namespace Hsenl {
 
                     component.InternalOnDeserialized();
 
-                    component.InternalOnConstruction();
+                    component.InternalOnAwake();
 
                     this.PartialOnComponentAdd(component);
                     // 这里向后顺位触发OnComponentAdd事件, 因为不能a触发b的同时, b也同时触发a, 这不符合逻辑
@@ -573,7 +575,7 @@ namespace Hsenl {
 
             this.InternalAddComponent(cacher.originalIndex, component);
 
-            component.InternalOnConstruction();
+            component.InternalOnAwake();
 
             this.PartialOnComponentAdd(component);
             this.OnComponentAddInternal(component);
@@ -616,7 +618,7 @@ namespace Hsenl {
 
             this.InternalAddComponent(cacher.originalIndex, component);
 
-            component.InternalOnConstruction();
+            component.InternalOnAwake();
 
             this.PartialOnComponentAdd(component);
             this.OnComponentAddInternal(component);
@@ -651,7 +653,7 @@ namespace Hsenl {
 
             this.InternalAddComponent(cacher.originalIndex, component);
 
-            component.InternalOnConstruction();
+            component.InternalOnAwake();
 
             this.PartialOnComponentAdd(component);
             this.OnComponentAddInternal(component);
@@ -719,6 +721,7 @@ namespace Hsenl {
             return this.componentTypeCacher.ContainsAll(typeCacher);
         }
 
+        // declaredOnly为true代表不判断自己的多态, 只判断自己的类型
         public T GetComponent<T>(bool declaredOnly = false) where T : class {
             if (!_typeLookupTable.TryGetValue(typeof(T).GetHashCode(), out var cacher))
                 throw new Exception($"component type is not register '{typeof(T).Name}'");

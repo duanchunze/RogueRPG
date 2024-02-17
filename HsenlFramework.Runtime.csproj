@@ -182,7 +182,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Pool\PoolManager.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Singleton\SingletonListening.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\Leaf\ActionNode.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\UI\UIEvent.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\GameModule\Physic\Collider\CapsuleCollider.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Serialize\MemoryPackFormatter.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\EventSystem\OrderAttribute.cs" />
@@ -294,7 +293,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\Time\TimeInfoManager.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Priority\IPriorityState.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior.TimeLine.StageLine\FinishStageAction.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\UI\UIEventAttribute.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Scope\Combin\CombinerType.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionManager.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\ETTask\IETTask.cs" />

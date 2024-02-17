@@ -20,7 +20,7 @@ namespace Hsenl {
             set => this._boxCollider.size = value;
         }
 
-        protected override void OnConstruction() {
+        protected override void OnAwake() {
             if (this._boxCollider == null) {
                 this._boxCollider = this.GetOrCreateUnityCollider<UnityEngine.BoxCollider>();
             }

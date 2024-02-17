@@ -72,7 +72,7 @@ namespace Hsenl {
             }
         }
 
-        protected override void OnConstruction() {
+        protected override void OnAwake() {
             this._navMeshAgent = this.GetMonoComponent<UnityEngine.AI.NavMeshAgent>();
             if (this._navMeshAgent == null) {
                 this._navMeshAgent = this.Entity.GameObject.AddComponent<UnityEngine.AI.NavMeshAgent>();

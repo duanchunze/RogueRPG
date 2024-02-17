@@ -22,7 +22,7 @@ namespace Hsenl {
             }
         }
 
-        protected override void OnConstruction() {
+        protected override void OnAwake() {
             this._audioSource = this.GetMonoComponent<UnityEngine.AudioSource>();
             if (this._audioSource == null) {
                 this._audioSource = this.Entity.GameObject.AddComponent<UnityEngine.AudioSource>();

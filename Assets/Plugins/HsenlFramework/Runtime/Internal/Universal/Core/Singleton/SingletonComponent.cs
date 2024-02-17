@@ -25,7 +25,7 @@ namespace Hsenl {
             t.OnSingleUnregister();
         }
 
-        internal override void OnAwakeInternal() {
+        internal override void OnStartInternal() {
             if (!SingletonManager.IsDisposed<T>()) {
                 SingletonManager.Unregister<T>();
             }

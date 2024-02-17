@@ -73,16 +73,16 @@ namespace Hsenl {
         /// </summary>
         public bool ActingOnEnd { get; private set; }
 
-        public Action Do { get; private set; }
+        public Action Action { get; private set; }
 
-        public WhenBreak(Action @do, bool actingOnEnd = true) {
-            this.Do = @do;
+        public WhenBreak(Action action, bool actingOnEnd = true) {
+            this.Action = action;
             this.ActingOnEnd = actingOnEnd;
         }
 
         public void Dispose() {
             this.ActingOnEnd = false;
-            this.Do = null;
+            this.Action = null;
         }
     }
 }

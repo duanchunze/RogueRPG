@@ -88,7 +88,7 @@ namespace Hsenl {
             this._attaches.Clear();
         }
 
-        protected override void OnAwake() {
+        protected override void OnStart() {
             if (TotalLayerNum == 0)
                 throw new Exception("numerator is not initialized");
         }

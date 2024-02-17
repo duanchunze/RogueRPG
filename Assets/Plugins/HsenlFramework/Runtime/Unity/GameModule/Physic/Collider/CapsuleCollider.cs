@@ -25,7 +25,7 @@ namespace Hsenl {
             set => this._capsuleCollider.height = value;
         }
 
-        protected override void OnConstruction() {
+        protected override void OnAwake() {
             if (this._capsuleCollider == null) {
                 this._capsuleCollider = this.GetOrCreateUnityCollider<UnityEngine.CapsuleCollider>();
             }

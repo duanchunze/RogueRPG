@@ -21,10 +21,7 @@ namespace Hsenl {
         internal Entity entity;
 
         [MemoryPackIgnore]
-        private bool _awake;
-
-        [MemoryPackIgnore]
-        protected bool IsAwake => this._awake;
+        private bool _start;
 
         [MemoryPackOrder(1)]
         [MemoryPackInclude]
@@ -78,7 +75,7 @@ namespace Hsenl {
 
                 if (this.Entity.RealActive) {
                     if (this.enable) {
-                        this.InternalOnAwake();
+                        this.InternalOnStart();
                         this.OnEnable();
                     }
                     else {
@@ -150,25 +147,7 @@ namespace Hsenl {
             }
         }
 
-        internal void InternalOnConstruction() {
-            try {
-                this.OnConstructionInternal();
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
-
-            try {
-                this.OnConstruction();
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
-        }
-
-        private void InternalOnAwake() {
-            if (this._awake) return;
-            this._awake = true;
+        internal void InternalOnAwake() {
             try {
                 this.OnAwakeInternal();
             }
@@ -184,10 +163,28 @@ namespace Hsenl {
             }
         }
 
+        private void InternalOnStart() {
+            if (this._start) return;
+            this._start = true;
+            try {
+                this.OnStartInternal();
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
+
+            try {
+                this.OnStart();
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
+        }
+
         internal void InternalOnEnable() {
             if (!this.enable) return;
             try {
-                this.InternalOnAwake();
+                this.InternalOnStart();
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -212,7 +209,7 @@ namespace Hsenl {
         }
 
         internal void InternalOnDestroy() {
-            this._awake = false;
+            this._start = false;
             try {
                 this.OnDestroyInternal();
             }
@@ -228,6 +225,7 @@ namespace Hsenl {
             }
         }
 
+        // 其他事件都是有系统调用的, 唯独这个是用户自己调用的
         public void Reset() {
             try {
                 this.OnReset();
@@ -352,21 +350,6 @@ namespace Hsenl {
         }
 
         // 之所以每个函数都增加了一个Internal版本, 主要因为框架内部有时也需要用到这些函数, 但如此以来, 在框架外部实现该函数就必须要附带base.Function()的调用, 就会很乱
-        // OnDeserialized
-        // OnDeserializedOverall
-        // OnConstruction
-        // OnAwake
-        // OnEnable
-        // OnDisable
-        // OnDestroy
-        // OnBeforeParentChange
-        // OnParentChanged
-        // OnComponentAdd
-        // OnComponentRemove
-        // OnChildAdd
-        // OnChildRemove
-        // OnAppQuit
-        // OnSceneChanged
 
         internal virtual void OnDeserializedInternal() { }
         
@@ -378,16 +361,16 @@ namespace Hsenl {
         // 跟上面唯一的区别就是, 所有该触发的事件都触发了.
         protected virtual void OnDeserializedOverall() { }
 
-        internal virtual void OnConstructionInternal() { }
+        internal virtual void OnAwakeInternal() { }
 
         // 可以理解为当构造时, 但肯定没有构造函数早. 在Awake前一步执行, 且不受Enable == false影响. 因为添加组件的时候可以选择Enable为false, 所以增加了这个一个函数, 
         // 可以简单的把他当做一个不受Enable影响的Awake使用
-        protected virtual void OnConstruction() { }
+        protected virtual void OnAwake() { }
 
-        internal virtual void OnAwakeInternal() { }
+        internal virtual void OnStartInternal() { }
 
         // 常用于初始化系统方面的数据
-        protected virtual void OnAwake() { }
+        protected virtual void OnStart() { }
 
         // 常用于初始化游戏逻辑方面的数据 (比如添加Control的监听事件)
         protected virtual void OnEnable() { }

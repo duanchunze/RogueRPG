@@ -124,7 +124,7 @@ namespace Hsenl {
             });
         }
 
-        internal override void OnConstructionInternal() {
+        internal override void OnAwakeInternal() {
             // 创建的第一时间进行multi匹配, 因为这种组合不依赖父子关系
             MultiCombinMatch(this, null);
 

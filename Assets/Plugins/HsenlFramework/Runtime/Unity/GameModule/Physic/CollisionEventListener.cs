@@ -7,7 +7,7 @@
             this.InitListener(this._unityPhysicsListener);
         }
 
-        protected override void OnConstruction() {
+        protected override void OnAwake() {
             this._unityPhysicsListener = UnityPhysicsListener.Get(this.Entity.GameObject);
             this.InitListener(this._unityPhysicsListener);
         }

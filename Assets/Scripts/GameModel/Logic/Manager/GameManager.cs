@@ -28,7 +28,7 @@ namespace Hsenl {
 
         public int gold;
 
-        protected override void OnAwake() {
+        protected override void OnStart() {
             this.Init();
         }
 

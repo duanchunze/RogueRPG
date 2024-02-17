@@ -17,7 +17,7 @@ namespace Hsenl {
             }
         }
 
-        protected override void OnConstruction() {
+        protected override void OnAwake() {
             this._rigidbody = this.GetMonoComponent<UnityEngine.Rigidbody>();
             if (this._rigidbody == null) {
                 this._rigidbody = this.Entity.GameObject.AddComponent<UnityEngine.Rigidbody>();

@@ -43,7 +43,7 @@ namespace Hsenl {
             private WhenBreak _whenBreak;
             private IETTask _task;
 
-            private bool IsDisposed => this.Core == null;
+            private bool IsDestoryed => this.Core == null;
             private bool IsManaged => this.Manager != null;
 
             public static Routine Create(int key, IEnumerator enumerator, Manager manager, Routine custodian) {
@@ -66,9 +66,9 @@ namespace Hsenl {
 
             public Status MoveNext() {
                 // 先判断自己是否有托管人，且托管人是否安好
-                if (this.Custodian is { IsDisposed: true }) return Status.Accident;
+                if (this.Custodian is { IsDestoryed: true }) return Status.Accident;
                 // 判断自己是不是已经被销毁了
-                if (this.IsDisposed) return Status.Accident;
+                if (this.IsDestoryed) return Status.Accident;
 
                 // 挂起
                 JUMP_WAIT:
@@ -83,7 +83,7 @@ namespace Hsenl {
 
                 JUMP_CUSTODY_TARGET:
                 if (this._custodyTarget != null) {
-                    if (this._custodyTarget.IsDisposed) {
+                    if (this._custodyTarget.IsDestoryed) {
                         if (this._custodyTarget.Custodian == this) {
                             this._custodyTarget.Custodian = null;
                         }
@@ -136,7 +136,7 @@ namespace Hsenl {
 
                 // WhenBreak 的意义是，不挂起，只是保存一个回调，所以，连续执行 MoveNext
                 // 再做一次 IsDisposed 检测是因为，有可能这次 MoveNext 的过程中，把协程给关闭了
-                if (!this.IsDisposed && next && this.Core.Current is WhenBreak when) {
+                if (!this.IsDestoryed && next && this.Core.Current is WhenBreak when) {
                     if (this._whenBreak != null) throw new Exception("already yield return when break");
                     this._whenBreak = when;
                     goto JUMP_MOVE_NEXT;
@@ -145,13 +145,13 @@ namespace Hsenl {
                 return next ? Status.NormalHang : Status.NormalStop;
             }
 
-            public void Dispose(Status status) {
-                if (this.IsDisposed) return;
+            public void Stop(Status status) {
+                if (this.IsDestoryed) return;
                 // 此举保证了是子协程先关闭，父协程再关的。其实因为协程本身并不依赖结束回调，所以其实谁先关都无所谓，但因为加入了 WhenBreaks 后就不一样了，必须要确保是子协程先关闭
                 if (this._custodyTarget != null) {
                     var target = this._custodyTarget;
                     this._custodyTarget = null;
-                    target.Dispose(status);
+                    target.Stop(status);
                 }
 
                 if (this._whenBreak != null) {
@@ -172,9 +172,20 @@ namespace Hsenl {
                 this._task = null;
             }
 
+            public void Destory() {
+                this._whenBreak = null;
+                this.Core = null;
+                this.Custodian = null;
+                this.Manager = null;
+                this._wait = null;
+                this._custodyTarget = null;
+                this._whenBreak = null;
+                this._task = null;
+            }
+
             private static void InvokeWhen(WhenBreak whenBreak) {
                 try {
-                    whenBreak.Do.Invoke();
+                    whenBreak.Action.Invoke();
                 }
                 catch (Exception e) {
                     Log.Error(e);
@@ -213,7 +224,7 @@ namespace Hsenl {
                     }
 
                     if (status != Status.NormalHang) {
-                        routine.Dispose(status);
+                        routine.Stop(status);
                         this.RemoveRoutine(routine);
                         continue;
                     }
@@ -235,7 +246,7 @@ namespace Hsenl {
             public int GlobalSingleStart(IEnumerator enumerator) {
                 // 单例模式下，使用enumerator的字符串作为key，因为该字符串对于一个协程函数来说，始终是唯一的
                 var key = enumerator.ToString().GetHashCode();
-                if (this._kv.TryGetValue(key, out var routine)) routine.Dispose(Status.Accident);
+                if (this._kv.TryGetValue(key, out var routine)) routine.Stop(Status.Accident);
                 routine = Routine.Create(key, enumerator, this, null);
                 return this.AddRoutine(key, routine) ? key : 0;
             }
@@ -252,19 +263,19 @@ namespace Hsenl {
                     return false;
                 }
 
-                routine.Dispose(Status.Accident);
+                routine.Stop(Status.Accident);
                 return true;
             }
 
             public void StopAll() {
                 foreach (var routine in this._kv.Values) {
-                    routine.Dispose(Status.Accident);
+                    routine.Stop(Status.Accident);
                 }
             }
 
             public void Destroy() {
                 foreach (var routine in this._kv.Values) {
-                    routine.Dispose(Status.Accident);
+                    routine.Destory();
                     Routine.Recycle(routine);
                 }
 
@@ -278,7 +289,7 @@ namespace Hsenl {
                 try {
                     var status = routine.MoveNext();
                     if (status != Status.NormalHang) {
-                        routine.Dispose(status);
+                        routine.Stop(status);
                         return true;
                     }
 
@@ -295,8 +306,13 @@ namespace Hsenl {
 
             private bool RemoveRoutine(Routine routine) {
                 Routine.Recycle(routine);
-                if (!this._kv.TryGetValue(routine.Key, out var result)) return false;
-                if (result == routine) this._kv.Remove(routine.Key);
+                if (!this._kv.TryGetValue(routine.Key, out var result))
+                    throw new Exception($"Remove routine fail '{routine}'");
+                if (result == routine)
+                    this._kv.Remove(routine.Key);
+                else
+                    throw new Exception($"Remove routine fail '{routine}'");
+
                 return true;
             }
         }

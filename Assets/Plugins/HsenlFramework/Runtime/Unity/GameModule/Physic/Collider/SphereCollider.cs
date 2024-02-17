@@ -20,7 +20,7 @@ namespace Hsenl {
             set => this._sphereCollider.radius = value;
         }
 
-        protected override void OnConstruction() {
+        protected override void OnAwake() {
             if (this._sphereCollider == null) {
                 this._sphereCollider = this.GetOrCreateUnityCollider<UnityEngine.SphereCollider>();
             }

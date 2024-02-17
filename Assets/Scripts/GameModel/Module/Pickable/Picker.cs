@@ -19,7 +19,7 @@ namespace Hsenl {
 
         public Action<Pickable> onPickUp;
 
-        protected override void OnAwake() {
+        protected override void OnStart() {
             if (this._collider != null) {
                 Object.Destroy(this._collider.Entity);
             }
