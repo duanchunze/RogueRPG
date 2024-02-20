@@ -53,7 +53,7 @@ namespace Hsenl {
             }
         }
 
-        public async ETTask<TaskLocker> Wait(long key, int time, TaskLockManager taskLockManager) {
+        public async HTask<TaskLocker> Wait(long key, int time, TaskLockManager taskLockManager) {
             var queue = this.Get(key) ?? this.New(key);
             return await queue.Wait(time, taskLockManager);
         }

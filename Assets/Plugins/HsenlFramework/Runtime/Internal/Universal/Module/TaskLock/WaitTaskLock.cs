@@ -19,18 +19,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
+
 using System;
 
 namespace Hsenl {
     internal class WaitTaskLock {
         public static WaitTaskLock Create() {
             var waitTaskLock = new WaitTaskLock {
-                _tcs = ETTask<TaskLocker>.Create(true)
+                _tcs = HTask<TaskLocker>.Create()
             };
             return waitTaskLock;
         }
 
-        private ETTask<TaskLocker> _tcs;
+        private HTask<TaskLocker>? _tcs;
 
         public void SetResult(TaskLocker taskLock) {
             if (this._tcs == null) {
@@ -39,7 +40,7 @@ namespace Hsenl {
 
             var t = this._tcs;
             this._tcs = null;
-            t.SetResult(taskLock);
+            t.Value.SetResult(taskLock);
         }
 
         public void SetException(Exception exception) {
@@ -49,15 +50,18 @@ namespace Hsenl {
 
             var t = this._tcs;
             this._tcs = null;
-            t.SetException(exception);
+            t.Value.SetException(exception);
         }
 
         public bool IsDisposed() {
             return this._tcs == null;
         }
 
-        public async ETTask<TaskLocker> Wait() {
-            return await this._tcs;
+        public async HTask<TaskLocker> Wait() {
+            if (this._tcs == null)
+                return null;
+
+            return await this._tcs.Value;
         }
     }
 }

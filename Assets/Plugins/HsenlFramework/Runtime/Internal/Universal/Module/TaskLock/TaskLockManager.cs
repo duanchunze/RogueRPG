@@ -60,7 +60,7 @@ namespace Hsenl {
             this._nextFrameRun.Enqueue((taskLockType, key, level));
         }
 
-        public async ETTask<TaskLocker> Wait(int taskLockType, long key, int time = 60000) {
+        public async HTask<TaskLocker> Wait(int taskLockType, long key, int time = 60000) {
             var queueType = this._list[taskLockType];
             return await queueType.Wait(key, time, this);
         }

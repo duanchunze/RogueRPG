@@ -81,7 +81,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\LubanExportSetting.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\BuildEditor\BuildEditor.cs" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlFramework.Editor.asmdef" />
-    <None Include="Assets\Plugins\HsenlFramework\Editor\HybridCLR\HybridCLR打包步骤.txt" />
+    <None Include="Assets\Plugins\HsenlFramework\Editor\HybridCLR打包步骤.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\Note.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\ProcedureLineHandlerScriptsGen\ProcedureLineItemTemplate.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\ECSScriptsCreatorEditor\ScriptTemplates\EcsComponentTemplate.cs.txt" />

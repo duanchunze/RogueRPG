@@ -11,8 +11,8 @@ namespace Hsenl {
         public static void LoadBundle(string bundleName) {
         }
 
-        public static async ETTask LoadBundleAsync(string bundleName) {
-            await ETTask.CompletedTask;
+        public static async HTask LoadBundleAsync(string bundleName) {
+            await HTask.Completed;
         }
         
         public static UnityEngine.Object GetAsset(string bundleName, string assetName) {

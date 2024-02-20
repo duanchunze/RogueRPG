@@ -47,6 +47,7 @@
     <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Test\NetworkTest\NetworkTest.cs" />
     <Compile Include="Assets\Scripts\Test\OdinTester.cs" />
     <Compile Include="Assets\Scripts\Test\Tester.cs" />
     <Compile Include="Assets\Scripts\HybridCLRGenerate\AOTGenericReferences.cs" />
@@ -918,6 +919,10 @@
     <ProjectReference Include="GameHotReload.csproj">
       <Project>{e2f41488-584b-cd26-f7c9-3ca0efd4bf6a}</Project>
       <Name>GameHotReload</Name>
+    </ProjectReference>
+    <ProjectReference Include="HsenlFramework.Network.csproj">
+      <Project>{b925807c-b8dc-2552-2b49-c4b7bb5b7492}</Project>
+      <Name>HsenlFramework.Network</Name>
     </ProjectReference>
     <ProjectReference Include="Launch.csproj">
       <Project>{b2d2169f-18f8-c3b4-25df-f0d72f46c115}</Project>

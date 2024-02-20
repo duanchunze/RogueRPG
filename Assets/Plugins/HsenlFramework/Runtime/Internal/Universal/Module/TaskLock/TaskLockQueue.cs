@@ -48,7 +48,7 @@ namespace Hsenl {
             return taskLockQueue;
         }
 
-        public async ETTask<TaskLocker> Wait(int time, TaskLockManager taskLockManager) {
+        public async HTask<TaskLocker> Wait(int time, TaskLockManager taskLockManager) {
             if (this._currentTaskLock == null) {
                 this._currentTaskLock = TaskLocker.Create(this._type, this._key, 1);
                 this._currentTaskLock.taskLockManager = taskLockManager;

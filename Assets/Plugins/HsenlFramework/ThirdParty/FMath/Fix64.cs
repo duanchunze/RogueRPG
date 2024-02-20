@@ -21,6 +21,7 @@ namespace FixedMath {
         public const int LUT_SIZE = 205887; // lut参考数（因为Fix64的lut值不是算出来的，而是使用查找的方式，所以参考越多，就越准确）
 
         public static readonly decimal Precision = (decimal)new Fixp(1L);
+#if FIXED_MATH
         public static readonly Fixp MaxValue = new Fixp(9223372036854775806L);
         public static readonly Fixp MinValue = new Fixp(-9223372036854775806L);
         public static readonly Fixp One = new Fixp(4294967296L);
@@ -56,6 +57,43 @@ namespace FixedMath {
         public static readonly Fixp Log2Max = new Fixp(LOG2MAX);
         public static readonly Fixp Log2Min = new Fixp(LOG2MIN);
         public static readonly Fixp Ln2 = new Fixp(LN2);
+#else
+        public static readonly float MaxValue = float.MaxValue;
+        public static readonly float MinValue = float.MinValue;
+        public static readonly float One = 1f;
+        public static readonly float Ten = 10f;
+        public static readonly float Half = 0.5f;
+        public static readonly float Zero = 0f;
+        
+        /// <summary>
+        /// 正无穷
+        /// </summary>
+        public static readonly Fixp PositiveInfinity = new Fixp(long.MaxValue);
+
+        public static readonly Fixp NegativeInfinity = new Fixp(-9223372036854775807L);
+        public static readonly Fixp NaN = new Fixp(long.MinValue);
+        public static readonly Fixp EN1 = One / 10;
+        public static readonly Fixp EN2 = One / 100;
+        public static readonly Fixp EN3 = One / 1000;
+        public static readonly Fixp EN4 = One / 10000;
+        public static readonly Fixp EN5 = One / 100000;
+        public static readonly Fixp EN6 = One / 1000000;
+        public static readonly Fixp EN7 = One / 10000000;
+
+        public static readonly Fixp EN8 = One / 100000000;
+        public static readonly float Epsilon = float.Epsilon;
+        public static readonly Fixp Pi = new Fixp(13493037704L);
+        public static readonly Fixp PiOver2 = new Fixp(6746518852L);
+        public static readonly Fixp PiTimes2 = new Fixp(26986075409L);
+        public static readonly Fixp PiInv = (Fixp)0.3183098861837906715377675267m;
+        public static readonly Fixp PiOver2Inv = (Fixp)0.6366197723675813430755350535m;
+        public static readonly Fixp Deg2Rad = Pi / new Fixp(180); // 角度转弧度
+        public static readonly Fixp Rad2Deg = new Fixp(180) / Pi; // 弧度转角度
+        public static readonly Fixp LutInterval = 205886 / PiOver2; // 每隔多少角度有一个lut的参考
+        public static readonly Fixp Log2Max = new Fixp(LOG2MAX);
+        public static readonly Fixp Log2Min = new Fixp(LOG2MIN);
+        public static readonly Fixp Ln2 = new Fixp(LN2);
+#endif
 
         internal long serializedValue;
 

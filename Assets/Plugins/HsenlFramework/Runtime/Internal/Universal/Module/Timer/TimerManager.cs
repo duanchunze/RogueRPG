@@ -68,61 +68,33 @@ namespace Hsenl {
 
         private void InvokeAction(long id) {
             if (!this._timerActions.Remove(id, out var timerAction)) return;
-            var tcs = (ETTask)timerAction.obj;
+            var tcs = (HTask)timerAction.obj;
             tcs.SetResult();
             timerAction.Recycle();
         }
 
-        public async ETTask WaitFrame(ETCancellationToken cancellationToken = null) {
-            await this.WaitTime(1, cancellationToken);
+        public async HTask WaitFrame() {
+            await this.WaitTime(1);
         }
 
-        public async ETTask WaitTime(long time, ETCancellationToken cancellationToken = null) {
+        public async HTask WaitTime(long time) {
             if (time == 0) return;
 
             var timeNow = this.GetNow();
-            var tcs = ETTask.Create(true);
+            var tcs = HTask.Create();
             var timer = TimerAction.Create(this.GetId(), timeNow, time, tcs);
             this.AddTimeAction(timer);
-            var timerId = timer.id;
-
-            void CancelAction() {
-                if (this.RemoveAction(timerId)) {
-                    tcs.SetResult();
-                }
-            }
-
-            try {
-                cancellationToken?.Add(CancelAction);
-                await tcs;
-            }
-            finally {
-                cancellationToken?.Remove(CancelAction);
-            }
+            await tcs;
         }
 
-        public async ETTask WaitTillTime(long tillTime, ETCancellationToken cancellationToken = null) {
+        public async HTask WaitTillTime(long tillTime) {
             var timeNow = this.GetNow();
             if (timeNow >= tillTime) return;
 
-            var tcs = ETTask.Create(true);
+            var tcs = HTask.Create();
             var timer = TimerAction.Create(this.GetId(), timeNow, tillTime - timeNow, tcs);
             this.AddTimeAction(timer);
-            var timerId = timer.id;
-
-            void CancelAction() {
-                if (this.RemoveAction(timerId)) {
-                    tcs.SetResult();
-                }
-            }
-
-            try {
-                cancellationToken?.Add(CancelAction);
-                await tcs;
-            }
-            finally {
-                cancellationToken?.Remove(CancelAction);
-            }
+            await tcs;
         }
         
         [Serializable]

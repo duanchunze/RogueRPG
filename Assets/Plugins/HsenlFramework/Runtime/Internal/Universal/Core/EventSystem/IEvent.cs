@@ -27,9 +27,9 @@ namespace Hsenl {
         public Type Type => typeof(TArg);
         public EventModel EventModel => EventModel.Async;
 
-        protected abstract ETTask Handle(TArg arg);
+        protected abstract HTask Handle(TArg arg);
 
-        public async ETTask Invoke(TArg arg) {
+        public async HTask Invoke(TArg arg) {
             await this.Handle(arg);
         }
     }

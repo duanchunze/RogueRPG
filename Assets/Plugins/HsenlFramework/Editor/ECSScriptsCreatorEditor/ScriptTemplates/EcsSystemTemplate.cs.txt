@@ -9,7 +9,7 @@
 using Unity.Entities;
 using Unity.Burst;
 
-namespace ET
+namespace Hsenl
 {
     [BurstCompile]
     public partial struct #NAME#System : ISystem

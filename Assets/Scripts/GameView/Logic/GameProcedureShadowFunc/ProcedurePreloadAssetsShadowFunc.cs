@@ -7,8 +7,8 @@ namespace Hsenl.View {
     [ShadowFunction(typeof(ProcedurePreloadAssets))]
     public static partial class ProcedurePreloadAssetsShadowFunc {
         [ShadowFunction]
-        private static async ETTask OnEnter(ProcedurePreloadAssets self, ProcedureManager manager, FsmState<ProcedureManager> prev) {
-            await ETTask.CompletedTask;
+        private static async HTask OnEnter(ProcedurePreloadAssets self, ProcedureManager manager, FsmState<ProcedureManager> prev) {
+            await HTask.Completed;
 
             // 加载配置文件
             Tables.Instance = new Tables(s => {

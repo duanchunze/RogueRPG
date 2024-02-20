@@ -268,7 +268,7 @@ namespace Luban.Editor {
             this.preview_command = $"{GenUtils._DOTNET} {this._GetCommand()}";
         }
 
-        [MenuItem("ET/ConfigGenerate")]
+        [MenuItem("Hsenl/ConfigGenerate")]
         private static void ConfigGenerate() {
             var setting = Resources.Load<LubanExportSetting>("LubanExportSetting");
             setting.Gen();

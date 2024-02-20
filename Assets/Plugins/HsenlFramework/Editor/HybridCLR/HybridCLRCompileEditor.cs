@@ -19,7 +19,7 @@ namespace Hsenl {
 
         private const string _metadataDllDir = "Assets/Bundles/MetadataDlls";
 
-        [MenuItem("ET/Compile And Copy Dlls %e")]
+        [MenuItem("Hsenl/Compile And Copy Dlls %e")]
         private static void ActiveBuildTargetAndCopyAotDll() {
             HybridCLR.Editor.Commands.CompileDllCommand.CompileDllActiveBuildTarget();
             CopyCodeDlls();

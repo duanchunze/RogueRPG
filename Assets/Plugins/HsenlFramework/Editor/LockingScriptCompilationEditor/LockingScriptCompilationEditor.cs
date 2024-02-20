@@ -7,7 +7,7 @@ namespace Hsenl {
      * 目的是阻止unity的每次编译导致的浪费时间. 相比从编辑器直接关闭自动编译, 这种方式的优点是, 即便你开启了"阻止编译", 当你运行的时候, 也会强制的进行编译再运行
      */
     public static class LockingScriptCompilationEditor {
-        private const string MenuKey = "ET/锁定程序集重载/锁定";
+        private const string MenuKey = "Hsenl/锁定程序集重载/锁定";
         private const string Key = "LockReloadAssemblies";
         private static bool _lockReloadAssemblies;
         
@@ -43,7 +43,7 @@ namespace Hsenl {
             }
         }
 
-        [MenuItem("ET/锁定程序集重载/手动编译脚本 %w")]
+        [MenuItem("Hsenl/锁定程序集重载/手动编译脚本 %w")]
         private static void CompileScript() {
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
             EditorApplication.UnlockReloadAssemblies();

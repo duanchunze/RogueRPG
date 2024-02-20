@@ -12,7 +12,7 @@ namespace Hsenl {
             }
             
             SingletonManager.Register(ref this._logManager);
-            ETTask.ExceptionHandler += Log.Error;
+            HTask.ExceptionHandler += Log.Error;
         }
     }
 }

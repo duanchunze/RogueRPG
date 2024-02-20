@@ -10,7 +10,7 @@ using FLOAT = System.Single;
 namespace FixedMath {
     [StructLayout(LayoutKind.Sequential)]
     [Serializable]
-    internal struct FMatrix3x3 : IEquatable<FMatrix3x3> {
+    public struct FMatrix3x3 : IEquatable<FMatrix3x3> {
         internal static FMatrix3x3 InternalIdentity;
         public static readonly FMatrix3x3 Identity;
         public static readonly FMatrix3x3 Zero;

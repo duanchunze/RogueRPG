@@ -4,6 +4,7 @@ using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 
 namespace Cysharp.Text
 {

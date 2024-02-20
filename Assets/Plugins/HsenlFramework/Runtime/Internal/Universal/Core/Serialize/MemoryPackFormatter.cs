@@ -22,21 +22,6 @@ namespace Hsenl {
         private static void RegisterFormatter() {
             RegisterUnion<Object>();
             RegisterUnion<Component>();
-            RegisterUnion<Bodied>();
-            RegisterUnion<Unbodied>();
-
-            RegisterUnion<IBlackboard>();
-            RegisterUnion<INode>();
-            RegisterUnion<INode<BehaviorTree>>();
-            RegisterUnion<Node<BehaviorTree>>();
-
-            RegisterUnion<IStageNode>();
-            RegisterUnion<ITimeLine>();
-            RegisterUnion<ITimeNode>();
-            RegisterUnion<IProcedureLineWorker>();
-            RegisterUnion<IRecord>();
-            
-            // RegisterUnion<Collider>();
             
             foreach (var type in AssemblyHelper.GetSubTypes(typeof(MemoryPackFormatter), EventSystem.GetAssemblies())) {
                 var formatter = (MemoryPackFormatter)Activator.CreateInstance(type);
@@ -46,6 +31,8 @@ namespace Hsenl {
 
         protected abstract void Register();
         
+        // 在override里, 调用RegisterUnion()以注册formatter
+        // 会自动找到T的所有子类进行注册, 但如果是未明确定义的, 但运行过程中才会用到的泛型, 可以通过types参数, 来指定添加
         protected static void RegisterUnion<T>(params Type[] types) where T : class {
             var subTypes = AssemblyHelper.GetSubTypes(typeof(T), EventSystem.GetAssemblies());
             var unions = new List<(ushort tag, Type type)>();

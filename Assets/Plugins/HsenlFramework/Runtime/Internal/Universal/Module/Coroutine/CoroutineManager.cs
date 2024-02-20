@@ -41,7 +41,7 @@ namespace Hsenl {
             private IWait _wait;
             private Routine _custodyTarget;
             private WhenBreak _whenBreak;
-            private IETTask _task;
+            private HTask? _task;
 
             private bool IsDestoryed => this.Core == null;
             private bool IsManaged => this.Manager != null;
@@ -97,7 +97,7 @@ namespace Hsenl {
 
                 JUMP_TASK:
                 if (this._task != null) {
-                    if (this._task.IsCompleted) {
+                    if (this._task.Value.IsCompleted) {
                         this._task = null;
                         goto JUMP_MOVE_NEXT;
                     }
@@ -119,7 +119,7 @@ namespace Hsenl {
                         else
                             goto JUMP_MOVE_NEXT;
 
-                    case IETTask task:
+                    case HTask task:
                         this._task = task;
                         goto JUMP_TASK;
                 }

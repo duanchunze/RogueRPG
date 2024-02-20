@@ -11,6 +11,7 @@ using MemoryPack.Internal;
 using System.Buffers;
 using System.Diagnostics;
 using System.IO.Compression;
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
 
 namespace MemoryPack.Compression {
 

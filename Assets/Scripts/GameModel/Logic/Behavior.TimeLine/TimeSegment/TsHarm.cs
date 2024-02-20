@@ -48,7 +48,7 @@ namespace Hsenl {
         }
 
         protected virtual void OnHarm(ref PliDamageArbitramentForm damageArbitramentForm) {
-            this.procedureLine.StartLineAsync(damageArbitramentForm).Coroutine();
+            this.procedureLine.StartLineAsync(damageArbitramentForm).Tail();
         }
     }
 }

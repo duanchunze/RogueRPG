@@ -362,14 +362,14 @@ namespace Hsenl {
             this._lateUpaters.Enqueue(new LateUpdateWrap() { instanceId = update.InstanceId, update = update });
         }
 
-        public async ETTask PublishAsync<T>(T a) where T : struct {
+        public async HTask PublishAsync<T>(T a) where T : struct {
             if (!this._allEvents.TryGetValue(typeof(T), out var eventList)) {
                 return;
             }
 
             // == 0的事件, 是并行执行的, 大于或小于0的事件, 是按顺序依次执行的, 这么做的目的是为了保持并行的速度, 因为有时候我们可能并不在意执行顺序, 所以如果都统一按顺序依次执行,
             // 对于异步事件来说, 会大大影响速度
-            using var asyncEvents = ListComponent<ETTask>.Create();
+            using var asyncEvents = ListComponent<HTask>.Create();
 
             for (int i = 0, len = eventList.Count; i < len; i++) {
                 var eventInfo = eventList[i];
@@ -399,7 +399,7 @@ namespace Hsenl {
                             default: {
                                 if (asyncEvents.Count != 0) {
                                     try {
-                                        await ETTaskHelper.WaitAll(asyncEvents);
+                                        await HTask.WaitAll(asyncEvents);
                                     }
                                     catch (Exception e) {
                                         Log.Error(e);
@@ -438,7 +438,7 @@ namespace Hsenl {
                             default: {
                                 if (asyncEvents.Count != 0) {
                                     try {
-                                        await ETTaskHelper.WaitAll(asyncEvents);
+                                        await HTask.WaitAll(asyncEvents);
                                     }
                                     catch (Exception e) {
                                         Log.Error(e);
@@ -466,7 +466,7 @@ namespace Hsenl {
 
             try {
                 if (asyncEvents.Count != 0) {
-                    await ETTaskHelper.WaitAll(asyncEvents);
+                    await HTask.WaitAll(asyncEvents);
                 }
             }
             catch (Exception e) {
@@ -496,7 +496,7 @@ namespace Hsenl {
                     case EventModel.Async:
                         var asyncEvent = (AEventAsync<T>)eventInfo.iEvent;
                         try {
-                            asyncEvent.Invoke(a).Coroutine();
+                            asyncEvent.Invoke(a).Tail();
                         }
                         catch (Exception e) {
                             Log.Error(e);

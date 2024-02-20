@@ -375,9 +375,9 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\Event\Card\EventFreezeCard.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\Harm\Handler\PlhHarmRecoverEnergy.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\DamageType.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\MultiCombin\AbilityRelated\Ability_Caster_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Config\IConfigInfoInitializer.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Event\Card\EventOnAssistCardEquip.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\MultiCombin\AbilityRelated\Ability_Caster_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\HarmOfTargetedInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\MultiCombin\AbilityRelated\ControlTrigger_Caster_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\numeric\BasicValueInfo.cs" />

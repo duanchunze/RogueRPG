@@ -30,7 +30,7 @@ namespace Hsenl {
         private string _copySourceDirTemp = $"{Application.dataPath}/StreamingAssets";
         private string _copyDestDirTemp = $"{Application.dataPath}/../IL2CPPBuild/RogueRPG_Data/StreamingAssets";
 
-        [MenuItem("ET/Build Tool")]
+        [MenuItem("Hsenl/Build Tool")]
         public static void ShowWindow() {
             GetWindow<BuildEditor>();
         }

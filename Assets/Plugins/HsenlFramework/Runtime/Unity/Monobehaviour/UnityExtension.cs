@@ -5,12 +5,6 @@ using Transform = UnityEngine.Transform;
 
 namespace Hsenl {
     public static class UnityExtension {
-        public static async ETTask GetAwaiter(this AsyncOperation asyncOperation) {
-            var task = ETTask.Create(true);
-            asyncOperation.completed += _ => { task.SetResult(); };
-            await task;
-        }
-
         // 规范子物体
         public static void NormalizeChildren(this UnityEngine.Transform self, UnityEngine.Transform template, int count) {
             if (self.childCount > count) {

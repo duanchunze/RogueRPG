@@ -4,11 +4,11 @@ namespace Hsenl.CrossCombiner {
     public class AbilityBar_ProcedureLine_Combiner : CrossCombiner<AbilityBar, ProcedureLine> {
         protected override void OnCombin(AbilityBar arg1, ProcedureLine arg2) {
             arg1.onAbilityAdd += this.EnqueueAction<Action<Ability>>(abi => {
-                arg2.StartLineAsync(new PliAbilityChangedForm() { ability = abi, bar = arg1, changeType = 0 }).Coroutine();
+                arg2.StartLineAsync(new PliAbilityChangedForm() { ability = abi, bar = arg1, changeType = 0 }).Tail();
             });
 
             arg1.onAbilityRemove += this.EnqueueAction<Action<Ability>>(abi => {
-                arg2.StartLineAsync(new PliAbilityChangedForm() { ability = abi, bar = arg1, changeType = 1 }).Coroutine();
+                arg2.StartLineAsync(new PliAbilityChangedForm() { ability = abi, bar = arg1, changeType = 1 }).Tail();
             });
         }
 

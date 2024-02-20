@@ -31,7 +31,7 @@ namespace Hsenl {
         public static T GetInstance<T>(int instanceId) where T : Object => EventSystemManager.Instance.GetInstance<T>(instanceId);
         public static void RegisterUpdate(IUpdate update) => EventSystemManager.Instance.RegisterUpdate(update);
         public static void RegisterLateUpdate(ILateUpdate update) => EventSystemManager.Instance.RegisterLateUpdate(update);
-        public static async ETTask PublishAsync<T>(T a) where T : struct => await EventSystemManager.Instance.PublishAsync(a);
+        public static async HTask PublishAsync<T>(T a) where T : struct => await EventSystemManager.Instance.PublishAsync(a);
         public static void Publish<T>(T a) where T : struct => EventSystemManager.Instance.Publish(a);
         public static void Invoke<TArg>(TArg args) where TArg : struct => EventSystemManager.Instance.Invoke(args);
         public static TReturn Invoke<TArg, TReturn>(TArg args) where TArg : struct => EventSystemManager.Instance.Invoke<TArg, TReturn>(args);

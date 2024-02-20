@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Hsenl {
     public static class LockingLaunchSceneEditor {
-        private const string MenuKey = "ET/锁定启动场景";
+        private const string MenuKey = "Hsenl/锁定启动场景";
         private const string prefsKey = "lock launch scene";
         private const string LaunchScene = "Launch";
 

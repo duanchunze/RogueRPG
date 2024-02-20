@@ -6,8 +6,8 @@ namespace Hsenl {
     public partial class ProcedurePreloadAssets : AProcedureState {
         [ShadowFunction]
         protected override async void OnEnter(ProcedureManager manager, FsmState<ProcedureManager> prev) {
-            await ETTask.CompletedTask;
-            this.OnEnterShadow(manager, prev).Coroutine();
+            await HTask.Completed;
+            this.OnEnterShadow(manager, prev).Tail();
         }
 
         [ShadowFunction]

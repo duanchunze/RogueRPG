@@ -1,0 +1,8 @@
+当我们修改了代码
+    1、Hsenl/Compile and Copy.. 
+    2、Build AB包 (如果目录发生了改变, 记得重新设置ab包的 labels)
+    3、把更新的ab包, 替换到构建目录的streaming assets文件夹
+
+如果我们的热更程序集发生了改变, 比如修改了引用, 记得执行 HybridCLR/Generate/All
+如果运行时, 有关于泛型missing的报错, 看他缺的什么, 把其dll添加patch metadata list中(我们把list写在HybridCLRCompileEditor的CopyMetadataAotDll函数中了)
+如果是Build项目的话, 记得把Scene In Build列表除Launch以外的场景勾掉

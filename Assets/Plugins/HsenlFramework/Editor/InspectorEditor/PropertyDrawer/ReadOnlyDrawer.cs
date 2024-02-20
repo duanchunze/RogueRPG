@@ -1,7 +1,7 @@
 ﻿// using UnityEditor;
 // using UnityEngine;
 //
-// namespace ET {
+// namespace Hsenl {
 //     public class ReadOnlyAttribute : PropertyAttribute { }
 //
 //     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]

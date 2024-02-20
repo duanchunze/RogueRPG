@@ -36,7 +36,7 @@ namespace Hsenl {
                 var process = Process.Start(info);
 
                 if (waitExit) {
-                    WaitExitAsync(process).Coroutine();
+                    WaitExitAsync(process).Tail();
                 }
 
                 return process;
@@ -46,12 +46,12 @@ namespace Hsenl {
             }
         }
 
-        private static async ETTask WaitExitAsync(Process process) {
+        private static async HTask WaitExitAsync(Process process) {
 #if UNITY
             await process.WaitForExitAsync();
             UnityEngine.Debug.Log($"process exit, exitcode: {process.ExitCode} {process.StandardOutput.ReadToEnd()} {process.StandardError.ReadToEnd()}");
 #else
-            await ETTask.CompletedTask;
+            await HTask.Completed;
             throw new Exception("only use in unity");
 #endif
         }

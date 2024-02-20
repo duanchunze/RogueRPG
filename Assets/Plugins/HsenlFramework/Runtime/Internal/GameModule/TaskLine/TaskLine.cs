@@ -67,7 +67,7 @@ namespace Hsenl {
         /// <param name="clearOutdated">清除过时的wait，例如 1 2 3 4 5，每次调用1，都会把 2 3 4 5中的tcs给清理掉</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public async ETTask<ITaskLineWaiter> Wait<T>(int position, bool cover = true, bool includeSelf = true, bool clearOutdated = false)
+        public async HTask<ITaskLineWaiter> Wait<T>(int position, bool cover = true, bool includeSelf = true, bool clearOutdated = false)
             where T : ITaskLineType {
             var type = typeof(T);
 
@@ -129,7 +129,7 @@ namespace Hsenl {
                     logicBox.waitBoxStatus = WaitBoxStatus.Waiting;
                 }
 
-                var tcs = ETTask.Create(true);
+                var tcs = HTask.Create();
                 logicBox.Tcss.Enqueue(tcs);
                 if (logicBox.Tcss.Count > 9) Log.Warning("logic wait too many times, check whether it is normal"); // 可根据实际使用过程中调整警告阈值
 
@@ -247,9 +247,9 @@ namespace Hsenl {
         private class WaitBox : IDisposable {
             public WaitBoxStatus waitBoxStatus;
             public bool waitSelf;
-            private Queue<ETTask> _tcss;
+            private Queue<HTask> _tcss;
 
-            public Queue<ETTask> Tcss => this._tcss ??= new Queue<ETTask>();
+            public Queue<HTask> Tcss => this._tcss ??= new Queue<HTask>();
 
             public static WaitBox Create() {
                 var box = ObjectPool.Rent<WaitBox>();
@@ -268,7 +268,7 @@ namespace Hsenl {
 
             public void CancelAll() {
                 while (this._tcss.Count > 0) {
-                    this._tcss.Dequeue().Cancel();
+                    this._tcss.Dequeue().Abort();
                 }
             }
 

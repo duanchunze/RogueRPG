@@ -9,7 +9,7 @@
 //     public static class BundleLabelEditor {
 //         private const string BundleLabelSettingFilePath = "Assets/Resources/BundleLabelSetting.asset";
 //
-//         [MenuItem("ET/AssetBundle/创建或选中“包标签设置文件”")]
+//         [MenuItem("Hsenl/AssetBundle/创建或选中“包标签设置文件”")]
 //         private static void CreateBundleLabelSetting() {
 //             var create = false;
 //             var asset = AssetDatabase.LoadAssetAtPath<BundleLabelSetting>(BundleLabelSettingFilePath);
@@ -27,7 +27,7 @@
 //             if (create) Debug.Log($"《包标签设置文件》创建成功！ -- {BundleLabelSettingFilePath}");
 //         }
 //
-//         [MenuItem("ET/AssetBundle/设置所有资源包的标签并创建资源清单")]
+//         [MenuItem("Hsenl/AssetBundle/设置所有资源包的标签并创建资源清单")]
 //         private static void SetLabels() {
 //             AssetDatabase.RemoveUnusedAssetBundleNames();
 //             var setting = Resources.Load<BundleLabelSetting>("BundleLabelSetting");

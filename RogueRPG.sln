@@ -5,11 +5,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HsenlFramework.ThirdParty",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HsenlFramework.Editor", "HsenlFramework.Editor.csproj", "{c9510d36-fbb2-e0a2-ae10-a17692f8825b}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HsenlFramework.Runtime", "HsenlFramework.Runtime.csproj", "{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameModel", "GameModel.csproj", "{145b793a-a13f-7ea4-aa2d-b45c024fff0a}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HsenlFramework.Runtime", "HsenlFramework.Runtime.csproj", "{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameView", "GameView.csproj", "{ccb96e0d-25d9-e1a0-8659-0281650049a4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HsenlFramework.Network", "HsenlFramework.Network.csproj", "{b925807c-b8dc-2552-2b49-c4b7bb5b7492}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entry", "Entry.csproj", "{1723d1f6-c553-90dc-5409-248c4f23f9da}"
 EndProject
@@ -34,12 +36,14 @@ Global
 		{db8e543b-9705-1e78-eb3b-5fad97947a66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{c9510d36-fbb2-e0a2-ae10-a17692f8825b}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{c9510d36-fbb2-e0a2-ae10-a17692f8825b}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{145b793a-a13f-7ea4-aa2d-b45c024fff0a}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{145b793a-a13f-7ea4-aa2d-b45c024fff0a}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ccb96e0d-25d9-e1a0-8659-0281650049a4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ccb96e0d-25d9-e1a0-8659-0281650049a4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{b925807c-b8dc-2552-2b49-c4b7bb5b7492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{b925807c-b8dc-2552-2b49-c4b7bb5b7492}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1723d1f6-c553-90dc-5409-248c4f23f9da}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1723d1f6-c553-90dc-5409-248c4f23f9da}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ae674535-ea69-8437-0b07-6709c0e2746d}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

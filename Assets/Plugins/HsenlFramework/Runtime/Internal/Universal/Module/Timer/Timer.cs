@@ -1,11 +1,11 @@
 ﻿namespace Hsenl {
     public static class Timer {
-        public static async ETTask WaitFrame(ETCancellationToken cancellationToken = null) => await TimerManager.Instance.WaitFrame(cancellationToken);
+        public static async HTask WaitFrame() => await TimerManager.Instance.WaitFrame();
 
-        public static async ETTask WaitTime(long time, ETCancellationToken cancellationToken = null) =>
-            await TimerManager.Instance.WaitTime(time, cancellationToken);
+        public static async HTask WaitTime(long time) =>
+            await TimerManager.Instance.WaitTime(time);
 
-        public static async ETTask WaitTillTime(long tillTime, ETCancellationToken cancellationToken = null) =>
-            await TimerManager.Instance.WaitTillTime(tillTime, cancellationToken);
+        public static async HTask WaitTillTime(long tillTime) =>
+            await TimerManager.Instance.WaitTillTime(tillTime);
     }
 }

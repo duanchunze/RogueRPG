@@ -51,11 +51,11 @@ namespace Hsenl {
             return ui;
         }
 
-        public static async ETTask<T> SingleOpenAsync<T>(UILayer layer) where T : IUI {
+        public static async HTask<T> SingleOpenAsync<T>(UILayer layer) where T : IUI {
             return (T)await SingleOpenAsync(typeof(T).Name, layer);
         }
 
-        public static async ETTask<IUI> SingleOpenAsync(string uiName, UILayer layer) {
+        public static async HTask<IUI> SingleOpenAsync(string uiName, UILayer layer) {
             if (!Instance._singles.TryGetValue(uiName, out var ui)) {
                 var uiAsset = await GetUIAssetAsync(uiName);
                 var uiObj = (GameObject)UnityEngine.Object.Instantiate(uiAsset);
@@ -90,11 +90,11 @@ namespace Hsenl {
             return ui;
         }
 
-        public static async ETTask<T> MultiOpenAsync<T>(UILayer layer) where T : IUI {
+        public static async HTask<T> MultiOpenAsync<T>(UILayer layer) where T : IUI {
             return (T)await MultiOpenAsync(typeof(T).Name, layer);
         }
 
-        public static async ETTask<IUI> MultiOpenAsync(string uiName, UILayer layer) {
+        public static async HTask<IUI> MultiOpenAsync(string uiName, UILayer layer) {
             IUI ui = null;
             if (Instance._multi.TryGetValue(uiName, out var queue)) {
                 if (queue.Count != 0)
@@ -141,7 +141,7 @@ namespace Hsenl {
             return YooAssets.LoadAssetSync(uiName)?.AssetObject;
         }
 
-        private static async ETTask<UnityEngine.Object> GetUIAssetAsync(string uiName) {
+        private static async HTask<UnityEngine.Object> GetUIAssetAsync(string uiName) {
             var handle = await YooAssets.LoadAssetAsync(uiName);
             return handle.AssetObject;
         }

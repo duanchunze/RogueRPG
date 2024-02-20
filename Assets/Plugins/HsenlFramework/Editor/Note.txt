@@ -12,17 +12,9 @@
 ->  复制art
 ->  复制bundles文件夹
 ->  复制scenes文件夹
-->  添加场景到scene settings
-->  执行 ET/AssetBundleTools/创建或选中“包标签设置文件”
-->  执行 ET/ScriptsGenerator/清空并生成Hsenl组件的Mono版
-->  Editor里面勾选Enter Play Mode Options, 下面两个子选项勾掉
-    
-打包顺序: 
-->  先编译遍脚本
-->  ET/Compile and Copy.. 
-->  如果我们Bundles的目录改变了还需要重新设置ab labels 
-->  Build ab包 
-->  打包
+->  执行 Hsenl/ScriptsGenerator/清空并生成Hsenl组件的Mono版 (非必要, 项目应该自带了)
+->  Editor里面勾选Enter Play Mode Options, 下面两个子选项勾掉 (非必要)
+
 
 热更流程: (总共分三部分 1、完全不热更的部分 2、入口 3、完全热更部分)
 ->  Launch脚本和Launch场景随打包一起打包, 所以是完全无法热更的部分, Launch只会做一件事, 就是尝试加载entry包.

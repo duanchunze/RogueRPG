@@ -15,11 +15,11 @@ namespace Hsenl {
     }
 
     public interface IProcedureLineHandlerOfWorkerAsync<T> : IProcedureLineHandler {
-        ETTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T item, IProcedureLineWorker wk);
+        HTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T item, IProcedureLineWorker wk);
     }
 
     public interface IProcedureLineHandlerNoWorkerAsync<T> : IProcedureLineHandler {
-        ETTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T item);
+        HTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T item);
     }
 
 
@@ -68,7 +68,7 @@ namespace Hsenl {
         public Type ItemType => typeof(T1);
         public Type WorkerType => typeof(T2);
 
-        public async ETTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T1 item, IProcedureLineWorker wk) {
+        public async HTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T1 item, IProcedureLineWorker wk) {
             var worker = (T2)wk;
             try {
                 return await this.Handle(procedureLine, item, worker);
@@ -79,7 +79,7 @@ namespace Hsenl {
             }
         }
 
-        protected abstract ETTask<ProcedureLineHandleResult> Handle(ProcedureLine procedureLine, T1 item, T2 worker);
+        protected abstract HTask<ProcedureLineHandleResult> Handle(ProcedureLine procedureLine, T1 item, T2 worker);
     }
 
     // 没有工人的处理者，就类似于一个Event系统
@@ -88,7 +88,7 @@ namespace Hsenl {
         public Type ItemType => typeof(T1);
         public Type WorkerType => null;
 
-        public async ETTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T1 item) {
+        public async HTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T1 item) {
             try {
                 return await this.Handle(procedureLine, item);
             }
@@ -98,6 +98,6 @@ namespace Hsenl {
             }
         }
 
-        protected abstract ETTask<ProcedureLineHandleResult> Handle(ProcedureLine procedureLine, T1 item);
+        protected abstract HTask<ProcedureLineHandleResult> Handle(ProcedureLine procedureLine, T1 item);
     }
 }

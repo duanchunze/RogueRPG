@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Hsenl {
@@ -20,13 +21,15 @@ namespace Hsenl {
     // }
     // 摘取自 https://zhuanlan.zhihu.com/p/579403949
     public static class Assert {
-        // 遇到需要inline函数的时候, 使用这种抛异常方式
+        // 遇到需要inline函数的时候, 使用这种抛异常方式.
+        // 这个特性就是相当于是个提示器的作用, 告诫用户不要在该函数后面写代码.
+        // 比如我封装了一段 throw Exception 的代码, 原本我直接调用 throw 的时候, 编译器会提示我们throw 后续的代码会无法执行, 但由于我们封装了一层, 导致编译器不会再做出提示, 
+        // 那么加上这个标记, 就又会可以了
         [DoesNotReturn]
         public static void NullReference(in string message) => throw new NullReferenceException(message);
 
-        [DoesNotReturn]
-        public static void NullReference(object o, in string message) {
-            if (o == null) {
+        public static void NullReference<T>(T? t, in string message) {
+            if (t == null) {
                 throw new NullReferenceException(message);
             }
         }

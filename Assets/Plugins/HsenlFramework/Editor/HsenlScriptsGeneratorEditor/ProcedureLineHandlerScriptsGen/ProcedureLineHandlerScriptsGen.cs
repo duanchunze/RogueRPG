@@ -29,7 +29,7 @@ namespace Hsenl {
                 "Pli{0}Priority.cs",
             };
 
-            [MenuItem("ET/ScriptsGenerator/生成流水线处理代码")]
+            [MenuItem("Hsenl/ScriptsGenerator/生成流水线处理代码")]
             private static void Generate() {
                 _window = CreateWindow<ScriptsCreatorEditor>();
                 _window.position = new Rect(100, 100, 600, 300); // 设置初始尺寸

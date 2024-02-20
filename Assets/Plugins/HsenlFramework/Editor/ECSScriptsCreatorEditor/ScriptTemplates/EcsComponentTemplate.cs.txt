@@ -8,7 +8,7 @@
 
 using Unity.Entities;
 
-namespace ET
+namespace Hsenl
 {
     public struct #NAME# : IComponentData
     {

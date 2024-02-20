@@ -9,7 +9,7 @@
 using Unity.Entities;
 using UnityEngine;
 
-namespace ET
+namespace Hsenl
 {
     public class #NAME#Authoring : MonoBehaviour
     {

@@ -43,7 +43,7 @@ namespace Hsenl {
         //     return scene;
         // }
         
-        public static async ETTask<Scene> LoadSceneWithUnity(string name, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode) {
+        public static async HTask<Scene> LoadSceneWithUnity(string name, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode) {
             var scene = LoadScene(name, (LoadSceneMode)(int)loadSceneMode);
             await YooAssets.LoadSceneAsync(name);
             OnUnitySceneLoaded?.Invoke(scene);
