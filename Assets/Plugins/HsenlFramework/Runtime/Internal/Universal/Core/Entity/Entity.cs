@@ -9,7 +9,7 @@ using Sirenix.OdinInspector;
 namespace Hsenl {
     // 事件执行顺序
     //   添加一个组件时的执行顺序
-    //     构造函数 -> initializeInvoke -> Awake -> OnComponentAdd -> Start -> Enable -> AheadUpdate -> Update -> LateUpdate -> Disable -> Destroy -> OnComponentRemove
+    //     构造函数 -> initializeInvoke -> Awake -> OnComponentAdd -> Enable -> Start -> AheadUpdate -> Update -> LateUpdate -> Disable -> Destroy -> OnComponentRemove
     //   设置父级时的执行顺序
     //     BeforeParentChange -> OnParentChanged -> OnChildAdd -> OnChildRmove -> OnSceneChange
     //   序列化时的顺序

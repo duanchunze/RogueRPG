@@ -26,7 +26,8 @@ namespace Hsenl {
 
         public static Type GetMonoComponentType(Type frameworkComponentType) {
             if (!_caches.TryGetValue(frameworkComponentType, out var result)) {
-                throw new Exception($"cant find mono component by '{frameworkComponentType.Name}'");
+                return null;
+                // throw new Exception($"cant find mono component by '{frameworkComponentType.Name}'");
             }
 
             return result;

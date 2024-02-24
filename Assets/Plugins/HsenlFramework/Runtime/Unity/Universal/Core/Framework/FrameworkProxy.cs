@@ -13,13 +13,13 @@ namespace Hsenl {
         public float timeScale = 1;
 
         private void Awake() {
-            Framework.OnAppStart();
-
             if (!SingletonManager.IsDisposed<Framework>()) {
                 SingletonManager.Unregister<Framework>();
             }
 
             SingletonManager.Register(ref this.framework);
+            
+            this.framework.Start();
 
             Application.targetFrameRate = this.targetFrameRate;
 
@@ -35,7 +35,7 @@ namespace Hsenl {
         }
 
         private void OnApplicationQuit() {
-            Framework.OnAppQuit();
+            this.framework.Destroy();
         }
     }
 

@@ -122,7 +122,7 @@ namespace Hsenl {
             catch (Exception e) {
                 Log.Error(e);
             }
-            
+
             try {
                 this.OnDeserialized();
             }
@@ -138,7 +138,7 @@ namespace Hsenl {
             catch (Exception e) {
                 Log.Error(e);
             }
-            
+
             try {
                 this.OnDeserializedOverall();
             }
@@ -162,6 +162,23 @@ namespace Hsenl {
                 Log.Error(e);
             }
         }
+        
+        internal void InternalOnEnable() {
+            if (!this.enable) return;
+            try {
+                this.OnEnable();
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
+
+            try {
+                this.InternalOnStart();
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
+        }
 
         private void InternalOnStart() {
             if (this._start) return;
@@ -175,23 +192,6 @@ namespace Hsenl {
 
             try {
                 this.OnStart();
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
-        }
-
-        internal void InternalOnEnable() {
-            if (!this.enable) return;
-            try {
-                this.InternalOnStart();
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
-
-            try {
-                this.OnEnable();
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -352,10 +352,10 @@ namespace Hsenl {
         // 之所以每个函数都增加了一个Internal版本, 主要因为框架内部有时也需要用到这些函数, 但如此以来, 在框架外部实现该函数就必须要附带base.Function()的调用, 就会很乱
 
         internal virtual void OnDeserializedInternal() { }
-        
+
         // 当自己序列化完成时. 此时, 整个实体的组件, 父子, 都已经装配完毕, 只是此时还未触发任何事件.
         protected virtual void OnDeserialized() { }
-        
+
         internal virtual void OnDeserializedOverallInternal() { }
 
         // 跟上面唯一的区别就是, 所有该触发的事件都触发了.
@@ -363,17 +363,16 @@ namespace Hsenl {
 
         internal virtual void OnAwakeInternal() { }
 
-        // 可以理解为当构造时, 但肯定没有构造函数早. 在Awake前一步执行, 且不受Enable == false影响. 因为添加组件的时候可以选择Enable为false, 所以增加了这个一个函数, 
-        // 可以简单的把他当做一个不受Enable影响的Awake使用
+        // 不受Enable影响的Start
         protected virtual void OnAwake() { }
-
-        internal virtual void OnStartInternal() { }
-
-        // 常用于初始化系统方面的数据
-        protected virtual void OnStart() { }
-
+        
         // 常用于初始化游戏逻辑方面的数据 (比如添加Control的监听事件)
         protected virtual void OnEnable() { }
+
+        internal virtual void OnStartInternal() { }
+        
+        // 不同于unity, 这个start和awake是在同一帧执行的
+        protected virtual void OnStart() { }
 
         protected virtual void OnDisable() { }
 
@@ -382,7 +381,7 @@ namespace Hsenl {
         // dispose 的意义在于, 如果有其他地方做了自己的引用, 那么即使自己已经 destroy 了, 该引用依然能正常使用, 而我们可能并不知道已经被删除了, 所以, 我们要把数据全部清空, 达到一种提示的
         // 目的
         protected virtual void OnDestroy() { }
-        
+
         protected virtual void OnReset() { }
 
         // 父级改变时涉及到的函数

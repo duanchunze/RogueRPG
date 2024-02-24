@@ -47,12 +47,10 @@
     <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\BuildEditor\BuildHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\StatusEditorInspector.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\Defines\GenLifeCycle.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\AnimationClipExtractEditor\AnimationClipExtractEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\MonoComponentScriptsGen\MonoComponentScriptsGen.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\HsenlScriptsGenerateInfo.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HybridCLR\HybridCLRCompileEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\BuildEditor\BundleLabelEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\AbilityEditorInspector.cs" />
@@ -60,9 +58,9 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\LubanGenEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\GenUtils.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\Defines\GenTypes.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\GenerateScheme_Replace.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\BuildEditor\BundleLabelSetting.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LockingScriptCompilationEditor\LockingScriptCompilationEditor.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\HsenlScriptsGenerateScheme.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\Defines\CustomAttrs.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\Helper\ShellHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\ECSScriptsCreatorEditor\ECSScriptsCreatorEditor.cs" />
@@ -79,7 +77,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\PropertyDrawer\CustomEnumDrawer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\PropertyDrawer\ReadOnlyDrawer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\LubanExportSetting.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\BuildEditor\BuildEditor.cs" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlFramework.Editor.asmdef" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\HybridCLR打包步骤.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\Note.txt" />

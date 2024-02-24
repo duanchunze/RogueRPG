@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace Hsenl.Network.Client {
+namespace Hsenl.Network {
     public class SocketClient {
         private Socket _connecter;
 
@@ -41,7 +41,9 @@ namespace Hsenl.Network.Client {
                         Log.Info($"收到服务器的消息: {response}");
                         Thread.Sleep(1);
 
-                        this._connecter.Send(bs);
+                        var bin = response.ToUtf8();
+                        this._connecter.Send(bin);
+                        Log.Info($"向服务器发送消息: {response}");
                     }
                 });
                 this._thread.Start();

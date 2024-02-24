@@ -1,7 +1,9 @@
 ﻿namespace Hsenl.Network {
     public interface IServer {
-        void SendMessage() {
-            
-        }
+        void Init() { }
+
+        void Udpate() { }
+
+        void SendMessage() { }
     }
 }

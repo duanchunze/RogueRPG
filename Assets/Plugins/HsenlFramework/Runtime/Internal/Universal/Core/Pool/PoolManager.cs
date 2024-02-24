@@ -119,14 +119,14 @@ namespace Hsenl {
         public static PoolKey Create(Type type) {
             return new PoolKey() {
                 groupName = type.Name,
-                key = type.Name.GetHashCode(),
+                key = type.GetHashCode(),
             };
         }
 
         public static PoolKey Create<T>(Type type, T value) {
             return new PoolKey {
                 groupName = type.Name,
-                key = HashCode.Combine(type.Name, value),
+                key = HashCode.Combine(type, value),
             };
         }
 

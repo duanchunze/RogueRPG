@@ -79,6 +79,9 @@ namespace Hsenl {
         internal partial void PartialOnComponentAdd(Component component) {
             if (Framework.Instance.DisplayMono) {
                 var type = MonoComponentManager.GetMonoComponentType(component.GetType());
+                if (type == null)
+                    return;
+
                 if (component.enable == false) {
                     // 这里做了一个处理, 因为Hsenl是支持添加一个默认enable为false的组件的, 但unity不支持, 所以这里使用了这个方案, 就是把go先关闭, 然后再添加mono组件, 
                     // 如此就能实现添加一个enable为false的mono组件

@@ -84,7 +84,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Line3Polygon3Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Formatters\TimeZoneInfoFormatter.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Ray2Ray2Intr.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\HTaskBodys\CancelableHTask.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Formatters\StringBuilderFormatter.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\Utf16ValueStringBuilder.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Formatters\CultureInfoFormatter.cs" />
@@ -111,7 +110,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\BufferExtension.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Compression\BrotliDecompressor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\TagDecorator.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\HTaskBodys\NormalHTask.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Segment2ConvexPolygon2Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Internal\ReusableReadOnlySequenceBuilder.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\IExtension.cs" />
@@ -158,11 +156,9 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\OdeSolver.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Compiler\Local.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Formatters\BitArrayFormatter.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\HTask.WaitAny.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\Utf8\Utf8ValueStringBuilder.SpanFormattableAppend.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Compression\BitPackFormatter.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\ProtoException.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\HTask.Factory.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Helpers.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\ProtoConverterAttribute.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Approximation.cs" />
@@ -171,7 +167,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\EigenData.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\Number\Number.NumberBuffer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\BufferPool.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\AsyncFunctionSimulated.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\ParseableSerializer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\SystemTypeSerializer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Formatters\StringFormatter.cs" />
@@ -192,11 +187,9 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\FastNumberWriter.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Circle.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\FVector2.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\Classes\IHTask.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Meta\TypeFormatEventArgs.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\AABB.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\ProtoContractAttribute.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\HTask.WaitAll.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Fix64.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Meta\RuntimeTypeModel.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\TupleSerializer.cs" />
@@ -242,13 +235,11 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\ProtoReader.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Formatters\MemoryPackableFormatter.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\UInt64Serializer.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\HTaskExtension.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\BlobSerializer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\QuadraticRoots.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Ray3Plane3Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\FVector4.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\FormatParser.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\CompilerServices\AsyncHVoidMethodBuilder.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Ray2D.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Plane3Sphere3Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Segment2Segment2Intr.cs" />
@@ -266,7 +257,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Ray3Circle3Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\Utf16\Utf16ValueStringBuilder.AppendFormat.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\FieldDecorator.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\HTask.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\ArrayDecorator.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Circle2Circle2Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Internal\PreserveAttribute.cs" />
@@ -297,7 +287,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\CubicRoots.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Ray2Segment2Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Segment2Box2Intr.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\Classes\HTaskAbortException.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Extension\FixMathfEx.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\MemoryPackReader.Unmanaged.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Ray3Triangle3Intr.cs" />
@@ -312,12 +301,10 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Internal\EnumerableExtensions.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\Utf16\Utf16ValueStringBuilder.CreateFormatter.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\Utf8\Utf8ValueStringBuilder.AppendFormat.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\Classes\HTaskStatus.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Line2Ray2Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\IProtoSerializer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\ReadOnlyListAdaptor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Meta\CallbackSet.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\HVoid.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\CallbackAttributes.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\Number\Number.Dragon4.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Meta\TypeAddedEventArgs.cs" />
@@ -327,12 +314,10 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Line.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Sphere3Sphere3Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Sphere3Sphere3IntrTypes.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\HTaskPool.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Edge.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Formatters\NullableFormatter.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Line3Plane3Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Segment2AAB2Intr.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\HTask.Functions.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\Number\BitOperations.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\ExtensibleUtil.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\ZString.Concat.cs" />
@@ -351,7 +336,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\SByteSerializer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\NullDecorator.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Segment3Box3Intr.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\CompilerServices\AsyncMethodBuilderAttribute.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Ray.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\DiscriminatedUnion.Serializable.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\Shims.cs" />
@@ -364,7 +348,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Line2Triangle2Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\MemoryPackSerializerOptions.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Line2AAB2Intr.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\HTask\CompilerServices\AsyncHTaskMethodBuilder.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\IExtensible.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Ray2Triangle2Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\ProtoMapAttribute.cs" />

@@ -84,18 +84,18 @@ namespace Hsenl {
                     var gen = new ProcedureLineHandlerScriptsGen {
                         schemes = new List<IHsenlScriptsGenerateScheme>()
                     };
-                    var scheme = new HsenlScriptsGenerateScheme() {
-                        universalOutputDirectory = dir,
-                        universalTemplateReplaceOrigianl = "#NAME#",
-                    };
+
                     for (int i = 0; i < this.templatePaths.Count; i++) {
-                        scheme.AddGenerateInfo(new HsenlScriptsGenerateInfo(this.scriptName, string.Format(this.fileNames[i], this.scriptName)) {
+                        var scheme = new GenerateScheme_Replace() {
                             templatePath = this.templatePaths[i],
-                        });
+                            outputPath = $"{dir}/{string.Format(this.fileNames[i], this.scriptName)}",
+                        };
+                        scheme.AddReplace("#NAME#", this.scriptName);
+                        gen.schemes.Add(scheme);
                     }
 
-                    gen.schemes.Add(scheme);
                     gen.ScriptsGenerate();
+
                     _window.Close();
                 }
             }

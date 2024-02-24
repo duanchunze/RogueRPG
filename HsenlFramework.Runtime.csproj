@@ -64,6 +64,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunction.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\DataStructure\ListComponent.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\EventSystem\InvokeAttribute.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\CompilerServices\AsyncHTaskMethodBuilder.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior.AI\AICompositeNode.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\TaskLock\WaitTaskLock.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\TaskLock\TaskLocker.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\UnitySettingManager.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\DontDestroyOnLoadForFramework.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Object\ObjectEvent\IUpdate.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\Classes\HTaskStatus.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\Classes\NodeType.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Log\ILog.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Physic\Learn\Management\FixPhysicWorld.cs" />
@@ -103,11 +105,14 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\DataStructure\BidirectionalDictionary.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\DataStructure\MultiList.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\ObjectHelper.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\HTaskBodys\NormalHTaskBody.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Numeric\INumericNode.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\BehaviorTree.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\HTask.Factory.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Entity\IEntityReference.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\ZipHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Log\Log.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\HTask.Thread.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\AssemblyHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionMandatoryAttribute.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Entity\Entity.cs" />
@@ -117,8 +122,10 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Time\TimeProxy.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Physic\Learn\Lowest\FixCollider.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\EventSystem\EventSystemManager.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\ThreadSynchronizationContext.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\GameModule\Input\InputMaptable.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Serialize\UnityFormatters.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\Classes\HTaskAbortException.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\VolumeSlider.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Combiner\CrossCombiner\ColliderRigidbodyCrossCombiner.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\Node.cs" />
@@ -131,6 +138,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\TaskLock\TaskLockManager.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\Classes\NodeStatus.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\ProcedureLine\ProcedureLineWorkerAttribute.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\AsyncFunctionSimulated.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\Transform\Transform.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\MonoTimer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Physic\Collider.cs" />
@@ -151,11 +159,13 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Numeric\NumericNodeModel.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Physic\Learn\Lowest\Shape\FixBoxShape.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Physic\Learn\Lowest\CollisionDetectionTemp.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\HTask.WaitAny.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Physic\Collider\CapsuleCollider.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\UnityPhysicsListener.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\Decorator\RepeaterNode.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Parsable\IParsable.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\MemoryPackFormatterModule.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\CompilerServices\AsyncHVoidMethodBuilder.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\PathHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\DataStructure\SortedMultiDictionary.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\MarshalHelper.cs" />
@@ -179,6 +189,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Parsable\ParsableHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Log\UnityLogger.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\RandomHelper.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\HTask.Functions.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Log\LogManager.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Pool\ObjectPool.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Singleton\SingletonManager.cs" />
@@ -200,10 +211,12 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Serialize\MemoryPackFormatter.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Physic\Learn\Lowest\Classes\Enum\DetectPrecisionType.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\EventSystem\OrderAttribute.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\HTaskExtension.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\ArrayHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Extension.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\DataStructure\BitArray.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior\Blackboard\Blackboard.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\HTask.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\DataStructure\SinglePass.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Physic\Learn\Lowest\Shape\INarrowPhase.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior.TimeLine.StageLine\Stage.cs" />
@@ -217,6 +230,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\ByteHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\EventSystem\IInvoke.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Physic\Learn\Lowest\Classes\Enum\FittingDegreeType.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\HTaskPool.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\Old\AssetsManifestOld.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\LinkExtension.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Input\InputUnit.cs" />
@@ -245,6 +259,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\Scope\Combin\CombinerOptionsAttribute.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\StringHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Priority\Prioritizer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\HTaskLine.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Object\ObjectEvent\ILateUpdate.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Component\MonoComponentManager.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Physic\Collider\SphereCollider.cs" />
@@ -261,6 +276,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\DataStructure\UnmanagedArray.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Coroutine\CoroutineProxy.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior.Screenplay\IRecord.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\HTask.Run.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Scene\SceneManagerPartial.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\TaskLock\TaskLockType.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Numeric\NumericNode.cs" />
@@ -275,6 +291,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Pool\ObjectPoolManager.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\Fsm\IFsm.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\Time\TimeInfo.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\Classes\IHTaskBody.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\ObjectPool\ObjectPoolProxy.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Combiner\MultiCombiner\ColliderRigidbodyMultiCombiner.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Behavior.TimeLine.StageLine\IStageNode.cs" />
@@ -286,11 +303,11 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Log\LogProxy.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\ProcedureLine\IProcedureLineWorker.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Util\LogStopwatch.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\TaskLine\TaskLine.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\GameModule\Physic\Collider.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\DataStructure\NativeBuffer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\Procedure\Procedure.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\ProcedureLine\ProcedureLineNode.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\HTask.WaitAll.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\Resource.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\Old\ResourcesManagerOld.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Pool\Pool.cs" />
@@ -323,6 +340,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Serialize\MongoHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Serialize\JsonHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Serialize\UnityProviderInitializer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\HVoid.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\TaskLock\TaskLockQueue.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Priority\PriorityClasses.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\DataStructure\MultiDictionary.cs" />
@@ -335,6 +353,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\ProcedureLine\ProcedureLineHandlerPriorityAttribute.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Core\Singleton\UnitySingleton.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\VerifierHelper.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\HTask\CompilerServices\AsyncMethodBuilderAttribute.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\Helper\StringHashHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\EventSystem\IEvent.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\UnityHelper.cs" />
