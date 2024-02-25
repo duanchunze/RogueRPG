@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
-using Hsenl;
+using System.Threading;
 using Hsenl.Network;
+using MemoryPack;
+using UnityEngine;
 
 namespace Hsenl {
     public class ClientUser : Component, IUpdate {
@@ -11,6 +14,8 @@ namespace Hsenl {
 
         private Dictionary<int, object> responses = new();
 
+        private int i;
+
         protected override void OnAwake() {
             Instance = this;
         }
@@ -18,31 +23,83 @@ namespace Hsenl {
         protected override void OnStart() {
             IPAddress.TryParse("127.0.0.1", out var address);
             var endPoint = new IPEndPoint(address, 12312);
-            this.IocpClient = new IOCPClient();
+            this.IocpClient = new IOCPClient(32, 32);
             this.IocpClient.StartConnecting(endPoint);
-            this.IocpClient.
+            this.IocpClient.OnRecvData += this.OnRecvData;
         }
 
+        protected override void OnDestroy() {
+            this.IocpClient.OnRecvData -= this.OnRecvData;
+            this.IocpClient.Close();
+        }
 
         public void Update() {
-            if (InputController.GetButtonDown(InputCode.L)) { }
+            var b = false;
+            if (InputController.GetButtonDown(InputCode.L)) {
+                b = true;
+                this.Login().Tail();
+            }
+
+            if (InputController.GetButton(InputCode.K)) {
+                if (b) { }
+
+                this.Login().Tail();
+            }
+
+            if (InputController.GetButtonDown(InputCode.Space)) {
+                if (i != 0) {
+                    Log.Error(i + "----");
+                }
+            }
+        }
+
+        private void OnRecvData(IOCPChannel channel, Memory<byte> data) {
+            Interlocked.Decrement(ref this.i);
+            var t = MemoryPackSerializer.Deserialize<G2C_Login>(data.Span.Slice(8));
+            var task = (HTask<G2C_Login>)this.responses[1];
+            task.SetResult(t);
         }
 
         private async HTask Login() {
-            C2G_Login c2GLogin = new() {
-                account = "123",
-                password = "456"
-            };
+            var t = await this.Request(new C2G_Login() {
+                account = "dczedczedczezdzdcezdczdczdczdczdczdc",
+                password = "ddddzdczdczdczdczdczdc"
+            });
 
-            await this.Request(new C2G_Login() { account = "123", password = "456" });
+            // Debug.Log(t.ip);
+            // Debug.Log(t.verificationCode);
         }
 
         private async HTask<G2C_Login> Request<T>(T message) {
-            byte[] bytes = SerializeHelper.SerializeOfMemoryPack(message);
-            this.IocpClient.Send(bytes, 0, bytes.Length);
+            var buffer = this.IocpClient.SendBuffer;
+            var postion = (int)buffer.Position;
+            buffer.Advance(4);
+            buffer.Advance(4);
+            buffer.RecordWritePoint();
+            MemoryPackSerializer.Serialize(buffer, message);
+            var writeLen = buffer.EndWriteRecord();
+            buffer.AsSpan(postion + 0, 4).WriteTo(writeLen);
+            buffer.AsSpan(postion + 4, 8).WriteTo(256);
+
+            // postion = (int)buffer.Position;
+            // buffer.Advance(4);
+            // buffer.Advance(4);
+            // buffer.RecordWritePoint();
+            // var msg = new C2G_Login() { account = "123", password = "456" };
+            // MemoryPackSerializer.Serialize(buffer, msg);
+            // writeLen = buffer.EndWriteRecord();
+            // buffer.AsSpan(postion + 0, 4).WriteTo(writeLen);
+            // buffer.AsSpan(postion + 4, 8).WriteTo(256);
+
+            var ret = this.IocpClient.Send();
+            Interlocked.Increment(ref this.i);
+
             var task = HTask<G2C_Login>.Create();
-            this.responses.Add(1, task);
-            return await task;
+            this.responses[1] = task;
+            var t = await task;
+            return t;
         }
+
+        private void ttt() { }
     }
 }

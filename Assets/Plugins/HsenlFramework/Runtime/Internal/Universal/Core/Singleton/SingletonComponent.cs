@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Hsenl {
     // 与Singleton不同的是, 继承该类的单例, 可以被添加在实体上

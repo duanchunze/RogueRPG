@@ -39,9 +39,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-using System.Collections.Generic;
 using FixedMath;
-using UnityEngine;
 
 #if FIXED_MATH
 using FLOAT = FixedMath.FMath.Fixp;
@@ -549,7 +547,9 @@ namespace Hsenl {
                 // 否：循环第一步
 
                 while (true) {
-                    Debug.LogWarning($"{cycleCount + 1}");
+#if UNITY_EDITOR
+                    UnityEngine.Debug.LogWarning($"{cycleCount + 1}");
+#endif
                     // Debug.DrawLine(Vector3.zero, normal.ToVector3(), Color.black);
                     // if (cycleCount == testStep - 2) {
                     //     Gizmos.color = Color.red;

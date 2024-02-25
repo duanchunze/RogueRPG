@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [Serializable]
     public class ShadowFunctionManager : Singleton<ShadowFunctionManager> {
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, HideLabel]
+#endif
         private readonly Dictionary<uint, SortedDictionary<long, Delegate>> _dictionary = new();
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, HideLabel]
+#endif
         private readonly List<object> _shadowInstances = new();
 
         protected override void OnSingleUnregister() {

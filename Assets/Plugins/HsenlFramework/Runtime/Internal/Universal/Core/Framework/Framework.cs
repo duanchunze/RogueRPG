@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
 using UnityEngine;
+#endif
 
 namespace Hsenl {
     [Serializable]
@@ -10,10 +12,19 @@ namespace Hsenl {
         public static bool AppQuit { get; private set; }
         public ThreadSynchronizationContext ThreadSynchronizationContext { get; private set; }
 
+#if UNITY_EDITOR
         [SerializeField]
+#endif
         private bool displayMono;
 
-        public bool DisplayMono => Define.IsEditor && this.displayMono;
+
+        public bool DisplayMono {
+#if UNITY_EDITOR
+            get => this.displayMono;
+#else
+            get => false;
+#endif
+        }
 
         public void Start() {
             AppQuit = false;

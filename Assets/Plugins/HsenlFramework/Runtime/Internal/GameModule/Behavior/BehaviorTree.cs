@@ -1,17 +1,22 @@
 ﻿using System;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
-using Unity.Mathematics;
+#endif
 
 namespace Hsenl {
     [Serializable]
     [MemoryPackable(GenerateType.NoGenerate)]
     public abstract partial class BehaviorTree<T> : Unbodied, IBehaviorTree where T : INode {
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackIgnore]
         protected IBlackboard blackboard;
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackInclude]
         protected T entryNode;
 

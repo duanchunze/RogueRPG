@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     // 事件执行顺序
@@ -128,7 +130,7 @@ namespace Hsenl {
                     value = ComponentTypeCacher.CreateNull();
                     requireInverseLookupTable[componentIndex] = value;
                 }
-                
+
                 value.Add(GetComponentIndex(type));
             }
         }
@@ -177,23 +179,23 @@ namespace Hsenl {
         [MemoryPackInclude]
         internal string name;
 
-        [System.NonSerialized] // unity那个 depth limit 10警告
+        [NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackIgnore]
         internal ComponentTypeCacher componentTypeCacher = ComponentTypeCacher.CreateNull(); // 这个位列表是作为组件索引的存在, 作用是极大的提高组件判存, 获取等操作的速度
 
-        [System.NonSerialized] // unity那个 depth limit 10警告
+        [NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackIgnore]
         internal MultiList<int, Component> components; // key: 每个组件的编号, 这个编号是我们框架自行指定的1234...那个编号
 
-        [System.NonSerialized] // unity那个 depth limit 10警告
+        [NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackInclude]
         internal List<Component> componentsOfSerialize;
 
-        [System.NonSerialized] // unity那个 depth limit 10警告
+        [NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackIgnore]
         internal List<Entity> children;
 
-        [System.NonSerialized] // unity那个 depth limit 10警告
+        [NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackInclude]
         internal List<Entity> childrenOfSerialize;
 
@@ -207,7 +209,9 @@ namespace Hsenl {
         internal bool active = true;
 
         [BitListShowOfEnum("Hsenl.TagType")]
+#if UNITY_EDITOR
         [ShowInInspector, EnableGUI]
+#endif
         [MemoryPackInclude]
         internal Bitlist tags = new();
 
@@ -224,7 +228,9 @@ namespace Hsenl {
                     this.OnInactiveInternal();
                 }
 
+#if UNITY_5_3_OR_NEWER
                 this.PartialOnActiveSelfChanged(value);
+#endif
             }
         }
 
@@ -282,7 +288,9 @@ namespace Hsenl {
             this.uniqueId = this.instanceId;
             this.imminentDispose = false;
             EventSystemManager.Instance.RegisterInstanced(this);
+#if UNITY_5_3_OR_NEWER
             this.PartialOnCreated();
+#endif
         }
 
         public static Entity Create(string name, Entity parent = null) {
@@ -330,7 +338,9 @@ namespace Hsenl {
             this.active = true;
             this.tags?.Clear();
             this.transform = null;
+#if UNITY_5_3_OR_NEWER
             this.PartialOnDestroyFinish();
+#endif
         }
 
         public void Reactivation() {
@@ -404,7 +414,9 @@ namespace Hsenl {
 
                     component.InternalOnAwake();
 
+#if UNITY_5_3_OR_NEWER
                     this.PartialOnComponentAdd(component);
+#endif
                     // 这里向后顺位触发OnComponentAdd事件, 因为不能a触发b的同时, b也同时触发a, 这不符合逻辑
                     // for (var j = i + 1; j < len; j++) {
                     //     this.componentsOfSerialize[j].InternalOnComponentAdd(component);
@@ -421,13 +433,17 @@ namespace Hsenl {
             if (this.children != null) {
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
+#if UNITY_5_3_OR_NEWER
                     child.PartialOnParentChanged();
+#endif
 
                     child.InitializeBySerizlizationInvokeEvent();
                 }
             }
 
+#if UNITY_5_3_OR_NEWER
             this.PartialOnActiveSelfChanged(false);
+#endif
         }
 
         public void SetParent(Entity value, Scene targetScene = null) {
@@ -456,7 +472,9 @@ namespace Hsenl {
             this.parent?.GetOrCreateChildren().Add(this);
 
             // 然后触发事件
+#if UNITY_5_3_OR_NEWER
             this.PartialOnParentChanged();
+#endif
             this.OnParentChangedInternal(prevParent);
             prevParent?.OnChildRemoveInternal(this);
             this.parent?.OnChildAddInternal(this);
@@ -577,7 +595,9 @@ namespace Hsenl {
 
             component.InternalOnAwake();
 
+#if UNITY_5_3_OR_NEWER
             this.PartialOnComponentAdd(component);
+#endif
             this.OnComponentAddInternal(component);
 
             if (this.RealActive) {
@@ -620,7 +640,9 @@ namespace Hsenl {
 
             component.InternalOnAwake();
 
+#if UNITY_5_3_OR_NEWER
             this.PartialOnComponentAdd(component);
+#endif
             this.OnComponentAddInternal(component);
 
             if (this.RealActive) {
@@ -655,7 +677,9 @@ namespace Hsenl {
 
             component.InternalOnAwake();
 
+#if UNITY_5_3_OR_NEWER
             this.PartialOnComponentAdd(component);
+#endif
             this.OnComponentAddInternal(component);
 
             if (this.RealActive) {
@@ -1196,11 +1220,13 @@ namespace Hsenl {
 
         #region partial
 
+#if UNITY_5_3_OR_NEWER
         internal partial void PartialOnCreated();
         internal partial void PartialOnActiveSelfChanged(bool act);
         internal partial void PartialOnParentChanged();
         internal partial void PartialOnComponentAdd(Component component);
         internal partial void PartialOnDestroyFinish();
+#endif
 
         #endregion
 

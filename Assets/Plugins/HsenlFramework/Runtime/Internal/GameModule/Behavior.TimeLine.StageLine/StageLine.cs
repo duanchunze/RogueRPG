@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using MemoryPack;
-using Sirenix.OdinInspector;
 using Unity.Mathematics;
-using UnityEngine;
+#if UNITY_EDITOR
+using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     // 阶段线系统是由阶段线(StageLine)和阶段(Stage)两个部分组成
@@ -14,14 +15,18 @@ namespace Hsenl {
     [Serializable]
     [MemoryPackable()]
     public partial class StageLine : BehaviorTree<SelectorNode<ITimeLine, IStageNode>>, ITimeLine {
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, LabelText("当前阶段")]
+#endif
         [MemoryPackIgnore]
         protected int currentStage;
 
         [MemoryPackIgnore]
         public StageStatus status;
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackIgnore]
         private float _speed = 1;
 
@@ -46,11 +51,15 @@ namespace Hsenl {
             set => this.currentNode = value;
         }
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackIgnore]
         public float Time { get; set; }
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackIgnore]
         public float TillTime { get; set; }
 
@@ -63,11 +72,15 @@ namespace Hsenl {
             }
         }
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackIgnore]
         public float BufferSpeed { get; set; } = 1f;
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackInclude]
         public float BufferLerpSpeed { get; set; } = 7.21f;
 

@@ -1,5 +1,7 @@
 ﻿using System;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [Serializable]
@@ -7,7 +9,9 @@ namespace Hsenl {
         public TimePointModel checkModel;
         public float point;
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         protected bool isPassed;
 
         protected override void OnNodeReset() {

@@ -2,24 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+#endif
 
 namespace Hsenl {
     [Serializable]
     public class EventSystemManager : Singleton<EventSystemManager> {
         internal Assembly[] Assemblies { get; private set; } = Array.Empty<Assembly>();
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private readonly Dictionary<string, Type> _allTypes = new();
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private readonly MultiList<Type, Type> _typesOfAttribute = new();
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private readonly MultiList<Type, EventInfo> _allEvents = new();
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private readonly Dictionary<Type, InvokeInfo> _allInvokes = new();
 
         private readonly MultiList<Type, FieldInfo> _staticFieldsOfAttribute = new();

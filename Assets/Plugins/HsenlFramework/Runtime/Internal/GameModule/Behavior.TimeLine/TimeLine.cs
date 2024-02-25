@@ -1,25 +1,39 @@
 ﻿using System;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [Serializable]
     public class TimeLine : BehaviorTree<ParallelNode<ITimeLine, ActionNode<ITimeLine>>>, ITimeLine {
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         public TimePointRunModel runModel;
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         public int LoopCount { get; set; }
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         public float Time { get; set; }
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         public float TillTime { get; set; }
-        
+
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         public float Speed { get; set; } = 1f;
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         public bool IsFinish => this.runModel == TimePointRunModel.Once && this.LoopCount != 0;
 
         public TimeLineModel TimeLineModel {

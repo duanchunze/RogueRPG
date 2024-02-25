@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Hsenl {
+﻿namespace Hsenl {
     public partial struct HTask {
         // 返回一个空壳子, 在Completed判断时, 总是返回true
         public static HTask Completed => default;

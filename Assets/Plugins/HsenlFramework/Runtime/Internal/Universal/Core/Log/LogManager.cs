@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+#endif
 
 namespace Hsenl {
     public enum LogType {
@@ -14,10 +16,17 @@ namespace Hsenl {
 
     [Serializable]
     public class LogManager : Singleton<LogManager> {
-        [OdinSerialize, ShowInInspector, LabelText("记录者")]
+#if UNITY_5_3_OR_NEWER
+        [OdinSerialize]
+#endif
+#if UNITY_EDITOR
+        [ShowInInspector, LabelText("记录者")]
+#endif
         private ILog _iLog;
 
+#if UNITY_EDITOR
         [PropertyRange(0, 4)]
+#endif
         public int logLevel = 3;
 
         public void Init(ILog log, int lv) {

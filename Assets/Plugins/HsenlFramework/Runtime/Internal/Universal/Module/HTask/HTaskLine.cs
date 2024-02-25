@@ -2,8 +2,10 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
+#endif
 
 namespace Hsenl {
     /* 逻辑线组件（核心思路，针对异步逻辑的时间不确定性，只要给这些逻辑打上逻辑线，那么代码在很大程度上都会按照正确的执行顺序去执行）
@@ -26,7 +28,9 @@ namespace Hsenl {
 
     public class HTaskLine {
         // 这里其实不用对字段进行线程安全处理, 因为这个taskline在使用时就是为了避免多线程竞争, 但为了避免误用, 所以还是加上安全处理.
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, PropertySpace]
+#endif
         private readonly ConcurrentDictionary<int, WaitBox> _waits = new();
 
         private volatile int _lowestPosition = int.MaxValue;

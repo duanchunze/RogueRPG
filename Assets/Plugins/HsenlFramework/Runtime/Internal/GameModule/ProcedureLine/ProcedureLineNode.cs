@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [MemoryPackable()]
     public partial class ProcedureLineNode : Unbodied {
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackInclude]
         private List<IProcedureLineWorker> _workers = new();
 

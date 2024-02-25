@@ -1,7 +1,9 @@
 ﻿using System.IO;
 using System;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.Serialization;
+#endif
 
 namespace Hsenl {
     /*
@@ -42,6 +44,7 @@ namespace Hsenl {
 
         // odin - 实际测试下来, odin的速度要比 protobuf dotnet 版的速度要快一点点
         // odin在反序列化时, 不会变量的默认值赋值, 比如 private int a = 1; 反序列化后的新实例, a 依然是默认值 0, 这点很操蛋
+#if UNITY_EDITOR
         public static byte[] SerializeOfOdin(object message) {
             return SerializationUtility.SerializeValue(message, DataFormat.Binary);
         }
@@ -57,6 +60,7 @@ namespace Hsenl {
         public static T DeserializeOfOdin<T>(Stream stream) {
             return SerializationUtility.DeserializeValue<T>(stream, DataFormat.Binary);
         }
+#endif
 
         // 这个采用了源码生成技术, 速度比odin还要快, 在预热之后(第一次执行之后), 更是快出8倍左右. 但使用起来比较麻烦
         public static byte[] SerializeOfMemoryPack(in Object message) {

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
-
+#endif
 
 namespace Hsenl {
     /* 流水线系统的核心就是在原本的Event系统的基础上实现热插拔，并以此衍生的一些附带功能
@@ -29,7 +30,9 @@ namespace Hsenl {
      */
     [Serializable]
     public class ProcedureLine : Unbodied {
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, PropertySpace]
+#endif
         private readonly MultiList<Type, IProcedureLineWorker> _workerDict = new();
 
         public void AddWorker(IProcedureLineWorker worker) {
@@ -187,8 +190,9 @@ namespace Hsenl {
                 this.handler = handler;
             }
         }
-
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, LabelText("所有处理者 (静态变量)"), PropertyOrder(-1)]
+#endif
         private static readonly MultiList<Type, HandlerPair> _handlerDict = new();
 
         [OnEventSystemInitialized]

@@ -21,24 +21,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 using System;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [Serializable]
     internal class TaskLockQueue {
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private int _type;
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private long _key;
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private TaskLocker _currentTaskLock;
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private readonly Queue<WaitTaskLock> _queue = new();
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         public int Count => this._queue.Count;
 
         public static TaskLockQueue Create(int type, long key) {

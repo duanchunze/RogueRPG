@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [Serializable]
     public class TimerManager : Singleton<TimerManager> {
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private readonly SortedMultiList<long, long> _times = new(); // key: time, value: timer id;
 
         private readonly Dictionary<long, TimerAction> _timerActions = new();

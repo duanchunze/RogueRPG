@@ -1,0 +1,17 @@
+{
+    "name": "Hsenl.Network.Common",
+    "rootNamespace": "Hsenl.Network",
+    "references": [
+        "GUID:3e7e364c8037a214986c6049744d7865",
+        "GUID:e4b7eedd58ff14d43a1b879ba2e93315"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

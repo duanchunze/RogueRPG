@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+#endif
 
 namespace Hsenl {
     // 综合节点, 可以放无数个子节点, 是综合类节点的基类
@@ -13,7 +15,9 @@ namespace Hsenl {
         [MemoryPackIgnore]
         protected int position;
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackInclude]
         protected List<TNode> children = new();
 

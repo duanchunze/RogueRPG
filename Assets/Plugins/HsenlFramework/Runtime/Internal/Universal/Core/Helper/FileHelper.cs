@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
-using UnityEngine;
 
 namespace Hsenl {
     public static class FileHelper {
@@ -83,14 +82,14 @@ namespace Hsenl {
                     }
 
                     File.Delete(subFile);
-                    Debug.LogError($"delete file '{subFile}'");
+                    Log.Error($"delete file '{subFile}'");
                 }
 
                 // 清理过后, 如果该文件夹空了, 则删除该文件夹
                 if (cleanDir == dir) return; // 不会删除跟目录
                 if (Directory.GetFiles(cleanDir).Length == 0 && Directory.GetDirectories(cleanDir).Length == 0) {
                     Directory.Delete(cleanDir);
-                    Debug.LogError($"delete dir '{cleanDir}'");
+                    Log.Error($"delete dir '{cleanDir}'");
                 }
             }
         }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using FixedMath;
-using UnityEngine;
 
 #if FIXED_MATH
 using FLOAT = FixedMath.FMath.Fixp;

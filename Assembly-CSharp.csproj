@@ -53,7 +53,6 @@
     <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\NumericNodeComponent.cs" />
     <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\SelectionTargetComponent.cs" />
     <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ElementComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\TcpServerComponent.cs" />
     <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ColliderManagerComponent.cs" />
     <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\RigidbodyComponent.cs" />
     <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CardStoreSlotComponent.cs" />
@@ -828,23 +827,11 @@
     <Reference Include="System.Xml.XPath.XDocument">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="HybridCLR.Runtime">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\HybridCLR.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="YooAsset.Editor">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\YooAsset.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.AI.Navigation">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
@@ -852,26 +839,65 @@
     <Reference Include="Unity.Burst.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Burst">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="YooAsset">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\YooAsset.dll</HintPath>
     </Reference>
     <Reference Include="HybridCLR.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\HybridCLR.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.ScriptableBuildPipeline">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Rider.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Config.Runtime">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Config.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Flow">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="PPv2URPConverters">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PlasticSCM.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Shared.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ScriptableBuildPipeline">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
@@ -891,23 +917,8 @@
     <Reference Include="Unity.VisualScripting.Core.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Config.Runtime">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Config.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Flow">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.Flow.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mathematics.Editor">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
@@ -924,9 +935,6 @@
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.AI.Navigation.Updater">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll</HintPath>
     </Reference>
@@ -936,20 +944,17 @@
     <Reference Include="Unity.Mathematics">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
     </Reference>
-    <Reference Include="PPv2URPConverters">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="YooAsset.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\YooAsset.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Searcher.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
     </Reference>
     <Reference Include="Unity.AI.Navigation.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll</HintPath>
@@ -957,14 +962,8 @@
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.ScriptableBuildPipeline.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Editor">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -976,25 +975,13 @@
       <Project>{1723d1f6-c553-90dc-5409-248c4f23f9da}</Project>
       <Name>Entry</Name>
     </ProjectReference>
-    <ProjectReference Include="GameModel.csproj">
-      <Project>{145b793a-a13f-7ea4-aa2d-b45c024fff0a}</Project>
-      <Name>GameModel</Name>
-    </ProjectReference>
     <ProjectReference Include="HsenlFramework.Editor.csproj">
       <Project>{c9510d36-fbb2-e0a2-ae10-a17692f8825b}</Project>
       <Name>HsenlFramework.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Sirenix.OdinInspector.Modules.UnityMathematics.csproj">
-      <Project>{d6d875e9-058f-5451-f026-e4c8be3c5596}</Project>
-      <Name>Sirenix.OdinInspector.Modules.UnityMathematics</Name>
-    </ProjectReference>
     <ProjectReference Include="GameHotReload.csproj">
       <Project>{e2f41488-584b-cd26-f7c9-3ca0efd4bf6a}</Project>
       <Name>GameHotReload</Name>
-    </ProjectReference>
-    <ProjectReference Include="HsenlFramework.Network.csproj">
-      <Project>{b925807c-b8dc-2552-2b49-c4b7bb5b7492}</Project>
-      <Name>HsenlFramework.Network</Name>
     </ProjectReference>
     <ProjectReference Include="Launch.csproj">
       <Project>{b2d2169f-18f8-c3b4-25df-f0d72f46c115}</Project>
@@ -1004,13 +991,33 @@
       <Project>{ccb96e0d-25d9-e1a0-8659-0281650049a4}</Project>
       <Name>GameView</Name>
     </ProjectReference>
+    <ProjectReference Include="HsenlFramework.Runtime.csproj">
+      <Project>{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}</Project>
+      <Name>HsenlFramework.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="GameModel.csproj">
+      <Project>{145b793a-a13f-7ea4-aa2d-b45c024fff0a}</Project>
+      <Name>GameModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="Hsenl.Network.Server.csproj">
+      <Project>{1511a1a5-6011-f1e5-39ee-41af38083d07}</Project>
+      <Name>Hsenl.Network.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="Hsenl.Network.Common.csproj">
+      <Project>{cc2ac33d-b7f8-3e22-5212-0621f83ee8a4}</Project>
+      <Name>Hsenl.Network.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="Sirenix.OdinInspector.Modules.UnityMathematics.csproj">
+      <Project>{d6d875e9-058f-5451-f026-e4c8be3c5596}</Project>
+      <Name>Sirenix.OdinInspector.Modules.UnityMathematics</Name>
+    </ProjectReference>
     <ProjectReference Include="HsenlFramework.ThirdParty.csproj">
       <Project>{db8e543b-9705-1e78-eb3b-5fad97947a66}</Project>
       <Name>HsenlFramework.ThirdParty</Name>
     </ProjectReference>
-    <ProjectReference Include="HsenlFramework.Runtime.csproj">
-      <Project>{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}</Project>
-      <Name>HsenlFramework.Runtime</Name>
+    <ProjectReference Include="Hsenl.Network.Client.csproj">
+      <Project>{bdfd206b-8b56-dd9c-3786-a3d8897e19a5}</Project>
+      <Name>Hsenl.Network.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     /* 剧本
@@ -22,10 +24,14 @@ namespace Hsenl {
     public abstract class Screenplay<TRecord, TNode> : Bodied, IBehaviorTree, IUpdate where TRecord : IRecord where TNode : INode {
         public Bodied Bodied => this;
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         protected TRecord record;
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         protected TNode entryNode;
 
         protected INode currentNode;

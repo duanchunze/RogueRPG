@@ -1,13 +1,17 @@
 ﻿using System;
 using MemoryPack;
 using Unity.Mathematics;
+#if UNITY_EDITOR
 using UnityEngine;
+#endif
 
 namespace Hsenl {
     [Serializable]
     [MemoryPackable()]
     public partial class ControlTrigger : Unbodied {
+#if UNITY_EDITOR
         [SerializeField]
+#endif
         [MemoryPackInclude]
         protected int controlCode = 0;
 

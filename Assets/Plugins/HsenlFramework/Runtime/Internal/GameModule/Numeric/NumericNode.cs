@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [Serializable]
@@ -14,11 +16,15 @@ namespace Hsenl {
         public int NodeType { get; set; }
 
         // string: 一个Num的唯一标识. 应用场景: 例如有一个装备, 他有三个基础属性和1个特殊属性, 三个基础属性不会重复, 但那一个特殊属性却有可能会和三个基础属性重复, 所以需要加一个唯一标识
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackInclude]
         private MultiDictionary<uint, string, Num> _numerics = new(); // key1: numericType 与 numericLayer 与 numericModel的组合, key2: unique, value: 数值
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackInclude]
         private Dictionary<uint, Num> _finalNumerics = new(); // key: numericType 与 numericLayer 与 numericModel 三者的组合,  value: 数值
 

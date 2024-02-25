@@ -3,21 +3,16 @@ using System.Net;
 using System.Net.Sockets;
 
 namespace Hsenl.Network {
-    public class IOCPClient {
+    public class IOCPClient : IOCPChannel {
         private Socket _connecter;
         private SocketAsyncEventArgs _connecterEventArgs;
-        private SocketAsyncEventArgs _recvEventArgs;
-        private SocketAsyncEventArgs _sendEventArgs;
 
-        public IOCPClient() {
+        /// <param name="recvBufferCapacity">每个接收缓冲区的大小</param>
+        /// <param name="maxinumSendSizeOnce">每次发送的最大数据</param>
+        public IOCPClient(int recvBufferCapacity, int maxinumSendSizeOnce) {
             this._connecterEventArgs = new();
-            this._recvEventArgs = new();
-            this._sendEventArgs = new();
-            this._recvEventArgs.SetBuffer(new byte[1024], 0, 1024);
-            this._sendEventArgs.SetBuffer(new byte[1024], 0, 1024);
             this._connecterEventArgs.Completed += this.ConnecterEventArg_OnCompleted;
-            this._recvEventArgs.Completed += this.RecvEventArgs_OnCompleted;
-            this._sendEventArgs.Completed += this.SendEventArgs_OnCompleted;
+            this.Init(recvBufferCapacity, maxinumSendSizeOnce);
         }
 
         // 开始连接
@@ -46,80 +41,18 @@ namespace Hsenl.Network {
                 return;
 
             Log.Info($"连接到了服务器: {e.ConnectSocket.AddressFamily}");
-            this._recvEventArgs.UserToken = e.ConnectSocket;
-            this._sendEventArgs.UserToken = e.ConnectSocket;
-
-            this.ReceiveAsync(this._recvEventArgs);
+            // 启动, 开始接收服务器数据
+            this.Start(e.ConnectSocket);
         }
 
-        // 接收数据
-        private void ReceiveAsync(SocketAsyncEventArgs e) {
-            var socket = (Socket)e.UserToken;
-            if (!socket.ReceiveAsync(e)) {
-                this.ProcessRecv(e);
-            }
-        }
-
-        private void RecvEventArgs_OnCompleted(object sender, SocketAsyncEventArgs e) {
-            try {
-                if (e.LastOperation != SocketAsyncOperation.Receive)
-                    return;
-
-                this.ProcessRecv(e);
-            }
-            catch (Exception exception) {
-                Log.Error(exception);
-            }
-        }
-
-        private void ProcessRecv(SocketAsyncEventArgs e) {
-            if (e.BytesTransferred > 0 && e.SocketError == SocketError.Success) {
-                var str = e.Buffer.ToStr(e.Offset, e.BytesTransferred);
-                Log.Info($"接收到来自服务器的消息: {str}");
-                this.ReceiveAsync(e);
-            }
-        }
-
-        // 发送数据
-        private void SendAsync(SocketAsyncEventArgs e) {
-            var socket = (Socket)e.UserToken;
-            if (!socket.SendAsync(e)) {
-                this.ProcessSend(e);
-            }
-        }
-
-        private void SendEventArgs_OnCompleted(object sender, SocketAsyncEventArgs e) {
-            try {
-                if (e.LastOperation != SocketAsyncOperation.Send)
-                    return;
-
-                this.ProcessSend(e);
-            }
-            catch (Exception exception) {
-                Log.Error(exception);
-            }
-        }
-
-        private void ProcessSend(SocketAsyncEventArgs e) {
-            if (e.SocketError == SocketError.Success) { }
-        }
-
-        // 发送消息
-        public void Send(byte[] buffer, int offset, int len) {
-            this._sendEventArgs.SetBuffer(buffer, offset, len);
-            this.SendAsync(this._sendEventArgs);
-        }
-
-        public void Close() {
+        public override void Close() {
             if (this._connecter == null)
                 return;
 
+            base.Close();
+
             this._connecterEventArgs.Completed -= this.ConnecterEventArg_OnCompleted;
-            this._recvEventArgs.Completed -= this.RecvEventArgs_OnCompleted;
-            this._sendEventArgs.Completed -= this.SendEventArgs_OnCompleted;
             this._connecterEventArgs = null;
-            this._recvEventArgs = null;
-            this._sendEventArgs = null;
             this._connecter.Close();
             this._connecter = null;
         }

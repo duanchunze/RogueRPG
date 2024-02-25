@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using MemoryPack;
-using Sirenix.OdinInspector;
 using Unity.Mathematics;
-using UnityEngine;
+#if UNITY_EDITOR
+using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     public interface IControlElement {
@@ -28,7 +29,9 @@ namespace Hsenl {
     [Serializable]
     [MemoryPackable()]
     public partial class Control : Unbodied, ILateUpdate {
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         [MemoryPackIgnore]
         private Dictionary<int, Element> _elementDict = new();
 

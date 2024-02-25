@@ -1,6 +1,9 @@
 ﻿using System;
 using MemoryPack;
+
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [MemoryPackable(GenerateType.NoGenerate)]
@@ -83,7 +86,9 @@ namespace Hsenl {
                     }
                 }
 
+#if UNITY_EDITOR
                 this.PartialOnEnableSelfChanged(value);
+#endif
             }
         }
 
@@ -112,7 +117,9 @@ namespace Hsenl {
         protected internal override void OnDestroyFinish() {
             base.OnDestroyFinish();
             this.entity = null;
+#if UNITY_EDITOR
             this.PartialOnDestroyFinish();
+#endif
         }
 
         internal void InternalOnDeserialized() {
@@ -419,9 +426,11 @@ namespace Hsenl {
 
         #region partial
 
+#if UNITY_EDITOR
         partial void PartialOnEnableSelfChanged(bool enab);
 
         partial void PartialOnDestroyFinish();
+#endif
 
         #endregion
     }

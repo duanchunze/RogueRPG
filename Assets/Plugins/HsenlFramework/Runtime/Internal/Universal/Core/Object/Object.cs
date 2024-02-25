@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [FrameworkMember]
@@ -15,12 +17,16 @@ namespace Hsenl {
         // 直接目的是为了反序列化的循环引用, 目前MemoryPack对于循环引用的支持并不灵活易用, 所以, 现在想到一个方案, 就是保存一个唯一不变的id, 这样就可以在反序列化过后, 通过查找的方式,
         // 拉取这个对象的引用. 但如此代价过大, 且实现的过程逻辑不够合理, 所以暂时还不实现. 只能说目前Memory Pack对循环引用的支持还不够友好
         // 2023.8.28, 但现在发现有另一个地方可以用到这个唯一id
+#if UNITY_EDITOR
         [ShowInInspector, LabelText("UniqueID"), ReadOnly]
+#endif
         [MemoryPackOrder(0)]
         [MemoryPackInclude]
         protected internal int uniqueId;
 
+#if UNITY_EDITOR
         [ShowInInspector, LabelText("InstanceID"), ReadOnly]
+#endif
         [MemoryPackIgnore]
         internal int instanceId;
 
@@ -57,7 +63,9 @@ namespace Hsenl {
                     var t = (T)obj;
                     switch (t) {
                         case Entity entity: {
+#if UNITY_5_3_OR_NEWER
                             entity.ForeachSerialize(child => { child.PartialOnCreated(); });
+#endif
                             entity.SetParent(parent);
                             entity.InitializeBySerialization();
                             break;

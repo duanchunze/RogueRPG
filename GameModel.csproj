@@ -340,6 +340,7 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.TimeLine\TimeSegment\TsShowWarningBoard.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\RefreshStoreCards\Handler\PlhRefreshStoreCards_Pricing.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\InvokeType.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Message\C2G_Login.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\Pickup\Handler\PlhPickup.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ai\TbAIConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\HarmOfDibozhanBoltInfo.cs" />
@@ -1191,6 +1192,14 @@
     <ProjectReference Include="HsenlFramework.Runtime.csproj">
       <Project>{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}</Project>
       <Name>HsenlFramework.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Hsenl.Network.Common.csproj">
+      <Project>{cc2ac33d-b7f8-3e22-5212-0621f83ee8a4}</Project>
+      <Name>Hsenl.Network.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="Hsenl.Network.Client.csproj">
+      <Project>{bdfd206b-8b56-dd9c-3786-a3d8897e19a5}</Project>
+      <Name>Hsenl.Network.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

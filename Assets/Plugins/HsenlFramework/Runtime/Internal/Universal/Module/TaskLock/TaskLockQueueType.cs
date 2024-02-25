@@ -21,15 +21,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 using System;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [Serializable]
     internal class TaskLockQueueType {
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private readonly int _type; // 协程锁类型
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private readonly Dictionary<long, TaskLockQueue> _taskLockQueues = new(); // key 和 协程锁列队
 
         public TaskLockQueueType(int type) {

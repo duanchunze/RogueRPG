@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d41d1af7-cb42-4c28-a326-88d21dd96e7b" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes/Constant.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes/Constant.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes/Package.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes/Package.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes/PacketBuffer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes/PacketBuffer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/IOCPChannel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/IOCPChannel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/MessageManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/MessageManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/NetworkPool.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/NetworkPool.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Runtime/Internal/Universal/Core/Helper/HashcodeHelper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Runtime/Internal/Universal/Core/Helper/HashcodeHelper.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Runtime/Internal/Universal/Core/SnowflakeIdGenerator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Runtime/Internal/Universal/Core/SnowflakeIdGenerator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Assets/Scripts/GameModel/Generate/Message.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/.idea.Server/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/.idea.Server/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/.idea.Server/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/.idea.Server/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assembly-CSharp-Editor-firstpass.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assembly-CSharp-Editor-firstpass.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assembly-CSharp-firstpass.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assembly-CSharp-firstpass.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assembly-CSharp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Classes.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Classes/MessageAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes/MessageAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Classes/MessageAttribute.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes/MessageAttribute.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Classes/MessageRequestAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes/MessageRequestAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Classes/MessageRequestAttribute.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes/MessageRequestAttribute.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Classes/MessageResponseAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes/MessageResponseAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Classes/MessageResponseAttribute.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Common/Classes/MessageResponseAttribute.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Client/IOCPClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Client/IOCPClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Client/SocketClient.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Client/SocketClient.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Client/TcpClientOld.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Client/TcpClientOld.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/HsenlFramework.Network.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/HsenlFramework.Network.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/IServer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/IServer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Message.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Message/C2G_Login.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Scripts/GameModel/Generate/Message/C2G_Login.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Message/C2G_Login.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Scripts/GameModel/Generate/Message/C2G_Login.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Server/IOCPServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Server/IOCPServer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Server/TcpServerOld.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/Server/TcpServerOld.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/SocketAsyncEventArgsBufferPool.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/SocketAsyncEventArgsBufferPool.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/SocketAsyncEventArgsPool.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/SocketAsyncEventArgsPool.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/TChannel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/TChannel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/TcpServer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/TcpServer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/note.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Network/note.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Runtime/Internal/GameModule/Numeric/Numerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Runtime/Internal/GameModule/Numeric/Numerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Runtime/Internal/Universal/Core/DataStructure/NativeBuffer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Runtime/Internal/Universal/Core/DataStructure/NativeBuffer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Runtime/Internal/Universal/Core/DataStructure/UnmanagedArray.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Runtime/Internal/Universal/Core/DataStructure/UnmanagedArray.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Runtime/Internal/Universal/Core/Helper/ByteHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Plugins/HsenlFramework/Runtime/Internal/Universal/Core/Helper/ByteHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Scripts/GameModel/GameModel.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Scripts/GameModel/GameModel.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Scripts/Hsenl2MonoGenerate/TcpServerComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Scripts/Hsenl2MonoGenerate/TcpServerComponent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Scripts/Test/NetworkTest/ClientUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Scripts/Test/NetworkTest/ClientUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assets/Scripts/Test/NetworkTest/Server.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assets/Scripts/Test/NetworkTest/Server.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GameModel.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../GameModel.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../HsenlFramework.Network.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../HsenlFramework.Network.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../HsenlFramework.Runtime.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../HsenlFramework.Runtime.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ProjectSettings/HybridCLRSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../../ProjectSettings/HybridCLRSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RogueRPG.sln" beforeDir="false" afterPath="$PROJECT_DIR$/../../RogueRPG.sln" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="Toolset" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2crz4cPP0MhxOyQRAkDRGOR3BSe" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="d41d1af7-cb42-4c28-a326-88d21dd96e7b" name="更改" comment="" />
+      <created>1708884294970</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708884294970</updated>
+      <workItem from="1708884296008" duration="82000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

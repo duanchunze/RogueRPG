@@ -1,6 +1,8 @@
 ﻿using System;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     // 并行执行所有子节点, 所有的子节点都是并行的. 不同于SelectorNode和SequentialNode两大主逻辑节点, 并行节点并不专注于门逻辑, 而只是一个为了保证所有子节点无论成功失败都能被执行的复合节点,

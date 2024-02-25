@@ -1,27 +1,38 @@
 ﻿using System;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [Serializable]
     public class TimeInfoManager : Singleton<TimeInfoManager> {
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private float _deltaTime;
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private int _frameCount;
 
         private DateTime _dt1970;
         private DateTime _dt;
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private long _now;
 
         private long _nowRaw;
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private float _time;
 
         private long _previousTime;
+
 
 #if UNITY_5_3_OR_NEWER
         public float DeltaTime => UnityEngine.Time.deltaTime;
@@ -32,9 +43,15 @@ namespace Hsenl {
             set => UnityEngine.Time.timeScale = value;
         }
 #else
+        private float _timeScale = 1;
+
         public float DeltaTime => this._deltaTime;
         public int FrameCount => this._frameCount;
         public float Time => this._time;
+        public float TimeScale {
+            get => this._timeScale;
+            set => this._timeScale = value;
+        }
 #endif
         public long Now => this._now;
 

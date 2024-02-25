@@ -47,55 +47,8 @@ namespace Hsenl {
         }
 
         private static async HTask WaitExitAsync(Process process) {
-#if UNITY
-            await process.WaitForExitAsync();
-            UnityEngine.Debug.Log($"process exit, exitcode: {process.ExitCode} {process.StandardOutput.ReadToEnd()} {process.StandardError.ReadToEnd()}");
-#else
             await HTask.Completed;
             throw new Exception("only use in unity");
-#endif
         }
-
-#if UNITY
-        private static async Task WaitForExitAsync(this Process self)
-        {
-            if (!self.HasExited)
-            {
-                return;
-            }
-
-            try
-            {
-                self.EnableRaisingEvents = true;
-            }
-            catch (InvalidOperationException)
-            {
-                if (self.HasExited)
-                {
-                    return;
-                }
-                throw;
-            }
-
-            var tcs = new TaskCompletionSource<bool>();
-
-            void Handler(object s, EventArgs e) => tcs.TrySetResult(true);
-            
-            self.Exited += Handler;
-
-            try
-            {
-                if (self.HasExited)
-                {
-                    return;
-                }
-                await tcs.Task;
-            }
-            finally
-            {
-                self.Exited -= Handler;
-            }
-        }
-#endif
     }
 }

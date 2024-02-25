@@ -1,6 +1,8 @@
 ﻿using System;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     // 阶段, 所以子节点并行执行
@@ -9,15 +11,21 @@ namespace Hsenl {
     [Serializable]
     [MemoryPackable()]
     public partial class Stage : ParallelNode<ITimeLine, ITimeNode>, IStageNode {
+#if UNITY_EDITOR
         [ShowInInspector, PropertyOrder(-1)]
+#endif
         [MemoryPackInclude]
         public int StageType { get; set; }
 
+#if UNITY_EDITOR
         [ShowInInspector, PropertyOrder(-1)]
+#endif
         [MemoryPackInclude]
         public float Duration { get; set; }
 
+#if UNITY_EDITOR
         [PropertyOrder(-1)]
+#endif
         [MemoryPackIgnore]
         public bool passed;
 

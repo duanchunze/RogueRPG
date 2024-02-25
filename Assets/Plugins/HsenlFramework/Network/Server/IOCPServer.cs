@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 
 namespace Hsenl.Network {
@@ -16,56 +15,27 @@ namespace Hsenl.Network {
          * 2、当ReceiveAsync方法被调用时, 操作系统会将数据从内核缓冲区复制到用户空间的缓冲区, 这个缓冲区就是EventArgs的Buffer或BufferList
          * 3、最后就是我们使用这些数据时, 可能需要把数据从Buffer中拷贝出来
          */
-        private const int opsToPreAlloc = 2; // 一部分用来收, 一部分用来发, 加起来2部分
-
         private Socket _listener;
         private SocketAsyncEventArgs _listenerEventArgs; // 服务器自己的event args, 用于接受连接
-        private readonly int _maximumConnections; // 最大连接数
         private int _receiveBufferSize; // 每一个接收消息缓存区大小
-        private readonly SocketAsyncEventArgsBufferPool _socketAsyncEventArgsBufferPool;
-        private readonly SocketAsyncEventArgsPool _recvEventArgsPool;
-        private readonly SocketAsyncEventArgsPool _sendEventArgsPool;
+        private int _maximumMessageBodySize; // 允许的包体的最大大小
+        private int _maxinumSendSizeOnce; // 每一个接收消息缓存区大小
         private int _totalBytesRead; // 记录总共读取字节数
         private int _numConnectedSockets; // 当前客户端连接数
+        private readonly NetworkPool<IOCPChannel> channelPool = new();
+        private readonly Dictionary<long, IOCPChannel> _channels = new();
 
-        private List<SocketAsyncEventArgs> _connectedSendEventArgs = new();
+        public event Action<IOCPChannel, Memory<byte>> OnRecvData;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="maximumConnections">服务器最大连接数</param>
-        /// <param name="receiveBufferSize">每个消息的缓存区大小</param>
-        public IOCPServer(int maximumConnections, int receiveBufferSize) {
+        /// <param name="receiveBufferSize">每个接收消息的缓存区大小</param>
+        /// <param name="maxinumSendSizeOnce">每次发送的最大数据</param>
+        /// <param name="maximumMessageBodySize">允许用户发送的最大的包体大小</param>
+        public IOCPServer(int receiveBufferSize, int maxinumSendSizeOnce, int maximumMessageBodySize = 0) {
+            this._receiveBufferSize = receiveBufferSize;
+            this._maximumMessageBodySize = maximumMessageBodySize == 0 ? receiveBufferSize * 1024 : maximumMessageBodySize;
+            this._maxinumSendSizeOnce = maxinumSendSizeOnce;
             this._totalBytesRead = 0;
             this._numConnectedSockets = 0;
-            this._maximumConnections = maximumConnections;
-            this._receiveBufferSize = receiveBufferSize;
-            // 分配缓冲区，使最大数量的套接字可以同时有一个未完成的读和写发送到套接字
-            this._socketAsyncEventArgsBufferPool =
-                new SocketAsyncEventArgsBufferPool(receiveBufferSize * maximumConnections * opsToPreAlloc, receiveBufferSize);
-            this._recvEventArgsPool = new SocketAsyncEventArgsPool(maximumConnections);
-            this._sendEventArgsPool = new SocketAsyncEventArgsPool(maximumConnections);
-        }
-
-        public void Init() {
-            // 初始化总缓存区
-            this._socketAsyncEventArgsBufferPool.InitBuffer();
-
-            // 根据最大连接数, 准备好所有EventArg, 并且给每个EventArg都设置好缓存区
-            for (int i = 0; i < this._maximumConnections; i++) {
-                var recvEventArg = new SocketAsyncEventArgs();
-                // 这里注册预先注册了消息完成时的回调
-                recvEventArg.Completed += this.ReceiveEventArgsCompleted;
-
-                this._socketAsyncEventArgsBufferPool.SetBuffer(recvEventArg);
-                this._recvEventArgsPool.Push(recvEventArg);
-
-                var sendEventArg = new SocketAsyncEventArgs();
-                sendEventArg.Completed += this.SendEventArgsCompleted;
-
-                this._socketAsyncEventArgsBufferPool.SetBuffer(sendEventArg);
-                this._sendEventArgsPool.Push(sendEventArg);
-            }
         }
 
         // 启动服务器并监听
@@ -134,121 +104,47 @@ namespace Hsenl.Network {
             if (e.LastOperation != SocketAsyncOperation.Accept)
                 return;
 
-            // Interlocked.Increment可以给值上锁, 同时又比使用lock的方式要快, 特别在线程争用较少的情况下, 但只支持简单的数据, 更复杂的数据, 还是需要lock或其他方案
+            // Interlocked.Increment比使用lock的方式要快, 特别在线程争用较少的情况下
             Interlocked.Increment(ref this._numConnectedSockets);
             Log.Info("接受客户端的连接! 现在有{0}个客户端在连接服务器", this._numConnectedSockets);
 
-            // 进来了一个新的客户端, 给他分配一个专门的eventArgs
-            var recvEventArgs = this._recvEventArgsPool.Pop();
-            recvEventArgs.UserToken = e.AcceptSocket;
-            var sendEventArgs = this._sendEventArgsPool.Pop();
-            sendEventArgs.UserToken = e.AcceptSocket;
+            // 进来了一个新的客户端, 给他分配一个专门的通道
+            var channel = this.channelPool.Rent();
+            this._channels.Add(channel.GetHashCode(), channel);
+            channel.OnRecvDataIncludeIncomplete += this.OnChannelRecvDataIncludeIncomplete;
+            channel.OnRecvData += this.OnChannelRecvData;
+            channel.OnError += this.CloseClientSocket;
 
-            this._connectedSendEventArgs.Add(sendEventArgs);
-
-            // 一旦客户端连接上，就开始监听获取客户端的数据
-            this.ReceiveAsync(recvEventArgs);
+            channel.Init(this._receiveBufferSize, this._maxinumSendSizeOnce, this._maximumMessageBodySize);
+            // 启动通道, 开始接收数据
+            channel.Start(e.AcceptSocket);
         }
 
-        // 同\异步接收客户端发来的数据
-        private void ReceiveAsync(SocketAsyncEventArgs e) {
-            var socket = (Socket)e.UserToken;
-            bool willRaiseEvent = socket.ReceiveAsync(e);
-            if (!willRaiseEvent) {
-                this.ProcessReceive(e);
-            }
+        private void OnChannelRecvDataIncludeIncomplete(IOCPChannel channel, Memory<byte> data) {
+            Interlocked.Add(ref this._totalBytesRead, data.Length);
+            Log.Info($"服务器接收到了数据:  {data.Length} b / {this._totalBytesRead} b -- {(data.Length / 1024f):f2} kb / {(this._totalBytesRead / 1024f):f2} kb");
         }
 
-        // 尝试接收客户端数据的结果下来了(通过Complete)
-        private void ReceiveEventArgsCompleted(object sender, SocketAsyncEventArgs e) {
+        private void OnChannelRecvData(IOCPChannel channel, Memory<byte> data) {
+            Log.Info($"服务器接收到了一个完整的包:  {data.Length} b / {this._totalBytesRead} b -- {(data.Length / 1024f):f2} kb / {(this._totalBytesRead / 1024f):f2} kb");
             try {
-                switch (e.LastOperation) {
-                    case SocketAsyncOperation.Receive:
-                        this.ProcessReceive(e);
-                        break;
-                    default:
-                        throw new ArgumentException("The last operation completed on the socket was not a receive or send");
-                }
+                this.OnRecvData?.Invoke(channel, data);
             }
-            catch (Exception exception) {
-                Log.Error(exception);
+            catch (Exception e) {
+                Log.Error(e);
             }
         }
 
-        // 尝试接收客户端的数据的结果下来了
-        private void ProcessReceive(SocketAsyncEventArgs e) {
-            // 先检查对方客户端是否关闭了连接, 且接收数据是否成功
-            if (e.BytesTransferred > 0 && e.SocketError == SocketError.Success) {
-                // 增加数据接收记录
-                Interlocked.Add(ref this._totalBytesRead, e.BytesTransferred);
-                Log.Info("服务器总共接收了 {0} 字节", this._totalBytesRead);
-
-                var str = e.Buffer.ToStr(e.Offset, e.BytesTransferred);
-                Log.Info($"收到客户端的消息: {str}");
-                this.ReceiveAsync(e);
-            }
-            else {
-                this.CloseClientSocket(e);
-            }
-        }
-
-        // 同\异步给客户端发数据
-        private void SendAsync(SocketAsyncEventArgs e) {
-            var socket = (Socket)e.UserToken;
-            bool willRaiseEvent = socket.SendAsync(e);
-            if (!willRaiseEvent) {
-                this.ProcessSend(e);
-            }
-        }
-
-        // 尝试给客户端发数据的结果下来了(通过Complete)
-        private void SendEventArgsCompleted(object sender, SocketAsyncEventArgs e) {
+        private void CloseClientSocket(IOCPChannel channel, SocketAsyncEventArgs e) {
             try {
-                switch (e.LastOperation) {
-                    case SocketAsyncOperation.Send:
-                        this.ProcessSend(e);
-                        break;
-                    default:
-                        throw new ArgumentException("The last operation completed on the socket was not a receive or send");
-                }
-            }
-            catch (Exception exception) {
-                Log.Error(exception);
-            }
-        }
-
-        // 尝试给客户端发送数据的结果下来了
-        private void ProcessSend(SocketAsyncEventArgs e) {
-            // 如果发送成功, 则正常的继续接收客户端的数据
-            if (e.SocketError == SocketError.Success) { }
-            else {
-                // 如果发送失败, 则关闭对方客户端
-                this.CloseClientSocket(e);
-            }
-        }
-
-        private void CloseClientSocket(SocketAsyncEventArgs e) {
-            try {
-                this._connectedSendEventArgs.Remove(e);
-                var socket = (Socket)e.UserToken;
-
-                socket.Close();
-
+                channel.Close();
+                this.channelPool.Return(channel);
                 Interlocked.Decrement(ref this._numConnectedSockets);
 
-                this._recvEventArgsPool.Push(e);
                 Log.Info("一个客户端从服务器断开! 现在有{0}个客户端在连接服务器", this._numConnectedSockets);
             }
             catch (Exception exception) {
                 Log.Error(exception);
-            }
-        }
-
-        public void SendMessage(string message) {
-            var bytes = message.ToUtf8();
-            foreach (var connectedEventArg in this._connectedSendEventArgs) {
-                connectedEventArg.SetBuffer(bytes, 0, bytes.Length);
-                this.SendAsync(connectedEventArg);
             }
         }
 
@@ -261,16 +157,18 @@ namespace Hsenl.Network {
             this._listenerEventArgs.Dispose();
             this._listener.Close();
             this._listener = null;
+            this._receiveBufferSize = 0;
+            this._maximumMessageBodySize = 0;
+            this._maxinumSendSizeOnce = 0;
+            this._totalBytesRead = 0;
+            this._numConnectedSockets = 0;
 
-            foreach (var connecterEventArg in this._connectedSendEventArgs) {
-                var connectSocket = (Socket)connecterEventArg.UserToken;
-                connectSocket.Close();
-                connecterEventArg.Dispose();
+            foreach (var channel in this._channels.Values) {
+                channel.Close();
+                channel.Dispose();
             }
 
-            this._connectedSendEventArgs.Clear();
+            this.OnRecvData = null;
         }
-
-        public void Update() { }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using MemoryPack;
 
 namespace Hsenl {
@@ -52,7 +51,6 @@ namespace Hsenl {
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        [NotNull]
         public new List<K> this[T t] {
             get {
                 this.TryGetValue(t, out var list);

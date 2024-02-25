@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [Serializable]
     public sealed class CoroutineManager : Singleton<CoroutineManager> {
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, HideLabel]
+#endif
         private readonly Manager _manager = new();
 
         public void Update() {
@@ -32,7 +36,9 @@ namespace Hsenl {
         private class Routine {
             public int Key { get; private set; }
 
+#if UNITY_EDITOR
             [ShowInInspector, ReadOnly]
+#endif
             private IEnumerator Core { get; set; }
 
             private Routine Custodian { get; set; }
@@ -204,7 +210,9 @@ namespace Hsenl {
         /// 4、Stop的时候，会立即执行，并触发事件，但对于协程从Manager中删除，却会延迟一帧
         /// </summary>
         private class Manager {
+#if UNITY_EDITOR
             [ShowInInspector, ReadOnly, LabelText("Coroutines")]
+#endif
             private readonly Dictionary<int, Routine> _kv = new();
 
             private Queue<Routine> _queue1 = new();

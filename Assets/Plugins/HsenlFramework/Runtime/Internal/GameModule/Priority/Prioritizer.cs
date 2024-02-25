@@ -1,29 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
 using UnityEngine;
+#endif
 
 namespace Hsenl {
     [Serializable]
     [MemoryPackable()]
     public partial class Prioritizer : Unbodied, IPrioritizer, IUpdate {
+#if UNITY_EDITOR
         [SerializeField, PropertyRange(0f, 5f), LabelText("时间缩放")]
+#endif
         [MemoryPackInclude]
         public float timeScale = 1f;
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, LabelText("所有状态"), DictionaryDrawerSettings(KeyLabel = "状态名", ValueLabel = "状态")]
+#endif
         [MemoryPackIgnore]
         protected HashSet<IPriorityState> states = new();
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, LabelText("所有通道"), DictionaryDrawerSettings(KeyLabel = "通道", ValueLabel = "状态们")]
+#endif
         [MemoryPackIgnore]
         protected MultiList<int, IPriorityState> aisles = new();
 
         [MemoryPackIgnore]
         protected Queue<int> dirtyFlags = new();
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, LabelText("当前进入的状态")]
+#endif
         [MemoryPackIgnore]
         protected IPriorityState currentEnterState;
         
@@ -39,7 +49,9 @@ namespace Hsenl {
         [MemoryPackIgnore]
         protected Stack<IPriorityState> pollingCache = new();
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, LabelText("默认状态"), DictionaryDrawerSettings(KeyLabel = "通道", ValueLabel = "状态")]
+#endif
         [MemoryPackIgnore]
         protected Dictionary<int, IPriorityState> defaults = new();
 

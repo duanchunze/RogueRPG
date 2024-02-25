@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+#endif
 
 namespace Hsenl {
     // 只有一个子节点, 放在某个子节点上面, 用于修饰该子节点
@@ -12,7 +14,9 @@ namespace Hsenl {
         where TManager : IBehaviorTree where TNode : class, INode<TManager> {
         public override NodeType NodeType => NodeType.Decorator;
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackInclude]
         protected TNode child;
 

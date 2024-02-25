@@ -21,12 +21,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 using System;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [Serializable]
     public class TaskLockManager : Singleton<TaskLockManager> {
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private readonly List<TaskLockQueueType> _list = new();
 
         private readonly Queue<(int, long, int)> _nextFrameRun = new();

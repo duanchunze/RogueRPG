@@ -47,20 +47,18 @@
     <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\SocketAsyncEventArgsBufferPool.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Classes\MessageResponseAttribute.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\SocketAsyncEventArgsPool.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Message\C2G_Login.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\SocketClient.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Classes\PacketBuffer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Classes\Package.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Classes\MessageRequestAttribute.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Server\TcpServerOld.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\IServer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Constant.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\Opcode.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Classes\MessageAttribute.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Server\IOCPServer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\IOCPChannel.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\NetworkPool.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\IOCPClient.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\TcpClientOld.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\TcpServer.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\TChannel.cs" />
     <None Include="Assets\Plugins\HsenlFramework\Network\note.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Network\HsenlFramework.Network.asmdef" />
     <Reference Include="DemiEditor">

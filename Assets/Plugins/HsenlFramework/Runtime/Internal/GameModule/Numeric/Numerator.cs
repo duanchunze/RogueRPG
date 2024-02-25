@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Hsenl.EventType;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
-using UnityEngine;
+#endif
 
 namespace Hsenl {
     /* 整个数值分为两块
@@ -14,7 +15,7 @@ namespace Hsenl {
      * NumericKey: 对应着NumericType
      * NodeLayerKey: 决定该node会在第几层被纳入计算
      * NodeTypeKey: 决定该node的计算方式
-     * 
+     *
      * 算法: 每个节点是如何影响结果的, 具体算法怎么算, 算法顺序
      *      算法就是, 拿到基础值, 然后遍历第一层, 把固定数先加一起算出结果 a, 把百分率加一起算一个结果 b, 用基础值*百分率算出一个结果c, 最终结果 = 基础值 + a + c
      *      然后再遍历第二层, 使用第一层算出的结果作为基础值
@@ -53,20 +54,28 @@ namespace Hsenl {
         public bool allowAttacherExpand;
 
         // 原始数值的意义在于它指定了该数值的最终numType, 此后所有的附加数值, 都最终会转化成该numType. 所以即使原始值为0, 我们也应该设置它, 而不是忽略它
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackInclude]
         private Dictionary<uint, Num> _rawNumerics = new(); // key: NumericType  value: 原始值
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackIgnore]
         private Dictionary<uint, Num> _attachNumerics = new(); // key: numericType 与 numericLayer 与 numericModel的组合, 也就是NumericNodeKey
 
         // final里存的不仅仅只是最终数值, 还有每一层的最终数值
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackIgnore]
         private MultiDictionary<uint, uint, Num> _finalNumerics = new(); // key1: NumericType key2: NumericLayer value: 最终值
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         [MemoryPackIgnore]
         private readonly List<INumericNode> _attaches = new();
 
@@ -291,9 +300,9 @@ namespace Hsenl {
         }
 
         public void Recalculate(bool sendEvent = true) {
-            UnmanagedArray<uint> array1 = new(this._attachNumerics.Count);
+            Span<uint> array1 = stackalloc uint[this._attachNumerics.Count];
             var n1 = 0;
-            foreach (var key in this._attachNumerics.Keys.AsParallel()) {
+            foreach (var key in this._attachNumerics.Keys) {
                 array1[n1++] = key >> NumericConst.NumericTypeOffset;
             }
 
@@ -301,7 +310,7 @@ namespace Hsenl {
                 this.RecalculateAttachNumeric(array1[i]);
             }
 
-            UnmanagedArray<uint> array2 = new(this._attachNumerics.Count);
+            Span<uint> array2 = stackalloc uint[this._attachNumerics.Count];
             var n2 = 0;
             foreach (var finalNumericsKey in this._finalNumerics.Keys) {
                 array2[n2++] = finalNumericsKey;

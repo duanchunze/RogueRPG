@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Hsenl.CrossCombiner {
+﻿namespace Hsenl.CrossCombiner {
     [CombinerOptions(crossMaximumLayer = int.MaxValue)]
     public class BoxColliderRigidbodyCrossCombiner : CrossCombiner<BoxCollider, Rigidbody> {
         protected override void OnCombin(BoxCollider arg1, Rigidbody arg2) {

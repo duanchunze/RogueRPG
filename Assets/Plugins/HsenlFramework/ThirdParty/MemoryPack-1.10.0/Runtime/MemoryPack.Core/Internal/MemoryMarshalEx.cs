@@ -29,7 +29,5 @@ internal static class MemoryMarshalEx
         return new T[length];
     }
 }
-
-#endif
-
 }
+#endif

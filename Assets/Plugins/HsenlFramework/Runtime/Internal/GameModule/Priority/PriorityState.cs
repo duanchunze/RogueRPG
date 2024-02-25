@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using MemoryPack;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
 using UnityEngine;
+#endif
 
 namespace Hsenl {
     [Serializable]
@@ -12,78 +14,124 @@ namespace Hsenl {
         private bool _handledFlag;
 
         /// 该时间缩放应该用在游戏逻辑上, 而不是用在比如击败boss的慢动作上, 那个应该用TimeInfo.TimeScale
+#if UNITY_EDITOR
         [SerializeField, PropertyRange(0f, 5f), LabelText("时间缩放"), FoldoutGroup("优先级")]
+#endif
         public float timeScale = 1f;
 
+#if UNITY_EDITOR
         [SerializeField, LabelText("通道"), FoldoutGroup("优先级")]
+#endif
         public int[] aisles = { 0 };
 
+#if UNITY_EDITOR
         [SerializeField, LabelText("进入等级"), FoldoutGroup("优先级")]
+#endif
         public int enterPriority;
 
+#if UNITY_EDITOR
         [SerializeField, LabelText("阻拦等级锚点"), FoldoutGroup("优先级")]
+#endif
         public int resistPriorityAnchor;
 
+#if UNITY_EDITOR
         [ShowInInspector, LabelText("阻拦等级"), DisableInEditorMode, FoldoutGroup("优先级")]
+#endif
         [MemoryPackInclude]
         protected int resistPriority;
-        
+
+#if UNITY_EDITOR
         [SerializeField, LabelText("排挤等级"), FoldoutGroup("优先级")]
+#endif
         public int exclusionPriority;
 
+#if UNITY_EDITOR
         [SerializeField, LabelText("保持等级"), FoldoutGroup("优先级")]
+#endif
         public int keepPriority;
 
+#if UNITY_EDITOR
         [SerializeField, LabelText("禁用等级"), FoldoutGroup("优先级")]
+#endif
         public int disablePriority;
 
+#if UNITY_EDITOR
         [SerializeField, LabelText("运行等级"), FoldoutGroup("优先级")]
+#endif
         public int runPriority;
 
+#if UNITY_EDITOR
         [SerializeField, LabelText("指定通过"), FoldoutGroup("优先级")]
+#endif
         public Bitlist specialPassLabels;
 
+#if UNITY_EDITOR
         [SerializeField, LabelText("指定拦截"), FoldoutGroup("优先级")]
+#endif
         public Bitlist specialInterceptLabels;
 
+#if UNITY_EDITOR
         [SerializeField, LabelText("指定排挤"), FoldoutGroup("优先级")]
+#endif
         public Bitlist specialExclusionLabels;
 
+#if UNITY_EDITOR
         [SerializeField, LabelText("指定保持"), FoldoutGroup("优先级")]
+#endif
         public Bitlist specialKeepLabels;
 
+#if UNITY_EDITOR
         [SerializeField, LabelText("指定禁用"), FoldoutGroup("优先级")]
+#endif
         public Bitlist specialDisableLabels;
 
+#if UNITY_EDITOR
         [SerializeField, LabelText("指定运行"), FoldoutGroup("优先级")]
+#endif
         public Bitlist specialRunLabels;
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, LabelText("上一帧暂停"), FoldoutGroup("优先级")]
+#endif
         [MemoryPackInclude]
         protected bool pausedPrevious;
 
+#if UNITY_EDITOR
         [ShowInInspector, LabelText("暂停"), DisableInEditorMode, FoldoutGroup("优先级")]
+#endif
         [MemoryPackInclude]
         protected bool paused;
 
+#if UNITY_EDITOR
         [SerializeField, ReadOnly, LabelText("持续时间"), FoldoutGroup("优先级")]
+#endif
         public float duration;
 
+#if UNITY_EDITOR
         [SerializeField, ReadOnly, LabelText("当前时间"), FoldoutGroup("优先级")]
+#endif
         [MemoryPackInclude]
         protected float time;
 
+#if UNITY_EDITOR
         [ShowInInspector, LabelText("时间暂停"), DisableInEditorMode, NonSerialized, FoldoutGroup("优先级")]
+#endif
         [MemoryPackInclude]
         public bool timeParse;
 
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly, LabelText("状态管理器"), FoldoutGroup("优先级")]
+#endif
         private IPrioritizer _manager;
 
+#if UNITY_EDITOR
         [LabelText("允许重进"), FoldoutGroup("优先级")]
+#endif
         public bool allowReenter;
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         private IPrioritizer _targetPrioritizer;
 
         [MemoryPackIgnore]

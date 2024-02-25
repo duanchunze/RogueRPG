@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     /// <summary>
@@ -16,12 +18,16 @@ namespace Hsenl {
     /// </summary>
     [Serializable]
     public class ProcedureManager : Singleton<ProcedureManager>, IFsm {
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         private readonly Dictionary<Type, AProcedureState> _procedureStates = new();
 
         private readonly Dictionary<Type, AProcedureState> _procedureStateShadows = new();
 
+#if UNITY_EDITOR
         [ShowInInspector]
+#endif
         private AProcedureState _currentState;
 
         public AProcedureState CurrentState => this._currentState;

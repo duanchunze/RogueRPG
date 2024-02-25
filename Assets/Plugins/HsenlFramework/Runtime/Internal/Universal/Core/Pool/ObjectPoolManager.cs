@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     // 该池针对的是dotnet object
     [Serializable]
     public class ObjectPoolManager : Singleton<ObjectPoolManager> {
+#if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
+#endif
         private Dictionary<Type, Queue<object>> _pool = new();
 
         public T Rent<T>() where T : class, new() {

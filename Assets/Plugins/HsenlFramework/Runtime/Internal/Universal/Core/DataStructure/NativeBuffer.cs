@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -11,7 +13,7 @@ namespace Hsenl {
     // // ...
     // buf.Dispose();
     // 使用的是直接分配内存的方式来实现的array, 由于语言版本的问题, 对于foreach中还不支持ref
-    public sealed class NativeBuffer<T> : IDisposable where T : unmanaged {
+    public sealed class NativeBuffer<T> : IEnumerable<T>, IDisposable where T : unmanaged {
         private unsafe T* _pointer;
         public nint Length { get; }
 
@@ -51,6 +53,16 @@ namespace Hsenl {
             }
         }
 
+        public unsafe NativeBufferEnumerator GetEnumerator() => new(ref this._pointer, this.Length);
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            throw new NotImplementedException();
+        }
+
         // 双保险, 即使没有调用 Dispose 也可以在 GC 回收时释放资源
         ~NativeBuffer() {
             this.Dispose();
@@ -69,7 +81,8 @@ namespace Hsenl {
                         if (this.pointer == (T*)0) {
                             return Unsafe.NullRef<T>();
                         }
-                        else return this.current;
+
+                        return this.current;
                     }
                 }
             }
@@ -78,20 +91,20 @@ namespace Hsenl {
                 this.pointer = pointer;
                 this.length = length;
                 this.index = 0;
-                this.current = Unsafe.NullRef<T>();
+                this.current = default;
             }
 
             public bool MoveNext() {
                 unsafe {
                     // 确保没有越界并且指向的内存仍然有效
-                    if (this.index >= this.length || this.pointer == (T*)0) {
+                    if (this.index >= this.length) {
                         return false;
                     }
 
-                    if (Unsafe.IsNullRef(ref this.current))
-                        this.current = *this.pointer;
-                    else
-                        this.current = Unsafe.Add(ref this.current, 1);
+                    if (this.pointer == (T*)0)
+                        throw new Exception("NativeBufferEnumerator pointer miss");
+
+                    this.current = this.pointer[this.index];
                 }
 
                 this.index++;

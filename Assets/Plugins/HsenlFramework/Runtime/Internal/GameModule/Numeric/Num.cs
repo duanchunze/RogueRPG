@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Hsenl {
     [Serializable]
@@ -13,10 +15,14 @@ namespace Hsenl {
             return new Num { _type = type };
         }
 
+#if UNITY_EDITOR
         [ShowInInspector, HideLabel, HorizontalGroup("h")]
+#endif
         private long _raw;
 
+#if UNITY_EDITOR
         [ShowInInspector, HideLabel, HorizontalGroup("h")]
+#endif
         private byte _type; // 0 float, 1 int, 2 long
 
         public byte Type => this._type;
