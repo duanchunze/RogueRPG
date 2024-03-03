@@ -28,13 +28,12 @@ namespace Hsenl {
     /// 于Hsenl框架, 不过有些需要做点小修改.</para>
     /// </summary>
     /*
-     * 问题: todo 用户使用[ShadowFunctionMandatoryAttribute]的情况下, 假如修改了源函数, 用户不会收到任何提示说源函数已经改变了!</para>
      * 问题: 针对同一个源函数, 同一个域内, priority不能重复, 但不同的域之间, priority却可以重复
      */
     public static class ShadowFunction {
         public static void Register<T>(uint hashcode, string assemblyName, int priority, T del) where T : Delegate => ShadowFunctionManager.Instance.Register(hashcode, assemblyName, priority, del);
         public static void Unregister(uint hashcode) => ShadowFunctionManager.Instance.Unregister(hashcode);
-        public static void Unregister(uint hashcode, string source, int priority) => ShadowFunctionManager.Instance.Unregister(hashcode);
+        public static void Unregister(uint hashcode, string source, int priority) => ShadowFunctionManager.Instance.Unregister(hashcode, source, priority);
         public static bool GetFunctions(uint hashcode, out SortedDictionary<long, Delegate> dels) => ShadowFunctionManager.Instance.GetFunctions(hashcode, out dels);
     }
 }

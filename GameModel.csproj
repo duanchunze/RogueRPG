@@ -55,7 +55,6 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\SellCard\Handler\PlhSellCardPricing.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\HarmOfDirectionBoltInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\LubanLib\ITypeId.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\Template\SearcherOfOverlapSphere.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\HarmOfColliderInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\GameProcedure\ProcedurePreloadAssets.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLineWorker\PlwCastOfHarmProbabilistic.cs" />
@@ -72,7 +71,6 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.TimeLine\TimePoint\TpHarmOfPointBolt.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\LubanLib\SimpleJSON\SimpleJSONDotNetTypes.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\BuyCard\Handler\PlhBuyCardPutin.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\ASelectionsFilter.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\Harm\PliDamageArbitramentForm.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\BuyCard\PliBuyCardForm.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.Screenplay\Quest\QstInfo.cs" />
@@ -82,7 +80,7 @@
     <Compile Include="Assets\Scripts\GameModel\Module\Driver\UpdateDriver.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Factory\Temp\BoltFactory.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Card\Card.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\Template\SelectOfNearests.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Module\Selector\Implementors\FilterOfAlive.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\ForceMovementInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Constant.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ability_assist\AbilityAssistConfig.cs" />
@@ -91,6 +89,7 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\casterevaluate\ManaCheckInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.TimeLine\TimePoint\TpOpenWarningBoard.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Global\Global.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Module\Selector\Implementors\SelectOfNearest.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\AbilityStageChanged\Handler\PlhAbilityStageChangedWuqishou.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\card\CardSynthesisConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\priority\StateInfo.cs" />
@@ -98,12 +97,14 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\ModifyTagsInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Card\CardStore\CardStorePool.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\pickable\WrappageInfo.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Module\Selector\Implementors\SearcherOfOverlapSphere.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.TimeLine\TimeSegment\TsHarm.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.TimeLine\TimeSegment\Status\TsStatusHarm.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.TimeLine\TimeSegment\TsHarmOfCollider.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\StatusAlias.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\drops\DropByWeightInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Factory\Temp\ColliderFactory.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Module\Selector\Implementors\FilterOfTags.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\pickable\WrappageCoinInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\CrossCombin\CardBackpackSlot_CardBackpack_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.TimeLine\TimePoint\TpPlayFx.cs" />
@@ -116,7 +117,6 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\card\TbCardSingletonConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\CrossCombin\CardBarHeadSlot_CardBar_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Card\ICardResidence.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\MultiCombin\HurtableProcedureLineCombiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\faction\FactionConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\Harm\PliDamageArbitramentPriority.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\ResurgenceInfo.cs" />
@@ -168,7 +168,6 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\CrossCombin\CardStorePool_CardStore_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Card\CardBackpack\CardBackpackSlot.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\TimeActionInfo.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\Template\FilterOfTags.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.AI\AIInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timestageline\ConditionAndInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\procedureline\HealthRatioCastInfo.cs" />
@@ -185,7 +184,6 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\Manager\Checkpoint\CheckpointManagerKillAll.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\InflictionStatusToTargetInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\actor\TbActorConfig.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\Template\SelectionsExtension.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\RefreshStoreCards\Handler\PlhRefreshStoreCards_Refresh.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\HarmOfPointBoltInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\procedureline\Info.cs" />
@@ -209,6 +207,7 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\Pickup\Handler\PlhPickableDestroy.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\StatusChanges\Handler\PlhDeathDrop.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\MultiCombin\StatusRelated\Status_PriorityState_Combiner.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Module\Selector\Implementors\SelectOfNearests.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\PlaySoundInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\card\CardConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Factory\Temp\AdventureFactory.cs" />
@@ -232,6 +231,7 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\AbilityChanges\PliAbilityChangedForm.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\AbilityStageChanged\Handler\PlhAbilityStageChangedRepetitionCast.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\adventure\CandidateInfo.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Module\Selector\SelectionsExtension.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\actor\TbActorConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\LubanLib\SimpleJSON\SimpleJSONBinary.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\procedureline\WorkerNull.cs" />
@@ -242,13 +242,11 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\procedureline\WorkerInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Status\StatusBar.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\MultiCombin\Picker_ProcedureLine_Combiner.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\Template\SelectOfNearest.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Factory\Temp\AbilityFactory.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Event\Card\EventMoveCard.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\TimeLineInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Card\CardStore\CardStore.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\MultiCombin\AbilityRelated\PriorityState_StageLine_Combiner.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\Selector.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\drops\DropsNameInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Factory\Temp\AbilityAssistFactory.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Status\Status.cs" />
@@ -305,6 +303,7 @@
     <Compile Include="Assets\Scripts\GameModel\Module\Cast\CastModel.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\CasterBreak\Handler\PlhCasterBreakCompensateMana.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Pickable\Pickable.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Module\Selector\Implementors\FilterOfObstacles.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\procedureline\WorkerInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\CrossCombin\Ability_StageLine_ProcedureLine_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\TpHarmInfo.cs" />
@@ -340,7 +339,6 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.TimeLine\TimeSegment\TsShowWarningBoard.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\RefreshStoreCards\Handler\PlhRefreshStoreCards_Pricing.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\InvokeType.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Generate\Message\C2G_Login.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\Pickup\Handler\PlhPickup.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ai\TbAIConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\HarmOfDibozhanBoltInfo.cs" />
@@ -364,15 +362,12 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\MultiCombin\AbilityRelated\Caster_PriorityState_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\LubanLib\BeanBase.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.TimeLine\TimePoint\TpHarmOfDibozhanBolt.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\ASelectionsSearcher.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\GameArbiter.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\checkpoint\TbCheckpointConfig.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\MultiCombin\HarmableProcedureLineCombiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\CrossCombin\NumericNode_Numerator_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\faction\FactionConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ai\AIConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\card\WrappageAbilityInfo.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\SelectionTarget.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Event\Card\EventFreezeCard.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\Harm\Handler\PlhHarmRecoverEnergy.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\DamageType.cs" />
@@ -403,14 +398,13 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\CrossCombin\ProcedureLineNode_ProcedureLine_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\SellCard\Handler\PlhSellCardSell.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.AI\AIIntelligentAssault.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Message\C2L_Login.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\status\StatusConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Event\Card\EventChangeAbilityAutoTrigger.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\TsHarmInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Combiner\CrossCombin\Ability_AbilityBar_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\behavior\ParalleNodeInfo.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\Template\FilterOfAlive.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\ModifyPriorityInfo.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\Template\FilterOfObstacles.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.TimeLine\TimePoint\TpCloseWarningBoard.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\drops\DropNumberInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\DefaultMemoryPackFormatter.cs" />
@@ -442,7 +436,6 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\adventurescheme\DefaultBigMapAdventureInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.Screenplay\Adventure\Node\AdvDefaultCheckpoints.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Behavior.CasterEvaluate\CeManaCheck.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\ASelectionsSelect.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\Harm\Handler\PlhHarmProbabilisticCast.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\ProcedureLine\BuyCard\Handler\PlhBuyCardSynthesis.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\GameAlgorithm.cs" />
@@ -458,7 +451,6 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\LubanLib\ByteBuf.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Cast\CasterEvaluate.cs" />
     <Compile Include="Assets\Scripts\GameModel\Module\Faction\Faction.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Module\Selections\ASelections.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ai\AIInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\GameProcedure\ProcedureChangeScene.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\PlayAnimInfo.cs" />

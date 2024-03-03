@@ -47,15 +47,39 @@
     <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Channel\IOCPChannel.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\IService.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IOnChannelDisconnected.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\IClient.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\NetworkPool.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Classes\MessageRequestAttribute.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\MessageManager.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\IOCPChannel.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Exception\ParseMessageException.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IOCP\IOCPPackageSender.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IAfterMessageReaded.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\IPluggable.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IOCP\IOCPPackageReceiver.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\HMemoryStream.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IAfterMessageWrited.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\Plugs\Encryption\DefaultEncryptionPlug.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\ErrorCode.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Channel\IChannel.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Channel\Channel.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\Plugs\Reconnect\Reconnect.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\OpcodeLookupTable.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Classes\MessageResponseAttribute.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Classes\Constant.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Classes\Package.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IPackageHandler.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IPackageSendBufferProvider.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\Plugs\Keepalive\KeepalivePlug.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IPackageWriter.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\IPlugGroup.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\IPluggableRealized.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\PackageBuffer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IOnChannelStarted.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IPackageReader.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Classes\MessageAttribute.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Classes\PacketBuffer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\Plugs\Encryption\EncryptionPlug.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IPackageRecvBufferProvider.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\IPlug.cs" />
     <None Include="Assets\Plugins\HsenlFramework\Network\Common\Hsenl.Network.Common.asmdef" />
     <Reference Include="DemiEditor">
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DemiLib\Core\Editor\DemiEditor.dll</HintPath>

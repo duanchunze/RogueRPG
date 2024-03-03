@@ -70,6 +70,11 @@ namespace Hsenl {
             span[offset + 2] = (byte)((num & 0xff0000) >> 16);
             span[offset + 3] = (byte)((num & 0xff000000) >> 24);
         }
+        
+        public static void WriteTo(this Span<byte> span, ushort num, int offset = 0) {
+            span[offset] = (byte)(num & 0xff);
+            span[offset + 1] = (byte)((num & 0xff00) >> 8);
+        }
 
         public static void WriteTo(this byte[] bytes, int offset, byte num) {
             bytes[offset] = num;

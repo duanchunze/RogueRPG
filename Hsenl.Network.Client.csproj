@@ -47,6 +47,8 @@
     <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\Client.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\ClientConfig.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\IOCPClient.cs" />
     <None Include="Assets\Plugins\HsenlFramework\Network\Client\Hsenl.Network.Client.asmdef" />
     <Reference Include="DemiEditor">

@@ -125,7 +125,7 @@ namespace Hsenl {
         protected ulong* ptr;
 #endif
 
-        [System.NonSerialized] // unity那个 depth limit 10警告
+        [NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackInclude]
         protected ulong[] masks;
 

@@ -2,6 +2,8 @@
 
 namespace Hsenl {
     public class SnowflakeIdGenerator {
+        public static SnowflakeIdGenerator Instance;
+        
         private const long Twepoch = 1288834974657L; // 起始时间戳 (2010-04-25 00:00:00 GMT)
 
         private const int WorkerIdBits = 5; // 机器ID所占的位数
@@ -17,6 +19,11 @@ namespace Hsenl {
         private long sequence = MaxSequence;
 
         private long lastTimestamp = -1L;
+
+        public static long GenerateId() {
+            Instance ??= new SnowflakeIdGenerator(0, 0);
+            return Instance.NextId();
+        }
 
         // 例如我有三个数据中心, 每个数据中心五个机子, 可以填(0-4, 0-2)
         public SnowflakeIdGenerator(long workerId, long datacenterId) {
@@ -65,17 +72,6 @@ namespace Hsenl {
             }
 
             return timestamp;
-        }
-    }
-
-    // 使用示例
-    public class Program {
-        public static void Main() {
-            SnowflakeIdGenerator idGenerator = new SnowflakeIdGenerator(1, 1);
-            for (int i = 0; i < 10; i++) {
-                long id = idGenerator.NextId();
-                Console.WriteLine(id);
-            }
         }
     }
 }

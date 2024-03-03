@@ -104,5 +104,27 @@ namespace Hsenl {
                 codeIndex %= codeLength;
             }
         }
+
+        public static void GetQuickXorBytes(Span<byte> span, Span<byte> code) {
+            if (span == null) {
+                return;
+            }
+
+            if (code == null) {
+                throw new Exception("Code is invalid.");
+            }
+
+            var codeLength = code.Length;
+            if (codeLength <= 0) {
+                throw new Exception("Code length is invalid.");
+            }
+
+            var codeIndex = 0;
+            var len = span.Length;
+            for (var i = 0; i < len; i++) {
+                span[i] ^= code[codeIndex++];
+                codeIndex %= codeLength;
+            }
+        }
     }
 }

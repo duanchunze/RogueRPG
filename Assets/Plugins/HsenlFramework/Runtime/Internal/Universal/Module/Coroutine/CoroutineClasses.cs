@@ -6,21 +6,21 @@ namespace Hsenl {
     }
 
     /// <summary>
-    /// 等待秒
+    /// 等待毫秒
     /// </summary>
     public sealed class WaitSeconds : IWait {
         private long _tillTime;
 
-        public WaitSeconds(long time) {
-            this._tillTime = DateTime.Now.Ticks + time * 10000;
+        public WaitSeconds(long ms) {
+            this._tillTime = DateTime.Now.Ticks + ms * 10000;
         }
 
         bool IWait.Tick() {
             return DateTime.Now.Ticks >= this._tillTime;
         }
 
-        public void Reset(long time) {
-            this._tillTime = DateTime.Now.Ticks + time * 10000;
+        public void Reset(long ms) {
+            this._tillTime = DateTime.Now.Ticks + ms * 10000;
         }
     }
 

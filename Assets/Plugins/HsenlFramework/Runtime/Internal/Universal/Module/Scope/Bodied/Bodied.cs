@@ -14,8 +14,15 @@ namespace Hsenl {
      * 而是这个人的依赖者
      *
      * 默认情况下, 我们规定最上面的bodied为attachedBodied, 其下其他的bodied都只是普通的bodied, 当然我们也可以自定义我们自己的规则.
-     * 例如一个actor下挂载了abilityBar, abilityBar下又挂载了一些ability, 那么actor因为在最上面的, 所以他就是ab, 而其余的像abilityBar, abilities, 都是普通的bodied, 当然这些bodied的
-     * ab, 指的就是最上面的actor.
+     * 例如一个actor下挂载了abilityBar, abilityBar下又挂载了一些ability, 那么actor因为在最上面的, 所以他就是ab, 而其余的像abilityBar, abilities, 都是普通的bodied, 而这些bodied的
+     * ab, 指的自然就是最上面的那个actor.
+     *
+     * 意义: bodied系统用一种规则定义了所属关系, 在做沙盒类游戏的时候, 这很有用, 比如现在有一种需求, 我们把身上的背包丢到地上, 然后背包自己长腿跑了. 我们只需要把背包从actor父级上拿下来,
+     * 然后给他挂上数值组件、技能、AI、等组件, 他就能跑了, 当他的父级从actor变为null的时候, 他自己就变成了ab, 他下面的移动模块就会以它的transform作为操作对象.
+     *
+     * 不足: 即便如此, 在面对复杂的沙盒游戏的时候, 依然不够, 例如, 现在actor骑上了一个装甲, 理论上, ab就由actor变成了装甲, 移动技能也改为操作装甲的transform这没问题, 但是获取
+     * 移动速度依然要从actor的身上去获取, 更别说假如人物在装甲上也能移动呢? 移动速度是人物移速+装甲移速呢? 仅仅定义一个所属关系的规则, 显然不足以处理这种复杂的情况.
+     * 这就让bodied系统的存在显得尴尬, 要么就完善, 要么干脆移除该系统.
      */
     [MemoryPackable(GenerateType.CircularReference)]
     public partial class Bodied : Scope, IBodied, IUnbodiedHead {

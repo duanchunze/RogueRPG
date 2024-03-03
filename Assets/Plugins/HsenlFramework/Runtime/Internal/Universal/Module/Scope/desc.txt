@@ -1,2 +1,0 @@
-scope(域)模块分为两部分
-Combiner(组合)与Bodied(有形体), bodied继承自scope, 但二者在作用上是较为独立的.
