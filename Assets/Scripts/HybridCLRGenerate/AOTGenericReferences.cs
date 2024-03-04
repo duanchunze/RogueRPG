@@ -6,7 +6,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	public static readonly IReadOnlyList<string> PatchedAOTAssemblyList = new List<string>
 	{
 		"DOTween.dll",
-		"Sirenix.Serialization.dll",
 		"System.Core.dll",
 		"System.Runtime.CompilerServices.Unsafe.dll",
 		"System.dll",
@@ -24,15 +23,18 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// {{ AOT generic types
 	// DG.Tweening.Core.DOGetter<UnityEngine.Vector3>
 	// DG.Tweening.Core.DOSetter<UnityEngine.Vector3>
-	// Sirenix.Serialization.Serializer<object>
 	// System.Action<Cysharp.Text.Utf16FormatSegment>
 	// System.Action<Cysharp.Text.Utf8FormatSegment>
 	// System.Action<Hsenl.CasterLeaveDetails>
+	// System.Action<Hsenl.Container.MappingInfo>
+	// System.Action<Hsenl.FixCollisionInfo>
+	// System.Action<Hsenl.HTask>
 	// System.Action<Hsenl.StatusFinishDetails>
 	// System.Action<MemoryPack.Internal.BufferSegment>
 	// System.Action<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Action<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Action<System.Collections.Generic.KeyValuePair<object,object>>
+	// System.Action<System.Memory<byte>>
 	// System.Action<System.Threading.CancellationToken>
 	// System.Action<System.ValueTuple<object,object>>
 	// System.Action<System.ValueTuple<ushort,object>>
@@ -60,6 +62,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Action<float>
 	// System.Action<int,int>
 	// System.Action<int>
+	// System.Action<long,System.Memory<byte>>
+	// System.Action<long,int>
+	// System.Action<long,ushort,System.Memory<byte>>
 	// System.Action<long>
 	// System.Action<object,Hsenl.PriorityStateLeaveDetails>
 	// System.Action<object,float>
@@ -68,6 +73,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Action<object,object,object>
 	// System.Action<object,object>
 	// System.Action<object>
+	// System.Action<ushort,System.Memory<byte>>
+	// System.Action<ushort,object>
+	// System.Action<ushort>
+	// System.ArraySegment.Enumerator<Hsenl.C2L_Login>
+	// System.ArraySegment.Enumerator<Hsenl.L2C_Login>
 	// System.ArraySegment.Enumerator<System.DateTime>
 	// System.ArraySegment.Enumerator<System.DateTimeOffset>
 	// System.ArraySegment.Enumerator<System.Decimal>
@@ -114,6 +124,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.ArraySegment.Enumerator<uint>
 	// System.ArraySegment.Enumerator<ulong>
 	// System.ArraySegment.Enumerator<ushort>
+	// System.ArraySegment<Hsenl.C2L_Login>
+	// System.ArraySegment<Hsenl.L2C_Login>
 	// System.ArraySegment<System.DateTime>
 	// System.ArraySegment<System.DateTimeOffset>
 	// System.ArraySegment<System.Decimal>
@@ -195,6 +207,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool<byte>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool<object>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool<ushort>
+	// System.ByReference<Hsenl.C2L_Login>
+	// System.ByReference<Hsenl.L2C_Login>
 	// System.ByReference<System.DateTime>
 	// System.ByReference<System.DateTimeOffset>
 	// System.ByReference<System.Decimal>
@@ -246,13 +260,26 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Concurrent.ConcurrentBag.Enumerator<object>
 	// System.Collections.Concurrent.ConcurrentBag.WorkStealingQueue<object>
 	// System.Collections.Concurrent.ConcurrentBag<object>
+	// System.Collections.Concurrent.ConcurrentDictionary.<GetEnumerator>d__35<int,object>
+	// System.Collections.Concurrent.ConcurrentDictionary.<GetEnumerator>d__35<long,object>
 	// System.Collections.Concurrent.ConcurrentDictionary.<GetEnumerator>d__35<object,object>
+	// System.Collections.Concurrent.ConcurrentDictionary.DictionaryEnumerator<int,object>
+	// System.Collections.Concurrent.ConcurrentDictionary.DictionaryEnumerator<long,object>
 	// System.Collections.Concurrent.ConcurrentDictionary.DictionaryEnumerator<object,object>
+	// System.Collections.Concurrent.ConcurrentDictionary.Node<int,object>
+	// System.Collections.Concurrent.ConcurrentDictionary.Node<long,object>
 	// System.Collections.Concurrent.ConcurrentDictionary.Node<object,object>
+	// System.Collections.Concurrent.ConcurrentDictionary.Tables<int,object>
+	// System.Collections.Concurrent.ConcurrentDictionary.Tables<long,object>
 	// System.Collections.Concurrent.ConcurrentDictionary.Tables<object,object>
+	// System.Collections.Concurrent.ConcurrentDictionary<int,object>
+	// System.Collections.Concurrent.ConcurrentDictionary<long,object>
 	// System.Collections.Concurrent.ConcurrentDictionary<object,object>
+	// System.Collections.Concurrent.ConcurrentQueue.<Enumerate>d__28<Hsenl.InjectionReflectionInfo>
 	// System.Collections.Concurrent.ConcurrentQueue.<Enumerate>d__28<object>
+	// System.Collections.Concurrent.ConcurrentQueue.Segment<Hsenl.InjectionReflectionInfo>
 	// System.Collections.Concurrent.ConcurrentQueue.Segment<object>
+	// System.Collections.Concurrent.ConcurrentQueue<Hsenl.InjectionReflectionInfo>
 	// System.Collections.Concurrent.ConcurrentQueue<object>
 	// System.Collections.Concurrent.ConcurrentStack.<GetEnumerator>d__35<object>
 	// System.Collections.Concurrent.ConcurrentStack.Node<object>
@@ -260,6 +287,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Concurrent.IProducerConsumerCollection<object>
 	// System.Collections.Generic.ArraySortHelper<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.ArraySortHelper<Cysharp.Text.Utf8FormatSegment>
+	// System.Collections.Generic.ArraySortHelper<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.ArraySortHelper<Hsenl.HTask>
 	// System.Collections.Generic.ArraySortHelper<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.ArraySortHelper<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ArraySortHelper<System.Collections.Generic.KeyValuePair<long,object>>
@@ -291,8 +320,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ArraySortHelper<int>
 	// System.Collections.Generic.ArraySortHelper<long>
 	// System.Collections.Generic.ArraySortHelper<object>
+	// System.Collections.Generic.ArraySortHelper<ushort>
 	// System.Collections.Generic.Comparer<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.Comparer<Cysharp.Text.Utf8FormatSegment>
+	// System.Collections.Generic.Comparer<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.Comparer<Hsenl.HTask>
 	// System.Collections.Generic.Comparer<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.Comparer<Hsenl.Num>
 	// System.Collections.Generic.Comparer<MemoryPack.Internal.BufferSegment>
@@ -332,6 +364,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Comparer<ushort>
 	// System.Collections.Generic.ComparisonComparer<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.ComparisonComparer<Cysharp.Text.Utf8FormatSegment>
+	// System.Collections.Generic.ComparisonComparer<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.ComparisonComparer<Hsenl.HTask>
 	// System.Collections.Generic.ComparisonComparer<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.ComparisonComparer<Hsenl.Num>
 	// System.Collections.Generic.ComparisonComparer<MemoryPack.Internal.BufferSegment>
@@ -373,6 +407,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.Enumerator<int,int>
 	// System.Collections.Generic.Dictionary.Enumerator<int,object>
 	// System.Collections.Generic.Dictionary.Enumerator<long,object>
+	// System.Collections.Generic.Dictionary.Enumerator<object,Hsenl.Container.InjectionInfo>
+	// System.Collections.Generic.Dictionary.Enumerator<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.Dictionary.Enumerator<object,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.Enumerator<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
 	// System.Collections.Generic.Dictionary.Enumerator<object,int>
@@ -386,6 +422,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,int>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,object>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<long,object>
+	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,Hsenl.Container.InjectionInfo>
+	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,int>
@@ -399,6 +437,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.KeyCollection<int,int>
 	// System.Collections.Generic.Dictionary.KeyCollection<int,object>
 	// System.Collections.Generic.Dictionary.KeyCollection<long,object>
+	// System.Collections.Generic.Dictionary.KeyCollection<object,Hsenl.Container.InjectionInfo>
+	// System.Collections.Generic.Dictionary.KeyCollection<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,int>
@@ -412,6 +452,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,int>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,object>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<long,object>
+	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,Hsenl.Container.InjectionInfo>
+	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,int>
@@ -425,6 +467,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.ValueCollection<int,int>
 	// System.Collections.Generic.Dictionary.ValueCollection<int,object>
 	// System.Collections.Generic.Dictionary.ValueCollection<long,object>
+	// System.Collections.Generic.Dictionary.ValueCollection<object,Hsenl.Container.InjectionInfo>
+	// System.Collections.Generic.Dictionary.ValueCollection<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,int>
@@ -438,6 +482,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary<int,int>
 	// System.Collections.Generic.Dictionary<int,object>
 	// System.Collections.Generic.Dictionary<long,object>
+	// System.Collections.Generic.Dictionary<object,Hsenl.Container.InjectionInfo>
+	// System.Collections.Generic.Dictionary<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.Dictionary<object,Hsenl.Num>
 	// System.Collections.Generic.Dictionary<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
 	// System.Collections.Generic.Dictionary<object,int>
@@ -448,6 +494,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary<uint,object>
 	// System.Collections.Generic.Dictionary<ushort,object>
 	// System.Collections.Generic.EqualityComparer<FixedMath.ConcaveHull2.Edge>
+	// System.Collections.Generic.EqualityComparer<Hsenl.Container.InjectionInfo>
+	// System.Collections.Generic.EqualityComparer<Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.EqualityComparer<Hsenl.Num>
 	// System.Collections.Generic.EqualityComparer<ProtoBuf.Meta.TypeModel.KnownTypeKey>
 	// System.Collections.Generic.EqualityComparer<System.Buffers.ReadOnlySequence<byte>>
@@ -471,12 +519,18 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.ICollection<FixedMath.FVector2>
 	// System.Collections.Generic.ICollection<FixedMath.FVector3>
+	// System.Collections.Generic.ICollection<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.ICollection<Hsenl.HTask<object>>
+	// System.Collections.Generic.ICollection<Hsenl.HTask>
+	// System.Collections.Generic.ICollection<Hsenl.InjectionReflectionInfo>
 	// System.Collections.Generic.ICollection<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.ICollection<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,Hsenl.Num>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,int>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,Hsenl.Container.InjectionInfo>>
+	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,Hsenl.Container.ResolveInfo>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,Hsenl.Num>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,int>>
@@ -513,8 +567,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<int>
 	// System.Collections.Generic.ICollection<long>
 	// System.Collections.Generic.ICollection<object>
+	// System.Collections.Generic.ICollection<ushort>
 	// System.Collections.Generic.IComparer<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.IComparer<Cysharp.Text.Utf8FormatSegment>
+	// System.Collections.Generic.IComparer<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.IComparer<Hsenl.HTask>
 	// System.Collections.Generic.IComparer<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.IComparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IComparer<System.Collections.Generic.KeyValuePair<long,object>>
@@ -546,7 +603,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IComparer<int>
 	// System.Collections.Generic.IComparer<long>
 	// System.Collections.Generic.IComparer<object>
+	// System.Collections.Generic.IComparer<ushort>
 	// System.Collections.Generic.IDictionary<int,object>
+	// System.Collections.Generic.IDictionary<long,object>
 	// System.Collections.Generic.IDictionary<object,object>
 	// System.Collections.Generic.IDictionary<uint,object>
 	// System.Collections.Generic.IEnumerable<Cysharp.Text.Utf16FormatSegment>
@@ -554,12 +613,17 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<FixedMath.ConcaveHull2.Edge>
 	// System.Collections.Generic.IEnumerable<FixedMath.FVector2>
 	// System.Collections.Generic.IEnumerable<FixedMath.FVector3>
+	// System.Collections.Generic.IEnumerable<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.IEnumerable<Hsenl.HTask>
+	// System.Collections.Generic.IEnumerable<Hsenl.InjectionReflectionInfo>
 	// System.Collections.Generic.IEnumerable<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<System.UIntPtr,object>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,Hsenl.Num>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,int>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,Hsenl.Container.InjectionInfo>>
+	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,Hsenl.Container.ResolveInfo>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,Hsenl.Num>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,int>>
@@ -597,17 +661,23 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<long>
 	// System.Collections.Generic.IEnumerable<object>
 	// System.Collections.Generic.IEnumerable<uint>
+	// System.Collections.Generic.IEnumerable<ushort>
 	// System.Collections.Generic.IEnumerator<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.IEnumerator<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.IEnumerator<FixedMath.ConcaveHull2.Edge>
 	// System.Collections.Generic.IEnumerator<FixedMath.FVector2>
 	// System.Collections.Generic.IEnumerator<FixedMath.FVector3>
+	// System.Collections.Generic.IEnumerator<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.IEnumerator<Hsenl.HTask>
+	// System.Collections.Generic.IEnumerator<Hsenl.InjectionReflectionInfo>
 	// System.Collections.Generic.IEnumerator<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<System.UIntPtr,object>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,Hsenl.Num>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,int>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,Hsenl.Container.InjectionInfo>>
+	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,Hsenl.Container.ResolveInfo>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,Hsenl.Num>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,int>>
@@ -646,6 +716,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<long>
 	// System.Collections.Generic.IEnumerator<object>
 	// System.Collections.Generic.IEnumerator<uint>
+	// System.Collections.Generic.IEnumerator<ushort>
 	// System.Collections.Generic.IEqualityComparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IEqualityComparer<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.Generic.IEqualityComparer<System.Collections.Generic.KeyValuePair<object,object>>
@@ -658,6 +729,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IList<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.IList<FixedMath.FVector2>
 	// System.Collections.Generic.IList<FixedMath.FVector3>
+	// System.Collections.Generic.IList<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.IList<Hsenl.HTask<object>>
+	// System.Collections.Generic.IList<Hsenl.HTask>
 	// System.Collections.Generic.IList<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.IList<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<int,object>>
@@ -690,6 +764,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IList<int>
 	// System.Collections.Generic.IList<long>
 	// System.Collections.Generic.IList<object>
+	// System.Collections.Generic.IList<ushort>
 	// System.Collections.Generic.IReadOnlyCollection<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IReadOnlyCollection<object>
 	// System.Collections.Generic.IReadOnlyList<object>
@@ -699,6 +774,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.KeyValuePair<int,int>
 	// System.Collections.Generic.KeyValuePair<int,object>
 	// System.Collections.Generic.KeyValuePair<long,object>
+	// System.Collections.Generic.KeyValuePair<object,Hsenl.Container.InjectionInfo>
+	// System.Collections.Generic.KeyValuePair<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.KeyValuePair<object,Hsenl.Num>
 	// System.Collections.Generic.KeyValuePair<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
 	// System.Collections.Generic.KeyValuePair<object,int>
@@ -719,6 +796,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.LinkedListNode<object>
 	// System.Collections.Generic.List.Enumerator<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.List.Enumerator<Cysharp.Text.Utf8FormatSegment>
+	// System.Collections.Generic.List.Enumerator<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.List.Enumerator<Hsenl.HTask>
 	// System.Collections.Generic.List.Enumerator<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.List.Enumerator<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.List.Enumerator<System.Collections.Generic.KeyValuePair<long,object>>
@@ -750,8 +829,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.Enumerator<int>
 	// System.Collections.Generic.List.Enumerator<long>
 	// System.Collections.Generic.List.Enumerator<object>
+	// System.Collections.Generic.List.Enumerator<ushort>
 	// System.Collections.Generic.List<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.List<Cysharp.Text.Utf8FormatSegment>
+	// System.Collections.Generic.List<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.List<Hsenl.HTask>
 	// System.Collections.Generic.List<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<long,object>>
@@ -783,8 +865,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List<int>
 	// System.Collections.Generic.List<long>
 	// System.Collections.Generic.List<object>
+	// System.Collections.Generic.List<ushort>
 	// System.Collections.Generic.ObjectComparer<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.ObjectComparer<Cysharp.Text.Utf8FormatSegment>
+	// System.Collections.Generic.ObjectComparer<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.ObjectComparer<Hsenl.HTask>
 	// System.Collections.Generic.ObjectComparer<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.ObjectComparer<Hsenl.Num>
 	// System.Collections.Generic.ObjectComparer<MemoryPack.Internal.BufferSegment>
@@ -823,6 +908,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectComparer<uint>
 	// System.Collections.Generic.ObjectComparer<ushort>
 	// System.Collections.Generic.ObjectEqualityComparer<FixedMath.ConcaveHull2.Edge>
+	// System.Collections.Generic.ObjectEqualityComparer<Hsenl.Container.InjectionInfo>
+	// System.Collections.Generic.ObjectEqualityComparer<Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.ObjectEqualityComparer<Hsenl.Num>
 	// System.Collections.Generic.ObjectEqualityComparer<ProtoBuf.Meta.TypeModel.KnownTypeKey>
 	// System.Collections.Generic.ObjectEqualityComparer<System.Buffers.ReadOnlySequence<byte>>
@@ -838,13 +925,17 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectEqualityComparer<ushort>
 	// System.Collections.Generic.Queue.Enumerator<Hsenl.EventSystemManager.LateUpdateWrap>
 	// System.Collections.Generic.Queue.Enumerator<Hsenl.EventSystemManager.UpdateWrap>
+	// System.Collections.Generic.Queue.Enumerator<Hsenl.HTask>
 	// System.Collections.Generic.Queue.Enumerator<System.ValueTuple<int,long,int>>
+	// System.Collections.Generic.Queue.Enumerator<System.ValueTuple<long,long,int>>
 	// System.Collections.Generic.Queue.Enumerator<int>
 	// System.Collections.Generic.Queue.Enumerator<long>
 	// System.Collections.Generic.Queue.Enumerator<object>
 	// System.Collections.Generic.Queue<Hsenl.EventSystemManager.LateUpdateWrap>
 	// System.Collections.Generic.Queue<Hsenl.EventSystemManager.UpdateWrap>
+	// System.Collections.Generic.Queue<Hsenl.HTask>
 	// System.Collections.Generic.Queue<System.ValueTuple<int,long,int>>
+	// System.Collections.Generic.Queue<System.ValueTuple<long,long,int>>
 	// System.Collections.Generic.Queue<int>
 	// System.Collections.Generic.Queue<long>
 	// System.Collections.Generic.Queue<object>
@@ -947,6 +1038,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.ObservableCollection<object>
 	// System.Collections.ObjectModel.ReadOnlyCollection<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.ObjectModel.ReadOnlyCollection<Cysharp.Text.Utf8FormatSegment>
+	// System.Collections.ObjectModel.ReadOnlyCollection<Hsenl.Container.MappingInfo>
+	// System.Collections.ObjectModel.ReadOnlyCollection<Hsenl.HTask>
 	// System.Collections.ObjectModel.ReadOnlyCollection<MemoryPack.Internal.BufferSegment>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.Collections.Generic.KeyValuePair<long,object>>
@@ -978,9 +1071,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.ReadOnlyCollection<int>
 	// System.Collections.ObjectModel.ReadOnlyCollection<long>
 	// System.Collections.ObjectModel.ReadOnlyCollection<object>
+	// System.Collections.ObjectModel.ReadOnlyCollection<ushort>
 	// System.Collections.ObjectModel.ReadOnlyObservableCollection<object>
 	// System.Comparison<Cysharp.Text.Utf16FormatSegment>
 	// System.Comparison<Cysharp.Text.Utf8FormatSegment>
+	// System.Comparison<Hsenl.Container.MappingInfo>
+	// System.Comparison<Hsenl.HTask>
 	// System.Comparison<Hsenl.MergeSortFloatWrap<object>>
 	// System.Comparison<Hsenl.Num>
 	// System.Comparison<MemoryPack.Internal.BufferSegment>
@@ -1021,21 +1117,27 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.EventHandler<object>
 	// System.Func<System.Collections.Generic.KeyValuePair<object,object>,byte>
 	// System.Func<System.Threading.Tasks.VoidTaskResult>
+	// System.Func<System.ValueTuple<object,object>,object>
 	// System.Func<System.ValueTuple<ushort,object>,object>
 	// System.Func<System.ValueTuple<ushort,object>,ushort>
 	// System.Func<byte>
 	// System.Func<float,float>
 	// System.Func<float,int>
 	// System.Func<int,object,object>
+	// System.Func<int,object>
 	// System.Func<int>
+	// System.Func<long,object,object>
+	// System.Func<long,object>
 	// System.Func<object,System.Threading.Tasks.VoidTaskResult>
 	// System.Func<object,byte>
 	// System.Func<object,int,int,object>
 	// System.Func<object,int>
+	// System.Func<object,object,Hsenl.HTask>
 	// System.Func<object,object,byte>
-	// System.Func<object,object,object,object>
+	// System.Func<object,object,object,Hsenl.HTask>
 	// System.Func<object,object,object>
 	// System.Func<object,object>
+	// System.Func<object,ushort>
 	// System.Func<object>
 	// System.IComparable<FixedMath.Fixp>
 	// System.IComparable<Hsenl.MergeSortFloatWrap<object>>
@@ -1069,12 +1171,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.Enumerable.WhereSelectListIterator<object,object>
 	// System.Linq.IGrouping<object,object>
 	// System.Linq.ILookup<object,object>
-	// System.Linq.Parallel.ParallelEnumerableWrapper<uint>
-	// System.Linq.ParallelQuery<uint>
 	// System.Linq.Set<object>
 	// System.Memory<byte>
 	// System.Memory<object>
 	// System.Memory<ushort>
+	// System.Nullable<Hsenl.HTask<object>>
+	// System.Nullable<Hsenl.HTask>
 	// System.Nullable<System.DateTime>
 	// System.Nullable<System.DateTimeOffset>
 	// System.Nullable<System.Decimal>
@@ -1122,6 +1224,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Nullable<ushort>
 	// System.Predicate<Cysharp.Text.Utf16FormatSegment>
 	// System.Predicate<Cysharp.Text.Utf8FormatSegment>
+	// System.Predicate<Hsenl.Container.MappingInfo>
+	// System.Predicate<Hsenl.HTask>
 	// System.Predicate<MemoryPack.Internal.BufferSegment>
 	// System.Predicate<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Predicate<System.Collections.Generic.KeyValuePair<long,object>>
@@ -1153,9 +1257,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Predicate<int>
 	// System.Predicate<long>
 	// System.Predicate<object>
+	// System.Predicate<ushort>
 	// System.ReadOnlyMemory<byte>
 	// System.ReadOnlyMemory<object>
 	// System.ReadOnlyMemory<ushort>
+	// System.ReadOnlySpan.Enumerator<Hsenl.C2L_Login>
+	// System.ReadOnlySpan.Enumerator<Hsenl.L2C_Login>
 	// System.ReadOnlySpan.Enumerator<System.DateTime>
 	// System.ReadOnlySpan.Enumerator<System.DateTimeOffset>
 	// System.ReadOnlySpan.Enumerator<System.Decimal>
@@ -1202,6 +1309,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.ReadOnlySpan.Enumerator<uint>
 	// System.ReadOnlySpan.Enumerator<ulong>
 	// System.ReadOnlySpan.Enumerator<ushort>
+	// System.ReadOnlySpan<Hsenl.C2L_Login>
+	// System.ReadOnlySpan<Hsenl.L2C_Login>
 	// System.ReadOnlySpan<System.DateTime>
 	// System.ReadOnlySpan<System.DateTimeOffset>
 	// System.ReadOnlySpan<System.Decimal>
@@ -1268,6 +1377,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Runtime.CompilerServices.TaskAwaiter<object>
 	// System.Runtime.CompilerServices.ValueTaskAwaiter<int>
 	// System.Runtime.CompilerServices.ValueTaskAwaiter<object>
+	// System.Span.Enumerator<Hsenl.C2L_Login>
+	// System.Span.Enumerator<Hsenl.L2C_Login>
 	// System.Span.Enumerator<System.DateTime>
 	// System.Span.Enumerator<System.DateTimeOffset>
 	// System.Span.Enumerator<System.Decimal>
@@ -1314,6 +1425,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Span.Enumerator<uint>
 	// System.Span.Enumerator<ulong>
 	// System.Span.Enumerator<ushort>
+	// System.Span<Hsenl.C2L_Login>
+	// System.Span<Hsenl.L2C_Login>
 	// System.Span<System.DateTime>
 	// System.Span<System.DateTimeOffset>
 	// System.Span<System.Decimal>
@@ -1360,6 +1473,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Span<uint>
 	// System.Span<ulong>
 	// System.Span<ushort>
+	// System.Threading.Tasks.ContinuationTaskFromResultTask<System.Threading.Tasks.VoidTaskResult>
+	// System.Threading.Tasks.ContinuationTaskFromResultTask<int>
+	// System.Threading.Tasks.ContinuationTaskFromResultTask<object>
 	// System.Threading.Tasks.Sources.IValueTaskSource<int>
 	// System.Threading.Tasks.Sources.IValueTaskSource<object>
 	// System.Threading.Tasks.Task<System.Threading.Tasks.VoidTaskResult>
@@ -1392,6 +1508,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.ValueTuple<byte,uint>
 	// System.ValueTuple<int,int>
 	// System.ValueTuple<int,long,int>
+	// System.ValueTuple<long,long,int>
 	// System.ValueTuple<object,int>
 	// System.ValueTuple<object,object,object,object,object,object,object,object>
 	// System.ValueTuple<object,object,object,object,object,object,object>
@@ -1420,14 +1537,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object DG.Tweening.TweenSettingsExtensions.OnComplete<object>(object,DG.Tweening.TweenCallback)
 		// object DG.Tweening.TweenSettingsExtensions.SetEase<object>(object,DG.Tweening.Ease)
 		// object DG.Tweening.TweenSettingsExtensions.SetSpeedBased<object>(object)
-		// object Sirenix.Serialization.SerializationUtility.DeserializeValue<object>(Sirenix.Serialization.IDataReader)
-		// object Sirenix.Serialization.SerializationUtility.DeserializeValue<object>(System.IO.Stream,Sirenix.Serialization.DataFormat,Sirenix.Serialization.DeserializationContext)
-		// object Sirenix.Serialization.SerializationUtility.DeserializeValue<object>(byte[],Sirenix.Serialization.DataFormat,Sirenix.Serialization.DeserializationContext)
-		// System.Void Sirenix.Serialization.SerializationUtility.SerializeValue<object>(object,Sirenix.Serialization.IDataWriter)
-		// System.Void Sirenix.Serialization.SerializationUtility.SerializeValue<object>(object,System.IO.Stream,Sirenix.Serialization.DataFormat,Sirenix.Serialization.SerializationContext)
-		// byte[] Sirenix.Serialization.SerializationUtility.SerializeValue<object>(object,Sirenix.Serialization.DataFormat,Sirenix.Serialization.SerializationContext)
-		// Sirenix.Serialization.Serializer<object> Sirenix.Serialization.Serializer.Get<object>()
 		// object System.Activator.CreateInstance<object>()
+		// Hsenl.C2L_Login[] System.Array.Empty<Hsenl.C2L_Login>()
+		// Hsenl.L2C_Login[] System.Array.Empty<Hsenl.L2C_Login>()
 		// System.DateTimeOffset[] System.Array.Empty<System.DateTimeOffset>()
 		// System.DateTime[] System.Array.Empty<System.DateTime>()
 		// System.Decimal[] System.Array.Empty<System.Decimal>()
@@ -1494,6 +1606,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// int System.HashCode.Combine<long,byte>(long,byte)
 		// int System.HashCode.Combine<object,int>(object,int)
 		// int System.HashCode.Combine<object,object>(object,object)
+		// bool System.Linq.Enumerable.Any<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.AsEnumerable<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Concat<object>(System.Collections.Generic.IEnumerable<object>,System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.ConcatIterator<object>(System.Collections.Generic.IEnumerable<object>,System.Collections.Generic.IEnumerable<object>)
@@ -1504,6 +1617,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Collections.Generic.KeyValuePair<object,object> System.Linq.Enumerable.ElementAt<System.Collections.Generic.KeyValuePair<object,object>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>,int)
 		// System.Collections.Generic.KeyValuePair<object,object> System.Linq.Enumerable.First<System.Collections.Generic.KeyValuePair<object,object>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>)
 		// object System.Linq.Enumerable.FirstOrDefault<object>(System.Collections.Generic.IEnumerable<object>)
+		// object System.Linq.Enumerable.FirstOrDefault<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Prepend<object>(System.Collections.Generic.IEnumerable<object>,object)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.PrependIterator<object>(System.Collections.Generic.IEnumerable<object>,object)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Reverse<object>(System.Collections.Generic.IEnumerable<object>)
@@ -1520,13 +1634,14 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>> System.Linq.Enumerable.Where<System.Collections.Generic.KeyValuePair<object,object>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>,System.Func<System.Collections.Generic.KeyValuePair<object,object>,bool>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Where<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Iterator<object>.Select<object>(System.Func<object,object>)
-		// System.Linq.ParallelQuery<uint> System.Linq.ParallelEnumerable.AsParallel<uint>(System.Collections.Generic.IEnumerable<uint>)
 		// System.Memory<byte> System.MemoryExtensions.AsMemory<byte>(byte[],int)
 		// System.Memory<byte> System.MemoryExtensions.AsMemory<byte>(byte[],int,int)
 		// System.Memory<object> System.MemoryExtensions.AsMemory<object>(System.ArraySegment<object>)
 		// System.Memory<object> System.MemoryExtensions.AsMemory<object>(object[],int,int)
 		// System.Memory<ushort> System.MemoryExtensions.AsMemory<ushort>(ushort[],int)
 		// System.Memory<ushort> System.MemoryExtensions.AsMemory<ushort>(ushort[],int,int)
+		// System.Span<Hsenl.C2L_Login> System.MemoryExtensions.AsSpan<Hsenl.C2L_Login>(Hsenl.C2L_Login[])
+		// System.Span<Hsenl.L2C_Login> System.MemoryExtensions.AsSpan<Hsenl.L2C_Login>(Hsenl.L2C_Login[])
 		// System.Span<System.DateTime> System.MemoryExtensions.AsSpan<System.DateTime>(System.DateTime[])
 		// System.Span<System.DateTimeOffset> System.MemoryExtensions.AsSpan<System.DateTimeOffset>(System.DateTimeOffset[])
 		// System.Span<System.Decimal> System.MemoryExtensions.AsSpan<System.Decimal>(System.Decimal[])
@@ -1612,28 +1727,16 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder.Start<MemoryPack.MemoryPackSerializer.<SerializeAsync>d__9>(MemoryPack.MemoryPackSerializer.<SerializeAsync>d__9&)
 		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder<object>.Start<MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__15>(MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__15&)
 		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder<object>.Start<MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__5<object>>(MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__5<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.ETTaskCompleted,Hsenl.ProcedurePreloadAssets.<OnEnter>d__0>(Hsenl.ETTaskCompleted&,Hsenl.ProcedurePreloadAssets.<OnEnter>d__0&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.AdvDefaultCheckpoints.<OnSceneLoaded>d__7>(object&,Hsenl.AdvDefaultCheckpoints.<OnSceneLoaded>d__7&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.ETTaskHelper.<>c__DisplayClass1_0.<<WaitAny>g__Run|0>d<object>>(object&,Hsenl.ETTaskHelper.<>c__DisplayClass1_0.<<WaitAny>g__Run|0>d<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.ETTaskHelper.<>c__DisplayClass2_0.<<WaitAny>g__Run|0>d>(object&,Hsenl.ETTaskHelper.<>c__DisplayClass2_0.<<WaitAny>g__Run|0>d&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.ETTaskHelper.<>c__DisplayClass3_0.<<WaitAll>g__Run|0>d<object>>(object&,Hsenl.ETTaskHelper.<>c__DisplayClass3_0.<<WaitAll>g__Run|0>d<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.ETTaskHelper.<>c__DisplayClass4_0.<<WaitAll>g__Run|0>d<object>>(object&,Hsenl.ETTaskHelper.<>c__DisplayClass4_0.<<WaitAll>g__Run|0>d<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.ETTaskHelper.<>c__DisplayClass5_0.<<WaitAll>g__Run|0>d>(object&,Hsenl.ETTaskHelper.<>c__DisplayClass5_0.<<WaitAll>g__Run|0>d&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.ETTaskHelper.<>c__DisplayClass6_0.<<WaitAll>g__Run|0>d>(object&,Hsenl.ETTaskHelper.<>c__DisplayClass6_0.<<WaitAll>g__Run|0>d&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.MonoTimer.<TimeStart>d__0>(object&,Hsenl.MonoTimer.<TimeStart>d__0&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.Pickable.<LoadCollider>d__7>(object&,Hsenl.Pickable.<LoadCollider>d__7&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.ProcedureChangeScene.<OnEnter>d__0>(object&,Hsenl.ProcedureChangeScene.<OnEnter>d__0&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.ProcedurePreprocessing.<OnEnter>d__0>(object&,Hsenl.ProcedurePreprocessing.<OnEnter>d__0&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d>(object&,Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.TpDie.<OnTimePointTrigger>d__0>(object&,Hsenl.TpDie.<OnTimePointTrigger>d__0&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<object,Hsenl.View.UIJumpMessage.<WriteText>d__10>(object&,Hsenl.View.UIJumpMessage.<WriteText>d__10&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.AdvDefaultCheckpoints.<OnSceneLoaded>d__7>(Hsenl.HTask.Awaiter&,Hsenl.AdvDefaultCheckpoints.<OnSceneLoaded>d__7&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.MonoTimer.<TimeStart>d__0>(Hsenl.HTask.Awaiter&,Hsenl.MonoTimer.<TimeStart>d__0&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.Pickable.<LoadCollider>d__7>(Hsenl.HTask.Awaiter&,Hsenl.Pickable.<LoadCollider>d__7&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.ProcedurePreloadAssets.<OnEnter>d__0>(Hsenl.HTask.Awaiter&,Hsenl.ProcedurePreloadAssets.<OnEnter>d__0&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d>(Hsenl.HTask.Awaiter&,Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.TpDie.<OnTimePointTrigger>d__0>(Hsenl.HTask.Awaiter&,Hsenl.TpDie.<OnTimePointTrigger>d__0&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.View.UIJumpMessage.<WriteText>d__10>(Hsenl.HTask.Awaiter&,Hsenl.View.UIJumpMessage.<WriteText>d__10&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter<object>,Hsenl.ProcedureChangeScene.<OnEnter>d__0>(Hsenl.HTask.Awaiter<object>&,Hsenl.ProcedureChangeScene.<OnEnter>d__0&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter<object>,Hsenl.ProcedurePreprocessing.<OnEnter>d__0>(Hsenl.HTask.Awaiter<object>&,Hsenl.ProcedurePreprocessing.<OnEnter>d__0&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.AdvDefaultCheckpoints.<OnSceneLoaded>d__7>(Hsenl.AdvDefaultCheckpoints.<OnSceneLoaded>d__7&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ETTaskHelper.<>c__DisplayClass1_0.<<WaitAny>g__Run|0>d<object>>(Hsenl.ETTaskHelper.<>c__DisplayClass1_0.<<WaitAny>g__Run|0>d<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ETTaskHelper.<>c__DisplayClass2_0.<<WaitAny>g__Run|0>d>(Hsenl.ETTaskHelper.<>c__DisplayClass2_0.<<WaitAny>g__Run|0>d&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ETTaskHelper.<>c__DisplayClass3_0.<<WaitAll>g__Run|0>d<object>>(Hsenl.ETTaskHelper.<>c__DisplayClass3_0.<<WaitAll>g__Run|0>d<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ETTaskHelper.<>c__DisplayClass4_0.<<WaitAll>g__Run|0>d<object>>(Hsenl.ETTaskHelper.<>c__DisplayClass4_0.<<WaitAll>g__Run|0>d<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ETTaskHelper.<>c__DisplayClass5_0.<<WaitAll>g__Run|0>d>(Hsenl.ETTaskHelper.<>c__DisplayClass5_0.<<WaitAll>g__Run|0>d&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ETTaskHelper.<>c__DisplayClass6_0.<<WaitAll>g__Run|0>d>(Hsenl.ETTaskHelper.<>c__DisplayClass6_0.<<WaitAll>g__Run|0>d&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.MonoTimer.<TimeStart>d__0>(Hsenl.MonoTimer.<TimeStart>d__0&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.Pickable.<LoadCollider>d__7>(Hsenl.Pickable.<LoadCollider>d__7&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ProcedureChangeScene.<OnEnter>d__0>(Hsenl.ProcedureChangeScene.<OnEnter>d__0&)
@@ -1642,6 +1745,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d>(Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.TpDie.<OnTimePointTrigger>d__0>(Hsenl.TpDie.<OnTimePointTrigger>d__0&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.View.UIJumpMessage.<WriteText>d__10>(Hsenl.View.UIJumpMessage.<WriteText>d__10&)
+		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<Hsenl.C2L_Login>()
+		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<Hsenl.L2C_Login>()
 		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.Collections.Generic.KeyValuePair<int,object>>()
 		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.Collections.Generic.KeyValuePair<object,object>>()
 		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.Collections.Generic.KeyValuePair<uint,Hsenl.Num>>()
@@ -1662,7 +1767,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// byte& System.Runtime.CompilerServices.Unsafe.Add<byte>(byte&,int)
 		// byte& System.Runtime.CompilerServices.Unsafe.Add<byte>(byte&,int)
 		// object& System.Runtime.CompilerServices.Unsafe.Add<object>(object&,int)
-		// object& System.Runtime.CompilerServices.Unsafe.Add<object>(object&,int)
 		// ushort& System.Runtime.CompilerServices.Unsafe.Add<ushort>(ushort&,System.IntPtr)
 		// ushort& System.Runtime.CompilerServices.Unsafe.Add<ushort>(ushort&,int)
 		// byte& System.Runtime.CompilerServices.Unsafe.AddByteOffset<byte>(byte&,System.IntPtr)
@@ -1671,6 +1775,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.DecimalEx.DecCalc& System.Runtime.CompilerServices.Unsafe.As<System.Decimal,System.DecimalEx.DecCalc>(System.Decimal&)
 		// System.DecimalEx.DecimalBits& System.Runtime.CompilerServices.Unsafe.As<System.Decimal,System.DecimalEx.DecimalBits>(System.Decimal&)
 		// System.GuidEx& System.Runtime.CompilerServices.Unsafe.As<System.Guid,System.GuidEx>(System.Guid&)
+		// byte& System.Runtime.CompilerServices.Unsafe.As<Hsenl.C2L_Login,byte>(Hsenl.C2L_Login&)
+		// byte& System.Runtime.CompilerServices.Unsafe.As<Hsenl.L2C_Login,byte>(Hsenl.L2C_Login&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<System.DateTime,byte>(System.DateTime&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<System.DateTimeOffset,byte>(System.DateTimeOffset&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Decimal,byte>(System.Decimal&)
@@ -1776,7 +1882,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// ushort& System.Runtime.CompilerServices.Unsafe.AsRef<ushort>(ushort&)
 		// bool System.Runtime.CompilerServices.Unsafe.IsAddressLessThan<byte>(byte&,byte&)
 		// bool System.Runtime.CompilerServices.Unsafe.IsAddressLessThan<object>(object&,object&)
-		// bool System.Runtime.CompilerServices.Unsafe.IsNullRef<object>(object&)
 		// object& System.Runtime.CompilerServices.Unsafe.NullRef<object>()
 		// System.Collections.Generic.KeyValuePair<int,object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Collections.Generic.KeyValuePair<int,object>>(byte&)
 		// System.Collections.Generic.KeyValuePair<object,object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Collections.Generic.KeyValuePair<object,object>>(byte&)
@@ -1844,6 +1949,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// uint System.Runtime.CompilerServices.Unsafe.ReadUnaligned<uint>(byte&)
 		// ulong System.Runtime.CompilerServices.Unsafe.ReadUnaligned<ulong>(byte&)
 		// ushort System.Runtime.CompilerServices.Unsafe.ReadUnaligned<ushort>(byte&)
+		// int System.Runtime.CompilerServices.Unsafe.SizeOf<Hsenl.C2L_Login>()
+		// int System.Runtime.CompilerServices.Unsafe.SizeOf<Hsenl.L2C_Login>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Collections.Generic.KeyValuePair<int,object>>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Collections.Generic.KeyValuePair<object,object>>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Collections.Generic.KeyValuePair<uint,Hsenl.Num>>()
@@ -2019,6 +2126,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.ReadOnlySpan<ushort> System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<ushort>(ushort&,int)
 		// System.Span<byte> System.Runtime.InteropServices.MemoryMarshal.CreateSpan<byte>(byte&,int)
 		// System.Span<ushort> System.Runtime.InteropServices.MemoryMarshal.CreateSpan<ushort>(ushort&,int)
+		// Hsenl.C2L_Login& System.Runtime.InteropServices.MemoryMarshal.GetReference<Hsenl.C2L_Login>(System.Span<Hsenl.C2L_Login>)
+		// Hsenl.L2C_Login& System.Runtime.InteropServices.MemoryMarshal.GetReference<Hsenl.L2C_Login>(System.Span<Hsenl.L2C_Login>)
 		// System.DateTime& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.DateTime>(System.Span<System.DateTime>)
 		// System.DateTimeOffset& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.DateTimeOffset>(System.Span<System.DateTimeOffset>)
 		// System.Decimal& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.Decimal>(System.Span<System.Decimal>)
@@ -2109,6 +2218,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object UnityEngine.Object.Instantiate<object>(object)
 		// object UnityEngine.Object.Instantiate<object>(object,UnityEngine.Transform)
 		// object UnityEngine.Object.Instantiate<object>(object,UnityEngine.Transform,bool)
+		// object UnityEngine.Resources.Load<object>(string)
 		// object UnityEngine._AndroidJNIHelper.ConvertFromJNIArray<object>(System.IntPtr)
 		// System.IntPtr UnityEngine._AndroidJNIHelper.GetFieldID<object>(System.IntPtr,string,bool)
 		// System.IntPtr UnityEngine._AndroidJNIHelper.GetMethodID<object>(System.IntPtr,string,object[],bool)

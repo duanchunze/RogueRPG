@@ -63,6 +63,8 @@ namespace Hsenl {
                     Debug.LogError($"CopyAotPdb Error -> {e}");
                     return;
                 }
+                
+                Debug.Log($"Copy Dll To Bundle Succ: {destDllPath}");
             }
 
             Debug.Log($"Copy All Dlls Finish!");
@@ -84,12 +86,14 @@ namespace Hsenl {
                 var destPath = Path.Combine(_metadataDllDir, $"{dll}.bytes");
                 try {
                     File.Copy(sourcePath, destPath, true);
-                    Debug.Log($"CopyMetadataDll2Bundle Success: '{destPath}'");
+                    Debug.Log($"Copy MetadataDll To Bundle Succ: '{destPath}'");
                 }
                 catch (Exception) {
                     Debug.LogError($"Could not find file: {sourcePath}");
                 }
             }
+            
+            Debug.Log($"Copy All MetadataDlls Finish!");
 
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
         }

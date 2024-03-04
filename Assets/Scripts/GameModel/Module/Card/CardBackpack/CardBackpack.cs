@@ -7,7 +7,7 @@ namespace Hsenl {
     public class CardBackpack : CardResidence<CardBackpackSlot> {
         public int capacity;
 
-        protected override void OnStart() {
+        protected override void OnAwake() {
             for (var i = 0; i < this.capacity; i++) {
                 var entity = Entity.Create("CardBackpackSlot");
                 var slot = entity.AddComponent<CardBackpackSlot>();

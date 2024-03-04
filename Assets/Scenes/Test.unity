@@ -1046,8 +1046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assembliesFilter:
-  - HsenlFramework.Runtime
-  - Assembly-CSharp
+  - HsenlFramework.Editor
 --- !u!1 &1114979020
 GameObject:
   m_ObjectHideFlags: 0

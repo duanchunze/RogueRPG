@@ -57,6 +57,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\ProcedureLineHandlerScriptsGen\ProcedureLineHandlerScriptsGen.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\LubanGenEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\GenUtils.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\Guide\GuideEditorWindow.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\Defines\GenTypes.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\GenerateScheme_Replace.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\BuildEditor\BundleLabelSetting.cs" />
@@ -71,15 +72,15 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\YooAsset\YooAssetFilterRuleCollect.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\Helper\EditorHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\ComponentReferenceInspector.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\Tools\DirectoryCopyInfoArrayEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\LifeCycle\TestLifeCycle.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\PropertyDrawer\BitListDrawer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\HsenlScriptsGeneratorEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\PropertyDrawer\CustomEnumDrawer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\PropertyDrawer\ReadOnlyDrawer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\LubanExportSetting.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\Tools\IOCopyEditor.cs" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlFramework.Editor.asmdef" />
-    <None Include="Assets\Plugins\HsenlFramework\Editor\HybridCLR打包步骤.txt" />
-    <None Include="Assets\Plugins\HsenlFramework\Editor\Note.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\ProcedureLineHandlerScriptsGen\ProcedureLineItemTemplate.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\ECSScriptsCreatorEditor\ScriptTemplates\EcsComponentTemplate.cs.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\MonoComponentScriptsGen\Hsenl2MonoComponentTemplate.txt" />
@@ -399,7 +400,7 @@
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
     <Reference Include="dnlib">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\dnlib.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@67c487f521\Plugins\dnlib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
@@ -408,7 +409,7 @@
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
     </Reference>
     <Reference Include="LZ4">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\LZ4.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@67c487f521\Plugins\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Utilities.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
@@ -823,6 +824,14 @@
     <ProjectReference Include="HsenlFramework.Runtime.csproj">
       <Project>{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}</Project>
       <Name>HsenlFramework.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="GameModel.csproj">
+      <Project>{145b793a-a13f-7ea4-aa2d-b45c024fff0a}</Project>
+      <Name>GameModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="GameView.csproj">
+      <Project>{ccb96e0d-25d9-e1a0-8659-0281650049a4}</Project>
+      <Name>GameView</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

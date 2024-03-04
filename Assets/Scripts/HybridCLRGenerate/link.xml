@@ -21,11 +21,7 @@
     <type fullname="Sirenix.Serialization.OdinSerializeAttribute" preserve="all" />
     <type fullname="Sirenix.Serialization.SerializationContext" preserve="all" />
     <type fullname="Sirenix.Serialization.SerializationData" preserve="all" />
-    <type fullname="Sirenix.Serialization.SerializationUtility" preserve="all" />
     <type fullname="Sirenix.Serialization.UnitySerializationUtility" preserve="all" />
-  </assembly>
-  <assembly fullname="Sirenix.Serialization.Config">
-    <type fullname="Sirenix.Serialization.DataFormat" preserve="all" />
   </assembly>
   <assembly fullname="System">
     <type fullname="System.CodeDom.Compiler.GeneratedCodeAttribute" preserve="all" />
@@ -55,6 +51,7 @@
     <type fullname="System.Diagnostics.ProcessStartInfo" preserve="all" />
     <type fullname="System.IO.Compression.CompressionLevel" preserve="all" />
     <type fullname="System.Net.Dns" preserve="all" />
+    <type fullname="System.Net.EndPoint" preserve="all" />
     <type fullname="System.Net.IPAddress" preserve="all" />
     <type fullname="System.Net.IPEndPoint" preserve="all" />
     <type fullname="System.Net.NetworkInformation.IPAddressInformation" preserve="all" />
@@ -64,6 +61,13 @@
     <type fullname="System.Net.NetworkInformation.UnicastIPAddressInformation" preserve="all" />
     <type fullname="System.Net.NetworkInformation.UnicastIPAddressInformationCollection" preserve="all" />
     <type fullname="System.Net.Sockets.AddressFamily" preserve="all" />
+    <type fullname="System.Net.Sockets.ProtocolType" preserve="all" />
+    <type fullname="System.Net.Sockets.SelectMode" preserve="all" />
+    <type fullname="System.Net.Sockets.Socket" preserve="all" />
+    <type fullname="System.Net.Sockets.SocketAsyncEventArgs" preserve="all" />
+    <type fullname="System.Net.Sockets.SocketAsyncOperation" preserve="all" />
+    <type fullname="System.Net.Sockets.SocketError" preserve="all" />
+    <type fullname="System.Net.Sockets.SocketType" preserve="all" />
     <type fullname="System.Text.RegularExpressions.Regex" preserve="all" />
     <type fullname="System.Text.RegularExpressions.RegexOptions" preserve="all" />
     <type fullname="System.Uri" preserve="all" />
@@ -75,8 +79,6 @@
     <type fullname="System.Linq.Enumerable" preserve="all" />
     <type fullname="System.Linq.IGrouping`2" preserve="all" />
     <type fullname="System.Linq.ILookup`2" preserve="all" />
-    <type fullname="System.Linq.ParallelEnumerable" preserve="all" />
-    <type fullname="System.Linq.ParallelQuery`1" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.StrongBox`1" preserve="all" />
   </assembly>
   <assembly fullname="System.IO.Compression">
@@ -138,12 +140,15 @@
     <type fullname="UnityEngine.Animator" preserve="all" />
     <type fullname="UnityEngine.RuntimeAnimatorController" preserve="all" />
   </assembly>
+  <assembly fullname="UnityEngine.AssetBundleModule">
+    <type fullname="UnityEngine.AssetBundle" preserve="all" />
+    <type fullname="UnityEngine.AssetBundleCreateRequest" preserve="all" />
+  </assembly>
   <assembly fullname="UnityEngine.AudioModule">
     <type fullname="UnityEngine.AudioClip" preserve="all" />
     <type fullname="UnityEngine.AudioSource" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.CoreModule">
-    <type fullname="JetBrains.Annotations.NotNullAttribute" preserve="all" />
     <type fullname="UnityEngine.AnimationCurve" preserve="all" />
     <type fullname="UnityEngine.Application" preserve="all" />
     <type fullname="UnityEngine.Application/LogCallback" preserve="all" />
@@ -187,11 +192,13 @@
     <type fullname="UnityEngine.RectOffset" preserve="all" />
     <type fullname="UnityEngine.RectTransform" preserve="all" />
     <type fullname="UnityEngine.Renderer" preserve="all" />
+    <type fullname="UnityEngine.Resources" preserve="all" />
     <type fullname="UnityEngine.RuntimePlatform" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.LoadSceneMode" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.Scene" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.SceneManager" preserve="all" />
     <type fullname="UnityEngine.Screen" preserve="all" />
+    <type fullname="UnityEngine.ScriptableObject" preserve="all" />
     <type fullname="UnityEngine.Serialization.FormerlySerializedAsAttribute" preserve="all" />
     <type fullname="UnityEngine.SerializeField" preserve="all" />
     <type fullname="UnityEngine.Shader" preserve="all" />
@@ -265,20 +272,28 @@
     <type fullname="YooAsset.AssetInfo" preserve="all" />
     <type fullname="YooAsset.AsyncOperationBase" preserve="all" />
     <type fullname="YooAsset.ClearUnusedCacheFilesOperation" preserve="all" />
+    <type fullname="YooAsset.DecryptFileInfo" preserve="all" />
     <type fullname="YooAsset.DownloaderOperation" preserve="all" />
     <type fullname="YooAsset.DownloaderOperation/OnDownloadError" preserve="all" />
     <type fullname="YooAsset.DownloaderOperation/OnDownloadProgress" preserve="all" />
     <type fullname="YooAsset.EDefaultBuildPipeline" preserve="all" />
     <type fullname="YooAsset.EOperationStatus" preserve="all" />
+    <type fullname="YooAsset.EPlayMode" preserve="all" />
     <type fullname="YooAsset.EditorSimulateModeHelper" preserve="all" />
     <type fullname="YooAsset.EditorSimulateModeParameters" preserve="all" />
+    <type fullname="YooAsset.HostPlayModeParameters" preserve="all" />
+    <type fullname="YooAsset.IBuildinQueryServices" preserve="all" />
+    <type fullname="YooAsset.IDecryptionServices" preserve="all" />
+    <type fullname="YooAsset.IRemoteServices" preserve="all" />
     <type fullname="YooAsset.InitializationOperation" preserve="all" />
     <type fullname="YooAsset.InitializeParameters" preserve="all" />
+    <type fullname="YooAsset.OfflinePlayModeParameters" preserve="all" />
     <type fullname="YooAsset.ResourceDownloaderOperation" preserve="all" />
     <type fullname="YooAsset.ResourcePackage" preserve="all" />
     <type fullname="YooAsset.SceneHandle" preserve="all" />
     <type fullname="YooAsset.UpdatePackageManifestOperation" preserve="all" />
     <type fullname="YooAsset.UpdatePackageVersionOperation" preserve="all" />
+    <type fullname="YooAsset.WebPlayModeParameters" preserve="all" />
     <type fullname="YooAsset.YooAssets" preserve="all" />
   </assembly>
   <assembly fullname="mscorlib">
@@ -399,8 +414,10 @@
     <type fullname="System.IO.FileAccess" preserve="all" />
     <type fullname="System.IO.FileInfo" preserve="all" />
     <type fullname="System.IO.FileMode" preserve="all" />
+    <type fullname="System.IO.FileShare" preserve="all" />
     <type fullname="System.IO.FileStream" preserve="all" />
     <type fullname="System.IO.FileSystemInfo" preserve="all" />
+    <type fullname="System.IO.IOException" preserve="all" />
     <type fullname="System.IO.MemoryStream" preserve="all" />
     <type fullname="System.IO.Path" preserve="all" />
     <type fullname="System.IO.SeekOrigin" preserve="all" />
@@ -505,9 +522,14 @@
     <type fullname="System.Threading.CancellationToken" preserve="all" />
     <type fullname="System.Threading.Interlocked" preserve="all" />
     <type fullname="System.Threading.Monitor" preserve="all" />
+    <type fullname="System.Threading.SendOrPostCallback" preserve="all" />
+    <type fullname="System.Threading.SynchronizationContext" preserve="all" />
     <type fullname="System.Threading.Tasks.Task" preserve="all" />
     <type fullname="System.Threading.Tasks.ValueTask" preserve="all" />
     <type fullname="System.Threading.Tasks.ValueTask`1" preserve="all" />
+    <type fullname="System.Threading.Thread" preserve="all" />
+    <type fullname="System.Threading.ThreadPool" preserve="all" />
+    <type fullname="System.Threading.WaitCallback" preserve="all" />
     <type fullname="System.TimeSpan" preserve="all" />
     <type fullname="System.TimeZoneInfo" preserve="all" />
     <type fullname="System.TimeoutException" preserve="all" />
@@ -525,6 +547,7 @@
     <type fullname="System.UInt32" preserve="all" />
     <type fullname="System.UInt64" preserve="all" />
     <type fullname="System.UIntPtr" preserve="all" />
+    <type fullname="System.UnauthorizedAccessException" preserve="all" />
     <type fullname="System.ValueTuple`1" preserve="all" />
     <type fullname="System.ValueTuple`2" preserve="all" />
     <type fullname="System.ValueTuple`3" preserve="all" />

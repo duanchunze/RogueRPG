@@ -227,3 +227,16 @@ MonoBehaviour:
         FilterRuleName: CollectAll
         AssetTags: 
         UserData: 
+    - GroupName: MetadataDllGroup
+      GroupDesc: "\u5143\u6570\u636E\u7EC4"
+      AssetTags: metadata
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/MetadataDlls
+        CollectorGUID: c705c3ba4a8161544981ff774d0eb963
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 

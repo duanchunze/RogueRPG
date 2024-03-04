@@ -40,6 +40,7 @@ namespace Hsenl {
         private readonly MultiDictionary<Type, Type, List<PropertyInfo>> _instancePropertiesOfAttribute = new();
         private readonly MultiDictionary<Type, Type, List<MethodInfo>> _instanceMethodsOfAttribute = new();
 
+        private readonly Queue<StartWrap> _starters = new();
         private readonly Queue<UpdateWrap> _updaters = new();
         private readonly Queue<LateUpdateWrap> _lateUpaters = new();
 
@@ -91,19 +92,17 @@ namespace Hsenl {
                 this._allTypes[type.FullName] = type;
             }
 
-            var baseAttType = typeof(BaseAttribute);
-
             // attribute ：types
             this._typesOfAttribute.Clear();
             foreach (var type in types) {
                 // 抽象类跳过, 但不包括静态类
                 if (type.IsAbstract && !type.IsSealed) continue;
 
-                var objects = type.GetCustomAttributes(true);
-                if (objects.Length == 0) continue;
+                var attrs = type.GetCustomAttributes(true);
+                if (attrs.Length == 0) continue;
 
-                foreach (var o in objects) {
-                    var attrType = o.GetType();
+                foreach (var attr in attrs) {
+                    var attrType = attr.GetType();
                     foreach (var confineAttributeType in this._confineAttributeTypes) {
                         if (attrType.IsSubclassOf(confineAttributeType)) {
                             this._typesOfAttribute.Add(attrType, type);
@@ -167,7 +166,15 @@ namespace Hsenl {
 
                     foreach (var o in objects) {
                         var attType = o.GetType();
-                        if (attType.IsSubclassOf(baseAttType)) {
+                        var b = false;
+                        foreach (var confineAttributeType in this._confineAttributeTypes) {
+                            if (attType.IsSubclassOf(confineAttributeType)) {
+                                b = true;
+                                break;
+                            }
+                        }
+
+                        if (b) {
                             switch (member) {
                                 case FieldInfo fieldInfo: {
                                     if (fieldInfo.IsStatic) {
@@ -297,9 +304,23 @@ namespace Hsenl {
             return result;
         }
 
-        // 不包含抽象类
-        public IReadOnlyList<Type> GetTypesOfAttribute(Type attributeType) {
-            return this._typesOfAttribute.TryGetValue(attributeType, out var result) ? result : Type.EmptyTypes;
+        /// <param name="attributeType"></param>
+        /// <param name="polymorphism">是否支持多态</param>
+        /// <returns></returns>
+        public IReadOnlyList<Type> GetTypesOfAttribute(Type attributeType, bool polymorphism = false) {
+            if (!polymorphism) {
+                return this._typesOfAttribute.TryGetValue(attributeType, out var result) ? result : Type.EmptyTypes;
+            }
+            else {
+                List<Type> list = new();
+                foreach (var kv in this._typesOfAttribute) {
+                    if (kv.Key.IsSubclassOf(attributeType)) {
+                        list.AddRange(kv.Value);
+                    }
+                }
+
+                return list;
+            }
         }
 
         public IReadOnlyList<FieldInfo> GetFieldsOfAttribute(Type attributeType, Type classType = null) {
@@ -364,12 +385,16 @@ namespace Hsenl {
             return this._instances.Values.ToArray();
         }
 
-        public void RegisterUpdate(IUpdate update) {
-            this._updaters.Enqueue(new UpdateWrap() { instanceId = update.InstanceId, update = update });
+        internal void RegisterStart(Component starter) {
+            this._starters.Enqueue(new StartWrap() { instanceId = starter.InstanceId, starter = starter });
         }
 
-        public void RegisterLateUpdate(ILateUpdate update) {
-            this._lateUpaters.Enqueue(new LateUpdateWrap() { instanceId = update.InstanceId, update = update });
+        internal void RegisterUpdate(IUpdate update) {
+            this._updaters.Enqueue(new UpdateWrap() { instanceId = update.InstanceId, updater = update });
+        }
+
+        internal void RegisterLateUpdate(ILateUpdate update) {
+            this._lateUpaters.Enqueue(new LateUpdateWrap() { instanceId = update.InstanceId, updater = update });
         }
 
         public async HTask PublishAsync<T>(T a) where T : struct {
@@ -538,17 +563,31 @@ namespace Hsenl {
         }
 
         public void Update() {
-            var count = this._updaters.Count;
-            while (count-- > 0) {
-                var updater = this._updaters.Dequeue();
-                if (updater.update.InstanceId != updater.instanceId) continue;
-                if (!updater.update.RealEnable) {
-                    this._updaters.Enqueue(updater);
+            var startersCount = this._starters.Count;
+            while (startersCount-- > 0) {
+                var starter = this._starters.Dequeue();
+                if (starter.starter.InstanceId != starter.instanceId)
+                    continue;
+
+                if (starter.starter.RealEnable) {
+                    starter.starter.InternalOnStart();
                     continue;
                 }
 
+                this._starters.Enqueue(starter);
+            }
+
+            var updatersCount = this._updaters.Count;
+            while (updatersCount-- > 0) {
+                var updater = this._updaters.Dequeue();
+                if (updater.updater.InstanceId != updater.instanceId)
+                    continue;
+
+                if (updater.updater.RealEnable) {
+                    updater.updater.Update();
+                }
+
                 this._updaters.Enqueue(updater);
-                updater.update.Update();
             }
         }
 
@@ -556,14 +595,15 @@ namespace Hsenl {
             var count = this._lateUpaters.Count;
             while (count-- > 0) {
                 var updater = this._lateUpaters.Dequeue();
-                if (updater.update.InstanceId != updater.instanceId) continue;
-                if (!updater.update.RealEnable) {
-                    this._lateUpaters.Enqueue(updater);
+                if (updater.updater.InstanceId != updater.instanceId)
+                    continue;
+
+                if (updater.updater.RealEnable) {
+                    updater.updater.LateUpdate();
                     continue;
                 }
 
                 this._lateUpaters.Enqueue(updater);
-                updater.update.LateUpdate();
             }
         }
 
@@ -613,6 +653,7 @@ namespace Hsenl {
             this._instanceFieldsOfAttribute.Clear();
             this._instancePropertiesOfAttribute.Clear();
             this._instanceMethodsOfAttribute.Clear();
+            this._starters.Clear();
             this._updaters.Clear();
             this._lateUpaters.Clear();
             this._instances.Clear();
@@ -632,14 +673,19 @@ namespace Hsenl {
             public IInvoke iInvoke;
         }
 
+        private struct StartWrap {
+            public int instanceId;
+            public Component starter;
+        }
+
         private struct UpdateWrap {
             public int instanceId;
-            public IUpdate update;
+            public IUpdate updater;
         }
 
         private struct LateUpdateWrap {
             public int instanceId;
-            public ILateUpdate update;
+            public ILateUpdate updater;
         }
     }
 }

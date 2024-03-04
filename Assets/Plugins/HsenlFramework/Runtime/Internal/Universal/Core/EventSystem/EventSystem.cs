@@ -15,7 +15,11 @@ namespace Hsenl {
 
         public static Type[] GetAllTypes() => EventSystemManager.Instance.GetAllTypes();
         public static Type FindType(string typeName) => EventSystemManager.Instance.FindType(typeName);
-        public static IReadOnlyList<Type> GetTypesOfAttribute(Type attributeType) => EventSystemManager.Instance.GetTypesOfAttribute(attributeType);
+        
+        /// <param name="attributeType"></param>
+        /// <param name="polymorphism">是否支持多态</param>
+        /// <returns></returns>
+        public static IReadOnlyList<Type> GetTypesOfAttribute(Type attributeType, bool polymorphism = false) => EventSystemManager.Instance.GetTypesOfAttribute(attributeType, polymorphism);
 
         public static IReadOnlyList<FieldInfo> GetFieldsOfAttribute(Type attributeType, Type classType = null) =>
             EventSystemManager.Instance.GetFieldsOfAttribute(attributeType, classType);
@@ -29,8 +33,6 @@ namespace Hsenl {
         public static void SetEventEnable<TEventKey, TEvent>(bool value) => EventSystemManager.Instance.SetEventEnable<TEventKey, TEvent>(value);
         public static Object GetInstance(int instanceId) => EventSystemManager.Instance.GetInstance(instanceId);
         public static T GetInstance<T>(int instanceId) where T : Object => EventSystemManager.Instance.GetInstance<T>(instanceId);
-        public static void RegisterUpdate(IUpdate update) => EventSystemManager.Instance.RegisterUpdate(update);
-        public static void RegisterLateUpdate(ILateUpdate update) => EventSystemManager.Instance.RegisterLateUpdate(update);
         public static async HTask PublishAsync<T>(T a) where T : struct => await EventSystemManager.Instance.PublishAsync(a);
         public static void Publish<T>(T a) where T : struct => EventSystemManager.Instance.Publish(a);
         public static void Invoke<TArg>(TArg args) where TArg : struct => EventSystemManager.Instance.Invoke(args);

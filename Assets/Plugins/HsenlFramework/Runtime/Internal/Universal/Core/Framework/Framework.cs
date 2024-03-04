@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEngine.Serialization;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,14 +14,15 @@ namespace Hsenl {
         public ThreadSynchronizationContext ThreadSynchronizationContext { get; private set; }
 
 #if UNITY_EDITOR
+        [FormerlySerializedAs("displayMono")]
         [SerializeField]
 #endif
-        private bool displayMono;
+        private bool displayMonoComponent;
 
 
-        public bool DisplayMono {
+        public bool DisplayMonoComponent {
 #if UNITY_EDITOR
-            get => this.displayMono;
+            get => this.displayMonoComponent;
 #else
             get => false;
 #endif

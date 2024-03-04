@@ -114,7 +114,7 @@ namespace Hsenl {
         protected float time;
 
 #if UNITY_EDITOR
-        [ShowInInspector, LabelText("时间暂停"), DisableInEditorMode, NonSerialized, FoldoutGroup("优先级")]
+        [ShowInInspector, LabelText("时间暂停"), DisableInEditorMode, FoldoutGroup("优先级")]
 #endif
         [MemoryPackInclude]
         public bool timeParse;

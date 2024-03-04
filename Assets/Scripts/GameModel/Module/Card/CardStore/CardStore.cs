@@ -16,7 +16,7 @@ namespace Hsenl {
         public int refreshCost = 0; // 刷新消耗金币
         public int refreshFreeTime = 0; // 免费刷新次数
 
-        protected override void OnStart() {
+        protected override void OnAwake() {
             Instance = this;
 
             this.refreshCost = Tables.Instance.TbGameSingletonConfig.CardStoreRefreshCost;

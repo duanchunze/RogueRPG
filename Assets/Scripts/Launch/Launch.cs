@@ -2,11 +2,15 @@
 using System.Collections;
 using System.Linq;
 using System.Reflection;
+using HybridCLR;
 using UnityEngine;
 using YooAsset;
 
 namespace Hsenl {
+    // 他只负责加载Entry包
     public class Launch : MonoBehaviour {
+        public EPlayMode playMode;
+
         private IEnumerator Start() {
             yield return null;
 
@@ -14,7 +18,6 @@ namespace Hsenl {
                 YooAssets.Destroy();
             YooAssets.Initialize();
 
-            var playMode = EPlayMode.EditorSimulateMode;
             var packageName = "EntryPackage";
             var buildPipeline = EDefaultBuildPipeline.BuiltinBuildPipeline.ToString();
 
@@ -23,12 +26,43 @@ namespace Hsenl {
 
             // 初始化包
             InitializationOperation initializationOperation;
-            switch (playMode) {
-                case EPlayMode.EditorSimulateMode:
-                    var createParams = new EditorSimulateModeParameters();
-                    createParams.SimulateManifestFilePath = EditorSimulateModeHelper.SimulateBuild(buildPipeline, packageName);
+            switch (this.playMode) {
+                case EPlayMode.EditorSimulateMode: {
+                    var createParams = new EditorSimulateModeParameters {
+                        SimulateManifestFilePath = EditorSimulateModeHelper.SimulateBuild(buildPipeline, packageName)
+                    };
                     initializationOperation = package.InitializeAsync(createParams);
                     break;
+                }
+                case EPlayMode.OfflinePlayMode: {
+                    var createParameters = new OfflinePlayModeParameters {
+                        DecryptionServices = new FileStreamDecryption()
+                    };
+                    initializationOperation = package.InitializeAsync(createParameters);
+                    break;
+                }
+                case EPlayMode.HostPlayMode: {
+                    string defaultHostServer = YooAssetsHelper.GetHostServerURL(packageName);
+                    string fallbackHostServer = YooAssetsHelper.GetHostServerURL(packageName);
+                    var createParameters = new HostPlayModeParameters {
+                        DecryptionServices = new FileStreamDecryption(),
+                        BuildinQueryServices = new GameQueryServices(),
+                        RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer)
+                    };
+                    initializationOperation = package.InitializeAsync(createParameters);
+                    break;
+                }
+                case EPlayMode.WebPlayMode: {
+                    string defaultHostServer = YooAssetsHelper.GetHostServerURL(packageName);
+                    string fallbackHostServer = YooAssetsHelper.GetHostServerURL(packageName);
+                    var createParameters = new WebPlayModeParameters {
+                        DecryptionServices = new FileStreamDecryption(),
+                        BuildinQueryServices = new GameQueryServices(),
+                        RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer)
+                    };
+                    initializationOperation = package.InitializeAsync(createParameters);
+                    break;
+                }
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -89,7 +123,7 @@ namespace Hsenl {
                         var ratio = (float)downloadCount / totalCount;
                         string currentSizeMB = (downloadBytes / 1048576f).ToString("f1");
                         string totalSizeMB = (totalBytes / 1048576f).ToString("f1");
-                        Debug.Log($"{downloadCount}/{totalCount} {currentSizeMB}MB/{totalSizeMB}MB");
+                        Debug.Log($"------------------ {downloadCount}/{totalCount} {currentSizeMB}MB/{totalSizeMB}MB");
                     };
                 }
 
@@ -123,7 +157,10 @@ namespace Hsenl {
 
             Debug.Log("Entry Package Update Done!");
 
-            // 开始使用包
+            // 引用一下HybridCLR.RuntimeApi的api, 防止IL2CPP剪裁, 因为后面可能会需要用到补充元数据
+            Debug.Log("HybridCLR.RuntimeApi: " + LoadImageErrorCode.OK);
+
+            // 加载entry dll
             string assemblyName = "Entry";
             string typeName = "Entry";
             string methodName = "Start";

@@ -21,7 +21,7 @@ namespace Hsenl {
         private HashSet<Material> _materials = new();
         private static readonly int _outlineColor = Shader.PropertyToID("_OutlineColor");
 
-        protected override void OnStart() {
+        protected override void OnAwake() {
             this.Holder = Entity.Create("Model Holder");
             this.Holder.SetParent(this.Entity);
         }

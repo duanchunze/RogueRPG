@@ -45,8 +45,14 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Launch\FileStreamDecryption.cs" />
     <Compile Include="Assets\Scripts\Launch\Launch.cs" />
-    <None Include="Assets\Scripts\Launch\Backups.txt" />
+    <Compile Include="Assets\Scripts\Launch\ThirdParty\BuildinFileManifest.cs" />
+    <Compile Include="Assets\Scripts\Launch\BundleStream.cs" />
+    <Compile Include="Assets\Scripts\Launch\RemoteServices.cs" />
+    <Compile Include="Assets\Scripts\Launch\YooAssetsHelper.cs" />
+    <Compile Include="Assets\Scripts\Launch\ThirdParty\StreamingAssetsHelper.cs" />
+    <Compile Include="Assets\Scripts\Launch\ThirdParty\StreamingAssetsDefine.cs" />
     <None Include="Assets\Scripts\Launch\Launch.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -358,7 +364,7 @@
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
     <Reference Include="dnlib">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\dnlib.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@67c487f521\Plugins\dnlib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
@@ -367,7 +373,7 @@
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
     </Reference>
     <Reference Include="LZ4">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\LZ4.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@67c487f521\Plugins\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Utilities.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
@@ -752,6 +758,12 @@
     </Reference>
     <Reference Include="YooAsset">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\YooAsset.dll</HintPath>
+    </Reference>
+    <Reference Include="YooAsset.Editor">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\YooAsset.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="HybridCLR.Runtime">
+      <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\HybridCLR.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:\UnityProjects\RogueRPG\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>

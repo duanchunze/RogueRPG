@@ -13,10 +13,11 @@ namespace Hsenl {
 
         [MemoryPackIgnore]
         public UnityEngine.Transform UnityTransform => this.Entity.UnityTransform;
-        
+
+#if UNITY_EDITOR
         partial void PartialOnEnableSelfChanged(bool enab) {
             if (this.Entity.GameObject == null) return;
-            if (!Framework.Instance.DisplayMono) return;
+            if (!Framework.Instance.DisplayMonoComponent) return;
             this.MonoBehaviour.enabled = enab;
         }
 
@@ -28,5 +29,6 @@ namespace Hsenl {
                 UnityEngine.Object.Destroy(mono);
             }
         }
+#endif
     }
 }

@@ -13,7 +13,7 @@ namespace Hsenl {
     }
 
     [DisallowMultipleComponent]
-    public class UIManager : UnityOdinSingleton<UIManager> {
+    public class UIManager : UnitySingleton<UIManager> {
         public Camera uiCamera;
         private readonly Dictionary<string, IUI> _singles = new();
         private readonly Dictionary<string, Queue<IUI>> _multi = new();

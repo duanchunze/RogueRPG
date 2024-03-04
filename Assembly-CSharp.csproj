@@ -48,80 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Test\HThreadTest\HThreadTest.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\BehaviorTreeComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\SphereColliderComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\NumericNodeComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\SelectionTargetComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ElementComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ColliderManagerComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\RigidbodyComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CardStoreSlotComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ServerComponent.cs" />
     <Compile Include="Assets\Scripts\Test\NetworkTest\NetworkTest.cs" />
     <Compile Include="Assets\Scripts\Test\OdinTester.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\PickableComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CardBackpackSlotComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\SoundComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ClientUserComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\UpdateDriverComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\UnlockCircumstanceComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CollisionEventListenerComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\BodiedComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\UnbodiedHeadComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CapsuleColliderComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CardBarComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\BoltManagerComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CardStorePoolComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\QuestComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\FactionComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\WarningBoardManagerComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\TimeLineComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\HeadMessageComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\BoxColliderComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\AdventureManagerComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\AbilityComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\AppearanceComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CardBackpackComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CasterEvaluateComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ProcedureLineComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ProcedureLineNodeComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\PoolManagerComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\AbilityBarComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\PickerComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\AdventureComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CardBarSlotComponent.cs" />
     <Compile Include="Assets\Scripts\Test\NetworkTest\Server.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CardBarAssistSlotComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\NavMeshAgentComponent.cs" />
     <Compile Include="Assets\Scripts\Test\Tester.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ActorManagerComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\FollowMessageComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ScopeComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\TransformComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\PickableManagerComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\StatusBarComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CasterComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\SelectorComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CardBarHeadSlotComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ControlTriggerComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\HarmableComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\NumeratorComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\HurtableComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\AbilityAssistComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\MotionComponent.cs" />
     <Compile Include="Assets\Scripts\Test\NetworkTest\ClientUser.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\StatusComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\PrioritizerComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\DropableComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CardStoreComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\PriorityStateComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ControlComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\StageLineComponent.cs" />
     <Compile Include="Assets\Scripts\HybridCLRGenerate\AOTGenericReferences.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\CardComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\ActorComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\GameManagerComponent.cs" />
-    <Compile Include="Assets\Scripts\Hsenl2MonoGenerate\BoltComponent.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\Bundles\Config\LubanConfig\pickable_tbpickableconfig.json" />
@@ -438,7 +370,7 @@
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
     <Reference Include="dnlib">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\dnlib.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@67c487f521\Plugins\dnlib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
@@ -447,7 +379,7 @@
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
     </Reference>
     <Reference Include="LZ4">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\LZ4.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@67c487f521\Plugins\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Utilities.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>

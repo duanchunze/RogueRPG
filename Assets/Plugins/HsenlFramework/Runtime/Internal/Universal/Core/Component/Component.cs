@@ -23,8 +23,8 @@ namespace Hsenl {
         [MemoryPackIgnore]
         internal Entity entity;
 
-        [MemoryPackIgnore]
-        private bool _start;
+        // [MemoryPackIgnore]
+        // private bool _start;
 
         [MemoryPackOrder(1)]
         [MemoryPackInclude]
@@ -78,7 +78,7 @@ namespace Hsenl {
 
                 if (this.Entity.RealActive) {
                     if (this.enable) {
-                        this.InternalOnStart();
+                        // this.InternalOnStart();
                         this.OnEnable();
                     }
                     else {
@@ -169,7 +169,7 @@ namespace Hsenl {
                 Log.Error(e);
             }
         }
-        
+
         internal void InternalOnEnable() {
             if (!this.enable) return;
             try {
@@ -179,17 +179,17 @@ namespace Hsenl {
                 Log.Error(e);
             }
 
-            try {
-                this.InternalOnStart();
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
+            // try {
+            //     this.InternalOnStart();
+            // }
+            // catch (Exception e) {
+            //     Log.Error(e);
+            // }
         }
 
-        private void InternalOnStart() {
-            if (this._start) return;
-            this._start = true;
+        internal void InternalOnStart() {
+            // if (this._start) return;
+            // this._start = true;
             try {
                 this.OnStartInternal();
             }
@@ -216,7 +216,7 @@ namespace Hsenl {
         }
 
         internal void InternalOnDestroy() {
-            this._start = false;
+            // this._start = false;
             try {
                 this.OnDestroyInternal();
             }
@@ -372,12 +372,12 @@ namespace Hsenl {
 
         // 不受Enable影响的Start
         protected virtual void OnAwake() { }
-        
+
         // 常用于初始化游戏逻辑方面的数据 (比如添加Control的监听事件)
         protected virtual void OnEnable() { }
 
         internal virtual void OnStartInternal() { }
-        
+
         // 不同于unity, 这个start和awake是在同一帧执行的
         protected virtual void OnStart() { }
 

@@ -214,7 +214,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 99136172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b22d01bbbfa4e5a46aa4032456900f84, type: 3}
+  m_Script: {fileID: 11500000, guid: 288b5655ed9bf8540ac590188ba372b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hsenlComponentInstanceId: 0
@@ -744,7 +744,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 545745881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2b1009bf5dbba04f9d0eba710ef4b4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e2fc1ac19630f643b5a41caed41bb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hsenlComponentInstanceId: 0
@@ -999,7 +999,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 666057791}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2aed5dc8db94c7469ef0647aac9037e, type: 3}
+  m_Script: {fileID: 11500000, guid: db1647e214526ed46a76e0b25ad62400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hsenlComponentInstanceId: 0
@@ -1044,7 +1044,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 704373084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cbac9e19a4362248aaf95121e400af3, type: 3}
+  m_Script: {fileID: 11500000, guid: 189182dd5439f254ca13033de163f168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hsenlComponentInstanceId: 0
@@ -1621,7 +1621,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1028235112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0482676532d8a494f9ee7d34d00f2a83, type: 3}
+  m_Script: {fileID: 11500000, guid: 355c2454dc61ff34ca51a3f84e87f5a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hsenlComponentInstanceId: 0
@@ -1865,14 +1865,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1196458657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf1180cfb8b2f1d43ba0205fc7abc1a0, type: 3}
+  m_Script: {fileID: 11500000, guid: dcaff9b2b31a10547b14cb2510fa64ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hsenlComponentInstanceId: 0
   _hsenlComponent:
-    capacity: 4
+    capacity: 0
     cardPool: []
-    refreshCost: 1
+    refreshCost: 0
     refreshFreeTime: 0
 --- !u!1 &1201464835
 GameObject:
@@ -1933,8 +1933,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1228841775}
-  - component: {fileID: 1228841776}
   - component: {fileID: 1228841777}
+  - component: {fileID: 1228841776}
   - component: {fileID: 1228841778}
   m_Layer: 0
   m_Name: GameManager
@@ -1967,12 +1967,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1228841773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47f84cdf389718b4083c2b5d12336846, type: 3}
+  m_Script: {fileID: 11500000, guid: 71fd115c54ef0e943ae9101b78e4ea73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hsenlComponentInstanceId: 0
-  _hsenlComponent:
-    gold: 0
 --- !u!114 &1228841777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1982,10 +1980,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1228841773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1570adbcdc79c044a4b2978de71d144, type: 3}
+  m_Script: {fileID: 11500000, guid: c02802662b9befb45930a88542b8adde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hsenlComponentInstanceId: 0
+  _hsenlComponent:
+    gold: 0
 --- !u!114 &1228841778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1995,7 +1995,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1228841773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fade1e9b871ee642a93f0f2feaff514, type: 3}
+  m_Script: {fileID: 11500000, guid: aabac7f2f213137458f348cc05d068ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hsenlComponentInstanceId: 0
@@ -2140,7 +2140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1568112037}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6e82bcb675241c4687026fa243a5029, type: 3}
+  m_Script: {fileID: 11500000, guid: b859fc4fcfce034499f9b0511a6d2c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hsenlComponentInstanceId: 0
@@ -2385,7 +2385,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1963667929}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 383600a66ccf967498662f8456272507, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c7357c0929291f49baff8487369a612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hsenlComponentInstanceId: 0
@@ -2462,7 +2462,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2025198693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa26c67398f55b40bac6f30c1896993, type: 3}
+  m_Script: {fileID: 11500000, guid: a3935e3dafeeaf74e86aeace33ce5676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hsenlComponentInstanceId: 0

@@ -11,9 +11,10 @@ namespace Hsenl {
         private EventSystemManager _event;
 
         public List<string> assembliesFilter = new() {
-            "HsenlFramework.Runtime",
-            "Assembly-CSharp",
+            "HsenlFramework.Editor"
         };
+
+        private const string basicAssemblyName = "HsenlFramework.Runtime";
 
         private void Awake() {
             if (!SingletonManager.IsDisposed<EventSystemManager>()) {
@@ -22,7 +23,16 @@ namespace Hsenl {
 
             SingletonManager.Register(ref this._event);
             this._event.RegisterAttributeType(typeof(MemoryPackableAttribute));
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => this.assembliesFilter.Contains(assembly.GetName().Name)).ToArray();
+
+            var basicAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(assembly => assembly.GetName().Name == basicAssemblyName);
+            if (basicAssembly == null)
+                throw new Exception("Can't find HsenlFramework.Runtime assembly!");
+                
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(x => { return x.FullName == basicAssembly.FullName || x.GetReferencedAssemblies()
+                    .Any(xx => xx.FullName == basicAssembly.FullName); })
+                .Where(x => !this.assembliesFilter.Contains(x.GetName().Name))
+                .ToArray();
             this._event.AddAssembles(assemblies);
         }
     }

@@ -5,7 +5,7 @@ using Component = UnityEngine.Component;
 
 public class MonoComponentScriptsGen : HsenlScriptsGeneratorEditor {
     private const string _templatePath = "Assets/Plugins/HsenlFramework/Editor/HsenlScriptsGeneratorEditor/MonoComponentScriptsGen/Hsenl2MonoComponentTemplate.txt";
-    private const string _outputDir = "Assets/Scripts/Hsenl2MonoGenerate";
+    private const string _outputDir = "Assets/Scripts/GameView/Generate/Hsenl2MonoGenerate";
 
     [MenuItem("Hsenl/ScriptsGenerator/清空并生成Hsenl组件的Mono版")]
     private static void Generate() {

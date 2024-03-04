@@ -89,6 +89,9 @@ namespace Hsenl {
         }
 
         public bool IsNavMoveDone() {
+            if (!this._navMeshAgent.isOnNavMesh)
+                return true;
+
             return this._navMeshAgent.remainingDistance <= this._navMeshAgent.stoppingDistance;
         }
 

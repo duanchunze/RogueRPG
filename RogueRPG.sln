@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HsenlFramework.Editor", "Hs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameView", "GameView.csproj", "{ccb96e0d-25d9-e1a0-8659-0281650049a4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launch", "Launch.csproj", "{b2d2169f-18f8-c3b4-25df-f0d72f46c115}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hsenl.Network.Client", "Hsenl.Network.Client.csproj", "{bdfd206b-8b56-dd9c-3786-a3d8897e19a5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entry", "Entry.csproj", "{1723d1f6-c553-90dc-5409-248c4f23f9da}"
@@ -22,8 +24,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hsenl.Network.Common", "Hsenl.Network.Common.csproj", "{cc2ac33d-b7f8-3e22-5212-0621f83ee8a4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hsenl.Network.Server", "Hsenl.Network.Server.csproj", "{1511a1a5-6011-f1e5-39ee-41af38083d07}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launch", "Launch.csproj", "{b2d2169f-18f8-c3b4-25df-f0d72f46c115}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameHotReload", "GameHotReload.csproj", "{e2f41488-584b-cd26-f7c9-3ca0efd4bf6a}"
 EndProject
@@ -48,6 +48,8 @@ Global
 		{c9510d36-fbb2-e0a2-ae10-a17692f8825b}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ccb96e0d-25d9-e1a0-8659-0281650049a4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ccb96e0d-25d9-e1a0-8659-0281650049a4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{b2d2169f-18f8-c3b4-25df-f0d72f46c115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{b2d2169f-18f8-c3b4-25df-f0d72f46c115}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{bdfd206b-8b56-dd9c-3786-a3d8897e19a5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{bdfd206b-8b56-dd9c-3786-a3d8897e19a5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1723d1f6-c553-90dc-5409-248c4f23f9da}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -58,8 +60,6 @@ Global
 		{cc2ac33d-b7f8-3e22-5212-0621f83ee8a4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1511a1a5-6011-f1e5-39ee-41af38083d07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1511a1a5-6011-f1e5-39ee-41af38083d07}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{b2d2169f-18f8-c3b4-25df-f0d72f46c115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{b2d2169f-18f8-c3b4-25df-f0d72f46c115}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{e2f41488-584b-cd26-f7c9-3ca0efd4bf6a}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{e2f41488-584b-cd26-f7c9-3ca0efd4bf6a}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7f9c4eec-ce7a-b220-7679-5f6fa1a08fa8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

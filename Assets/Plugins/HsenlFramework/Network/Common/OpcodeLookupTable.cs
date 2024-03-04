@@ -10,7 +10,7 @@ namespace Hsenl.Network {
         [OnEventSystemInitialized]
         private static void InitOpcodes() {
             _opcodeLookupTable.Clear();
-            var messageTypes = EventSystem.GetTypesOfAttribute(typeof(MessageAttribute));
+            var messageTypes = EventSystem.GetTypesOfAttribute(typeof(MessageAttribute), true);
             ushort id = 1;
             foreach (var type in messageTypes) {
                 var attr = type.GetCustomAttribute<MessageAttribute>();

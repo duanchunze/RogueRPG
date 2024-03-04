@@ -407,8 +407,9 @@ namespace Hsenl {
             if (this.componentsOfSerialize != null) {
                 for (int i = 0, len = this.componentsOfSerialize.Count; i < len; i++) {
                     var component = this.componentsOfSerialize[i];
-                    if (component is IUpdate update) EventSystem.RegisterUpdate(update);
-                    if (component is ILateUpdate lateUpdate) EventSystem.RegisterLateUpdate(lateUpdate);
+                    EventSystemManager.Instance.RegisterStart(component);
+                    if (component is IUpdate update) EventSystemManager.Instance.RegisterUpdate(update);
+                    if (component is ILateUpdate lateUpdate) EventSystemManager.Instance.RegisterLateUpdate(lateUpdate);
 
                     component.InternalOnDeserialized();
 
@@ -588,8 +589,9 @@ namespace Hsenl {
 
             EventSystemManager.Instance.RegisterInstanced(component);
 
-            if (component is IUpdate update) EventSystem.RegisterUpdate(update);
-            if (component is ILateUpdate lateUpdate) EventSystem.RegisterLateUpdate(lateUpdate);
+            EventSystemManager.Instance.RegisterStart(component);
+            if (component is IUpdate update) EventSystemManager.Instance.RegisterUpdate(update);
+            if (component is ILateUpdate lateUpdate) EventSystemManager.Instance.RegisterLateUpdate(lateUpdate);
 
             this.InternalAddComponent(cacher.originalIndex, component);
 
@@ -633,8 +635,9 @@ namespace Hsenl {
 
             EventSystemManager.Instance.RegisterInstanced(component);
 
-            if (component is IUpdate update) EventSystem.RegisterUpdate(update);
-            if (component is ILateUpdate lateUpdate) EventSystem.RegisterLateUpdate(lateUpdate);
+            EventSystemManager.Instance.RegisterStart(component);
+            if (component is IUpdate update) EventSystemManager.Instance.RegisterUpdate(update);
+            if (component is ILateUpdate lateUpdate) EventSystemManager.Instance.RegisterLateUpdate(lateUpdate);
 
             this.InternalAddComponent(cacher.originalIndex, component);
 
@@ -670,8 +673,9 @@ namespace Hsenl {
 
             EventSystemManager.Instance.RegisterInstanced(component);
 
-            if (component is IUpdate update) EventSystem.RegisterUpdate(update);
-            if (component is ILateUpdate lateUpdate) EventSystem.RegisterLateUpdate(lateUpdate);
+            EventSystemManager.Instance.RegisterStart(component);
+            if (component is IUpdate update) EventSystemManager.Instance.RegisterUpdate(update);
+            if (component is ILateUpdate lateUpdate) EventSystemManager.Instance.RegisterLateUpdate(lateUpdate);
 
             this.InternalAddComponent(cacher.originalIndex, component);
 

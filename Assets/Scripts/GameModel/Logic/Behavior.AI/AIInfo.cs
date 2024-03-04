@@ -13,12 +13,12 @@ namespace Hsenl {
         [ShadowFunction]
         protected override void OnNodeStart() {
             this.OnNodeStartShadow(); // 下面这段代码, 被我们放到影子函数里去实现了
-            // if (this.info == null && this.infoInstanceId != 0) {
-            //     var inf = behavior.Info.GetInfo(this.infoInstanceId);
-            //     if (inf != null) {
-            //         this.InitInfo(inf);
-            //     }
-            // }
+            if (this.info == null && this.infoInstanceId != 0) {
+                var inf = behavior.Info.GetInfo(this.infoInstanceId);
+                if (inf != null) {
+                    this.InitInfo(inf);
+                }
+            }
         }
 
         public void InitInfo(behavior.Info configInfo) {

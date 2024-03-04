@@ -9,7 +9,11 @@ namespace Hsenl.Network {
 
         private long _lowestTillTime;
         private int _corId;
-        private const int intervalSeconds = 10;
+        private int _intervalSeconds;
+
+        public KeepalivePlug(int intervalSeconds = 60) {
+            this._intervalSeconds = intervalSeconds;
+        }
 
         public void Init(IPluggable pluggable) {
             if (pluggable is not IService)
@@ -25,6 +29,7 @@ namespace Hsenl.Network {
             this.timers.Clear();
             this.timers = null;
             this._lowestTillTime = 0;
+            this._intervalSeconds = 0;
             Coroutine.Stop(this._corId);
             this._corId = 0;
         }
@@ -40,7 +45,7 @@ namespace Hsenl.Network {
             if (bytesRecv == -1)
                 return;
 
-            var tillTime = DateTime.Now.Ticks + intervalSeconds * 1000 * 10000;
+            var tillTime = DateTime.Now.Ticks + this._intervalSeconds * 1000 * 10000;
             if (this.timers.Count == 0)
                 this._lowestTillTime = tillTime;
 
@@ -74,7 +79,7 @@ namespace Hsenl.Network {
 
                         tuple.bytesRecv = nowBytesRecv;
 
-                        var tillTime = tuple.tillTime + intervalSeconds * 1000 * 10000;
+                        var tillTime = tuple.tillTime + this._intervalSeconds * 1000 * 10000;
                         tuple.tillTime = tillTime;
                         this.timers.Enqueue(tuple);
 

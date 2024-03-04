@@ -77,7 +77,7 @@ namespace Hsenl {
         }
 
         internal partial void PartialOnComponentAdd(Component component) {
-            if (Framework.Instance.DisplayMono) {
+            if (Framework.Instance.DisplayMonoComponent) {
                 var type = MonoComponentManager.GetMonoComponentType(component.GetType());
                 if (type == null)
                     return;
