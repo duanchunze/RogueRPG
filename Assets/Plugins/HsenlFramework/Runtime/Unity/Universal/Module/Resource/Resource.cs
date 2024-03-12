@@ -6,17 +6,12 @@ using YooAsset;
 
 namespace Hsenl {
     public static class Resource {
-        private static readonly Dictionary<string, AssetInfo> _assetLookupTableCache = new();
         private static readonly StringBuilder _stringBuilderCache = new(); // 临时缓存用
         private static readonly StringBuilder _stringBuilderResult = new(); // 存储最优路径用
         private const string AssetBundleSpaceMark = "_";
 
-        public static AssetInfo GetOptimalBundleName(OptimalAssetFinder finder) {
-            var assetInfos = YooAssets.GetAssetInfos(finder.tags);
-            _assetLookupTableCache.Clear();
-            foreach (var assetInfo in assetInfos) {
-                _assetLookupTableCache.Add(assetInfo.Address, assetInfo);
-            }
+        public static AssetInfo GetOptimalAssetInfo(OptimalAssetFinder finder) {
+            var assetInfos = AssetManifest.GetAssetInfosOfTag(finder.tag);
 
             var list = finder.strs;
             var assetName = finder.assetName;
@@ -43,7 +38,7 @@ namespace Hsenl {
                 // 然后继续下一级, 看有没有更合适的
                 var removeIndex = _stringBuilderCache.Length;
                 _stringBuilderCache.Append(assetName);
-                if (!_assetLookupTableCache.ContainsKey(_stringBuilderCache.ToString())) {
+                if (!assetInfos.ContainsKey(_stringBuilderCache.ToString())) {
                     _stringBuilderCache.Remove(removeIndex, assetNameLength);
                     continue;
                 }
@@ -58,8 +53,20 @@ namespace Hsenl {
                 return null;
             }
 
-            var result = _assetLookupTableCache[_stringBuilderResult.ToString()];
+            var result = assetInfos[_stringBuilderResult.ToString()];
             return result;
+        }
+
+        public static UnityEngine.Object GetOptimalAsset(OptimalAssetFinder finder) {
+            var assetInfo = GetOptimalAssetInfo(finder);
+            if (assetInfo == null)
+                return null;
+
+            return YooAssets.LoadAssetSync(assetInfo)?.AssetObject;
+        }
+
+        public static T GetOptimalAsset<T>(OptimalAssetFinder finder) where T : UnityEngine.Object {
+            return (T)GetOptimalAsset(finder);
         }
     }
 }

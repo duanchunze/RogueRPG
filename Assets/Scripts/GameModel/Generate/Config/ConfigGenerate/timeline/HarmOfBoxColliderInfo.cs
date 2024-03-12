@@ -22,16 +22,12 @@ public sealed partial class HarmOfBoxColliderInfo :  timeline.TsHarmInfo
     public HarmOfBoxColliderInfo(JSONNode _json)  : base(_json) 
     {
         { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
-        { if(!_json["hit_fx"].IsString) { throw new SerializationException(); }  HitFx = _json["hit_fx"]; }
-        { if(!_json["hit_sound"].IsString) { throw new SerializationException(); }  HitSound = _json["hit_sound"]; }
         PostInit();
     }
 
-    public HarmOfBoxColliderInfo(int model, float origin, float dest, numeric.DamageFormulaInfo harm_formula, string hit_fx, string hit_sound )  : base(model,origin,dest) 
+    public HarmOfBoxColliderInfo(int model, float origin, float dest, numeric.DamageFormulaInfo harm_formula )  : base(model,origin,dest) 
     {
         this.HarmFormula = harm_formula;
-        this.HitFx = hit_fx;
-        this.HitSound = hit_sound;
         PostInit();
     }
 
@@ -41,8 +37,6 @@ public sealed partial class HarmOfBoxColliderInfo :  timeline.TsHarmInfo
     }
 
     public numeric.DamageFormulaInfo HarmFormula { get; private set; }
-    public string HitFx { get; private set; }
-    public string HitSound { get; private set; }
 
     public const int __ID__ = -1990865739;
     public override int GetTypeId() => __ID__;
@@ -67,8 +61,6 @@ public sealed partial class HarmOfBoxColliderInfo :  timeline.TsHarmInfo
         + "Origin:" + Origin + ","
         + "Dest:" + Dest + ","
         + "HarmFormula:" + HarmFormula + ","
-        + "HitFx:" + HitFx + ","
-        + "HitSound:" + HitSound + ","
         + "}";
     }
     

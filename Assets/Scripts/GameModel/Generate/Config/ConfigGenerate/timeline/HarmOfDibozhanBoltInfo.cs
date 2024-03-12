@@ -19,26 +19,20 @@ public sealed partial class HarmOfDibozhanBoltInfo :  timeline.TpHarmInfo
     public HarmOfDibozhanBoltInfo(JSONNode _json)  : base(_json) 
     {
         { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
+        { if(!_json["bolt_config_alias"].IsString) { throw new SerializationException(); }  BoltConfigAlias = _json["bolt_config_alias"]; }
         { if(!_json["num"].IsNumber) { throw new SerializationException(); }  Num = _json["num"]; }
         { if(!_json["internal_time"].IsNumber) { throw new SerializationException(); }  InternalTime = _json["internal_time"]; }
         { if(!_json["internal_distance"].IsNumber) { throw new SerializationException(); }  InternalDistance = _json["internal_distance"]; }
-        { if(!_json["bolt_name"].IsString) { throw new SerializationException(); }  BoltName = _json["bolt_name"]; }
-        { if(!_json["collider_name"].IsString) { throw new SerializationException(); }  ColliderName = _json["collider_name"]; }
-        { if(!_json["hit_fx"].IsString) { throw new SerializationException(); }  HitFx = _json["hit_fx"]; }
-        { if(!_json["hit_sound"].IsString) { throw new SerializationException(); }  HitSound = _json["hit_sound"]; }
         PostInit();
     }
 
-    public HarmOfDibozhanBoltInfo(int model, float point, numeric.DamageFormulaInfo harm_formula, int num, float internal_time, float internal_distance, string bolt_name, string collider_name, string hit_fx, string hit_sound )  : base(model,point) 
+    public HarmOfDibozhanBoltInfo(int model, float point, numeric.DamageFormulaInfo harm_formula, string bolt_config_alias, int num, float internal_time, float internal_distance )  : base(model,point) 
     {
         this.HarmFormula = harm_formula;
+        this.BoltConfigAlias = bolt_config_alias;
         this.Num = num;
         this.InternalTime = internal_time;
         this.InternalDistance = internal_distance;
-        this.BoltName = bolt_name;
-        this.ColliderName = collider_name;
-        this.HitFx = hit_fx;
-        this.HitSound = hit_sound;
         PostInit();
     }
 
@@ -51,16 +45,13 @@ public sealed partial class HarmOfDibozhanBoltInfo :  timeline.TpHarmInfo
     /// 伤害的配方(可造成多段伤害)((list#sep=|),numeric.DamageFormulaInfo#sep=&gt;)
     /// </summary>
     public numeric.DamageFormulaInfo HarmFormula { get; private set; }
+    public string BoltConfigAlias { get; private set; }
     /// <summary>
     /// 伤害次数
     /// </summary>
     public int Num { get; private set; }
     public float InternalTime { get; private set; }
     public float InternalDistance { get; private set; }
-    public string BoltName { get; private set; }
-    public string ColliderName { get; private set; }
-    public string HitFx { get; private set; }
-    public string HitSound { get; private set; }
 
     public const int __ID__ = -2093156632;
     public override int GetTypeId() => __ID__;
@@ -84,13 +75,10 @@ public sealed partial class HarmOfDibozhanBoltInfo :  timeline.TpHarmInfo
         + "Model:" + Model + ","
         + "Point:" + Point + ","
         + "HarmFormula:" + HarmFormula + ","
+        + "BoltConfigAlias:" + BoltConfigAlias + ","
         + "Num:" + Num + ","
         + "InternalTime:" + InternalTime + ","
         + "InternalDistance:" + InternalDistance + ","
-        + "BoltName:" + BoltName + ","
-        + "ColliderName:" + ColliderName + ","
-        + "HitFx:" + HitFx + ","
-        + "HitSound:" + HitSound + ","
         + "}";
     }
     

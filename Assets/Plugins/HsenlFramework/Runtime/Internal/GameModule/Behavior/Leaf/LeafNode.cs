@@ -10,7 +10,7 @@ namespace Hsenl {
             yield break;
         }
 
-        public override void StartNode(IBehaviorTree tree) {
+        public sealed override void StartNode(IBehaviorTree tree) {
             if (this.manager != null) throw new Exception("already has manager");
             if (tree == null) throw new ArgumentNullException("start node failure, tree is null");
             
@@ -23,7 +23,7 @@ namespace Hsenl {
             }
         }
 
-        public override void OpenNode() {
+        public sealed override void OpenNode() {
             try {
                 this.InternalOpen();
             }
@@ -32,7 +32,7 @@ namespace Hsenl {
             }
         }
 
-        public override void CloseNode() {
+        public sealed override void CloseNode() {
             try {
                 this.InternalClose();
             }
@@ -41,7 +41,7 @@ namespace Hsenl {
             }
         }
 
-        public override void DestroyNode() {
+        public sealed override void DestroyNode() {
             if (this.manager != null) {
                 try {
                     this.InternalDestroy();
@@ -54,7 +54,7 @@ namespace Hsenl {
             }
         }
 
-        public override void ResetNode() {
+        public sealed override void ResetNode() {
             try {
                 this.InternalReset();
             }
@@ -63,11 +63,11 @@ namespace Hsenl {
             }
         }
 
-        public override void AbortNode() {
+        public sealed override void AbortNode() {
             this.InternalAbort();
         }
         
-        public override TNode GetNodeInChildren<TNode>(bool once = false) {
+        public sealed override TNode GetNodeInChildren<TNode>(bool once = false) {
             return default;
         }
     }

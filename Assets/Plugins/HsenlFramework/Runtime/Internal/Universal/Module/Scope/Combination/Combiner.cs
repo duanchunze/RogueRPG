@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace Hsenl {
@@ -56,29 +55,13 @@ namespace Hsenl {
      */
     [FrameworkMember]
     public abstract class Combiner {
-        internal static Dictionary<Type, Combiner> TypeCombinerMap { get; } = new();
+        private static CombinerCache _cache;
 
-        internal static List<Combiner> MultiCombiners { get; } = new();
-        internal static ComponentTypeCacher TotalMultiCombinerTypeCacher;
-        internal static List<Combiner> CrossCombiners { get; } = new();
-        internal static ComponentTypeCacher TotalCrossCombinerChildTypeCacher;
-        internal static List<Combiner> TotalCombiners { get; } = new(); // combiner的id就是index, 所以可以直接通过 TotalCombiners[combiner.id] 来获取到该combiner
-
-        internal static MultiList<int, int> Overrides { get; } = new(); // key: 覆盖者id, value: 被覆盖者id
-        internal static MultiList<int, int> InverseOverrides { get; } = new(); // key: 被覆盖者id, value: 覆盖者id
-
-        // key: componentTypeIndex, value: 与该组件有关的所有组合, 且按照组合成员数有小到大排序
-        internal static Dictionary<int, MultiCombinInfo> MultiCombinLookupTable { get; } = new();
-        internal static Dictionary<int, CrossCombinInfo> CrossCombinLookupTable { get; } = new();
+        internal static CombinerCache CombinerCache => _cache;
 
         [OnEventSystemInitialized]
         private static void CacheCombiner() {
-            TypeCombinerMap.Clear();
-            MultiCombiners.Clear();
-            CrossCombiners.Clear();
-            TotalCombiners.Clear();
-            Overrides.Clear();
-            InverseOverrides.Clear();
+            _cache = new CombinerCache();
             var uniqueId = 0;
             // 缓存所有Combiner
             foreach (var type in EventSystem.GetTypesOfAttribute(typeof(CombinerAttribute))) {
@@ -99,7 +82,7 @@ namespace Hsenl {
                     case CombinerType.MultiCombiner: {
                         combiner.id = uniqueId++;
                         combiner.multiTypeCacher = Entity.CombineComponentType(combiner.memberTypes);
-                        MultiCombiners.Add(combiner);
+                        _cache.MultiCombiners.Add(combiner);
                         break;
                     }
                     case CombinerType.CrossCombiner: {
@@ -110,25 +93,25 @@ namespace Hsenl {
                         combiner.crossChildTypeCacher = Entity.CombineComponentType(combiner.memberTypes, 0, optionsAtt.crossSplitPosition);
                         combiner.crossParentTypeCacher = Entity.CombineComponentType(combiner.memberTypes, optionsAtt.crossSplitPosition);
                         combiner.crossMaximumLayer = optionsAtt.crossMaximumLayer;
-                        CrossCombiners.Add(combiner);
+                        _cache.CrossCombiners.Add(combiner);
                         break;
                     }
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
 
-                TypeCombinerMap.Add(type, combiner);
-                TotalCombiners.Add(combiner);
+                _cache.TypeCombinerMap.TryAdd(type, combiner);
+                _cache.TotalCombiners.Add(combiner);
             }
 
-            TotalMultiCombinerTypeCacher = ComponentTypeCacher.CreateNull();
-            foreach (var combiner in MultiCombiners) {
-                TotalMultiCombinerTypeCacher.Add(combiner.multiTypeCacher);
+            _cache.TotalMultiCombinerTypeCacher = ComponentTypeCacher.CreateNull();
+            foreach (var combiner in _cache.MultiCombiners) {
+                _cache.TotalMultiCombinerTypeCacher.Add(combiner.multiTypeCacher);
             }
 
-            TotalCrossCombinerChildTypeCacher = ComponentTypeCacher.CreateNull();
-            foreach (var combiner in CrossCombiners) {
-                TotalCrossCombinerChildTypeCacher.Add(combiner.crossChildTypeCacher);
+            _cache.TotalCrossCombinerChildTypeCacher = ComponentTypeCacher.CreateNull();
+            foreach (var combiner in _cache.CrossCombiners) {
+                _cache.TotalCrossCombinerChildTypeCacher.Add(combiner.crossChildTypeCacher);
             }
 
             // 缓存所有CombinerOverride
@@ -140,38 +123,38 @@ namespace Hsenl {
                         throw new Exception($"CombinerOverrideAttribute only use for multi combiner '{type}'");
                     }
 
-                    var combienr = TypeCombinerMap[type];
+                    var combienr = _cache.TypeCombinerMap[type];
                     foreach (var overrideType in att.overrides) {
-                        var overrideCombiner = TypeCombinerMap[overrideType];
-                        Overrides.Add(combienr.id, overrideCombiner.id);
+                        var overrideCombiner = _cache.TypeCombinerMap[overrideType];
+                        _cache.Overrides.Add(combienr.id, overrideCombiner.id);
                     }
                 }
             }
 
             // 检查CombinerOverride是否存在冲突问题(两个组合相互覆盖)
-            foreach (var kv in Overrides) {
+            foreach (var kv in _cache.Overrides) {
                 foreach (var overrideUniqueId in kv.Value) {
-                    if (Overrides.TryGetValue(overrideUniqueId, out var list)) {
+                    if (_cache.Overrides.TryGetValue(overrideUniqueId, out var list)) {
                         if (list.Contains(kv.Key)) {
-                            var combiner1 = TotalCombiners[kv.Key];
-                            var combiner2 = TotalCombiners[overrideUniqueId];
+                            var combiner1 = _cache.TotalCombiners[kv.Key];
+                            var combiner2 = _cache.TotalCombiners[overrideUniqueId];
                             throw new Exception(
                                 $"<override combiner conflict exists, '{combiner1.GetType().Name} - {combiner1.id}' '{combiner1.GetType().Name} - {combiner2.id}'>");
                         }
                     }
 
-                    InverseOverrides.Add(overrideUniqueId, kv.Key);
+                    _cache.InverseOverrides.Add(overrideUniqueId, kv.Key);
                 }
             }
 
             // 把MultiCombiners按照规律缓存起来
-            MultiCombinLookupTable.Clear();
-            foreach (var multiCombiner in MultiCombiners) {
+            _cache.MultiCombinLookupTable.Clear();
+            foreach (var multiCombiner in _cache.MultiCombiners) {
                 foreach (var memberType in multiCombiner.memberTypes) {
                     var componentTypeIndex = Entity.GetComponentIndex(memberType);
-                    if (!MultiCombinLookupTable.TryGetValue(componentTypeIndex, out var info)) {
+                    if (!_cache.MultiCombinLookupTable.TryGetValue(componentTypeIndex, out var info)) {
                         info = new MultiCombinInfo();
-                        MultiCombinLookupTable[componentTypeIndex] = info;
+                        _cache.MultiCombinLookupTable[componentTypeIndex] = info;
                     }
 
                     info.combiners.Add(multiCombiner);
@@ -179,7 +162,7 @@ namespace Hsenl {
             }
 
             // 整理MultiCombiners
-            foreach (var kv in MultiCombinLookupTable) {
+            foreach (var kv in _cache.MultiCombinLookupTable) {
                 var combinInfo = kv.Value;
 
                 combinInfo.combiners.Sort((combiner1, combiner2) => combiner1.memberTypes.Length.CompareTo(combiner2.memberTypes.Length));
@@ -190,13 +173,13 @@ namespace Hsenl {
             }
 
             // 把CrossCombiners按照规律缓存起来
-            CrossCombinLookupTable.Clear();
-            foreach (var combiner in CrossCombiners) {
+            _cache.CrossCombinLookupTable.Clear();
+            foreach (var combiner in _cache.CrossCombiners) {
                 foreach (var memberType in combiner.memberTypes) {
                     var componentTypeIndex = Entity.GetComponentIndex(memberType);
-                    if (!CrossCombinLookupTable.TryGetValue(componentTypeIndex, out var info)) {
+                    if (!_cache.CrossCombinLookupTable.TryGetValue(componentTypeIndex, out var info)) {
                         info = new CrossCombinInfo();
-                        CrossCombinLookupTable[componentTypeIndex] = info;
+                        _cache.CrossCombinLookupTable[componentTypeIndex] = info;
                     }
 
                     if (combiner.crossParentTypeCacher.Contains(componentTypeIndex)) {
@@ -210,7 +193,7 @@ namespace Hsenl {
             }
 
             // 整理CrossCombiners
-            foreach (var kv in CrossCombinLookupTable) {
+            foreach (var kv in _cache.CrossCombinLookupTable) {
                 var combinInfo = kv.Value;
 
                 combinInfo.totalChildTypeCacher = ComponentTypeCacher.CreateNull();
@@ -218,6 +201,8 @@ namespace Hsenl {
                     combinInfo.totalChildTypeCacher.Add(combiner.crossChildTypeCacher);
                 }
             }
+
+            ScopeCombinFormatter.Init();
         }
 
         internal CombinerType combinerType;
@@ -232,6 +217,8 @@ namespace Hsenl {
         private readonly Dictionary<int, Delegate> _actions = new();
         protected readonly Dictionary<int, int> actionCounters = new(); // 记录每个形成的组合的事件数, 用以判断每个组合是不是忘了 -= action
 
+        private readonly Dictionary<int, object> _userTokens = new();
+
         internal virtual void Combin(IList<Component> components) {
             this.actionCounter = 0;
         }
@@ -245,7 +232,7 @@ namespace Hsenl {
         protected T EnqueueAction<T>(T action) where T : Delegate {
             var hashcode = this.GetComponentCombineHashCode();
             hashcode = HashCode.Combine(hashcode, this.actionCounter++);
-            if (!this._actions.TryAdd(hashcode, action)) 
+            if (!this._actions.TryAdd(hashcode, action))
                 throw new Exception($"combiner is already has combined'{typeof(T)}' '{this.GetType()}'");
             return action;
         }
@@ -259,6 +246,47 @@ namespace Hsenl {
             }
 
             return (T)action;
+        }
+
+        protected void SetUserToken(object o) {
+            var hashcode = this.GetComponentCombineHashCode();
+            this._userTokens[hashcode] = o;
+        }
+
+        protected object GetUserToken() {
+            var hashcode = this.GetComponentCombineHashCode();
+            this._userTokens.Remove(hashcode, out var value);
+            return value;
+        }
+
+        protected T GetUserToken<T>() {
+            return (T)this.GetUserToken();
+        }
+    }
+
+    internal class CombinerCache {
+        internal Dictionary<Type, Combiner> TypeCombinerMap { get; } = new();
+
+        internal List<Combiner> MultiCombiners { get; } = new();
+        internal ComponentTypeCacher TotalMultiCombinerTypeCacher;
+        internal List<Combiner> CrossCombiners { get; } = new();
+        internal ComponentTypeCacher TotalCrossCombinerChildTypeCacher;
+        internal List<Combiner> TotalCombiners { get; } = new(); // combiner的id就是index, 所以可以直接通过 TotalCombiners[combiner.id] 来获取到该combiner
+
+        internal MultiList<int, int> Overrides { get; } = new(); // key: 覆盖者id, value: 被覆盖者id
+        internal MultiList<int, int> InverseOverrides { get; } = new(); // key: 被覆盖者id, value: 覆盖者id
+
+        // key: componentTypeIndex, value: 与该组件有关的所有组合, 且按照组合成员数有小到大排序
+        internal Dictionary<int, MultiCombinInfo> MultiCombinLookupTable { get; } = new();
+        internal Dictionary<int, CrossCombinInfo> CrossCombinLookupTable { get; } = new();
+
+        internal void Clear() {
+            this.TypeCombinerMap.Clear();
+            this.MultiCombiners.Clear();
+            this.CrossCombiners.Clear();
+            this.TotalCombiners.Clear();
+            this.Overrides.Clear();
+            this.InverseOverrides.Clear();
         }
     }
 }

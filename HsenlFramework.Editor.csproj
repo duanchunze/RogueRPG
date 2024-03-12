@@ -70,6 +70,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\IHsenlScriptsGenerateScheme.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\Defines\NamingConvertion.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\YooAsset\YooAssetFilterRuleCollect.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\YooAsset\Custom\AddressByLocalPath_BundlesLastOneFolder.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\Helper\EditorHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\ComponentReferenceInspector.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\Tools\DirectoryCopyInfoArrayEditor.cs" />
@@ -824,14 +825,6 @@
     <ProjectReference Include="HsenlFramework.Runtime.csproj">
       <Project>{5a58df83-1fa3-9c5b-78a4-2d351d15aebd}</Project>
       <Name>HsenlFramework.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="GameModel.csproj">
-      <Project>{145b793a-a13f-7ea4-aa2d-b45c024fff0a}</Project>
-      <Name>GameModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="GameView.csproj">
-      <Project>{ccb96e0d-25d9-e1a0-8659-0281650049a4}</Project>
-      <Name>GameView</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

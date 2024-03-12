@@ -22,16 +22,12 @@ public sealed partial class HarmOfTargetedInfo :  timeline.TpHarmInfo
     public HarmOfTargetedInfo(JSONNode _json)  : base(_json) 
     {
         { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
-        { if(!_json["hit_fx"].IsString) { throw new SerializationException(); }  HitFx = _json["hit_fx"]; }
-        { if(!_json["hit_sound"].IsString) { throw new SerializationException(); }  HitSound = _json["hit_sound"]; }
         PostInit();
     }
 
-    public HarmOfTargetedInfo(int model, float point, numeric.DamageFormulaInfo harm_formula, string hit_fx, string hit_sound )  : base(model,point) 
+    public HarmOfTargetedInfo(int model, float point, numeric.DamageFormulaInfo harm_formula )  : base(model,point) 
     {
         this.HarmFormula = harm_formula;
-        this.HitFx = hit_fx;
-        this.HitSound = hit_sound;
         PostInit();
     }
 
@@ -44,8 +40,6 @@ public sealed partial class HarmOfTargetedInfo :  timeline.TpHarmInfo
     /// 伤害的配方
     /// </summary>
     public numeric.DamageFormulaInfo HarmFormula { get; private set; }
-    public string HitFx { get; private set; }
-    public string HitSound { get; private set; }
 
     public const int __ID__ = -54177994;
     public override int GetTypeId() => __ID__;
@@ -69,8 +63,6 @@ public sealed partial class HarmOfTargetedInfo :  timeline.TpHarmInfo
         + "Model:" + Model + ","
         + "Point:" + Point + ","
         + "HarmFormula:" + HarmFormula + ","
-        + "HitFx:" + HitFx + ","
-        + "HitSound:" + HitSound + ","
         + "}";
     }
     

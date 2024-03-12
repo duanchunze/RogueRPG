@@ -76,15 +76,14 @@ namespace Hsenl {
         /// <typeparam name="T">作业物的类型</typeparam>
         /// <returns></returns>
         public ProcedureLineHandleResult StartLine<T>(ref T item, bool throwIfNull = true) {
-            if (!_handlerDict.TryGetValue(typeof(T), out var list)) {
+            if (!_handlerDict.TryGetValue(typeof(T), out var concurrentQueue)) {
                 if (throwIfNull)
                     throw new InvalidOperationException($"procedure line handler 'Hsen.AProcedureLineHandler`1{typeof(T)}' is not unrealized");
 
                 return ProcedureLineHandleResult.Fail;
             }
 
-            for (int i = 0, len = list.Count; i < len; i++) {
-                var handlerPair = list[i];
+            foreach (var handlerPair in concurrentQueue) {
                 ProcedureLineHandleResult result;
                 switch (handlerPair.handler) {
                     case IProcedureLineHandlerOfWorker<T> handler:
@@ -121,15 +120,14 @@ namespace Hsenl {
         }
 
         public async HTask<ProcedureLineHandleResult> StartLineAsync<T>(T item, bool throwIfNull = true) {
-            if (!_handlerDict.TryGetValue(typeof(T), out var list)) {
+            if (!_handlerDict.TryGetValue(typeof(T), out var concurrentQueue)) {
                 if (throwIfNull)
                     throw new InvalidOperationException($"procedure line handler 'Hsen.AProcedureLineHandler`1{typeof(T)}' is not unrealized");
 
                 return ProcedureLineHandleResult.Fail;
             }
 
-            for (int i = 0, len = list.Count; i < len; i++) {
-                var handlerPair = list[i];
+            foreach (var handlerPair in concurrentQueue) {
                 ProcedureLineHandleResult result;
                 switch (handlerPair.handler) {
                     case IProcedureLineHandlerOfWorker<T> handler: {
@@ -193,9 +191,9 @@ namespace Hsenl {
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly, LabelText("所有处理者 (静态变量)"), PropertyOrder(-1)]
 #endif
-        private static readonly MultiList<Type, HandlerPair> _handlerDict = new();
+        private static readonly ConcurrentMultiQueue<Type, HandlerPair> _handlerDict = new();
 
-        [OnEventSystemInitialized]
+        [OnEventSystemInitialized, OnEventSystemChanged]
         private static void CacheHandles() {
             _handlerDict.Clear();
             Dictionary<Type, SortedDictionary<int, IProcedureLineHandler>> sortedDict = new();
@@ -229,7 +227,7 @@ namespace Hsenl {
 
             foreach (var kv in sortedDict) {
                 foreach (var handlerKv in kv.Value) { // kv.Value 是已经按照从小到大排好顺序的字典
-                    _handlerDict.Add(kv.Key, new HandlerPair(handlerKv.Value.WorkerType, handlerKv.Value));
+                    _handlerDict.Enqueue(kv.Key, new HandlerPair(handlerKv.Value.WorkerType, handlerKv.Value));
                 }
             }
         }

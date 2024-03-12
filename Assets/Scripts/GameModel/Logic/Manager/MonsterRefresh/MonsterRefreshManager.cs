@@ -35,7 +35,7 @@ namespace Hsenl {
                 var actor = spawnPoint.Spawn();
                 var numerator = actor.GetComponent<Numerator>();
                 var config = actor.Config;
-                var numericConfig = Tables.Instance.TbNumericActorConfig.GetByAlias(config.NumericAlias);
+                var numericConfig = config.NumericActorConfig;
                 if (numericConfig.TryGetNum(NumericType.MaxHp, out var maxhp)) {
                     // 按比例重设血量
                     var hpType = maxhp.Type;

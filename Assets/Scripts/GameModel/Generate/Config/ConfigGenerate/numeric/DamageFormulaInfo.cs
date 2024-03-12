@@ -42,6 +42,9 @@ public sealed partial class DamageFormulaInfo :  numeric.Info
     /// 配方
     /// </summary>
     public System.Collections.Generic.List<numeric.FormulaInfo> DamageFormulas { get; private set; }
+    /// <summary>
+    /// 伤害类型. 物理、法术、真实...
+    /// </summary>
     public DamageType DamageType { get; private set; }
 
     public const int __ID__ = -1487852668;

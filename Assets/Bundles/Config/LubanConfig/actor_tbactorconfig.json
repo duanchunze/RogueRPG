@@ -3,11 +3,11 @@
     "id": 10000,
     "alias": "战士",
     "view_name": "zhanshi",
-    "model_name": "warrior",
     "labels": [
       0,
       1
     ],
+    "model_name": "warrior",
     "numeric_alias": "战士",
     "ai_alias": "玩家自动释放技能AI",
     "org_abilitys": [
@@ -33,11 +33,11 @@
     "id": 10001,
     "alias": "猎人",
     "view_name": "lieren",
-    "model_name": "huntsman",
     "labels": [
       0,
       1
     ],
+    "model_name": "huntsman",
     "numeric_alias": "猎人",
     "ai_alias": "玩家自动释放技能AI",
     "org_abilitys": [
@@ -63,11 +63,11 @@
     "id": 10002,
     "alias": "法师",
     "view_name": "fashi",
-    "model_name": "mage",
     "labels": [
       0,
       1
     ],
+    "model_name": "mage",
     "numeric_alias": "法师",
     "ai_alias": "玩家自动释放技能AI",
     "org_abilitys": [
@@ -93,11 +93,11 @@
     "id": 20000,
     "alias": "靶子",
     "view_name": "靶子",
-    "model_name": "kulou_zs",
     "labels": [
       0,
       3
     ],
+    "model_name": "kulou_zs",
     "numeric_alias": "靶子战士",
     "ai_alias": "",
     "org_abilitys": [
@@ -119,11 +119,11 @@
     "id": 20001,
     "alias": "靶子战士",
     "view_name": "靶子战士",
-    "model_name": "kulou_zs",
     "labels": [
       0,
       3
     ],
+    "model_name": "kulou_zs",
     "numeric_alias": "靶子战士",
     "ai_alias": "怪物AI1",
     "org_abilitys": [
@@ -148,11 +148,11 @@
     "id": 20002,
     "alias": "靶子骑士",
     "view_name": "靶子骑士",
-    "model_name": "kulou_qs",
     "labels": [
       0,
       3
     ],
+    "model_name": "kulou_qs",
     "numeric_alias": "靶子骑士",
     "ai_alias": "怪物AI1",
     "org_abilitys": [
@@ -177,11 +177,11 @@
     "id": 20003,
     "alias": "靶子弓箭手",
     "view_name": "靶子弓箭手",
-    "model_name": "kulou_gjs",
     "labels": [
       0,
       3
     ],
+    "model_name": "kulou_gjs",
     "numeric_alias": "靶子弓箭手",
     "ai_alias": "怪物AI1",
     "org_abilitys": [
@@ -206,11 +206,11 @@
     "id": 20004,
     "alias": "骷髅战士",
     "view_name": "骷髅战士",
-    "model_name": "kulou_zs",
     "labels": [
       0,
       3
     ],
+    "model_name": "kulou_zs",
     "numeric_alias": "骷髅战士",
     "ai_alias": "怪物AI1",
     "org_abilitys": [
@@ -235,11 +235,11 @@
     "id": 20005,
     "alias": "骷髅骑士",
     "view_name": "骷髅骑士",
-    "model_name": "kulou_qs",
     "labels": [
       0,
       3
     ],
+    "model_name": "kulou_qs",
     "numeric_alias": "骷髅骑士",
     "ai_alias": "怪物AI1",
     "org_abilitys": [
@@ -264,11 +264,11 @@
     "id": 20006,
     "alias": "骷髅弓箭手",
     "view_name": "骷髅弓箭手",
-    "model_name": "kulou_gjs",
     "labels": [
       0,
       3
     ],
+    "model_name": "kulou_gjs",
     "numeric_alias": "骷髅弓箭手",
     "ai_alias": "怪物AI1",
     "org_abilitys": [

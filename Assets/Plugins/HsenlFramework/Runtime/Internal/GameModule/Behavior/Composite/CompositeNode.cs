@@ -31,7 +31,7 @@ namespace Hsenl {
             }
         }
 
-        public override IEnumerable<INode> ForeachChildren() {
+        public sealed override IEnumerable<INode> ForeachChildren() {
             if (this.children == null) {
                 yield break;
             }
@@ -44,7 +44,7 @@ namespace Hsenl {
             }
         }
 
-        public override void StartNode(IBehaviorTree tree) {
+        public sealed override void StartNode(IBehaviorTree tree) {
             if (this.manager != null) throw new Exception("already has manager");
             if (tree == null) throw new ArgumentNullException("start node failure, tree is null");
 
@@ -61,7 +61,7 @@ namespace Hsenl {
             }
         }
 
-        public override void OpenNode() {
+        public sealed override void OpenNode() {
             for (int i = 0, len = this.children.Count; i < len; i++) {
                 this.children[i].OpenNode();
             }
@@ -74,7 +74,7 @@ namespace Hsenl {
             }
         }
 
-        public override void CloseNode() {
+        public sealed override void CloseNode() {
             for (int i = 0, len = this.children.Count; i < len; i++) {
                 this.children[i].CloseNode();
             }
@@ -87,7 +87,7 @@ namespace Hsenl {
             }
         }
 
-        public override void DestroyNode() {
+        public sealed override void DestroyNode() {
             for (int i = 0, len = this.children.Count; i < len; i++) {
                 this.children[i].DestroyNode();
             }
@@ -104,7 +104,7 @@ namespace Hsenl {
             }
         }
 
-        public override void ResetNode() {
+        public sealed override void ResetNode() {
             for (int i = 0, len = this.children.Count; i < len; i++) {
                 this.children[i].ResetNode();
             }
@@ -117,7 +117,7 @@ namespace Hsenl {
             }
         }
 
-        public override void AbortNode() {
+        public sealed override void AbortNode() {
             for (int i = 0, len = this.children.Count; i < len; i++) {
                 this.children[i].AbortNode();
             }
@@ -126,7 +126,7 @@ namespace Hsenl {
             this.InternalAbort();
         }
 
-        public virtual void AddChild(TNode node) {
+        public void AddChild(TNode node) {
             if (node == null) return;
             this.children.Add(node);
             node.Parent = this;
@@ -139,7 +139,7 @@ namespace Hsenl {
             }
         }
 
-        public virtual void RemoveChild(TNode node) {
+        public void RemoveChild(TNode node) {
             if (node == null) return;
             if (node.Parent != this) return;
             if (this.manager != null) {
@@ -153,7 +153,7 @@ namespace Hsenl {
             node.Parent = null;
         }
 
-        public virtual void Clear() {
+        public void Clear() {
             foreach (var child in this.children) {
                 if (this.manager != null) {
                     child.AbortNode();
@@ -168,7 +168,7 @@ namespace Hsenl {
             this.children.Clear();
         }
 
-        public override T GetNodeInChildren<T>(bool once = false) {
+        public sealed override T GetNodeInChildren<T>(bool once = false) {
             if (this.children == null) return default;
             for (int i = 0, len = this.children.Count; i < len; i++) {
                 var child = this.children[i];

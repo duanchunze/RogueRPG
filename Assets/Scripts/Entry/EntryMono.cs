@@ -20,8 +20,7 @@ namespace Hsenl {
 
         public UIPatch uiPatch;
 
-        [FormerlySerializedAs("dlls")]
-        [Header("依赖关系不能错")]
+        [Header("依赖顺序不能错")]
         public List<string> dllAssetNames = new() {
             "HsenlFramework.ThirdParty.dll",
             "HsenlFramework.Runtime.dll",

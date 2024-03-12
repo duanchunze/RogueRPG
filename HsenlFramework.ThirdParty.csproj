@@ -237,8 +237,8 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\UInt64Serializer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\BlobSerializer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\QuadraticRoots.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Ray3Plane3Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\FVector4.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Ray3Plane3Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\FormatParser.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Ray2D.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Plane3Sphere3Intr.cs" />
@@ -314,8 +314,8 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Line.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Sphere3Sphere3Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Sphere3Sphere3IntrTypes.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Edge.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Formatters\NullableFormatter.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Edge.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Line3Plane3Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Segment2AAB2Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\Number\BitOperations.cs" />

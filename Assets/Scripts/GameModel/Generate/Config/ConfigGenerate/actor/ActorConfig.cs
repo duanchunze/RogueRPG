@@ -21,8 +21,8 @@ public sealed partial class ActorConfig :  Bright.Config.BeanBase
         { if(!_json["id"].IsNumber) { throw new SerializationException(); }  Id = _json["id"]; }
         { if(!_json["alias"].IsString) { throw new SerializationException(); }  Alias = _json["alias"]; }
         { if(!_json["view_name"].IsString) { throw new SerializationException(); }  ViewName = _json["view_name"]; }
-        { if(!_json["model_name"].IsString) { throw new SerializationException(); }  ModelName = _json["model_name"]; }
         { var __json0 = _json["labels"]; if(!__json0.IsArray) { throw new SerializationException(); } Labels = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  Labels.Add(__v0); }   }
+        { if(!_json["model_name"].IsString) { throw new SerializationException(); }  ModelName = _json["model_name"]; }
         { if(!_json["numeric_alias"].IsString) { throw new SerializationException(); }  NumericAlias = _json["numeric_alias"]; }
         { if(!_json["ai_alias"].IsString) { throw new SerializationException(); }  AiAlias = _json["ai_alias"]; }
         { var __json0 = _json["org_abilitys"]; if(!__json0.IsArray) { throw new SerializationException(); } OrgAbilitys = new System.Collections.Generic.List<string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string __v0;  { if(!__e0.IsString) { throw new SerializationException(); }  __v0 = __e0; }  OrgAbilitys.Add(__v0); }   }
@@ -33,13 +33,13 @@ public sealed partial class ActorConfig :  Bright.Config.BeanBase
         PostInit();
     }
 
-    public ActorConfig(int id, string alias, string view_name, string model_name, System.Collections.Generic.List<TagType> labels, string numeric_alias, string ai_alias, System.Collections.Generic.List<string> org_abilitys, System.Collections.Generic.List<string> org_cards, System.Collections.Generic.List<drops.DropByProbability> possible_drops_by_probability, System.Collections.Generic.List<drops.DropByWeightInfo> possible_drops_by_weight, drops.DropNumberInfo possible_drop_number ) 
+    public ActorConfig(int id, string alias, string view_name, System.Collections.Generic.List<TagType> labels, string model_name, string numeric_alias, string ai_alias, System.Collections.Generic.List<string> org_abilitys, System.Collections.Generic.List<string> org_cards, System.Collections.Generic.List<drops.DropByProbability> possible_drops_by_probability, System.Collections.Generic.List<drops.DropByWeightInfo> possible_drops_by_weight, drops.DropNumberInfo possible_drop_number ) 
     {
         this.Id = id;
         this.Alias = alias;
         this.ViewName = view_name;
-        this.ModelName = model_name;
         this.Labels = labels;
+        this.ModelName = model_name;
         this.NumericAlias = numeric_alias;
         this.AiAlias = ai_alias;
         this.OrgAbilitys = org_abilitys;
@@ -68,13 +68,13 @@ public sealed partial class ActorConfig :  Bright.Config.BeanBase
     /// </summary>
     public string ViewName { get; private set; }
     /// <summary>
-    /// 模型名
-    /// </summary>
-    public string ModelName { get; private set; }
-    /// <summary>
     /// 角色标签
     /// </summary>
     public System.Collections.Generic.List<TagType> Labels { get; private set; }
+    /// <summary>
+    /// 模型名
+    /// </summary>
+    public string ModelName { get; private set; }
     /// <summary>
     /// 初始数值
     /// </summary>
@@ -119,8 +119,8 @@ public sealed partial class ActorConfig :  Bright.Config.BeanBase
         + "Id:" + Id + ","
         + "Alias:" + Alias + ","
         + "ViewName:" + ViewName + ","
-        + "ModelName:" + ModelName + ","
         + "Labels:" + Bright.Common.StringUtil.CollectionToString(Labels) + ","
+        + "ModelName:" + ModelName + ","
         + "NumericAlias:" + NumericAlias + ","
         + "AiAlias:" + AiAlias + ","
         + "OrgAbilitys:" + Bright.Common.StringUtil.CollectionToString(OrgAbilitys) + ","

@@ -82,17 +82,17 @@ namespace Hsenl {
 
         public void SetGold(int num) {
             this.gold = num;
-            EventSystem.Publish(new OnGoldNumberUpdate() { goldNum = this.gold });
+            SourceEventStation.OnGoldNumberUpdate(this.gold);
         }
 
         public void AddGold(int num) {
             this.gold += num;
-            EventSystem.Publish(new OnGoldNumberUpdate() { goldNum = this.gold });
+            SourceEventStation.OnGoldNumberUpdate(this.gold);
         }
 
         public void RemoveGold(int num) {
             this.gold -= num;
-            EventSystem.Publish(new OnGoldNumberUpdate() { goldNum = this.gold });
+            SourceEventStation.OnGoldNumberUpdate(this.gold);
         }
     }
 }

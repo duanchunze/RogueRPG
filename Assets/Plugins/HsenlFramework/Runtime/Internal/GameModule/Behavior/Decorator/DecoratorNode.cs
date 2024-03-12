@@ -26,14 +26,14 @@ namespace Hsenl {
             this.child.Parent = this;
         }
 
-        public override IEnumerable<INode> ForeachChildren() {
+        public sealed override IEnumerable<INode> ForeachChildren() {
             if (this.child == null)
                 yield break;
 
             yield return this.child;
         }
 
-        public override void StartNode(IBehaviorTree tree) {
+        public sealed override void StartNode(IBehaviorTree tree) {
             if (this.manager != null) throw new Exception("already has manager");
             if (tree == null) throw new ArgumentNullException("start node failure, tree is null");
 
@@ -47,7 +47,7 @@ namespace Hsenl {
             }
         }
 
-        public override void OpenNode() {
+        public sealed override void OpenNode() {
             this.child?.OpenNode();
             try {
                 this.InternalOpen();
@@ -57,7 +57,7 @@ namespace Hsenl {
             }
         }
 
-        public override void CloseNode() {
+        public sealed override void CloseNode() {
             this.child?.CloseNode();
             try {
                 this.InternalClose();
@@ -67,7 +67,7 @@ namespace Hsenl {
             }
         }
 
-        public override void DestroyNode() {
+        public sealed override void DestroyNode() {
             this.child?.DestroyNode();
             if (this.manager != null) {
                 try {
@@ -81,7 +81,7 @@ namespace Hsenl {
             }
         }
 
-        public override void ResetNode() {
+        public sealed override void ResetNode() {
             this.child?.ResetNode();
             try {
                 this.InternalReset();
@@ -91,7 +91,7 @@ namespace Hsenl {
             }
         }
 
-        public override void AbortNode() {
+        public sealed override void AbortNode() {
             this.child?.AbortNode();
             this.InternalAbort();
         }
@@ -127,7 +127,7 @@ namespace Hsenl {
             this.RemoveChild(this.child);
         }
 
-        public override T GetNodeInChildren<T>(bool once = false) {
+        public sealed override T GetNodeInChildren<T>(bool once = false) {
             if (this.child == null) return default;
 
             if (this.child is T t) {

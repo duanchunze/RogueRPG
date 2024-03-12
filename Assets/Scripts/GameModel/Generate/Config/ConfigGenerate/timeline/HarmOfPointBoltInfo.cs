@@ -22,15 +22,15 @@ public sealed partial class HarmOfPointBoltInfo :  timeline.TpHarmInfo
     public HarmOfPointBoltInfo(JSONNode _json)  : base(_json) 
     {
         { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
-        { if(!_json["bolt_name"].IsString) { throw new SerializationException(); }  BoltName = _json["bolt_name"]; }
+        { if(!_json["bolt_config_alias"].IsString) { throw new SerializationException(); }  BoltConfigAlias = _json["bolt_config_alias"]; }
         { if(!_json["speed"].IsNumber) { throw new SerializationException(); }  Speed = _json["speed"]; }
         PostInit();
     }
 
-    public HarmOfPointBoltInfo(int model, float point, numeric.DamageFormulaInfo harm_formula, string bolt_name, float speed )  : base(model,point) 
+    public HarmOfPointBoltInfo(int model, float point, numeric.DamageFormulaInfo harm_formula, string bolt_config_alias, float speed )  : base(model,point) 
     {
         this.HarmFormula = harm_formula;
-        this.BoltName = bolt_name;
+        this.BoltConfigAlias = bolt_config_alias;
         this.Speed = speed;
         PostInit();
     }
@@ -44,7 +44,7 @@ public sealed partial class HarmOfPointBoltInfo :  timeline.TpHarmInfo
     /// <summary>
     /// 弹道速度
     /// </summary>
-    public string BoltName { get; private set; }
+    public string BoltConfigAlias { get; private set; }
     public float Speed { get; private set; }
 
     public const int __ID__ = 1182886171;
@@ -69,7 +69,7 @@ public sealed partial class HarmOfPointBoltInfo :  timeline.TpHarmInfo
         + "Model:" + Model + ","
         + "Point:" + Point + ","
         + "HarmFormula:" + HarmFormula + ","
-        + "BoltName:" + BoltName + ","
+        + "BoltConfigAlias:" + BoltConfigAlias + ","
         + "Speed:" + Speed + ","
         + "}";
     }

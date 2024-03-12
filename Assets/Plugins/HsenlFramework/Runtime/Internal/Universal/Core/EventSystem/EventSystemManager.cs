@@ -68,32 +68,219 @@ namespace Hsenl {
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="assemblies"></param>
-        public void AddAssembles(Assembly[] assemblies) {
+        public void SetAssembles(Assembly[] assemblies) {
             var mergedArray = this.Assemblies.Concat(assemblies).Distinct(new AssemblesEqualityComparer());
             this.Assemblies = mergedArray.ToArray();
             var types = AssemblyHelper.GetAssemblyTypes(assemblies);
+            this.ClearCache();
             this.AddTypes(types);
+            // 事件系统初始化完成
+            foreach (var method in this.GetMethodsOfAttribute(typeof(OnEventSystemInitializedAttribute))) {
+                if (!method.IsStatic) throw new InvalidOperationException($"EventSystemInitializedAttribute only use for static method '{method.Name}'");
+                try {
+                    method.Invoke(null, null);
+                }
+                catch (Exception e) {
+                    Log.Error(e);
+                }
+            }
         }
 
-        public Assembly[] GetAssemblies() {
-            var copy = new Assembly[this.Assemblies.Length];
-            Array.Copy(this.Assemblies, copy, copy.Length);
-            return copy;
+        public void AddOrReplaceAssembles(Assembly[] assemblies) {
+            List<Assembly> temp = new(this.Assemblies);
+            foreach (var assembly in assemblies) {
+                var replace = false;
+                for (int i = 0, len = temp.Count; i < len; i++) {
+                    if (temp[i].FullName == assembly.FullName) {
+                        temp[i] = assembly;
+                        replace = true;
+                        break;
+                    }
+                }
+
+                if (!replace) {
+                    temp.Add(assembly);
+                }
+            }
+
+            this.Assemblies = temp.ToArray();
+            var types = AssemblyHelper.GetAssemblyTypes(assemblies);
+            this.ClearCacheOfAssembles(assemblies);
+            this.AddTypes(types);
+            // 事件系统初始化完成
+            foreach (var method in this.GetMethodsOfAttribute(typeof(OnEventSystemChangedAttribute))) {
+                if (!method.IsStatic) throw new InvalidOperationException($"OnEventSystemChangedAttribute only use for static method '{method.Name}'");
+                try {
+                    method.Invoke(null, null);
+                }
+                catch (Exception e) {
+                    Log.Error(e);
+                }
+            }
         }
 
-        public void AddTypes(Type[] types) {
+        private void ClearCache() {
             this._allTypes.Clear();
+            this._typesOfAttribute.Clear();
+            this._allEvents.Clear();
+            this._allInvokes.Clear();
+            this._staticFieldsOfAttribute.Clear();
+            this._staticPropertiesOfAttribute.Clear();
+            this._staticMethodsOfAttribute.Clear();
+            this._instanceFieldsOfAttribute.Clear();
+            this._instancePropertiesOfAttribute.Clear();
+            this._instanceMethodsOfAttribute.Clear();
+        }
+
+        private void ClearCacheOfAssembles(Assembly[] assemblies) {
+            HashSet<string> fullNames = new();
+            foreach (var assembly in assemblies) {
+                fullNames.Add(assembly.FullName);
+            }
+
+            {
+                var list = (from kv in this._allTypes where fullNames.Contains(kv.Value.Assembly.FullName) select kv.Key).ToList();
+                foreach (var typeName in list) {
+                    this._allTypes.Remove(typeName);
+                }
+            }
+
+            {
+                var list = new List<(Type attrType, Type type)>();
+                foreach (var kv in this._typesOfAttribute) {
+                    foreach (var type in kv.Value) {
+                        if (!fullNames.Contains(type.Assembly.FullName))
+                            continue;
+
+                        list.Add((kv.Key, type));
+                    }
+                }
+
+                foreach (var tuple in list) {
+                    this._typesOfAttribute.Remove(tuple.attrType, tuple.type);
+                }
+            }
+
+            {
+                var list = (from kv in this._allEvents where fullNames.Contains(kv.Key.Assembly.FullName) select kv.Key).ToList();
+                foreach (var type in list) {
+                    this._allEvents.Remove(type);
+                }
+            }
+
+            {
+                var list = (from kv in this._allInvokes where fullNames.Contains(kv.Key.Assembly.FullName) select kv.Key).ToList();
+                foreach (var type in list) {
+                    this._allInvokes.Remove(type);
+                }
+            }
+
+            {
+                var list = new List<(Type attrType, FieldInfo fieldInfo)>();
+                foreach (var kv in this._staticFieldsOfAttribute) {
+                    foreach (var fieldInfo in kv.Value) {
+                        if (!fullNames.Contains(fieldInfo.DeclaringType?.Assembly.FullName))
+                            continue;
+
+                        list.Add((kv.Key, fieldInfo));
+                    }
+                }
+
+                foreach (var tuple in list) {
+                    this._staticFieldsOfAttribute.Remove(tuple.attrType, tuple.fieldInfo);
+                }
+            }
+
+            {
+                var list = new List<(Type attrType, PropertyInfo propertyInfo)>();
+                foreach (var kv in this._staticPropertiesOfAttribute) {
+                    foreach (var propertyInfo in kv.Value) {
+                        if (!fullNames.Contains(propertyInfo.DeclaringType?.Assembly.FullName))
+                            continue;
+
+                        list.Add((kv.Key, propertyInfo));
+                    }
+                }
+
+                foreach (var tuple in list) {
+                    this._staticPropertiesOfAttribute.Remove(tuple.attrType, tuple.propertyInfo);
+                }
+            }
+
+            {
+                var list = new List<(Type attrType, MethodInfo methodInfo)>();
+                foreach (var kv in this._staticMethodsOfAttribute) {
+                    foreach (var methodInfo in kv.Value) {
+                        if (!fullNames.Contains(methodInfo.DeclaringType?.Assembly.FullName))
+                            continue;
+
+                        list.Add((kv.Key, methodInfo));
+                    }
+                }
+
+                foreach (var tuple in list) {
+                    this._staticMethodsOfAttribute.Remove(tuple.attrType, tuple.methodInfo);
+                }
+            }
+
+            {
+                var list = new List<(Type attrType, Type type)>();
+                foreach (var kv in this._instanceFieldsOfAttribute) {
+                    foreach (var kv2 in kv.Value) {
+                        if (!fullNames.Contains(kv2.Key.Assembly.FullName))
+                            continue;
+
+                        list.Add((kv.Key, kv2.Key));
+                    }
+                }
+
+                foreach (var tuple in list) {
+                    this._instanceFieldsOfAttribute.Remove(tuple.attrType, tuple.type);
+                }
+            }
+
+            {
+                var list = new List<(Type attrType, Type type)>();
+                foreach (var kv in this._instancePropertiesOfAttribute) {
+                    foreach (var kv2 in kv.Value) {
+                        if (!fullNames.Contains(kv2.Key.Assembly.FullName))
+                            continue;
+
+                        list.Add((kv.Key, kv2.Key));
+                    }
+                }
+
+                foreach (var tuple in list) {
+                    this._instancePropertiesOfAttribute.Remove(tuple.attrType, tuple.type);
+                }
+            }
+
+            {
+                var list = new List<(Type attrType, Type type)>();
+                foreach (var kv in this._instanceMethodsOfAttribute) {
+                    foreach (var kv2 in kv.Value) {
+                        if (!fullNames.Contains(kv2.Key.Assembly.FullName))
+                            continue;
+
+                        list.Add((kv.Key, kv2.Key));
+                    }
+                }
+
+                foreach (var tuple in list) {
+                    this._instanceMethodsOfAttribute.Remove(tuple.attrType, tuple.type);
+                }
+            }
+        }
+
+        private void AddTypes(Type[] types) {
             foreach (var type in types) {
-                if (type?.FullName == null) throw new NullReferenceException("");
-                this._allTypes[type.FullName] = type;
+                if (type == null)
+                    throw new NullReferenceException(nameof(type));
+
+                this._allTypes[type.FullName!] = type;
             }
 
             // attribute ：types
-            this._typesOfAttribute.Clear();
             foreach (var type in types) {
                 // 抽象类跳过, 但不包括静态类
                 if (type.IsAbstract && !type.IsSealed) continue;
@@ -113,7 +300,6 @@ namespace Hsenl {
             }
 
             // events
-            this._allEvents.Clear();
             foreach (var type in this.GetTypesOfAttribute(typeof(EventAttribute))) {
                 if (Activator.CreateInstance(type) is not IEvent obj) {
                     throw new Exception($"type not is AEvent: {type.Name}");
@@ -134,7 +320,6 @@ namespace Hsenl {
             }
 
             // invokes
-            this._allInvokes.Clear();
             foreach (var type in this.GetTypesOfAttribute(typeof(InvokeAttribute))) {
                 if (Activator.CreateInstance(type) is not IInvoke obj) {
                     throw new Exception($"type not is AInvoke: {type.Name}");
@@ -144,12 +329,6 @@ namespace Hsenl {
             }
 
             // attribute : classType ：members
-            this._staticFieldsOfAttribute.Clear();
-            this._staticPropertiesOfAttribute.Clear();
-            this._staticMethodsOfAttribute.Clear();
-            this._instanceFieldsOfAttribute.Clear();
-            this._instancePropertiesOfAttribute.Clear();
-            this._instanceMethodsOfAttribute.Clear();
             foreach (var typeRaw in types) {
                 var fm = CustomAttributeExtensions.GetCustomAttribute<FrameworkMemberAttribute>(typeRaw, true);
                 if (fm == null) continue;
@@ -282,17 +461,12 @@ namespace Hsenl {
                     });
                 }
             }
+        }
 
-            // 事件系统初始化完成
-            foreach (var method in this.GetMethodsOfAttribute(typeof(OnEventSystemInitializedAttribute))) {
-                if (!method.IsStatic) throw new InvalidOperationException($"EventSystemInitializedAttribute only use for static method '{method.Name}'");
-                try {
-                    method.Invoke(null, null);
-                }
-                catch (Exception e) {
-                    Log.Error(e);
-                }
-            }
+        public Assembly[] GetAssemblies() {
+            var copy = new Assembly[this.Assemblies.Length];
+            Array.Copy(this.Assemblies, copy, copy.Length);
+            return copy;
         }
 
         public Type[] GetAllTypes() {
@@ -383,6 +557,10 @@ namespace Hsenl {
 
         public Object[] GetAllInstance() {
             return this._instances.Values.ToArray();
+        }
+
+        internal Dictionary<int, Object>.ValueCollection GetAllInstanceRef() {
+            return this._instances.Values;
         }
 
         internal void RegisterStart(Component starter) {

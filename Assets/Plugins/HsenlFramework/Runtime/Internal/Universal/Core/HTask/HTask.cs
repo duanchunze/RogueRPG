@@ -10,7 +10,7 @@ namespace Hsenl {
     // HTask只是一个空壳子, 具体实现是由其内部的body来实现
     [AsyncMethodBuilder(typeof(AsyncHTaskMethodBuilder))]
     [StructLayout(LayoutKind.Auto)]
-    public readonly partial struct HTask {
+    public readonly partial struct HTask : IHTask {
         private readonly IHTaskBody? body;
 
         private HTask(IHTaskBody body) {
@@ -35,6 +35,10 @@ namespace Hsenl {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetException(Exception e) {
             this.body?.SetException(e);
+        }
+        
+        public IHTask ToIHTask() {
+            return this.body as IHTask;
         }
 
         // 一个类型想要能被await, 必须有GetAwaiter(), 并返回一个ICriticalNotifyCompletion
@@ -72,7 +76,7 @@ namespace Hsenl {
 
     [AsyncMethodBuilder(typeof(AsyncHTaskMethodBuilder<>))]
     [StructLayout(LayoutKind.Auto)]
-    public readonly partial struct HTask<T> {
+    public readonly partial struct HTask<T> : IHTask {
         private readonly IHTaskBody<T>? body;
 
         private HTask(IHTaskBody<T> body) {
@@ -97,6 +101,10 @@ namespace Hsenl {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetException(Exception e) {
             this.body?.SetException(e);
+        }
+
+        public IHTask ToIHTask() {
+            return this.body as IHTask;
         }
 
         public readonly struct Awaiter : ICriticalNotifyCompletion {

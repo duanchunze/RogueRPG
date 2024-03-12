@@ -21,9 +21,6 @@ namespace Hsenl {
                 return this.unbodiedHead?.Bodied;
             }
         }
-
-        [MemoryPackIgnore]
-        public Bodied AttachedBodied => this.Bodied?.AttachedBodied;
         
         protected internal override void OnDestroyFinish() {
             base.OnDestroyFinish();

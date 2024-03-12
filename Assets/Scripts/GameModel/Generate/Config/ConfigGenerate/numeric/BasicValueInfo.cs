@@ -41,7 +41,7 @@ public sealed partial class BasicValueInfo :  numeric.Info
     }
 
     /// <summary>
-    /// 数值类型
+    /// 数值类型. hp, mp...
     /// </summary>
     public NumericType Type { get; private set; }
     /// <summary>

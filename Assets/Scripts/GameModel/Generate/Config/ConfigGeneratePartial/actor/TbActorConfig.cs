@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Hsenl.actor {
+﻿namespace Hsenl.actor {
     public partial class TbActorConfig {
         
     }

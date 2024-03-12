@@ -13,7 +13,7 @@ namespace Hsenl {
 #endif
         private Dictionary<Type, Queue<object>> _pool = new();
 
-        public T Rent<T>() where T : class, new() {
+        public T Rent<T>() where T : class {
             return this.Rent(typeof(T)) as T;
         }
 

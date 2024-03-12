@@ -52,6 +52,7 @@ public abstract partial class Info :  Bright.Config.BeanBase
             case "casterevaluate.HealthLowerInfo": return new casterevaluate.HealthLowerInfo(_json);
             case "adventurescheme.DefaultCheckpointsAdventureInfo": return new adventurescheme.DefaultCheckpointsAdventureInfo(_json);
             case "adventurescheme.DefaultBigMapAdventureInfo": return new adventurescheme.DefaultBigMapAdventureInfo(_json);
+            case "timeline.SetDataInfo": return new timeline.SetDataInfo(_json);
             case "timeline.PlayAnimInfo": return new timeline.PlayAnimInfo(_json);
             case "timeline.CureHpInfo": return new timeline.CureHpInfo(_json);
             case "timeline.ModifyPriorityInfo": return new timeline.ModifyPriorityInfo(_json);
@@ -61,6 +62,7 @@ public abstract partial class Info :  Bright.Config.BeanBase
             case "timeline.InflictionStatusToSelfInfo": return new timeline.InflictionStatusToSelfInfo(_json);
             case "timeline.RemoveStatusFromSelfInfo": return new timeline.RemoveStatusFromSelfInfo(_json);
             case "timeline.PlayFxInfo": return new timeline.PlayFxInfo(_json);
+            case "timeline.RecordCastDirectionInfo": return new timeline.RecordCastDirectionInfo(_json);
             case "timeline.OpenWarningBoardInfo": return new timeline.OpenWarningBoardInfo(_json);
             case "timeline.CloseWarningBoardInfo": return new timeline.CloseWarningBoardInfo(_json);
             case "timeline.DieInfo": return new timeline.DieInfo(_json);
@@ -75,7 +77,6 @@ public abstract partial class Info :  Bright.Config.BeanBase
             case "timeline.ForceMovementInfo": return new timeline.ForceMovementInfo(_json);
             case "timeline.LeapInfo": return new timeline.LeapInfo(_json);
             case "timeline.JumpAttackInfo": return new timeline.JumpAttackInfo(_json);
-            case "timeline.ShowWarningBoardInfo": return new timeline.ShowWarningBoardInfo(_json);
             case "timeline.LiuXueInfo": return new timeline.LiuXueInfo(_json);
             case "timeline.RanshaoInfo": return new timeline.RanshaoInfo(_json);
             case "timeline.HarmOfColliderInfo": return new timeline.HarmOfColliderInfo(_json);

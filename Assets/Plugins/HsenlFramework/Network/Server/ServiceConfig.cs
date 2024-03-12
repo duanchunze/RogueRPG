@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Hsenl.Network {
+namespace Hsenl.Network.Server {
     public class ServiceConfig {
         public string ListenIPHost { get; set; }
         public int Port { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 
-namespace Hsenl.Network {
+namespace Hsenl.Network.Client {
     public class IOCPClient : Client {
         private Socket _connecter;
         private SocketAsyncEventArgs _connecterEventArgs;

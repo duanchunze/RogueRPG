@@ -28,7 +28,7 @@ namespace Hsenl {
     public partial class Bodied : Scope, IBodied, IUnbodiedHead {
         [MemoryPackOrder(3)]
         [MemoryPackInclude]
-        protected internal BodiedStatus status;
+        protected internal BodiedStatus bodiedStatus;
 
         [MemoryPackIgnore]
         private Bodied _attachedBodied;
@@ -37,13 +37,13 @@ namespace Hsenl {
         private Bodied _parentAttachedBodied;
 
         [MemoryPackIgnore]
-        public BodiedStatus Status {
-            get => this.status;
+        public BodiedStatus BodiedStatus {
+            get => this.bodiedStatus;
             set {
-                if (this.status == value)
+                if (this.bodiedStatus == value)
                     return;
 
-                this.status = value;
+                this.bodiedStatus = value;
 
                 switch (value) {
                     case BodiedStatus.Individual:
@@ -73,7 +73,7 @@ namespace Hsenl {
                     throw new NullReferenceException("The bodied has been destroyed, but you're still trying to get it");
                 }
 
-                return this.status == BodiedStatus.Individual ? this : this._attachedBodied;
+                return this.bodiedStatus == BodiedStatus.Individual ? this : this._attachedBodied;
             }
             private set {
                 if (this._attachedBodied == value)
@@ -90,7 +90,7 @@ namespace Hsenl {
                     for (int i = 0, len = children.Count; i < len; i++) {
                         var child = children[i];
                         if (child is Bodied bodied) {
-                            if (bodied.Status == BodiedStatus.Individual) {
+                            if (bodied.BodiedStatus == BodiedStatus.Individual) {
                                 continue;
                             }
 
@@ -111,7 +111,7 @@ namespace Hsenl {
                     throw new NullReferenceException("The bodied has been destroyed, but you're still trying to get it");
                 }
 
-                return this.status == BodiedStatus.Individual ? this._parentAttachedBodied : this._attachedBodied?.ParentAttachedBodied;
+                return this.bodiedStatus == BodiedStatus.Individual ? this._parentAttachedBodied : this._attachedBodied?.ParentAttachedBodied;
             }
         }
 
@@ -138,7 +138,7 @@ namespace Hsenl {
                 }
 
                 // 重写父级属性, 把这段代码插入到这里, 目的是为了在形成组合时, bodied的关系也ok了
-                switch (this.status) {
+                switch (this.bodiedStatus) {
                     case BodiedStatus.Individual:
                         this._parentAttachedBodied = this.FindScopeByStatusInParent(BodiedStatus.Individual);
                         break;
@@ -197,7 +197,7 @@ namespace Hsenl {
 
         protected internal override void OnDestroyFinish() {
             base.OnDestroyFinish();
-            this.status = default;
+            this.bodiedStatus = default;
             this._attachedBodied = null;
             this._parentAttachedBodied = null;
         }
@@ -237,7 +237,7 @@ namespace Hsenl {
             var curr = this.parentScope;
             while (curr != null) {
                 if (curr is Bodied bodied) {
-                    if (bodied.status == sta) {
+                    if (bodied.bodiedStatus == sta) {
                         return bodied;
                     }
                 }
@@ -269,7 +269,7 @@ namespace Hsenl {
 
                     for (int i = 0, len = children.Count; i < len; i++) {
                         var child = children[i];
-                        if (child is Bodied { status: BodiedStatus.Individual }) continue;
+                        if (child is Bodied { bodiedStatus: BodiedStatus.Individual }) continue;
 
                         t = GetByChildren(child.childrenScopes);
                         if (t != null)
@@ -298,7 +298,7 @@ namespace Hsenl {
                     }
 
                     for (int i = 0, len = children.Count; i < len; i++) {
-                        if (children[i] is Bodied { status: BodiedStatus.Individual })
+                        if (children[i] is Bodied { bodiedStatus: BodiedStatus.Individual })
                             continue;
 
                         var t = GetByChildren(children[i].childrenScopes);
@@ -332,7 +332,7 @@ namespace Hsenl {
                     }
 
                     for (int i = 0, len = children.Count; i < len; i++) {
-                        if (children[i] is Bodied { status: BodiedStatus.Individual })
+                        if (children[i] is Bodied { bodiedStatus: BodiedStatus.Individual })
                             continue;
 
                         GetByChildren(children[i].childrenScopes, l);
@@ -346,7 +346,7 @@ namespace Hsenl {
 
         protected override void OnBeforeParentScopeChanged(Scope future) {
             // 默认最上面的bodied为individual, 下面的其他bodied都是dependent
-            this.status = future is Bodied ? BodiedStatus.Dependent : BodiedStatus.Individual;
+            this.bodiedStatus = future is Bodied ? BodiedStatus.Dependent : BodiedStatus.Individual;
         }
     }
 }

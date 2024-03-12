@@ -16,14 +16,14 @@ using UnityEditor;
 #endif
 
 namespace Hsenl.Mono {
-    public class MotionComponent : MonoBehaviour, IHsenlComponentReference<Hsenl.Motion> {
+    public class MotionComponent : MonoBehaviour, IHsenlComponentReference<Hsenl.View.Motion> {
         [ReadOnly]
         public int hsenlComponentInstanceId;
     
         [SerializeField]
-        private Hsenl.Motion _hsenlComponent;
+        private Hsenl.View.Motion _hsenlComponent;
     
-        public Hsenl.Motion HsenlComponent => this._hsenlComponent;
+        public Hsenl.View.Motion HsenlComponent => this._hsenlComponent;
         
         private void Awake() {
             // 如果是从资源加载go对象的话, hsenlComponentInstanceId一定等于0, 而如果是Object.InstantiateWithUnity创建的话, hsenlComponentInstanceId则一定不为0
@@ -41,7 +41,7 @@ namespace Hsenl.Mono {
         private void Start() { }
         
         void IHsenlComponentReference.SetFrameworkReference(Component reference) {
-            this._hsenlComponent = reference as Hsenl.Motion;
+            this._hsenlComponent = reference as Hsenl.View.Motion;
             this.hsenlComponentInstanceId = this._hsenlComponent?.InstanceId??0;
         }
     }

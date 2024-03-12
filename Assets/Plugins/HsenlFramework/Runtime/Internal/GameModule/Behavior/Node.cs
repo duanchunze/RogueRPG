@@ -91,7 +91,7 @@ namespace Hsenl {
 
         internal void InternalStart() {
             try {
-                this.OnNodeStart();
+                this.OnAwake();
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -100,7 +100,7 @@ namespace Hsenl {
 
         internal void InternalOpen() {
             try {
-                this.OnNodeOpen();
+                this.OnEnable();
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -182,7 +182,7 @@ namespace Hsenl {
 
         internal void InternalClose() {
             try {
-                this.OnNodeClose();
+                this.OnDisable();
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -191,7 +191,7 @@ namespace Hsenl {
 
         internal void InternalReset() {
             try {
-                this.OnNodeReset();
+                this.OnReset();
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -217,12 +217,12 @@ namespace Hsenl {
                 }
             }
 
-            this.OnNodeAbort();
+            this.OnAbort();
         }
         
         internal void InternalDestroy() {
             try {
-                this.OnNodeDestroy();
+                this.OnDestroy();
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -250,22 +250,22 @@ namespace Hsenl {
          */
 
         /// 可以看做是Awake, 当节点被添加到行为树的时候触发
-        protected virtual void OnNodeStart() { }
+        protected virtual void OnAwake() { }
 
         /// 当节点被外部激活, 类比 OnEnable, 可以把初始化, 例如获取组件的代码写在这. 该函数在关键的时候被调用, 比如父级改变, 重新激活等情况时
-        protected virtual void OnNodeOpen() { }
+        protected virtual void OnEnable() { }
 
         /// 当节点被外部关闭, 类比 OnDisable
-        protected virtual void OnNodeClose() { }
+        protected virtual void OnDisable() { }
 
         /// 当节点被外部重置, 比Open调用的频繁, 适合重置数据, 比如技能cd, 比如每次进入技能的时候, 调用该函数.
-        protected virtual void OnNodeReset() { }
+        protected virtual void OnReset() { }
 
         /// 当节点被终止时
-        protected virtual void OnNodeAbort() { }
+        protected virtual void OnAbort() { }
         
         /// 当节点从行为树移除时触发
-        protected virtual void OnNodeDestroy() { }
+        protected virtual void OnDestroy() { }
 
 
         // 当节点评估, 返回的结果将决定还是否需要进入该节点
@@ -279,7 +279,7 @@ namespace Hsenl {
         /// 当节点执行
         protected abstract NodeStatus OnNodeTick();
 
-        /// 当节点刚进入Running状态时触发
+        /// 当节点刚进入Running状态时触发, 如果节点没有进入Running状态, 那么即使被Tick也不会触发
         protected virtual void OnNodeRunStart() { }
 
         /// 当节点为Running状态时持续触发
@@ -292,7 +292,7 @@ namespace Hsenl {
         protected virtual void OnNodeExit() { }
 
         public TNode GetNodeInParent<TNode>(bool once = false) where TNode : INode {
-            INode parent = this.Parent;
+            var parent = this.Parent;
             while (parent != null) {
                 if (parent is TNode t) {
                     return t;

@@ -42,7 +42,6 @@ public abstract partial class TimeSegmentInfo :  timeline.TimeActionInfo
             case "ForceMovementInfo": return new timeline.ForceMovementInfo(_json);
             case "LeapInfo": return new timeline.LeapInfo(_json);
             case "JumpAttackInfo": return new timeline.JumpAttackInfo(_json);
-            case "ShowWarningBoardInfo": return new timeline.ShowWarningBoardInfo(_json);
             case "LiuXueInfo": return new timeline.LiuXueInfo(_json);
             case "RanshaoInfo": return new timeline.RanshaoInfo(_json);
             case "HarmOfColliderInfo": return new timeline.HarmOfColliderInfo(_json);

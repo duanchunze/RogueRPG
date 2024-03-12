@@ -29,6 +29,7 @@ public sealed partial class Tables
     public ai.TbAIConfig TbAIConfig {get; }
     public checkpoint.TbCheckpointConfig TbCheckpointConfig {get; }
     public adventure.TbAdventureConfig TbAdventureConfig {get; }
+    public bolt.TbBoltConfig TbBoltConfig {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
@@ -63,6 +64,8 @@ public sealed partial class Tables
         tables.Add("checkpoint.TbCheckpointConfig", TbCheckpointConfig);
         TbAdventureConfig = new adventure.TbAdventureConfig(loader("adventure_tbadventureconfig")); 
         tables.Add("adventure.TbAdventureConfig", TbAdventureConfig);
+        TbBoltConfig = new bolt.TbBoltConfig(loader("bolt_tbboltconfig")); 
+        tables.Add("bolt.TbBoltConfig", TbBoltConfig);
         PostInit();
 
         TbCardSingletonConfig.Resolve(tables); 
@@ -80,6 +83,7 @@ public sealed partial class Tables
         TbAIConfig.Resolve(tables); 
         TbCheckpointConfig.Resolve(tables); 
         TbAdventureConfig.Resolve(tables); 
+        TbBoltConfig.Resolve(tables); 
         PostResolve();
     }
 
@@ -100,6 +104,7 @@ public sealed partial class Tables
         TbAIConfig.TranslateText(translator); 
         TbCheckpointConfig.TranslateText(translator); 
         TbAdventureConfig.TranslateText(translator); 
+        TbBoltConfig.TranslateText(translator); 
     }
     
     partial void PostInit();

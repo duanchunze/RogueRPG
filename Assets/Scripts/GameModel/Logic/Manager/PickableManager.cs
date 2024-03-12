@@ -7,6 +7,7 @@ namespace Hsenl {
         public Pickable Rent(int configId, Vector3 position, int count = 1) {
             var key = PoolKey.Create(typeof(Pickable), configId);
             var pickable = Pool.Rent<Pickable>(key) ?? PickableFactory.Create(configId, position, count);
+            ((IPoolable)pickable).SetPoolKey(key);
 
             pickable.transform.Position = position;
             pickable.count = count;
@@ -15,8 +16,7 @@ namespace Hsenl {
         }
 
         public void Return(Pickable pickable) {
-            var key = PoolKey.Create(typeof(Pickable), pickable.configId);
-            Pool.Return(key, pickable);
+            Pool.Return(pickable);
         }
     }
 }

@@ -6,8 +6,7 @@ namespace Hsenl {
     public abstract class ScopeCombinFormatter {
         internal static Dictionary<int, ScopeFormatterInfoCollect> CrossCombinFormatterInfoCollects { get; } = new();
 
-        [OnEventSystemInitialized]
-        private static void Init() {
+        internal static void Init() {
             CrossCombinFormatterInfoCollects.Clear();
             foreach (var type in AssemblyHelper.GetSubTypes(typeof(ScopeCombinFormatter), EventSystem.GetAssemblies())) {
                 var combinFormatter = (ScopeCombinFormatter)Activator.CreateInstance(type);

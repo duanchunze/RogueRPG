@@ -18,14 +18,14 @@ public sealed partial class OpenWarningBoardInfo :  timeline.TimePointInfo
 {
     public OpenWarningBoardInfo(JSONNode _json)  : base(_json) 
     {
-        { if(!_json["warn_name"].IsString) { throw new SerializationException(); }  WarnName = _json["warn_name"]; }
+        { if(!_json["asset_name"].IsString) { throw new SerializationException(); }  AssetName = _json["asset_name"]; }
         { if(!_json["type"].IsNumber) { throw new SerializationException(); }  Type = _json["type"]; }
         PostInit();
     }
 
-    public OpenWarningBoardInfo(int model, float point, string warn_name, int type )  : base(model,point) 
+    public OpenWarningBoardInfo(int model, float point, string asset_name, int type )  : base(model,point) 
     {
-        this.WarnName = warn_name;
+        this.AssetName = asset_name;
         this.Type = type;
         PostInit();
     }
@@ -36,9 +36,9 @@ public sealed partial class OpenWarningBoardInfo :  timeline.TimePointInfo
     }
 
     /// <summary>
-    /// 警示标名称
+    /// 资源名
     /// </summary>
-    public string WarnName { get; private set; }
+    public string AssetName { get; private set; }
     /// <summary>
     /// 警示标类型, 0代表剑魔q那种范围碰撞类型, 1代表ez的q那种弹道类型
     /// </summary>
@@ -63,7 +63,7 @@ public sealed partial class OpenWarningBoardInfo :  timeline.TimePointInfo
         return "{ "
         + "Model:" + Model + ","
         + "Point:" + Point + ","
-        + "WarnName:" + WarnName + ","
+        + "AssetName:" + AssetName + ","
         + "Type:" + Type + ","
         + "}";
     }

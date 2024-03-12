@@ -16,14 +16,14 @@ using UnityEditor;
 #endif
 
 namespace Hsenl.Mono {
-    public class WarningBoardManagerComponent : MonoBehaviour, IHsenlComponentReference<Hsenl.WarningBoardManager> {
+    public class WarningBoardManagerComponent : MonoBehaviour, IHsenlComponentReference<Hsenl.View.WarningBoardManager> {
         [ReadOnly]
         public int hsenlComponentInstanceId;
     
         [SerializeField]
-        private Hsenl.WarningBoardManager _hsenlComponent;
+        private Hsenl.View.WarningBoardManager _hsenlComponent;
     
-        public Hsenl.WarningBoardManager HsenlComponent => this._hsenlComponent;
+        public Hsenl.View.WarningBoardManager HsenlComponent => this._hsenlComponent;
         
         private void Awake() {
             // 如果是从资源加载go对象的话, hsenlComponentInstanceId一定等于0, 而如果是Object.InstantiateWithUnity创建的话, hsenlComponentInstanceId则一定不为0
@@ -41,7 +41,7 @@ namespace Hsenl.Mono {
         private void Start() { }
         
         void IHsenlComponentReference.SetFrameworkReference(Component reference) {
-            this._hsenlComponent = reference as Hsenl.WarningBoardManager;
+            this._hsenlComponent = reference as Hsenl.View.WarningBoardManager;
             this.hsenlComponentInstanceId = this._hsenlComponent?.InstanceId??0;
         }
     }

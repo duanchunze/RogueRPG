@@ -47,7 +47,37 @@
     <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\AbilityStageChanged\PlhAbilityStageChangedWuqishou.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Pickup\PlhPickup.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Harm\PlhHarmCalcNumeric.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Pickup\PlhPickableDestroy.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\SellCard\PlhSellCardSell.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\RefreshStoreCards\PlhRefreshStoreCards_Refresh.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Hurt\PlhHurtHitStun.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Harm\PlhHarmArbiter.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\Events\EventNumericChanged.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Harm\PlhHarmProbabilisticCast.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\BuyCard\PlhBuyCardPutin.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\CasterBreak\PlhCasterBreakCompensateMana.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\AbilityChanges\PlhAbilityChanged.cs" />
     <Compile Include="Assets\Scripts\GameHotReload\ShadowFunctionExample.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\SellCard\PlhSellCardPricing.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Harm\PlhHarmHatred.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Hurt\PlhHurtFrameSlower.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\BuyCard\PlhBuyCardSynthesis.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\BuyCard\PlhBuyCardPutinEvaluate.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Harm\PlhHarmAdditionalStatus.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\AbilityStageChanged\PlhAbilityStageChanged.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\RefreshStoreCards\PlhRefreshStoreCards_Pricing.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Hurt\PlhHurtModifyNumeric.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Harm\PlhHarmVamp.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\BuyCard\PlhBuyCardPay.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Harm\PlhHarmTakeHurt.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\AbilityStageChanged\PlhAbilityStageChangedRepetitionCast.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\Harm\PlhHarmRecoverEnergy.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\RefreshStoreCards\PlhRefreshStoreCards_Pay.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\Events\EventControlDistribute.cs" />
+    <Compile Include="Assets\Scripts\GameHotReload\ProcedureLineHandler\StatusChanges\PlhDeathDrop.cs" />
     <None Include="Assets\Scripts\GameHotReload\GameHotReload.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

@@ -134,85 +134,66 @@ MonoBehaviour:
         UserData: 
     - GroupName: AppearGroup
       GroupDesc: "\u5916\u89C2\u7EC4(\u4E0D\u4EC5\u662F\u4EBA\u7269\u5916\u89C2,
-        \u5305\u62EC\u6280\u80FD\u5916\u89C2, \u7279\u6548\u5916\u89C2, \u53EA\u8981\u662F\u80FD\u7ED9\u73A9\u5BB6\u770B\u7684\u90FD\u5C5E\u4E8E\u5916\u89C2)"
+        \u5305\u62EC\u6280\u80FD\u5916\u89C2, \u7279\u6548\u5916\u89C2, \u56FE\u6807,
+        \u7B49\u7B49\u7B49\u7B49, \u53EA\u8981\u662F\u80FD\u7ED9\u73A9\u5BB6\u5C55\u793A\u7684\u90FD\u5C5E\u4E8E\u5916\u89C2)"
       AssetTags: appear
       ActiveRuleName: EnableGroup
       Collectors:
-      - CollectPath: Assets/Bundles/Appear/Actor
-        CollectorGUID: 8176ac50f74b9a644a040f04d1da98b9
+      - CollectPath: Assets/Bundles/Appear/Model/Actor
+        CollectorGUID: 1bd7c714b749ce646b466d0a2ef3e141
         CollectorType: 0
-        AddressRuleName: AddressByFolderAndFileName
+        AddressRuleName: AddressByLocalPath_BundlesLastOneFolder
         PackRuleName: PackDirectory
         FilterRuleName: CollectAll
-        AssetTags: appear_actor
+        AssetTags: appear_model_actor
         UserData: 
-      - CollectPath: Assets/Bundles/Appear/Bolt
-        CollectorGUID: 192cddb2bfec6d149a5c00d462b7f043
+      - CollectPath: Assets/Bundles/Appear/WarningBoard
+        CollectorGUID: 310728c4bd6847f43af4aa04ca2c7947
         CollectorType: 0
-        AddressRuleName: AddressByFileName
+        AddressRuleName: AddressByLocalPath_BundlesLastOneFolder
         PackRuleName: PackDirectory
         FilterRuleName: CollectAll
-        AssetTags: appear_bolt
+        AssetTags: appear_warningboard
         UserData: 
-    - GroupName: AnimaGroup
-      GroupDesc: "\u52A8\u4F5C\u7EC4"
-      AssetTags: anima
-      ActiveRuleName: EnableGroup
-      Collectors:
-      - CollectPath: Assets/Bundles/AnimClip
+      - CollectPath: Assets/Bundles/Appear/Audio/Sound
+        CollectorGUID: f761161934e63df498d7268b532449a7
+        CollectorType: 0
+        AddressRuleName: AddressByLocalPath_BundlesLastOneFolder
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: appear_audio_sound
+        UserData: 
+      - CollectPath: Assets/Bundles/Appear/Fx
+        CollectorGUID: 2f89e12853b9e284f8e6d15bf3cc7f7f
+        CollectorType: 0
+        AddressRuleName: AddressByLocalPath_BundlesLastOneFolder
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: appear_fx
+        UserData: 
+      - CollectPath: Assets/Bundles/Appear/Model/Bolt
+        CollectorGUID: 733f33d9692d74c4f92f3feb4f8cdcde
+        CollectorType: 0
+        AddressRuleName: AddressByLocalPath_BundlesLastOneFolder
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: appear_model_bolt
+        UserData: 
+      - CollectPath: Assets/Bundles/Appear/Anim/Clip
         CollectorGUID: c811fc78f0178724783635de3deb2739
         CollectorType: 0
-        AddressRuleName: AddressByFolderAndFileName
+        AddressRuleName: AddressByLocalPath_BundlesLastOneFolder
         PackRuleName: PackDirectory
         FilterRuleName: CollectAll
-        AssetTags: animaclip
+        AssetTags: appear_anim_clip
         UserData: 
-      - CollectPath: Assets/Bundles/AnimController
+      - CollectPath: Assets/Bundles/Appear/Anim/Controller
         CollectorGUID: 1ce9e0528d1be2942b3088902ef608ad
         CollectorType: 0
-        AddressRuleName: AddressByFolderAndFileName
+        AddressRuleName: AddressByLocalPath_BundlesLastOneFolder
         PackRuleName: PackDirectory
         FilterRuleName: CollectAll
-        AssetTags: animacontroller
-        UserData: 
-    - GroupName: WarningBoardGroup
-      GroupDesc: "\u8B66\u544A\u6807\u7EC4"
-      AssetTags: warningboard
-      ActiveRuleName: EnableGroup
-      Collectors:
-      - CollectPath: Assets/Bundles/WarningBoard
-        CollectorGUID: 1e2b8a342bf4b76419d39951f2e40ae3
-        CollectorType: 0
-        AddressRuleName: AddressByFileName
-        PackRuleName: PackDirectory
-        FilterRuleName: CollectAll
-        AssetTags: 
-        UserData: 
-    - GroupName: FxGroup
-      GroupDesc: "\u7279\u6548\u7EC4"
-      AssetTags: fx
-      ActiveRuleName: EnableGroup
-      Collectors:
-      - CollectPath: Assets/Bundles/Fx
-        CollectorGUID: 0df2f37860185da48abe6c0d13cae3e4
-        CollectorType: 0
-        AddressRuleName: AddressByFileName
-        PackRuleName: PackDirectory
-        FilterRuleName: CollectAll
-        AssetTags: 
-        UserData: 
-    - GroupName: AudioGroup
-      GroupDesc: "\u97F3\u6548\u7EC4"
-      AssetTags: audio
-      ActiveRuleName: EnableGroup
-      Collectors:
-      - CollectPath: Assets/Bundles/Audio
-        CollectorGUID: cd26d87542400b34ea7b2a834162a03c
-        CollectorType: 0
-        AddressRuleName: AddressByFileName
-        PackRuleName: PackDirectory
-        FilterRuleName: CollectAll
-        AssetTags: 
+        AssetTags: appear_anim_controller
         UserData: 
     - GroupName: PickableGroup
       GroupDesc: "\u62FE\u53D6\u7269\u7EC4"

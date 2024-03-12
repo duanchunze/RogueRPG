@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Hsenl.Network {
+namespace Hsenl.Network.Client {
     public class ClientConfig {
         public string RemoteIPHost { get; set; }
 

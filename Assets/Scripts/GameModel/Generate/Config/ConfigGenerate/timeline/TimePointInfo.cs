@@ -35,6 +35,7 @@ public abstract partial class TimePointInfo :  timeline.TimeActionInfo
         string type = _json["$type"];
         switch (type)
         {
+            case "SetDataInfo": return new timeline.SetDataInfo(_json);
             case "PlayAnimInfo": return new timeline.PlayAnimInfo(_json);
             case "CureHpInfo": return new timeline.CureHpInfo(_json);
             case "ModifyPriorityInfo": return new timeline.ModifyPriorityInfo(_json);
@@ -44,6 +45,7 @@ public abstract partial class TimePointInfo :  timeline.TimeActionInfo
             case "InflictionStatusToSelfInfo": return new timeline.InflictionStatusToSelfInfo(_json);
             case "RemoveStatusFromSelfInfo": return new timeline.RemoveStatusFromSelfInfo(_json);
             case "PlayFxInfo": return new timeline.PlayFxInfo(_json);
+            case "RecordCastDirectionInfo": return new timeline.RecordCastDirectionInfo(_json);
             case "OpenWarningBoardInfo": return new timeline.OpenWarningBoardInfo(_json);
             case "CloseWarningBoardInfo": return new timeline.CloseWarningBoardInfo(_json);
             case "DieInfo": return new timeline.DieInfo(_json);

@@ -17,12 +17,24 @@ namespace Hsenl {
 
         [MemoryPackIgnore]
         protected Node<TManager> currentNode;
+        
+        protected sealed override void OnAwake() { }
+        protected sealed override void OnEnable() { }
+        protected sealed override void OnDisable() { }
+        protected sealed override void OnReset() { }
+        protected sealed override void OnAbort() { }
+        protected sealed override void OnDestroy() { }
+        protected sealed override void OnNodeEnter() { }
+        protected sealed override void OnNodeRunStart() { }
+        protected sealed override void OnNodeRunning() { }
+        protected sealed override void OnNodeRunEnd() { }
+        protected sealed override void OnNodeExit() { }
 
-        protected override bool OnNodeEvaluate() {
+        protected sealed override bool OnNodeEvaluate() {
             return true;
         }
 
-        protected override NodeStatus OnNodeTick() {
+        protected sealed override NodeStatus OnNodeTick() {
             var pos = 0;
             CONTINUE:
             if (pos == this.children.Count) {

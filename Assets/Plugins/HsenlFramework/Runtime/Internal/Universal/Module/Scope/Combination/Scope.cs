@@ -226,7 +226,7 @@ namespace Hsenl {
             int matchCount;
             if (added != null) {
                 // 如果该组件连一个组合都没有, 则直接退出, 没必要继续尝试形成新的组合了
-                if (!Combiner.MultiCombinLookupTable.TryGetValue(added.ComponentIndex, out var combinInfo))
+                if (!Combiner.CombinerCache.MultiCombinLookupTable.TryGetValue(added.ComponentIndex, out var combinInfo))
                     return;
 
                 // 获取该组件的组合信息, 然后与total cacher做一次匹配, 可以得到一个理论上能匹配到的最大成员数
@@ -244,11 +244,11 @@ namespace Hsenl {
                 // 如果added为空, 则表示尝试所有multi组合
                 // 先与total cacher判断一次, 可能会避免不必要的循环, 比如该scope并没有形成组合的条件, 但依然要遍历所有combiner去试, 所以先与total cacher判存一次, 
                 // 如果匹配的数还不到2个, 那就说明该scope能匹配的最大数都不足2个, 自然也就不用遍历所有combiner去试了.
-                matchCount = scope.Entity.componentTypeCacher.ContainsCount(Combiner.TotalMultiCombinerTypeCacher);
+                matchCount = scope.Entity.componentTypeCacher.ContainsCount(Combiner.CombinerCache.TotalMultiCombinerTypeCacher);
                 if (matchCount < 2)
                     return;
 
-                combiners = Combiner.MultiCombiners;
+                combiners = Combiner.CombinerCache.MultiCombiners;
             }
 
             for (int i = 0, len = combiners.Count; i < len; i++) {
@@ -264,7 +264,7 @@ namespace Hsenl {
                             goto CONTINUE;
 
                         // 如果符合, 先判断该组合有没有覆盖者, 如果有, 则不能形成组合
-                        if (Combiner.InverseOverrides.TryGetValue(combiner.id, out var ids)) {
+                        if (Combiner.CombinerCache.InverseOverrides.TryGetValue(combiner.id, out var ids)) {
                             foreach (var overrideCombinerId in ids) {
                                 if (scope.multiMatchs.Contains(overrideCombinerId)) {
                                     goto CONTINUE;
@@ -273,7 +273,7 @@ namespace Hsenl {
                         }
 
                         // 再判断该组合有没有需要覆盖的, 如果有, 就断开其组合
-                        if (Combiner.Overrides.TryGetValue(combiner.id, out ids)) {
+                        if (Combiner.CombinerCache.Overrides.TryGetValue(combiner.id, out ids)) {
                             foreach (var overrideCombinerId in ids) {
                                 if (scope.multiMatchs == null) break;
 
@@ -282,7 +282,7 @@ namespace Hsenl {
                                 while (matchcount-- > 0) {
                                     var id = scope.multiMatchs.Dequeue();
                                     if (id == overrideCombinerId) {
-                                        var decombiner = Combiner.TotalCombiners[overrideCombinerId];
+                                        var decombiner = Combiner.CombinerCache.TotalCombiners[overrideCombinerId];
                                         _componentCache.Clear();
                                         scope.GetComponentsOfTypeCacher(decombiner.multiTypeCacher, _componentCache);
                                         decombiner.Decombin(_componentCache);
@@ -330,7 +330,7 @@ namespace Hsenl {
             // component可以为空, 如果为空, 则代表断开所有组合
             // 当有组件移除时, 说明有可能存在组合被断开了, 遍历已经所有已经组合的组合, 挨个匹配, 看看断掉的是哪个组合
             var componentIndex = removed?.ComponentIndex ?? -1;
-            var combiners = Combiner.TotalCombiners;
+            var combiners = Combiner.CombinerCache.TotalCombiners;
             var count = scope.multiMatchs.Count;
             while (count-- > 0) {
                 var combinerId = scope.multiMatchs.Dequeue();
@@ -406,7 +406,7 @@ namespace Hsenl {
         // 跨域组合
         internal static void CrossCombinMatchByComponent(Scope scope, Component added) {
             // 同样的, 先从跨域组合表里查询该组件到底和哪些组合有关系, 我们只对这些组合进行尝试
-            if (Combiner.CrossCombinLookupTable.TryGetValue(added.ComponentIndex, out var crossCombinInfo)) {
+            if (Combiner.CombinerCache.CrossCombinLookupTable.TryGetValue(added.ComponentIndex, out var crossCombinInfo)) {
                 // 该组件作为child的跨域组合有哪些
                 if (crossCombinInfo.childCombiners.Count != 0) {
                     if (scope.HasComponentsAny(crossCombinInfo.totalChildTypeCacher)) {
@@ -437,11 +437,11 @@ namespace Hsenl {
         internal static void CrossCombinMatchForParent(Scope child, Scope parent, int layer, List<Combiner> crossCombiners = null) {
             // 方案1
             if (crossCombiners == null) {
-                if (!child.HasComponentsAny(Combiner.TotalCrossCombinerChildTypeCacher))
+                if (!child.HasComponentsAny(Combiner.CombinerCache.TotalCrossCombinerChildTypeCacher))
                     return;
 
                 // 如果没有指定要尝试哪些combiners, 那就默认所有跨域组合
-                crossCombiners = Combiner.CrossCombiners;
+                crossCombiners = Combiner.CombinerCache.CrossCombiners;
             }
 
             foreach (var combiner in crossCombiners) {
@@ -496,7 +496,7 @@ namespace Hsenl {
 
                     // 再判断该组合有没有覆盖者, 如果有, 则不能形成组合
                     if (child.multiMatchs != null)
-                        if (Combiner.InverseOverrides.TryGetValue(crossCombiner.id, out var ids)) {
+                        if (Combiner.CombinerCache.InverseOverrides.TryGetValue(crossCombiner.id, out var ids)) {
                             foreach (var overrideCombinerId in ids) {
                                 if (child.multiMatchs.Contains(overrideCombinerId)) {
                                     goto CONTINUE;
@@ -716,6 +716,17 @@ namespace Hsenl {
         /// 手动进行一次跨域断开
         protected void CrossDecombinMatch(Component removed) {
             CrossDecombinMatchByComponent(this, removed);
+        }
+
+        internal void CombinAll() {
+            MultiCombinMatch(this, null);
+            this.CalcMaximumCrossLayerInTheory();
+            CrossCombinMatchForParent(this, this.parentScope, 1);
+        }
+
+        internal void DecombinAll() {
+            MultiDecombinMatch(this, null);
+            CrossDecombinMatchForParent(this, this.parentScope);
         }
 
         private int GetLayerNum(Scope parent) {

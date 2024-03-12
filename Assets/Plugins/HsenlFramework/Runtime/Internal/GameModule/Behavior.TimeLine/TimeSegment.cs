@@ -7,6 +7,10 @@ namespace Hsenl {
         public float origin;
         public float destination;
 
+        protected sealed override void OnNodeRunStart() { }
+        protected sealed override void OnNodeRunning() { }
+        protected sealed override void OnNodeRunEnd() { }
+
         private void GetRealValue(out float realOrig, out float realDest) {
             if (this.origin > this.destination) throw new Exception($"time segment orig can't be greater than dest: '{this.origin}' - '{this.destination}'");
             switch (this.checkModel) {
@@ -40,22 +44,29 @@ namespace Hsenl {
             }
         }
 
-        protected override bool OnNodeEvaluate() {
+        protected sealed override bool OnNodeEvaluate() {
+            try {
+                this.OnUpdate();
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
+
             this.GetRealValue(out var realOrig, out var realDest);
             var currTime = this.manager.Time;
             return currTime >= realOrig && currTime <= realDest;
         }
 
-        protected override void OnNodeEnter() {
+        protected sealed override void OnNodeEnter() {
             this.OnTimeSegmentOrigin();
         }
 
-        protected override NodeStatus OnNodeTick() {
+        protected sealed override NodeStatus OnNodeTick() {
             this.OnTimeSegmentRunning();
             return NodeStatus.Running;
         }
 
-        protected override void OnNodeExit() {
+        protected sealed override void OnNodeExit() {
             // 因为节点有可能被意外终止, 所以离开时要做判断, 看时间是不是真的到了
             this.GetRealValue(out _, out var realDest);
             var currTime = this.manager.Time;
@@ -67,6 +78,7 @@ namespace Hsenl {
             }
         }
 
+        protected virtual void OnUpdate() { }
         protected abstract void OnTimeSegmentOrigin();
 
         protected abstract void OnTimeSegmentRunning();

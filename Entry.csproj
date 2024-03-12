@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Entry\EntryMono.cs" />
     <Compile Include="Assets\Scripts\Entry\ThirdParty\BuildinFileManifest.cs" />
-    <Compile Include="Assets\Scripts\Entry\GameUpdater.cs" />
     <Compile Include="Assets\Scripts\Entry\ThirdParty\StreamingAssetsHelper.cs" />
     <Compile Include="Assets\Scripts\Entry\FileStreamDecryption.cs" />
     <Compile Include="Assets\Scripts\Entry\YooAssetsHelper.cs" />

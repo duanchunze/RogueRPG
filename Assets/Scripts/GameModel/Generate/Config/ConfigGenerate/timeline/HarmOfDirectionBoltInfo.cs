@@ -22,22 +22,18 @@ public sealed partial class HarmOfDirectionBoltInfo :  timeline.TpHarmInfo
     public HarmOfDirectionBoltInfo(JSONNode _json)  : base(_json) 
     {
         { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
-        { if(!_json["bolt_name"].IsString) { throw new SerializationException(); }  BoltName = _json["bolt_name"]; }
+        { if(!_json["bolt_config_alias"].IsString) { throw new SerializationException(); }  BoltConfigAlias = _json["bolt_config_alias"]; }
         { if(!_json["distance"].IsNumber) { throw new SerializationException(); }  Distance = _json["distance"]; }
         { if(!_json["speed"].IsNumber) { throw new SerializationException(); }  Speed = _json["speed"]; }
-        { if(!_json["hit_fx"].IsString) { throw new SerializationException(); }  HitFx = _json["hit_fx"]; }
-        { if(!_json["hit_sound"].IsString) { throw new SerializationException(); }  HitSound = _json["hit_sound"]; }
         PostInit();
     }
 
-    public HarmOfDirectionBoltInfo(int model, float point, numeric.DamageFormulaInfo harm_formula, string bolt_name, float distance, float speed, string hit_fx, string hit_sound )  : base(model,point) 
+    public HarmOfDirectionBoltInfo(int model, float point, numeric.DamageFormulaInfo harm_formula, string bolt_config_alias, float distance, float speed )  : base(model,point) 
     {
         this.HarmFormula = harm_formula;
-        this.BoltName = bolt_name;
+        this.BoltConfigAlias = bolt_config_alias;
         this.Distance = distance;
         this.Speed = speed;
-        this.HitFx = hit_fx;
-        this.HitSound = hit_sound;
         PostInit();
     }
 
@@ -50,7 +46,7 @@ public sealed partial class HarmOfDirectionBoltInfo :  timeline.TpHarmInfo
     /// <summary>
     /// 投射物名
     /// </summary>
-    public string BoltName { get; private set; }
+    public string BoltConfigAlias { get; private set; }
     /// <summary>
     /// 最大距离
     /// </summary>
@@ -59,8 +55,6 @@ public sealed partial class HarmOfDirectionBoltInfo :  timeline.TpHarmInfo
     /// 弹道速度
     /// </summary>
     public float Speed { get; private set; }
-    public string HitFx { get; private set; }
-    public string HitSound { get; private set; }
 
     public const int __ID__ = 99825674;
     public override int GetTypeId() => __ID__;
@@ -84,11 +78,9 @@ public sealed partial class HarmOfDirectionBoltInfo :  timeline.TpHarmInfo
         + "Model:" + Model + ","
         + "Point:" + Point + ","
         + "HarmFormula:" + HarmFormula + ","
-        + "BoltName:" + BoltName + ","
+        + "BoltConfigAlias:" + BoltConfigAlias + ","
         + "Distance:" + Distance + ","
         + "Speed:" + Speed + ","
-        + "HitFx:" + HitFx + ","
-        + "HitSound:" + HitSound + ","
         + "}";
     }
     

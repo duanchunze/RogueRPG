@@ -7,15 +7,22 @@ namespace Hsenl {
     /// 被标记的类需要添加 partial 关键词
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Struct, AllowMultiple = false, Inherited = false)]
-    public partial class ShadowFunctionAttribute : BaseAttribute {
+    public class ShadowFunctionAttribute : BaseAttribute {
+        // 注意: 下面声明的字段不可修改
+        
         // 由影子端的影子类使用
-        public Type targetType;
-        // 由影子端使用, 当一个源函数有多个影子函数时, 用来给每个影子函数排序, 如果在影子类上赋值, 代表该类下所有影子函数都是该priority, 除非该函数自己指定了priority
-        public int priority;
+        public Type TargetType { get; }
 
-        public ShadowFunctionAttribute(Type targetType = null, int priority = 0) {
-            this.targetType = targetType;
-            this.priority = priority;
+        // 由影子端使用, 当一个源函数有多个影子函数时, 用来给每个影子函数排序, 如果在影子类上赋值, 代表该类下所有影子函数都是该priority, 除非该函数自己指定了priority
+        public int Priority { get; }
+
+        // 是否允许有多个影子函数实现, 如果为false, 那么一个源函数在全域内, 只能有一个对应的影子函数
+        public bool AllowMultiShadowFuncs { get; }
+
+        public ShadowFunctionAttribute(Type targetType = null, int priority = 0, bool allowMultiShadowFuncs = false) {
+            this.TargetType = targetType;
+            this.Priority = priority;
+            this.AllowMultiShadowFuncs = allowMultiShadowFuncs;
         }
     }
 }

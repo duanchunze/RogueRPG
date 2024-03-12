@@ -2,14 +2,6 @@
 using System.Runtime.CompilerServices;
 
 namespace Hsenl {
-    public enum BreathingType {
-        // 当被攻击时
-        OnHitStun,
-
-        // 当技能释放成功了
-        OnCastSuccess,
-    }
-
     // 游戏公式计算
     public static class GameFormula {
         /// <summary>
@@ -59,12 +51,12 @@ namespace Hsenl {
             return 50f / (100f + astun);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ads">攻击欲望</param>
-        /// <param name="breathingType"></param>
-        /// <returns></returns>
+        // /// <summary>
+        // /// 
+        // /// </summary>
+        // /// <param name="ads">攻击欲望</param>
+        // /// <param name="breathingType"></param>
+        // /// <returns></returns>
         // public static float CalculateBreathingTime(Num ads, BreathingType breathingType) {
         //     switch (breathingType) {
         //         case BreathingType.OnHitStun:

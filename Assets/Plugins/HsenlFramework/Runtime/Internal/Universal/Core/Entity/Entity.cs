@@ -28,7 +28,7 @@ namespace Hsenl {
         // ComponentTypeCacher.bits 里保存了该类型所有的子类型的TypeIndex, 包括该类型自己的TypeIndex
         private static readonly Dictionary<int, ComponentTypeCacher> _typeLookupTable = new(); // key: 某类型的哈希值, value: 某类型的'组件类型缓存器'
 
-        private static readonly MultiList<Type, (ComponentTypeCacher require, Type add)> _requireComponentLookupTable = new();
+        private static readonly MultiQueue<Type, (ComponentTypeCacher require, Type add)> _requireComponentLookupTable = new();
         internal static readonly Dictionary<int, ComponentTypeCacher> requireInverseLookupTable = new();
 
         // 缓冲类型映射表是许多操作的基础, 所以应该被最先执行
@@ -124,7 +124,7 @@ namespace Hsenl {
                 }
 
                 var typeCacher = _typeLookupTable[att.requireType.GetHashCode()];
-                _requireComponentLookupTable.Add(type, (typeCacher, att.addType));
+                _requireComponentLookupTable.Enqueue(type, (typeCacher, att.addType));
                 var componentIndex = GetComponentIndex(type);
                 if (!requireInverseLookupTable.TryGetValue(componentIndex, out var value)) {
                     value = ComponentTypeCacher.CreateNull();
@@ -176,6 +176,9 @@ namespace Hsenl {
             return -1;
         }
 
+#if UNITY_EDITOR
+        [ShowInInspector, ReadOnly]
+#endif
         [MemoryPackInclude]
         internal string name;
 
@@ -247,9 +250,12 @@ namespace Hsenl {
                 return true;
             }
         }
-
+        
         [MemoryPackIgnore]
-        public string Name => this.name;
+        public string Name {
+            get => this.name;
+            set => this.name = value;
+        }
 
         [MemoryPackIgnore]
         public Entity Parent => this.parent;

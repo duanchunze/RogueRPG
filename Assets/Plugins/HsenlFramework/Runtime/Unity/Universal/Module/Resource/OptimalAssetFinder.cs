@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Hsenl {
     /// <summary>
@@ -14,24 +15,38 @@ namespace Hsenl {
     /// 而我们每次获取资源名时, 只需要把自己的英雄名、武器名、皮肤名 + 最终资源名, 传入即可进行最优匹配
     /// 后续, 我们需要给某个人物或者某个皮肤制作一些定制化的资源的时候, 我们只需要增加该资源就行了, 而无需关心其他东西
     /// </summary>
-    public class OptimalAssetFinder {
+    public class OptimalAssetFinder : IDisposable {
         internal readonly List<string> strs = new(); // 资源所有前级的列表
         internal string assetName; // 目标资源的名字
-        internal readonly string[] tags; // 标签
+        internal string tag; // 标签
         public int lowest = 0; // 最低找到哪集目录
 
-        public OptimalAssetFinder(string assetName, string tag) {
-            this.assetName = assetName;
-            this.tags = new[] { tag };
+        public static OptimalAssetFinder Create(string assetName, string tag) {
+            var finder = ObjectPool.Rent<OptimalAssetFinder>();
+            finder.assetName = assetName;
+            finder.tag = tag;
+
+            return finder;
         }
 
-        public OptimalAssetFinder(string assetName, string[] tags) {
-            this.assetName = assetName;
-            this.tags = tags;
+        public static void Return(OptimalAssetFinder finder) {
+            finder.Clear();
+            ObjectPool.Return(finder);
         }
 
         public void Append(string str) {
             this.strs.Add(str);
+        }
+
+        public void Clear() {
+            this.strs.Clear();
+            this.assetName = null;
+            this.tag = null;
+            this.lowest = 0;
+        }
+
+        public void Dispose() {
+            Return(this);
         }
     }
 }

@@ -31,26 +31,30 @@ namespace Hsenl {
 
         [MemoryPackIgnore]
         protected StageLine stageLine;
+        
+        protected sealed override void OnNodeRunStart() { }
+        protected sealed override void OnNodeRunEnd() { }
+        protected sealed override void OnNodeExit() { }
 
-        protected override void OnNodeStart() {
+        protected sealed override void OnAwake() {
             this.stageLine = this.manager as StageLine;
         }
 
-        protected override void OnNodeReset() {
+        protected sealed override void OnReset() {
             this.passed = false;
         }
 
-        protected override bool OnNodeEvaluate() {
+        protected sealed override bool OnNodeEvaluate() {
             return this.stageLine != null && !this.passed;
         }
 
-        protected override void OnNodeEnter() {
+        protected sealed override void OnNodeEnter() {
             this.manager.Time = 0;
             this.manager.TillTime = this.Duration;
             this.stageLine.CurrentStage = this.StageType;
         }
 
-        protected override NodeStatus OnNodeTick() {
+        protected sealed override NodeStatus OnNodeTick() {
             var ret = base.OnNodeTick();
             if ((ret & NodeStatus.AbortStatus) == ret) {
                 return ret;
@@ -59,7 +63,7 @@ namespace Hsenl {
             return NodeStatus.Running;
         }
 
-        protected override void OnNodeRunning() {
+        protected sealed override void OnNodeRunning() {
             if (this.manager.TillTime < 0) {
                 return;
             }

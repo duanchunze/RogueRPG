@@ -2,4 +2,5 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
+	
 	</wpf:ResourceDictionary>

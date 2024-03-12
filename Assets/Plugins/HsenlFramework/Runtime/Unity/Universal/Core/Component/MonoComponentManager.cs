@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Hsenl {
     [FrameworkMember]
@@ -20,7 +19,7 @@ namespace Hsenl {
 
                 var genericArguments = iface.GetGenericArguments();
                 var hsenlComponentType = genericArguments[0];
-                _caches.Add(hsenlComponentType, monoComponentType);
+                _caches[hsenlComponentType] = monoComponentType;
             }
         }
 

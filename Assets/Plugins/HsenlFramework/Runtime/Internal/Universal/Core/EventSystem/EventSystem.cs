@@ -7,11 +7,9 @@ namespace Hsenl {
         public static void RegisterAttributeType(Type type) => EventSystemManager.Instance.RegisterAttributeType(type);
 
         public static void AddAssembles(Assembly[] assemblies) =>
-            EventSystemManager.Instance.AddAssembles(assemblies);
+            EventSystemManager.Instance.SetAssembles(assemblies);
 
         public static Assembly[] GetAssemblies() => EventSystemManager.Instance.GetAssemblies();
-
-        public static void AddTypes(Type[] types) => EventSystemManager.Instance.AddTypes(types);
 
         public static Type[] GetAllTypes() => EventSystemManager.Instance.GetAllTypes();
         public static Type FindType(string typeName) => EventSystemManager.Instance.FindType(typeName);

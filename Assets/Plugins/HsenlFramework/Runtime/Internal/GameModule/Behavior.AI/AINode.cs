@@ -3,21 +3,24 @@
 namespace Hsenl {
     // 套个壳子, 好让AI类的节点更规范些
     public abstract partial class AINode : ActionNode<BehaviorTree> {
-        protected override NodeStatus OnNodeTick() {
+        protected sealed override void OnNodeEnter() { }
+        protected sealed override void OnNodeExit() { }
+        
+        protected sealed override NodeStatus OnNodeTick() {
             var ret = this.Check();
             if (ret) return NodeStatus.Running;
             return NodeStatus.Failure;
         }
 
-        protected override void OnNodeRunStart() {
+        protected sealed override void OnNodeRunStart() {
             this.Enter();
         }
         
-        protected override void OnNodeRunning() {
+        protected sealed override void OnNodeRunning() {
             this.Running();
         }
         
-        protected override void OnNodeRunEnd() {
+        protected sealed override void OnNodeRunEnd() {
             this.Exit();
         }
 

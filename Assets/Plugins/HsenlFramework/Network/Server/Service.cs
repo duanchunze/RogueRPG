@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Hsenl.Network {
+namespace Hsenl.Network.Server {
     public abstract class Service : IService, IPluggable {
         private ServiceConfig _config;
 

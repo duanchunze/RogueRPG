@@ -14,7 +14,13 @@ namespace Hsenl {
 #endif
         protected bool isPassed;
 
-        protected override void OnNodeReset() {
+        protected sealed override void OnNodeEnter() { }
+        protected sealed override void OnNodeRunStart() { }
+        protected sealed override void OnNodeRunning() { }
+        protected sealed override void OnNodeRunEnd() { }
+        protected sealed override void OnNodeExit() { }
+
+        protected override void OnReset() {
             this.isPassed = false;
         }
 
@@ -42,19 +48,27 @@ namespace Hsenl {
             }
         }
 
-        protected override bool OnNodeEvaluate() {
+        protected sealed override bool OnNodeEvaluate() {
+            try {
+                this.OnUpdate();
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
+
             if (this.isPassed) return false;
             this.GetRealValue(out var realPoint);
             var currTime = this.manager.Time;
             return currTime >= realPoint;
         }
 
-        protected override NodeStatus OnNodeTick() {
+        protected sealed override NodeStatus OnNodeTick() {
             this.isPassed = true;
             this.OnTimePointTrigger();
             return NodeStatus.Success;
         }
 
+        protected virtual void OnUpdate() { }
         protected abstract void OnTimePointTrigger();
     }
 }

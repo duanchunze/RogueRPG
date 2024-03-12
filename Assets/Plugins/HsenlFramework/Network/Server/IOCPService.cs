@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 
-namespace Hsenl.Network {
+namespace Hsenl.Network.Server {
     /*
      * SocketAsyncEventArgs内部并没有开启多线程, SocketAsyncEventArgs之所以能实现单线程的并发操作, 因为他把请求交给了外部网络子系统去处理, 自己就呆在主线程里等消息.
      * 而Socket的其他方案, 如同步或者异步方案, 都是把请求放在自己的主线程里进行处理.

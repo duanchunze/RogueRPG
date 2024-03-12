@@ -18,13 +18,13 @@ public sealed partial class CloseWarningBoardInfo :  timeline.TimePointInfo
 {
     public CloseWarningBoardInfo(JSONNode _json)  : base(_json) 
     {
-        { if(!_json["warn_name"].IsString) { throw new SerializationException(); }  WarnName = _json["warn_name"]; }
+        { if(!_json["asset_name"].IsString) { throw new SerializationException(); }  AssetName = _json["asset_name"]; }
         PostInit();
     }
 
-    public CloseWarningBoardInfo(int model, float point, string warn_name )  : base(model,point) 
+    public CloseWarningBoardInfo(int model, float point, string asset_name )  : base(model,point) 
     {
-        this.WarnName = warn_name;
+        this.AssetName = asset_name;
         PostInit();
     }
 
@@ -34,9 +34,9 @@ public sealed partial class CloseWarningBoardInfo :  timeline.TimePointInfo
     }
 
     /// <summary>
-    /// 警示标名称
+    /// 资源名
     /// </summary>
-    public string WarnName { get; private set; }
+    public string AssetName { get; private set; }
 
     public const int __ID__ = -1163793277;
     public override int GetTypeId() => __ID__;
@@ -57,7 +57,7 @@ public sealed partial class CloseWarningBoardInfo :  timeline.TimePointInfo
         return "{ "
         + "Model:" + Model + ","
         + "Point:" + Point + ","
-        + "WarnName:" + WarnName + ","
+        + "AssetName:" + AssetName + ","
         + "}";
     }
     

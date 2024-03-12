@@ -23,17 +23,13 @@ public sealed partial class HarmOfColliderInfo :  timeline.TsHarmInfo
     {
         { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
         { if(!_json["collider_name"].IsString) { throw new SerializationException(); }  ColliderName = _json["collider_name"]; }
-        { if(!_json["hit_fx"].IsString) { throw new SerializationException(); }  HitFx = _json["hit_fx"]; }
-        { if(!_json["hit_sound"].IsString) { throw new SerializationException(); }  HitSound = _json["hit_sound"]; }
         PostInit();
     }
 
-    public HarmOfColliderInfo(int model, float origin, float dest, numeric.DamageFormulaInfo harm_formula, string collider_name, string hit_fx, string hit_sound )  : base(model,origin,dest) 
+    public HarmOfColliderInfo(int model, float origin, float dest, numeric.DamageFormulaInfo harm_formula, string collider_name )  : base(model,origin,dest) 
     {
         this.HarmFormula = harm_formula;
         this.ColliderName = collider_name;
-        this.HitFx = hit_fx;
-        this.HitSound = hit_sound;
         PostInit();
     }
 
@@ -47,8 +43,6 @@ public sealed partial class HarmOfColliderInfo :  timeline.TsHarmInfo
     /// 碰撞器名
     /// </summary>
     public string ColliderName { get; private set; }
-    public string HitFx { get; private set; }
-    public string HitSound { get; private set; }
 
     public const int __ID__ = 469690170;
     public override int GetTypeId() => __ID__;
@@ -74,8 +68,6 @@ public sealed partial class HarmOfColliderInfo :  timeline.TsHarmInfo
         + "Dest:" + Dest + ","
         + "HarmFormula:" + HarmFormula + ","
         + "ColliderName:" + ColliderName + ","
-        + "HitFx:" + HitFx + ","
-        + "HitSound:" + HitSound + ","
         + "}";
     }
     

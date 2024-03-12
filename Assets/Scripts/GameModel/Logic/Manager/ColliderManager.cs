@@ -5,23 +5,21 @@ namespace Hsenl {
     public class ColliderManager : SingletonComponent<ColliderManager> {
         private readonly Type _colliderType = typeof(Collider);
 
-        public CollisionEventListener Rent(string colliderName, bool autoActive = true) {
+        public CollisionEventListener Rent(string colliderName, bool active = true) {
             var key = PoolKey.Create(this._colliderType, colliderName);
-            var rent = Pool.Rent<CollisionEventListener>(key, active: autoActive);
-            if (rent == null) {
-                rent = ColliderFactory.Create(colliderName, autoActive);
+            if (Pool.Rent(key, active: active) is not CollisionEventListener rent) {
+                rent = ColliderListenerFactory.Create(colliderName, active);
             }
 
             return rent;
         }
 
-        public T Rent<T>(string name = null, bool autoActive = true) where T : Collider {
+        public T Rent<T>(string name = null, bool active = true) where T : Collider {
             var type = typeof(T);
             var key = PoolKey.Create(type);
-            var rent = Pool.Rent<T>(key, active: autoActive);
-            if (rent == null) {
+            if (Pool.Rent(key, active: active) is not T rent) {
                 var entity = Entity.Create(string.IsNullOrEmpty(name) ? type.Name : name);
-                entity.Active = autoActive;
+                entity.Active = active;
                 rent = entity.AddComponent<T>();
             }
 

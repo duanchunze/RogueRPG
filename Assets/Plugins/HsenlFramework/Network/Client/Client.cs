@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Hsenl.Network {
+namespace Hsenl.Network.Client {
     public abstract class Client : IClient, IPluggable {
         private ClientConfig _config;
 

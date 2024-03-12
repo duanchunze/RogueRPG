@@ -23,7 +23,7 @@
     "caster_evaluates": [],
     "priority_state": {
       "time_scale": 1,
-      "duration": -1,
+      "duration": 0,
       "aisles": [
         0
       ],
@@ -440,7 +440,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 75,
+        "value": 0,
         "sign": ""
       }
     ],
@@ -523,6 +523,20 @@
         "duration": 0,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit2"
+          },
+          {
             "$type": "HarmOfTargetedInfo",
             "model": 1,
             "point": 0,
@@ -535,9 +549,7 @@
                 }
               ],
               "damage_type": 0
-            },
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack2"
+            }
           }
         ]
       },
@@ -577,7 +589,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 75,
+        "value": 0,
         "sign": ""
       }
     ],
@@ -660,6 +672,20 @@
         "duration": 0,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit2"
+          },
+          {
             "$type": "HarmOfTargetedInfo",
             "model": 1,
             "point": 0,
@@ -672,9 +698,7 @@
                 }
               ],
               "damage_type": 0
-            },
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack2"
+            }
           }
         ]
       },
@@ -714,7 +738,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 75,
+        "value": 0,
         "sign": ""
       }
     ],
@@ -797,6 +821,20 @@
         "duration": 0,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit2"
+          },
+          {
             "$type": "HarmOfTargetedInfo",
             "model": 1,
             "point": 0,
@@ -809,9 +847,7 @@
                 }
               ],
               "damage_type": 0
-            },
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack2"
+            }
           }
         ]
       },
@@ -865,7 +901,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 50,
+        "value": 0,
         "sign": ""
       }
     ],
@@ -948,6 +984,20 @@
         "duration": 0,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit2"
+          },
+          {
             "$type": "HarmOfTargetedBoltInfo",
             "model": 1,
             "point": 0,
@@ -961,10 +1011,8 @@
               ],
               "damage_type": 0
             },
-            "bolt_name": "bolt_yuebiao",
-            "speed": 0,
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack1"
+            "bolt_config_alias": "月镖投射物",
+            "speed": 0
           }
         ]
       },
@@ -1018,7 +1066,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 50,
+        "value": 0,
         "sign": ""
       }
     ],
@@ -1101,6 +1149,20 @@
         "duration": 0,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit2"
+          },
+          {
             "$type": "HarmOfTargetedBoltInfo",
             "model": 1,
             "point": 0,
@@ -1114,10 +1176,8 @@
               ],
               "damage_type": 0
             },
-            "bolt_name": "bolt_yuebiao",
-            "speed": 0,
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack1"
+            "bolt_config_alias": "月镖投射物",
+            "speed": 0
           }
         ]
       },
@@ -1171,7 +1231,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 50,
+        "value": 0,
         "sign": ""
       }
     ],
@@ -1254,6 +1314,20 @@
         "duration": 0,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit2"
+          },
+          {
             "$type": "HarmOfTargetedBoltInfo",
             "model": 1,
             "point": 0,
@@ -1267,10 +1341,8 @@
               ],
               "damage_type": 0
             },
-            "bolt_name": "bolt_yuebiao",
-            "speed": 0,
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack1"
+            "bolt_config_alias": "月镖投射物",
+            "speed": 0
           }
         ]
       },
@@ -1388,9 +1460,7 @@
                 }
               ],
               "damage_type": 0
-            },
-            "hit_fx": "fx_hit",
-            "hit_sound": "xxx"
+            }
           }
         ]
       }
@@ -1432,7 +1502,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 75,
+        "value": 0,
         "sign": ""
       }
     ],
@@ -1528,7 +1598,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 75,
+        "value": 0,
         "sign": ""
       }
     ],
@@ -1614,6 +1684,20 @@
         "duration": 0,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit2"
+          },
+          {
             "$type": "HarmOfTargetedInfo",
             "model": 1,
             "point": 0,
@@ -1626,9 +1710,7 @@
                 }
               ],
               "damage_type": 0
-            },
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack2"
+            }
           }
         ]
       },
@@ -1675,7 +1757,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 100,
+        "value": 0,
         "sign": ""
       }
     ],
@@ -1761,6 +1843,20 @@
         "duration": 0,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit2"
+          },
+          {
             "$type": "HarmOfColliderInfo",
             "model": 1,
             "origin": 0,
@@ -1775,9 +1871,7 @@
               ],
               "damage_type": 0
             },
-            "collider_name": "col_abi_liehuodaofa",
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack2"
+            "collider_name": "col_abi_liehuodaofa"
           }
         ]
       },
@@ -1829,7 +1923,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 100,
+        "value": 0,
         "sign": ""
       }
     ],
@@ -1915,6 +2009,20 @@
         "duration": 0,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit2"
+          },
+          {
             "$type": "HarmOfColliderInfo",
             "model": 1,
             "origin": 0,
@@ -1929,9 +2037,7 @@
               ],
               "damage_type": 0
             },
-            "collider_name": "col_abi_tuludaofa",
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack2"
+            "collider_name": "col_abi_tuludaofa"
           }
         ]
       },
@@ -1990,7 +2096,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 100,
+        "value": 0,
         "sign": ""
       }
     ],
@@ -2076,6 +2182,20 @@
         "duration": 0,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit2"
+          },
+          {
             "$type": "HarmOfDibozhanBoltInfo",
             "model": 1,
             "point": 0,
@@ -2089,13 +2209,10 @@
               ],
               "damage_type": 0
             },
+            "bolt_config_alias": "地波斩投射物",
             "num": 6,
             "internal_time": 0.1,
-            "internal_distance": 1,
-            "bolt_name": "bolt_dibozhan",
-            "collider_name": "col_abi_dibozhan",
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack2"
+            "internal_distance": 1
           }
         ]
       },
@@ -2222,8 +2339,19 @@
             "$type": "OpenWarningBoardInfo",
             "model": 0,
             "point": 0.1,
-            "warn_name": "wb_gw_hengkan",
+            "asset_name": "hengkan",
             "type": 0
+          },
+          {
+            "$type": "InflictionStatusToSelfInfo",
+            "model": 0,
+            "point": 0.1,
+            "status_alias": "霸体"
+          },
+          {
+            "$type": "RecordCastDirectionInfo",
+            "model": 1,
+            "point": 0
           }
         ]
       },
@@ -2232,10 +2360,24 @@
         "duration": 0.05,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
             "$type": "CloseWarningBoardInfo",
             "model": 1,
             "point": 0,
-            "warn_name": "wb_gw_hengkan"
+            "asset_name": "hengkan"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit"
           },
           {
             "$type": "HarmOfColliderInfo",
@@ -2252,9 +2394,7 @@
               ],
               "damage_type": 0
             },
-            "collider_name": "col_abi_gw_hengkan",
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack1"
+            "collider_name": "col_abi_gw_hengkan"
           }
         ]
       },
@@ -2388,8 +2528,19 @@
             "$type": "OpenWarningBoardInfo",
             "model": 0,
             "point": 0.1,
-            "warn_name": "wb_gw_kuaishe",
+            "asset_name": "kuaishe",
             "type": 1
+          },
+          {
+            "$type": "InflictionStatusToSelfInfo",
+            "model": 0,
+            "point": 0.1,
+            "status_alias": "霸体"
+          },
+          {
+            "$type": "RecordCastDirectionInfo",
+            "model": 1,
+            "point": 0
           }
         ]
       },
@@ -2398,10 +2549,24 @@
         "duration": 0.3,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
             "$type": "PlayAnimInfo",
             "model": 1,
             "point": 0,
             "anim": "attack1"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit"
           },
           {
             "$type": "HarmOfDirectionBoltInfo",
@@ -2417,11 +2582,9 @@
               ],
               "damage_type": 0
             },
-            "bolt_name": "bolt_gw_kuaishe",
+            "bolt_config_alias": "快射投射物",
             "distance": 8,
-            "speed": 7,
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack1"
+            "speed": 7
           },
           {
             "$type": "HarmOfDirectionBoltInfo",
@@ -2437,11 +2600,9 @@
               ],
               "damage_type": 0
             },
-            "bolt_name": "bolt_gw_kuaishe",
+            "bolt_config_alias": "快射投射物",
             "distance": 8,
-            "speed": 7,
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack1"
+            "speed": 7
           },
           {
             "$type": "HarmOfDirectionBoltInfo",
@@ -2457,24 +2618,29 @@
               ],
               "damage_type": 0
             },
-            "bolt_name": "bolt_gw_kuaishe",
+            "bolt_config_alias": "快射投射物",
             "distance": 8,
-            "speed": 7,
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack1"
+            "speed": 7
           },
           {
             "$type": "CloseWarningBoardInfo",
             "model": 1,
             "point": 0,
-            "warn_name": "wb_gw_kuaishe"
+            "asset_name": "kuaishe"
           }
         ]
       },
       {
         "stageType": 6,
         "duration": 1.5,
-        "actions": []
+        "actions": [
+          {
+            "$type": "RemoveStatusFromSelfInfo",
+            "model": 1,
+            "point": 0,
+            "status_alias": "霸体"
+          }
+        ]
       }
     ],
     "affixes": []
@@ -2594,8 +2760,19 @@
             "$type": "OpenWarningBoardInfo",
             "model": 0,
             "point": 0.1,
-            "warn_name": "wb_gw_pikan",
+            "asset_name": "pikan",
             "type": 0
+          },
+          {
+            "$type": "InflictionStatusToSelfInfo",
+            "model": 0,
+            "point": 0.1,
+            "status_alias": "霸体"
+          },
+          {
+            "$type": "RecordCastDirectionInfo",
+            "model": 1,
+            "point": 0
           }
         ]
       },
@@ -2604,10 +2781,24 @@
         "duration": 0.05,
         "actions": [
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
             "$type": "CloseWarningBoardInfo",
             "model": 1,
             "point": 0,
-            "warn_name": "wb_gw_pikan"
+            "asset_name": "pikan"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit"
           },
           {
             "$type": "HarmOfColliderInfo",
@@ -2624,9 +2815,7 @@
               ],
               "damage_type": 0
             },
-            "collider_name": "col_abi_gw_pikan",
-            "hit_fx": "fx_hit",
-            "hit_sound": "ad_attack1"
+            "collider_name": "col_abi_gw_pikan"
           }
         ]
       },
