@@ -14,6 +14,7 @@ namespace Hsenl {
     }
 
     internal class CrossCombinInfo {
+        public ComponentTypeCacher totalParentTypeCacher;
         public ComponentTypeCacher totalChildTypeCacher;
         public readonly List<Combiner> parentCombiners = new(); // 主域作为父域的有哪些组合
         public readonly List<Combiner> childCombiners = new(); // 主域作为子域的有哪些组合
@@ -195,6 +196,11 @@ namespace Hsenl {
             // 整理CrossCombiners
             foreach (var kv in _cache.CrossCombinLookupTable) {
                 var combinInfo = kv.Value;
+                
+                combinInfo.totalParentTypeCacher = ComponentTypeCacher.CreateNull();
+                foreach (var combiner in combinInfo.parentCombiners) {
+                    combinInfo.totalParentTypeCacher.Add(combiner.crossParentTypeCacher);
+                }
 
                 combinInfo.totalChildTypeCacher = ComponentTypeCacher.CreateNull();
                 foreach (var combiner in combinInfo.childCombiners) {

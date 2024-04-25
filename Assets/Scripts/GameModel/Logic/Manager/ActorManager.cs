@@ -7,7 +7,7 @@ namespace Hsenl {
     public class ActorManager : SingletonComponent<ActorManager> {
         private readonly Type _actorType = typeof(Actor);
 
-        public Actor Rent(int configId, Vector3 position, Entity entity = null) {
+        public Actor Rent(int configId, Vector3 position = default, Entity entity = null) {
             var key = PoolKey.Create(this._actorType, configId);
             var actor = Pool.Rent<Actor>(key, active: false) ?? ActorFactory.Create(configId, entity);
             ((IPoolable)actor).SetPoolKey(key);

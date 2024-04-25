@@ -77,7 +77,7 @@ namespace Hsenl {
         }
 
         public virtual void OnChanged() {
-            SourceEventStation.OnCardResidenceChanged(this);
+            EventStation.OnCardResidenceChanged(this);
             try {
                 this.onChanged?.Invoke();
             }

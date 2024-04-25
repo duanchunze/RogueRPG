@@ -11,7 +11,7 @@ namespace Hsenl.View {
 
             switch ((NumericType)arg.numType) {
                 case NumericType.Hp: {
-                    var headMessage = bodied.GetComponent<HeadMessage>();
+                    var headMessage = bodied.GetComponent<HeadInfo>();
                     if (headMessage != null) {
                         var max = numerator.GetValue(NumericType.MaxHp);
                         max.ToFloat();
@@ -22,19 +22,8 @@ namespace Hsenl.View {
                     break;
                 }
 
-                // case NumericType.Energy: {
-                //     var headMessage = numerator.Substantive.GetComponent<HeadMessage>();
-                //     if (headMessage != null) {
-                //         var max = numerator.GetValue(NumericType.MaxEnergy);
-                //         max.ToFloat();
-                //         headMessage.UpdateEnergy(arg.now / max);
-                //     }
-                //
-                //     break;
-                // }
-
                 case NumericType.Mana: {
-                    var headMessage = bodied.GetComponent<HeadMessage>();
+                    var headMessage = bodied.GetComponent<HeadInfo>();
                     if (headMessage != null) {
                         var max = numerator.GetValue(NumericType.MaxMana);
                         max.ToFloat();
@@ -45,12 +34,12 @@ namespace Hsenl.View {
                 }
 
                 case NumericType.Height: {
-                    var headMessage = bodied.GetComponent<HeadMessage>();
+                    var headMessage = bodied.GetComponent<HeadInfo>();
                     if (headMessage != null) {
                         headMessage.UpdateFollowHeight(arg.now);
                     }
 
-                    var followMessage = bodied.GetComponent<FollowMessage>();
+                    var followMessage = bodied.GetComponent<HeadMessage>();
                     if (followMessage != null) {
                         followMessage.UpdateFollowHeight(arg.now + 1.1f);
                     }

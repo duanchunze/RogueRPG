@@ -16,34 +16,29 @@ namespace Hsenl.ability_upgrade
 
 public sealed partial class TbAbilityUpgradeConfig
 {
+    private readonly Dictionary<int, ability_upgrade.AbilityUpgradeConfig> _dataMap;
     private readonly List<ability_upgrade.AbilityUpgradeConfig> _dataList;
     
-    private Dictionary<int, ability_upgrade.AbilityUpgradeConfig> _dataMap_id;
-    private Dictionary<string, ability_upgrade.AbilityUpgradeConfig> _dataMap_alias;
-
     public TbAbilityUpgradeConfig(JSONNode _json)
     {
+        _dataMap = new Dictionary<int, ability_upgrade.AbilityUpgradeConfig>();
         _dataList = new List<ability_upgrade.AbilityUpgradeConfig>();
         
         foreach(JSONNode _row in _json.Children)
         {
             var _v = ability_upgrade.AbilityUpgradeConfig.DeserializeAbilityUpgradeConfig(_row);
             _dataList.Add(_v);
+            _dataMap.Add(_v.Id, _v);
         }
-        _dataMap_id = new Dictionary<int, ability_upgrade.AbilityUpgradeConfig>();
-        _dataMap_alias = new Dictionary<string, ability_upgrade.AbilityUpgradeConfig>();
-    foreach(var _v in _dataList)
-    {
-        _dataMap_id.Add(_v.Id, _v);
-        _dataMap_alias.Add(_v.Alias, _v);
-    }
         PostInit();
     }
 
+    public Dictionary<int, ability_upgrade.AbilityUpgradeConfig> DataMap => _dataMap;
     public List<ability_upgrade.AbilityUpgradeConfig> DataList => _dataList;
 
-    public ability_upgrade.AbilityUpgradeConfig GetById(int key) => _dataMap_id.TryGetValue(key, out ability_upgrade.AbilityUpgradeConfig __v) ? __v : null;
-    public ability_upgrade.AbilityUpgradeConfig GetByAlias(string key) => _dataMap_alias.TryGetValue(key, out ability_upgrade.AbilityUpgradeConfig __v) ? __v : null;
+    public ability_upgrade.AbilityUpgradeConfig GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public ability_upgrade.AbilityUpgradeConfig Get(int key) => _dataMap[key];
+    public ability_upgrade.AbilityUpgradeConfig this[int key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {
@@ -61,7 +56,7 @@ public sealed partial class TbAbilityUpgradeConfig
             v.TranslateText(translator);
         }
     }
-
+    
     
     partial void PostInit();
     partial void PostResolve();

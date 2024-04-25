@@ -31,19 +31,6 @@ namespace Hsenl {
             }
         }
 
-        public sealed override IEnumerable<INode> ForeachChildren() {
-            if (this.children == null) {
-                yield break;
-            }
-
-            foreach (var child in this.children) {
-                yield return child;
-                foreach (var sub in child.ForeachChildren()) {
-                    yield return sub;
-                }
-            }
-        }
-
         public sealed override void StartNode(IBehaviorTree tree) {
             if (this.manager != null) throw new Exception("already has manager");
             if (tree == null) throw new ArgumentNullException("start node failure, tree is null");
@@ -130,7 +117,7 @@ namespace Hsenl {
             if (node == null) return;
             this.children.Add(node);
             node.Parent = this;
-            
+
             if (this.manager != null) {
                 node.StartNode(this.manager);
                 if (this.manager.RealEnable) {
@@ -168,6 +155,17 @@ namespace Hsenl {
             this.children.Clear();
         }
 
+        public sealed override void ForeachChildren(Action<INode> callback) {
+            if (this.children == null) {
+                return;
+            }
+
+            foreach (var child in this.children) {
+                callback.Invoke(child);
+                child.ForeachChildren(callback);
+            }
+        }
+
         public sealed override T GetNodeInChildren<T>(bool once = false) {
             if (this.children == null) return default;
             for (int i = 0, len = this.children.Count; i < len; i++) {
@@ -188,6 +186,32 @@ namespace Hsenl {
             }
 
             return default;
+        }
+
+        public sealed override T[] GetNodesInChildren<T>(bool once = false) {
+            if (this.children == null)
+                return default;
+
+            using var list = ListComponent<T>.Create();
+            this.GetNodesInChildren(list);
+            return list.ToArray();
+        }
+
+        public sealed override void GetNodesInChildren<T>(List<T> cache, bool once = false) {
+            if (this.children == null) return;
+            for (int i = 0, len = this.children.Count; i < len; i++) {
+                var child = this.children[i];
+                if (child is T t) {
+                    cache.Add(t);
+                }
+            }
+
+            if (once) return;
+
+            for (int i = 0, len = this.children.Count; i < len; i++) {
+                var child = this.children[i];
+                child.GetNodesInChildren(cache);
+            }
         }
     }
 }

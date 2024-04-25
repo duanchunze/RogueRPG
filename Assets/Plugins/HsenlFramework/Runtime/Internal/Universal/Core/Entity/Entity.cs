@@ -31,6 +31,8 @@ namespace Hsenl {
         private static readonly MultiQueue<Type, (ComponentTypeCacher require, Type add)> _requireComponentLookupTable = new();
         internal static readonly Dictionary<int, ComponentTypeCacher> requireInverseLookupTable = new();
 
+        internal static readonly Dictionary<Type, ComponentOptionsAttribute> componentOptions = new();
+
         // 缓冲类型映射表是许多操作的基础, 所以应该被最先执行
         [OnEventSystemInitialized, Order(-500)]
         private static void CacheTypeHashtable() {
@@ -58,19 +60,19 @@ namespace Hsenl {
             uniques.Add(componentType);
             foreach (var type in EventSystem.GetAllTypes()) {
                 if (type.IsSubclassOf(componentType)) {
-                    if (!uniques.Contains(type)) uniques.Add(type);
+                    uniques.Add(type);
                     // 如果该类是一个继承自组件的类, 则遍历其所有的父类
                     foreach (var baseType in AssemblyHelper.GetBaseTypes(type)) {
                         // 如果是一个接口类, 则直接添加
                         if (baseType.IsInterface) {
                             map.Add(type, baseType);
-                            if (!uniques.Contains(baseType)) uniques.Add(baseType);
+                            uniques.Add(baseType);
                         }
                         // 如果是class, 则要判断是不是组件类的子类, 因为我们最多缓存到组件类, 不再继续往上缓存
                         else {
                             if (baseType.IsSubclassOf(componentType)) {
                                 map.Add(type, baseType);
-                                if (!uniques.Contains(baseType)) uniques.Add(baseType);
+                                uniques.Add(baseType);
                             }
                         }
                     }
@@ -100,31 +102,31 @@ namespace Hsenl {
             }
         }
 
-        [OnEventSystemInitialized]
+        [OnEventSystemInitialized, Order(-400)]
         private static void CacheRequireTypes() {
             _requireComponentLookupTable.Clear();
             foreach (var type in EventSystem.GetTypesOfAttribute(typeof(RequireComponentAttribute))) {
-                var att = type.GetCustomAttribute<RequireComponentAttribute>(true);
+                var attr = type.GetCustomAttribute<RequireComponentAttribute>(true);
                 if (_requireComponentLookupTable.TryGetValue(type, out var list1)) {
                     foreach (var tuple in list1) {
-                        if (tuple.add == att.addType) {
+                        if (tuple.add == attr.addType) {
                             // 一个组件A重复Require了组件B
-                            throw new Exception($"require component repetition, '{type.Name}' - '{att.addType.Name}'");
+                            throw new Exception($"require component repetition, '{type.Name}' - '{attr.addType.Name}'");
                         }
                     }
                 }
 
-                if (_requireComponentLookupTable.TryGetValue(att.addType, out var list2)) {
+                if (_requireComponentLookupTable.TryGetValue(attr.addType, out var list2)) {
                     foreach (var tuple in list2) {
                         if (tuple.add == type) {
                             // 一个组件A Require了组件B, 同时, 组件B也Require了组件A
-                            throw new Exception($"require component conflict, '{type.Name}' - '{att.addType.Name}'");
+                            throw new Exception($"require component conflict, '{type.Name}' - '{attr.addType.Name}'");
                         }
                     }
                 }
 
-                var typeCacher = _typeLookupTable[att.requireType.GetHashCode()];
-                _requireComponentLookupTable.Enqueue(type, (typeCacher, att.addType));
+                var typeCacher = _typeLookupTable[attr.requireType.GetHashCode()];
+                _requireComponentLookupTable.Enqueue(type, (typeCacher, attr.addType));
                 var componentIndex = GetComponentIndex(type);
                 if (!requireInverseLookupTable.TryGetValue(componentIndex, out var value)) {
                     value = ComponentTypeCacher.CreateNull();
@@ -132,6 +134,15 @@ namespace Hsenl {
                 }
 
                 value.Add(GetComponentIndex(type));
+            }
+        }
+
+        [OnEventSystemInitialized, Order(-400)]
+        private static void CacheComponentOptions() {
+            componentOptions.Clear();
+            foreach (var type in EventSystem.GetTypesOfAttribute(typeof(ComponentOptionsAttribute))) {
+                var attr = type.GetCustomAttribute<ComponentOptionsAttribute>(true);
+                componentOptions[type] = attr;
             }
         }
 
@@ -250,7 +261,7 @@ namespace Hsenl {
                 return true;
             }
         }
-        
+
         [MemoryPackIgnore]
         public string Name {
             get => this.name;
@@ -326,8 +337,8 @@ namespace Hsenl {
             }
         }
 
-        protected internal override void OnDestroyFinish() {
-            base.OnDestroyFinish();
+        protected internal override void OnDisposed() {
+            base.OnDisposed();
             this.name = null;
             this.componentTypeCacher?.Clear();
             this.componentTypeCacher = null;
@@ -570,6 +581,14 @@ namespace Hsenl {
         /// <returns></returns>
         public T AddComponent<T>(Action<T> initializeInvoke, bool enabled = true) where T : Component {
             var type = typeof(T);
+            if (componentOptions.TryGetValue(type, out var options)) {
+                if (options.ComponentMode == ComponentMode.Single) {
+                    if (this.HasComponent(type, true)) {
+                        throw new InvalidOperationException($"Component mode is single, but you're still trying to add multiple '{type.FullName}'");
+                    }
+                }
+            }
+            
             if (_requireComponentLookupTable.TryGetValue(type, out var requires)) {
                 foreach (var tuple in requires) {
                     if (!this.HasComponentsAny(tuple.require)) {
@@ -616,6 +635,14 @@ namespace Hsenl {
         }
 
         public Component AddComponent(Type type, Action<Component> initializeInvoke = null, bool enabled = true) {
+            if (componentOptions.TryGetValue(type, out var options)) {
+                if (options.ComponentMode == ComponentMode.Single) {
+                    if (this.HasComponent(type, true)) {
+                        throw new InvalidOperationException($"Component mode is single, but you're still trying to add multiple '{type.FullName}'");
+                    }
+                }
+            }
+            
             if (_requireComponentLookupTable.TryGetValue(type, out var requires)) {
                 foreach (var tuple in requires) {
                     if (!this.HasComponentsAny(tuple.require)) {
@@ -663,6 +690,14 @@ namespace Hsenl {
 
         public Component AddComponent(Component component) {
             var type = component.GetType();
+            if (componentOptions.TryGetValue(type, out var options)) {
+                if (options.ComponentMode == ComponentMode.Single) {
+                    if (this.HasComponent(type, true)) {
+                        throw new InvalidOperationException($"Component mode is single, but you're still trying to add multiple '{type.FullName}'");
+                    }
+                }
+            }
+
             if (_requireComponentLookupTable.TryGetValue(type, out var requires)) {
                 foreach (var tuple in requires) {
                     if (!this.HasComponentsAny(tuple.require)) {
@@ -1009,6 +1044,9 @@ namespace Hsenl {
         }
 
         public bool IsParentOf(Entity targetParent) {
+            if (this == targetParent)
+                return true;
+            
             var p = targetParent.parent;
             while (p != null) {
                 if (p == this)

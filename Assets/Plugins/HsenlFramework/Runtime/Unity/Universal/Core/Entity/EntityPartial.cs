@@ -100,10 +100,10 @@ namespace Hsenl {
 
         internal partial void PartialOnDestroyFinish() {
             if (this.GameObject != null) {
-                var go = this.GameObject;
-                go.GetComponent<IEntityReference>().SetFrameworkReference(null);
+                var t = this.GameObject;
                 this.GameObject = null;
-                UnityEngine.Object.Destroy(go);
+                t.GetComponent<IEntityReference>().SetFrameworkReference(null);
+                UnityEngine.Object.DestroyImmediate(t);
             }
         }
     }

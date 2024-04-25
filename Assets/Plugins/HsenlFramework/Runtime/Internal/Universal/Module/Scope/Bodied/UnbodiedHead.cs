@@ -58,13 +58,13 @@ namespace Hsenl {
                 }
 
                 if (prevParent != null) {
-                    if (this.crossMatchMode == CrossMatchMode.Auto) {
-                        CrossDecombinMatchForParent(this, prevParent);
+                    if (this.CombinMatchMode == CombinMatchMode.Auto) {
+                        CrossDecombinMatchForParents(this, prevParent);
                     }
 
                     this.ForeachChildrenScope((childScope, _) => {
-                        if (childScope.crossMatchMode == CrossMatchMode.Auto) {
-                            CrossDecombinMatchForParent(childScope, prevParent); //
+                        if (childScope.CombinMatchMode == CombinMatchMode.Auto) {
+                            CrossDecombinMatchForParents(childScope, prevParent); //
                         }
                     });
                 }
@@ -74,16 +74,15 @@ namespace Hsenl {
 
                 // 确立好父子关系后再进行跨域匹配, 保证形成组合的时候, 父子关系是正确的.
                 if (value != null) {
-                    this.CalcMaximumCrossLayerInTheory();
-
-                    if (this.crossMatchMode == CrossMatchMode.Auto) {
-                        CrossCombinMatchForParent(this, value, 1);
+                    if (this.CombinMatchMode == CombinMatchMode.Auto) {
+                        this.CalcMaximumCrossLayerInTheory();
+                        CrossCombinsMatchForParents(this, value, 1, null);
                     }
 
                     this.ForeachChildrenScope((childScope, layer) => {
-                        childScope.CalcMaximumCrossLayerInTheory();
-                        if (childScope.crossMatchMode == CrossMatchMode.Auto) {
-                            CrossCombinMatchForParent(childScope, value, layer + 1); // 
+                        if (childScope.CombinMatchMode == CombinMatchMode.Auto) {
+                            childScope.CalcMaximumCrossLayerInTheory();
+                            CrossCombinsMatchForParents(childScope, value, layer + 1, null); // 
                         }
                     });
                 }
@@ -100,30 +99,51 @@ namespace Hsenl {
                     return;
 
                 unbodied.unbodiedHead = this;
-
-                this.elements.Add(component.ComponentIndex, unbodied);
             });
         }
-        
-        protected internal override void OnDestroyFinish() {
-            base.OnDestroyFinish();
+
+        protected internal override void OnDisposed() {
+            base.OnDisposed();
             this._bodied = null;
         }
 
         internal override void OnComponentAddInternal(Component component) {
-            if (component is Scope) throw new Exception($"one entity only one scope. '{this.Name}' '{component.GetType().Name}'");
+            if (component is Scope)
+                throw new Exception($"one entity only one scope. '{this.Name}' '{component.GetType().Name}'");
+
             if (component is not Unbodied unbodied)
                 return;
 
-            if (!this.elements.TryAdd(component.ComponentIndex, unbodied)) {
-                throw new Exception($"this component is alrealy has in scope. '{this.GetType().Name}' '{component.GetType().Name}'");
-            }
-
             unbodied.unbodiedHead = this;
 
-            MultiCombinMatch(this, component);
-            if (this.crossMatchMode != CrossMatchMode.Manual) {
-                CrossCombinMatchByComponent(this, component);
+            if (this.CombinMatchMode != CombinMatchMode.Manual) {
+                MultiCombinMatch(this, unbodied);
+            }
+
+            if (Combiner.CombinerCache.CrossCombinLookupTable.TryGetValue(unbodied.ComponentIndex, out var combinInfo)) {
+                if (combinInfo.childCombiners.Count != 0) {
+                    if (this.CombinMatchMode == CombinMatchMode.Auto) {
+                        if (this.ParentScope != null) {
+                            if (this.HasComponentsAny(combinInfo.totalChildTypeCacher)) {
+                                foreach (var combiner in combinInfo.childCombiners) {
+                                    CrossCombinMatchForParent(this, this.ParentScope, 1, combiner);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (combinInfo.parentCombiners.Count != 0) {
+                    if (this.HasComponentsAny(combinInfo.totalParentTypeCacher)) {
+                        this.ForeachChildrenScope((child, layer) => {
+                            if (child.CombinMatchMode == CombinMatchMode.Auto) {
+                                foreach (var combiner in combinInfo.parentCombiners) {
+                                    CrossCombinMatchForParent(child, this, layer, combiner);
+                                }
+                            }
+                        });
+                    }
+                }
             }
         }
 
@@ -131,13 +151,14 @@ namespace Hsenl {
             if (component is not Unbodied unbodied)
                 return;
 
-            this.elements.Remove(component.ComponentIndex);
-
             unbodied.unbodiedHead = null;
 
-            MultiDecombinMatch(this, component);
-            if (this.crossMatchMode != CrossMatchMode.Manual) {
-                CrossDecombinMatchByComponent(this, component);
+            if (this.CombinMatchMode != CombinMatchMode.Manual) {
+                MultiDecombinMatch(this, unbodied);
+            }
+
+            if (this.CombinMatchMode == CombinMatchMode.Auto) {
+                CrossDecombinMatchByComponent(this, unbodied);
             }
         }
     }

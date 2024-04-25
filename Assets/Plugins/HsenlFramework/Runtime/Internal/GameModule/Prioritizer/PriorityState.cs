@@ -148,8 +148,8 @@ namespace Hsenl {
             this.LeaveState();
         }
 
-        protected internal override void OnDestroyFinish() {
-            base.OnDestroyFinish();
+        protected internal override void OnDisposed() {
+            base.OnDisposed();
             this._handledFlag = false;
             this.timeScale = 1f;
             this.aisles = null;

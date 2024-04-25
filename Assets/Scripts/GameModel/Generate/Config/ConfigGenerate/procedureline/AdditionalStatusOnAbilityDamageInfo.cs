@@ -14,6 +14,9 @@ using SimpleJSON;
 namespace Hsenl.procedureline
 { 
 
+/// <summary>
+/// 添加一个默认的状态
+/// </summary>
 public sealed partial class AdditionalStatusOnAbilityDamageInfo :  procedureline.WorkerInfo 
 {
     public AdditionalStatusOnAbilityDamageInfo(JSONNode _json)  : base(_json) 

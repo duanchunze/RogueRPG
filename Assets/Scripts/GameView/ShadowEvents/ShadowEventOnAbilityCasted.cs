@@ -1,12 +1,11 @@
 ﻿namespace Hsenl.View {
-    [ShadowFunction(typeof(SourceEventStation))]
+    [ShadowFunction(typeof(EventStation))]
     public partial class ShadowEventOnAbilityCasted {
         [ShadowFunction]
-        private static void OnAbilityCasted(Hsenl.Bodied attachedBodied, Hsenl.Ability ability)
-        {
+        private static void OnAbilityCasted(Hsenl.Bodied attachedBodied, Hsenl.Ability ability) {
             if (ability.Tags.Contains(TagType.AbilityShowMessage)) {
-                var followMessage = attachedBodied.GetComponent<FollowMessage>();
-                followMessage.ShowFollowMessage(ability.Config.ViewName);
+                var followMessage = attachedBodied.GetComponent<HeadMessage>();
+                followMessage.ShowFollowMessage(LocalizationHelper.GetAbilityLocalizationName(ability.Config));
             }
         }
     }

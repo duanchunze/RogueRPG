@@ -1,4 +1,5 @@
-﻿using MemoryPack;
+﻿using System;
+using MemoryPack;
 using UnityEngine;
 
 namespace Hsenl {
@@ -9,6 +10,8 @@ namespace Hsenl {
         public T info;
 
         public int infoInstanceId;
+        
+        public Type InfoType => typeof(T);
 
         [ShadowFunction]
         protected override void OnAwake() {
@@ -19,6 +22,12 @@ namespace Hsenl {
             //         this.InitInfo(inf);
             //     }
             // }
+        }
+        
+        public void InitInfo(object configInfo) {
+            if (configInfo is behavior.Info i) {
+                this.InitInfo(i);
+            }
         }
 
         public void InitInfo(behavior.Info configInfo) {

@@ -1,10 +1,17 @@
 ﻿using System;
 
 namespace Hsenl {
+    namespace EventType {
+        public struct OnEntityTagsChanged {
+            public Entity entity;
+        }
+    }
+
     public static class Shortcut {
         #region Status Related
 
-        public static Status InflictionStatus(Bodied inflictor, Bodied target, string alias, float duration = float.MinValue) {
+        public static Status InflictionStatus(Bodied inflictor, Bodied target, string alias, float duration = float.MinValue,
+            timeline.TimeActionInfo actionInfo = null) {
             var statusBar = target.FindScopeInBodied<StatusBar>();
             var config = Tables.Instance.TbStatusConfig.GetByAlias(alias);
             var status = statusBar.GetStatus(config.Alias);
@@ -13,9 +20,24 @@ namespace Hsenl {
                 statusBar.AddStatus(status);
             }
 
+            if (actionInfo != null) {
+                var actionType = actionInfo.GetType();
+                status.GetComponent<TimeLine>().EntryNode.ForeachChildren(child => {
+                    if (child is not IConfigInfoInitializer configInfoInitializer)
+                        return;
+
+                    if (configInfoInitializer.InfoType == actionType) {
+                        configInfoInitializer.InitInfo(actionInfo);
+                    }
+                });
+            }
+
             status.inflictor = inflictor;
             if (duration > float.MinValue) {
                 status.GetComponent<TimeLine>().TillTime = duration;
+            }
+            else {
+                status.GetComponent<TimeLine>().TillTime = status.Config.Duration;
             }
 
             status.Begin();
@@ -100,7 +122,7 @@ namespace Hsenl {
         //     numerator.SetValue(NumericType.Energy, final);
         //     return final;
         // }
-        
+
         public static (int curr, int max) RecoverMana(Numerator numerator, int value) {
             var cur = numerator.GetValue(NumericType.Mana);
             var max = numerator.GetValue(NumericType.MaxMana);
@@ -177,6 +199,16 @@ namespace Hsenl {
             var priorities = bodied.GetComponent<Prioritizer>();
             if (priorities == null) return false;
             return priorities.ContainsState(StatusAlias.Death);
+        }
+
+        public static void AddTag(this Entity self, TagType tag) {
+            self.Tags.Add(tag);
+            EventSystem.Publish(new EventType.OnEntityTagsChanged() { entity = self });
+        }
+
+        public static void RemoveTag(this Entity self, TagType tag) {
+            self.Tags.Remove(tag);
+            EventSystem.Publish(new EventType.OnEntityTagsChanged() { entity = self });
         }
     }
 }

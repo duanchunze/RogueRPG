@@ -6,11 +6,11 @@
             var actor = entity.GetComponent<Actor>();
 
             entity.AddComponent<Model>();
-            var motion = entity.AddComponent<Motion>();
+            entity.AddComponent<Motion>();
             var sound = entity.AddComponent<Sound>();
             sound.PlayOnAwake = false;
-            var headMessage = entity.AddComponent<HeadMessage>();
-            var followMessage = entity.AddComponent<FollowMessage>();
+            entity.AddComponent<HeadInfo>();
+            var followMessage = entity.AddComponent<HeadMessage>();
             followMessage.uiStayTime = 0.75f;
             return actor;
         }

@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
 using Hsenl.numeric;
 using Hsenl.timeline;
+using MemoryPack;
 
 namespace Hsenl {
-    public abstract class TpHarm<T> : TpInfo<T> where T : TpHarmInfo {
+    public abstract class TpHarm<T> : TpInfo<T>, IHarmInfo where T : TpHarmInfo {
         protected readonly List<Numerator> numerators = new(2);
         protected Harmable harmable;
         protected ProcedureLine procedureLine;
+        
+        [MemoryPackIgnore]
+        public object HarmInfo => this.info;
 
         protected override void OnEnable() {
             var owner = this.manager.Bodied.AttachedBodied;

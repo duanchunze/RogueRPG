@@ -24,7 +24,7 @@ namespace Hsenl {
             if (destSlot == null)
                 return;
 
-            var residenceType = destSlot.FindScopeInBodied<ICardResidence>().GetType();
+            var residenceType = destSlot.FindScopeInParent<ICardResidence>().GetType();
             this.TransferCard(cardInstanceId, residenceType, destSlot, copyNew);
         }
 

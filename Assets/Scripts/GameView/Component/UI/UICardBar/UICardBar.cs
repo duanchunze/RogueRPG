@@ -25,7 +25,7 @@ namespace Hsenl.View {
         protected override void OnOpen() {
             var cardbar = GameManager.Instance.MainMan?.FindScopeInBodied<CardBar>();
             if (cardbar == null) return;
-            SourceEventStation.OnCardResidenceChanged(cardbar);
+            EventStation.OnCardResidenceChanged(cardbar);
         }
 
         public UICardBarSlot GetSlotOfCard(Card card) {

@@ -1,5 +1,5 @@
 ﻿namespace Hsenl.View {
-    [ShadowFunction(typeof(SourceEventStation))]
+    [ShadowFunction(typeof(EventStation))]
     public partial class ShadowEventOnGoldNumberUpdate {
         [ShadowFunction]
         private static void OnGoldNumberUpdate(int goldNum) {

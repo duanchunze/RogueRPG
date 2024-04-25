@@ -11,7 +11,7 @@ namespace Hsenl {
                 case StageType.None:
                     break;
                 case StageType.Enter: {
-                    SourceEventStation.OnAbilityCasted(item.attachedBodied, abi);
+                    EventStation.OnAbilityCasted(item.attachedBodied, abi);
 
                     break;
                 }
@@ -65,7 +65,7 @@ namespace Hsenl {
 
                     var cooltilltime = TimeInfo.Time + cooldown;
                     abi.ResetCooldown(cooltilltime);
-                    SourceEventStation.OnAbilityCooldown(abi, cooldown, cooltilltime);
+                    EventStation.OnAbilityCooldown(abi, cooldown, cooltilltime);
 
                     if (abi.casterCompensate > 0) {
                         abi.casterCompensate = 0;

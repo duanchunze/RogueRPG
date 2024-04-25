@@ -62,6 +62,8 @@ namespace Hsenl {
         public T info;
 
         public int infoInstanceId;
+        
+        public Type InfoType => typeof(T);
 
         protected override void OnAddToNode(ProcedureLineNode node) {
             if (this.info == null && this.infoInstanceId != 0) {
@@ -69,6 +71,12 @@ namespace Hsenl {
                 if (inf != null) {
                     this.InitInfo(inf);
                 }
+            }
+        }
+        
+        public void InitInfo(object configInfo) {
+            if (configInfo is behavior.Info i) {
+                this.InitInfo(i);
             }
         }
 

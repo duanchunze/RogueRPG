@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -30,7 +31,8 @@ namespace Hsenl {
             }
 
             SingletonManager.Register(ref this._procedureManager);
-            this._procedureManager.RegisterProcedureStates();
+
+            ProcedureManager.Procedure.RegisterProcedureStates(AssemblyHelper.GetSubTypes(typeof(AProcedureState)));
         }
 
         private void OnDestroy() {
@@ -40,11 +42,11 @@ namespace Hsenl {
         private void Start() {
             var type = EventSystem.FindType(this.entryProcedureState);
             if (type == null) throw new Exception($"type not find '{this.entryProcedureState}'");
-            this._procedureManager.ChangeState(type);
+            ProcedureManager.Procedure.ChangeState(type);
         }
 
         private void Update() {
-            this._procedureManager.Update(TimeInfo.DeltaTime);
+            ProcedureManager.Procedure.Update(TimeInfo.DeltaTime);
         }
     }
 }

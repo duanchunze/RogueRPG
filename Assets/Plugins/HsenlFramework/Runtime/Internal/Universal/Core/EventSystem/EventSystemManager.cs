@@ -15,24 +15,24 @@ namespace Hsenl {
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
 #endif
-        private readonly Dictionary<string, Type> _allTypes = new();
+        private readonly Dictionary<string, Type> _allTypes = new(); // key: type.FullName, value: type
 
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
 #endif
-        private readonly MultiList<Type, Type> _typesOfAttribute = new();
+        private readonly MultiList<Type, Type> _typesOfAttribute = new(); // key: attribute type, values: types
 
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
 #endif
-        private readonly MultiList<Type, EventInfo> _allEvents = new();
+        private readonly MultiList<Type, EventInfo> _allEvents = new(); // key: event type
 
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
 #endif
-        private readonly Dictionary<Type, InvokeInfo> _allInvokes = new();
+        private readonly Dictionary<Type, InvokeInfo> _allInvokes = new(); // key: invoke type
 
-        private readonly MultiList<Type, FieldInfo> _staticFieldsOfAttribute = new();
+        private readonly MultiList<Type, FieldInfo> _staticFieldsOfAttribute = new(); // key: FrameworkMemberAttribute type
         private readonly MultiList<Type, PropertyInfo> _staticPropertiesOfAttribute = new();
         private readonly MultiList<Type, MethodInfo> _staticMethodsOfAttribute = new();
 
@@ -819,7 +819,7 @@ namespace Hsenl {
             return liner as T;
         }
 
-        protected override void OnSingleUnregister() {
+        protected override void OnUnregister() {
             this.Assemblies = Array.Empty<Assembly>();
             this._allTypes.Clear();
             this._typesOfAttribute.Clear();

@@ -14,7 +14,7 @@ using SimpleJSON;
 namespace Hsenl.timeline
 { 
 
-public sealed partial class RanshaoInfo :  timeline.TsHarmInfo 
+public sealed partial class RanshaoInfo :  timeline.TsStatusHarmInfo 
 {
     public RanshaoInfo(JSONNode _json)  : base(_json) 
     {

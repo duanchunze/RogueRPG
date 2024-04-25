@@ -7,12 +7,8 @@ using Sirenix.OdinInspector;
 
 namespace Hsenl {
     [MemoryPackable(GenerateType.NoGenerate)]
+    [ComponentOptions(ComponentMode = ComponentMode.Single)]
     public abstract partial class Component : Object, IComponent {
-        public static void CombineComponentType(Component lhs, Component rhs, ComponentTypeCacher typeCacher) {
-            typeCacher.Add(lhs.Entity.componentTypeCacher);
-            typeCacher.Add(rhs.Entity.componentTypeCacher);
-        }
-
 #if UNITY_EDITOR
         [ShowInInspector]
         [MemoryPackIgnore]
@@ -114,8 +110,8 @@ namespace Hsenl {
             this.Enable = true;
         }
 
-        protected internal override void OnDestroyFinish() {
-            base.OnDestroyFinish();
+        protected internal override void OnDisposed() {
+            base.OnDisposed();
             this.entity = null;
 #if UNITY_EDITOR
             this.PartialOnDestroyFinish();

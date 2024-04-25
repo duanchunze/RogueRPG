@@ -2,16 +2,12 @@
   {
     "id": 10001,
     "alias": "短剑",
-    "view_name": "duanjian",
-    "desc": "增加攻速",
     "tags": [],
     "numeric_nodes": []
   },
   {
     "id": 10002,
     "alias": "袖剑",
-    "view_name": "xiujian",
-    "desc": "增加目标数",
     "tags": [],
     "numeric_nodes": [
       {

@@ -10,6 +10,7 @@
         TakeHurt,
         // 附加状态
         AdditionalStatus,
+        AdditionalStatus2,
         // 吸血
         Vamp,
         // 恢复能量

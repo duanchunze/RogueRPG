@@ -2,7 +2,7 @@
 using Hsenl.numeric;
 
 namespace Hsenl {
-    public abstract class TsStatusHarm<T> : TsHarm<T> where T : timeline.TsHarmInfo {
+    public abstract class TsStatusHarm<T> : TsHarm<T> where T : timeline.TsStatusHarmInfo {
         protected Numerator inflictorNumerator;
         protected Numerator beinflictorNumerator;
         protected Numerator statusNumerator;

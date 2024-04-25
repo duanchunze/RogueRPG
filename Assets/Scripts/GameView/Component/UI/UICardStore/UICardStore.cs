@@ -32,7 +32,7 @@ namespace Hsenl.View {
         }
 
         protected override void OnOpen() {
-            SourceEventStation.OnCardResidenceChanged(CardStore.Instance);
+            EventStation.OnCardResidenceChanged(CardStore.Instance);
         }
     }
 }

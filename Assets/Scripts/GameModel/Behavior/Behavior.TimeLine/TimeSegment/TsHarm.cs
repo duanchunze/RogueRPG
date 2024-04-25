@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using Hsenl.numeric;
+using MemoryPack;
 
 namespace Hsenl {
-    public abstract class TsHarm<T> : TsInfo<T> where T : timeline.TsHarmInfo {
+    public abstract class TsHarm<T> : TsInfo<T>, IHarmInfo where T : timeline.TsHarmInfo {
         protected List<Numerator> numerators;
         protected Harmable harmable;
         protected ProcedureLine procedureLine;
+
+        [MemoryPackIgnore]
+        public object HarmInfo => this.info;
 
         // 技能和状态伤害的方式不同, 因为技能我们是可以保证holder一直存在的, 但状态就不行, 可能上完状态后, 这个人就死了, 所以状态是先把伤害存下来, 再使用
         protected override void OnEnable() {

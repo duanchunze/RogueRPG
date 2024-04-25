@@ -77,11 +77,11 @@ public abstract partial class Info :  Bright.Config.BeanBase
             case "timeline.ForceMovementInfo": return new timeline.ForceMovementInfo(_json);
             case "timeline.LeapInfo": return new timeline.LeapInfo(_json);
             case "timeline.JumpAttackInfo": return new timeline.JumpAttackInfo(_json);
-            case "timeline.LiuXueInfo": return new timeline.LiuXueInfo(_json);
-            case "timeline.RanshaoInfo": return new timeline.RanshaoInfo(_json);
             case "timeline.HarmOfColliderInfo": return new timeline.HarmOfColliderInfo(_json);
             case "timeline.HarmOfSphereColliderInfo": return new timeline.HarmOfSphereColliderInfo(_json);
             case "timeline.HarmOfBoxColliderInfo": return new timeline.HarmOfBoxColliderInfo(_json);
+            case "timeline.LiuXueInfo": return new timeline.LiuXueInfo(_json);
+            case "timeline.RanshaoInfo": return new timeline.RanshaoInfo(_json);
             case "timestageline.ActionInfo": return new timestageline.ActionInfo(_json);
             case "timestageline.ConditionOrInfo": return new timestageline.ConditionOrInfo(_json);
             case "timestageline.ConditionAndInfo": return new timestageline.ConditionAndInfo(_json);

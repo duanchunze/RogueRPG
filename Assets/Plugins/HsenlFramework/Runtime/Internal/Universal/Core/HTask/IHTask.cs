@@ -1,5 +1,5 @@
 ﻿namespace Hsenl {
     public interface IHTask {
-        public bool IsCompleted { get; }
+        bool IsCompleted { get; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace Hsenl {
-    public interface IFsm { }
-
-    public interface IFsm<in T> : IFsm where T : FsmState {
-        bool ChangeState(T fsmState);
+    public interface IFsm {
+        T GetState<T>() where T : IFsmState;
+        bool ChangeState<T>()  where T : IFsmState;
     }
 }

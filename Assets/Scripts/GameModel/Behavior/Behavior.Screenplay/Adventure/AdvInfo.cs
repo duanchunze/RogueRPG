@@ -1,4 +1,5 @@
-﻿using Hsenl.behavior;
+﻿using System;
+using Hsenl.behavior;
 
 namespace Hsenl {
     [BehaviorNode]
@@ -9,6 +10,8 @@ namespace Hsenl {
         protected TInfo info;
 
         public int infoInstanceId;
+        
+        public Type InfoType => typeof(TInfo);
 
         protected TRecord Record {
             get {
@@ -26,6 +29,12 @@ namespace Hsenl {
                 if (inf != null) {
                     this.InitInfo(inf);
                 }
+            }
+        }
+        
+        public void InitInfo(object configInfo) {
+            if (configInfo is behavior.Info i) {
+                this.InitInfo(i);
             }
         }
 

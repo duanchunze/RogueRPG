@@ -22,6 +22,8 @@ public sealed partial class Tables
     public card.TbCardSynthesisConfig TbCardSynthesisConfig {get; }
     public pickable.TbPickableConfig TbPickableConfig {get; }
     public ability.TbAbilityConfig TbAbilityConfig {get; }
+    public ability.TbAbilityPatchConfig TbAbilityPatchConfig {get; }
+    public ability.TbAbilityTraitConfig TbAbilityTraitConfig {get; }
     public ability_upgrade.TbAbilityUpgradeConfig TbAbilityUpgradeConfig {get; }
     public ability_assist.TbAbilityAssistConfig TbAbilityAssistConfig {get; }
     public status.TbStatusConfig TbStatusConfig {get; }
@@ -30,6 +32,8 @@ public sealed partial class Tables
     public checkpoint.TbCheckpointConfig TbCheckpointConfig {get; }
     public adventure.TbAdventureConfig TbAdventureConfig {get; }
     public bolt.TbBoltConfig TbBoltConfig {get; }
+    public localization.TbLocalizationConfig TbLocalizationConfig {get; }
+    public localization.TbLocalizationAbilityConfig TbLocalizationAbilityConfig {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
@@ -50,6 +54,10 @@ public sealed partial class Tables
         tables.Add("pickable.TbPickableConfig", TbPickableConfig);
         TbAbilityConfig = new ability.TbAbilityConfig(loader("ability_tbabilityconfig")); 
         tables.Add("ability.TbAbilityConfig", TbAbilityConfig);
+        TbAbilityPatchConfig = new ability.TbAbilityPatchConfig(loader("ability_tbabilitypatchconfig")); 
+        tables.Add("ability.TbAbilityPatchConfig", TbAbilityPatchConfig);
+        TbAbilityTraitConfig = new ability.TbAbilityTraitConfig(loader("ability_tbabilitytraitconfig")); 
+        tables.Add("ability.TbAbilityTraitConfig", TbAbilityTraitConfig);
         TbAbilityUpgradeConfig = new ability_upgrade.TbAbilityUpgradeConfig(loader("ability_upgrade_tbabilityupgradeconfig")); 
         tables.Add("ability_upgrade.TbAbilityUpgradeConfig", TbAbilityUpgradeConfig);
         TbAbilityAssistConfig = new ability_assist.TbAbilityAssistConfig(loader("ability_assist_tbabilityassistconfig")); 
@@ -66,6 +74,10 @@ public sealed partial class Tables
         tables.Add("adventure.TbAdventureConfig", TbAdventureConfig);
         TbBoltConfig = new bolt.TbBoltConfig(loader("bolt_tbboltconfig")); 
         tables.Add("bolt.TbBoltConfig", TbBoltConfig);
+        TbLocalizationConfig = new localization.TbLocalizationConfig(loader("localization_tblocalizationconfig")); 
+        tables.Add("localization.TbLocalizationConfig", TbLocalizationConfig);
+        TbLocalizationAbilityConfig = new localization.TbLocalizationAbilityConfig(loader("localization_tblocalizationabilityconfig")); 
+        tables.Add("localization.TbLocalizationAbilityConfig", TbLocalizationAbilityConfig);
         PostInit();
 
         TbCardSingletonConfig.Resolve(tables); 
@@ -76,6 +88,8 @@ public sealed partial class Tables
         TbCardSynthesisConfig.Resolve(tables); 
         TbPickableConfig.Resolve(tables); 
         TbAbilityConfig.Resolve(tables); 
+        TbAbilityPatchConfig.Resolve(tables); 
+        TbAbilityTraitConfig.Resolve(tables); 
         TbAbilityUpgradeConfig.Resolve(tables); 
         TbAbilityAssistConfig.Resolve(tables); 
         TbStatusConfig.Resolve(tables); 
@@ -84,6 +98,8 @@ public sealed partial class Tables
         TbCheckpointConfig.Resolve(tables); 
         TbAdventureConfig.Resolve(tables); 
         TbBoltConfig.Resolve(tables); 
+        TbLocalizationConfig.Resolve(tables); 
+        TbLocalizationAbilityConfig.Resolve(tables); 
         PostResolve();
     }
 
@@ -97,6 +113,8 @@ public sealed partial class Tables
         TbCardSynthesisConfig.TranslateText(translator); 
         TbPickableConfig.TranslateText(translator); 
         TbAbilityConfig.TranslateText(translator); 
+        TbAbilityPatchConfig.TranslateText(translator); 
+        TbAbilityTraitConfig.TranslateText(translator); 
         TbAbilityUpgradeConfig.TranslateText(translator); 
         TbAbilityAssistConfig.TranslateText(translator); 
         TbStatusConfig.TranslateText(translator); 
@@ -105,6 +123,8 @@ public sealed partial class Tables
         TbCheckpointConfig.TranslateText(translator); 
         TbAdventureConfig.TranslateText(translator); 
         TbBoltConfig.TranslateText(translator); 
+        TbLocalizationConfig.TranslateText(translator); 
+        TbLocalizationAbilityConfig.TranslateText(translator); 
     }
     
     partial void PostInit();

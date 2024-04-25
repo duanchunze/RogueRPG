@@ -26,13 +26,6 @@ namespace Hsenl {
             this.child.Parent = this;
         }
 
-        public sealed override IEnumerable<INode> ForeachChildren() {
-            if (this.child == null)
-                yield break;
-
-            yield return this.child;
-        }
-
         public sealed override void StartNode(IBehaviorTree tree) {
             if (this.manager != null) throw new Exception("already has manager");
             if (tree == null) throw new ArgumentNullException("start node failure, tree is null");
@@ -127,6 +120,13 @@ namespace Hsenl {
             this.RemoveChild(this.child);
         }
 
+        public sealed override void ForeachChildren(Action<INode> callback) {
+            if (this.child == null)
+                return;
+
+            callback.Invoke(this.child);
+        }
+
         public sealed override T GetNodeInChildren<T>(bool once = false) {
             if (this.child == null) return default;
 
@@ -137,6 +137,26 @@ namespace Hsenl {
             if (once) return default;
 
             return this.child.GetNodeInChildren<T>();
+        }
+
+        public sealed override T[] GetNodesInChildren<T>(bool once = false) {
+            if (this.child == null)
+                return default;
+
+            using var list = ListComponent<T>.Create();
+            this.GetNodesInChildren(list);
+            return list.ToArray();
+        }
+
+        public sealed override void GetNodesInChildren<T>(List<T> cache, bool once = false) {
+            if (this.child == null) return;
+            if (this.child is T t) {
+                cache.Add(t);
+            }
+
+            if (once) return;
+
+            this.child.GetNodesInChildren(cache);
         }
     }
 }

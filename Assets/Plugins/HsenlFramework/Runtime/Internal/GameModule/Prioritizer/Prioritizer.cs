@@ -55,8 +55,8 @@ namespace Hsenl {
         [MemoryPackIgnore]
         protected Dictionary<int, IPriorityState> defaults = new();
 
-        protected internal override void OnDestroyFinish() {
-            base.OnDestroyFinish();
+        protected internal override void OnDisposed() {
+            base.OnDisposed();
             foreach (var state in this.states) {
                 state.Leave();
             }

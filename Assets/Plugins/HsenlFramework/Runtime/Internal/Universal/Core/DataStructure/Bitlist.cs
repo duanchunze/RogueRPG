@@ -73,8 +73,8 @@ namespace Hsenl {
                 var bitnum = Bitlist.NumOfBits >> counter;
                 var tempmask = mask >> (bitnum + position_r);
                 tempmask <<= position_r;
-                var orv = value & tempmask;
-                if (orv != 0) {
+                var andv = value & tempmask;
+                if (andv != 0) {
                     position_l += bitnum;
                     mask = tempmask;
                 }
@@ -343,8 +343,8 @@ namespace Hsenl {
         public bool ContainsAny(IReadOnlyBitlist other) {
             var min = Math.Min(other.BucketLength, this.BucketLength);
             for (int i = 0; i < min; i++) {
-                var orv = this[i] & other[i];
-                if (orv != 0) {
+                var andv = this[i] & other[i];
+                if (andv != 0) {
                     return true;
                 }
             }
@@ -356,9 +356,9 @@ namespace Hsenl {
             num = 0;
             var min = Math.Min(other.BucketLength, this.BucketLength);
             for (int i = 0; i < min; i++) {
-                var orv = this[i] & other[i];
-                if (orv != 0) {
-                    num = BitlistAssistant.GetBitPosition(orv) + i * NumOfBits;
+                var andv = this[i] & other[i];
+                if (andv != 0) {
+                    num = BitlistAssistant.GetBitPosition(andv) + i * NumOfBits;
                     return true;
                 }
             }
@@ -370,9 +370,9 @@ namespace Hsenl {
             var count = 0;
             var min = Math.Min(other.BucketLength, this.BucketLength);
             for (int i = 0; i < min; i++) {
-                var orv = this[i] & other[i];
-                if (orv != 0) {
-                    count += BitlistAssistant.GetBitOneCount(orv);
+                var andv = this[i] & other[i];
+                if (andv != 0) {
+                    count += BitlistAssistant.GetBitOneCount(andv);
                 }
             }
 
@@ -406,8 +406,8 @@ namespace Hsenl {
         public bool ContainsAny(Bitlist other) {
             var min = Math.Min(other.BucketLength, this.BucketLength);
             for (int i = 0; i < min; i++) {
-                var orv = this[i] & other[i];
-                if (orv != 0) {
+                var andv = this[i] & other[i];
+                if (andv != 0) {
                     return true;
                 }
             }
@@ -420,9 +420,9 @@ namespace Hsenl {
             num = 0;
             var min = Math.Min(other.BucketLength, this.BucketLength);
             for (int i = 0; i < min; i++) {
-                var orv = this[i] & other[i];
-                if (orv != 0) {
-                    num = BitlistAssistant.GetBitPosition(orv) + i * NumOfBits;
+                var andv = this[i] & other[i];
+                if (andv != 0) {
+                    num = BitlistAssistant.GetBitPosition(andv) + i * NumOfBits;
                     return true;
                 }
             }
@@ -435,9 +435,9 @@ namespace Hsenl {
             var count = 0;
             var min = Math.Min(other.BucketLength, this.BucketLength);
             for (int i = 0; i < min; i++) {
-                var orv = this[i] & other[i];
-                if (orv != 0) {
-                    count += BitlistAssistant.GetBitOneCount(orv);
+                var andv = this[i] & other[i];
+                if (andv != 0) {
+                    count += BitlistAssistant.GetBitOneCount(andv);
                 }
             }
 
@@ -605,10 +605,10 @@ namespace Hsenl {
                 for (int i = bucketIndex; i < this._minBucketLen; i++, bitIndex = 0) {
                     var bit1 = this._lhs[i];
                     var bit2 = this._rhs[i];
-                    var orv = bit1 & bit2;
-                    if (orv == 0) continue;
+                    var andv = bit1 & bit2;
+                    if (andv == 0) continue;
                     for (var j = bitIndex; j < NumOfBits; j++) {
-                        if ((orv & (One << j)) != 0) {
+                        if ((andv & (One << j)) != 0) {
                             this.Current = i * NumOfBits + j;
                             return true;
                         }

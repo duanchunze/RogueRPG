@@ -2,8 +2,6 @@
   {
     "id": 10000,
     "alias": "待机",
-    "view_name": "Idle",
-    "desc": "",
     "star": 0,
     "cooldown": 0,
     "mana_cost": 0,
@@ -17,7 +15,7 @@
       "$type": "Null"
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [],
     "caster_evaluates": [],
@@ -60,13 +58,11 @@
         ]
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10001,
     "alias": "停止",
-    "view_name": "Stop",
-    "desc": "",
     "star": 0,
     "cooldown": 0,
     "mana_cost": 0,
@@ -82,7 +78,7 @@
       "support_continue": false
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [],
     "caster_evaluates": [],
@@ -118,13 +114,11 @@
         "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10002,
     "alias": "方向移动",
-    "view_name": "DirectionMove",
-    "desc": "",
     "star": 0,
     "cooldown": 0,
     "mana_cost": 0,
@@ -141,7 +135,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [],
     "caster_evaluates": [],
@@ -191,13 +185,11 @@
         ]
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10003,
     "alias": "点击移动",
-    "view_name": "PointMove",
-    "desc": "",
     "star": 0,
     "cooldown": 0,
     "mana_cost": 0,
@@ -214,7 +206,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [],
     "caster_evaluates": [],
@@ -264,13 +256,11 @@
         ]
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10004,
     "alias": "点击移动-内部",
-    "view_name": "PointMove_Internal",
-    "desc": "",
     "star": 0,
     "cooldown": 0,
     "mana_cost": 0,
@@ -287,7 +277,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [],
     "caster_evaluates": [],
@@ -337,13 +327,11 @@
         ]
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10005,
     "alias": "跃进",
-    "view_name": "Leap",
-    "desc": "",
     "star": 0,
     "cooldown": 0,
     "mana_cost": 0,
@@ -359,7 +347,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [],
     "caster_evaluates": [],
@@ -410,17 +398,15 @@
         ]
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10100,
     "alias": "劈砍",
-    "view_name": "pikan",
-    "desc": "这是英雄使用的普攻",
     "star": 1,
     "cooldown": 1,
     "mana_cost": -10,
-    "detect_range": 2.5,
+    "detect_range": 1,
     "numeric_nodes": [
       {
         "type": 40,
@@ -433,7 +419,7 @@
         "type": 28,
         "layer": 2,
         "model": 0,
-        "value": 1,
+        "value": 999,
         "sign": ""
       },
       {
@@ -456,7 +442,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -515,13 +501,7 @@
             "model": 1,
             "point": 0,
             "anim": "attack1"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -535,7 +515,13 @@
             "point": 0,
             "key": 0,
             "value": "hit2"
-          },
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
           {
             "$type": "HarmOfTargetedInfo",
             "model": 1,
@@ -559,17 +545,15 @@
         "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10101,
     "alias": "劈砍2",
-    "view_name": "pikan2",
-    "desc": "这是英雄使用的普攻",
     "star": 2,
     "cooldown": 1,
     "mana_cost": -15,
-    "detect_range": 2.5,
+    "detect_range": 1,
     "numeric_nodes": [
       {
         "type": 40,
@@ -605,7 +589,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -664,13 +648,7 @@
             "model": 1,
             "point": 0,
             "anim": "attack1"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -684,7 +662,13 @@
             "point": 0,
             "key": 0,
             "value": "hit2"
-          },
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
           {
             "$type": "HarmOfTargetedInfo",
             "model": 1,
@@ -693,7 +677,7 @@
               "damage_formulas": [
                 {
                   "type": 12,
-                  "pct": 2,
+                  "pct": 1.5,
                   "fix": 0
                 }
               ],
@@ -708,17 +692,15 @@
         "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10102,
     "alias": "劈砍3",
-    "view_name": "pikan3",
-    "desc": "这是英雄使用的普攻",
     "star": 3,
     "cooldown": 1,
     "mana_cost": -20,
-    "detect_range": 2.5,
+    "detect_range": 1,
     "numeric_nodes": [
       {
         "type": 40,
@@ -754,7 +736,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -813,13 +795,7 @@
             "model": 1,
             "point": 0,
             "anim": "attack1"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -833,7 +809,13 @@
             "point": 0,
             "key": 0,
             "value": "hit2"
-          },
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
           {
             "$type": "HarmOfTargetedInfo",
             "model": 1,
@@ -842,7 +824,7 @@
               "damage_formulas": [
                 {
                   "type": 12,
-                  "pct": 3,
+                  "pct": 2,
                   "fix": 0
                 }
               ],
@@ -857,17 +839,15 @@
         "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10300,
     "alias": "月之投射",
-    "view_name": "moonfire",
-    "desc": "",
     "star": 1,
     "cooldown": 1,
     "mana_cost": -10,
-    "detect_range": 2.5,
+    "detect_range": 1,
     "numeric_nodes": [
       {
         "type": 40,
@@ -917,7 +897,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -976,13 +956,7 @@
             "model": 1,
             "point": 0,
             "anim": "attack1"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -996,7 +970,13 @@
             "point": 0,
             "key": 0,
             "value": "hit2"
-          },
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
           {
             "$type": "HarmOfTargetedBoltInfo",
             "model": 1,
@@ -1022,17 +1002,15 @@
         "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10301,
     "alias": "月之投射2",
-    "view_name": "moonfire2",
-    "desc": "",
     "star": 1,
     "cooldown": 1,
     "mana_cost": -15,
-    "detect_range": 2.5,
+    "detect_range": 1,
     "numeric_nodes": [
       {
         "type": 40,
@@ -1082,7 +1060,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -1141,13 +1119,7 @@
             "model": 1,
             "point": 0,
             "anim": "attack1"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -1161,7 +1133,13 @@
             "point": 0,
             "key": 0,
             "value": "hit2"
-          },
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
           {
             "$type": "HarmOfTargetedBoltInfo",
             "model": 1,
@@ -1187,17 +1165,15 @@
         "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10302,
     "alias": "月之投射3",
-    "view_name": "moonfire3",
-    "desc": "",
     "star": 1,
     "cooldown": 1,
     "mana_cost": -20,
-    "detect_range": 2.5,
+    "detect_range": 1,
     "numeric_nodes": [
       {
         "type": 40,
@@ -1247,7 +1223,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -1306,13 +1282,7 @@
             "model": 1,
             "point": 0,
             "anim": "attack1"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -1326,7 +1296,13 @@
             "point": 0,
             "key": 0,
             "value": "hit2"
-          },
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
           {
             "$type": "HarmOfTargetedBoltInfo",
             "model": 1,
@@ -1352,13 +1328,11 @@
         "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10200,
     "alias": "大蒜",
-    "view_name": "dasuan",
-    "desc": "范围持续伤害",
     "star": 1,
     "cooldown": 0.75,
     "mana_cost": -2,
@@ -1396,7 +1370,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -1460,18 +1434,22 @@
                 }
               ],
               "damage_type": 0
-            }
+            },
+            "center": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "radius": 0.5
           }
         ]
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10400,
     "alias": "流星落",
-    "view_name": "liuxingluo",
-    "desc": "攻击时概率触发流星陨落",
     "star": 1,
     "cooldown": 0,
     "mana_cost": 0,
@@ -1568,17 +1546,15 @@
         "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10600,
     "alias": "跳劈",
-    "view_name": "tiaopi",
-    "desc": "",
     "star": 1,
     "cooldown": 1,
     "mana_cost": 30,
-    "detect_range": 2.5,
+    "detect_range": 1,
     "numeric_nodes": [
       {
         "type": 40,
@@ -1598,7 +1574,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 0,
+        "value": 25,
         "sign": ""
       }
     ],
@@ -1613,7 +1589,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -1676,13 +1652,7 @@
             "model": 1,
             "point": 0,
             "anim": "attack3"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -1696,7 +1666,13 @@
             "point": 0,
             "key": 0,
             "value": "hit2"
-          },
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
           {
             "$type": "HarmOfTargetedInfo",
             "model": 1,
@@ -1705,7 +1681,7 @@
               "damage_formulas": [
                 {
                   "type": 12,
-                  "pct": 2,
+                  "pct": 1.5,
                   "fix": 0
                 }
               ],
@@ -1720,17 +1696,15 @@
         "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 10700,
     "alias": "烈火刀法",
-    "view_name": "liehuodaofa",
-    "desc": "",
     "star": 1,
-    "cooldown": 1,
-    "mana_cost": 30,
-    "detect_range": 2.5,
+    "cooldown": 5,
+    "mana_cost": 0,
+    "detect_range": 1,
     "numeric_nodes": [
       {
         "type": 40,
@@ -1757,7 +1731,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 0,
+        "value": 25,
         "sign": ""
       }
     ],
@@ -1772,7 +1746,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -1835,13 +1809,7 @@
             "model": 1,
             "point": 0,
             "anim": "attack3"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -1855,9 +1823,15 @@
             "point": 0,
             "key": 0,
             "value": "hit2"
-          },
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
           {
-            "$type": "HarmOfColliderInfo",
+            "$type": "HarmOfBoxColliderInfo",
             "model": 1,
             "origin": 0,
             "dest": 1,
@@ -1865,13 +1839,22 @@
               "damage_formulas": [
                 {
                   "type": 12,
-                  "pct": 3,
+                  "pct": 1.5,
                   "fix": 0
                 }
               ],
               "damage_type": 0
             },
-            "collider_name": "col_abi_liehuodaofa"
+            "center": {
+              "x": 0,
+              "y": 0,
+              "z": 0.5
+            },
+            "size": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
           }
         ]
       },
@@ -1881,22 +1864,17 @@
         "actions": []
       }
     ],
-    "affixes": [
-      {
-        "$type": "AdditionalStatusOnAbilityDamageInfo",
-        "status_alias": "燃烧"
-      }
+    "traits": [
+      10101
     ]
   },
   {
     "id": 10800,
     "alias": "屠戮刀法",
-    "view_name": "tuludaofa",
-    "desc": "",
     "star": 1,
-    "cooldown": 1,
-    "mana_cost": 30,
-    "detect_range": 2.5,
+    "cooldown": 5,
+    "mana_cost": 0,
+    "detect_range": 1,
     "numeric_nodes": [
       {
         "type": 40,
@@ -1923,7 +1901,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 0,
+        "value": 25,
         "sign": ""
       }
     ],
@@ -1938,7 +1916,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -2001,13 +1979,7 @@
             "model": 1,
             "point": 0,
             "anim": "attack3"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -2021,9 +1993,15 @@
             "point": 0,
             "key": 0,
             "value": "hit2"
-          },
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
           {
-            "$type": "HarmOfColliderInfo",
+            "$type": "HarmOfBoxColliderInfo",
             "model": 1,
             "origin": 0,
             "dest": 1,
@@ -2031,13 +2009,22 @@
               "damage_formulas": [
                 {
                   "type": 12,
-                  "pct": 2,
+                  "pct": 1.2,
                   "fix": 0
                 }
               ],
               "damage_type": 0
             },
-            "collider_name": "col_abi_tuludaofa"
+            "center": {
+              "x": 0,
+              "y": 0,
+              "z": 0.5
+            },
+            "size": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
           }
         ]
       },
@@ -2047,22 +2034,17 @@
         "actions": []
       }
     ],
-    "affixes": [
-      {
-        "$type": "AdditionalStatusOnAbilityDamageInfo",
-        "status_alias": "流血"
-      }
+    "traits": [
+      10100
     ]
   },
   {
     "id": 10900,
     "alias": "地波斩",
-    "view_name": "dibozhan",
-    "desc": "",
     "star": 1,
-    "cooldown": 1,
-    "mana_cost": 30,
-    "detect_range": 2.5,
+    "cooldown": 5,
+    "mana_cost": 0,
+    "detect_range": 1,
     "numeric_nodes": [
       {
         "type": 40,
@@ -2096,7 +2078,7 @@
         "type": 37,
         "layer": 2,
         "model": 0,
-        "value": 0,
+        "value": 25,
         "sign": ""
       }
     ],
@@ -2111,7 +2093,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -2174,13 +2156,7 @@
             "model": 1,
             "point": 0,
             "anim": "attack3"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -2194,7 +2170,13 @@
             "point": 0,
             "key": 0,
             "value": "hit2"
-          },
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
           {
             "$type": "HarmOfDibozhanBoltInfo",
             "model": 1,
@@ -2210,9 +2192,9 @@
               "damage_type": 0
             },
             "bolt_config_alias": "地波斩投射物",
-            "num": 6,
-            "internal_time": 0.1,
-            "internal_distance": 1
+            "num": 12,
+            "internal_time": 0.13,
+            "internal_distance": 0.5
           }
         ]
       },
@@ -2222,13 +2204,11 @@
         "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 20000,
     "alias": "怪物横砍",
-    "view_name": "gw_hengkan",
-    "desc": "骷髅怪的普攻",
     "star": 0,
     "cooldown": 3.5,
     "mana_cost": -10,
@@ -2275,7 +2255,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -2343,22 +2323,10 @@
             "type": 0
           },
           {
-            "$type": "InflictionStatusToSelfInfo",
-            "model": 0,
-            "point": 0.1,
-            "status_alias": "霸体"
-          },
-          {
             "$type": "RecordCastDirectionInfo",
             "model": 1,
             "point": 0
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0.05,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -2367,20 +2335,26 @@
             "value": "hit2"
           },
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0.05,
+        "actions": [
+          {
             "$type": "CloseWarningBoardInfo",
             "model": 1,
             "point": 0,
             "asset_name": "hengkan"
           },
           {
-            "$type": "SetDataInfo",
-            "model": 1,
-            "point": 0,
-            "key": 0,
-            "value": "hit"
-          },
-          {
-            "$type": "HarmOfColliderInfo",
+            "$type": "HarmOfBoxColliderInfo",
             "model": 1,
             "origin": 0,
             "dest": 1,
@@ -2388,36 +2362,36 @@
               "damage_formulas": [
                 {
                   "type": 12,
-                  "pct": 1,
+                  "pct": 0.75,
                   "fix": 0
                 }
               ],
               "damage_type": 0
             },
-            "collider_name": "col_abi_gw_hengkan"
+            "center": {
+              "x": 0,
+              "y": 0,
+              "z": 0.5
+            },
+            "size": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
           }
         ]
       },
       {
         "stageType": 6,
         "duration": 1.5,
-        "actions": [
-          {
-            "$type": "RemoveStatusFromSelfInfo",
-            "model": 1,
-            "point": 0,
-            "status_alias": "霸体"
-          }
-        ]
+        "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 20005,
     "alias": "怪物快射",
-    "view_name": "gw_kuaishe",
-    "desc": "骷髅弓箭手的普攻",
     "star": 0,
     "cooldown": 3.5,
     "mana_cost": -10,
@@ -2464,7 +2438,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -2532,22 +2506,10 @@
             "type": 1
           },
           {
-            "$type": "InflictionStatusToSelfInfo",
-            "model": 0,
-            "point": 0.1,
-            "status_alias": "霸体"
-          },
-          {
             "$type": "RecordCastDirectionInfo",
             "model": 1,
             "point": 0
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0.3,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -2556,17 +2518,29 @@
             "value": "hit2"
           },
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0.3,
+        "actions": [
+          {
             "$type": "PlayAnimInfo",
             "model": 1,
             "point": 0,
             "anim": "attack1"
           },
           {
-            "$type": "SetDataInfo",
+            "$type": "CloseWarningBoardInfo",
             "model": 1,
             "point": 0,
-            "key": 0,
-            "value": "hit"
+            "asset_name": "kuaishe"
           },
           {
             "$type": "HarmOfDirectionBoltInfo",
@@ -2576,7 +2550,7 @@
               "damage_formulas": [
                 {
                   "type": 12,
-                  "pct": 1,
+                  "pct": 0.75,
                   "fix": 0
                 }
               ],
@@ -2594,7 +2568,7 @@
               "damage_formulas": [
                 {
                   "type": 12,
-                  "pct": 1,
+                  "pct": 0.75,
                   "fix": 0
                 }
               ],
@@ -2612,7 +2586,7 @@
               "damage_formulas": [
                 {
                   "type": 12,
-                  "pct": 1,
+                  "pct": 0.75,
                   "fix": 0
                 }
               ],
@@ -2621,35 +2595,20 @@
             "bolt_config_alias": "快射投射物",
             "distance": 8,
             "speed": 7
-          },
-          {
-            "$type": "CloseWarningBoardInfo",
-            "model": 1,
-            "point": 0,
-            "asset_name": "kuaishe"
           }
         ]
       },
       {
         "stageType": 6,
         "duration": 1.5,
-        "actions": [
-          {
-            "$type": "RemoveStatusFromSelfInfo",
-            "model": 1,
-            "point": 0,
-            "status_alias": "霸体"
-          }
-        ]
+        "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   },
   {
     "id": 20006,
     "alias": "怪物劈砍",
-    "view_name": "gw_pikan",
-    "desc": "骷髅怪的普攻",
     "star": 0,
     "cooldown": 3.5,
     "mana_cost": -10,
@@ -2696,7 +2655,7 @@
       "support_continue": true
     },
     "caster_of_plw": {
-      "$type": "WorkerNull"
+      "$type": "CastWorkerNull"
     },
     "target_tags": [
       1
@@ -2764,22 +2723,10 @@
             "type": 0
           },
           {
-            "$type": "InflictionStatusToSelfInfo",
-            "model": 0,
-            "point": 0.1,
-            "status_alias": "霸体"
-          },
-          {
             "$type": "RecordCastDirectionInfo",
             "model": 1,
             "point": 0
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0.05,
-        "actions": [
+          },
           {
             "$type": "SetDataInfo",
             "model": 1,
@@ -2788,20 +2735,26 @@
             "value": "hit2"
           },
           {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0.05,
+        "actions": [
+          {
             "$type": "CloseWarningBoardInfo",
             "model": 1,
             "point": 0,
             "asset_name": "pikan"
           },
           {
-            "$type": "SetDataInfo",
-            "model": 1,
-            "point": 0,
-            "key": 0,
-            "value": "hit"
-          },
-          {
-            "$type": "HarmOfColliderInfo",
+            "$type": "HarmOfBoxColliderInfo",
             "model": 1,
             "origin": 0,
             "dest": 1,
@@ -2809,29 +2762,31 @@
               "damage_formulas": [
                 {
                   "type": 12,
-                  "pct": 1,
+                  "pct": 0.75,
                   "fix": 0
                 }
               ],
               "damage_type": 0
             },
-            "collider_name": "col_abi_gw_pikan"
+            "center": {
+              "x": 0,
+              "y": 0,
+              "z": 1.2
+            },
+            "size": {
+              "x": 0.65,
+              "y": 1,
+              "z": 2.15
+            }
           }
         ]
       },
       {
         "stageType": 6,
         "duration": 1.5,
-        "actions": [
-          {
-            "$type": "RemoveStatusFromSelfInfo",
-            "model": 1,
-            "point": 0,
-            "status_alias": "霸体"
-          }
-        ]
+        "actions": []
       }
     ],
-    "affixes": []
+    "traits": []
   }
 ]

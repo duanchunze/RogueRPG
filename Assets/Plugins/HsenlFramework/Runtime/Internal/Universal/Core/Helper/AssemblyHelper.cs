@@ -112,14 +112,16 @@ namespace Hsenl {
         /// 获得指定基类的所有子类的名称
         /// </summary>
         /// <param name="typeBase"></param>
+        /// <param name="assemblies"></param>
         /// <param name="includeAssemblyName"></param>
         /// <returns></returns>
-        public static string[] GetSubTypeNames(Type typeBase, bool includeAssemblyName = false) {
+        public static string[] GetSubTypeNames(Type typeBase, Assembly[] assemblies = null, bool includeAssemblyName = false) {
+            assemblies ??= _assemblies;
             var typeNames = new List<string>();
-            foreach (var assembly in _assemblies) {
+            foreach (var assembly in assemblies) {
                 var types = assembly.GetTypes();
                 foreach (var type in types) {
-                    if (type.IsClass && !type.IsAbstract && typeBase.IsAssignableFrom(type)) {
+                    if (type.IsClass && type != typeBase && !type.IsAbstract && typeBase.IsAssignableFrom(type)) {
                         if (includeAssemblyName) {
                             typeNames.Add($"{assembly.FullName}.{type.FullName}");
                         }
@@ -137,7 +139,7 @@ namespace Hsenl {
         public static string[] GetSubTypeNamesInAssembly(Type typeBase, Assembly assembly) {
             var typeNames = new List<string>();
             foreach (var type in assembly.GetTypes()) {
-                if (type.IsClass && !type.IsAbstract && typeBase.IsAssignableFrom(type)) {
+                if (type.IsClass && type != typeBase && !type.IsAbstract && typeBase.IsAssignableFrom(type)) {
                     typeNames.Add(type.FullName);
                 }
             }
@@ -158,7 +160,7 @@ namespace Hsenl {
             foreach (var assembly in assemblies) {
                 var types = assembly.GetTypes();
                 foreach (var type in types) {
-                    if (typeBase != type && typeBase.IsAssignableFrom(type)) {
+                    if (type.IsClass && type != typeBase && !type.IsAbstract && typeBase.IsAssignableFrom(type)) {
                         results.Add(type);
                     }
                 }
@@ -170,7 +172,7 @@ namespace Hsenl {
         public static Type[] GetSubTypesInAssembly(Type typeBase, Assembly assembly) {
             var results = new List<Type>();
             foreach (var type in assembly.GetTypes()) {
-                if (type.IsClass && !type.IsAbstract && typeBase.IsAssignableFrom(type)) {
+                if (type.IsClass && type != typeBase && !type.IsAbstract && typeBase.IsAssignableFrom(type)) {
                     results.Add(type);
                 }
             }
@@ -188,7 +190,7 @@ namespace Hsenl {
                 .ToArray();
         }
 
-        public static bool GetPropertyValue<T>(Type type, object o, string propertyName, out T result) {
+        public static bool GetPropertyValue<T>(Type type, string propertyName, object o, out T result) {
             var propertyInfo = type.GetProperty(propertyName, BindingFlagsInstanceIgnorePublic | BindingFlags.GetProperty);
             if (propertyInfo == null) {
                 result = default;
@@ -204,7 +206,7 @@ namespace Hsenl {
             return false;
         }
 
-        public static T GetPropertyValue<T>(Type type, object o, string propertyName) {
+        public static T GetPropertyValue<T>(Type type, string propertyName, object o) {
             var propertyInfo = type.GetProperty(propertyName, BindingFlagsInstanceIgnorePublic | BindingFlags.GetProperty);
             if (propertyInfo == null) {
                 return default;

@@ -1,5 +1,6 @@
 ﻿using MemoryPack;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Hsenl {
     public partial class NavMeshAgent {
@@ -65,6 +66,24 @@ namespace Hsenl {
             set => this._navMeshAgent.velocity = value;
         }
 
+        [MemoryPackIgnore]
+        public int AgentTypeID {
+            get => this._navMeshAgent.agentTypeID;
+            set => this._navMeshAgent.agentTypeID = value;
+        }
+
+        [MemoryPackIgnore]
+        public int AvoidancePriority {
+            get => this._navMeshAgent.avoidancePriority;
+            set => this._navMeshAgent.avoidancePriority = value;
+        }
+
+        [MemoryPackIgnore]
+        public ObstacleAvoidanceType ObstacleAvoidanceType {
+            get => this._navMeshAgent.obstacleAvoidanceType;
+            set => this._navMeshAgent.obstacleAvoidanceType = value;
+        }
+
         protected override void OnDeserialized() {
             this._navMeshAgent = this.GetMonoComponent<UnityEngine.AI.NavMeshAgent>();
             if (this._navMeshAgent == null) {
@@ -97,7 +116,9 @@ namespace Hsenl {
 
         public void SetPosition(Vector3 position) {
             this._navMeshAgent.isStopped = true;
+            this._navMeshAgent.enabled = false;
             this.transform.Position = position;
+            this._navMeshAgent.enabled = true;
         }
 
         public void MoveToPoint(Vector3 point, float speed, float stopDis = 0.05f) {

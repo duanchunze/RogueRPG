@@ -36,6 +36,9 @@ namespace Hsenl {
         }
 
         private IEnumerator HarmTargets(SelectionTarget target, IList<FactionType> factionTypes, int count) {
+            const int maxBuffer = 3; // 每次波及时的最大缓冲数
+            const int internalTime = 250; // 每次波及的间隔时间(ms)
+            
             var constrainsTags = this._faction.GetTagsOfFactionTypes(factionTypes);
             using var currentTargets = ListComponent<SelectionTarget>.Create();
             using var buffers = HashSetComponent<SelectionTarget>.Create();
@@ -80,9 +83,9 @@ namespace Hsenl {
                     if (targets == null)
                         continue;
 
-                    var maxBuffer = (targets.Count / 2);
-                    if (maxBuffer > 3)
-                        maxBuffer = 3;
+                    var max = (targets.Count / 2);
+                    if (max > maxBuffer)
+                        max = maxBuffer;
                     for (int i = 0, len = targets.Count; i < len; i++) {
                         if (count == 0)
                             break;
@@ -91,7 +94,7 @@ namespace Hsenl {
                         if (!buffers.Contains(selectionTarget) && !harmedTargets.Contains(selectionTarget)) {
                             count--;
                             buffers.Add(selectionTarget);
-                            if (buffers.Count > maxBuffer) {
+                            if (buffers.Count > max) {
                                 break;
                             }
                         }
@@ -103,11 +106,12 @@ namespace Hsenl {
                     currentTargets.Add(buffer);
                 }
 
+                // 每次波及, 伤害递减0.2, 最低降到0.3
                 damageRate -= 0.2f;
                 if (damageRate < 0.3f)
                     damageRate = 0.3f;
 
-                yield return new WaitSeconds(150);
+                yield return new WaitSeconds(internalTime);
             }
         }
     }

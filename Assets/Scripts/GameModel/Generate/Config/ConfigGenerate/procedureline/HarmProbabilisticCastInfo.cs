@@ -17,7 +17,7 @@ namespace Hsenl.procedureline
 /// <summary>
 /// 造成伤害时, 有概率触发施法
 /// </summary>
-public sealed partial class HarmProbabilisticCastInfo :  procedureline.WorkerInfo 
+public sealed partial class HarmProbabilisticCastInfo :  procedureline.CastWorkerInfo 
 {
     public HarmProbabilisticCastInfo(JSONNode _json)  : base(_json) 
     {

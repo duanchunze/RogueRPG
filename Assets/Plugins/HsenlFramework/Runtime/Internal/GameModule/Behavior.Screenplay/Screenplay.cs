@@ -104,8 +104,8 @@ namespace Hsenl {
             }
         }
 
-        protected internal override void OnDestroyFinish() {
-            base.OnDestroyFinish();
+        protected internal override void OnDisposed() {
+            base.OnDisposed();
             this.record = default;
             this.entryNode = default;
             this.currentNode = null;

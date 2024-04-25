@@ -1,6 +1,6 @@
 ﻿namespace Hsenl.View {
     public static class UIName {
-        public const string HeroHeadMessage = "UIHeadFollow_Hero";
-        public const string MonsterHeadMessage = "UIHeadFollow_Monster";
+        public const string HeroHeadFollow = "UIHeadFollow_Hero";
+        public const string MonsterHeadFollow = "UIHeadFollow_Monster";
     }
 }

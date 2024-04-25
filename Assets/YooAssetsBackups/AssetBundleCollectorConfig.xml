@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root Version="v2.0.0">
+  <Common ShowPackageView="True" ShowEditorAlias="True" UniqueBundleName="True" />
+  <Package PackageName="EntryPackage" PackageDesc="入口包, 由客户端启动时, 首先更新此包" AutoAddressable="True" LocationToLower="False" IncludeAssetGUID="False" IgnoreDefaultType="True">
+    <Group GroupActiveRule="EnableGroup" GroupName="CodeGroup" GroupDesc="代码组" AssetTags="code">
+      <Collector CollectPath="Assets/Bundles/CodeEntry" CollectGUID="18f1cc559d3b97049a8797dcbd885a1b" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="" />
+    </Group>
+    <Group GroupActiveRule="EnableGroup" GroupName="SceneGroup" GroupDesc="场景组" AssetTags="scene">
+      <Collector CollectPath="Assets/Scenes/Entry" CollectGUID="429d3ef3991f1bc4fb82b5314df978f7" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectScene" UserData="" AssetTags="" />
+    </Group>
+  </Package>
+  <Package PackageName="MainPackage" PackageDesc="游戏主体包, 包含所有热更内容" AutoAddressable="True" LocationToLower="False" IncludeAssetGUID="False" IgnoreDefaultType="True">
+    <Group GroupActiveRule="EnableGroup" GroupName="CodeGroup" GroupDesc="代码组" AssetTags="code">
+      <Collector CollectPath="Assets/Bundles/CodeMain" CollectGUID="12ec0729c71fd4146b31cf9a54f0b682" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="" />
+    </Group>
+    <Group GroupActiveRule="EnableGroup" GroupName="SceneGroup" GroupDesc="场景组" AssetTags="scene">
+      <Collector CollectPath="Assets/Scenes/Main" CollectGUID="efe48fbdc2047284bad3dee8efaf502e" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackSeparately" FilterRule="CollectScene" UserData="" AssetTags="" />
+      <Collector CollectPath="Assets/Scenes/Main" CollectGUID="efe48fbdc2047284bad3dee8efaf502e" CollectType="MainAssetCollector" AddressRule="AddressByFolderAndFileName" PackRule="PackSeparately" FilterRule="AssetFilterRule" UserData="" AssetTags="" />
+    </Group>
+    <Group GroupActiveRule="EnableGroup" GroupName="ConfigGroup" GroupDesc="配置组" AssetTags="config">
+      <Collector CollectPath="Assets/Bundles/Config" CollectGUID="c349d01e3c295de4a98eea54ddd78f21" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="" />
+    </Group>
+    <Group GroupActiveRule="EnableGroup" GroupName="UIGroup" GroupDesc="UI组" AssetTags="ui">
+      <Collector CollectPath="Assets/Bundles/UI" CollectGUID="9c7066a29804a8a498a51c72524e1032" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="" />
+    </Group>
+    <Group GroupActiveRule="EnableGroup" GroupName="AppearGroup" GroupDesc="外观组(不仅是人物外观, 包括技能外观, 特效外观, 图标, 等等等等, 只要是能给玩家展示的都属于外观)" AssetTags="appear">
+      <Collector CollectPath="Assets/Bundles/Appear/Model/Actor" CollectGUID="1bd7c714b749ce646b466d0a2ef3e141" CollectType="MainAssetCollector" AddressRule="AddressByLocalPath_BundlesLastOneFolder" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="appear_model_actor" />
+      <Collector CollectPath="Assets/Bundles/Appear/WarningBoard" CollectGUID="310728c4bd6847f43af4aa04ca2c7947" CollectType="MainAssetCollector" AddressRule="AddressByLocalPath_BundlesLastOneFolder" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="appear_warningboard" />
+      <Collector CollectPath="Assets/Bundles/Appear/Audio/Sound" CollectGUID="f761161934e63df498d7268b532449a7" CollectType="MainAssetCollector" AddressRule="AddressByLocalPath_BundlesLastOneFolder" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="appear_audio_sound" />
+      <Collector CollectPath="Assets/Bundles/Appear/Fx" CollectGUID="2f89e12853b9e284f8e6d15bf3cc7f7f" CollectType="MainAssetCollector" AddressRule="AddressByLocalPath_BundlesLastOneFolder" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="appear_fx" />
+      <Collector CollectPath="Assets/Bundles/Appear/Model/Bolt" CollectGUID="733f33d9692d74c4f92f3feb4f8cdcde" CollectType="MainAssetCollector" AddressRule="AddressByLocalPath_BundlesLastOneFolder" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="appear_model_bolt" />
+      <Collector CollectPath="Assets/Bundles/Appear/Anim/Clip" CollectGUID="c811fc78f0178724783635de3deb2739" CollectType="MainAssetCollector" AddressRule="AddressByLocalPath_BundlesLastOneFolder" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="appear_anim_clip" />
+      <Collector CollectPath="Assets/Bundles/Appear/Anim/Controller" CollectGUID="1ce9e0528d1be2942b3088902ef608ad" CollectType="MainAssetCollector" AddressRule="AddressByLocalPath_BundlesLastOneFolder" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="appear_anim_controller" />
+      <Collector CollectPath="Assets/Bundles/Appear/Model/Pickable" CollectGUID="df150d7be21379145a9d3b3360ab4126" CollectType="MainAssetCollector" AddressRule="AddressByLocalPath_BundlesLastOneFolder" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="appear_model_pickable" />
+    </Group>
+    <Group GroupActiveRule="EnableGroup" GroupName="PickableGroup" GroupDesc="拾取物组" AssetTags="pickable">
+      <Collector CollectPath="Assets/Bundles/Pickable" CollectGUID="090351a39942ea54b8b5b78be9c49b47" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="" />
+    </Group>
+    <Group GroupActiveRule="EnableGroup" GroupName="MetadataDllGroup" GroupDesc="元数据组" AssetTags="metadata">
+      <Collector CollectPath="Assets/Bundles/MetadataDlls" CollectGUID="c705c3ba4a8161544981ff774d0eb963" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="" />
+    </Group>
+  </Package>
+</root>

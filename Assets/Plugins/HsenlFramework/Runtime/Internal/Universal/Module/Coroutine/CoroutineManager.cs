@@ -17,7 +17,7 @@ namespace Hsenl {
             this._manager.Update();
         }
 
-        protected override void OnSingleUnregister() {
+        protected override void OnUnregister() {
             this._manager.Destroy();
         }
 

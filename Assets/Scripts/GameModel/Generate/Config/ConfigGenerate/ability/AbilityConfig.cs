@@ -20,8 +20,6 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
     {
         { if(!_json["id"].IsNumber) { throw new SerializationException(); }  Id = _json["id"]; }
         { if(!_json["alias"].IsString) { throw new SerializationException(); }  Alias = _json["alias"]; }
-        { if(!_json["view_name"].IsString) { throw new SerializationException(); }  ViewName = _json["view_name"]; }
-        { if(!_json["desc"].IsString) { throw new SerializationException(); }  Desc = _json["desc"]; }
         { if(!_json["star"].IsNumber) { throw new SerializationException(); }  Star = _json["star"]; }
         { if(!_json["cooldown"].IsNumber) { throw new SerializationException(); }  Cooldown = _json["cooldown"]; }
         { if(!_json["mana_cost"].IsNumber) { throw new SerializationException(); }  ManaCost = _json["mana_cost"]; }
@@ -29,21 +27,19 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         { var __json0 = _json["numeric_nodes"]; if(!__json0.IsArray) { throw new SerializationException(); } NumericNodes = new System.Collections.Generic.List<numeric.AttachValueInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { numeric.AttachValueInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = numeric.AttachValueInfo.DeserializeAttachValueInfo(__e0);  }  NumericNodes.Add(__v0); }   }
         { var __json0 = _json["tags"]; if(!__json0.IsArray) { throw new SerializationException(); } Tags = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  Tags.Add(__v0); }   }
         { if(!_json["caster"].IsObject) { throw new SerializationException(); }  Caster = cast.Info.DeserializeInfo(_json["caster"]);  }
-        { if(!_json["caster_of_plw"].IsObject) { throw new SerializationException(); }  CasterOfPlw = procedureline.WorkerInfo.DeserializeWorkerInfo(_json["caster_of_plw"]);  }
+        { if(!_json["caster_of_plw"].IsObject) { throw new SerializationException(); }  CasterOfPlw = procedureline.CastWorkerInfo.DeserializeCastWorkerInfo(_json["caster_of_plw"]);  }
         { var __json0 = _json["target_tags"]; if(!__json0.IsArray) { throw new SerializationException(); } TargetTags = new System.Collections.Generic.List<FactionType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { FactionType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (FactionType)__e0.AsInt; }  TargetTags.Add(__v0); }   }
         { var __json0 = _json["caster_evaluates"]; if(!__json0.IsArray) { throw new SerializationException(); } CasterEvaluates = new System.Collections.Generic.List<behavior.Info>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { behavior.Info __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = behavior.Info.DeserializeInfo(__e0);  }  CasterEvaluates.Add(__v0); }   }
         { if(!_json["priority_state"].IsObject) { throw new SerializationException(); }  PriorityState = priority.StateInfo.DeserializeStateInfo(_json["priority_state"]);  }
         { var __json0 = _json["stages"]; if(!__json0.IsArray) { throw new SerializationException(); } Stages = new System.Collections.Generic.List<ability.AbilityStageInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { ability.AbilityStageInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = ability.AbilityStageInfo.DeserializeAbilityStageInfo(__e0);  }  Stages.Add(__v0); }   }
-        { var __json0 = _json["affixes"]; if(!__json0.IsArray) { throw new SerializationException(); } Affixes = new System.Collections.Generic.List<procedureline.WorkerInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { procedureline.WorkerInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = procedureline.WorkerInfo.DeserializeWorkerInfo(__e0);  }  Affixes.Add(__v0); }   }
+        { var __json0 = _json["traits"]; if(!__json0.IsArray) { throw new SerializationException(); } Traits = new System.Collections.Generic.List<int>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { int __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = __e0; }  Traits.Add(__v0); }   }
         PostInit();
     }
 
-    public AbilityConfig(int id, string alias, string view_name, string desc, int star, float cooldown, int mana_cost, float detect_range, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes, System.Collections.Generic.List<TagType> tags, cast.Info caster, procedureline.WorkerInfo caster_of_plw, System.Collections.Generic.List<FactionType> target_tags, System.Collections.Generic.List<behavior.Info> caster_evaluates, priority.StateInfo priority_state, System.Collections.Generic.List<ability.AbilityStageInfo> stages, System.Collections.Generic.List<procedureline.WorkerInfo> affixes ) 
+    public AbilityConfig(int id, string alias, int star, float cooldown, int mana_cost, float detect_range, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes, System.Collections.Generic.List<TagType> tags, cast.Info caster, procedureline.CastWorkerInfo caster_of_plw, System.Collections.Generic.List<FactionType> target_tags, System.Collections.Generic.List<behavior.Info> caster_evaluates, priority.StateInfo priority_state, System.Collections.Generic.List<ability.AbilityStageInfo> stages, System.Collections.Generic.List<int> traits ) 
     {
         this.Id = id;
         this.Alias = alias;
-        this.ViewName = view_name;
-        this.Desc = desc;
         this.Star = star;
         this.Cooldown = cooldown;
         this.ManaCost = mana_cost;
@@ -56,7 +52,7 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         this.CasterEvaluates = caster_evaluates;
         this.PriorityState = priority_state;
         this.Stages = stages;
-        this.Affixes = affixes;
+        this.Traits = traits;
         PostInit();
     }
 
@@ -73,14 +69,6 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
     /// 别名
     /// </summary>
     public string Alias { get; private set; }
-    /// <summary>
-    /// 名称
-    /// </summary>
-    public string ViewName { get; private set; }
-    /// <summary>
-    /// 描述
-    /// </summary>
-    public string Desc { get; private set; }
     public int Star { get; private set; }
     public float Cooldown { get; private set; }
     public int ManaCost { get; private set; }
@@ -100,7 +88,7 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
     /// <summary>
     /// 流水工施法器
     /// </summary>
-    public procedureline.WorkerInfo CasterOfPlw { get; private set; }
+    public procedureline.CastWorkerInfo CasterOfPlw { get; private set; }
     public System.Collections.Generic.List<FactionType> TargetTags { get; private set; }
     /// <summary>
     /// 施法器评估
@@ -108,7 +96,8 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
     public System.Collections.Generic.List<behavior.Info> CasterEvaluates { get; private set; }
     public priority.StateInfo PriorityState { get; private set; }
     public System.Collections.Generic.List<ability.AbilityStageInfo> Stages { get; private set; }
-    public System.Collections.Generic.List<procedureline.WorkerInfo> Affixes { get; private set; }
+    public System.Collections.Generic.List<int> Traits { get; private set; }
+    public System.Collections.Generic.List<ability.AbilityPatchConfig> Traits_Ref { get; private set; }
 
     public const int __ID__ = 306834216;
     public override int GetTypeId() => __ID__;
@@ -121,7 +110,7 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         foreach(var _e in CasterEvaluates) { _e?.Resolve(_tables); }
         PriorityState?.Resolve(_tables);
         foreach(var _e in Stages) { _e?.Resolve(_tables); }
-        foreach(var _e in Affixes) { _e?.Resolve(_tables); }
+        { ability.TbAbilityPatchConfig __table = (ability.TbAbilityPatchConfig)_tables["ability.TbAbilityPatchConfig"]; this.Traits_Ref = new System.Collections.Generic.List<ability.AbilityPatchConfig>(); foreach(var __e in Traits) { this.Traits_Ref.Add(__table.GetOrDefault(__e)); } }
         PostResolve();
     }
 
@@ -133,7 +122,6 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         foreach(var _e in CasterEvaluates) { _e?.TranslateText(translator); }
         PriorityState?.TranslateText(translator);
         foreach(var _e in Stages) { _e?.TranslateText(translator); }
-        foreach(var _e in Affixes) { _e?.TranslateText(translator); }
     }
 
     public override string ToString()
@@ -141,8 +129,6 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         return "{ "
         + "Id:" + Id + ","
         + "Alias:" + Alias + ","
-        + "ViewName:" + ViewName + ","
-        + "Desc:" + Desc + ","
         + "Star:" + Star + ","
         + "Cooldown:" + Cooldown + ","
         + "ManaCost:" + ManaCost + ","
@@ -155,7 +141,7 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         + "CasterEvaluates:" + Bright.Common.StringUtil.CollectionToString(CasterEvaluates) + ","
         + "PriorityState:" + PriorityState + ","
         + "Stages:" + Bright.Common.StringUtil.CollectionToString(Stages) + ","
-        + "Affixes:" + Bright.Common.StringUtil.CollectionToString(Affixes) + ","
+        + "Traits:" + Bright.Common.StringUtil.CollectionToString(Traits) + ","
         + "}";
     }
     

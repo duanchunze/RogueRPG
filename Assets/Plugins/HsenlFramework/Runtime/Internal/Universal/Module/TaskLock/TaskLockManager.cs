@@ -42,7 +42,7 @@ namespace Hsenl {
             }
         }
 
-        protected override void OnSingleUnregister() {
+        protected override void OnUnregister() {
             this._list.Clear();
             this._nextFrameRun.Clear();
         }

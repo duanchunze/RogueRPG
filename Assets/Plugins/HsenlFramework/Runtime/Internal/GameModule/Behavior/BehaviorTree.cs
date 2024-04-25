@@ -63,8 +63,8 @@ namespace Hsenl {
             }
         }
 
-        protected internal override void OnDestroyFinish() {
-            base.OnDestroyFinish();
+        protected internal override void OnDisposed() {
+            base.OnDisposed();
             this.blackboard = null;
             this.entryNode = default;
             this.currentNode = null;

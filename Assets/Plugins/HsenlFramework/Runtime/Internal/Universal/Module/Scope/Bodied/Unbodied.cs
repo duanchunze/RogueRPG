@@ -22,8 +22,8 @@ namespace Hsenl {
             }
         }
         
-        protected internal override void OnDestroyFinish() {
-            base.OnDestroyFinish();
+        protected internal override void OnDisposed() {
+            base.OnDisposed();
             this.unbodiedHead = null;
         }
     }

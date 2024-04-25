@@ -31,9 +31,8 @@ namespace Hsenl.View.MultiCombiner {
             AnimationClip LoadAnimClip(string clipName) {
                 if (arg2.ModelObj == null)
                     return null;
-
+                
                 var clip = AppearanceSystem.LoadAnimationClip(arg2.ModelObj.name, clipName);
-
                 return clip;
             }
         }

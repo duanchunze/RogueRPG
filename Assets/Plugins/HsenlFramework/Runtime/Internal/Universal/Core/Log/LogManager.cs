@@ -141,7 +141,7 @@ namespace Hsenl {
             this._iLog.Error(s);
         }
 
-        protected override void OnSingleUnregister() {
+        protected override void OnUnregister() {
             this._iLog = null;
             this.logLevel = 0;
         }

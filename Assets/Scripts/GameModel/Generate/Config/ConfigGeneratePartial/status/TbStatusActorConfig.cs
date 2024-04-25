@@ -3,6 +3,6 @@ using Hsenl.ability;
 
 namespace Hsenl.status {
     public partial class TbStatusActorConfig {
-
+        
     }
 }

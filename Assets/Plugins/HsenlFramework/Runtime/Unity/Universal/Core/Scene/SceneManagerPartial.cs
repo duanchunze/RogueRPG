@@ -1,8 +1,4 @@
 ﻿using System;
-using System.IO;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using YooAsset;
 
 namespace Hsenl {
@@ -15,37 +11,10 @@ namespace Hsenl {
         private static void Initialize() {
             UnloadAllScene();
         }
-
-        // public static async ETTask<Scene> LoadSceneWithUnity(string name, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode) {
-        //     var scene = LoadScene(name, (LoadSceneMode)(int)loadSceneMode);
-        //     if (ResourcesManager.Instance.EditorMode) {
-        //         var paths = AssetBundleHelper.GetAssetPathsFromAssetBundle(name.ToBundleName());
-        //         if (paths.Length == 0) return null;
-        //         UnityEngine.SceneManagement.SceneManager.LoadScene(paths[0], loadSceneMode);
-        //         await Timer.WaitFrame();
-        //     }
-        //     else {
-        //         if (!ResourcesManager.Contains(name.ToBundleName())) {
-        //             await ResourcesManager.LoadBundleAsync(name.ToBundleName());
-        //         }
-        //
-        //         var operation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(name, loadSceneMode);
-        //         await operation;
-        //     }
-        //
-        //     try {
-        //         OnUnitySceneLoaded?.Invoke(scene);
-        //     }
-        //     catch (Exception e) {
-        //         Log.Error(e);
-        //     }
-        //
-        //     return scene;
-        // }
         
-        public static async HTask<Scene> LoadSceneWithUnity(string name, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode) {
-            var scene = LoadScene(name, (LoadSceneMode)(int)loadSceneMode);
-            await YooAssets.LoadSceneAsync(name);
+        public static async HTask<Scene> LoadSceneWithUnity(string name, LoadSceneMode loadSceneMode) {
+            var scene = LoadScene(name, loadSceneMode);
+            await YooAssets.LoadSceneAsync(name, (UnityEngine.SceneManagement.LoadSceneMode)(int)loadSceneMode);
             OnUnitySceneLoaded?.Invoke(scene);
             return scene;
         }

@@ -38,7 +38,7 @@ namespace Hsenl {
             }
         }
 
-        protected internal override void OnDestroyFinish() {
+        protected internal override void OnDisposed() {
             this._control = null;
             this.onBegin = null;
             this.onFinish = null;

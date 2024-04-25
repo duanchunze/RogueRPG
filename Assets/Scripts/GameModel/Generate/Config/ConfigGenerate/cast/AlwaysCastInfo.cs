@@ -15,7 +15,7 @@ namespace Hsenl.cast
 { 
 
 /// <summary>
-/// 隐藏的但需要持续释放的技能, 比如多数被动技能
+/// 隐藏的但需要持续释放的技能, 比如一些被动技能
 /// </summary>
 public sealed partial class AlwaysCastInfo :  cast.Info 
 {

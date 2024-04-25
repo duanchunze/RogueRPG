@@ -7,7 +7,7 @@ using System.Runtime.ExceptionServices;
 #pragma warning disable CS8603 // Possible null reference return.
 
 namespace Hsenl {
-    internal class NormalHTaskBody : IHTaskBody, IHTask {
+    internal class NormalHTaskBody : IHTaskBody {
         private HTaskStatus _status;
         private Action? _continuation;
         private ExceptionDispatchInfo? _exception;
@@ -28,7 +28,8 @@ namespace Hsenl {
             else {
                 var s = this._status;
                 HTaskPool.Return(this);
-                if (s == HTaskStatus.Aborted) throw HTaskAbortException.GetException();
+                if (s == HTaskStatus.Aborted) 
+                    throw HTaskAbortException.GetException();
             }
         }
 
@@ -69,7 +70,7 @@ namespace Hsenl {
         }
     }
 
-    internal class NormalHTaskBody<T> : IHTaskBody<T>, IHTask {
+    internal class NormalHTaskBody<T> : IHTaskBody<T> {
         private HTaskStatus _status;
         private Action? _continuation;
         private ExceptionDispatchInfo? _exception;
@@ -94,7 +95,8 @@ namespace Hsenl {
             else {
                 var s = this._status;
                 HTaskPool<T>.Return(this);
-                if (s == HTaskStatus.Aborted) throw HTaskAbortException.GetException();
+                if (s == HTaskStatus.Aborted) 
+                    throw HTaskAbortException.GetException();
             }
 
             return v;

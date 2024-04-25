@@ -6,14 +6,10 @@ namespace Hsenl {
     [Serializable]
     [MemoryPackable(GenerateType.NoGenerate)]
     public abstract partial class LeafNode<T> : Node<T> where T : IBehaviorTree {
-        public override IEnumerable<INode> ForeachChildren() {
-            yield break;
-        }
-
         public sealed override void StartNode(IBehaviorTree tree) {
             if (this.manager != null) throw new Exception("already has manager");
             if (tree == null) throw new ArgumentNullException("start node failure, tree is null");
-            
+
             this.manager = (T)tree;
             try {
                 this.InternalStart();
@@ -66,9 +62,17 @@ namespace Hsenl {
         public sealed override void AbortNode() {
             this.InternalAbort();
         }
-        
+
+        public sealed override void ForeachChildren(Action<INode> callback) { }
+
         public sealed override TNode GetNodeInChildren<TNode>(bool once = false) {
             return default;
         }
+
+        public sealed override TNode[] GetNodesInChildren<TNode>(bool once = false) {
+            return default;
+        }
+
+        public sealed override void GetNodesInChildren<TNode>(List<TNode> cache, bool once = false) { }
     }
 }

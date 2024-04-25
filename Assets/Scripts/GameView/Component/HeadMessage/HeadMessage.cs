@@ -3,57 +3,48 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Hsenl.View {
+    // 头部弹出消息, 比如掉血数字
     [Serializable]
-    public class HeadMessage : Unbodied {
-        private UIHeadFollow _uiHeadFollow;
+    public class HeadMessage : Unbodied, IUpdate {
+        public float uiStayTime;
+
+        private UIFollowMessage _current;
+        private float _timer;
 
         [ShowInInspector]
         private float _height;
 
-        protected override void OnEnable() {
-            if (this.Tags.Contains(TagType.Hero)) {
-                this._uiHeadFollow = (UIHeadFollow)UIManager.MultiOpen(UIName.HeroHeadMessage, UILayer.Low);
+        public void Update() {
+            if (this._timer >= this.uiStayTime) {
+                if (this._current != null) {
+                    UIManager.MultiClose(this._current);
+                    this._current = null;
+                }
+
+                return;
             }
-            else {
-                this._uiHeadFollow = (UIHeadFollow)UIManager.MultiOpen(UIName.MonsterHeadMessage, UILayer.Low);
+
+            this._timer += TimeInfo.DeltaTime;
+        }
+
+        public void ShowFollowMessage(string content) {
+            var ui = UIManager.MultiOpen<UIFollowMessage>(UILayer.Low);
+            if (this._current != null) {
+                UIManager.MultiClose(this._current);
             }
 
-            this._uiHeadFollow.followTarget = this.UnityTransform;
-            this._uiHeadFollow.followOffset = new Vector3(0, 0, this._height);
-        }
+            this._current = ui;
 
-        protected override void OnDisable() {
-            UIManager.MultiClose(this._uiHeadFollow);
-            this._uiHeadFollow = null;
-        }
-
-        public void UpdateHp(float value) {
-            if (this._uiHeadFollow == null)
-                return;
-
-            this._uiHeadFollow.healthSlider.UpdateSlider(value);
-        }
-
-        public void UpdateEnergy(float value) {
-            if (this._uiHeadFollow == null)
-                return;
-
-            this._uiHeadFollow.energySlider.UpdateSlider(value);
-        }
-
-        public void UpdateMana(float value) {
-            if (this._uiHeadFollow == null)
-                return;
-
-            this._uiHeadFollow.manaSlider.UpdateSlider(value);
+            ui.text.text = content;
+            ui.followTarget = this.UnityTransform;
+            ui.followOffset = new Vector3(0, 0, this._height);
+            this._timer = 0;
         }
 
         public void UpdateFollowHeight(float height) {
-            if (this._uiHeadFollow == null)
-                return;
-
             this._height = height;
-            this._uiHeadFollow.followOffset = new Vector3(0, 0, this._height);
+            if (this._current == null) return;
+            this._current.followOffset = new Vector3(0, 0, height);
         }
     }
 }

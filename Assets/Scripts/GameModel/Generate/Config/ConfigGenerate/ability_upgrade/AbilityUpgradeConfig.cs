@@ -19,32 +19,16 @@ public sealed partial class AbilityUpgradeConfig :  Bright.Config.BeanBase
     public AbilityUpgradeConfig(JSONNode _json) 
     {
         { if(!_json["id"].IsNumber) { throw new SerializationException(); }  Id = _json["id"]; }
-        { if(!_json["alias"].IsString) { throw new SerializationException(); }  Alias = _json["alias"]; }
-        { if(!_json["view_name"].IsString) { throw new SerializationException(); }  ViewName = _json["view_name"]; }
-        { if(!_json["desc"].IsString) { throw new SerializationException(); }  Desc = _json["desc"]; }
         { if(!_json["target_ability"].IsString) { throw new SerializationException(); }  TargetAbility = _json["target_ability"]; }
-        { var __json0 = _json["tags"]; if(!__json0.IsArray) { throw new SerializationException(); } Tags = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  Tags.Add(__v0); }   }
-        { if(!_json["cooldown"].IsNumber) { throw new SerializationException(); }  Cooldown = _json["cooldown"]; }
-        { if(!_json["mana_cost"].IsNumber) { throw new SerializationException(); }  ManaCost = _json["mana_cost"]; }
-        { if(!_json["detect_range"].IsNumber) { throw new SerializationException(); }  DetectRange = _json["detect_range"]; }
-        { var __json0 = _json["numeric_nodes"]; if(!__json0.IsArray) { throw new SerializationException(); } NumericNodes = new System.Collections.Generic.List<numeric.AttachValueInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { numeric.AttachValueInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = numeric.AttachValueInfo.DeserializeAttachValueInfo(__e0);  }  NumericNodes.Add(__v0); }   }
-        { var __json0 = _json["affixes"]; if(!__json0.IsArray) { throw new SerializationException(); } Affixes = new System.Collections.Generic.List<procedureline.WorkerInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { procedureline.WorkerInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = procedureline.WorkerInfo.DeserializeWorkerInfo(__e0);  }  Affixes.Add(__v0); }   }
+        { if(!_json["patch"].IsNumber) { throw new SerializationException(); }  Patch = _json["patch"]; }
         PostInit();
     }
 
-    public AbilityUpgradeConfig(int id, string alias, string view_name, string desc, string target_ability, System.Collections.Generic.List<TagType> tags, float cooldown, int mana_cost, float detect_range, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes, System.Collections.Generic.List<procedureline.WorkerInfo> affixes ) 
+    public AbilityUpgradeConfig(int id, string target_ability, int patch ) 
     {
         this.Id = id;
-        this.Alias = alias;
-        this.ViewName = view_name;
-        this.Desc = desc;
         this.TargetAbility = target_ability;
-        this.Tags = tags;
-        this.Cooldown = cooldown;
-        this.ManaCost = mana_cost;
-        this.DetectRange = detect_range;
-        this.NumericNodes = numeric_nodes;
-        this.Affixes = affixes;
+        this.Patch = patch;
         PostInit();
     }
 
@@ -58,64 +42,31 @@ public sealed partial class AbilityUpgradeConfig :  Bright.Config.BeanBase
     /// </summary>
     public int Id { get; private set; }
     /// <summary>
-    /// 别名
-    /// </summary>
-    public string Alias { get; private set; }
-    /// <summary>
-    /// 名称
-    /// </summary>
-    public string ViewName { get; private set; }
-    /// <summary>
-    /// 描述
-    /// </summary>
-    public string Desc { get; private set; }
-    /// <summary>
     /// 目标技能
     /// </summary>
     public string TargetAbility { get; private set; }
-    /// <summary>
-    /// 标签
-    /// </summary>
-    public System.Collections.Generic.List<TagType> Tags { get; private set; }
-    public float Cooldown { get; private set; }
-    public int ManaCost { get; private set; }
-    public float DetectRange { get; private set; }
-    /// <summary>
-    /// 附加的数值
-    /// </summary>
-    public System.Collections.Generic.List<numeric.AttachValueInfo> NumericNodes { get; private set; }
-    public System.Collections.Generic.List<procedureline.WorkerInfo> Affixes { get; private set; }
+    public int Patch { get; private set; }
+    public ability.AbilityPatchConfig Patch_Ref { get; private set; }
 
     public const int __ID__ = -1495502053;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)
     {
-        foreach(var _e in NumericNodes) { _e?.Resolve(_tables); }
-        foreach(var _e in Affixes) { _e?.Resolve(_tables); }
+        this.Patch_Ref = (_tables["ability.TbAbilityPatchConfig"] as ability.TbAbilityPatchConfig).GetOrDefault(Patch);
         PostResolve();
     }
 
     public  void TranslateText(System.Func<string, string, string> translator)
     {
-        foreach(var _e in NumericNodes) { _e?.TranslateText(translator); }
-        foreach(var _e in Affixes) { _e?.TranslateText(translator); }
     }
 
     public override string ToString()
     {
         return "{ "
         + "Id:" + Id + ","
-        + "Alias:" + Alias + ","
-        + "ViewName:" + ViewName + ","
-        + "Desc:" + Desc + ","
         + "TargetAbility:" + TargetAbility + ","
-        + "Tags:" + Bright.Common.StringUtil.CollectionToString(Tags) + ","
-        + "Cooldown:" + Cooldown + ","
-        + "ManaCost:" + ManaCost + ","
-        + "DetectRange:" + DetectRange + ","
-        + "NumericNodes:" + Bright.Common.StringUtil.CollectionToString(NumericNodes) + ","
-        + "Affixes:" + Bright.Common.StringUtil.CollectionToString(Affixes) + ","
+        + "Patch:" + Patch + ","
         + "}";
     }
     

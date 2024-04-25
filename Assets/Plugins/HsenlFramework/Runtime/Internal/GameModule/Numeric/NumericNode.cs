@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MemoryPack;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
@@ -41,8 +42,8 @@ namespace Hsenl {
             this.Recalculate();
         }
 
-        protected internal override void OnDestroyFinish() {
-            base.OnDestroyFinish();
+        protected internal override void OnDisposed() {
+            base.OnDisposed();
             this._numerics.Clear();
             this._finalNumerics.Clear();
             this.linkNumerators.Clear();
@@ -58,12 +59,21 @@ namespace Hsenl {
             return this.linkNumerators.Remove(numerator);
         }
 
+        public void Foreach(Action<uint, string, Num> callback) {
+            foreach (var kv in this._numerics) {
+                foreach (var kvv in kv.Value) {
+                    callback.Invoke(kv.Key, kvv.Key, kvv.Value);
+                }
+            }
+        }
+
         public Num GetValue(NumericNodeKey key) {
             return this.GetValue(key.key);
         }
 
         private Num GetValue(uint key) {
-            if (key < NumericConst.NumericTypeMaxInTheory) throw new ArgumentOutOfRangeException($"num key cant be less than {NumericConst.NumericTypeMaxInTheory} '{key}'");
+            if (key < NumericConst.NumericMaxTypeNumInTheory)
+                throw new ArgumentOutOfRangeException($"num key cant be less than {NumericConst.NumericMaxTypeNumInTheory} '{key}'");
             return !this._finalNumerics.TryGetValue(key, out var result) ? Num.Empty() : result;
         }
 
@@ -72,7 +82,8 @@ namespace Hsenl {
         }
 
         private Num GetValue(uint key, string unique) {
-            if (key < NumericConst.NumericTypeMaxInTheory) throw new ArgumentOutOfRangeException($"num key cant be less than {NumericConst.NumericTypeMaxInTheory} '{key}'");
+            if (key < NumericConst.NumericMaxTypeNumInTheory)
+                throw new ArgumentOutOfRangeException($"num key cant be less than {NumericConst.NumericMaxTypeNumInTheory} '{key}'");
             return !this._numerics.TryGetValue(key, unique, out var result) ? Num.Empty() : result;
         }
 
@@ -89,7 +100,8 @@ namespace Hsenl {
         }
 
         private void SetValue(uint key, Num value, string unique) {
-            if (key < NumericConst.NumericTypeMaxInTheory) throw new ArgumentOutOfRangeException($"num key cant be less than {NumericConst.NumericTypeMaxInTheory} '{key}'");
+            if (key < NumericConst.NumericMaxTypeNumInTheory)
+                throw new ArgumentOutOfRangeException($"num key cant be less than {NumericConst.NumericMaxTypeNumInTheory} '{key}'");
 
             if (!this._numerics.TryGetValue(key, unique, out var old)) {
                 this._numerics[key, unique] = value;

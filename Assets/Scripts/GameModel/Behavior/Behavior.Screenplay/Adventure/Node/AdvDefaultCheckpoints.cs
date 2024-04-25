@@ -29,12 +29,10 @@ namespace Hsenl {
             // 然后重复上面的行为
             // 当闯关完毕后, 结束, 并结算
 
-            SceneManager.OnUnitySceneLoaded += this.OnSceneLoaded;
             this.manager.beginInvoke += this.Begin;
         }
 
         protected override void OnDestroy() {
-            SceneManager.OnUnitySceneLoaded -= this.OnSceneLoaded;
             this.manager.beginInvoke -= this.Begin;
             this.CheckpointManager.onCheckpointPassed -= this.OnCheckpointPassed;
         }
@@ -43,31 +41,15 @@ namespace Hsenl {
             this.NextCheckpoint();
         }
 
-        private async void OnSceneLoaded(Scene obj) {
-            var objectReference = UnityEngine.Object.FindObjectOfType<SceneObjectReference>();
-            if (objectReference == null)
-                throw new Exception("SceneObjectReference is not find in scene");
-
-            var originalPoint = objectReference.Get<UnityEngine.Transform>("OriginalPoint");
-            GameManager.Instance.MainMan.transform.SetPosition(originalPoint.position);
-
-            await Timer.WaitFrame();
-
-            this.CheckpointManager = objectReference.Get<CheckpointManager>();
-            this.CheckpointManager.monsterHpRatio = this.manager.Config.MonsterHpRatio[this.Record.currentCheckpoint - 1];
-            this.CheckpointManager.Begin();
-
-            Procedure.ChangeState<ProcedureAdventure>();
-        }
-
         private void OnCheckpointPassed() {
             // 进入购物流程
-            Procedure.ChangeState<ProcedureShopping>();
-            var shopping = Procedure.GetState<ProcedureShopping>();
+            var shopping = ProcedureManager.Procedure.GetState<ProcedureAdventure_Shopping>();
             shopping.onShoppingFinish += this.NextCheckpoint;
+
+            ProcedureManager.Procedure.ChangeState<ProcedureAdventure_Shopping>();
         }
 
-        private void NextCheckpoint() {
+        private async void NextCheckpoint() {
             var adventureConfig = this.manager.Config;
             var record = this.Record;
 
@@ -86,8 +68,26 @@ namespace Hsenl {
 
             var aliases = RandomHelper.RandomArrayOfWeight(checkpointAliases, weights, 1);
             var checkpointConfig = Tables.Instance.TbCheckpointConfig.GetByAlias(aliases[0]);
-            Procedure.ChangeState<ProcedureChangeScene, (string, UnityEngine.SceneManagement.LoadSceneMode)>((checkpointConfig.SceneName,
-                UnityEngine.SceneManagement.LoadSceneMode.Single));
+            ProcedureManager.Procedure.ChangeState<ProcedureAdventure_ChangeScene>((checkpointConfig.SceneName, LoadSceneMode.Single));
+            await ProcedureManager.Procedure.GetState<ProcedureAdventure_ChangeScene>().AsyncDone();
+            this.OnSceneChanged();
+        }
+
+        private async void OnSceneChanged() {
+            var objectReference = UnityEngine.Object.FindObjectOfType<SceneObjectReference>();
+            if (objectReference == null)
+                throw new Exception("SceneObjectReference is not find in scene");
+
+            var originalPoint = objectReference.Get<UnityEngine.Transform>("OriginalPoint");
+            GameManager.Instance.MainMan.transform.SetPosition(originalPoint.position);
+
+            await Timer.WaitFrame();
+
+            this.CheckpointManager = objectReference.Get<CheckpointManager>();
+            this.CheckpointManager.monsterHpRatio = this.manager.Config.MonsterHpRatio[this.Record.currentCheckpoint - 1];
+            this.CheckpointManager.Begin();
+
+            ProcedureManager.Procedure.ChangeState<ProcedureAdventure_Battle>();
         }
     }
 }

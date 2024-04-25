@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Hsenl.View {
-    public abstract class UISlot<TFiller> : MonoBehaviour {
-        public TFiller Filler { get; protected set; }
+    public class UISlot<TFiller> : MonoBehaviour {
+        public TFiller Filler { get; private set; }
 
         protected UnityEventListener eventListener;
 

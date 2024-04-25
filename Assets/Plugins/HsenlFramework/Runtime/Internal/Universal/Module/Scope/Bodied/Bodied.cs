@@ -10,7 +10,7 @@ namespace Hsenl {
      * 如何去判断一个事物是bodied还是unbodied?
      * 除非你能确定这个事物一定是一个无形体, 否则的话, 都定义成bodied, 比如数值组件, 一般来说可以定义成一个无形体, 而像有些模糊的, 比如技能, 虽然以常识来说, 技能是一个虚无缥缈的东西,
      * 但在游戏中, 技能一般都是作为一个独立的事物存在的, 它可以拆卸, 可以拥有属于自己的组件, 所以把技能定义成一个有形体.
-     * 一个事物被定义成有形体, 那他就可以灵活的摇摆, 在独立个体与依赖者两种身份之间摇摆, 比如一个人是一个独立个体, 一个背包也是一个独立个体, 但如果人背起了背包, 那背包便不再是一个独立个体, 
+     * 一个事物被定义成有形体, 那他就可以灵活的摇摆, 在独立个体与依赖者两种身份之间摇摆, 比如一个人是一个独立个体, 一个背包也是一个独立个体, 但如果人背起了背包, 那背包便不再是一个独立个体,
      * 而是这个人的依赖者
      *
      * 默认情况下, 我们规定最上面的bodied为attachedBodied, 其下其他的bodied都只是普通的bodied, 当然我们也可以自定义我们自己的规则.
@@ -150,29 +150,28 @@ namespace Hsenl {
                 }
 
                 if (prevParent != null) {
-                    if (this.crossMatchMode == CrossMatchMode.Auto) {
-                        CrossDecombinMatchForParent(this, prevParent);
+                    if (this.CombinMatchMode == CombinMatchMode.Auto) {
+                        CrossDecombinMatchForParents(this, prevParent);
                     }
 
                     this.ForeachChildrenScope((childScope, _) => {
-                        if (childScope.crossMatchMode == CrossMatchMode.Auto) {
-                            CrossDecombinMatchForParent(childScope, prevParent); //
+                        if (childScope.CombinMatchMode == CombinMatchMode.Auto) {
+                            CrossDecombinMatchForParents(childScope, prevParent); //
                         }
                     });
                 }
 
                 // 确立好父子关系后再进行跨域匹配, 保证形成组合的时候, 父子关系是正确的.
                 if (value != null) {
-                    this.CalcMaximumCrossLayerInTheory();
-
-                    if (this.crossMatchMode == CrossMatchMode.Auto) {
-                        CrossCombinMatchForParent(this, value, 1);
+                    if (this.CombinMatchMode == CombinMatchMode.Auto) {
+                        this.CalcMaximumCrossLayerInTheory();
+                        CrossCombinsMatchForParents(this, value, 1, null);
                     }
 
                     this.ForeachChildrenScope((childScope, layer) => {
-                        childScope.CalcMaximumCrossLayerInTheory();
-                        if (childScope.crossMatchMode == CrossMatchMode.Auto) {
-                            CrossCombinMatchForParent(childScope, value, layer + 1); // 
+                        if (childScope.CombinMatchMode == CombinMatchMode.Auto) {
+                            childScope.CalcMaximumCrossLayerInTheory();
+                            CrossCombinsMatchForParents(childScope, value, layer + 1, null); // 
                         }
                     });
                 }
@@ -190,13 +189,11 @@ namespace Hsenl {
                     return;
 
                 unbodied.unbodiedHead = this;
-
-                this.elements.Add(component.ComponentIndex, unbodied);
             });
         }
 
-        protected internal override void OnDestroyFinish() {
-            base.OnDestroyFinish();
+        protected internal override void OnDisposed() {
+            base.OnDisposed();
             this.bodiedStatus = default;
             this._attachedBodied = null;
             this._parentAttachedBodied = null;
@@ -207,15 +204,36 @@ namespace Hsenl {
             if (component is not Unbodied unbodied)
                 return;
 
-            if (!this.elements.TryAdd(component.ComponentIndex, unbodied)) {
-                throw new Exception($"this component is alrealy has in scope. '{this.GetType().Name}' '{component.GetType().Name}'");
-            }
-
             unbodied.unbodiedHead = this;
 
-            MultiCombinMatch(this, component);
-            if (this.crossMatchMode != CrossMatchMode.Manual) {
-                CrossCombinMatchByComponent(this, component);
+            if (this.CombinMatchMode != CombinMatchMode.Manual) {
+                MultiCombinMatch(this, unbodied);
+            }
+
+            if (Combiner.CombinerCache.CrossCombinLookupTable.TryGetValue(unbodied.ComponentIndex, out var combinInfo)) {
+                if (combinInfo.childCombiners.Count != 0) {
+                    if (this.CombinMatchMode == CombinMatchMode.Auto) {
+                        if (this.ParentScope != null) {
+                            if (this.HasComponentsAny(combinInfo.totalChildTypeCacher)) {
+                                foreach (var combiner in combinInfo.childCombiners) {
+                                    CrossCombinMatchForParent(this, this.ParentScope, 1, combiner);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (combinInfo.parentCombiners.Count != 0) {
+                    if (this.HasComponentsAny(combinInfo.totalParentTypeCacher)) {
+                        this.ForeachChildrenScope((child, layer) => {
+                            if (child.CombinMatchMode == CombinMatchMode.Auto) {
+                                foreach (var combiner in combinInfo.parentCombiners) {
+                                    CrossCombinMatchForParent(child, this, layer, combiner);
+                                }
+                            }
+                        });
+                    }
+                }
             }
         }
 
@@ -223,13 +241,14 @@ namespace Hsenl {
             if (component is not Unbodied unbodied)
                 return;
 
-            this.elements.Remove(component.ComponentIndex);
-
             unbodied.unbodiedHead = null;
 
-            MultiDecombinMatch(this, component);
-            if (this.crossMatchMode != CrossMatchMode.Manual) {
-                CrossDecombinMatchByComponent(this, component);
+            if (this.CombinMatchMode != CombinMatchMode.Manual) {
+                MultiDecombinMatch(this, unbodied);
+            }
+
+            if (this.CombinMatchMode == CombinMatchMode.Auto) {
+                CrossDecombinMatchByComponent(this, unbodied);
             }
         }
 
@@ -255,6 +274,8 @@ namespace Hsenl {
                 comp = GetByChildren(this.childrenScopes);
             }
 
+            return comp;
+
             T GetByChildren(List<Scope> children) {
                 T t = null;
                 if (children != null) {
@@ -279,12 +300,13 @@ namespace Hsenl {
 
                 return t;
             }
-
-            return comp;
         }
 
         /// 从整个有形体域内寻找指定域
         public T FindScopeInBodied<T>() where T : class {
+            var s = GetByChildren(this.childrenScopes);
+            return s;
+
             T GetByChildren(List<Scope> children) {
                 if (children != null) {
                     for (int i = 0, len = children.Count; i < len; i++) {
@@ -309,14 +331,14 @@ namespace Hsenl {
 
                 return null;
             }
-
-            var t = GetByChildren(this.childrenScopes);
-            return t;
         }
 
         /// 从整个有形体域内寻找指定域s
         public T[] FindScopesInBodied<T>() where T : class {
             using var list = ListComponent<T>.Create();
+
+            GetByChildren(this.childrenScopes, list);
+            return list.ToArray();
 
             void GetByChildren(List<Scope> children, List<T> l) {
                 if (children != null) {
@@ -339,9 +361,6 @@ namespace Hsenl {
                     }
                 }
             }
-
-            GetByChildren(this.childrenScopes, list);
-            return list.ToArray();
         }
 
         protected override void OnBeforeParentScopeChanged(Scope future) {

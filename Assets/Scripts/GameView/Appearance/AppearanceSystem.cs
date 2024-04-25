@@ -17,6 +17,11 @@ namespace Hsenl.View {
         public static GameObject LoadModelBolt(string modelName, AppearanceMiddleArgStream middleArgStream = null) {
             return Load<GameObject>(modelName, AppearanceConst.Model.Bolt.Tag, AppearanceConst.Model.Bolt.Root, middleArgStream);
         }
+        
+        // 加载Bolt模型
+        public static GameObject LoadModelPickable(string modelName, AppearanceMiddleArgStream middleArgStream = null) {
+            return Load<GameObject>(modelName, AppearanceConst.Model.Pickable.Tag, AppearanceConst.Model.Pickable.Root, middleArgStream);
+        }
 
         // 加载动画片段
         public static AnimationClip LoadAnimationClip(string modelName, string clipName, AppearanceMiddleArgStream middleArgStream = null) {

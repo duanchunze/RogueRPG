@@ -155,6 +155,11 @@ namespace FixedMath {
             result.z = ((cy * cp) * sr) - ((sy * sp) * cr);
             result.w = ((cy * cp) * cr) + ((sy * sp) * sr);
         }
+        
+        public static FQuaternion CreateYawPitchRoll(FLOAT yaw, FLOAT pitch, FLOAT roll) {
+            CreateYawPitchRoll(yaw, pitch, roll, out var result);
+            return result;
+        }
 
         /// <summary>
         /// 根据3x3矩阵创建一个四元数
@@ -266,11 +271,11 @@ namespace FixedMath {
         /// <summary>
         /// 创建一个LookAt四元数
         /// </summary>
-        /// <param name="forward"></param>
+        /// <param name="point"></param>
         /// <returns></returns>
-        public static FQuaternion CreateLookAt(FVector3 forward) {
+        public static FQuaternion CreateLookAt(FVector3 point) {
             var up = FVector3.Up;
-            FMatrix3x3.CreateLookAt(ref forward, ref up, out var mt);
+            FMatrix3x3.CreateLookAt(ref point, ref up, out var mt);
             CreateMatrix(ref mt, out var result);
             return result;
         }
@@ -278,32 +283,32 @@ namespace FixedMath {
         /// <summary>
         /// 创建一个LookAt四元数
         /// </summary>
-        /// <param name="forward"></param>
+        /// <param name="point"></param>
         /// <param name="result"></param>
-        public static void CreateLookAt(ref FVector3 forward, out FQuaternion result) {
+        public static void CreateLookAt(ref FVector3 point, out FQuaternion result) {
             var up = FVector3.Up;
-            FMatrix3x3.CreateLookAt(ref forward, ref up, out var mt);
+            FMatrix3x3.CreateLookAt(ref point, ref up, out var mt);
             CreateMatrix(ref mt, out result);
         }
 
         /// <summary>
         /// 创建一个LookAt四元数
         /// </summary>
-        /// <param name="forward"></param>
+        /// <param name="point"></param>
         /// <param name="up"></param>
         /// <returns></returns>
-        public static FQuaternion CreateLookAt(FVector3 forward, FVector3 up) {
-            return CreateMatrix(FMatrix3x3.CreateLookAt(forward, up));
+        public static FQuaternion CreateLookAt(FVector3 point, FVector3 up) {
+            return CreateMatrix(FMatrix3x3.CreateLookAt(point, up));
         }
 
         /// <summary>
         /// 创建一个LookAt四元数
         /// </summary>
-        /// <param name="forward"></param>
+        /// <param name="point"></param>
         /// <param name="up"></param>
         /// <param name="result"></param>
-        public static void CreateLookAt(ref FVector3 forward, ref FVector3 up, out FQuaternion result) {
-            FMatrix3x3.CreateLookAt(ref forward, ref up, out var mt);
+        public static void CreateLookAt(ref FVector3 point, ref FVector3 up, out FQuaternion result) {
+            FMatrix3x3.CreateLookAt(ref point, ref up, out var mt);
             CreateMatrix(ref mt, out result);
         }
 
@@ -409,7 +414,7 @@ namespace FixedMath {
         public static FQuaternion CreateAngleAxis(FVector3 axis, FLOAT angle) {
             CreateAngleAxis(ref axis, angle, out var result);
             return result;
-        } //
+        }
 
         /// <summary>
         /// 创建一个按轴的旋转四元数
@@ -428,7 +433,7 @@ namespace FixedMath {
             result.y = axis.y * sin;
             result.z = axis.z * sin;
             result.w = FMath.Cos(halfAngle);
-        } //
+        }
 
         /// <summary>
         /// 创建一个从from旋转到to的旋转，有问题，当 form和 to平行时，结果和 unity的不一致
@@ -798,18 +803,18 @@ namespace FixedMath {
         /// <summary>
         /// 设置注视旋转
         /// </summary>
-        /// <param name="view"></param>
-        public void SetLookRotation(FVector3 view) {
-            CreateLookRotation(ref view, out this);
+        /// <param name="forward"></param>
+        public void SetLookRotation(FVector3 forward) {
+            CreateLookRotation(ref forward, out this);
         }
 
         /// <summary>
         /// 设置注视旋转
         /// </summary>
-        /// <param name="view"></param>
+        /// <param name="forward"></param>
         /// <param name="up"></param>
-        public void SetLookRotation(FVector3 view, FVector3 up) {
-            CreateLookRotation(ref view, ref up, out this);
+        public void SetLookRotation(FVector3 forward, FVector3 up) {
+            CreateLookRotation(ref forward, ref up, out this);
         }
 
         /// <summary>

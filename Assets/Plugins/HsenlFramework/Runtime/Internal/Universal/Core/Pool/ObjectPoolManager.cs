@@ -53,7 +53,7 @@ namespace Hsenl {
             this._pool.Clear();
         }
 
-        protected override void OnSingleUnregister() {
+        protected override void OnUnregister() {
             this.Clear();
         }
     }

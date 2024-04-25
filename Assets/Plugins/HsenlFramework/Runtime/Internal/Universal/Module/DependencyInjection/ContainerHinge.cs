@@ -7,4 +7,9 @@ namespace Hsenl {
         public Type BasicType { get; internal set; }
         public Type ImplementorType { get; internal set; }
     }
+
+    public ref struct ContainerHingeImplementor {
+        public Container Container { get; internal set; }
+        public Type ImplementorType { get; internal set; }
+    }
 }

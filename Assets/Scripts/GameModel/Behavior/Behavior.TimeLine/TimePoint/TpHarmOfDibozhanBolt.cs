@@ -9,13 +9,15 @@ namespace Hsenl {
         private Faction _faction;
         private BoltConfig _boltConfig;
 
+        private UnityEngine.Collider[] _buffer = new UnityEngine.Collider[1];
+
         protected override void OnEnable() {
             base.OnEnable();
             var owner = this.manager.Bodied.AttachedBodied;
             switch (this.manager.Bodied) {
                 case Ability ability: {
                     this._faction = owner?.GetComponent<Faction>();
-                    var boltConfig = Tables.Instance.TbBoltConfig.GetByAlias(this.info.BoltConfigAlias);
+                    this._boltConfig = Tables.Instance.TbBoltConfig.GetByAlias(this.info.BoltConfigAlias);
                     break;
                 }
             }
@@ -35,56 +37,53 @@ namespace Hsenl {
         }
 
         private IEnumerator Fire(Vector3 dir, IReadOnlyBitlist constrainsTags) {
-            // // var bolt = BoltManager.Instance.Rent(this._boltBundleName, this.info.BoltName, false);
-            // var collider = ColliderManager.Instance.Rent(this.info.ColliderName, autoActive: false);
-            // collider.SetUsage(GameColliderPurpose.Detection);
-            // var listener = CollisionEventListener.Get(collider.Entity);
-            // var counter = 0;
-            // var tsize = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Tsize);
-            //
-            // listener.onTriggerEnter = col => {
-            //     if (col.AttachedBodied == this.harmable.AttachedBodied)
-            //         return;
-            //
-            //     if (!col.Tags.ContainsAny(constrainsTags))
-            //         return;
-            //
-            //     var hurtable = col.GetComponent<Hurtable>();
-            //     if (hurtable == null)
-            //         return;
-            //
-            //     this.Harm(hurtable, this.info.HarmFormula);
-            //
-            //     Shortcut.InflictionStatus(this.harmable.Bodied, hurtable.Bodied, StatusAlias.Jitui, 0.1f);
-            //
-            //     FxManager.Instance.Play(this.info.HitFx, hurtable.transform.Position);
-            //     SourceEventStation.PlaySound(hurtable.Entity, this.info.HitSound);
-            // };
-            //
-            // yield return new WhenBreak(() => {
-            //     ColliderManager.Instance.Return(collider);
-            //     // BoltManager.Instance.Return(bolt);
-            // });
-            //
-            // while (counter < this.info.Num) {
-            //     var pos = this.harmable.transform.Position + dir * (counter + 1) * this.info.InternalDistance;
-            //     collider.transform.Position = pos;
-            //     collider.transform.LocalScale = Vector3.one * tsize;
-            //     collider.transform.Forward = dir;
-            //     // bolt.transform.Position = pos;
-            //     // bolt.transform.LocalScale = collider.transform.LocalScale;
-            //     // bolt.transform.Forward = dir;
-            //     collider.Entity.Active = true;
-            //     // bolt.Entity.Active = true;
-            //
-            //     yield return new WaitSeconds((int)(this.info.InternalTime * 1000));
-            //
-            //     collider.Entity.Active = false;
-            //     // bolt.Entity.Active = false;
-            //     counter++;
-            // }
-            
-            yield break;
+            var bolt = BoltManager.Instance.Rent(this._boltConfig, false);
+            var collider = bolt.GetComponent<Collider>();
+            collider.SetUsage(GameColliderPurpose.Detection);
+            var listener = CollisionEventListener.Get(collider.Entity);
+            var counter = 0;
+            var maxNum = this.info.Num;
+            var tsize = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Tsize);
+            var origin = this.harmable.transform.Position;
+
+            listener.onTriggerEnter = col => {
+                if (col.Bodied.AttachedBodied == this.harmable.Bodied.AttachedBodied)
+                    return;
+
+                if (!col.Tags.ContainsAny(constrainsTags))
+                    return;
+
+                var hurtable = col.GetComponent<Hurtable>();
+                if (hurtable == null)
+                    return;
+
+                this.Harm(hurtable, this.info.HarmFormula);
+
+                Shortcut.InflictionStatus(this.harmable.Bodied, hurtable.Bodied, StatusAlias.Jitui, 0.1f);
+            };
+
+            yield return new WhenBreak(() => { BoltManager.Instance.Return(bolt); });
+
+            while (counter < this.info.Num) {
+                var num = counter + 1;
+                if (num > maxNum)
+                    num = maxNum;
+                var pos = origin + dir * num * this.info.InternalDistance;
+                bolt.transform.Position = pos;
+                bolt.transform.LocalScale = collider.transform.LocalScale;
+                bolt.transform.Forward = dir;
+                bolt.Entity.Active = true;
+                
+                var c = Physics.OverlapSphereNonAlloc(pos, 0.1f, this._buffer, 1 << Constant.ObstaclesLayer);
+                if (c > 0) {
+                    maxNum = num;
+                }
+
+                yield return new WaitSeconds((int)(this.info.InternalTime * 1000));
+
+                bolt.Entity.Active = false;
+                counter++;
+            }
         }
     }
 }

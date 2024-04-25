@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace Hsenl {
     public partial struct HTask {
@@ -11,9 +10,11 @@ namespace Hsenl {
         public void Tail() { }
 
         // 终止整条异步线.
-        // 只有当task被实际挂起了才有效, 毕竟task都同步执行了, 你哪还有机会去abort, 一般来说, 我们用task肯定会异步,
+        // 只有当task被实际挂起了才有效, 毕竟task都同步执行了, 就没有机会去abort了, 一般来说, 我们用task肯定会异步,
         // 但不排除你创建一个task, 然后赶在await之前就提前SetResult, 虽然这么做完全没什么意义.
-        // 原理是通过在内部抛出一个自定义的异常来实现终止的, 因为await\async并没有留出真正用来实现abort的途径.
+        // 原理是通过在内部抛出一个自定义的异常来实现终止的, 因为await\async并没有留出真正用来实现abort的途径, 正因使用抛异常的方式, 所以其效果和throw exception一样的, 只不过最终不会真的
+        // 把异常给抛出来.
+        // 同时使用abort会对于效率会有一定影响, 因为毕竟要throw异常, 如果是性能十分敏感的地方, 可以不使用abort, 或者使用其他方案, 比如task<bool>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Abort() {
             this.body?.Abort();

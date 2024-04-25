@@ -22,12 +22,16 @@ public sealed partial class HarmOfBoxColliderInfo :  timeline.TsHarmInfo
     public HarmOfBoxColliderInfo(JSONNode _json)  : base(_json) 
     {
         { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
+        { if(!_json["center"].IsObject) { throw new SerializationException(); }  Center = hmath.Vector3.DeserializeVector3(_json["center"]);  }
+        { if(!_json["size"].IsObject) { throw new SerializationException(); }  Size = hmath.Vector3.DeserializeVector3(_json["size"]);  }
         PostInit();
     }
 
-    public HarmOfBoxColliderInfo(int model, float origin, float dest, numeric.DamageFormulaInfo harm_formula )  : base(model,origin,dest) 
+    public HarmOfBoxColliderInfo(int model, float origin, float dest, numeric.DamageFormulaInfo harm_formula, hmath.Vector3 center, hmath.Vector3 size )  : base(model,origin,dest) 
     {
         this.HarmFormula = harm_formula;
+        this.Center = center;
+        this.Size = size;
         PostInit();
     }
 
@@ -37,6 +41,8 @@ public sealed partial class HarmOfBoxColliderInfo :  timeline.TsHarmInfo
     }
 
     public numeric.DamageFormulaInfo HarmFormula { get; private set; }
+    public hmath.Vector3 Center { get; private set; }
+    public hmath.Vector3 Size { get; private set; }
 
     public const int __ID__ = -1990865739;
     public override int GetTypeId() => __ID__;
@@ -45,6 +51,8 @@ public sealed partial class HarmOfBoxColliderInfo :  timeline.TsHarmInfo
     {
         base.Resolve(_tables);
         HarmFormula?.Resolve(_tables);
+        Center?.Resolve(_tables);
+        Size?.Resolve(_tables);
         PostResolve();
     }
 
@@ -52,6 +60,8 @@ public sealed partial class HarmOfBoxColliderInfo :  timeline.TsHarmInfo
     {
         base.TranslateText(translator);
         HarmFormula?.TranslateText(translator);
+        Center?.TranslateText(translator);
+        Size?.TranslateText(translator);
     }
 
     public override string ToString()
@@ -61,6 +71,8 @@ public sealed partial class HarmOfBoxColliderInfo :  timeline.TsHarmInfo
         + "Origin:" + Origin + ","
         + "Dest:" + Dest + ","
         + "HarmFormula:" + HarmFormula + ","
+        + "Center:" + Center + ","
+        + "Size:" + Size + ","
         + "}";
     }
     

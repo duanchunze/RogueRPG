@@ -14,7 +14,7 @@ namespace Hsenl {
                 return numerator.GetValue(numericType);
             }
         
-            var value = numerator.CalculateValue(node, (uint)numericType, true);
+            var value = numerator.CalculateValue(node, numericType, true);
             return value;
         }
 
@@ -29,12 +29,12 @@ namespace Hsenl {
                 return num1.GetValue(numericType);
             }
 
-            var value = num1.MergeCalculateValue(num2, (uint)numericType, true);
+            var value = num1.MergeCalculateValue(num2, numericType, true);
             return value;
         }
 
         public static Num MergeCalculateNumeric(IList<Numerator> numerators, NumericType numericType) {
-            var value = Numerator.MergeCalculateValue(numerators, (uint)numericType, true);
+            var value = Numerator.MergeCalculateValue(numerators, numericType, true);
             return value;
         }
     }

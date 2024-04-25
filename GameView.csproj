@@ -47,7 +47,6 @@
     <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\GameView\Component\FollowMessage\FollowMessage.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\UICardStore\UICardStoreSlot.cs" />
     <Compile Include="Assets\Scripts\GameView\FactoryShadow\BoltFactory_Shadow.cs" />
     <Compile Include="Assets\Scripts\GameView\ShadowEvents\ShadowEventOnGoldNumberUpdate.cs" />
@@ -61,16 +60,18 @@
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\CasterEvaluateComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Appearance\AppearanceMiddleArgStream.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\Element\UISlot.cs" />
+    <Compile Include="Assets\Scripts\GameView\Combiner\MultiCombin\HeadInfo_Numerator_Combiner.cs" />
+    <Compile Include="Assets\Scripts\GameView\Component\UI\UIAbilityInfo.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\Element\UIDragSlot.cs" />
     <Compile Include="Assets\Scripts\GameView\Events\EventOnNumericChanged.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\CardBackpackSlotComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\SelectionTargetComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\CardBackpackComponent.cs" />
+    <Compile Include="Assets\Scripts\GameView\LocalizationHelper.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\PickableManagerComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\CardManagerComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Behavior\Behavior.TimeLine\TimePoint\TpPlaySound.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\Element\UIDrag.cs" />
-    <Compile Include="Assets\Scripts\GameView\GameProcedureShadow\ProcedurePreloadAssets_Shadow.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\DropableComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\PoolManagerComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\HurtableComponent.cs" />
@@ -79,8 +80,6 @@
     <Compile Include="Assets\Scripts\GameView\FactoryShadow\ActorFactory_Shadow.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\UICardBar\UICardBarAssistSlot.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\BoltManagerComponent.cs" />
-    <Compile Include="Assets\Scripts\GameView\GameProcedureShadow\ProcedureMainInterface_Shadow.cs" />
-    <Compile Include="Assets\Scripts\GameView\Component\UI\UIShortcut.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\UnlockCircumstanceComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\ScopeComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Combiner\MultiCombin\Model_Actor_Combiner.cs" />
@@ -88,14 +87,14 @@
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\ColliderManagerComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\FactionComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\ModelComponent.cs" />
-    <Compile Include="Assets\Scripts\GameView\Component\UI\UIMainInterface.cs" />
+    <Compile Include="Assets\Scripts\GameView\ProcedureShadow\ProcedurePreloadAssets_Shadow.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\ElementComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\UISelectHero\UISelectHero.cs" />
-    <Compile Include="Assets\Scripts\GameView\GameProcedureShadow\ProcedureSelectHero_Shadow.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\Element\UICardSlot.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\BehaviorTreeComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\ViewShortcut.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\UIName.cs" />
+    <Compile Include="Assets\Scripts\GameView\ProcedureShadow\ProcedureAdventure_ChangeScene_Shadow.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\UICardBackpack\UICardBackpack.cs" />
     <Compile Include="Assets\Scripts\GameView\ZString.Unity\TextMeshProExtensions.SetStringBuilder.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\QuestComponent.cs" />
@@ -109,9 +108,11 @@
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\CardStorePoolComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Manager\FxManager.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\AbilityBarComponent.cs" />
+    <Compile Include="Assets\Scripts\GameView\Component\UI\NavigationBar\TopLevelMenus\UIMainInterface_SelectMap.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\UICardBar\UICardBarSlot.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\ActorComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\NumericNodeComponent.cs" />
+    <Compile Include="Assets\Scripts\GameView\Component\HeadInfo\HeadInfo.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\ControlComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\StageLineComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\ProcedureLineHandler\StatusChanges\PlhStatusChangesBodyUndergoChanges.cs" />
@@ -122,11 +123,9 @@
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\RigidbodyComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\ShadowEvents\ShadowEventOnAbilityCasterShowUIMessage.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\UISceneLoading.cs" />
-    <Compile Include="Assets\Scripts\GameView\GameProcedureShadow\ProcedureShopping_Shadow.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\Sound\Sound.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\Motion\Motion.cs" />
     <Compile Include="Assets\Scripts\GameView\ShadowEvents\ShadowEventStation.cs" />
-    <Compile Include="Assets\Scripts\GameView\GameProcedureShadow\ProcedureAdventure_Shadow.cs" />
     <Compile Include="Assets\Scripts\GameView\ShadowEvents\ShadowEventOnAbilityCooldown.cs" />
     <Compile Include="Assets\Scripts\GameView\Combiner\MultiCombin\Model_Bolt_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\UIFollowMessage.cs" />
@@ -136,7 +135,10 @@
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\MotionComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Manager\WarningBoardManager.cs" />
     <Compile Include="Assets\Scripts\GameView\Combiner\MultiCombin\Motion_Model_Combiner.cs" />
+    <Compile Include="Assets\Scripts\GameView\Component\UI\NavigationBar\TopLevelMenus\UIMainInterface_Combat.cs" />
+    <Compile Include="Assets\Scripts\GameView\ProcedureShadow\ProcedureAdventure_Shopping_Shadow.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\UICardBackpack\UICardBackpackSlot.cs" />
+    <Compile Include="Assets\Scripts\GameView\ProcedureShadow\ProcedureAdventure_Shadow.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\PickableComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\GameManagerView.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\UIJumpMessage.cs" />
@@ -147,7 +149,9 @@
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\PrioritizerComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Factory\WarningBoardFactory.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\UI\UICardBar\UICardBarLine.cs" />
+    <Compile Include="Assets\Scripts\GameView\ProcedureShadow\ProcedureMainInterface_Combat_Shadow.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\ProcedureLineComponent.cs" />
+    <Compile Include="Assets\Scripts\GameView\Component\UI\NavigationBar\UINavigationBar.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\CardStoreComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\PickerComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Appearance\AppearanceSystem.cs" />
@@ -160,6 +164,8 @@
     <Compile Include="Assets\Scripts\GameView\Component\UI\UIHeadFollow.cs" />
     <Compile Include="Assets\Scripts\GameView\Component\HeadMessage\HeadMessage.cs" />
     <Compile Include="Assets\Scripts\GameView\Behavior\Behavior.TimeLine\TimePoint\TpOpenWarningBoard.cs" />
+    <Compile Include="Assets\Scripts\GameView\ProcedureShadow\ProcedureMainInterface_Shadow.cs" />
+    <Compile Include="Assets\Scripts\GameView\Component\UI\UIActorInfo.cs" />
     <Compile Include="Assets\Scripts\GameView\Behavior\Behavior.TimeLine\TimePoint\TpPlayFx.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\AdventureManagerComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\SelectorComponent.cs" />
@@ -170,7 +176,6 @@
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\CapsuleColliderComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\FollowMessageComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\CardBarHeadSlotComponent.cs" />
-    <Compile Include="Assets\Scripts\GameView\GameProcedureShadow\ProcedureChangeScene_Shadow.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\CollisionEventListenerComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\NavMeshAgentComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\ShadowEvents\ShadowEventOnAbilityCasted.cs" />
@@ -182,7 +187,6 @@
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\HarmableComponent.cs" />
     <Compile Include="Assets\Scripts\GameView\Generate\Hsenl2MonoGenerate\BoxColliderComponent.cs" />
     <None Include="Assets\Scripts\GameView\GameView.asmdef" />
-    <None Include="Assets\Scripts\GameView\desc.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

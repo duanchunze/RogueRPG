@@ -119,19 +119,6 @@ MonoBehaviour:
         FilterRuleName: CollectAll
         AssetTags: 
         UserData: 
-    - GroupName: ColliderCroup
-      GroupDesc: "\u78B0\u649E\u5668\u7EC4"
-      AssetTags: collider
-      ActiveRuleName: EnableGroup
-      Collectors:
-      - CollectPath: Assets/Bundles/Collider
-        CollectorGUID: 4ed6f76843fcea247beb282ef4fbea64
-        CollectorType: 0
-        AddressRuleName: AddressByFileName
-        PackRuleName: PackDirectory
-        FilterRuleName: CollectAll
-        AssetTags: 
-        UserData: 
     - GroupName: AppearGroup
       GroupDesc: "\u5916\u89C2\u7EC4(\u4E0D\u4EC5\u662F\u4EBA\u7269\u5916\u89C2,
         \u5305\u62EC\u6280\u80FD\u5916\u89C2, \u7279\u6548\u5916\u89C2, \u56FE\u6807,
@@ -195,18 +182,13 @@ MonoBehaviour:
         FilterRuleName: CollectAll
         AssetTags: appear_anim_controller
         UserData: 
-    - GroupName: PickableGroup
-      GroupDesc: "\u62FE\u53D6\u7269\u7EC4"
-      AssetTags: pickable
-      ActiveRuleName: EnableGroup
-      Collectors:
-      - CollectPath: Assets/Bundles/Pickable
-        CollectorGUID: 090351a39942ea54b8b5b78be9c49b47
+      - CollectPath: Assets/Bundles/Appear/Model/Pickable
+        CollectorGUID: df150d7be21379145a9d3b3360ab4126
         CollectorType: 0
-        AddressRuleName: AddressByFileName
+        AddressRuleName: AddressByLocalPath_BundlesLastOneFolder
         PackRuleName: PackDirectory
         FilterRuleName: CollectAll
-        AssetTags: 
+        AssetTags: appear_model_pickable
         UserData: 
     - GroupName: MetadataDllGroup
       GroupDesc: "\u5143\u6570\u636E\u7EC4"

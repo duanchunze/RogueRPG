@@ -69,9 +69,11 @@
     <None Include="Assets\Art\Shader\E3D-ActorPBR-GLow.shader" />
     <None Include="Assets\Bundles\Config\LubanConfig\adventure_tbadventureconfig.json" />
     <None Include="Assets\Bundles\Config\LubanConfig\checkpoint_tbcheckpointconfig.json" />
+    <None Include="Assets\Bundles\Config\LubanConfig\ability_tbabilitytraitconfig.json" />
     <None Include="Assets\Bundles\Config\LubanConfig\ability_tbabilityconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\Bundles\Config\LubanConfig\localization_tblocalizationconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\Bundles\Config\LubanConfig\ability_upgrade_tbabilityupgradeconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
@@ -80,6 +82,8 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\Bundles\Config\LubanConfig\card_tbcardsynthesisconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\Bundles\Config\LubanConfig\localization_tblocalizationabilityconfig.json" />
+    <None Include="Assets\YooAssetsBackups\AssetBundleCollectorConfig.xml" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Bundles\Config\LubanConfig\game_tbgamesingletonconfig.json" />
     <None Include="Assets\Bundles\Config\LubanConfig\actor_tbactorconfig.json" />
@@ -89,6 +93,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\Bundles\Config\LubanConfig\ability_assist_tbabilityassistconfig.json" />
+    <None Include="Assets\Bundles\Config\LubanConfig\ability_tbabilitypatchconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne.json" />
     <None Include="Assets\Bundles\Config\LubanConfig\card_tbcardconfig.json" />

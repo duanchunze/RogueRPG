@@ -36,8 +36,6 @@ namespace Hsenl {
         [MemoryPackIgnore]
         public INode Parent => this._parent;
 
-        public abstract IEnumerable<INode> ForeachChildren();
-
         // 行为树的初始行为, 对其下所有子节点进行激活
         public abstract void StartNode(IBehaviorTree tree);
 
@@ -290,8 +288,10 @@ namespace Hsenl {
 
         /// 与OnNodeEnter对应
         protected virtual void OnNodeExit() { }
+        
+        public abstract void ForeachChildren(Action<INode> callback);
 
-        public TNode GetNodeInParent<TNode>(bool once = false) where TNode : INode {
+        public TNode GetNodeInParent<TNode>(bool once = false) {
             var parent = this.Parent;
             while (parent != null) {
                 if (parent is TNode t) {
@@ -305,7 +305,11 @@ namespace Hsenl {
             return default;
         }
 
-        public abstract TNode GetNodeInChildren<TNode>(bool once = false) where TNode : INode;
+        public abstract TNode GetNodeInChildren<TNode>(bool once = false);
+
+        public abstract TNode[] GetNodesInChildren<TNode>(bool once = false);
+
+        public abstract void GetNodesInChildren<TNode>(List<TNode> cache, bool once = false);
 
         public override string ToString() {
             return this.GetType().Name;

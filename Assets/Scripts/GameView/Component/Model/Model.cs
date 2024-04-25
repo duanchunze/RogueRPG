@@ -27,5 +27,15 @@ namespace Hsenl.View {
                 Log.Error(e);
             }
         }
+
+        protected override void OnEnable() {
+            if (this.ModelObj != null)
+                this.ModelObj.gameObject.SetActive(true);
+        }
+
+        protected override void OnDisable() {
+            if (this.ModelObj != null)
+                this.ModelObj.gameObject.SetActive(false);
+        }
     }
 }

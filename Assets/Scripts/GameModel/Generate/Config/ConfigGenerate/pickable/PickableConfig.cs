@@ -22,19 +22,17 @@ public sealed partial class PickableConfig :  Bright.Config.BeanBase
         { if(!_json["alias"].IsString) { throw new SerializationException(); }  Alias = _json["alias"]; }
         { if(!_json["view_name"].IsString) { throw new SerializationException(); }  ViewName = _json["view_name"]; }
         { if(!_json["model_name"].IsString) { throw new SerializationException(); }  ModelName = _json["model_name"]; }
-        { if(!_json["collider_name"].IsString) { throw new SerializationException(); }  ColliderName = _json["collider_name"]; }
         { if(!_json["wrappage"].IsObject) { throw new SerializationException(); }  Wrappage = pickable.Info.DeserializeInfo(_json["wrappage"]);  }
         { if(!_json["radius"].IsNumber) { throw new SerializationException(); }  Radius = _json["radius"]; }
         PostInit();
     }
 
-    public PickableConfig(int id, string alias, string view_name, string model_name, string collider_name, pickable.Info wrappage, float radius ) 
+    public PickableConfig(int id, string alias, string view_name, string model_name, pickable.Info wrappage, float radius ) 
     {
         this.Id = id;
         this.Alias = alias;
         this.ViewName = view_name;
         this.ModelName = model_name;
-        this.ColliderName = collider_name;
         this.Wrappage = wrappage;
         this.Radius = radius;
         PostInit();
@@ -58,7 +56,6 @@ public sealed partial class PickableConfig :  Bright.Config.BeanBase
     /// </summary>
     public string ViewName { get; private set; }
     public string ModelName { get; private set; }
-    public string ColliderName { get; private set; }
     public pickable.Info Wrappage { get; private set; }
     public float Radius { get; private set; }
 
@@ -83,7 +80,6 @@ public sealed partial class PickableConfig :  Bright.Config.BeanBase
         + "Alias:" + Alias + ","
         + "ViewName:" + ViewName + ","
         + "ModelName:" + ModelName + ","
-        + "ColliderName:" + ColliderName + ","
         + "Wrappage:" + Wrappage + ","
         + "Radius:" + Radius + ","
         + "}";

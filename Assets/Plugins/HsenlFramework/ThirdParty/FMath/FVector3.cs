@@ -15,7 +15,7 @@ namespace FixedMath {
         internal static FVector3 InternalZero;
         internal static FVector3 Arbitrary = new FVector3(1);
 
-        public static readonly FVector3 Zero;
+        public static readonly FVector3 Zero = default;
         public static readonly FVector3 One = new FVector3(1);
         public static readonly FVector3 Left = new FVector3(-1, 0, 0);
         public static readonly FVector3 Right = new FVector3(1, 0, 0);

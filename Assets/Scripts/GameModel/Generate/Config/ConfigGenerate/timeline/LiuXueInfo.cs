@@ -14,7 +14,7 @@ using SimpleJSON;
 namespace Hsenl.timeline
 { 
 
-public sealed partial class LiuXueInfo :  timeline.TsHarmInfo 
+public sealed partial class LiuXueInfo :  timeline.TsStatusHarmInfo 
 {
     public LiuXueInfo(JSONNode _json)  : base(_json) 
     {

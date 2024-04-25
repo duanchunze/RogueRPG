@@ -25,6 +25,8 @@ namespace Hsenl {
         protected override void OnTimeSegmentOrigin() {
             this._sphereCollider = ColliderManager.Instance.Rent<SphereCollider>();
             this._sphereCollider.IsTrigger = true;
+            this._sphereCollider.Center = this.info.Center.ToUnityVector3();
+            this._sphereCollider.Radius = this.info.Radius;
             this._sphereCollider.SetUsage(GameColliderPurpose.Detection);
             var tsize = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Tsize);
             this._sphereCollider.transform.LocalScale = Vector3.one * tsize;
@@ -53,7 +55,9 @@ namespace Hsenl {
 
         protected override void OnTimeSegmentRunning() {
             if (this._sphereCollider != null) {
-                this._sphereCollider.transform.Position = this.manager.Bodied.transform.Position;
+                var tran = this.manager.Bodied.transform;
+                this._sphereCollider.transform.Position = tran.Position;
+                this._sphereCollider.transform.Quaternion = tran.Quaternion;
             }
         }
 

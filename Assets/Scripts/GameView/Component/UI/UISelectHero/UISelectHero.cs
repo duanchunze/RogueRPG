@@ -1,5 +1,4 @@
-﻿using Hsenl.EventType;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEngine.UI;
 
 namespace Hsenl.View {
@@ -27,15 +26,15 @@ namespace Hsenl.View {
         protected override void OnCreate() {
             this.confirmButton.onClick.AddListener(() => {
                 if (this.selectSlot != null) {
-                    Procedure.ChangeState<ProcedureStartAdventure, int>(this.selectSlot.Filler.Id);
+                    ProcedureManager.Procedure.ChangeState<ProcedureAdventure>(this.selectSlot.Filler.Id);
                 }
             });
 
-            this.returnButton.onClick.AddListener(() => { Procedure.ChangeState<ProcedureMainInterface>(); });
+            this.returnButton.onClick.AddListener(() => { ProcedureManager.Procedure.ChangeState<ProcedureMainInterface>(); });
         }
 
         protected override void OnOpen() {
-            SourceEventStation.OnHeroUnlockUpdate();
+            EventStation.OnHeroUnlockUpdate();
         }
     }
 }

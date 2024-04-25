@@ -20,19 +20,15 @@ public sealed partial class AbilityAssistConfig :  Bright.Config.BeanBase
     {
         { if(!_json["id"].IsNumber) { throw new SerializationException(); }  Id = _json["id"]; }
         { if(!_json["alias"].IsString) { throw new SerializationException(); }  Alias = _json["alias"]; }
-        { if(!_json["view_name"].IsString) { throw new SerializationException(); }  ViewName = _json["view_name"]; }
-        { if(!_json["desc"].IsString) { throw new SerializationException(); }  Desc = _json["desc"]; }
         { var __json0 = _json["tags"]; if(!__json0.IsArray) { throw new SerializationException(); } Tags = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  Tags.Add(__v0); }   }
         { var __json0 = _json["numeric_nodes"]; if(!__json0.IsArray) { throw new SerializationException(); } NumericNodes = new System.Collections.Generic.List<numeric.AttachValueInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { numeric.AttachValueInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = numeric.AttachValueInfo.DeserializeAttachValueInfo(__e0);  }  NumericNodes.Add(__v0); }   }
         PostInit();
     }
 
-    public AbilityAssistConfig(int id, string alias, string view_name, string desc, System.Collections.Generic.List<TagType> tags, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes ) 
+    public AbilityAssistConfig(int id, string alias, System.Collections.Generic.List<TagType> tags, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes ) 
     {
         this.Id = id;
         this.Alias = alias;
-        this.ViewName = view_name;
-        this.Desc = desc;
         this.Tags = tags;
         this.NumericNodes = numeric_nodes;
         PostInit();
@@ -51,14 +47,6 @@ public sealed partial class AbilityAssistConfig :  Bright.Config.BeanBase
     /// 别名
     /// </summary>
     public string Alias { get; private set; }
-    /// <summary>
-    /// 名称
-    /// </summary>
-    public string ViewName { get; private set; }
-    /// <summary>
-    /// 描述
-    /// </summary>
-    public string Desc { get; private set; }
     /// <summary>
     /// 标签
     /// </summary>
@@ -87,8 +75,6 @@ public sealed partial class AbilityAssistConfig :  Bright.Config.BeanBase
         return "{ "
         + "Id:" + Id + ","
         + "Alias:" + Alias + ","
-        + "ViewName:" + ViewName + ","
-        + "Desc:" + Desc + ","
         + "Tags:" + Bright.Common.StringUtil.CollectionToString(Tags) + ","
         + "NumericNodes:" + Bright.Common.StringUtil.CollectionToString(NumericNodes) + ","
         + "}";

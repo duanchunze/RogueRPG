@@ -129,11 +129,24 @@ namespace Hsenl {
 
         public static IUI SingleClose(string uiName) {
             if (!Instance._singles.TryGetValue(uiName, out var ui)) {
-                Log.Error("single close ui fail, ui have not been single opened");
+                Log.Error($"single close ui fail, ui have not been single opened '{uiName}'");
                 return null;
             }
 
             ui.InternalClose();
+            return ui;
+        }
+
+        public static T GetSingleUI<T>() where T : IUI {
+            var ui = GetSingleUI(typeof(T).Name);
+            return (T)ui;
+        }
+        
+        public static IUI GetSingleUI(string uiName) {
+            if (!Instance._singles.TryGetValue(uiName, out var ui)) {
+                return null;
+            }
+
             return ui;
         }
 

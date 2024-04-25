@@ -1,5 +1,5 @@
 ﻿namespace Hsenl.View {
-    [ShadowFunction(typeof(SourceEventStation))]
+    [ShadowFunction(typeof(EventStation))]
     public partial class ShadowEventOnAbilityCooldown {
         [ShadowFunction]
         private static void OnAbilityCooldown(Hsenl.Ability ability, float cooltime, float tilltime) {

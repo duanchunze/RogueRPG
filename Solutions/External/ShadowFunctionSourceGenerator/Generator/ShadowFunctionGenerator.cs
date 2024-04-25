@@ -1,0 +1,1287 @@
+﻿using System;
+using System.Collections.Generic;
+#if DEBUG
+using System.Diagnostics;
+#endif
+using System.Linq;
+using System.Text;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
+
+// ReSharper disable HeuristicUnreachableCode
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning disable CS0162 // Unreachable code detected
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+
+namespace ShadowFunction {
+    [Generator]
+    public class ShadowFunctionGenerator : ISourceGenerator {
+        private const string ShadowFunctionSystemNamespace = "Hsenl"; // 影子函数系统所在的命名空间
+        private const string ShadowFunctionAttributeFullName = "Hsenl.ShadowFunctionAttribute"; // 影子函数特性的全名
+        private const string ShadowFunctionAttributeShortName = "ShadowFunction"; // 影子函数特性的简称
+        private const string ShadowFunctionMandatoryAttributeFullName = "Hsenl.ShadowFunctionMandatoryAttribute"; // 强制影子函数特性的全名
+        private const string ShadowFunctionMandatoryAttributeShortName = "ShadowFunctionMandatory"; // 强制影子函数特性的简称
+        private const bool UsePreHashCode = true;
+        public const char ManifestSplit1 = '#';
+        public const char ManifestSplit2 = ';';
+
+        public static bool IsGenerating { get; private set; }
+
+        // 创建了一个字典, key1为程序集名, key2为类的typeDisplayStringWithoutGenericParam, HashSet为该类的所有源函数的hashcode. 每次触发receiver的时候, 重置该字典
+        // 后续影子函数在找源函数的时候, 就从这里找, 如果找不到就收集并保存, 如果找到了, 就直接用
+        private readonly Dictionary<string, Dictionary<string, HashSet<string>>> _hashcodeLookupTable = new();
+    
+        public void Initialize(GeneratorInitializationContext context) {
+            // 当代码变化、生成时, 触发. 每个程序集触发一次, 回调返回的是该程序集所有语法节点
+            context.RegisterForSyntaxNotifications(() => new ShadowFunctionReceiver());
+        }
+    
+        public void Execute(GeneratorExecutionContext context) {
+            // 判断是否是由我们上面注册的修改通知引发的, 如果不是, 就不处理
+            if (context.SyntaxReceiver is not ShadowFunctionReceiver receiver) {
+                return;
+            }
+
+            IsGenerating = true;
+    
+    #if DEBUG
+            Debugger.Launch();
+    #endif
+            try {
+                this._hashcodeLookupTable.Clear();
+                var compilation = context.Compilation;
+
+                // 先找到需要的 attribute
+                var shadowAttrSymbol = compilation.GetTypeByMetadataName(ShadowFunctionAttributeFullName);
+                if (shadowAttrSymbol == null)
+                    return;
+
+                var mandatoryAttrSymbol = compilation.GetTypeByMetadataName(ShadowFunctionMandatoryAttributeFullName);
+
+                // 根据SyntaxNode获取其Symbol
+                List<INamedTypeSymbol> candidateNameTypeSymbols = new();
+                foreach (var typeDeclarationSyntax in receiver.Candidates) {
+                    var nameTypeSymbol = compilation.GetSemanticModel(typeDeclarationSyntax.SyntaxTree).GetDeclaredSymbol(typeDeclarationSyntax);
+                    if (nameTypeSymbol == null)
+                        continue;
+
+                    candidateNameTypeSymbols.Add(nameTypeSymbol);
+                }
+
+                // 遍历所有类, 收集信息
+                List<TypeSymbolInfo> typeSymbolInfos = new();
+                try {
+                    foreach (var candidateNameTypeSymbol in candidateNameTypeSymbols) {
+                        // 带有属性标记的类, 就是确定要处理的类, 无论对错都会生成, 错了就显示在代码里
+                        var attributeData = candidateNameTypeSymbol.GetAttributes()
+                            .FirstOrDefault(x => x.AttributeClass?.Equals(shadowAttrSymbol, SymbolEqualityComparer.Default) ?? false);
+                        if (attributeData == null)
+                            continue;
+
+                        TypeSymbolInfo symbolInfo = new(candidateNameTypeSymbol, attributeData);
+                        this.CollectTypeSymbolInfo(context, symbolInfo, shadowAttrSymbol, mandatoryAttrSymbol);
+                        typeSymbolInfos.Add(symbolInfo);
+                    }
+                }
+                catch (Exception e) {
+                    context.AddSource($"Error_For_CollectTypeSymbolInfos.g.cs", e.ToString());
+                }
+
+                bool alreadyGeneratedManifestAttribute = false;
+
+                void GenerateManifestAttribute(Compilation c) {
+                    if (alreadyGeneratedManifestAttribute)
+                        return;
+                    alreadyGeneratedManifestAttribute = true;
+                    string manifestAttributeTemplate = $$"""
+                                                         //------------------------------------------------------------------------------
+                                                         // <auto-generated>
+                                                         //     该特性是由SourceGeerator自动生成, 用于存储当前域的源函数信息, 以供影子函数使用,
+                                                         //     我们不需要使用它, 名字前缀是用来防止污染代码提示的
+                                                         // </auto-generated>
+                                                         //------------------------------------------------------------------------------
+
+                                                         namespace {{c.Assembly.Name}} {
+                                                             [global::System.AttributeUsage(global::System.AttributeTargets.Class, Inherited = false)]
+                                                             public class SFS_DC_SourceFunctionManifestAttribute : global::System.Attribute {
+                                                                 public string data;
+                                                             
+                                                                 public SFS_DC_SourceFunctionManifestAttribute(string data) {
+                                                                     this.data = data;
+                                                                 }
+                                                             }
+                                                         }
+                                                         """;
+
+                    var sourceText = SourceText.From(manifestAttributeTemplate, Encoding.UTF8);
+                    context.AddSource("SFS_DC_SourceFunctionManifestAttribute.cs", sourceText);
+                    // var syntaxTree = CSharpSyntaxTree.ParseText(sourceText);
+                    // compilation = compilation.AddSyntaxTrees(syntaxTree); // AddSource后, 就已经添加到compilation中了, 不需要再一次
+                }
+
+                // 生成源函数清单
+                try {
+                    StringBuilder stringBuilder = new();
+                    var infos = typeSymbolInfos.Where(x => x.IsSource).ToArray();
+                    for (int i = 0, len = infos.Length; i < len; i++) {
+                        var typeSymbolInfo = infos[i];
+
+                        var last = i == len - 1;
+
+                        stringBuilder.Append("\"");
+                        stringBuilder.Append($"{typeSymbolInfo.sourceTypeDisplayStringWithoutGenericParam}");
+                        stringBuilder.Append(ManifestSplit1);
+                        var counter = 0;
+                        for (int j = 0, jlen = typeSymbolInfo.methodInfos.Count; j < jlen; j++) {
+                            var jlast = j == jlen - 1;
+                            var methodSymbolInfo = typeSymbolInfo.methodInfos[j];
+
+                            if (counter >= 0) {
+                                counter = 0;
+                                stringBuilder.Append("\"");
+                                stringBuilder.Append(" +");
+                                stringBuilder.Append("\n");
+                                stringBuilder.Append("                                                         ");
+                                stringBuilder.Append("\"");
+                            }
+
+                            stringBuilder.Append(methodSymbolInfo.hashcode);
+
+                            if (!jlast)
+                                stringBuilder.Append(ManifestSplit1);
+
+                            counter++;
+                        }
+
+                        stringBuilder.Append(ManifestSplit2);
+                        stringBuilder.Append("\"");
+                        if (!last) {
+                            stringBuilder.Append(" +");
+                            stringBuilder.Append("\n");
+                            stringBuilder.Append("                                                  ");
+                        }
+                    }
+
+                    if (stringBuilder.Length != 0) {
+                        GenerateManifestAttribute(compilation);
+                        StringBuilder subsb = new();
+                        subsb.Append($$"""
+                                       //------------------------------------------------------------------------------
+                                       // <auto-generated>
+                                       //     该类是由SourceGeerator自动生成, 用于存储当前域的源函数信息, 以供影子函数使用,
+                                       //     我们不需要使用它, 名字前缀是用来防止污染代码提示的, 无实际意义
+                                       // </auto-generated>
+                                       //------------------------------------------------------------------------------
+                                       """);
+                        subsb.Append("\n");
+                        subsb.Append($"namespace {compilation.Assembly.Name} {{");
+                        subsb.Append($"\n");
+                        subsb.Append($"    [SFS_DC_SourceFunctionManifestAttribute(data: {stringBuilder})]");
+                        subsb.Append($"\n");
+                        subsb.Append($"    public static class SFS_DC_SourceFunctionManifestCarrier {{ }}");
+                        subsb.Append($"\n");
+                        subsb.Append($"}}");
+
+                        var sourceText = SourceText.From(subsb.ToString(), Encoding.UTF8);
+                        context.AddSource("SFS_DC_SourceFunctionManifestCarrier.cs", sourceText);
+                    }
+                }
+                catch (Exception e) {
+                    context.AddSource($"Error_For_Generate_ManifestCarrier.g.cs", e.ToString());
+                }
+
+                // 生成源函数的明文清单
+                try {
+                    StringBuilder stringBuilder = new();
+                    var infos = typeSymbolInfos.Where(x => x.IsSource).ToArray();
+                    for (int i = 0, len = infos.Length; i < len; i++) {
+                        var typeSymbolInfo = infos[i];
+
+                        var last = i == len - 1;
+
+                        stringBuilder.Append("\"");
+                        stringBuilder.Append($"{typeSymbolInfo.sourceTypeDisplayStringWithoutGenericParam}");
+                        stringBuilder.Append(ManifestSplit1);
+                        var counter = 0;
+                        for (int j = 0, jlen = typeSymbolInfo.methodInfos.Count; j < jlen; j++) {
+                            var jlast = j == jlen - 1;
+                            var methodSymbolInfo = typeSymbolInfo.methodInfos[j];
+
+                            if (counter >= 0) {
+                                counter = 0;
+                                stringBuilder.Append("\"");
+                                stringBuilder.Append(" +");
+                                stringBuilder.Append("\n");
+                                stringBuilder.Append("                                                         ");
+                                stringBuilder.Append("\"");
+                            }
+
+                            stringBuilder.Append(methodSymbolInfo.uniqueNameIncludeParamName);
+
+                            if (!jlast)
+                                stringBuilder.Append(ManifestSplit1);
+
+                            counter++;
+                        }
+
+                        stringBuilder.Append(ManifestSplit2);
+                        stringBuilder.Append("\"");
+                        if (!last) {
+                            stringBuilder.Append(" +");
+                            stringBuilder.Append("\n");
+                            stringBuilder.Append("                                                  ");
+                        }
+                    }
+
+                    if (stringBuilder.Length != 0) {
+                        GenerateManifestAttribute(compilation);
+                        StringBuilder subsb = new();
+                        subsb.Append($$"""
+                                       //------------------------------------------------------------------------------
+                                       // <auto-generated>
+                                       //     该类是由SourceGeerator自动生成, 提供给代码修复器使用
+                                       //     我们不需要使用它, 名字前缀是用来防止污染代码提示的, 无实际意义
+                                       // </auto-generated>
+                                       //------------------------------------------------------------------------------
+                                       """);
+                        subsb.Append("\n");
+                        subsb.Append($"namespace {compilation.Assembly.Name} {{");
+                        subsb.Append($"\n");
+                        subsb.Append($"    [SFS_DC_SourceFunctionManifestAttribute(data: {stringBuilder})]");
+                        subsb.Append($"\n");
+                        subsb.Append($"    public static class SFS_DC_SourceFunctionManifestCarrier_Plaintext {{ }}");
+                        subsb.Append($"\n");
+                        subsb.Append($"}}");
+
+                        var sourceText = SourceText.From(subsb.ToString(), Encoding.UTF8);
+                        context.AddSource("SFS_DC_SourceFunctionManifestCarrier_Plaintext.cs", sourceText);
+                    }
+                }
+                catch (Exception e) {
+                    context.AddSource($"Error_For_Generate_ManifestCarrier_Plaintext.g.cs", e.ToString());
+                }
+
+                try {
+                    List<(string typeName, string uniqueName)> lookupTable = new();
+                    foreach (var typeSymbolInfo in typeSymbolInfos) {
+                        if (!typeSymbolInfo.IsSource)
+                            continue;
+
+                        foreach (var methodSymbolInfo in typeSymbolInfo.methodInfos) {
+                            lookupTable.Add((typeSymbolInfo.sourceTypeDisplayStringWithoutGenericParam, methodSymbolInfo.uniqueName));
+                        }
+                    }
+
+                    if (lookupTable.Count != 0) {
+                        GenerateManifestAttribute(compilation);
+                        StringBuilder subsb = new();
+                        subsb.Append($$"""
+                                       //------------------------------------------------------------------------------
+                                       // <auto-generated>
+                                       //     该类是由SourceGeerator自动生成, 用于存储当前域的源函数明文信息, 以供查阅使用.
+                                       // </auto-generated>
+                                       //------------------------------------------------------------------------------
+                                       """);
+                        subsb.Append("\n");
+                        subsb.Append("using System.Collections.Generic;");
+                        subsb.Append("\n");
+                        subsb.Append("\n");
+                        subsb.Append($"namespace {compilation.Assembly.Name} {{");
+                        subsb.Append($"\n");
+                        subsb.Append($"    public class SourceFunctionLookupTable {{");
+                        subsb.Append($"\n");
+                        subsb.Append($"        public readonly List<(string typeName, string uniqueName)> lookupTable = new() {{");
+                        subsb.Append($"\n");
+                        string currentTypeName = lookupTable[0].typeName;
+                        foreach (var tuple in lookupTable) {
+                            if (currentTypeName != tuple.typeName) {
+                                currentTypeName = tuple.typeName;
+                                subsb.Append($"\n");
+                            }
+
+                            subsb.Append($"            (\"{tuple.typeName}\", \"{tuple.uniqueName}\"),");
+                            subsb.Append($"\n");
+                        }
+
+                        subsb.Append($"        }};");
+                        subsb.Append($"\n");
+                        subsb.Append($"    }}");
+                        subsb.Append($"\n");
+                        subsb.Append($"}}");
+
+                        var sourceText = SourceText.From(subsb.ToString(), Encoding.UTF8);
+                        context.AddSource("SourceFunctionLookupTable.cs", sourceText);
+                    }
+                }
+                catch (Exception e) {
+                    context.AddSource($"Error_For_Generate_SourceFunctionLookupTable.g.cs", e.ToString());
+                }
+
+                try {
+                    List<(uint hashcode, string uniqueName)> lookupTable = new();
+                    foreach (var typeSymbolInfo in typeSymbolInfos) {
+                        if (!typeSymbolInfo.IsSource)
+                            continue;
+                        foreach (var methodSymbolInfo in typeSymbolInfo.methodInfos) {
+                            if (methodSymbolInfo.RealAllowMultiShadowFuns)
+                                continue;
+
+                            lookupTable.Add((methodSymbolInfo.hashcode, methodSymbolInfo.uniqueName));
+                        }
+                    }
+
+                    if (lookupTable.Count != 0) {
+                        GenerateManifestAttribute(compilation);
+                        StringBuilder subsb = new();
+                        subsb.Append($$"""
+                                       //------------------------------------------------------------------------------
+                                       // <auto-generated>
+                                       //     该类是由SourceGeerator自动生成, 用于存储当前域所有Single源函数, 以供管理器函数使用.
+                                       // </auto-generated>
+                                       //------------------------------------------------------------------------------
+                                       """);
+                        subsb.Append("\n");
+                        subsb.Append("using System.Collections.Generic;");
+                        subsb.Append("\n");
+                        subsb.Append("\n");
+                        subsb.Append($"namespace {compilation.Assembly.Name} {{");
+                        subsb.Append($"\n");
+                        subsb.Append($"    public class SingleSourceFunctionLookupTable {{");
+                        subsb.Append($"\n");
+                        subsb.Append($"        public readonly List<(uint hashcode, string uniqueName)> lookupTable = new() {{");
+                        subsb.Append($"\n");
+                        foreach (var tuple in lookupTable) {
+                            subsb.Append($"            ({tuple.hashcode}, \"{tuple.uniqueName}\"),");
+                            subsb.Append($"\n");
+                        }
+
+                        subsb.Append($"        }};");
+                        subsb.Append($"\n");
+                        subsb.Append($"    }}");
+                        subsb.Append($"\n");
+                        subsb.Append($"}}");
+
+                        var sourceText = SourceText.From(subsb.ToString(), Encoding.UTF8);
+                        context.AddSource("SingleSourceFunctionLookupTable.cs", sourceText);
+                    }
+                }
+                catch (Exception e) {
+                    context.AddSource($"Error_For_Generate_SingleSourceFunctionLookupTable.g.cs", e.ToString());
+                }
+
+                // 遍历所有类, 挨个生成代码
+                foreach (var typeSymbolInfo in typeSymbolInfos) {
+                    try {
+                        if (typeSymbolInfo.IsSource) {
+                            CreateSourceTypeCode(context, typeSymbolInfo);
+                        }
+                        else {
+                            CreateShadowTypeCode(context, typeSymbolInfo);
+                        }
+
+                        if (typeSymbolInfo.typeSucc != "succ") {
+                            context.AddSource($"Error_For_Generate_{typeSymbolInfo.metadataName}.g.cs", typeSymbolInfo.typeSucc);
+                        }
+                    }
+                    catch (Exception e) {
+                        context.AddSource($"Error_For_Generate_{typeSymbolInfo.metadataName}.g.cs", e.ToString());
+                    }
+                }
+            }
+            finally {
+                IsGenerating = false;
+            }
+        }
+    
+        private void CollectTypeSymbolInfo(GeneratorExecutionContext context, TypeSymbolInfo typeSymbolInfo, INamedTypeSymbol attrTypeSymbol, INamedTypeSymbol? mandatoryAttrTypeSymbol) {
+            var selfTypeSymbol = typeSymbolInfo.typeSymbol;
+            
+            if (selfTypeSymbol.TypeKind != TypeKind.Class && selfTypeSymbol.TypeKind != TypeKind.Struct) {
+                typeSymbolInfo.typeSucc = $"TypeKind: '{selfTypeSymbol.TypeKind}'不支持";
+                return;
+            }
+            
+            typeSymbolInfo.sourceTypeSymbol = Common.GetArgValueInAttributeData<INamedTypeSymbol>(typeSymbolInfo.attributeData, 0);
+            typeSymbolInfo.sourceTypePriority = Common.GetArgValueInAttributeData<int>(typeSymbolInfo.attributeData, 1);
+            typeSymbolInfo.allowMultiShadowFuns = Common.GetArgValueInAttributeData<bool>(typeSymbolInfo.attributeData, 2);
+            
+            typeSymbolInfo.displayString = selfTypeSymbol.ToDisplayString();
+            typeSymbolInfo.metadataName = selfTypeSymbol.MetadataName;
+            typeSymbolInfo.name = selfTypeSymbol.Name;
+    
+            if (typeSymbolInfo.IsSource) {
+                typeSymbolInfo.sourceTypeDisplayStringWithoutGenericParam = Common.GetTypeNameWithoutGenericParams(typeSymbolInfo.typeSymbol);
+    
+                var memberSymbols = Common.GetMembersInBase(selfTypeSymbol);
+                foreach (var memberSymbol in memberSymbols) {
+                    if (memberSymbol.Kind != SymbolKind.Method)
+                        continue;
+                    
+                    // 需要包含了特性
+                    var attribueData = memberSymbol.GetAttributes()
+                        .FirstOrDefault(x => x.AttributeClass?.Equals(attrTypeSymbol, SymbolEqualityComparer.Default) ?? false);
+                    if (attribueData == null)
+                        continue;
+    
+                    // 如果该成员是父类的成员, 那么还需要判断父类是否也包含了特性
+                    if (memberSymbol.ContainingType.Equals(selfTypeSymbol, SymbolEqualityComparer.Default)) {
+                        if (!memberSymbol.ContainingType.GetAttributes().Any(xx => xx.AttributeClass != null && xx.AttributeClass.Equals(attrTypeSymbol, SymbolEqualityComparer.Default)))
+                            continue;
+                    }
+    
+                    var methodSymbol = (IMethodSymbol)memberSymbol;
+                    
+                    Common.DeconstructSourceFunction(methodSymbol, out var hasRet, out var finalName, out var finalReturn);
+                    
+                    // 得到该函数的唯一编号
+                    string methodUniqueName = Common.ConstructMethodUniqueName(methodSymbol, 0, finalName, finalReturn); // 函数的唯一名字(名字 + 参数 + 返回值的组合)
+                    uint hashcode = Common.HashCodeCombine(typeSymbolInfo.sourceTypeDisplayStringWithoutGenericParam, methodUniqueName); // 唯一哈希值(方法所在的类 + 唯一名字)
+                    
+                    MethodSymbolInfo methodSymbolInfo = new(
+                        typeSymbolInfo, 
+                        methodSymbol, 
+                        attribueData, 
+                        finalName, 
+                        finalReturn, 
+                        methodUniqueName, 
+                        hashcode,
+                        hasRet);
+                    
+                    methodSymbolInfo.allowMultiShadowFuns = Common.GetArgValueInAttributeData<bool>(attribueData, 2);
+                    methodSymbolInfo.uniqueNameIncludeParamName = Common.ConstructMethodUniqueNameIncludeParaName(methodSymbol, 0, finalName, finalReturn);
+                    
+                    typeSymbolInfo.methodInfos.Add(methodSymbolInfo);
+                }
+            }
+            else {
+                typeSymbolInfo.sourceTypeDisplayStringWithoutGenericParam = Common.GetTypeNameWithoutGenericParams(typeSymbolInfo.sourceTypeSymbol!);
+                
+                if (selfTypeSymbol.ContainingAssembly.ToDisplayString() == typeSymbolInfo.sourceTypeSymbol!.ContainingAssembly.ToDisplayString()) {
+                    typeSymbolInfo.typeSucc = "影子类和源类不能在同一个程序集";
+                    return;
+                }
+    
+                var memberSymbols = selfTypeSymbol.GetMembers();
+                List<(IMethodSymbol methodSymbol, AttributeData attributeData)> shadowMethods = new();
+                List<(IMethodSymbol methodSymbol, AttributeData attributeData)> shadowMandatoryMethods = new();
+                foreach (var memberSymbol in memberSymbols) {
+                    if (memberSymbol.Kind != SymbolKind.Method)
+                        continue;
+                    
+                    foreach (var attribute in memberSymbol.GetAttributes()) {
+                        if (attribute.AttributeClass != null && attribute.AttributeClass.Equals(attrTypeSymbol, SymbolEqualityComparer.Default)) {
+                            shadowMethods.Add(((IMethodSymbol)memberSymbol, attribute));
+                            break;
+                        }
+    
+                        if (attribute.AttributeClass != null && attribute.AttributeClass.Equals(mandatoryAttrTypeSymbol, SymbolEqualityComparer.Default)) {
+                            shadowMandatoryMethods.Add(((IMethodSymbol)memberSymbol, attribute));
+                            break;
+                        }
+                    }
+                }
+                
+                // 从源类中获取所有源函数的信息汇总
+                HashSet<string> all_source_method_hashcodes = null;
+                if (shadowMethods.Count != 0) {
+                    var metadataName = Common.GetSourceFunctionManifestCarrierMetadataName(typeSymbolInfo.sourceTypeSymbol.ContainingAssembly.Name);
+                    if (!this._hashcodeLookupTable.TryGetValue(metadataName, out var dict)) {
+                        var manifestCarrierTypeSymbol = context.Compilation.GetTypeByMetadataName(metadataName);
+                        if (manifestCarrierTypeSymbol != null) {
+                            if (Common.ParseSourceFunctionManifest(manifestCarrierTypeSymbol, ManifestSplit2, ManifestSplit1, out dict)) {
+                                this._hashcodeLookupTable[metadataName] = dict;
+                            }
+                        }
+                    }
+
+                    dict?.TryGetValue(typeSymbolInfo.sourceTypeDisplayStringWithoutGenericParam, out all_source_method_hashcodes);
+                }
+                
+                // 筛选所有符合条件的影子函数1
+                foreach (var (methodSymbol, attributeData) in shadowMethods) {
+                    var pri = Common.GetArgValueInAttributeData<int>(attributeData, 1);
+                    
+                    // 拆解影子函数
+                    Common.DeconstructShadowFunction(methodSymbol, typeSymbolInfo.sourceTypeSymbol, out var hasRet, out var self, out var finalName, out var finalReturn);
+    
+                    // 得到该函数的唯一编号
+                    string methodUniqueName = Common.ConstructMethodUniqueName(methodSymbol, self ? 1 : 0, finalName, finalReturn); // 函数的唯一名字(名字 + 参数 + 返回值的组合)
+                    uint hashcode = Common.HashCodeCombine(typeSymbolInfo.sourceTypeDisplayStringWithoutGenericParam, methodUniqueName);
+                    var hashcodeStr = hashcode.ToString();
+                    
+                    ShadowMethodSymbolInfo shadowMethodSymbolInfo = new(
+                        typeSymbolInfo, 
+                        methodSymbol, 
+                        attributeData, 
+                        finalName, 
+                        finalReturn, 
+                        methodUniqueName, 
+                        hashcode, 
+                        hasRet, 
+                        pri);
+                    
+                    shadowMethodSymbolInfo.allowMultiShadowFuns = Common.GetArgValueInAttributeData<bool>(attributeData, 2);
+
+                    if (all_source_method_hashcodes == null) {
+                        shadowMethodSymbolInfo.methodSucc = $"没到源类的清单";
+                    }
+                    else {
+                        if (!all_source_method_hashcodes.Contains(hashcodeStr)) {
+                            shadowMethodSymbolInfo.methodSucc = $"没找到匹配的源函数";
+                        }
+                    }
+                    
+                    typeSymbolInfo.methodInfos.Add(shadowMethodSymbolInfo);
+                }
+    
+                foreach (var (methodSymbol, attributeData) in shadowMandatoryMethods) {
+                    var pri = Common.GetArgValueInAttributeData<int>(attributeData, 0);
+                    
+                    // 拆解影子函数
+                    Common.DeconstructShadowFunction(methodSymbol, typeSymbolInfo.sourceTypeSymbol, out var hasRet, out var self, out var finalName, out var finalReturn);
+                    
+                    // 得到该函数的唯一编号
+                    string methodUniqueName = Common.ConstructMethodUniqueName(methodSymbol, self ? 1 : 0, finalName, finalReturn); // 函数的唯一名字(名字 + 参数 + 返回值的组合)
+                    uint hashcode = Common.HashCodeCombine(typeSymbolInfo.sourceTypeDisplayStringWithoutGenericParam, methodUniqueName);
+    
+                    ShadowMethodSymbolInfo shadowMethodSymbolInfo = new(
+                        typeSymbolInfo, 
+                        methodSymbol, 
+                        attributeData, 
+                        finalName, 
+                        finalReturn, 
+                        methodUniqueName, 
+                        hashcode, 
+                        hasRet, 
+                        pri);
+                    
+                    shadowMethodSymbolInfo.allowMultiShadowFuns = Common.GetArgValueInAttributeData<bool>(attributeData, 2);
+                    
+                    // 对于标记为Mandatory特性的影子函数, 尽管添加就行了
+                    typeSymbolInfo.methodInfos.Add(shadowMethodSymbolInfo);
+                }
+            }
+        }
+    
+        private static void CreateSourceTypeCode(GeneratorExecutionContext context, TypeSymbolInfo typeSymbolInfo) {
+            TypeCodeBuilder typeCodeBuilder = new();
+            typeCodeBuilder.AppendUsing("using System;");
+            typeCodeBuilder.Namespace = typeSymbolInfo.typeSymbol.ContainingNamespace.ToDisplayString();
+            typeCodeBuilder.DeclaredAccessibility = typeSymbolInfo.typeSymbol.DeclaredAccessibility;
+            typeCodeBuilder.IsPartial = true;
+            typeCodeBuilder.TypeKind = typeSymbolInfo.typeSymbol.TypeKind;
+            typeCodeBuilder.Name = typeSymbolInfo.typeSymbol.ToDisplayString(new SymbolDisplayFormat(
+                typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypes,
+                genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
+            ));
+            
+            foreach (var methodSymbolInfo in typeSymbolInfo.methodInfos) {
+                if (methodSymbolInfo.methodSymbol.IsAbstract) continue;
+                
+                MethodCodeBuilder methodCodeBuilder = new();
+                methodCodeBuilder.DeclaredAccessibility = Accessibility.Private;
+                methodCodeBuilder.IsStatic = methodSymbolInfo.methodSymbol.IsStatic;
+                methodCodeBuilder.IsAsync = !methodSymbolInfo.hasRet && methodSymbolInfo.methodSymbol.IsAsync;
+                methodCodeBuilder.Return = methodSymbolInfo.hasRet ? "void" : methodSymbolInfo.finalReturnName;
+                methodCodeBuilder.Name = $"{methodSymbolInfo.finalMethodName}Shadow";
+                
+                // 添加函数的参数到builder
+                string paramTypeNames = null;
+                string paramNames = null;
+                for (int i = 0, len = methodSymbolInfo.methodSymbol.Parameters.Length; i < len; i++) {
+                    var last = i == len - 1;
+                    var parameter = methodSymbolInfo.methodSymbol.Parameters[i];
+                        
+                    methodCodeBuilder.AppendParam($"{parameter.Type} {parameter.Name}");
+    
+                    // 这两个参数是后面用的
+                    paramTypeNames += parameter.Type.ToString();
+                    if (!last) paramTypeNames += ", ";
+    
+                    paramNames += parameter.Name;
+                    if (!last) paramNames += ", ";
+                }
+
+                // 对于有返回值的函数来说, 不走返回值模式, 而是采用回调模式来返回返回值
+                if (methodSymbolInfo.hasRet) {
+                    methodCodeBuilder.AppendParam($"Action<{methodSymbolInfo.methodSymbol.ReturnType.ToDisplayString()}> action = null");
+                }
+                
+                // 构建函数体
+                StringBuilder methodBodyBuilder = new();
+                
+                methodBodyBuilder.Append($$"""
+                                                     if (!{{ShadowFunctionSystemNamespace}}.ShadowFunction.GetFunctions(
+                                                 """);
+                
+                if (UsePreHashCode) {
+                    methodBodyBuilder.Append(methodSymbolInfo.hashcode);
+                }
+                else {
+                    methodBodyBuilder.Append($"(uint)global::System.HashCode.Combine(\"{typeSymbolInfo.sourceTypeDisplayStringWithoutGenericParam}\", \"{methodSymbolInfo.uniqueName}\")");
+                }
+                
+                methodBodyBuilder.Append(", out var dels))");
+                methodBodyBuilder.Append("\n");
+                methodBodyBuilder.Append($$"""
+                                                            
+                                                    """);
+                methodBodyBuilder.Append("return;");
+                methodBodyBuilder.Append("\n");
+                methodBodyBuilder.Append("\n");
+
+                if (methodSymbolInfo.methodSymbol.IsAsync && !methodSymbolInfo.hasRet) {
+                    methodBodyBuilder.Append($$"""
+                                                   HTask? first0PriorityDel = null;
+                                                   ListHTask<HTask> parallels = null;
+                                               """);
+                    methodBodyBuilder.Append("\n");
+                }
+                
+                methodBodyBuilder.Append($$"""
+                                               foreach (var kv in dels) {
+                                           """);
+                
+                if (methodSymbolInfo.methodSymbol.IsAsync && !methodSymbolInfo.hasRet) {
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append($$"""
+                                                       if (kv.Key < 0) {
+                                                           if (Convert2Task(kv.Value, out var task)) {
+                                               """);
+                    if (methodSymbolInfo.RealAllowMultiShadowFuns) {
+                        methodBodyBuilder.Append("\n");
+                        methodBodyBuilder.Append($$"""
+                                                                   try {
+                                                                       await task;
+                                                                   }
+                                                                   catch(Exception e) {
+                                                                       ShadowDebug.LogError(e);
+                                                                   }
+                                                   """);
+                        methodBodyBuilder.Append("\n");
+                    }
+                    else {
+                        methodBodyBuilder.Append("\n");
+                        methodBodyBuilder.Append($$"""
+                                                                   await task;
+                                                   """);
+                        methodBodyBuilder.Append("\n");
+                    }
+                    methodBodyBuilder.Append($$"""
+                                                           }
+                                                       }
+                                               """);
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append($$"""
+                                                       else if (kv.Key == 0) {
+                                                           if (first0PriorityDel == null && parallels == null) {
+                                                               if (!Convert2Task(kv.Value, out var task)) {
+                                                                   continue;
+                                                               }
+                                                               first0PriorityDel = task;
+                                                               continue;
+                                                           }
+                                                           
+                                                           parallels ??= ListHTask<HTask>.Create();
+                                                           if (first0PriorityDel != null) {
+                                                               parallels.Add(first0PriorityDel.Value);
+                                                               first0PriorityDel = null;
+                                                           }
+                                                           
+                                                           try {
+                                                               if (Convert2Task(kv.Value, out var task))
+                                                                   parallels.Add(task);
+                                                           }
+                                                           catch {
+                                                               parallels.Dispose();
+                                                               throw;
+                                                           }
+                                                       }
+                                                       else {
+                                                           if (first0PriorityDel != null || parallels != null) {
+                                                               try {
+                                                                   await GetParallelTasks();
+                                                               }
+                                               """);
+                    if (methodSymbolInfo.RealAllowMultiShadowFuns) {
+                        methodBodyBuilder.Append("\n");
+                        methodBodyBuilder.Append($$"""
+                                                                   catch(Exception e) {
+                                                                       ShadowDebug.LogError(e);
+                                                                   }
+                                                   """);
+                        methodBodyBuilder.Append("\n");
+                    }
+                    else {
+                        methodBodyBuilder.Append("\n");
+                    }
+
+                    methodBodyBuilder.Append($$"""
+                                                               finally {
+                                                                   parallels?.Dispose();
+                                                                   first0PriorityDel = null;
+                                                                   parallels = null;
+                                                               }
+                                                           }
+                                                           if (Convert2Task(kv.Value, out var task)) {
+                                               """);
+                    if (methodSymbolInfo.RealAllowMultiShadowFuns) {
+                        methodBodyBuilder.Append("\n");
+                        methodBodyBuilder.Append($$"""
+                                                                   try {
+                                                                       await task;
+                                                                   }
+                                                                   catch(Exception e) {
+                                                                       ShadowDebug.LogError(e);
+                                                                   }
+                                                   """);
+                        methodBodyBuilder.Append("\n");
+                    }
+                    else {
+                        methodBodyBuilder.Append("\n");
+                        methodBodyBuilder.Append($$"""
+                                                                   await task;
+                                                   """);
+                        methodBodyBuilder.Append("\n");
+                    }
+                    methodBodyBuilder.Append($$"""
+                                                           }
+                                                       }
+                                               """);
+                }
+                else {
+                    int ifcount = 0;
+                    for (int i = 0; i < 2; i++) {
+                        bool hasThis = i == 0;
+                        
+                        if (methodSymbolInfo.methodSymbol.IsStatic && hasThis) {
+                            continue;
+                        }
+                        
+                        methodBodyBuilder.Append("\n");
+                        methodBodyBuilder.Append($$"""
+                                                                
+                                                        """);
+                        
+                        if (ifcount > 0) methodBodyBuilder.Append("else ");
+                        methodBodyBuilder.Append("if (kv.Value is global::System.");
+                        var isFunc = methodSymbolInfo.methodSymbol.IsAsync || methodSymbolInfo.hasRet;
+                        methodBodyBuilder.Append(isFunc ? "Func" : "Action");
+                        if (hasThis || !string.IsNullOrEmpty(paramTypeNames) || isFunc) {
+                            methodBodyBuilder.Append("<");
+                            bool hasPreceding = false;
+                            if (hasThis) {
+                                methodBodyBuilder.Append(typeSymbolInfo.displayString);
+                                hasPreceding = true;
+                            }
+                        
+                            if (!string.IsNullOrEmpty(paramTypeNames)) {
+                                if (hasPreceding) methodBodyBuilder.Append(", ");
+                                methodBodyBuilder.Append(paramTypeNames);
+                                hasPreceding = true;
+                            }
+                        
+                            if (methodSymbolInfo.hasRet || methodSymbolInfo.methodSymbol.IsAsync) {
+                                if (hasPreceding) methodBodyBuilder.Append(", ");
+                                methodBodyBuilder.Append(methodSymbolInfo.finalReturnName);
+                            }
+                        
+                            methodBodyBuilder.Append(">");
+                        }
+                        
+                        string argnum = ifcount != 0 ? ifcount.ToString() : null;
+                        methodBodyBuilder.Append($" func{argnum}) {{");
+                        methodBodyBuilder.Append("\n");
+                        {
+                            for (int j = 0; j < 2; j++) {
+                                if (!methodSymbolInfo.hasRet && j == 1)
+                                    break;
+                                
+                                string space = "            ";
+                                methodBodyBuilder.Append(space);
+                                if (methodSymbolInfo.hasRet) {
+                                    if (j == 0) {
+                                        methodBodyBuilder.Append($$"""
+                                                                   if (action == null) {
+                                                                   """);
+                                        space += "    ";
+                                        methodBodyBuilder.Append("\n");
+                                        methodBodyBuilder.Append(space);
+                                    }
+                                    else if (j == 1) {
+                                        methodBodyBuilder.Append($$"""
+                                                                   else {
+                                                                   """);
+                                        space += "    ";
+                                        methodBodyBuilder.Append("\n");
+                                        methodBodyBuilder.Append(space);
+                                    }
+                                }
+
+                                if (methodSymbolInfo.RealAllowMultiShadowFuns) {
+                                    methodBodyBuilder.Append($$"""
+                                                               try {
+                                                               """);
+                                    space += "    ";
+                                    methodBodyBuilder.Append("\n");
+                                    methodBodyBuilder.Append(space);
+                                }
+
+                                if (methodSymbolInfo.hasRet && j == 1) {
+                                    methodBodyBuilder.Append($$"""
+                                                               action.Invoke(
+                                                               """);
+                                }
+                                
+                                methodBodyBuilder.Append($"func{argnum}.Invoke(");
+                                bool hasPreceding = false;
+                                if (i == 0) {
+                                    methodBodyBuilder.Append("this");
+                                    hasPreceding = true;
+                                }
+                                if (!string.IsNullOrEmpty(paramNames)) {
+                                    if (hasPreceding) methodBodyBuilder.Append(", ");
+                                    methodBodyBuilder.Append(paramNames);
+                                }
+                                
+                                if (methodSymbolInfo.hasRet) {
+                                    if (j == 1) {
+                                        if (methodSymbolInfo.hasRet) methodBodyBuilder.Append(")");
+                                    }
+                                }
+                                
+                                methodBodyBuilder.Append(");");
+                                methodBodyBuilder.Append("\n");
+                                if (methodSymbolInfo.RealAllowMultiShadowFuns) {
+                                    space = space.Remove(space.Length - 4);
+                                    methodBodyBuilder.Append($$"""
+                                                               {{space}}}
+                                                               """);
+                                    methodBodyBuilder.Append("\n");
+                                    methodBodyBuilder.Append($$"""
+                                                               {{space}}catch (Exception e) {
+                                                               {{space}}    ShadowDebug.LogError(e);
+                                                               {{space}}}
+                                                               """);
+                                    methodBodyBuilder.Append("\n");
+                                }
+
+                                if (methodSymbolInfo.hasRet) {
+                                    space = space.Remove(space.Length - 4);
+                                    methodBodyBuilder.Append($$"""
+                                                                           }
+                                                               """);
+                                    methodBodyBuilder.Append("\n");
+                                }
+                            }
+                            
+                            methodBodyBuilder.Append($$"""
+                                                                    }
+                                                            """);
+                        }
+                        
+                        ifcount++;
+                    }
+                }
+                
+                methodBodyBuilder.Append("\n");
+                methodBodyBuilder.Append($$"""
+                                                    }
+                                                """);
+                
+                if (methodSymbolInfo.methodSymbol.IsAsync && !methodSymbolInfo.hasRet) {
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append($$"""
+                                                   if (first0PriorityDel != null || parallels != null) {
+                                                       try {
+                                                           await GetParallelTasks();
+                                                       }
+                                               """);
+                    if (methodSymbolInfo.RealAllowMultiShadowFuns) {
+                        methodBodyBuilder.Append("\n");
+                        methodBodyBuilder.Append($$"""
+                                                           catch(Exception e) {
+                                                               ShadowDebug.LogError(e);
+                                                           }
+                                                   """);
+                        methodBodyBuilder.Append("\n");
+                    }
+                    else {
+                        methodBodyBuilder.Append("\n");
+                    }
+                    methodBodyBuilder.Append($$"""
+                                                       finally {
+                                                           parallels?.Dispose();
+                                                       }
+                                                   }
+                                               """);
+                    
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append($$"""
+                                                   return;
+                                               """);
+                    
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append($$"""
+                                                   Hsenl.HTask GetParallelTasks() {
+                                                        if (parallels != null)
+                                                            return Hsenl.HTask.WaitAll(parallels);
+                                                        
+                                                        if (first0PriorityDel == null)
+                                                            throw new NullReferenceException(nameof(first0PriorityDel));
+                                                        
+                                                        return first0PriorityDel.Value;
+                                                   }
+                                               """);
+                
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append($$"""
+                                                   bool Convert2Task(Delegate del, out Hsenl.HTask task) {
+                                               """);
+                    int ifcount = 0;
+                    for (int i = 0; i < 2; i++) {
+                        bool hasThis = i == 0;
+                        
+                        if (methodSymbolInfo.methodSymbol.IsStatic && hasThis) {
+                            continue;
+                        }
+                        
+                        methodBodyBuilder.Append("\n");
+                        methodBodyBuilder.Append($$"""
+                                                                
+                                                        """);
+                        
+                        if (ifcount > 0) methodBodyBuilder.Append("else ");
+                        methodBodyBuilder.Append("if (del is global::System.");
+                        var isFunc = methodSymbolInfo.methodSymbol.IsAsync || methodSymbolInfo.hasRet;
+                        methodBodyBuilder.Append(isFunc ? "Func" : "Action");
+                        if (hasThis || !string.IsNullOrEmpty(paramTypeNames) || isFunc) {
+                            methodBodyBuilder.Append("<");
+                            bool hasPreceding = false;
+                            if (hasThis) {
+                                methodBodyBuilder.Append(typeSymbolInfo.displayString);
+                                hasPreceding = true;
+                            }
+                        
+                            if (!string.IsNullOrEmpty(paramTypeNames)) {
+                                if (hasPreceding) methodBodyBuilder.Append(", ");
+                                methodBodyBuilder.Append(paramTypeNames);
+                                hasPreceding = true;
+                            }
+                        
+                            if (methodSymbolInfo.hasRet || methodSymbolInfo.methodSymbol.IsAsync) {
+                                if (hasPreceding) methodBodyBuilder.Append(", ");
+                                methodBodyBuilder.Append(methodSymbolInfo.finalReturnName);
+                            }
+                        
+                            methodBodyBuilder.Append(">");
+                        }
+                        
+                        string argnum = ifcount != 0 ? ifcount.ToString() : null;
+                        methodBodyBuilder.Append($" func{argnum}) {{");
+                        methodBodyBuilder.Append("\n");
+                        {
+                            string space = "            ";
+                            methodBodyBuilder.Append(space);
+                            if (methodSymbolInfo.RealAllowMultiShadowFuns) {
+                                methodBodyBuilder.Append($$"""
+                                                           try {
+                                                           """);
+                                space += "    ";
+                                methodBodyBuilder.Append("\n");
+                                methodBodyBuilder.Append(space);
+                            }
+
+                            methodBodyBuilder.Append("task = ");
+                            methodBodyBuilder.Append($"func{argnum}.Invoke(");
+                            bool hasPreceding = false;
+                            if (i == 0) {
+                                methodBodyBuilder.Append("this");
+                                hasPreceding = true;
+                            }
+                            if (!string.IsNullOrEmpty(paramNames)) {
+                                if (hasPreceding) methodBodyBuilder.Append(", ");
+                                methodBodyBuilder.Append(paramNames);
+                            }
+
+                            methodBodyBuilder.Append(");");
+                            methodBodyBuilder.Append("\n");
+                            if (methodSymbolInfo.RealAllowMultiShadowFuns) {
+                                space = space.Remove(space.Length - 4);
+                                methodBodyBuilder.Append($$"""
+                                                           {{space}}}
+                                                           """);
+                                methodBodyBuilder.Append("\n");
+                                methodBodyBuilder.Append($$"""
+                                                            {{space}}catch (Exception e) {
+                                                            {{space}}    ShadowDebug.LogError(e);
+                                                            {{space}}    return false;
+                                                            {{space}}}
+                                                            """);
+                                methodBodyBuilder.Append("\n");
+                            }
+                            methodBodyBuilder.Append($$"""
+                                                                        
+                                                            """);
+                            methodBodyBuilder.Append("return true;");
+                            methodBodyBuilder.Append("\n");
+                            methodBodyBuilder.Append($$"""
+                                                                    
+                                                            """);
+                            methodBodyBuilder.Append("}");
+                        }
+                        
+                        ifcount++;
+                    }
+                    
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append($$"""
+                                                       return false;
+                                                   }
+                                               """);
+                }
+                
+                methodCodeBuilder.Body = methodBodyBuilder.ToString();
+                if (methodSymbolInfo.methodSucc != "succ") methodCodeBuilder.Body += methodSymbolInfo.methodSucc;
+                typeCodeBuilder.AppendMethodBuilder(methodCodeBuilder);
+            }
+    
+            var source = typeCodeBuilder.ToString();
+            context.AddSource($"{typeSymbolInfo.typeSymbol.MetadataName}.g.cs", source!);
+        }
+        
+        private static void CreateShadowTypeCode(GeneratorExecutionContext context, TypeSymbolInfo typeSymbolInfo) {
+            if (typeSymbolInfo.typeSucc != "succ")
+                return;
+            
+            TypeCodeBuilder typeCodeBuilder = new();
+            typeCodeBuilder.Namespace = typeSymbolInfo.typeSymbol.ContainingNamespace.ToDisplayString();
+            typeCodeBuilder.DeclaredAccessibility = typeSymbolInfo.typeSymbol.DeclaredAccessibility;
+            typeCodeBuilder.IsPartial = true;
+            typeCodeBuilder.TypeKind = typeSymbolInfo.typeSymbol.TypeKind;
+            typeCodeBuilder.Name = typeSymbolInfo.name;
+            
+            MethodCodeBuilder registerMethodCodeBuilder = new();
+            registerMethodCodeBuilder.DeclaredAccessibility = Accessibility.Private;
+            registerMethodCodeBuilder.IsStatic = typeSymbolInfo.typeSymbol.IsStatic;
+            registerMethodCodeBuilder.Return = "void";
+            registerMethodCodeBuilder.Name = "Register";
+    
+            MethodCodeBuilder unregisterMethodCodeBuilder = new();
+            unregisterMethodCodeBuilder.DeclaredAccessibility = Accessibility.Private;
+            unregisterMethodCodeBuilder.IsStatic = typeSymbolInfo.typeSymbol.IsStatic;
+            unregisterMethodCodeBuilder.Return = "void";
+            unregisterMethodCodeBuilder.Name = "Unregister";
+            
+            // 正式开始处理这些影子函数
+            StringBuilder registerBodyBuilder = new();
+            StringBuilder unregisterBodyBuilder = new();
+            foreach (var methodSymbol in typeSymbolInfo.methodInfos) {
+                var shadowMethodSymbolInfo = (ShadowMethodSymbolInfo)methodSymbol;
+                
+                registerBodyBuilder.Append($"""
+                                                {ShadowFunctionSystemNamespace}.ShadowFunction.Register<global::System.
+                                            """);
+                
+                var isFunc = shadowMethodSymbolInfo.methodSymbol.IsAsync || shadowMethodSymbolInfo.hasRet;
+                registerBodyBuilder.Append(isFunc ? "Func" : "Action");
+                
+                // 合并参数
+                string paramTypeNames = null;
+                for (int i = 0, len = shadowMethodSymbolInfo.methodSymbol.Parameters.Length; i < len; i++) {
+                    var last = i == len - 1;
+                    var parameter = shadowMethodSymbolInfo.methodSymbol.Parameters[i];
+                    paramTypeNames += parameter.Type.ToString();
+                    if (!last) paramTypeNames += ", ";
+                }
+                
+                // <> 泛型内容
+                if (!string.IsNullOrEmpty(paramTypeNames) || isFunc) {
+                    registerBodyBuilder.Append("<");
+                    bool hasPreceding = false;
+                    
+                    if (!string.IsNullOrEmpty(paramTypeNames)) {
+                        registerBodyBuilder.Append(paramTypeNames);
+                        hasPreceding = true;
+                    }
+            
+                    if (shadowMethodSymbolInfo.hasRet || shadowMethodSymbolInfo.methodSymbol.IsAsync) {
+                        if (hasPreceding) registerBodyBuilder.Append(", ");
+                        registerBodyBuilder.Append(shadowMethodSymbolInfo.finalReturnName);
+                    }
+            
+                    registerBodyBuilder.Append(">");
+                }
+            
+                // () 参数内容
+                string arg1;
+                if (UsePreHashCode) {
+                    arg1 = shadowMethodSymbolInfo.hashcode.ToString();
+                }
+                else {
+                    arg1 = $"""
+                                   (uint)global::System.HashCode.Combine("{typeSymbolInfo.sourceTypeDisplayStringWithoutGenericParam}", "{shadowMethodSymbolInfo.uniqueName}")
+                                   """;
+                }
+                
+                registerBodyBuilder.Append(">(");
+                {
+                    registerBodyBuilder.Append(arg1);
+                    registerBodyBuilder.Append(", ");
+                    registerBodyBuilder.Append($"\"{typeSymbolInfo.typeSymbol.ContainingAssembly.Name}\"");
+                    registerBodyBuilder.Append(", ");
+                    registerBodyBuilder.Append($"\"{typeSymbolInfo.typeSymbol.ToDisplayString()}\"");
+                    registerBodyBuilder.Append(", ");
+                    registerBodyBuilder.Append(shadowMethodSymbolInfo.priority != 0 ? shadowMethodSymbolInfo.priority.ToString() : typeSymbolInfo.sourceTypePriority.ToString());
+                    registerBodyBuilder.Append(", ");
+                    registerBodyBuilder.Append(shadowMethodSymbolInfo.finalMethodName);
+                    registerBodyBuilder.Append(");");
+                }
+                
+                unregisterBodyBuilder.Append($"""
+                                                  {ShadowFunctionSystemNamespace}.ShadowFunction.Unregister(
+                                              """);
+                unregisterBodyBuilder.Append(arg1);
+                unregisterBodyBuilder.Append(", ");
+                unregisterBodyBuilder.Append($"\"{typeSymbolInfo.typeSymbol.ContainingAssembly.Name}\"");
+                unregisterBodyBuilder.Append(", ");
+                unregisterBodyBuilder.Append($"\"{typeSymbolInfo.typeSymbol.ToDisplayString()}\"");
+                unregisterBodyBuilder.Append(", ");
+                unregisterBodyBuilder.Append(shadowMethodSymbolInfo.priority != 0 ? shadowMethodSymbolInfo.priority.ToString() : typeSymbolInfo.sourceTypePriority.ToString());
+                unregisterBodyBuilder.Append(");");
+            
+                // 现在错误交给分析器, 这里就不再标记错误了
+                // if (shadowMethodSymbolInfo.methodSucc != "succ") registerBodyBuilder.Append(shadowMethodSymbolInfo.methodSucc); // 如果没找对应源函数, 在后加个标记, 故意让编译出错.
+                registerBodyBuilder.Append("\n");
+                unregisterBodyBuilder.Append("\n");
+            }
+            
+            if (registerBodyBuilder.Length != 0) registerBodyBuilder.Remove(registerBodyBuilder.Length - 1, 1);
+            registerMethodCodeBuilder.Body = registerBodyBuilder.ToString();
+            typeCodeBuilder.AppendMethodBuilder(registerMethodCodeBuilder);
+            
+            if (registerBodyBuilder.Length != 0) unregisterBodyBuilder.Remove(unregisterBodyBuilder.Length - 1, 1);
+            unregisterMethodCodeBuilder.Body = unregisterBodyBuilder.ToString();
+            typeCodeBuilder.AppendMethodBuilder(unregisterMethodCodeBuilder);
+            
+            var source = typeCodeBuilder.ToString();
+            context.AddSource($"{typeSymbolInfo.metadataName}.g.cs", source!);
+        }
+        
+        private class ShadowFunctionReceiver : ISyntaxReceiver {
+            // 挑选出的影子类, 后续只处理这些类
+            public List<TypeDeclarationSyntax> Candidates { get; } = new();
+    
+            public void OnVisitSyntaxNode(SyntaxNode syntaxNode) {
+                if (syntaxNode is ClassDeclarationSyntax classDeclarationSyntax) {
+                    // 判断该类是否包含目标特性
+                    var hasAtt = classDeclarationSyntax.AttributeLists.Any(list =>
+                        list.Attributes.Any(x => {
+                            if (x.Name is IdentifierNameSyntax identifierNameSyntax) {
+                                if (identifierNameSyntax.Identifier.Text == ShadowFunctionAttributeShortName) {
+                                    return true;
+                                }
+                            }
+    
+                            return false;
+                        }));
+    
+                    if (hasAtt) {
+                        this.Candidates.Add((TypeDeclarationSyntax)syntaxNode);
+                    }
+                }
+            }
+        }
+        
+        public class TypeSymbolInfo {
+            public readonly INamedTypeSymbol typeSymbol;
+            public readonly AttributeData attributeData;
+            
+            public INamedTypeSymbol? sourceTypeSymbol;
+            public int sourceTypePriority;
+            public bool allowMultiShadowFuns;
+    
+            public string? displayString; // 看到的是什么名字, 就是什么名字, 包含命名空间
+            public string? metadataName; // 一般情况下但name一样, 但如果是例如泛型的时候, 就是class`1这种元数据写法
+            public string? name; // 只是自己的名字
+            public string sourceTypeDisplayStringWithoutGenericParam; // 像这种名字 Class<>
+            
+            public readonly List<MethodSymbolInfo> methodInfos = new();
+    
+            public string typeSucc = "succ";
+    
+            public bool IsSource => this.sourceTypeSymbol == null;
+    
+            public TypeSymbolInfo(INamedTypeSymbol typeSymbol, AttributeData attributeData) {
+                this.typeSymbol = typeSymbol;
+                this.attributeData = attributeData;
+            }
+        }
+        
+        public class MethodSymbolInfo {
+            public readonly TypeSymbolInfo typeSymbolInfo;
+            public readonly IMethodSymbol methodSymbol;
+            public readonly AttributeData attributeData;
+            
+            public bool allowMultiShadowFuns;
+    
+            public readonly string finalMethodName;
+            public readonly string finalReturnName;
+            public readonly string uniqueName;
+            public readonly uint hashcode;
+    
+            public readonly bool hasRet;
+
+            public string uniqueNameIncludeParamName;
+            public string methodSucc = "succ";
+
+            public bool RealAllowMultiShadowFuns => this.allowMultiShadowFuns || this.typeSymbolInfo.allowMultiShadowFuns;
+                
+            public MethodSymbolInfo(
+                TypeSymbolInfo typeSymbolInfo,
+                IMethodSymbol methodSymbol, 
+                AttributeData attributeData,
+                string finalMethodName, 
+                string finalReturnName, 
+                string uniqueName, 
+                uint hashcode, 
+                bool hasRet) {
+
+                this.typeSymbolInfo = typeSymbolInfo;
+                this.methodSymbol = methodSymbol;
+                this.attributeData = attributeData;
+                this.finalMethodName = finalMethodName;
+                this.finalReturnName = finalReturnName;
+                this.uniqueName = uniqueName;
+                this.hashcode = hashcode;
+                this.hasRet = hasRet;
+            }
+        }
+        
+        public class ShadowMethodSymbolInfo : MethodSymbolInfo {
+            public readonly int priority;
+            public IMethodSymbol? sourceMethodSymbol;
+    
+            public ShadowMethodSymbolInfo(
+                TypeSymbolInfo typeSymbolInfo,
+                IMethodSymbol methodSymbol,
+                AttributeData attributeData,
+                string finalMethodName,
+                string finalReturnName,
+                string uniqueName,
+                uint hashcode,
+                bool hasRet,
+                int priority)
+                : base(typeSymbolInfo, methodSymbol, attributeData, finalMethodName, finalReturnName, uniqueName, hashcode, hasRet) {
+                this.priority = priority;
+            }
+        }
+    }
+}

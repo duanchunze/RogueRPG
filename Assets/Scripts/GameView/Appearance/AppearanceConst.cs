@@ -10,6 +10,11 @@
                 public const string Root = "Model_Bolt";
                 public const string Tag = "appear_model_bolt";
             }
+            
+            public static class Pickable {
+                public const string Root = "Model_Pickable";
+                public const string Tag = "appear_model_pickable";
+            }
         }
 
         public static class Anim {

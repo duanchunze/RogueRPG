@@ -152,7 +152,7 @@ namespace Hsenl.Network {
         }
 
         public override bool Send() {
-            if (Socket.Poll(1, SelectMode.SelectError)) {
+            if (this.Socket.Poll(1, SelectMode.SelectError)) {
                 Log.Error("断开了~");
             }
 

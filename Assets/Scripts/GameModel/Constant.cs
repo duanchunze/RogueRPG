@@ -4,5 +4,7 @@
         public const int DetectionLayer = 7;
         public const int PickableLayer = 8;
         public const int PickerLayer = 9;
+
+        public const int ObstaclesLayer = 3;
     }
 }

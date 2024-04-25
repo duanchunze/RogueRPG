@@ -6,7 +6,7 @@ namespace Hsenl.CrossCombiner {
             arg1.TargetPrioritizer = arg2;
             
             if (arg1.Tags.Contains(TagType.AbilityIdle)) {
-                arg2.SetDefaultPriorityState(arg1);
+                arg2.SetDefaultPriorityState(0, arg1);
             }
         }
 
@@ -14,7 +14,7 @@ namespace Hsenl.CrossCombiner {
             arg1.TargetPrioritizer = null;
             
             if (arg1.Tags.Contains(TagType.AbilityIdle)) {
-                arg2.RemoveDefaultPriorityState(arg1);
+                arg2.RemoveDefaultPriorityState(0, arg1);
             }
         }
     }

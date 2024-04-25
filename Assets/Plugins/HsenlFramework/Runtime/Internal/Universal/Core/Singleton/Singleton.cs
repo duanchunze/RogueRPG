@@ -16,6 +16,7 @@ namespace Hsenl {
             }
 
             Instance = (T)this;
+            Instance.OnRegister();
         }
 
         void ISingleton.Unregister() {
@@ -25,9 +26,11 @@ namespace Hsenl {
 
             var t = Instance;
             Instance = null;
-            t.OnSingleUnregister();
+            t.OnUnregister();
         }
 
-        protected virtual void OnSingleUnregister() { }
+        protected virtual void OnRegister() { }
+
+        protected virtual void OnUnregister() { }
     }
 }

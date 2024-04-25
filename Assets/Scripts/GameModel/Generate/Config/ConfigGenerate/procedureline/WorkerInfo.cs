@@ -32,9 +32,11 @@ public abstract partial class WorkerInfo :  procedureline.Info
         switch (type)
         {
             case "WorkerNull": return new procedureline.WorkerNull(_json);
-            case "AdditionalStatusOnAbilityDamageInfo": return new procedureline.AdditionalStatusOnAbilityDamageInfo(_json);
+            case "CastWorkerNull": return new procedureline.CastWorkerNull(_json);
             case "HarmProbabilisticCastInfo": return new procedureline.HarmProbabilisticCastInfo(_json);
             case "HealthRatioCastInfo": return new procedureline.HealthRatioCastInfo(_json);
+            case "AdditionalStatusOnAbilityDamageInfo": return new procedureline.AdditionalStatusOnAbilityDamageInfo(_json);
+            case "AdditionalStatusOnAbilityDamageInfo2": return new procedureline.AdditionalStatusOnAbilityDamageInfo2(_json);
             case "ProbabilisticRepetitionCastInfo": return new procedureline.ProbabilisticRepetitionCastInfo(_json);
             default: throw new SerializationException();
         }

@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Hsenl.View {
-    [ShadowFunction(typeof(SourceEventStation))]
+    [ShadowFunction(typeof(EventStation))]
     public partial class ShadowEventOnCardResidenceChanged {
         [ShadowFunction]
         private void OnCardResidenceChanged(ICardResidence residence) {

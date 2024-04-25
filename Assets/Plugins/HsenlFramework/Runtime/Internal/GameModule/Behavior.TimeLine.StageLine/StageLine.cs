@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MemoryPack;
 using Unity.Mathematics;
+using UnityEngine.Serialization;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
 #endif
@@ -14,15 +15,15 @@ namespace Hsenl {
     //   而动作阶段, 则对执行结果没有任何要求
     [Serializable]
     [MemoryPackable()]
-    public partial class StageLine : BehaviorTree<SelectorNode<ITimeLine, IStageNode>>, ITimeLine {
+    public sealed partial class StageLine : BehaviorTree<SelectorNode<ITimeLine, IStageNode>>, ITimeLine {
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly, LabelText("当前阶段")]
 #endif
         [MemoryPackIgnore]
-        protected int currentStage;
+        private int _currentStage;
 
         [MemoryPackIgnore]
-        public StageStatus status;
+        public StageStatus Status { get; private set; }
 
 #if UNITY_EDITOR
         [ShowInInspector]
@@ -35,11 +36,11 @@ namespace Hsenl {
 
         [MemoryPackIgnore]
         public int CurrentStage {
-            get => this.currentStage;
+            get => this._currentStage;
             set {
-                if (this.currentStage == value) return;
-                var prev = this.currentStage;
-                this.currentStage = value;
+                if (this._currentStage == value) return;
+                var prev = this._currentStage;
+                this._currentStage = value;
                 this.onStageChanged?.Invoke(prev, value);
                 // Debug.LogError($"current stage set '{this.currentStage}'");
             }
@@ -88,11 +89,18 @@ namespace Hsenl {
         public float TotalTime {
             get {
                 var t = 0f;
-                foreach (var child in this.entryNode.ForeachChildren()) {
-                    if (child is not IStageNode stage) continue;
-                    if (stage.Duration < 0) return -1;
+                this.entryNode.ForeachChildren(child => {
+                    if (t < 0)
+                        return;
+
+                    if (child is not IStageNode stage) return;
+                    if (stage.Duration < 0) {
+                        t = -1;
+                        return;
+                    }
+
                     t += stage.Duration;
-                }
+                });
 
                 return t;
             }
@@ -110,21 +118,21 @@ namespace Hsenl {
             }
         }
 
-        protected internal override void OnDestroyFinish() {
-            base.OnDestroyFinish();
+        protected internal override void OnDisposed() {
+            base.OnDisposed();
             this.onStageChanged = null;
         }
 
         protected override void OnReset() {
             this.BufferSpeed = this._speed;
-            this.status = StageStatus.Running;
+            this.Status = StageStatus.Running;
             this.entryNode?.ResetNode();
         }
 
         public override void Abort() {
             base.Abort();
-            this.status = StageStatus.Finish;
-            this.currentStage = 0;
+            this.Status = StageStatus.Finish;
+            this._currentStage = 0;
         }
 
         public StageStatus Run(float deltaTime) {
@@ -132,7 +140,7 @@ namespace Hsenl {
             this.DeltaTime = deltaTime * this.Speed;
             this.Tick();
             this.Time += this.DeltaTime;
-            return this.status;
+            return this.Status;
         }
     }
 }

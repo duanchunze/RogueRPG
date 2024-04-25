@@ -29,7 +29,7 @@ namespace Hsenl {
 #endif
         private readonly List<object> _shadowInstances = new();
 
-        protected override void OnSingleUnregister() { }
+        protected override void OnUnregister() { }
 
         public void Register(uint hashcode, string assemblyName, string typeFullName, int priority, Delegate del) {
             var shadowHashcode = (uint)HashCode.Combine(hashcode, assemblyName, typeFullName, priority);

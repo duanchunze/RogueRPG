@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Hsenl.View {
-    [ShadowFunction(typeof(SourceEventStation))]
+    [ShadowFunction(typeof(EventStation))]
     public partial class ShadowEventOnHeroUnlockUpdate {
         [ShadowFunction]
         private void OnHeroUnlockUpdate() {
@@ -35,7 +35,7 @@ namespace Hsenl.View {
                 uiSlot.text.text = config.ViewName;
                 uiSlot.onButtonClickInvoke = () => {
                     ui.selectSlot = uiSlot;
-                    Procedure.ChangeState<ProcedureStartAdventure, int>(ui.selectSlot.Filler.Id);
+                    ProcedureManager.Procedure.ChangeState<ProcedureAdventure>(ui.selectSlot.Filler.Id);
                 };
             }
         }

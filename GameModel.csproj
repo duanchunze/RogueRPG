@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\LubanLib\StringUtil.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Logic\GameProcedure\ProcedureShopping.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\Tables.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\CrossCombin\CardStorePool_CardStore_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\behavior\ParalleSelectorNodeInfo.cs" />
@@ -56,7 +55,6 @@
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.Screenplay\Adventure\Record\RcdDefaultBigMapAdventure.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\LubanLib\ITypeId.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\HarmOfColliderInfo.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Logic\GameProcedure\ProcedurePreloadAssets.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ability\Info.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timestageline\TimeStageLineInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\ProcedureLine\RefreshStoreCards\PliRefreshStoreCardsForm.cs" />
@@ -65,9 +63,11 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\MoveInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\card\WrappageInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\cast\AlwaysCastInfo.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\hmath\Vector2.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\BlackboardKey.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\LubanLib\SimpleJSON\SimpleJSONDotNetTypes.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Pickable\Picker.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\localization\LocalizationConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\numeric\NumericActorConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.AI\AIInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\procedureline\ProbabilisticRepetitionCastInfo.cs" />
@@ -82,13 +82,16 @@
     <Compile Include="Assets\Scripts\GameModel\Component\Selector\Implementors\FilterOfObstacles.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ability_assist\AbilityAssistConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimePoint\TpSetData.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\hmath\hmathExtension.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\hmath\Vector3.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\InflictionStatusToSelfInfo.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Logic\GameProcedure\ProcedureStartAdventure.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Actor\Actor.cs" />
     <Compile Include="Assets\Scripts\GameModel\ProcedureLineWorker\PlwAdditionalStatusOnAbilityHarm.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedureAdventure_Battle.cs" />
     <Compile Include="Assets\Scripts\GameModel\ProcedureLineWorker\PlwRepetitionCastOfProbabilistic.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\casterevaluate\ManaCheckInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Card\CardBar\CardBar.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\procedureline\CastWorkerNull.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\SetDataInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Ability\AbilityBar.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\card\CardSynthesisConfig.cs" />
@@ -105,6 +108,7 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\drops\DropByWeightInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\pickable\WrappageCoinInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\MultiCombin\AbilityRelated\Caster_PriorityState_Combiner.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ability\AbilityTraitConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\RemoveStatusFromTargetInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\StageType.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.CasterEvaluate\CeInfo.cs" />
@@ -112,6 +116,8 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\adventure\AdventureConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\card\TbCardSingletonConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Faction\Faction.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedureAdventure_ChangeScene.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\procedureline\AdditionalStatusOnAbilityDamageInfo2.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\CrossCombin\Caster_ProcedureLine_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\faction\FactionConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimePoint\TpHarmOfDibozhanBolt.cs" />
@@ -121,6 +127,7 @@
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimeSegment\TsForceMovement.cs" />
     <Compile Include="Assets\Scripts\GameModel\ProcedureLine\Pickup\PliPickupPriority.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\CrossCombin\AbilityBar_ProcedureLine_Combiner.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\TsStatusHarmInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\procedureline\HarmProbabilisticCastInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Card\ICardResidence.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Factory\Temp\ActorFactory.cs" />
@@ -131,8 +138,10 @@
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimePoint\Status\TpDie.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ability\AbilityStageInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\behavior\LeafNodeInfo.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedureAdventure_Shopping.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\LubanLib\SimpleJSON\SimpleJSON.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ability_upgrade\TbAbilityUpgradeConfig.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedureCodeClipping.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Card\CardResidence.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Card\CardStore\CardStore.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimeSegment\Status\TsLiuxue.cs" />
@@ -170,8 +179,10 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\procedureline\HealthRatioCastInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\NumericExtension.cs" />
     <Compile Include="Assets\Scripts\GameModel\ProcedureLine\BuyCard\PliBuyCardPriority.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\hmath\Vector4.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\LiuXueInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ControlCode.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ability\TbAbilityTraitConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Factory\Temp\BehaviorNodeFactory.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\card\TbCardSynthesisConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Status\StatusBar.cs" />
@@ -179,6 +190,7 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\Manager\Checkpoint\CheckpointManagerKillAll.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\InflictionStatusToTargetInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Cast\CastEvaluateStatus.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedureAdventure.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\actor\TbActorConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\HarmOfPointBoltInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Card\CardStore\CardStoreSlot.cs" />
@@ -192,6 +204,7 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\numeric\AttachValueInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Factory\FactoryBuilder.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\behavior\Info.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ability\AbilityPatchConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\PlaySoundInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\card\CardConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\CrossCombin\CardBackpackSlot_CardBackpack_Combiner.cs" />
@@ -207,6 +220,7 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\status\TbStatusConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Adventure\Adventure.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\adventure\CandidateInfo.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedureMainInterface_Achievement.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\CrossCombin\CardBarAssistSlot_CardBar_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\actor\TbActorConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.CasterEvaluate\CePickTarget.cs" />
@@ -215,7 +229,6 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\Manager\CardManager.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\MultiCombin\StatusRelated\Status_TimeLine_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimeSegment\Status\TsStatusHarm.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Logic\GameProcedure\ProcedureCodeClipping.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\MultiCombin\AbilityRelated\Caster_CasterEvaluate_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\procedureline\WorkerInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\ProcedureLine\CasterBreak\PliCasterBreakPriority.cs" />
@@ -232,7 +245,6 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\behavior\ParalleSequentialNodeInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\ProcedureLineWorker\PlwInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Manager\UnlockCircumstance.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Logic\GameProcedure\ProcedurePreprocessing.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Factory\Temp\CardFactory.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\NumericType.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Manager\AdventureManager.cs" />
@@ -244,7 +256,6 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\cast\Null.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\JumpAttackInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\status\TbStatusActorConfig.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Logic\GameProcedure\ProcedureSelectHero.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimeSegment\TsLeap.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\casterevaluate\PickTargetInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\MultiCombin\StatusRelated\Status_PriorityState_Combiner.cs" />
@@ -252,6 +263,7 @@
     <Compile Include="Assets\Scripts\GameModel\Logic\Manager\MonsterRefresh\ActorSpawnPoint.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\DieInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.AI\AIPatrol.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\hmath\Info.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Cast\CasterEvaluate.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\numeric\Info.cs" />
     <Compile Include="Assets\Scripts\GameModel\ProcedureLine\AbilityChanges\PliAbilityChangedForm.cs" />
@@ -262,7 +274,9 @@
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimePoint\TpRemoveStatusFromSelf.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\MultiCombin\Numerator_NumericNode_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimeSegment\TsHarmOfSphereCollider.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ability\TbAbilityPatchConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.AI\AIPlayerAutoCaster.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimeSegment\TsHarmOfBoxCollider.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Global\Global.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\numeric\TbNumericActorConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\adventure\TbAdventureConfig.cs" />
@@ -283,18 +297,21 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\casterevaluate\CooldownCheckInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Manager\PickableManager.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimePoint\TpHarmOfDirectionBolt.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedurePreprocessing.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Affix\Affixes.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\procedureline\WorkerInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimePoint\TpRecordCastDirection.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\TpHarmInfo.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedureMainInterface_Actor.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Dropable\Dropable.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\numeric\DamageFormulaInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\adventure\Info.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Logic\GameProcedure\ProcedureAdventure.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\CrossCombin\PriorityState_Prioritizer_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TsInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\pickable\TbPickableConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\ProcedureLine\BuyCard\PliBuyCardForm.cs" />
+    <Compile Include="Assets\Scripts\GameModel\SourceEvent\EventStation.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\IHarmInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\AbilityAssist\AbilityAssist.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Manager\BoltManager.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Card\CardBackpack\CardBackpackSlot.cs" />
@@ -303,11 +320,11 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\bolt\TbBoltConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\pickable\Info.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimePoint\TpInflictionStatusToSelf.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Logic\GameProcedure\ProcedureMainInterface.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\casterevaluate\PickAndApproachTargetInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\card\TbCardConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Manager\MonsterRefresh\MonsterRefreshManager.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\game\TbGameSingletonConfig.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedureMainInterface_Ability.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ai\TbAIConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\HarmOfDibozhanBoltInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Selector\SelectionsExtension.cs" />
@@ -324,12 +341,15 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\card\CardSingletonConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timestageline\ActionInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\LubanLib\BeanBase.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedureMainInterface_Collectibles.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\GameArbiter.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\localization\TbLocalizationConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\checkpoint\TbCheckpointConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\faction\FactionConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ai\AIConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\card\WrappageAbilityInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimePoint\Status\TpResurgence.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\localization\TbLocalizationAbilityConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Card\CardSlot.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\DamageType.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\HarmOfTargetedInfo.cs" />
@@ -339,9 +359,10 @@
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.Screenplay\Adventure\AdvInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\ProcedureLine\SellCard\PliSellCardPriority.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timestageline\ConditionOrInfo.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\localization\LocalizationAbilityConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Harm\Harmable.cs" />
-    <Compile Include="Assets\Scripts\GameModel\SourceEvent\SourceEventStation.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\Factory\Temp\StatusFactory.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedurePreloadAssets.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\MultiCombin\UpdateDriver_Caster_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimePoint\TpHarmOfTargetedBolt.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\card\TbCardSynthesisConfig.cs" />
@@ -354,8 +375,10 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\adventurescheme\DefaultCheckpointsAdventureInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Card\Card.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\card\Info.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedureMainInterface_Combat.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Message\C2L_Login.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\status\StatusConfig.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\procedureline\CastWorkerInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\CrossCombin\NumericNode_Numerator_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\TsHarmInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGeneratePartial\bolt\BoltConfig.cs" />
@@ -391,12 +414,14 @@
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\adventurescheme\AdventureInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.TimeLine\TimePoint\TpModifyPriority.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\adventurescheme\DefaultBigMapAdventureInfo.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Logic\Procedure\ProcedureMainInterface.cs" />
     <Compile Include="Assets\Scripts\GameModel\Component\Selector\Implementors\FilterOfTags.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\CrossCombin\CardStoreSlot_CardStore_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\MultiCombin\AbilityRelated\Caster_StageLine_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Logic\GameAlgorithm.cs" />
     <Compile Include="Assets\Scripts\GameModel\Combiner\CrossCombin\Ability_AbilityBar_Combiner.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\FactionType.cs" />
+    <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\LocalizationKey.cs" />
     <Compile Include="Assets\Scripts\GameModel\StatusAlias.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\cast\ControlCastInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Behavior\Behavior.CasterEvaluate\CeManaCheck.cs" />
@@ -404,9 +429,9 @@
     <Compile Include="Assets\Scripts\GameModel\Component\Card\CardBar\CardBarHeadSlot.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\game\GameSingletonConfig.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\drops\DropByProbability.cs" />
+    <Compile Include="Assets\Scripts\GameModel\ProcedureLineWorker\PlwAdditionalStatusOnAbilityHarm2.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\LubanLib\ByteBuf.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\ai\AIInfo.cs" />
-    <Compile Include="Assets\Scripts\GameModel\Logic\GameProcedure\ProcedureChangeScene.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\PlayAnimInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\timeline\TimePointInfo.cs" />
     <Compile Include="Assets\Scripts\GameModel\Generate\Config\ConfigGenerate\actor\ActorConfig.cs" />

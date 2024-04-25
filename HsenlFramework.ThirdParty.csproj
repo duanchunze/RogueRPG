@@ -338,8 +338,8 @@
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Segment3Box3Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Ray.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\DiscriminatedUnion.Serializable.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\Shims.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\MemoryPack-1.10.0\Runtime\MemoryPack.Core\Compression\BrotliFormatter.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\ZString\Shims.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Segment3AAB3Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\FMath\Geometric\Classes\Ray2Box2Intr.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\ThirdParty\protobuf-net\Serializers\ListDecorator.cs" />

@@ -17,7 +17,7 @@ namespace Hsenl.procedureline
 /// <summary>
 /// 比如血量低于30%时触发xxx技能
 /// </summary>
-public sealed partial class HealthRatioCastInfo :  procedureline.WorkerInfo 
+public sealed partial class HealthRatioCastInfo :  procedureline.CastWorkerInfo 
 {
     public HealthRatioCastInfo(JSONNode _json)  : base(_json) 
     {

@@ -9,10 +9,10 @@ namespace Hsenl {
     public partial class Ability : Bodied {
         [MemoryPackOrder(50)]
         [MemoryPackInclude]
-        public int configId;
+        private int _configId;
 
         [MemoryPackIgnore]
-        public AbilityConfig Config => Tables.Instance.TbAbilityConfig.GetById(this.configId);
+        public AbilityConfig Config => Tables.Instance.TbAbilityConfig.GetById(this._configId);
 
         [MemoryPackOrder(51)]
         [MemoryPackInclude]
@@ -43,6 +43,10 @@ namespace Hsenl {
         [MemoryPackIgnore]
         public Action onAbilityLeave;
 
+        public void SetConfigId(int configId) {
+            this._configId = configId;
+        }
+
         public void ResetCooldown(float coolTime) {
             this._cooldownTillTime = coolTime;
         }
@@ -63,6 +67,39 @@ namespace Hsenl {
             catch (Exception e) {
                 Log.Error(e);
             }
+        }
+
+        protected override void OnAwake() {
+            this.MultiCombin(null);
+            this.CrossCombinForParent(this.FindScopeInParent<AbilityBar>(), null);
+            this.CrossCombinForParent(this.FindScopeInParent<Actor>(), null);
+        }
+
+        protected override void OnDestroy() {
+            this.DecombinAll();
+        }
+
+        protected override void OnComponentAdd(Component component) {
+            if (component is not Element element)
+                return;
+
+            this.MultiCombin(element);
+            this.CrossCombinForParent(this.FindScopeInParent<AbilityBar>(), element);
+            this.CrossCombinForParent(this.FindScopeInParent<Actor>(), element);
+        }
+
+        protected override void OnComponentRemove(Component component) {
+            if (component is not Element element)
+                return;
+
+            this.MultiDecombin(element);
+            this.CrossDecombinByComponent(element);
+        }
+
+        protected override void OnParentChanged(Entity previousParent) {
+            this.CrossDecombinForParents(previousParent?.GetComponentInParent<Scope>(true));
+            this.CrossCombinForParent(this.FindScopeInParent<AbilityBar>(), null);
+            this.CrossCombinForParent(this.FindScopeInParent<Actor>(), null);
         }
     }
 }

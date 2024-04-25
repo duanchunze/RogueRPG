@@ -1,4 +1,0 @@
-UI层和逻辑层交互时, 只会通过两种方式
-1、通过EventSystem
-2、通过Procedure
-其实两者本质都是一样的, Procedure可以看做是功能更强大些的event

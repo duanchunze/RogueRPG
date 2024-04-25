@@ -862,6 +862,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScale: 1
+--- !u!1 &671457827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 671457829}
+  - component: {fileID: 671457828}
+  m_Layer: 0
+  m_Name: Tester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &671457828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671457827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff6cd529fd38405c9903177a1901f4cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tester: {fileID: 0}
+--- !u!4 &671457829
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671457827}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &755311622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1513,7 +1558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   framework:
-    displayMono: 1
+    displayMonoComponent: 1
   targetFrameRate: 75
   timeScale: 1
 --- !u!4 &1616863560
@@ -1637,15 +1682,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae483f6e6a40476fac6a49f0e4a778ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
   uiCamera: {fileID: 1497052808}
 --- !u!1 &1776537751
 GameObject:
@@ -1834,7 +1870,8 @@ MonoBehaviour:
   targetTransform: {fileID: 0}
   useLookAt: 1
   smoothFollow: 0
-  _positionOffset: {x: 0, y: 15, z: -6}
+  positionOffset: {x: 0, y: 0, z: 0}
+  rotationOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1804521146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2034,3 +2071,4 @@ SceneRoots:
   - {fileID: 341748175}
   - {fileID: 1859382761}
   - {fileID: 755311624}
+  - {fileID: 671457829}
