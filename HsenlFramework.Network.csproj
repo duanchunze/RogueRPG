@@ -11,7 +11,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>Hsenl.Network</RootNamespace>
+    <RootNamespace>Hsenl</RootNamespace>
     <ProjectGuid>{b925807c-b8dc-2552-2b49-c4b7bb5b7492}</ProjectGuid>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
@@ -47,19 +47,74 @@
     <Analyzer Include="D:\UnityProjects\RogueRPG\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionSourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Classes\MessageResponseAttribute.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Message\C2G_Login.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Classes\PacketBuffer.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Classes\Package.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Classes\MessageRequestAttribute.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Constant.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\Opcode.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Classes\MessageAttribute.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Server\IOCPServer.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\IOCPChannel.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\NetworkPool.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\IOCPClient.cs" />
-    <None Include="Assets\Plugins\HsenlFramework\Network\note.txt" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Socket\TcpConnector.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IOnChannelDisconnect.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\Plugs\Reconnect\ReconnectPlug.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\IService.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IPacketRecvProvider.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\NetworkPool.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\Message\IMessageWriter.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\Message\KcpPacketHandler.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Classes\MessageRequestAttribute.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Exception\ParseMessageException.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\Message\TcpPacketReceiver.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\Message\IMessageReader.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\ThirdParty\Kcp\KcpPatial.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IAfterMessageReaded.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\IPluggable.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\ThirdParty\Kcp\Utils.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Component\MessageDispatcher.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Socket\UdpSocket.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Server\Plugs\Keepalive\KeepalivePlug.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\KcpClient.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Service.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Component\AMessageHandler.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\HMemoryStream.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IAfterMessageWrited.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\Plugs\Encryption\DefaultEncryptionPlug.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IPacketHandler.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Component\NetworkClient.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\ErrorCode.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Channel\Channel.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\Plugs\ExcessDataDetection\ExcessDataDetectionPlug.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Socket\EpibolySocket.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\OpcodeLookupTable.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Channel\KcpChannel.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Component\IRpcMessageHandler.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\TcpClient.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Server\TcpServer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Classes\MessageResponseAttribute.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Socket\TcpAcceptor.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Classes\IRpcMessage.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Socket\TcpSocket.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Socket\IOCPSocket.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Component\NetworkServer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IOnMessageReadFailure.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IOnRecvData.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\Message\TcpPacketSender.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Component\Network.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\IPlugGroup.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\Plugs\DataException\DataExceptionPlug.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IKcpHandler.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Component\IMessageHandler.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\PackageBuffer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IOnChannelStarted.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\KcpProtocalType.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\Connector.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\Plugs\TrafficMonitoring\TrafficMonitoringPlug.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Classes\MessageAttribute.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\Plugs\Encryption\EncryptionPlug.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\ThirdParty\Kcp\AckItem.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Component\MessageHandlerAttribute.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Channel\TcpChannel.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Classes\IMessage.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\ThirdParty\Kcp\Kcp.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IOnSendData.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\ThirdParty\Kcp\Segment.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Server\KcpServer.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Server\Acceptor.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IPacketSendProvider.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\IPlug.cs" />
     <None Include="Assets\Plugins\HsenlFramework\Network\HsenlFramework.Network.asmdef" />
     <Reference Include="DemiEditor">
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DemiLib\Core\Editor\DemiEditor.dll</HintPath>
@@ -116,7 +171,7 @@
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
     <Reference Include="dnlib">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\dnlib.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@67c487f521\Plugins\dnlib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
@@ -125,7 +180,7 @@
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
     </Reference>
     <Reference Include="LZ4">
-      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@6ffb977ef3\Plugins\LZ4.dll</HintPath>
+      <HintPath>D:\UnityProjects\RogueRPG\Library\PackageCache\com.code-philosophy.hybridclr@67c487f521\Plugins\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Utilities.Editor">
       <HintPath>D:\UnityProjects\RogueRPG\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>

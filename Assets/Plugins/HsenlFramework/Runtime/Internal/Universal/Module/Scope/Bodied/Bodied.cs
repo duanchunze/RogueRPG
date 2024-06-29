@@ -154,11 +154,11 @@ namespace Hsenl {
                         CrossDecombinMatchForParents(this, prevParent);
                     }
 
-                    this.ForeachChildrenScope((childScope, _) => {
+                    this.ForeachChildrenScope((childScope, _, p) => {
                         if (childScope.CombinMatchMode == CombinMatchMode.Auto) {
-                            CrossDecombinMatchForParents(childScope, prevParent); //
+                            CrossDecombinMatchForParents(childScope, p); //
                         }
-                    });
+                    }, data: prevParent);
                 }
 
                 // 确立好父子关系后再进行跨域匹配, 保证形成组合的时候, 父子关系是正确的.
@@ -168,12 +168,12 @@ namespace Hsenl {
                         CrossCombinsMatchForParents(this, value, 1, null);
                     }
 
-                    this.ForeachChildrenScope((childScope, layer) => {
+                    this.ForeachChildrenScope((childScope, layer, p) => {
                         if (childScope.CombinMatchMode == CombinMatchMode.Auto) {
                             childScope.CalcMaximumCrossLayerInTheory();
-                            CrossCombinsMatchForParents(childScope, value, layer + 1, null); // 
+                            CrossCombinsMatchForParents(childScope, p, layer + 1, null); // 
                         }
-                    });
+                    }, data: value);
                 }
 
                 // 先匹配再触发事件, 可以保证当用户使用该事件时, 所有该做的组合都已经完成了, 保证了组合的优先性(注: 组合的优先级只比添加组件时的initializeInvoke和序列化的OnDeserialized低)
@@ -184,12 +184,12 @@ namespace Hsenl {
         }
 
         internal override void OnDeserializedInternal() {
-            this.Entity.ForeachComponents(component => {
+            this.Entity.ForeachComponents((component, unbodiedHead) => {
                 if (component is not Unbodied unbodied)
                     return;
 
-                unbodied.unbodiedHead = this;
-            });
+                unbodied.unbodiedHead = unbodiedHead;
+            }, this);
         }
 
         protected internal override void OnDisposed() {
@@ -225,13 +225,13 @@ namespace Hsenl {
 
                 if (combinInfo.parentCombiners.Count != 0) {
                     if (this.HasComponentsAny(combinInfo.totalParentTypeCacher)) {
-                        this.ForeachChildrenScope((child, layer) => {
+                        this.ForeachChildrenScope<(CrossCombinInfo ci, Scope p)>((child, layer, data) => {
                             if (child.CombinMatchMode == CombinMatchMode.Auto) {
-                                foreach (var combiner in combinInfo.parentCombiners) {
-                                    CrossCombinMatchForParent(child, this, layer, combiner);
+                                foreach (var combiner in data.ci.parentCombiners) {
+                                    CrossCombinMatchForParent(child, data.p, layer, combiner);
                                 }
                             }
-                        });
+                        }, data: (combinInfo, this));
                     }
                 }
             }

@@ -19,15 +19,13 @@ namespace Hsenl {
         [ShowInInspector]
 #endif
         [MemoryPackInclude]
-        protected List<TNode> children = new();
-
-        public IReadOnlyList<TNode> Children => this.children;
+        protected List<INode> children = new();
 
         [MemoryPackOnSerialized]
         private void OnSerialized() {
             if (this.children == null) return;
             foreach (var child in this.children) {
-                ((INode)child).Parent = this;
+                child.Parent = this;
             }
         }
 
@@ -155,15 +153,8 @@ namespace Hsenl {
             this.children.Clear();
         }
 
-        public sealed override void ForeachChildren(Action<INode> callback) {
-            if (this.children == null) {
-                return;
-            }
-
-            foreach (var child in this.children) {
-                callback.Invoke(child);
-                child.ForeachChildren(callback);
-            }
+        public sealed override Iterator<INode> ForeachChildren() {
+            return new Iterator<INode>(this.children.GetEnumerator());
         }
 
         public sealed override T GetNodeInChildren<T>(bool once = false) {

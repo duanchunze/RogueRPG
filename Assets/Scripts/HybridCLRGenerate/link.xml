@@ -14,6 +14,11 @@
     <type fullname="DG.Tweening.TweenSettingsExtensions" preserve="all" />
     <type fullname="DG.Tweening.Tweener" preserve="all" />
   </assembly>
+  <assembly fullname="HybridCLR.Runtime">
+    <type fullname="HybridCLR.HomologousImageMode" preserve="all" />
+    <type fullname="HybridCLR.LoadImageErrorCode" preserve="all" />
+    <type fullname="HybridCLR.RuntimeApi" preserve="all" />
+  </assembly>
   <assembly fullname="Sirenix.Serialization">
     <type fullname="Sirenix.OdinInspector.SerializedMonoBehaviour" preserve="all" />
     <type fullname="Sirenix.Serialization.DeserializationContext" preserve="all" />
@@ -61,12 +66,15 @@
     <type fullname="System.Net.NetworkInformation.UnicastIPAddressInformation" preserve="all" />
     <type fullname="System.Net.NetworkInformation.UnicastIPAddressInformationCollection" preserve="all" />
     <type fullname="System.Net.Sockets.AddressFamily" preserve="all" />
+    <type fullname="System.Net.Sockets.IPPacketInformation" preserve="all" />
     <type fullname="System.Net.Sockets.ProtocolType" preserve="all" />
-    <type fullname="System.Net.Sockets.SelectMode" preserve="all" />
     <type fullname="System.Net.Sockets.Socket" preserve="all" />
     <type fullname="System.Net.Sockets.SocketAsyncEventArgs" preserve="all" />
     <type fullname="System.Net.Sockets.SocketAsyncOperation" preserve="all" />
     <type fullname="System.Net.Sockets.SocketError" preserve="all" />
+    <type fullname="System.Net.Sockets.SocketException" preserve="all" />
+    <type fullname="System.Net.Sockets.SocketFlags" preserve="all" />
+    <type fullname="System.Net.Sockets.SocketTaskExtensions" preserve="all" />
     <type fullname="System.Net.Sockets.SocketType" preserve="all" />
     <type fullname="System.Text.RegularExpressions.Regex" preserve="all" />
     <type fullname="System.Text.RegularExpressions.RegexOptions" preserve="all" />
@@ -128,6 +136,7 @@
   </assembly>
   <assembly fullname="UnityEngine.AIModule">
     <type fullname="UnityEngine.AI.NavMeshAgent" preserve="all" />
+    <type fullname="UnityEngine.AI.ObstacleAvoidanceType" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AndroidJNIModule">
     <type fullname="UnityEngine.AndroidJavaClass" preserve="all" />
@@ -179,7 +188,6 @@
     <type fullname="UnityEngine.Keyframe" preserve="all" />
     <type fullname="UnityEngine.LayerMask" preserve="all" />
     <type fullname="UnityEngine.LogType" preserve="all" />
-    <type fullname="UnityEngine.Material" preserve="all" />
     <type fullname="UnityEngine.Mathf" preserve="all" />
     <type fullname="UnityEngine.Matrix4x4" preserve="all" />
     <type fullname="UnityEngine.MonoBehaviour" preserve="all" />
@@ -191,7 +199,6 @@
     <type fullname="UnityEngine.RectInt" preserve="all" />
     <type fullname="UnityEngine.RectOffset" preserve="all" />
     <type fullname="UnityEngine.RectTransform" preserve="all" />
-    <type fullname="UnityEngine.Renderer" preserve="all" />
     <type fullname="UnityEngine.Resources" preserve="all" />
     <type fullname="UnityEngine.RuntimePlatform" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.LoadSceneMode" preserve="all" />
@@ -201,11 +208,8 @@
     <type fullname="UnityEngine.ScriptableObject" preserve="all" />
     <type fullname="UnityEngine.Serialization.FormerlySerializedAsAttribute" preserve="all" />
     <type fullname="UnityEngine.SerializeField" preserve="all" />
-    <type fullname="UnityEngine.Shader" preserve="all" />
-    <type fullname="UnityEngine.SkinnedMeshRenderer" preserve="all" />
     <type fullname="UnityEngine.Space" preserve="all" />
     <type fullname="UnityEngine.Sprite" preserve="all" />
-    <type fullname="UnityEngine.SpriteRenderer" preserve="all" />
     <type fullname="UnityEngine.TextAsset" preserve="all" />
     <type fullname="UnityEngine.Time" preserve="all" />
     <type fullname="UnityEngine.TrackedReference" preserve="all" />
@@ -261,13 +265,13 @@
     <type fullname="UnityEngine.UI.Graphic" preserve="all" />
     <type fullname="UnityEngine.UI.Image" preserve="all" />
     <type fullname="UnityEngine.UI.Slider" preserve="all" />
+    <type fullname="UnityEngine.UI.Text" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UIModule">
     <type fullname="UnityEngine.Canvas" preserve="all" />
     <type fullname="UnityEngine.RectTransformUtility" preserve="all" />
   </assembly>
   <assembly fullname="YooAsset">
-    <type fullname="YooAsset.AllAssetsHandle" preserve="all" />
     <type fullname="YooAsset.AssetHandle" preserve="all" />
     <type fullname="YooAsset.AssetInfo" preserve="all" />
     <type fullname="YooAsset.AsyncOperationBase" preserve="all" />
@@ -491,9 +495,11 @@
     <type fullname="System.Runtime.CompilerServices.IteratorStateMachineAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeHelpers" preserve="all" />
+    <type fullname="System.Runtime.CompilerServices.TaskAwaiter" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.TupleElementNamesAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.UnsafeValueTypeAttribute" preserve="all" />
     <type fullname="System.Runtime.ExceptionServices.ExceptionDispatchInfo" preserve="all" />
+    <type fullname="System.Runtime.InteropServices.ExternalException" preserve="all" />
     <type fullname="System.Runtime.InteropServices.InAttribute" preserve="all" />
     <type fullname="System.Runtime.InteropServices.Marshal" preserve="all" />
     <type fullname="System.Runtime.InteropServices.MemoryMarshal" preserve="all" />

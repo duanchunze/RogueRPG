@@ -59,14 +59,6 @@ namespace Hsenl {
             return this.linkNumerators.Remove(numerator);
         }
 
-        public void Foreach(Action<uint, string, Num> callback) {
-            foreach (var kv in this._numerics) {
-                foreach (var kvv in kv.Value) {
-                    callback.Invoke(kv.Key, kvv.Key, kvv.Value);
-                }
-            }
-        }
-
         public Num GetValue(NumericNodeKey key) {
             return this.GetValue(key.key);
         }

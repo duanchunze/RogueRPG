@@ -319,7 +319,7 @@ namespace Hsenl {
 
         protected override void BeginInit() {
             if (this.components != null) {
-                this.componentsOfSerialize = new();
+                this.componentsOfSerialize = new(this.components.Count);
                 foreach (var kv in this.components) {
                     foreach (var component in kv.Value) {
                         this.componentsOfSerialize.Add(component);
@@ -328,7 +328,7 @@ namespace Hsenl {
             }
 
             if (this.children != null) {
-                this.childrenOfSerialize = new();
+                this.childrenOfSerialize = new(this.children.Count);
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
                     this.childrenOfSerialize.Add(child);
@@ -365,9 +365,9 @@ namespace Hsenl {
             this.Active = true;
         }
 
-        private MultiList<int, Component> GetOrCreateComponents() => this.components ??= new(); // basIdx, component
+        private MultiList<int, Component> GetOrCreateComponents(int capacity = 0) => this.components ??= new(capacity); // basIdx, component
 
-        private List<Entity> GetOrCreateChildren() => this.children ??= new();
+        private List<Entity> GetOrCreateChildren(int capacity = 0) => this.children ??= new(capacity);
 
         // 先把父子关系以及所有的组件先搭好, 待整个模型成型后, 再去触发应有的事件
         internal void InitializeBySerialization() {
@@ -380,6 +380,7 @@ namespace Hsenl {
         private void InitializeBySerizlizationRestorationRelation() {
             // 把整个实体树的所有组件、子实体的关系都恢复好, 实例不用创建, 发序列化过后都实例化好的.
             if (this.componentsOfSerialize != null) {
+                this.GetOrCreateComponents(this.componentsOfSerialize.Count);
                 foreach (var componentSerialize in this.componentsOfSerialize) {
                     var type = componentSerialize.GetType();
                     if (!_typeLookupTable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
@@ -403,6 +404,7 @@ namespace Hsenl {
             }
 
             if (this.childrenOfSerialize != null) {
+                this.GetOrCreateChildren(this.childrenOfSerialize.Count);
                 foreach (var childSerialize in this.childrenOfSerialize) {
                     this.GetOrCreateChildren().Add(childSerialize);
                     // 父子关系, 场景所属设置好
@@ -575,7 +577,7 @@ namespace Hsenl {
 
         /// <summary>
         /// </summary>
-        /// <param name="initializeInvoke">初始化委托, 该委托会在Awake之前被执行, 甚至在, 可以用来配置文件赋值</param>
+        /// <param name="initializeInvoke">初始化委托, 该委托会在Awake之前被执行, 可以用来配置文件赋值</param>
         /// <param name="enabled"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -588,7 +590,7 @@ namespace Hsenl {
                     }
                 }
             }
-            
+
             if (_requireComponentLookupTable.TryGetValue(type, out var requires)) {
                 foreach (var tuple in requires) {
                     if (!this.HasComponentsAny(tuple.require)) {
@@ -642,7 +644,7 @@ namespace Hsenl {
                     }
                 }
             }
-            
+
             if (_requireComponentLookupTable.TryGetValue(type, out var requires)) {
                 foreach (var tuple in requires) {
                     if (!this.HasComponentsAny(tuple.require)) {
@@ -997,56 +999,34 @@ namespace Hsenl {
             }
         }
 
-        public void ForeachComponents(Action<Component> callback, bool includeGrandson = false) {
+        public void ForeachComponents<T>(Action<Component, T> callback, T data = default) {
             if (this.components == null) return;
-            if (callback == null) throw new ArgumentNullException();
             foreach (var kv in this.components) {
                 var list = kv.Value;
                 for (int i = 0, len = list.Count; i < len; i++) {
-                    callback.Invoke(list[i]);
-                }
-            }
-
-            if (!includeGrandson) return;
-            if (this.children == null) return;
-
-            foreach (var child in this.children) {
-                child.ForeachComponents(callback, true);
-            }
-        }
-
-        public void ForeachChildren(Action<Entity> callback, bool includeGrandson = false) {
-            if (this.children == null) return;
-            if (callback == null) throw new ArgumentNullException();
-            foreach (var child in this.children) {
-                callback.Invoke(child);
-                if (includeGrandson) {
-                    child.ForeachChildren(callback, true);
+                    callback.Invoke(list[i], data);
                 }
             }
         }
 
-        public ForeachChildrenEnumerable ForeachChildren() => new(this.children);
+        public Iterator<Entity> ForeachChildren() {
+            if (this.children == null)
+                return default;
 
-        internal void ForeachSerialize(Action<Entity> callback) {
-            if (callback == null) throw new ArgumentNullException();
-            callback.Invoke(this);
+            return new Iterator<Entity>(this.children.GetEnumerator());
+        }
 
-            void ForeachChildrenSerialize(Entity entity, Action<Entity> action) {
-                if (entity.childrenOfSerialize == null) return;
-                foreach (var child in entity.childrenOfSerialize) {
-                    action.Invoke(child);
-                    ForeachChildrenSerialize(child, action);
-                }
-            }
+        internal Iterator<Entity> ForeachSerializeChildren() {
+            if (this.childrenOfSerialize == null)
+                return default;
 
-            ForeachChildrenSerialize(this, callback);
+            return new Iterator<Entity>(this.childrenOfSerialize.GetEnumerator());
         }
 
         public bool IsParentOf(Entity targetParent) {
             if (this == targetParent)
                 return true;
-            
+
             var p = targetParent.parent;
             while (p != null) {
                 if (p == this)
@@ -1277,53 +1257,5 @@ namespace Hsenl {
 #endif
 
         #endregion
-
-        public readonly struct ForeachChildrenEnumerable : IEnumerable<Entity> {
-            private readonly List<Entity> _children;
-
-            public ForeachChildrenEnumerable(List<Entity> children) {
-                this._children = children;
-            }
-
-            public ForeachChildrenEnumerator GetEnumerator() => new(this._children);
-            IEnumerator<Entity> IEnumerable<Entity>.GetEnumerator() => new ForeachChildrenEnumerator(this._children);
-            IEnumerator IEnumerable.GetEnumerator() => new ForeachChildrenEnumerator(this._children);
-        }
-
-        public struct ForeachChildrenEnumerator : IEnumerator<Entity> {
-            private List<Entity> _children;
-            private int _index;
-            private int _len;
-
-            public Entity Current { get; private set; }
-
-            object IEnumerator.Current => this.Current;
-
-            public ForeachChildrenEnumerator(List<Entity> children) {
-                this._children = children;
-                this.Current = null;
-                this._index = 0;
-                this._len = children?.Count ?? 0;
-            }
-
-            public bool MoveNext() {
-                if (this._children == null) return false;
-                if (this._index >= this._children.Count) return false;
-                if (this._len != this._children.Count) throw new Exception("cannot add or delete a child during foreach");
-                // 至于换位置的问题暂时就不问了, 就当是一个坑
-                this.Current = this._children[this._index++];
-                return true;
-            }
-
-            public void Reset() {
-                this._children = null;
-                this._index = 0;
-                this.Current = null;
-            }
-
-            public void Dispose() {
-                this.Reset();
-            }
-        }
     }
 }

@@ -15,7 +15,7 @@ namespace Hsenl {
         void DestroyNode();
         void ResetNode();
         void AbortNode();
-        void ForeachChildren(Action<INode> callback);
+        Iterator<INode> ForeachChildren();
         T GetNodeInParent<T>(bool once = false);
         T GetNodeInChildren<T>(bool once = false);
         T[] GetNodesInChildren<T>(bool once = false);

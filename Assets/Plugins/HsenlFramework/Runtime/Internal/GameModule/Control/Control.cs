@@ -36,8 +36,8 @@ namespace Hsenl {
         private Dictionary<int, Element> _elementDict = new();
 
         protected override void OnDestroy() {
-            foreach (var element in this._elementDict.Values) {
-                element.Dispose();
+            foreach (var kv in this._elementDict) {
+                kv.Value.Dispose();
             }
 
             this._elementDict.Clear();
@@ -151,8 +151,8 @@ namespace Hsenl {
         }
 
         private void ResetControl() {
-            foreach (var element in this._elementDict.Values) {
-                element.Reset(TimeInfo.FrameCount);
+            foreach (var kv in this._elementDict) {
+                kv.Value.Reset(TimeInfo.FrameCount);
             }
         }
 

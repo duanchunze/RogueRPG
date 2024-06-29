@@ -42,7 +42,7 @@ namespace Hsenl {
 
         public virtual void SetLayer(int layer) {
             this.UnityCollider.gameObject.layer = layer;
-            this.UnityCollider.transform.ForeachChildren(child => { child.gameObject.layer = layer; });
+            this.UnityCollider.transform.ForeachAllChildren((child, l) => { child.gameObject.layer = l; }, layer);
         }
 
         public virtual void SetIncludeLayers(int layers) {

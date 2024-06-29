@@ -17,16 +17,14 @@ namespace Hsenl.Network {
             set => base.Position = value;
         }
 
-        public new int Length {
-            get => (int)base.Length;
-            set => base.Position = value;
-        }
+        public new int Length => (int)base.Length;
 
-        public PackageBuffer() { }
+        public PackageBuffer(bool usePool = false) : base(0, usePool) { }
 
-        public PackageBuffer(int capacity) : base(capacity) { }
+        public PackageBuffer(int capacity, bool usePool = false) : base(capacity, usePool) { }
 
-        // 把position推进到某个位置, 一般是你写了多少数据, 就推进多少数据, 也可以先推进, 后面再写, 能自动扩容
+        // 根据当前position, 把position推进到某个位置, 一般是你写了多少数据, 就推进多少数据, 也可以先推进, 后面再写, 能自动扩容.
+        // 如果是继续写入数据, 则调用该api, 因为他会在原有position的基础上, 进行内存拓展, 他不会复用之前的内存, 而是拓展出新的内存供你使用.
         public void Advance(int count) {
             var length = this.Position + count;
             if (length > this.Length)
@@ -34,16 +32,17 @@ namespace Hsenl.Network {
             this.Position = length;
         }
 
-        // 得到一块可以写入的内存块, 能自动扩容, 扩容后会更新length, 和GetSpan效果一样
+        // 以当前position为起点, 返回sizeHint长度的内存.
+        // 能自动扩容, 但不会设置position, 所以如果不想得到重复的内存的话, 需要搭配Advance方法一起使用.
+        // 和GetSpan效果一样.
         public Memory<byte> GetMemory(int sizeHint = 0) {
             var length = this.Length;
             var position = this.Position;
             if (length - position < sizeHint) {
                 this.SetLength(position + sizeHint);
-                length = this.Length;
             }
 
-            var memory = this.AsMemory(position, length - position);
+            var memory = this.AsMemory(position, sizeHint);
             return memory;
         }
 
@@ -52,10 +51,9 @@ namespace Hsenl.Network {
             var position = this.Position;
             if (length - position < sizeHint) {
                 this.SetLength(position + sizeHint);
-                length = this.Length;
             }
 
-            var span = this.AsSpan(position, length - position);
+            var span = this.AsSpan(position, sizeHint);
             return span;
         }
 

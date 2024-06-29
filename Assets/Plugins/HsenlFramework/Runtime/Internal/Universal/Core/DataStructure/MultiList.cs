@@ -5,6 +5,9 @@ using MemoryPack;
 namespace Hsenl {
     [MemoryPackable(GenerateType.Collection)]
     public partial class MultiList<T, K> : Dictionary<T, List<K>> where T : notnull {
+        public MultiList() { }
+        public MultiList(int capacity) : base(capacity) { }
+
         public void Add(T t, K k) {
             this.TryGetValue(t, out var list);
             if (list == null) {

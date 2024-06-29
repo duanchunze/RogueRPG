@@ -44,7 +44,7 @@ namespace Hsenl.View {
                     abiInfoUI.FillIn(abi);
                 };
                 eventListener.onExit = data => { UIManager.SingleClose<UIAbilityInfo>(); };
-                element.Find("NameText").GetComponent<Text>().text = abilities[i].ViewName;
+                element.Find("NameText").GetComponent<Text>().text = abilities[i].Name;
             }
         }
     }

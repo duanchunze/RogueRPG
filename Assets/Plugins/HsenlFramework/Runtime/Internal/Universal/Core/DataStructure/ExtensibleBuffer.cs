@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
-namespace Nino.Shared.IO {
+namespace Hsenl {
     /// <summary>
     /// A buffer that can dynamically extend
     /// </summary>

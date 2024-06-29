@@ -63,7 +63,9 @@ namespace Hsenl {
             this.InternalAbort();
         }
 
-        public sealed override void ForeachChildren(Action<INode> callback) { }
+        public sealed override Iterator<INode> ForeachChildren() {
+            return default;
+        }
 
         public sealed override TNode GetNodeInChildren<TNode>(bool once = false) {
             return default;

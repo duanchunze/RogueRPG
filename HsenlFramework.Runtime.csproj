@@ -297,6 +297,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Physic\Learn\Lowest\CollisionDetection.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\ShadowFunctionHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\HTask\Classes\HTaskAbortException.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Core\DataStructure\Iterator.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Universal\Module\Resource\Old\IAssetsLoaderOld.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Internal\GameModule\Physic\Learn\Lowest\Shape\FixShape.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Runtime\Unity\Monobehaviour\LogToScreen.cs" />

@@ -96,11 +96,11 @@ namespace Hsenl {
                         CrossDecombinMatchForParents(this, prevParent);
                     }
 
-                    this.ForeachChildrenScope((childScope, _) => {
+                    this.ForeachChildrenScope((childScope, _, p) => {
                         if (childScope.CombinMatchMode == CombinMatchMode.Auto) {
-                            CrossDecombinMatchForParents(childScope, prevParent); //
+                            CrossDecombinMatchForParents(childScope, p); //
                         }
-                    });
+                    }, data: prevParent);
                 }
 
                 // 确立好父子关系后再进行跨域匹配, 保证形成组合的时候, 父子关系是正确的.
@@ -110,12 +110,12 @@ namespace Hsenl {
                         CrossCombinsMatchForParents(this, value, 1, null);
                     }
 
-                    this.ForeachChildrenScope((childScope, layer) => {
+                    this.ForeachChildrenScope((childScope, layer, p) => {
                         if (childScope.CombinMatchMode == CombinMatchMode.Auto) {
                             childScope.CalcMaximumCrossLayerInTheory();
-                            CrossCombinsMatchForParents(childScope, value, layer + 1, null); // 
+                            CrossCombinsMatchForParents(childScope, p, layer + 1, null); // 
                         }
-                    });
+                    }, data: value);
                 }
 
                 // 先匹配再触发事件, 可以保证当用户使用该事件时, 所有该做的组合都已经完成了, 保证了组合的优先性(注: 组合的优先级只比添加组件时的initializeInvoke和序列化的OnDeserialized低)
@@ -211,13 +211,13 @@ namespace Hsenl {
 
                 if (combinInfo.parentCombiners.Count != 0) {
                     if (this.HasComponentsAny(combinInfo.totalParentTypeCacher)) {
-                        this.ForeachChildrenScope((child, layer) => {
+                        this.ForeachChildrenScope<(CrossCombinInfo ci, Scope p)>((child, layer, data) => {
                             if (child.CombinMatchMode == CombinMatchMode.Auto) {
-                                foreach (var combiner in combinInfo.parentCombiners) {
-                                    CrossCombinMatchForParent(child, this, layer, combiner);
+                                foreach (var combiner in data.ci.parentCombiners) {
+                                    CrossCombinMatchForParent(child, data.p, layer, combiner);
                                 }
                             }
-                        });
+                        }, data: (combinInfo, this));
                     }
                 }
             }
@@ -318,19 +318,21 @@ namespace Hsenl {
                                     scope.multiMatchs = null;
 
                                 // 断开被覆盖的cross组合
-                                scope.parentCrossMatchQueue?.Select((parentScope, crossCombiner) => {
-                                    if (crossCombiner.id == overrideCombinerId) {
-                                        parentScope.childCrossMatchQueue.Dequeue(scope, crossCombiner);
-                                        if (parentScope.childCrossMatchQueue.Count == 0) parentScope.childCrossMatchQueue = null;
-                                        _componentCache.Clear();
-                                        scope.GetComponentsOfTypeCacher(crossCombiner.crossChildTypeCacher, _componentCache);
-                                        parentScope.GetComponentsOfTypeCacher(crossCombiner.crossParentTypeCacher, _componentCache);
-                                        crossCombiner.Decombin(_componentCache);
-                                        return false; // 返回false, 代表该combiner在代码域执行完后, 该combiner不会再重新被添加到queue中(也就是删除了)
-                                    }
+                                scope.parentCrossMatchQueue?.Select<(List<Component> cache, Scope scope, int overrideId)>(
+                                    (parentScope, crossCombiner, data) => {
+                                        if (crossCombiner.id == data.overrideId) {
+                                            parentScope.childCrossMatchQueue.Dequeue(data.scope, crossCombiner);
+                                            if (parentScope.childCrossMatchQueue.Count == 0) 
+                                                parentScope.childCrossMatchQueue = null;
+                                            data.cache.Clear();
+                                            data.scope.GetComponentsOfTypeCacher(crossCombiner.crossChildTypeCacher, data.cache);
+                                            parentScope.GetComponentsOfTypeCacher(crossCombiner.crossParentTypeCacher, data.cache);
+                                            crossCombiner.Decombin(data.cache);
+                                            return false; // 返回false, 代表该combiner在代码域执行完后, 该combiner不会再重新被添加到queue中(也就是删除了)
+                                        }
 
-                                    return true;
-                                });
+                                        return true;
+                                    }, (_componentCache, scope, overrideCombinerId));
                             }
                         }
                     }
@@ -492,7 +494,7 @@ namespace Hsenl {
             // 先判断所含组件是否满足组合条件, 因为这个判断速度最快, 所以先判断他
             if (!child.HasComponentsAll(crossCombiner.crossChildTypeCacher))
                 return 0;
-            
+
             if (!parent.HasComponentsAll(crossCombiner.crossParentTypeCacher))
                 return 0;
 
@@ -530,81 +532,85 @@ namespace Hsenl {
                 throw new ArgumentNullException(nameof(removed));
 
             var componentIndex = removed.ComponentIndex;
-            scope.parentCrossMatchQueue?.Select((parentScope, combiner) => {
-                if (combiner.crossChildTypeCacher.Contains(componentIndex)) {
-                    parentScope.childCrossMatchQueue.Dequeue(scope, combiner);
-                    if (parentScope.childCrossMatchQueue.Count == 0) parentScope.childCrossMatchQueue = null;
-                    _componentCache.Clear();
-                    scope.GetComponentsOfTypeCacher(combiner.crossChildTypeCacher, _componentCache);
-                    parentScope.GetComponentsOfTypeCacher(combiner.crossParentTypeCacher, _componentCache);
-                    _componentCache.Add(removed);
-                    combiner.Decombin(_componentCache);
+            scope.parentCrossMatchQueue?.Select<(Scope scope, Element removed, int index, List<Component> cache)>((parentScope, combiner, data) => {
+                if (combiner.crossChildTypeCacher.Contains(data.index)) {
+                    parentScope.childCrossMatchQueue.Dequeue(data.scope, combiner);
+                    if (parentScope.childCrossMatchQueue.Count == 0)
+                        parentScope.childCrossMatchQueue = null;
+                    data.cache.Clear();
+                    data.scope.GetComponentsOfTypeCacher(combiner.crossChildTypeCacher, data.cache);
+                    parentScope.GetComponentsOfTypeCacher(combiner.crossParentTypeCacher, data.cache);
+                    data.cache.Add(data.removed);
+                    combiner.Decombin(data.cache);
                     return false;
                 }
 
                 return true;
-            });
+            }, (scope, removed, componentIndex, _componentCache));
 
-            scope.childCrossMatchQueue.Select((childScope, combiner) => {
-                if (combiner.crossParentTypeCacher.Contains(componentIndex)) {
-                    childScope.parentCrossMatchQueue.Dequeue(scope, combiner);
-                    if (childScope.parentCrossMatchQueue.Count == 0) childScope.parentCrossMatchQueue = null;
-                    _componentCache.Clear();
-                    childScope.GetComponentsOfTypeCacher(combiner.crossChildTypeCacher, _componentCache);
-                    scope.GetComponentsOfTypeCacher(combiner.crossParentTypeCacher, _componentCache);
-                    _componentCache.Add(removed);
-                    combiner.Decombin(_componentCache);
+            scope.childCrossMatchQueue.Select<(Scope scope, Element removed, int index, List<Component> cache)>((childScope, combiner, data) => {
+                if (combiner.crossParentTypeCacher.Contains(data.index)) {
+                    childScope.parentCrossMatchQueue.Dequeue(data.scope, combiner);
+                    if (childScope.parentCrossMatchQueue.Count == 0)
+                        childScope.parentCrossMatchQueue = null;
+                    data.cache.Clear();
+                    childScope.GetComponentsOfTypeCacher(combiner.crossChildTypeCacher, data.cache);
+                    data.scope.GetComponentsOfTypeCacher(combiner.crossParentTypeCacher, data.cache);
+                    data.cache.Add(data.removed);
+                    combiner.Decombin(data.cache);
                     return false;
                 }
 
                 return true;
-            });
+            }, (scope, removed, componentIndex, _componentCache));
         }
 
         // 尝试向父域断开所有当前存在的跨域组合
         internal static void CrossDecombinMatchForParents(Scope child, Scope parent) {
             // 遍历child所有的父级跨域组合, 然后判断每个组合中的parent scope是否是目标parent, 或者是目标parent的父级, 这两种情况都说明该组合符合断开条件.
-            child.parentCrossMatchQueue?.SelectMatchs(match => {
+            child.parentCrossMatchQueue?.SelectMatchs<(Scope child, Scope parent, List<Component> cache)>((match, data) => {
                 var parentScope = match.scope;
-                if (parentScope.Entity.IsParentOf(parent.Entity)) {
+                if (parentScope.Entity.IsParentOf(data.parent.Entity)) {
                     foreach (var combiner in match.combiners) {
                         if (parentScope.childCrossMatchQueue == null) break;
-                        parentScope.childCrossMatchQueue.Dequeue(child, combiner);
-                        if (parentScope.childCrossMatchQueue.Count == 0) parentScope.childCrossMatchQueue = null;
-                        _componentCache.Clear();
-                        parentScope.GetComponentsOfTypeCacher(combiner.crossParentTypeCacher, _componentCache);
-                        child.GetComponentsOfTypeCacher(combiner.crossChildTypeCacher, _componentCache);
-                        combiner.Decombin(_componentCache);
+                        parentScope.childCrossMatchQueue.Dequeue(data.child, combiner);
+                        if (parentScope.childCrossMatchQueue.Count == 0)
+                            parentScope.childCrossMatchQueue = null;
+                        data.cache.Clear();
+                        parentScope.GetComponentsOfTypeCacher(combiner.crossParentTypeCacher, data.cache);
+                        data.child.GetComponentsOfTypeCacher(combiner.crossChildTypeCacher, data.cache);
+                        combiner.Decombin(data.cache);
                     }
 
                     return false;
                 }
 
                 return true;
-            });
+            }, (child, parent, _componentCache));
         }
 
         // 将两个scope断开
         internal static void CrossDecombinMatchForParent(Scope child, Scope parent) {
             // 遍历child所有的父级跨域组合, 然后判断每个组合中的parent scope是否是目标parent, 或者是目标parent的父级, 这两种情况都说明该组合符合断开条件.
-            child.parentCrossMatchQueue?.SelectMatchs(match => {
+            child.parentCrossMatchQueue?.SelectMatchs<(Scope child, Scope parent, List<Component> cache)>((match, data) => {
                 var parentScope = match.scope;
-                if (parentScope == parent) {
+                if (parentScope == data.parent) {
                     foreach (var combiner in match.combiners) {
                         if (parentScope.childCrossMatchQueue == null) break;
-                        parentScope.childCrossMatchQueue.Dequeue(child, combiner);
-                        if (parentScope.childCrossMatchQueue.Count == 0) parentScope.childCrossMatchQueue = null;
-                        _componentCache.Clear();
-                        parentScope.GetComponentsOfTypeCacher(combiner.crossParentTypeCacher, _componentCache);
-                        child.GetComponentsOfTypeCacher(combiner.crossChildTypeCacher, _componentCache);
-                        combiner.Decombin(_componentCache);
+                        parentScope.childCrossMatchQueue.Dequeue(data.child, combiner);
+                        if (parentScope.childCrossMatchQueue.Count == 0)
+                            parentScope.childCrossMatchQueue = null;
+                        data.cache.Clear();
+                        parentScope.GetComponentsOfTypeCacher(combiner.crossParentTypeCacher, data.cache);
+                        data.child.GetComponentsOfTypeCacher(combiner.crossChildTypeCacher, data.cache);
+                        combiner.Decombin(data.cache);
                     }
 
                     return false;
                 }
 
                 return true;
-            });
+            }, (child, parent, _componentCache));
         }
 
         #endregion
@@ -647,12 +653,12 @@ namespace Hsenl {
             return t;
         }
 
-        protected void ForeachChildrenScope(Action<Scope, int> callback, int maxLayer = int.MaxValue) {
-            Foreach(callback, this, 1);
+        internal void ForeachChildrenScope<T>(Action<Scope, int, T> callback, int maxLayer = int.MaxValue, T data = default) {
+            Foreach(callback, this, 1, data);
 
             return;
 
-            void Foreach(Action<Scope, int> _callback, Scope scope, int layer) {
+            void Foreach(Action<Scope, int, T> _callback, Scope scope, int layer, T __data) {
                 if (layer > maxLayer)
                     return;
 
@@ -660,12 +666,12 @@ namespace Hsenl {
                     return;
 
                 for (int i = 0, len = scope.childrenScopes.Count; i < len; i++) {
-                    _callback.Invoke(scope.childrenScopes[i], layer);
+                    _callback.Invoke(scope.childrenScopes[i], layer, __data);
                 }
 
                 ++layer;
                 for (int i = 0, len = scope.childrenScopes.Count; i < len; i++) {
-                    Foreach(_callback, scope.childrenScopes[i], layer);
+                    Foreach(_callback, scope.childrenScopes[i], layer, __data);
                 }
             }
         }
@@ -914,7 +920,7 @@ namespace Hsenl {
             }
 
             // func的返回值为false时, 代表顺便移除该combiner
-            public void Select(Func<Scope, Combiner, bool> func) {
+            public void Select<T>(Func<Scope, Combiner, T, bool> func, T data = default) {
                 if (this._matches == null)
                     return;
 
@@ -924,7 +930,7 @@ namespace Hsenl {
                     var combinerCount = match.combiners.Count;
                     while (combinerCount-- > 0) {
                         var tempCombiner = match.combiners.Dequeue();
-                        var ret = func.Invoke(match.scope, tempCombiner);
+                        var ret = func.Invoke(match.scope, tempCombiner, data);
                         if (!ret) {
                             continue;
                         }
@@ -941,14 +947,14 @@ namespace Hsenl {
             }
 
             // func的返回值为false时, 代表顺便移除该match
-            public void SelectMatchs(Func<CrossMatch, bool> func) {
+            public void SelectMatchs<T>(Func<CrossMatch, T, bool> func, T data = default) {
                 if (this._matches == null)
                     return;
 
                 var matchCount = this._matches.Count;
                 while (matchCount-- > 0) {
                     var match = this._matches.Dequeue();
-                    var ret = func.Invoke(match);
+                    var ret = func.Invoke(match, data);
                     if (!ret)
                         continue;
 
@@ -959,7 +965,7 @@ namespace Hsenl {
                     this._matches = null;
             }
 
-            public void Foreach(Action<Scope, Combiner> action) {
+            public void Foreach<T>(Action<Scope, Combiner, T> action, T data = default) {
                 if (this._matches == null)
                     return;
 
@@ -969,7 +975,7 @@ namespace Hsenl {
                     var combinerCount = match.combiners.Count;
                     while (combinerCount-- > 0) {
                         var tempCombiner = match.combiners.Dequeue();
-                        action.Invoke(match.scope, tempCombiner);
+                        action.Invoke(match.scope, tempCombiner, data);
 
                         match.combiners.Enqueue(tempCombiner);
                     }

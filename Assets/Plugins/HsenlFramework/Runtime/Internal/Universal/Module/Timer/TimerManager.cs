@@ -21,6 +21,14 @@ namespace Hsenl {
         private long GetId() => this._idGenerator++;
         private long GetNow() => TimeInfo.Now;
 
+        protected override void OnUnregister() {
+            this._idGenerator = 0;
+            this._times.Clear();
+            this._timerActions.Clear();
+            this._timeOUtTimers.Clear();
+            this._timeOUtTimerIds.Clear();
+        }
+
         public void Update() {
             if (this._times.Count == 0) return;
 

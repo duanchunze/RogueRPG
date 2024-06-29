@@ -762,7 +762,12 @@ namespace Hsenl {
                     continue;
 
                 if (updater.updater.RealEnable) {
-                    updater.updater.Update();
+                    try {
+                        updater.updater.Update();
+                    }
+                    catch (Exception e) {
+                        Log.Error(e);
+                    }
                 }
 
                 this._updaters.Enqueue(updater);
@@ -777,8 +782,12 @@ namespace Hsenl {
                     continue;
 
                 if (updater.updater.RealEnable) {
-                    updater.updater.LateUpdate();
-                    continue;
+                    try {
+                        updater.updater.LateUpdate();
+                    }
+                    catch (Exception e) {
+                        Log.Error(e);
+                    }
                 }
 
                 this._lateUpaters.Enqueue(updater);

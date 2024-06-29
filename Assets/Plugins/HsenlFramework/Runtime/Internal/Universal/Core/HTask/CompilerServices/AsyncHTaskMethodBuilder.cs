@@ -99,10 +99,6 @@ namespace Hsenl {
         // 4. SetResult
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetResult(T value) {
-            if (this._task.IsNull()) {
-                this._task = HTask<T>.Create();
-            }
-
             this._task.SetResult(value);
         }
 

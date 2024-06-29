@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using MemoryPack;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Hsenl {
     public class Tester : MonoBehaviour {
-        private Entity _entity;
-
-        public Tester tester;
-
         [Button("Click")]
-        public void Click() {
-            Instantiate(this.tester);
-        }
+        public void Click() { }
+
+        private LogStopwatch _logStopwatch;
 
         private void Start() {
             SceneManager.LoadScene("main", LoadSceneMode.Single);
             Numerator.InitNumerator(3);
+            this._logStopwatch = new("start");
         }
 
-        private void Update() {
+        private async void Update() {
+            
         }
     }
 }

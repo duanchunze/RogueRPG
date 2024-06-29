@@ -5,13 +5,13 @@ namespace Hsenl {
     public static class HTaskPool {
         private static readonly Dictionary<Type, Queue<IHTaskBody>> _pool = new();
 
-        internal static T Rent<T>() where T : IHTaskBody, new() {
-            var type = typeof(T);
+        internal static TBody Rent<TBody>() where TBody : IHTaskBody, new() {
+            var type = typeof(TBody);
             if (!_pool.TryGetValue(type, out var queue)) {
-                return new T();
+                return new TBody();
             }
 
-            var ret = (T)queue.Dequeue();
+            var ret = (TBody)queue.Dequeue();
             if (queue.Count == 0) {
                 _pool.Remove(type);
             }
@@ -52,13 +52,13 @@ namespace Hsenl {
     public static class HTaskPool<T> {
         private static readonly Dictionary<Type, Queue<IHTaskBody<T>>> _pool = new();
 
-        internal static TH Rent<TH>() where TH : IHTaskBody<T>, new() {
-            var type = typeof(TH);
+        internal static TBody Rent<TBody>() where TBody : IHTaskBody<T>, new() {
+            var type = typeof(TBody);
             if (!_pool.TryGetValue(type, out var queue)) {
-                return new TH();
+                return new TBody();
             }
 
-            var ret = (TH)queue.Dequeue();
+            var ret = (TBody)queue.Dequeue();
             if (queue.Count == 0) {
                 _pool.Remove(type);
             }

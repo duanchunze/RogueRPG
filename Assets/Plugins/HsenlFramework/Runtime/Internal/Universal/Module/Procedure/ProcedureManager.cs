@@ -14,5 +14,9 @@ namespace Hsenl {
         protected override void OnRegister() {
             this._procedure = new Procedure();
         }
+
+        protected override void OnUnregister() {
+            this._procedure = null;
+        }
     }
 }

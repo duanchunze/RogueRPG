@@ -2,6 +2,6 @@
 
 namespace Hsenl.Network {
     public interface IAfterMessageWrited : IPlugGroup {
-        public void Handle(ref Memory<byte> data);
+        public void Handle(long channel, ref Memory<byte> data);
     }
 }

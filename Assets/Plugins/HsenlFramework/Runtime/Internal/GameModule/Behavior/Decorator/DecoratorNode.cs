@@ -120,11 +120,11 @@ namespace Hsenl {
             this.RemoveChild(this.child);
         }
 
-        public sealed override void ForeachChildren(Action<INode> callback) {
+        public sealed override Iterator<INode> ForeachChildren() {
             if (this.child == null)
-                return;
+                return default;
 
-            callback.Invoke(this.child);
+            return new Iterator<INode>(this.child);
         }
 
         public sealed override T GetNodeInChildren<T>(bool once = false) {

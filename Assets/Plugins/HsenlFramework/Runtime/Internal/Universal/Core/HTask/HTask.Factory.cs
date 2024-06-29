@@ -7,11 +7,11 @@
             return new HTask(HTaskPool.Rent<NormalHTaskBody>());
         }
 
-        public static HTask Create<T>() where T : IHTaskBody, new() {
-            return new HTask(HTaskPool.Rent<T>());
+        public static HTask Create<TBody>() where TBody : IHTaskBody, new() {
+            return new HTask(HTaskPool.Rent<TBody>());
         }
 
-        public static SwitchToMainThreadPoolAwaitable Returner() => SwitchToMainThreadPoolAwaitable.Create();
+        public static SwitchToMainThreadPoolAwaitable ReturnToMainThread() => SwitchToMainThreadPoolAwaitable.Create();
     }
 
     public partial struct HTask<T> {
@@ -19,8 +19,8 @@
             return new HTask<T>(HTaskPool<T>.Rent<NormalHTaskBody<T>>());
         }
 
-        public static HTask<T> Create<TH>() where TH : IHTaskBody<T>, new() {
-            return new HTask<T>(HTaskPool<T>.Rent<TH>());
+        public static HTask<T> Create<TBody>() where TBody : IHTaskBody<T>, new() {
+            return new HTask<T>(HTaskPool<T>.Rent<TBody>());
         }
     }
 }

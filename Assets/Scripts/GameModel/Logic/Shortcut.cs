@@ -22,14 +22,20 @@ namespace Hsenl {
 
             if (actionInfo != null) {
                 var actionType = actionInfo.GetType();
-                status.GetComponent<TimeLine>().EntryNode.ForeachChildren(child => {
-                    if (child is not IConfigInfoInitializer configInfoInitializer)
-                        return;
+                Foreach(status.GetComponent<TimeLine>().EntryNode);
 
-                    if (configInfoInitializer.InfoType == actionType) {
-                        configInfoInitializer.InitInfo(actionInfo);
+                void Foreach(INode node) {
+                    foreach (var child in node.ForeachChildren()) {
+                        if (child is not IConfigInfoInitializer configInfoInitializer)
+                            return;
+
+                        if (configInfoInitializer.InfoType == actionType) {
+                            configInfoInitializer.InitInfo(actionInfo);
+                        }
+
+                        Foreach(child);
                     }
-                });
+                }
             }
 
             status.inflictor = inflictor;

@@ -13,7 +13,12 @@ namespace Hsenl {
         }
 
         public void Peek(string content) {
-            Log.Debug($"{content} ({(DateTime.Now - this._now).Ticks * 0.00001} ms)");
+            Log.Debug($"{content} ({(DateTime.Now - this._now).TotalMilliseconds} ms)");
+            this._now = DateTime.Now;
+        }
+
+        public void Peek(ref long tick) {
+            tick = (DateTime.Now - this._now).Ticks;
             this._now = DateTime.Now;
         }
     }

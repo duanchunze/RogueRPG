@@ -289,7 +289,7 @@ namespace Hsenl {
         /// 与OnNodeEnter对应
         protected virtual void OnNodeExit() { }
         
-        public abstract void ForeachChildren(Action<INode> callback);
+        public abstract Iterator<INode> ForeachChildren();
 
         public TNode GetNodeInParent<TNode>(bool once = false) {
             var parent = this.Parent;

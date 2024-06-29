@@ -1043,6 +1043,7 @@ namespace ShadowFunction {
                     methodBodyBuilder.Append("\n");
                     methodBodyBuilder.Append("\n");
                     methodBodyBuilder.Append($$"""
+                                                       task = default;
                                                        return false;
                                                    }
                                                """);

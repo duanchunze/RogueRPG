@@ -1,4 +1,6 @@
-﻿namespace Hsenl {
+﻿using System;
+
+namespace Hsenl {
     public static class TimeInfo {
         public static float DeltaTime => TimeInfoManager.Instance.DeltaTime;
         public static int FrameCount => TimeInfoManager.Instance.FrameCount;
@@ -9,5 +11,7 @@
             get => TimeInfoManager.Instance.TimeScale;
             set => TimeInfoManager.Instance.TimeScale = value;
         }
+
+        public static uint CurrentUtcMilliseconds => (uint)DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
     }
 }

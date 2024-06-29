@@ -276,8 +276,8 @@ namespace Hsenl {
             }
 
             public void StopAll() {
-                foreach (var routine in this._kv.Values) {
-                    routine.Stop(Status.Accident);
+                foreach (var kv in this._kv) {
+                    kv.Value.Stop(Status.Accident);
                 }
             }
 

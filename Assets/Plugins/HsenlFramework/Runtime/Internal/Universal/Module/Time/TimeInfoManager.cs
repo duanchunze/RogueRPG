@@ -9,7 +9,7 @@ namespace Hsenl {
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
 #endif
-        private float _deltaTime;
+        private float _deltaTime; // s
 
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
@@ -17,19 +17,18 @@ namespace Hsenl {
         private int _frameCount;
 
         private DateTime _dt1970;
-        private DateTime _dt;
 
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
 #endif
-        private long _now;
+        private long _now; // ms
 
-        private long _nowRaw;
+        private long _nowRaw; // microsecond
 
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
 #endif
-        private float _time;
+        private float _time; // s
 
         private long _previousTime;
 
@@ -57,8 +56,16 @@ namespace Hsenl {
 
         public TimeInfoManager() {
             this._dt1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            this._dt = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             this.UpdateNow();
+        }
+
+        protected override void OnUnregister() {
+            this._deltaTime = 0;
+            this._frameCount = 0;
+            this._now = 0;
+            this._nowRaw = 0;
+            this._time = 0;
+            this._previousTime = 0;
         }
 
         public void Update() {

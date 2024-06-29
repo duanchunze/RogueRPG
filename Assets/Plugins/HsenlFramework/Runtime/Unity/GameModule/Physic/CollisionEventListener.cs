@@ -77,7 +77,7 @@
         
         public virtual void SetLayer(int layer) {
             this._unityPhysicsListener.gameObject.layer = layer;
-            this._unityPhysicsListener.transform.ForeachChildren(child => { child.gameObject.layer = layer; });
+            this._unityPhysicsListener.transform.ForeachAllChildren((child, l) => { child.gameObject.layer = l; }, layer);
         }
 
         public virtual void SetIncludeLayers(int layers) {

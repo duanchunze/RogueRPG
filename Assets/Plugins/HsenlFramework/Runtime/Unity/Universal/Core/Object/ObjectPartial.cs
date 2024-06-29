@@ -17,7 +17,16 @@ namespace Hsenl {
                     var obj = Instantiate((Object)oriEntity);
                     var t = (T)obj;
                     if (t is Entity entity) {
-                        entity.ForeachSerialize(child => { child.SetGameObject(_caches[child.uniqueId]); });
+                        entity.SetGameObject(_caches[entity.UniqueId]);
+                        Foreach(entity);
+
+                        void Foreach(Entity e) {
+                            foreach (var child in e.ForeachSerializeChildren()) {
+                                child.SetGameObject(_caches[child.UniqueId]);
+                                Foreach(child);
+                            }
+                        }
+
                         entity.SetParent(parent);
                         entity.InitializeBySerialization();
                     }
@@ -25,7 +34,7 @@ namespace Hsenl {
                     _caches.Clear();
                     return t;
                 }
-                
+
                 case Component originalComponent: {
                     throw new Exception("暂时不支持组件实例化"); // 因为需要能直接给实体AddComponent(Component component); 实例化组件才有意义, 但现在暂时不考虑这种添加组件方式
                 }

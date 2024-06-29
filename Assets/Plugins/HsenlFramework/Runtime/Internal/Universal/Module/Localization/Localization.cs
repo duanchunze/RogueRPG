@@ -15,5 +15,9 @@ namespace Hsenl {
             this.Value = value;
             EventSystem.Publish(new OnLocalizationChanged());
         }
+
+        protected override void OnUnregister() {
+            this.Value = null;
+        }
     }
 }

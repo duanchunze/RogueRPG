@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -8,6 +9,8 @@ namespace Hsenl.Network {
     // 代码是直接拷贝的微软的
     public class HMemoryStream : Stream {
         private const int MemStreamMaxLength = int.MaxValue;
+
+        private readonly ArrayPool<byte> _arrayPool;
 
         private byte[] _buffer;
         private int _origin;
@@ -58,6 +61,11 @@ namespace Hsenl.Network {
             }
         }
 
+        /// <summary>
+        /// 以origin为基准.
+        /// 只做两件事, 如果array不足, 则补充, 并设置capacity, 除此之外, 不会设置其他值.
+        /// 毕竟position永远不会超过capacity
+        /// </summary>
         public virtual int Capacity {
             get {
                 this.ThrowIfNotOpen();
@@ -75,14 +83,20 @@ namespace Hsenl.Network {
                 // MemoryStream has this invariant: _origin > 0 => !expandable (see ctors)
                 if (this._expandable && value != this._capacity) {
                     if (value > 0) {
-                        byte[] newBuffer = new byte[value];
+                        byte[] newBuffer = this._arrayPool?.Rent(value) ?? new byte[value];
+                        if (this._arrayPool != null) {
+                            Array.Clear(newBuffer, 0, newBuffer.Length);
+                        }
+
                         if (this._length > 0) {
                             Buffer.BlockCopy(this._buffer, 0, newBuffer, 0, this._length);
                         }
 
+                        this._arrayPool?.Return(this._buffer);
                         this._buffer = newBuffer;
                     }
                     else {
+                        this._arrayPool?.Return(this._buffer);
                         this._buffer = Array.Empty<byte>();
                     }
 
@@ -94,9 +108,12 @@ namespace Hsenl.Network {
         public HMemoryStream()
             : this(0) { }
 
-        public HMemoryStream(int capacity) {
+        public HMemoryStream(int capacity, bool usePool = false) {
             if (capacity < 0)
                 throw new ArgumentOutOfRangeException(capacity.ToString());
+
+            if (usePool)
+                this._arrayPool = ArrayPool<byte>.Shared;
 
             this._buffer = capacity != 0 ? new byte[capacity] : Array.Empty<byte>();
             this._capacity = capacity;
@@ -201,6 +218,8 @@ namespace Hsenl.Network {
             return this._position - this._origin;
         }
 
+        // 以origin为基准.
+        // 设置长度, 如果设置的长度比当前position小, 则不操作, 如果比当前position大, 则拓展array, 并把position设置为当前长度
         public override void SetLength(long value) {
             if (value < 0 || value > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(value), "ArgumentOutOfRange_StreamLength");

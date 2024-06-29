@@ -14,7 +14,6 @@ namespace Hsenl.Network {
         public bool IsClosed { get; }
 
         void Start();
-        public void Write(long channelId, Func<PackageBuffer, ushort> func);
         public bool Send(long channelId);
         void DisconnectChannel(long channelId);
         void Close();

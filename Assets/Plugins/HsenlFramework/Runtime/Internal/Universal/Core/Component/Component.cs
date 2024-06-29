@@ -74,7 +74,6 @@ namespace Hsenl {
 
                 if (this.Entity.RealActive) {
                     if (this.enable) {
-                        // this.InternalOnStart();
                         this.OnEnable();
                     }
                     else {

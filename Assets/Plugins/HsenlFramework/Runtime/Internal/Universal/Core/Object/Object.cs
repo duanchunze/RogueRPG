@@ -63,9 +63,15 @@ namespace Hsenl {
                     var t = (T)obj;
                     switch (t) {
                         case Entity entity: {
-#if UNITY_5_3_OR_NEWER
-                            entity.ForeachSerialize(child => { child.PartialOnCreated(); });
-#endif
+// #if UNITY_5_3_OR_NEWER
+//                             Foreach(entity);
+//                             void Foreach(Entity e) {
+//                                 foreach (var child in e.ForeachSerializeChildren()) {
+//                                     child.PartialOnCreated();
+//                                     Foreach(child);
+//                                 }
+//                             }
+// #endif
                             entity.SetParent(parent);
                             entity.InitializeBySerialization();
                             break;

@@ -77,11 +77,11 @@ namespace Hsenl {
             return tra;
         }
 
-        public static void ForeachChildren(this UnityEngine.Transform self, Action<UnityEngine.Transform> action) {
+        public static void ForeachAllChildren<T>(this UnityEngine.Transform self, Action<UnityEngine.Transform, T> action, T data = default) {
             for (int i = 0, len = self.childCount; i < len; i++) {
                 var child = self.GetChild(i);
-                action.Invoke(child);
-                child.ForeachChildren(action);
+                action.Invoke(child, data);
+                child.ForeachAllChildren(action, data);
             }
         }
 

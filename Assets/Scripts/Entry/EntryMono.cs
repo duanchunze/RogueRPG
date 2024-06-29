@@ -24,9 +24,7 @@ namespace Hsenl {
         public List<string> dllAssetNames = new() {
             "HsenlFramework.ThirdParty.dll",
             "HsenlFramework.Runtime.dll",
-            "Hsenl.Network.Common.dll",
-            "Hsenl.Network.Client.dll",
-            "Hsenl.Network.Server.dll",
+            "HsenlFramework.Network.dll",
             "GameModel.dll",
             "GameHotReload.dll",
             "GameView.dll",

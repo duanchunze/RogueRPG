@@ -89,20 +89,28 @@ namespace Hsenl {
         public float TotalTime {
             get {
                 var t = 0f;
-                this.entryNode.ForeachChildren(child => {
-                    if (t < 0)
-                        return;
-
-                    if (child is not IStageNode stage) return;
-                    if (stage.Duration < 0) {
-                        t = -1;
-                        return;
-                    }
-
-                    t += stage.Duration;
-                });
+                Foreach(this.entryNode);
 
                 return t;
+
+                void Foreach(INode node) {
+                    foreach (var child in node.ForeachChildren()) {
+                        if (t < 0)
+                            return;
+
+                        if (child is not IStageNode stage)
+                            return;
+
+                        if (stage.Duration < 0) {
+                            t = -1;
+                            return;
+                        }
+
+                        t += stage.Duration;
+
+                        Foreach(child);
+                    }
+                }
             }
         }
 

@@ -26,7 +26,7 @@ namespace Hsenl {
         
         public virtual void SetLayer(int layer) {
             this._rigidbody.gameObject.layer = layer;
-            this._rigidbody.transform.ForeachChildren(child => { child.gameObject.layer = layer; });
+            this._rigidbody.transform.ForeachAllChildren((child, l) => { child.gameObject.layer = l; }, layer);
         }
 
         public virtual void SetIncludeLayers(int layers) {

@@ -62,11 +62,11 @@ namespace Hsenl {
                         CrossDecombinMatchForParents(this, prevParent);
                     }
 
-                    this.ForeachChildrenScope((childScope, _) => {
+                    this.ForeachChildrenScope((childScope, _, p) => {
                         if (childScope.CombinMatchMode == CombinMatchMode.Auto) {
-                            CrossDecombinMatchForParents(childScope, prevParent); //
+                            CrossDecombinMatchForParents(childScope, p); //
                         }
-                    });
+                    }, data: prevParent);
                 }
 
                 // 重写添加了这句 -> 确定父子关系后, head要处理的就是, 找到自己的bodied
@@ -79,12 +79,12 @@ namespace Hsenl {
                         CrossCombinsMatchForParents(this, value, 1, null);
                     }
 
-                    this.ForeachChildrenScope((childScope, layer) => {
+                    this.ForeachChildrenScope((childScope, layer, p) => {
                         if (childScope.CombinMatchMode == CombinMatchMode.Auto) {
                             childScope.CalcMaximumCrossLayerInTheory();
-                            CrossCombinsMatchForParents(childScope, value, layer + 1, null); // 
+                            CrossCombinsMatchForParents(childScope, p, layer + 1, null); // 
                         }
-                    });
+                    }, data: value);
                 }
 
                 this.OnParentScopeChangedInternal(prevParent);
@@ -94,12 +94,12 @@ namespace Hsenl {
         }
 
         internal override void OnDeserializedInternal() {
-            this.Entity.ForeachComponents(component => {
+            this.Entity.ForeachComponents((component, unbodiedHead) => {
                 if (component is not Unbodied unbodied)
                     return;
 
-                unbodied.unbodiedHead = this;
-            });
+                unbodied.unbodiedHead = unbodiedHead;
+            }, this);
         }
 
         protected internal override void OnDisposed() {
@@ -132,16 +132,16 @@ namespace Hsenl {
                         }
                     }
                 }
-
+                
                 if (combinInfo.parentCombiners.Count != 0) {
                     if (this.HasComponentsAny(combinInfo.totalParentTypeCacher)) {
-                        this.ForeachChildrenScope((child, layer) => {
+                        this.ForeachChildrenScope<(CrossCombinInfo ci, Scope p)>((child, layer, data) => {
                             if (child.CombinMatchMode == CombinMatchMode.Auto) {
-                                foreach (var combiner in combinInfo.parentCombiners) {
-                                    CrossCombinMatchForParent(child, this, layer, combiner);
+                                foreach (var combiner in data.ci.parentCombiners) {
+                                    CrossCombinMatchForParent(child, data.p, layer, combiner);
                                 }
                             }
-                        });
+                        }, data: (combinInfo, this));
                     }
                 }
             }
