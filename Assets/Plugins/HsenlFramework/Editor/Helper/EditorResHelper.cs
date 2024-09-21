@@ -10,7 +10,7 @@ namespace Hsenl {
         /// <returns></returns>
         public static List<string> GetPrefabsAndScenes(string srcPath) {
             List<string> paths = new List<string>();
-            FileHelper.GetAllFiles(paths, srcPath);
+            IOHelper.GetAllFiles(paths, srcPath);
 
             List<string> files = new List<string>();
             foreach (string str in paths) {

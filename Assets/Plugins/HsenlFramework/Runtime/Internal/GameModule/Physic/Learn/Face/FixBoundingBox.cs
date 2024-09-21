@@ -1,26 +1,24 @@
-﻿using FixedMath;
-
-namespace Hsenl {
+﻿namespace Hsenl {
     /// <summary>
     /// 包围盒
     /// </summary>
     public struct FixBoundingBox {
-        public FVector3 min;
-        public FVector3 max;
-        public FVector3 center;
+        public Vector3 min;
+        public Vector3 max;
+        public Vector3 center;
 
-        public FVector3 axisX;
-        public FVector3 axisY;
-        public FVector3 axisZ;
+        public Vector3 axisX;
+        public Vector3 axisY;
+        public Vector3 axisZ;
 
-        public FixBoundingBox(FVector3 min, FVector3 max) {
+        public FixBoundingBox(Vector3 min, Vector3 max) {
             this.min = min;
             this.max = max;
             this.center = (max - min) * Fixp.Half;
 
-            this.axisX = FVector3.Right;
-            this.axisY = FVector3.Up;
-            this.axisZ = FVector3.Forward;
+            this.axisX = Vector3.Right;
+            this.axisY = Vector3.Up;
+            this.axisZ = Vector3.Forward;
         }
 
         public override string ToString() {

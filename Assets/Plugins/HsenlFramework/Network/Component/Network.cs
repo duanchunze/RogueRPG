@@ -1,19 +1,21 @@
 ﻿using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using MemoryPack;
 
 namespace Hsenl.Network {
     public abstract class Network : Component, IUpdate {
-        private PackageBuffer _bufferWrite = new();
+        private HBuffer _bufferWrite = new();
         private int _rpcId;
         private Dictionary<int, RpcInfo> _rpcInfos = new(); // key: rpcId
 
         private uint _rpcTimeOutTime = 5000;
         private long _currentTimeoutTimeMin;
         private Queue<int> _timeoutQueue = new();
+
+        private ArrayPool<byte> _arrayPool = ArrayPool<byte>.Create();
 
         protected override void OnDestroy() {
             this._bufferWrite.Dispose();
@@ -26,18 +28,20 @@ namespace Hsenl.Network {
         public void Send<T>(T message, long channelId) {
             this.Write(message);
             this.Service.Write(channelId, this._bufferWrite.AsSpan(0, this._bufferWrite.Position));
+            this.Service.StartSend(channelId);
         }
 
         public void SendWithRpcId<T>(T message, int rpcId, long channelId) {
             this.Write(message);
             this._bufferWrite.AsSpan(3, 4).WriteTo(rpcId);
             this.Service.Write(channelId, this._bufferWrite.AsSpan(0, this._bufferWrite.Position));
+            this.Service.StartSend(channelId);
         }
 
         public RpcInfo Call<T>(T message, long channelId) {
             var rpcId = ++this._rpcId;
             this.SendWithRpcId(message, rpcId, channelId);
-            var rpcInfo = new RpcInfo(HTask<Memory<byte>>.Create(), (uint)TimeInfo.Now);
+            var rpcInfo = new RpcInfo(HTask<Memory<byte>>.Create(), (uint)TimeInfo.Now, this._arrayPool);
             this._rpcInfos.Add(rpcId, rpcInfo);
             return rpcInfo;
         }
@@ -47,7 +51,7 @@ namespace Hsenl.Network {
             this._bufferWrite.Seek(0, SeekOrigin.Begin);
             this._bufferWrite.GetSpan(2).WriteTo(opcode);
             this._bufferWrite.Advance(2);
-            MemoryPackSerializer.Serialize(this._bufferWrite, message);
+            SerializeHelper.SerializeOfMemoryPack(this._bufferWrite, message);
         }
 
         protected void OnRecvMessage(long channelId, Memory<byte> data) {
@@ -101,22 +105,53 @@ namespace Hsenl.Network {
 
         public struct RpcInfo {
             private HTask<Memory<byte>> _task;
+            private ArrayPool<byte> _arrayPool;
+            private byte[] _cache;
 
             public uint StartTime { get; }
 
             public RpcInfo(HTask<Memory<byte>> task, uint startTime) {
                 this._task = task;
                 this.StartTime = startTime;
+                this._arrayPool = null;
+                this._cache = default;
+            }
+
+            public RpcInfo(HTask<Memory<byte>> task, uint startTime, ArrayPool<byte> pool) {
+                this._task = task;
+                this.StartTime = startTime;
+                this._arrayPool = pool;
+                this._cache = default;
             }
 
             public async HTask<T> As<T>() {
                 var memory = await this._task;
-                var t = MemoryPackSerializer.Deserialize<T>(memory.Span);
+                var t = SerializeHelper.DeserializeOfMemoryPack<T>(memory.Span);
+                return t;
+            }
+
+            // 同As<T>的唯一区别就是task会在主线程里被返回
+            public async HTask<T> MainThreadAs<T>() {
+                var memory = await this._task;
+                this._cache = this._arrayPool.Rent(memory.Length);
+                memory.CopyTo(this._cache.AsMemory());
+                await HTask.ReturnToMainThread();
+                var t = SerializeHelper.DeserializeOfMemoryPack<T>(this._cache);
                 return t;
             }
 
             public void Response(Memory<byte> data) {
                 this._task.SetResult(data);
+            }
+
+            public void Dispose() {
+                this._task = default;
+                if (this._cache != null) {
+                    this._arrayPool.Return(this._cache);
+                }
+
+                this._arrayPool = null;
+                this._cache = null;
             }
         }
     }

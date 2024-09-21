@@ -31,7 +31,7 @@ namespace Hsenl {
 
         public sealed override void StartNode(IBehaviorTree tree) {
             if (this.manager != null) throw new Exception("already has manager");
-            if (tree == null) throw new ArgumentNullException("start node failure, tree is null");
+            if (tree == null) throw new ArgumentNullException(nameof(tree));
 
             this.manager = (TManager)tree;
             for (int i = 0, len = this.children.Count; i < len; i++) {
@@ -183,7 +183,7 @@ namespace Hsenl {
             if (this.children == null)
                 return default;
 
-            using var list = ListComponent<T>.Create();
+            using var list = ListComponent<T>.Rent();
             this.GetNodesInChildren(list);
             return list.ToArray();
         }

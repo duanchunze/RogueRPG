@@ -58,6 +58,13 @@ namespace Hsenl {
             if (entity.Active != this._t.gameObject.activeSelf) {
                 entity.Active = this._t.gameObject.activeSelf;
             }
+
+            var parentEntityRef = this._t.transform.parent?.GetComponentInParent<EntityReference>(true);
+            var unityTransform1 = parentEntityRef?.transform;
+            var unityTransform2 = entity.Parent?.GameObject?.transform;
+            if (unityTransform1 != null && unityTransform1 != unityTransform2) {
+                entity.SetParent(parentEntityRef.Entity);
+            }
         }
     }
 #endif

@@ -42,6 +42,8 @@ public abstract partial class Info :  Bright.Config.BeanBase
             case "AdditionalStatusOnAbilityDamageInfo": return new procedureline.AdditionalStatusOnAbilityDamageInfo(_json);
             case "AdditionalStatusOnAbilityDamageInfo2": return new procedureline.AdditionalStatusOnAbilityDamageInfo2(_json);
             case "ProbabilisticRepetitionCastInfo": return new procedureline.ProbabilisticRepetitionCastInfo(_json);
+            case "MissBeSelectOnHarmInfo": return new procedureline.MissBeSelectOnHarmInfo(_json);
+            case "SplitBoltOnHitInfo": return new procedureline.SplitBoltOnHitInfo(_json);
             default: throw new SerializationException();
         }
     }

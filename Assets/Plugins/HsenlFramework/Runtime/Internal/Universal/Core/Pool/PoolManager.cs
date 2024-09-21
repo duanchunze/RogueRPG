@@ -51,6 +51,10 @@ namespace Hsenl {
                     return;
                 }
 
+                if (queue.Contains(obj)) {
+                    return;
+                }
+
                 queue.Enqueue(obj);
             }
             else {
@@ -65,7 +69,6 @@ namespace Hsenl {
                 }
 
                 case Component component: {
-                    component.Reset();
                     component.Entity.Active = false;
                     component.Entity.SetParent(this.EnsureHolder(key.groupName).ret);
                     break;

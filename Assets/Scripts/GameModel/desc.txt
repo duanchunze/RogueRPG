@@ -1,0 +1,3 @@
+﻿game model的逻辑代码是可以写到HotReload程序集中去的, 典型的比如Behavior, Combiner中的逻辑代码, 包括其他任何component中的代码都可以写
+到HotReload中去, 由于需求问题, 这里并没有这么做, 因为这么做写代码会很麻烦, 需要数据与逻辑分离. 还要把数据部分都写成public.
+但只需要知道, model中的任何逻辑都可以通过影子系统, 写到HotReload中的, 假如逻辑都放到的HotReload中的话, 包括Manager在内的许多逻辑脚本, 也就都可以放到HotReload中了

@@ -11,9 +11,12 @@ namespace Hsenl {
                 return new TBody();
             }
 
+            if (queue.Count == 0)
+                return new TBody();
+
             var ret = (TBody)queue.Dequeue();
             if (queue.Count == 0) {
-                _pool.Remove(type);
+                // _pool.Remove(type);
             }
 
             return ret;
@@ -24,10 +27,10 @@ namespace Hsenl {
                 return (IHTaskBody)Activator.CreateInstance(type)!;
             }
 
+            if (queue.Count == 0)
+                return (IHTaskBody)Activator.CreateInstance(type)!;
+
             var ret = queue.Dequeue();
-            if (queue.Count == 0) {
-                _pool.Remove(type);
-            }
 
             return ret;
         }
@@ -58,9 +61,12 @@ namespace Hsenl {
                 return new TBody();
             }
 
+            if (queue.Count == 0)
+                return new TBody();
+
             var ret = (TBody)queue.Dequeue();
             if (queue.Count == 0) {
-                _pool.Remove(type);
+                // _pool.Remove(type);
             }
 
             return ret;
@@ -71,10 +77,10 @@ namespace Hsenl {
                 return (IHTaskBody<T>)Activator.CreateInstance(type)!;
             }
 
+            if (queue.Count == 0)
+                return (IHTaskBody<T>)Activator.CreateInstance(type)!;
+
             var ret = queue.Dequeue();
-            if (queue.Count == 0) {
-                _pool.Remove(type);
-            }
 
             return ret;
         }

@@ -7,11 +7,11 @@ namespace Hsenl {
     public abstract class PlwInfo : IProcedureLineWorker {
         [ShowInInspector]
         [MemoryPackIgnore]
-        public ProcedureLineNode ProcedureLineNode { get; private set; }
+        public Unbodied WorkerHolder { get; private set; }
 
         void IProcedureLineWorker.OnAddToNode(ProcedureLineNode node) {
             try {
-                this.ProcedureLineNode = node;
+                this.WorkerHolder = node;
                 this.OnAddToNode(node);
             }
             catch (Exception e) {
@@ -21,7 +21,7 @@ namespace Hsenl {
 
         void IProcedureLineWorker.OnRemoveFromNode(ProcedureLineNode node) {
             try {
-                this.ProcedureLineNode = null;
+                this.WorkerHolder = null;
                 this.OnRemoveFromNode(node);
             }
             catch (Exception e) {
@@ -31,6 +31,7 @@ namespace Hsenl {
 
         void IProcedureLineWorker.OnAddToProcedureLine(ProcedureLine procedureLine) {
             try {
+                this.WorkerHolder = procedureLine;
                 this.OnAddToProcedureLine(procedureLine);
             }
             catch (Exception e) {
@@ -40,6 +41,7 @@ namespace Hsenl {
 
         void IProcedureLineWorker.OnRemoveFromProcedureLine(ProcedureLine procedureLine) {
             try {
+                this.WorkerHolder = null;
                 this.OnRemoveFromProcedureLine(procedureLine);
             }
             catch (Exception e) {

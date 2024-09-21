@@ -18,7 +18,7 @@ namespace Hsenl {
         private float _distance;
 
         protected override void OnEnable() {
-            var owner = this.manager.Bodied.AttachedBodied;
+            var owner = this.manager.Bodied.MainBodied;
             switch (this.manager.Bodied) {
                 case Ability ability: {
                     this._tran = owner?.transform;
@@ -52,6 +52,7 @@ namespace Hsenl {
                     var targetCount = GameAlgorithm.MergeCalculateNumeric(this._numerators, NumericType.Ttc);
                     // 获取施法范围
                     var castRange = GameAlgorithm.MergeCalculateNumeric(this._numerators, NumericType.Crange);
+                    var detectRange = GameAlgorithm.MergeCalculateNumeric(this._numerators, NumericType.Srange);
                     // 根据施法范围获取目标
                     ability.targets.Clear();
                     SelectionTarget target = null;
@@ -85,9 +86,9 @@ namespace Hsenl {
 
                     // 如果施法范围内没有获取到目标, 则根据检测范围来获取目标
                     // 获取检测范围 = 技能的检测范围 + 技能本身的施法范围
-                    var detectRange = ability.Config.DetectRange + castRange;
+                    var finalDetectRange = detectRange + castRange;
                     this._selector
-                        .SearcherSphereBody(detectRange)
+                        .SearcherSphereBody(finalDetectRange)
                         .FilterAlive()
                         .FilterTags(constrainsTags, null)
                         .FilterObstacles()

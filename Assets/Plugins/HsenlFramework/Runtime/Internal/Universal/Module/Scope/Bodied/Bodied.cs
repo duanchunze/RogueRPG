@@ -10,52 +10,52 @@ namespace Hsenl {
      * 如何去判断一个事物是bodied还是unbodied?
      * 除非你能确定这个事物一定是一个无形体, 否则的话, 都定义成bodied, 比如数值组件, 一般来说可以定义成一个无形体, 而像有些模糊的, 比如技能, 虽然以常识来说, 技能是一个虚无缥缈的东西,
      * 但在游戏中, 技能一般都是作为一个独立的事物存在的, 它可以拆卸, 可以拥有属于自己的组件, 所以把技能定义成一个有形体.
-     * 一个事物被定义成有形体, 那他就可以灵活的摇摆, 在独立个体与依赖者两种身份之间摇摆, 比如一个人是一个独立个体, 一个背包也是一个独立个体, 但如果人背起了背包, 那背包便不再是一个独立个体,
-     * 而是这个人的依赖者
+     * 一个事物被定义成有形体, 那他就可以灵活的摇摆, 在独立个体与依赖者两种身份之间摇摆, 比如一个人是一个独立个体(Individual), 一个背包也是一个独立个体, 但如果人背起了背包, 那背包便不再是一个独立个体,
+     * 而是这个人的依赖者(Dependent)
      *
-     * 默认情况下, 我们规定最上面的bodied为attachedBodied, 其下其他的bodied都只是普通的bodied, 当然我们也可以自定义我们自己的规则.
-     * 例如一个actor下挂载了abilityBar, abilityBar下又挂载了一些ability, 那么actor因为在最上面的, 所以他就是ab, 而其余的像abilityBar, abilities, 都是普通的bodied, 而这些bodied的
-     * ab, 指的自然就是最上面的那个actor.
+     * 默认情况下, 我们规定最上面的bodied为mainBodied, 其下其他的bodied都只是普通的bodied, 当然我们也可以自定义我们自己的规则.
+     * 例如一个actor下挂载了abilityBar, abilityBar下又挂载了一些ability, 那么actor因为在最上面的, 所以他就是mb, 而其余的像abilityBar, abilities, 都是普通的bodied, 而这些bodied的
+     * mb, 指的自然就是最上面的那个actor.
      *
-     * 意义: bodied系统用一种规则定义了所属关系, 在做沙盒类游戏的时候, 这很有用, 比如现在有一种需求, 我们把身上的背包丢到地上, 然后背包自己长腿跑了. 我们只需要把背包从actor父级上拿下来,
-     * 然后给他挂上数值组件、技能、AI、等组件, 他就能跑了, 当他的父级从actor变为null的时候, 他自己就变成了ab, 他下面的移动模块就会以它的transform作为操作对象.
+     * 意义1: bodied系统用一种规则定义了所属关系, 在做沙盒类游戏的时候, 这很有用, 比如现在有一种需求, 我们把身上的背包丢到地上, 然后背包自己长腿跑了. 我们只需要把背包从actor父级上拿下来,
+     * 然后给他挂上数值组件、技能、AI、等组件, 他就能跑了, 当他的父级从actor变为null的时候, 他自己就变成了mb, 他下面的移动模块就会以它的transform作为操作对象.
+     * 意义2: 同样的以背包为例子, 一个人, 他有数值, 有刚体, 有碰撞体等等, 这些都是他的能力, 是无可厚非的unbodied, 但, 对于背包里的物品, 虽然这些物品时属于这个人的, 但这些物品都是一个个
+     * 的个体, 同样, 背包也是, 所以逻辑上, 我们不应该直接给人物添加一个backpack的组件, 而是应该把背包做成一个单独的bodied, 然后挂在人物下面, 这样逻辑就顺了.
      *
-     * 不足: 即便如此, 在面对复杂的沙盒游戏的时候, 依然不够, 例如, 现在actor骑上了一个装甲, 理论上, ab就由actor变成了装甲, 移动技能也改为操作装甲的transform这没问题, 但是获取
+     *
+     * 不足: 即便如此, 在面对复杂的沙盒游戏的时候, 依然不够, 例如, 现在actor骑上了一个装甲, 理论上, mb就由actor变成了装甲, 移动技能也改为操作装甲的transform这没问题, 但是获取
      * 移动速度依然要从actor的身上去获取, 更别说假如人物在装甲上也能移动呢? 移动速度是人物移速+装甲移速呢? 仅仅定义一个所属关系的规则, 显然不足以处理这种复杂的情况.
      * 这就让bodied系统的存在显得尴尬, 要么就完善, 要么干脆移除该系统.
      */
+    [Serializable]
     [MemoryPackable(GenerateType.CircularReference)]
     public partial class Bodied : Scope, IBodied, IUnbodiedHead {
         [MemoryPackOrder(3)]
         [MemoryPackInclude]
-        protected internal BodiedStatus bodiedStatus;
+        internal BodiedStatus bodiedStatus;
 
         [MemoryPackIgnore]
-        private Bodied _attachedBodied;
+        private Bodied _mainBodied;
 
         [MemoryPackIgnore]
-        private Bodied _parentAttachedBodied;
+        private Bodied _parentMainBodied;
 
         [MemoryPackIgnore]
         public BodiedStatus BodiedStatus {
             get => this.bodiedStatus;
             set {
-                if (this.bodiedStatus == value)
-                    return;
-
                 this.bodiedStatus = value;
 
                 switch (value) {
                     case BodiedStatus.Individual:
                         // 升为独立个体, 把自己的所有者改为自己, 原来的所有者则改为自己的父所有者
-                        var prev = this._attachedBodied;
-                        this.AttachedBodied = this;
-                        this._parentAttachedBodied = prev;
+                        this.MainBodied = this;
+                        this._parentMainBodied = this.FindScopeByStatusInParent(BodiedStatus.Individual);
                         break;
                     case BodiedStatus.Dependent:
                         // 自己降为依赖者, 把自己的所有者改为自己上面的独立体, 而父所有者自然就是新所有者的父级, 自己原来的父级可以清空了
-                        this.AttachedBodied = this.FindScopeByStatusInParent(BodiedStatus.Individual);
-                        this._parentAttachedBodied = null;
+                        this.MainBodied = this.FindScopeByStatusInParent(BodiedStatus.Individual);
+                        this._parentMainBodied = null;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(value), value, null);
@@ -67,19 +67,19 @@ namespace Hsenl {
         Bodied IUnbodiedHead.Bodied => this;
 
         [MemoryPackIgnore]
-        public Bodied AttachedBodied {
+        public Bodied MainBodied {
             get {
                 if (this.IsDisposed) {
                     throw new NullReferenceException("The bodied has been destroyed, but you're still trying to get it");
                 }
 
-                return this.bodiedStatus == BodiedStatus.Individual ? this : this._attachedBodied;
+                return this.bodiedStatus == BodiedStatus.Individual ? this : this._mainBodied;
             }
             private set {
-                if (this._attachedBodied == value)
+                if (this._mainBodied == value)
                     return;
 
-                this._attachedBodied = value;
+                this._mainBodied = value;
 
                 // 递归把自己所有的非独立体的子域的所有者, 都修改为目标
                 RecursiveModifiChildrenOwner(this.childrenScopes);
@@ -94,7 +94,7 @@ namespace Hsenl {
                                 continue;
                             }
 
-                            bodied._attachedBodied = value;
+                            bodied._mainBodied = value;
                         }
 
                         // 如果是一个非独立体, 则继续向下递归
@@ -105,13 +105,13 @@ namespace Hsenl {
         }
 
         [MemoryPackIgnore]
-        public Bodied ParentAttachedBodied {
+        public Bodied ParentMainBodied {
             get {
                 if (this.IsDisposed) {
                     throw new NullReferenceException("The bodied has been destroyed, but you're still trying to get it");
                 }
 
-                return this.bodiedStatus == BodiedStatus.Individual ? this._parentAttachedBodied : this._attachedBodied?.ParentAttachedBodied;
+                return this.bodiedStatus == BodiedStatus.Individual ? this._parentMainBodied : this._mainBodied?.ParentMainBodied;
             }
         }
 
@@ -138,16 +138,12 @@ namespace Hsenl {
                 }
 
                 // 重写父级属性, 把这段代码插入到这里, 目的是为了在形成组合时, bodied的关系也ok了
-                switch (this.bodiedStatus) {
-                    case BodiedStatus.Individual:
-                        this._parentAttachedBodied = this.FindScopeByStatusInParent(BodiedStatus.Individual);
-                        break;
-                    case BodiedStatus.Dependent:
-                        this.AttachedBodied = this.FindScopeByStatusInParent(BodiedStatus.Individual);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                Bodied prevParentBodied;
+                if (prevParent is Bodied bodied)
+                    prevParentBodied = bodied;
+                else
+                    prevParentBodied = prevParent?.FindScopeInParent<Bodied>();
+                this.OnParentBodiedChanged(prevParentBodied);
 
                 if (prevParent != null) {
                     if (this.CombinMatchMode == CombinMatchMode.Auto) {
@@ -192,11 +188,11 @@ namespace Hsenl {
             }, this);
         }
 
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
             this.bodiedStatus = default;
-            this._attachedBodied = null;
-            this._parentAttachedBodied = null;
+            this._mainBodied = null;
+            this._parentMainBodied = null;
         }
 
         internal override void OnComponentAddInternal(Component component) {
@@ -211,11 +207,11 @@ namespace Hsenl {
             }
 
             if (Combiner.CombinerCache.CrossCombinLookupTable.TryGetValue(unbodied.ComponentIndex, out var combinInfo)) {
-                if (combinInfo.childCombiners.Count != 0) {
+                if (combinInfo.combiners1.Count != 0) {
                     if (this.CombinMatchMode == CombinMatchMode.Auto) {
                         if (this.ParentScope != null) {
-                            if (this.HasComponentsAny(combinInfo.totalChildTypeCacher)) {
-                                foreach (var combiner in combinInfo.childCombiners) {
+                            if (this.HasComponentsAny(combinInfo.totalTypeCacher1)) {
+                                foreach (var combiner in combinInfo.combiners1) {
                                     CrossCombinMatchForParent(this, this.ParentScope, 1, combiner);
                                 }
                             }
@@ -223,11 +219,11 @@ namespace Hsenl {
                     }
                 }
 
-                if (combinInfo.parentCombiners.Count != 0) {
-                    if (this.HasComponentsAny(combinInfo.totalParentTypeCacher)) {
+                if (combinInfo.combiners2.Count != 0) {
+                    if (this.HasComponentsAny(combinInfo.totalTypeCacher2)) {
                         this.ForeachChildrenScope<(CrossCombinInfo ci, Scope p)>((child, layer, data) => {
                             if (child.CombinMatchMode == CombinMatchMode.Auto) {
-                                foreach (var combiner in data.ci.parentCombiners) {
+                                foreach (var combiner in data.ci.combiners2) {
                                     CrossCombinMatchForParent(child, data.p, layer, combiner);
                                 }
                             }
@@ -268,8 +264,8 @@ namespace Hsenl {
         }
 
         /// 从整个有形体域内获取组件
-        public T GetComponentInBodied<T>() where T : class {
-            var comp = this.GetComponent<T>();
+        public T GetComponentInIndividual<T>(bool polymorphic = false) where T : class {
+            var comp = this.GetComponent<T>(polymorphic);
             if (comp == null) {
                 comp = GetByChildren(this.childrenScopes);
             }
@@ -283,7 +279,7 @@ namespace Hsenl {
                         var child = children[i];
                         // if (child is Substantive { _status: SubstantiveStatus.Principal }) continue;
 
-                        t = child.GetComponent<T>();
+                        t = child.GetComponent<T>(polymorphic);
                         if (t != null)
                             break;
                     }
@@ -302,21 +298,16 @@ namespace Hsenl {
             }
         }
 
-        /// 从整个有形体域内寻找指定域
-        public T FindScopeInBodied<T>() where T : class {
+        /// 从整个独立体内寻找指定bodied
+        public T FindBodiedInIndividual<T>() where T : Bodied {
             var s = GetByChildren(this.childrenScopes);
             return s;
 
             T GetByChildren(List<Scope> children) {
                 if (children != null) {
                     for (int i = 0, len = children.Count; i < len; i++) {
-                        switch (children[i]) {
-                            // case Substantive { _status: SubstantiveStatus.Principal }:
-                            //     continue;
-
-                            case T t:
-                                return t;
-                        }
+                        if (children[i] is T t)
+                            return t;
                     }
 
                     for (int i = 0, len = children.Count; i < len; i++) {
@@ -333,9 +324,9 @@ namespace Hsenl {
             }
         }
 
-        /// 从整个有形体域内寻找指定域s
-        public T[] FindScopesInBodied<T>() where T : class {
-            using var list = ListComponent<T>.Create();
+        /// 从整个独立体内寻找指定bodieds
+        public T[] FindBodiedsInIndividual<T>() where T : Bodied {
+            using var list = ListComponent<T>.Rent();
 
             GetByChildren(this.childrenScopes, list);
             return list.ToArray();
@@ -343,13 +334,8 @@ namespace Hsenl {
             void GetByChildren(List<Scope> children, List<T> l) {
                 if (children != null) {
                     for (int i = 0, len = children.Count; i < len; i++) {
-                        switch (children[i]) {
-                            // case Substantive { _status: SubstantiveStatus.Principal }:
-                            //     continue;
-
-                            case T t:
-                                l.Add(t);
-                                break;
+                        if (children[i] is T t) {
+                            l.Add(t);
                         }
                     }
 
@@ -363,9 +349,10 @@ namespace Hsenl {
             }
         }
 
-        protected override void OnBeforeParentScopeChanged(Scope future) {
-            // 默认最上面的bodied为individual, 下面的其他bodied都是dependent
-            this.bodiedStatus = future is Bodied ? BodiedStatus.Dependent : BodiedStatus.Individual;
+        protected virtual void OnParentBodiedChanged(Bodied previous) {
+            // 默认最上面的bodied为individual, 下面的其他bodied都是dependent, 也可以重写该方法, 定义自己的规则
+            var bodied = this.FindScopeInParent<Bodied>();
+            this.BodiedStatus = bodied != null ? BodiedStatus.Dependent : BodiedStatus.Individual;
         }
     }
 }

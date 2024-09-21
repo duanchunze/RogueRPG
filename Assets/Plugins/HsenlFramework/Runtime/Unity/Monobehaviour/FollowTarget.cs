@@ -1,7 +1,4 @@
-﻿using FixedMath;
-using Unity.Mathematics;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
 namespace Hsenl {
     public class FollowTarget : MonoBehaviour {
@@ -18,9 +15,9 @@ namespace Hsenl {
         [Header("参数")]
         public float smoothFollow;
 
-        public Vector3 positionOffset;
+        public UnityEngine.Vector3 positionOffset;
 
-        public Vector3 rotationOffset;
+        public UnityEngine.Vector3 rotationOffset;
 
         private void Update() {
             if (this.targetTransform) {
@@ -28,7 +25,7 @@ namespace Hsenl {
                 var targetPosition = this.targetTransform.position;
                 var desiredPosition = targetPosition + this.positionOffset;
                 if (this.smoothFollow > 0) {
-                    var smoothedPosition = Vector3.Lerp(position, desiredPosition, this.smoothFollow * TimeInfo.DeltaTime);
+                    var smoothedPosition = UnityEngine.Vector3.Lerp(position, desiredPosition, this.smoothFollow * TimeInfo.DeltaTime);
                     this.transform.position = smoothedPosition;
                 }
                 else {
@@ -36,16 +33,16 @@ namespace Hsenl {
                 }
 
                 if (this.useLookAt) {
-                    var forward = (targetPosition - desiredPosition).ToFVector3();
-                    var rota = FQuaternion.Euler(this.rotationOffset.ToFVector3());
+                    var forward = targetPosition - desiredPosition;
+                    var rota = Quaternion.Euler(this.rotationOffset);
                     forward *= rota;
-                    var rotation = FQuaternion.CreateLookRotation(forward, FVector3.Up);
-                    this.transform.rotation = rotation.ToUnityQuaternion();
+                    var rotation = Quaternion.CreateLookRotation(forward, Vector3.Up);
+                    this.transform.rotation = rotation;
                 }
             }
         }
 
-        public void FollowImmediately(Vector3 pos) {
+        public void FollowImmediately(UnityEngine.Vector3 pos) {
             this.transform.position = pos + this.positionOffset;
         }
 

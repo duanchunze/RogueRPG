@@ -357,7 +357,7 @@ namespace Hsenl.Network
                 rx_srtt   = (7 * rx_srtt + rtt) / 8;
                 if (rx_srtt < 1) rx_srtt = 1;
             }
-            int rto = rx_srtt + Math.Max((int)interval, 4 * rx_rttval);
+            int rto = rx_srtt + System.Math.Max((int)interval, 4 * rx_rttval);
             rx_rto = Utils.Clamp(rto, rx_minrto, RTO_MAX);
         }
 
@@ -884,7 +884,7 @@ namespace Hsenl.Network
             // calculate the window size which is currently safe to send.
             // it's send window, or remote window, whatever is smaller.
             // for our max
-            uint cwnd_ = Math.Min(snd_wnd, rmt_wnd);
+            uint cwnd_ = System.Math.Min(snd_wnd, rmt_wnd);
 
             // double negative: if congestion window is enabled:
             // limit window size to cwnd.
@@ -892,7 +892,7 @@ namespace Hsenl.Network
             // note this may heavily limit window sizes.
             // for our max message size test with super large windows of 32k,
             // 'congestion window' limits it down from 32.000 to 2.
-            if (!nocwnd) cwnd_ = Math.Min(cwnd, cwnd_);
+            if (!nocwnd) cwnd_ = System.Math.Min(cwnd, cwnd_);
 
             // move cwnd_ 'window size' messages from snd_queue to snd_buf
             //   'snd_nxt' is what we want to send.
@@ -952,7 +952,7 @@ namespace Hsenl.Network
                     this.xmit++;
                     if (this.nodelay == 0)
                     {
-                        segment.rto += Math.Max(segment.rto, this.rx_rto);
+                        segment.rto += System.Math.Max(segment.rto, this.rx_rto);
                     }
                     else
                     {
@@ -1213,7 +1213,7 @@ namespace Hsenl.Network
             if (receiveWindow > 0)
             {
                 // must >= max fragment size
-                rcv_wnd = Math.Max(receiveWindow, WND_RCV);
+                rcv_wnd = System.Math.Max(receiveWindow, WND_RCV);
             }
         }
 

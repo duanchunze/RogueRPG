@@ -6,9 +6,8 @@ namespace Hsenl {
         string NodeName { get; }
         int NodeType { get; }
         IEnumerable<uint> Keys { get; }
-        NumericNodeLinkModel LinkModel { get; set; }
-        bool LinkNumerator(INumerator numerator);
-        bool UnlinkNumerator(INumerator numerator);
+        internal bool LinkNumerator(INumerator numerator);
+        internal bool UnlinkNumerator(INumerator numerator);
         Num GetValue(NumericNodeKey key);
         void SetValue(NumericNodeKey key, Num value);
     }

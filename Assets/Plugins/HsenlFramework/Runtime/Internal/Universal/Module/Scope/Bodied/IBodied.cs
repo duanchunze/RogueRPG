@@ -1,5 +1,5 @@
 ﻿namespace Hsenl {
     public interface IBodied {
-        Bodied AttachedBodied { get; }
+        Bodied MainBodied { get; }
     }
 }

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Socket\TcpConnector.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Network\Component\Example.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IOnChannelDisconnect.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\Plugs\Reconnect\ReconnectPlug.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\IService.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\KcpClient.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Service.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Component\AMessageHandler.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\HMemoryStream.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IAfterMessageWrited.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\Plugs\Encryption\DefaultEncryptionPlug.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IPacketHandler.cs" />
@@ -97,7 +97,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\Plugs\DataException\DataExceptionPlug.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Packet\IKcpHandler.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Component\IMessageHandler.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\PackageBuffer.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\Plug\PlugGroup\IOnChannelStarted.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Common\KcpProtocalType.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Network\Client\Connector.cs" />

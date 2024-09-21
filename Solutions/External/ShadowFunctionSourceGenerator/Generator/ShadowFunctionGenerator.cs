@@ -580,16 +580,23 @@ namespace ShadowFunction {
             foreach (var methodSymbolInfo in typeSymbolInfo.methodInfos) {
                 if (methodSymbolInfo.methodSymbol.IsAbstract) continue;
                 
+                // 如果源函数有返回值, 但其却设置了允许实现多个影子函数, 这种情况, 就把返回值隐藏, 并采用回调返回值的形式来处理
+                bool useReturnCallback = methodSymbolInfo.hasRet && methodSymbolInfo.RealAllowMultiShadowFuns;
+                // 如果源函数有返回值, 且其没有设置允许实现多个影子函数, 这种情况, 就是强制的Invoke, 必须要实现, 否则调用函数会报错
+                bool mustImplemented = methodSymbolInfo.hasRet && !methodSymbolInfo.RealAllowMultiShadowFuns;
+                // 如果函数是异步函数同时不带有返回值, 且允许多影子函数, 这种情况采用的是最复杂的一种异步优先级排序执行方案
+                bool useAsyncPriority = methodSymbolInfo.methodSymbol.IsAsync && !methodSymbolInfo.hasRet && methodSymbolInfo.RealAllowMultiShadowFuns;
+                
                 MethodCodeBuilder methodCodeBuilder = new();
                 methodCodeBuilder.DeclaredAccessibility = Accessibility.Private;
                 methodCodeBuilder.IsStatic = methodSymbolInfo.methodSymbol.IsStatic;
-                methodCodeBuilder.IsAsync = !methodSymbolInfo.hasRet && methodSymbolInfo.methodSymbol.IsAsync;
-                methodCodeBuilder.Return = methodSymbolInfo.hasRet ? "void" : methodSymbolInfo.finalReturnName;
+                methodCodeBuilder.IsAsync = methodSymbolInfo.methodSymbol.IsAsync && !useReturnCallback;
+                methodCodeBuilder.Return = useReturnCallback ? "void" : methodSymbolInfo.finalReturnName; // 除了useReturnCallback这种特殊情况, 其他的都用源函数的返回值
                 methodCodeBuilder.Name = $"{methodSymbolInfo.finalMethodName}Shadow";
                 
-                // 添加函数的参数到builder
-                string paramTypeNames = null;
-                string paramNames = null;
+                string paramTypeNames = null; // fun(int arg1, string arg2); 记录成 int, string
+                string paramNames = null; // 同样上面示例函数, 记录成 arg1, arg2
+                // -------- 构建函数头
                 for (int i = 0, len = methodSymbolInfo.methodSymbol.Parameters.Length; i < len; i++) {
                     var last = i == len - 1;
                     var parameter = methodSymbolInfo.methodSymbol.Parameters[i];
@@ -604,12 +611,12 @@ namespace ShadowFunction {
                     if (!last) paramNames += ", ";
                 }
 
-                // 对于有返回值的函数来说, 不走返回值模式, 而是采用回调模式来返回返回值
-                if (methodSymbolInfo.hasRet) {
+                
+                if (useReturnCallback) {
                     methodCodeBuilder.AppendParam($"Action<{methodSymbolInfo.methodSymbol.ReturnType.ToDisplayString()}> action = null");
                 }
                 
-                // 构建函数体
+                // ---------- 构建函数体
                 StringBuilder methodBodyBuilder = new();
                 
                 methodBodyBuilder.Append($$"""
@@ -628,11 +635,15 @@ namespace ShadowFunction {
                 methodBodyBuilder.Append($$"""
                                                             
                                                     """);
-                methodBodyBuilder.Append("return;");
+                // 没找到影子函数返回, 如果是必须要实现的, 则报错, 否则就只是return
+                if (mustImplemented)
+                    methodBodyBuilder.Append("throw new NotImplementedException();");
+                else
+                    methodBodyBuilder.Append("return;");
                 methodBodyBuilder.Append("\n");
                 methodBodyBuilder.Append("\n");
 
-                if (methodSymbolInfo.methodSymbol.IsAsync && !methodSymbolInfo.hasRet) {
+                if (useAsyncPriority) {
                     methodBodyBuilder.Append($$"""
                                                    HTask? first0PriorityDel = null;
                                                    ListHTask<HTask> parallels = null;
@@ -644,7 +655,7 @@ namespace ShadowFunction {
                                                foreach (var kv in dels) {
                                            """);
                 
-                if (methodSymbolInfo.methodSymbol.IsAsync && !methodSymbolInfo.hasRet) {
+                if (useAsyncPriority) {
                     methodBodyBuilder.Append("\n");
                     methodBodyBuilder.Append($$"""
                                                        if (kv.Key < 0) {
@@ -751,7 +762,9 @@ namespace ShadowFunction {
                                                        }
                                                """);
                 }
-                else {
+                // 可能不是异步函数, 或者可能是带有返回值的函数, 无论是哪种情况, 都不适合使用上面那种复杂的异步优先级执行方案, 所以使用较简单的顺序执行的方案
+                else
+                {
                     int ifcount = 0;
                     for (int i = 0; i < 2; i++) {
                         bool hasThis = i == 0;
@@ -796,12 +809,12 @@ namespace ShadowFunction {
                         methodBodyBuilder.Append("\n");
                         {
                             for (int j = 0; j < 2; j++) {
-                                if (!methodSymbolInfo.hasRet && j == 1)
+                                if ((!methodSymbolInfo.hasRet || !methodSymbolInfo.RealAllowMultiShadowFuns) && j == 1)
                                     break;
                                 
                                 string space = "            ";
                                 methodBodyBuilder.Append(space);
-                                if (methodSymbolInfo.hasRet) {
+                                if (useReturnCallback) {
                                     if (j == 0) {
                                         methodBodyBuilder.Append($$"""
                                                                    if (action == null) {
@@ -829,10 +842,32 @@ namespace ShadowFunction {
                                     methodBodyBuilder.Append(space);
                                 }
 
-                                if (methodSymbolInfo.hasRet && j == 1) {
+                                bool writed2 = useReturnCallback && j == 1;
+                                if (writed2) {
                                     methodBodyBuilder.Append($$"""
                                                                action.Invoke(
                                                                """);
+                                }
+
+                                
+                                if (mustImplemented) {
+                                    if (methodCodeBuilder.IsAsync) {
+                                        methodBodyBuilder.Append($$"""
+                                                                   return await 
+                                                                   """);
+                                    }
+                                    else {
+                                        methodBodyBuilder.Append($$"""
+                                                                   return 
+                                                                   """);
+                                    }
+                                }
+                                else {
+                                    if (methodCodeBuilder.IsAsync) {
+                                        methodBodyBuilder.Append($$"""
+                                                                   await 
+                                                                   """);
+                                    }
                                 }
                                 
                                 methodBodyBuilder.Append($"func{argnum}.Invoke(");
@@ -846,10 +881,8 @@ namespace ShadowFunction {
                                     methodBodyBuilder.Append(paramNames);
                                 }
                                 
-                                if (methodSymbolInfo.hasRet) {
-                                    if (j == 1) {
-                                        if (methodSymbolInfo.hasRet) methodBodyBuilder.Append(")");
-                                    }
+                                if (writed2) {
+                                    methodBodyBuilder.Append(")");
                                 }
                                 
                                 methodBodyBuilder.Append(");");
@@ -868,7 +901,7 @@ namespace ShadowFunction {
                                     methodBodyBuilder.Append("\n");
                                 }
 
-                                if (methodSymbolInfo.hasRet) {
+                                if (useReturnCallback) {
                                     space = space.Remove(space.Length - 4);
                                     methodBodyBuilder.Append($$"""
                                                                            }
@@ -891,7 +924,16 @@ namespace ShadowFunction {
                                                     }
                                                 """);
                 
-                if (methodSymbolInfo.methodSymbol.IsAsync && !methodSymbolInfo.hasRet) {
+                if (!useAsyncPriority && mustImplemented) {
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append("\n");
+                    methodBodyBuilder.Append($$"""
+                                                   
+                                               """);
+                    methodBodyBuilder.Append("throw new NotImplementedException();");
+                }
+                
+                if (useAsyncPriority) {
                     methodBodyBuilder.Append("\n");
                     methodBodyBuilder.Append("\n");
                     methodBodyBuilder.Append($$"""
@@ -1021,6 +1063,7 @@ namespace ShadowFunction {
                                 methodBodyBuilder.Append($$"""
                                                             {{space}}catch (Exception e) {
                                                             {{space}}    ShadowDebug.LogError(e);
+                                                            {{space}}    task = default;
                                                             {{space}}    return false;
                                                             {{space}}}
                                                             """);

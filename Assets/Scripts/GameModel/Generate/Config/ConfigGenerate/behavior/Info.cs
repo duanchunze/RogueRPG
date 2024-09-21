@@ -44,12 +44,15 @@ public abstract partial class Info :  Bright.Config.BeanBase
             case "ai.PlayerAutoCasterInfo": return new ai.PlayerAutoCasterInfo(_json);
             case "ai.PatrolInfo": return new ai.PatrolInfo(_json);
             case "ai.IntelligentAssaultInfo": return new ai.IntelligentAssaultInfo(_json);
+            case "ai.MinionDefaultIntelligentAssaultInfo": return new ai.MinionDefaultIntelligentAssaultInfo(_json);
+            case "ai.FollowMaster": return new ai.FollowMaster(_json);
             case "casterevaluate.CooldownCheckInfo": return new casterevaluate.CooldownCheckInfo(_json);
             case "casterevaluate.ManaCheckInfo": return new casterevaluate.ManaCheckInfo(_json);
             case "casterevaluate.PrioritiesEvaluateInfo": return new casterevaluate.PrioritiesEvaluateInfo(_json);
             case "casterevaluate.PickTargetInfo": return new casterevaluate.PickTargetInfo(_json);
             case "casterevaluate.PickAndApproachTargetInfo": return new casterevaluate.PickAndApproachTargetInfo(_json);
             case "casterevaluate.HealthLowerInfo": return new casterevaluate.HealthLowerInfo(_json);
+            case "casterevaluate.CasterSummoningInfo": return new casterevaluate.CasterSummoningInfo(_json);
             case "adventurescheme.DefaultCheckpointsAdventureInfo": return new adventurescheme.DefaultCheckpointsAdventureInfo(_json);
             case "adventurescheme.DefaultBigMapAdventureInfo": return new adventurescheme.DefaultBigMapAdventureInfo(_json);
             case "timeline.SetDataInfo": return new timeline.SetDataInfo(_json);
@@ -72,6 +75,7 @@ public abstract partial class Info :  Bright.Config.BeanBase
             case "timeline.HarmOfDirectionBoltInfo": return new timeline.HarmOfDirectionBoltInfo(_json);
             case "timeline.HarmOfPointBoltInfo": return new timeline.HarmOfPointBoltInfo(_json);
             case "timeline.HarmOfDibozhanBoltInfo": return new timeline.HarmOfDibozhanBoltInfo(_json);
+            case "timeline.SummoningMinionInfo": return new timeline.SummoningMinionInfo(_json);
             case "timeline.MoveInfo": return new timeline.MoveInfo(_json);
             case "timeline.ModifyTagsInfo": return new timeline.ModifyTagsInfo(_json);
             case "timeline.ForceMovementInfo": return new timeline.ForceMovementInfo(_json);
@@ -80,8 +84,13 @@ public abstract partial class Info :  Bright.Config.BeanBase
             case "timeline.HarmOfColliderInfo": return new timeline.HarmOfColliderInfo(_json);
             case "timeline.HarmOfSphereColliderInfo": return new timeline.HarmOfSphereColliderInfo(_json);
             case "timeline.HarmOfBoxColliderInfo": return new timeline.HarmOfBoxColliderInfo(_json);
+            case "timeline.TsStatusContinuousHarmInfo": return new timeline.TsStatusContinuousHarmInfo(_json);
             case "timeline.LiuXueInfo": return new timeline.LiuXueInfo(_json);
             case "timeline.RanshaoInfo": return new timeline.RanshaoInfo(_json);
+            case "timeline.WenyiInfo": return new timeline.WenyiInfo(_json);
+            case "timeline.WenyichuanboInfo": return new timeline.WenyichuanboInfo(_json);
+            case "timeline.DeadBodyVampirOfSphereColliderInfo": return new timeline.DeadBodyVampirOfSphereColliderInfo(_json);
+            case "timeline.DeadAbortCheckInfo": return new timeline.DeadAbortCheckInfo(_json);
             case "timestageline.ActionInfo": return new timestageline.ActionInfo(_json);
             case "timestageline.ConditionOrInfo": return new timestageline.ConditionOrInfo(_json);
             case "timestageline.ConditionAndInfo": return new timestageline.ConditionAndInfo(_json);

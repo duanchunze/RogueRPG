@@ -16,29 +16,34 @@ namespace Hsenl.ability
 
 public sealed partial class TbAbilityPatchConfig
 {
-    private readonly Dictionary<int, ability.AbilityPatchConfig> _dataMap;
     private readonly List<ability.AbilityPatchConfig> _dataList;
     
+    private Dictionary<int, ability.AbilityPatchConfig> _dataMap_id;
+    private Dictionary<string, ability.AbilityPatchConfig> _dataMap_alias;
+
     public TbAbilityPatchConfig(JSONNode _json)
     {
-        _dataMap = new Dictionary<int, ability.AbilityPatchConfig>();
         _dataList = new List<ability.AbilityPatchConfig>();
         
         foreach(JSONNode _row in _json.Children)
         {
             var _v = ability.AbilityPatchConfig.DeserializeAbilityPatchConfig(_row);
             _dataList.Add(_v);
-            _dataMap.Add(_v.Id, _v);
         }
+        _dataMap_id = new Dictionary<int, ability.AbilityPatchConfig>();
+        _dataMap_alias = new Dictionary<string, ability.AbilityPatchConfig>();
+    foreach(var _v in _dataList)
+    {
+        _dataMap_id.Add(_v.Id, _v);
+        _dataMap_alias.Add(_v.Alias, _v);
+    }
         PostInit();
     }
 
-    public Dictionary<int, ability.AbilityPatchConfig> DataMap => _dataMap;
     public List<ability.AbilityPatchConfig> DataList => _dataList;
 
-    public ability.AbilityPatchConfig GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
-    public ability.AbilityPatchConfig Get(int key) => _dataMap[key];
-    public ability.AbilityPatchConfig this[int key] => _dataMap[key];
+    public ability.AbilityPatchConfig GetById(int key) => _dataMap_id.TryGetValue(key, out ability.AbilityPatchConfig __v) ? __v : null;
+    public ability.AbilityPatchConfig GetByAlias(string key) => _dataMap_alias.TryGetValue(key, out ability.AbilityPatchConfig __v) ? __v : null;
 
     public void Resolve(Dictionary<string, object> _tables)
     {
@@ -56,7 +61,7 @@ public sealed partial class TbAbilityPatchConfig
             v.TranslateText(translator);
         }
     }
-    
+
     
     partial void PostInit();
     partial void PostResolve();

@@ -16,7 +16,7 @@ namespace Hsenl {
         private bool _success;
 
         protected override void OnEnable() {
-            var owner = this.manager.Bodied.AttachedBodied;
+            var owner = this.manager.Bodied.MainBodied;
             switch (this.manager.Bodied) {
                 case Ability ability: {
                     this._selector = owner?.GetComponent<Selector>();

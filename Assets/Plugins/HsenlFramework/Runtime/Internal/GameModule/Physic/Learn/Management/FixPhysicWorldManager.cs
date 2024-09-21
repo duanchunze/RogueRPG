@@ -1,6 +1,4 @@
-﻿using FixedMath;
-
-#if FIXED_MATH
+﻿#if FIXED_MATH
 using FLOAT = FixedMath.FMath.Fixp;
 #else
 using FLOAT = System.Single;

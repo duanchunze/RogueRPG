@@ -2,11 +2,7 @@
   {
     "id": 10000,
     "alias": "待机",
-    "star": 0,
-    "cooldown": 0,
-    "mana_cost": 0,
-    "detect_range": 0,
-    "numeric_nodes": [],
+    "numeric_infos": [],
     "tags": [
       12,
       5
@@ -63,11 +59,7 @@
   {
     "id": 10001,
     "alias": "停止",
-    "star": 0,
-    "cooldown": 0,
-    "mana_cost": 0,
-    "detect_range": 0,
-    "numeric_nodes": [],
+    "numeric_infos": [],
     "tags": [
       12,
       6
@@ -119,11 +111,7 @@
   {
     "id": 10002,
     "alias": "方向移动",
-    "star": 0,
-    "cooldown": 0,
-    "mana_cost": 0,
-    "detect_range": 0,
-    "numeric_nodes": [],
+    "numeric_infos": [],
     "tags": [
       12,
       7,
@@ -190,11 +178,7 @@
   {
     "id": 10003,
     "alias": "点击移动",
-    "star": 0,
-    "cooldown": 0,
-    "mana_cost": 0,
-    "detect_range": 0,
-    "numeric_nodes": [],
+    "numeric_infos": [],
     "tags": [
       12,
       7,
@@ -261,11 +245,7 @@
   {
     "id": 10004,
     "alias": "点击移动-内部",
-    "star": 0,
-    "cooldown": 0,
-    "mana_cost": 0,
-    "detect_range": 0,
-    "numeric_nodes": [],
+    "numeric_infos": [],
     "tags": [
       12,
       7,
@@ -332,11 +312,7 @@
   {
     "id": 10005,
     "alias": "跃进",
-    "star": 0,
-    "cooldown": 0,
-    "mana_cost": 0,
-    "detect_range": 0,
-    "numeric_nodes": [],
+    "numeric_infos": [],
     "tags": [
       12,
       7
@@ -403,29 +379,39 @@
   {
     "id": 10100,
     "alias": "劈砍",
-    "star": 1,
-    "cooldown": 1,
-    "mana_cost": -10,
-    "detect_range": 1,
-    "numeric_nodes": [
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": -10,
+        "sign": ""
+      },
+      {
+        "type": 41,
+        "value": 2,
+        "sign": "f"
+      },
       {
         "type": 40,
-        "layer": 2,
-        "model": 0,
         "value": 1.8,
         "sign": "f"
       },
       {
         "type": 28,
-        "layer": 2,
-        "model": 0,
-        "value": 999,
+        "value": 1,
         "sign": ""
       },
       {
         "type": 37,
-        "layer": 2,
-        "model": 0,
         "value": 0,
         "sign": ""
       }
@@ -455,6 +441,10 @@
       },
       {
         "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.ManaCheckInfo",
         "parent_index": 0
       },
       {
@@ -534,7 +524,7 @@
                   "fix": 0
                 }
               ],
-              "damage_type": 0
+              "damage_type": 1
             }
           }
         ]
@@ -545,342 +535,56 @@
         "actions": []
       }
     ],
-    "traits": []
-  },
-  {
-    "id": 10101,
-    "alias": "劈砍2",
-    "star": 2,
-    "cooldown": 1,
-    "mana_cost": -15,
-    "detect_range": 1,
-    "numeric_nodes": [
-      {
-        "type": 40,
-        "layer": 2,
-        "model": 0,
-        "value": 1.8,
-        "sign": "f"
-      },
-      {
-        "type": 28,
-        "layer": 2,
-        "model": 0,
-        "value": 2,
-        "sign": ""
-      },
-      {
-        "type": 37,
-        "layer": 2,
-        "model": 0,
-        "value": 0,
-        "sign": ""
-      }
-    ],
-    "tags": [
-      13,
-      10,
-      11,
-      14
-    ],
-    "caster": {
-      "$type": "ControlCastInfo",
-      "code": 7,
-      "support_continue": true
-    },
-    "caster_of_plw": {
-      "$type": "CastWorkerNull"
-    },
-    "target_tags": [
-      1
-    ],
-    "caster_evaluates": [
-      {
-        "$type": "ParalleSequentialNodeInfo",
-        "index": 0,
-        "parent_index": -1
-      },
-      {
-        "$type": "casterevaluate.CooldownCheckInfo",
-        "parent_index": 0
-      },
-      {
-        "$type": "casterevaluate.PrioritiesEvaluateInfo",
-        "parent_index": 0
-      },
-      {
-        "$type": "casterevaluate.PickAndApproachTargetInfo",
-        "parent_index": 0
-      }
-    ],
-    "priority_state": {
-      "time_scale": 1,
-      "duration": 0,
-      "aisles": [
-        0
-      ],
-      "enter_pri": 30,
-      "resist_pri": 30,
-      "exclu_pri": 1,
-      "keep_pri": 0,
-      "dis_pri": 0,
-      "run_pri": 0,
-      "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [],
-      "sp_keep": [],
-      "sp_dis": [],
-      "sp_run": [],
-      "allow_reenter": false
-    },
-    "stages": [
-      {
-        "stageType": 1,
-        "duration": 0,
-        "actions": []
-      },
-      {
-        "stageType": 4,
-        "duration": 0.15,
-        "actions": [
-          {
-            "$type": "PlayAnimInfo",
-            "model": 1,
-            "point": 0,
-            "anim": "attack1"
-          },
-          {
-            "$type": "SetDataInfo",
-            "model": 1,
-            "point": 0,
-            "key": 1,
-            "value": "hit2"
-          },
-          {
-            "$type": "SetDataInfo",
-            "model": 1,
-            "point": 0,
-            "key": 0,
-            "value": "hit2"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
-          {
-            "$type": "HarmOfTargetedInfo",
-            "model": 1,
-            "point": 0,
-            "harm_formula": {
-              "damage_formulas": [
-                {
-                  "type": 12,
-                  "pct": 1.5,
-                  "fix": 0
-                }
-              ],
-              "damage_type": 0
-            }
-          }
-        ]
-      },
-      {
-        "stageType": 6,
-        "duration": 0.333,
-        "actions": []
-      }
-    ],
-    "traits": []
-  },
-  {
-    "id": 10102,
-    "alias": "劈砍3",
-    "star": 3,
-    "cooldown": 1,
-    "mana_cost": -20,
-    "detect_range": 1,
-    "numeric_nodes": [
-      {
-        "type": 40,
-        "layer": 2,
-        "model": 0,
-        "value": 1.8,
-        "sign": "f"
-      },
-      {
-        "type": 28,
-        "layer": 2,
-        "model": 0,
-        "value": 3,
-        "sign": ""
-      },
-      {
-        "type": 37,
-        "layer": 2,
-        "model": 0,
-        "value": 0,
-        "sign": ""
-      }
-    ],
-    "tags": [
-      13,
-      10,
-      11,
-      14
-    ],
-    "caster": {
-      "$type": "ControlCastInfo",
-      "code": 7,
-      "support_continue": true
-    },
-    "caster_of_plw": {
-      "$type": "CastWorkerNull"
-    },
-    "target_tags": [
-      1
-    ],
-    "caster_evaluates": [
-      {
-        "$type": "ParalleSequentialNodeInfo",
-        "index": 0,
-        "parent_index": -1
-      },
-      {
-        "$type": "casterevaluate.CooldownCheckInfo",
-        "parent_index": 0
-      },
-      {
-        "$type": "casterevaluate.PrioritiesEvaluateInfo",
-        "parent_index": 0
-      },
-      {
-        "$type": "casterevaluate.PickAndApproachTargetInfo",
-        "parent_index": 0
-      }
-    ],
-    "priority_state": {
-      "time_scale": 1,
-      "duration": 0,
-      "aisles": [
-        0
-      ],
-      "enter_pri": 30,
-      "resist_pri": 30,
-      "exclu_pri": 1,
-      "keep_pri": 0,
-      "dis_pri": 0,
-      "run_pri": 0,
-      "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [],
-      "sp_keep": [],
-      "sp_dis": [],
-      "sp_run": [],
-      "allow_reenter": false
-    },
-    "stages": [
-      {
-        "stageType": 1,
-        "duration": 0,
-        "actions": []
-      },
-      {
-        "stageType": 4,
-        "duration": 0.15,
-        "actions": [
-          {
-            "$type": "PlayAnimInfo",
-            "model": 1,
-            "point": 0,
-            "anim": "attack1"
-          },
-          {
-            "$type": "SetDataInfo",
-            "model": 1,
-            "point": 0,
-            "key": 1,
-            "value": "hit2"
-          },
-          {
-            "$type": "SetDataInfo",
-            "model": 1,
-            "point": 0,
-            "key": 0,
-            "value": "hit2"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
-          {
-            "$type": "HarmOfTargetedInfo",
-            "model": 1,
-            "point": 0,
-            "harm_formula": {
-              "damage_formulas": [
-                {
-                  "type": 12,
-                  "pct": 2,
-                  "fix": 0
-                }
-              ],
-              "damage_type": 0
-            }
-          }
-        ]
-      },
-      {
-        "stageType": 6,
-        "duration": 0.333,
-        "actions": []
-      }
-    ],
-    "traits": []
+    "traits": [
+      "偷袭攻击"
+    ]
   },
   {
     "id": 10300,
     "alias": "月之投射",
-    "star": 1,
-    "cooldown": 1,
-    "mana_cost": -10,
-    "detect_range": 1,
-    "numeric_nodes": [
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": -10,
+        "sign": ""
+      },
+      {
+        "type": 41,
+        "value": 2,
+        "sign": "f"
+      },
       {
         "type": 40,
-        "layer": 2,
-        "model": 0,
         "value": 8,
         "sign": "f"
       },
       {
         "type": 28,
-        "layer": 2,
-        "model": 0,
         "value": 1,
         "sign": ""
       },
       {
         "type": 30,
-        "layer": 2,
-        "model": 0,
         "value": 1,
         "sign": "f"
       },
       {
         "type": 29,
-        "layer": 2,
-        "model": 0,
         "value": 8,
         "sign": "f"
       },
       {
         "type": 37,
-        "layer": 2,
-        "model": 0,
         "value": 0,
         "sign": ""
       }
@@ -910,6 +614,10 @@
       },
       {
         "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.ManaCheckInfo",
         "parent_index": 0
       },
       {
@@ -969,7 +677,7 @@
             "model": 1,
             "point": 0,
             "key": 0,
-            "value": "hit2"
+            "value": "hit"
           }
         ]
       },
@@ -989,7 +697,7 @@
                   "fix": 0
                 }
               ],
-              "damage_type": 0
+              "damage_type": 1
             },
             "bolt_config_alias": "月镖投射物",
             "speed": 0
@@ -1002,360 +710,41 @@
         "actions": []
       }
     ],
-    "traits": []
-  },
-  {
-    "id": 10301,
-    "alias": "月之投射2",
-    "star": 1,
-    "cooldown": 1,
-    "mana_cost": -15,
-    "detect_range": 1,
-    "numeric_nodes": [
-      {
-        "type": 40,
-        "layer": 2,
-        "model": 0,
-        "value": 8,
-        "sign": "f"
-      },
-      {
-        "type": 28,
-        "layer": 2,
-        "model": 0,
-        "value": 2,
-        "sign": ""
-      },
-      {
-        "type": 30,
-        "layer": 2,
-        "model": 0,
-        "value": 1,
-        "sign": "f"
-      },
-      {
-        "type": 29,
-        "layer": 2,
-        "model": 0,
-        "value": 8,
-        "sign": "f"
-      },
-      {
-        "type": 37,
-        "layer": 2,
-        "model": 0,
-        "value": 0,
-        "sign": ""
-      }
-    ],
-    "tags": [
-      13,
-      10,
-      11,
-      14
-    ],
-    "caster": {
-      "$type": "ControlCastInfo",
-      "code": 7,
-      "support_continue": true
-    },
-    "caster_of_plw": {
-      "$type": "CastWorkerNull"
-    },
-    "target_tags": [
-      1
-    ],
-    "caster_evaluates": [
-      {
-        "$type": "ParalleSequentialNodeInfo",
-        "index": 0,
-        "parent_index": -1
-      },
-      {
-        "$type": "casterevaluate.CooldownCheckInfo",
-        "parent_index": 0
-      },
-      {
-        "$type": "casterevaluate.PrioritiesEvaluateInfo",
-        "parent_index": 0
-      },
-      {
-        "$type": "casterevaluate.PickAndApproachTargetInfo",
-        "parent_index": 0
-      }
-    ],
-    "priority_state": {
-      "time_scale": 1,
-      "duration": 0,
-      "aisles": [
-        0
-      ],
-      "enter_pri": 30,
-      "resist_pri": 30,
-      "exclu_pri": 1,
-      "keep_pri": 0,
-      "dis_pri": 0,
-      "run_pri": 0,
-      "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [],
-      "sp_keep": [],
-      "sp_dis": [],
-      "sp_run": [],
-      "allow_reenter": false
-    },
-    "stages": [
-      {
-        "stageType": 1,
-        "duration": 0,
-        "actions": []
-      },
-      {
-        "stageType": 4,
-        "duration": 0.15,
-        "actions": [
-          {
-            "$type": "PlayAnimInfo",
-            "model": 1,
-            "point": 0,
-            "anim": "attack1"
-          },
-          {
-            "$type": "SetDataInfo",
-            "model": 1,
-            "point": 0,
-            "key": 1,
-            "value": "hit2"
-          },
-          {
-            "$type": "SetDataInfo",
-            "model": 1,
-            "point": 0,
-            "key": 0,
-            "value": "hit2"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
-          {
-            "$type": "HarmOfTargetedBoltInfo",
-            "model": 1,
-            "point": 0,
-            "harm_formula": {
-              "damage_formulas": [
-                {
-                  "type": 12,
-                  "pct": 1.4,
-                  "fix": 0
-                }
-              ],
-              "damage_type": 0
-            },
-            "bolt_config_alias": "月镖投射物",
-            "speed": 0
-          }
-        ]
-      },
-      {
-        "stageType": 6,
-        "duration": 0.333,
-        "actions": []
-      }
-    ],
-    "traits": []
-  },
-  {
-    "id": 10302,
-    "alias": "月之投射3",
-    "star": 1,
-    "cooldown": 1,
-    "mana_cost": -20,
-    "detect_range": 1,
-    "numeric_nodes": [
-      {
-        "type": 40,
-        "layer": 2,
-        "model": 0,
-        "value": 8,
-        "sign": "f"
-      },
-      {
-        "type": 28,
-        "layer": 2,
-        "model": 0,
-        "value": 3,
-        "sign": ""
-      },
-      {
-        "type": 30,
-        "layer": 2,
-        "model": 0,
-        "value": 1,
-        "sign": "f"
-      },
-      {
-        "type": 29,
-        "layer": 2,
-        "model": 0,
-        "value": 8,
-        "sign": "f"
-      },
-      {
-        "type": 37,
-        "layer": 2,
-        "model": 0,
-        "value": 0,
-        "sign": ""
-      }
-    ],
-    "tags": [
-      13,
-      10,
-      11,
-      14
-    ],
-    "caster": {
-      "$type": "ControlCastInfo",
-      "code": 7,
-      "support_continue": true
-    },
-    "caster_of_plw": {
-      "$type": "CastWorkerNull"
-    },
-    "target_tags": [
-      1
-    ],
-    "caster_evaluates": [
-      {
-        "$type": "ParalleSequentialNodeInfo",
-        "index": 0,
-        "parent_index": -1
-      },
-      {
-        "$type": "casterevaluate.CooldownCheckInfo",
-        "parent_index": 0
-      },
-      {
-        "$type": "casterevaluate.PrioritiesEvaluateInfo",
-        "parent_index": 0
-      },
-      {
-        "$type": "casterevaluate.PickAndApproachTargetInfo",
-        "parent_index": 0
-      }
-    ],
-    "priority_state": {
-      "time_scale": 1,
-      "duration": 0,
-      "aisles": [
-        0
-      ],
-      "enter_pri": 30,
-      "resist_pri": 30,
-      "exclu_pri": 1,
-      "keep_pri": 0,
-      "dis_pri": 0,
-      "run_pri": 0,
-      "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [],
-      "sp_keep": [],
-      "sp_dis": [],
-      "sp_run": [],
-      "allow_reenter": false
-    },
-    "stages": [
-      {
-        "stageType": 1,
-        "duration": 0,
-        "actions": []
-      },
-      {
-        "stageType": 4,
-        "duration": 0.15,
-        "actions": [
-          {
-            "$type": "PlayAnimInfo",
-            "model": 1,
-            "point": 0,
-            "anim": "attack1"
-          },
-          {
-            "$type": "SetDataInfo",
-            "model": 1,
-            "point": 0,
-            "key": 1,
-            "value": "hit2"
-          },
-          {
-            "$type": "SetDataInfo",
-            "model": 1,
-            "point": 0,
-            "key": 0,
-            "value": "hit2"
-          }
-        ]
-      },
-      {
-        "stageType": 5,
-        "duration": 0,
-        "actions": [
-          {
-            "$type": "HarmOfTargetedBoltInfo",
-            "model": 1,
-            "point": 0,
-            "harm_formula": {
-              "damage_formulas": [
-                {
-                  "type": 12,
-                  "pct": 2.1,
-                  "fix": 0
-                }
-              ],
-              "damage_type": 0
-            },
-            "bolt_config_alias": "月镖投射物",
-            "speed": 0
-          }
-        ]
-      },
-      {
-        "stageType": 6,
-        "duration": 0.333,
-        "actions": []
-      }
-    ],
-    "traits": []
+    "traits": [
+      "瘟疫"
+    ]
   },
   {
     "id": 10200,
     "alias": "大蒜",
-    "star": 1,
-    "cooldown": 0.75,
-    "mana_cost": -2,
-    "detect_range": 0,
-    "numeric_nodes": [
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 0.75,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": -2,
+        "sign": ""
+      },
       {
         "type": 28,
-        "layer": 2,
-        "model": 0,
         "value": -1,
         "sign": ""
       },
       {
         "type": 30,
-        "layer": 2,
-        "model": 0,
         "value": 4,
         "sign": "f"
       },
       {
         "type": 37,
-        "layer": 2,
-        "model": 0,
         "value": 0,
         "sign": ""
       }
@@ -1380,6 +769,10 @@
         "$type": "ParalleSequentialNodeInfo",
         "index": 0,
         "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.ManaCheckInfo",
+        "parent_index": 0
       },
       {
         "$type": "casterevaluate.CooldownCheckInfo",
@@ -1433,7 +826,7 @@
                   "fix": 0
                 }
               ],
-              "damage_type": 0
+              "damage_type": 1
             },
             "center": {
               "x": 0,
@@ -1450,36 +843,29 @@
   {
     "id": 10400,
     "alias": "流星落",
-    "star": 1,
-    "cooldown": 0,
-    "mana_cost": 0,
-    "detect_range": 0,
-    "numeric_nodes": [
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
       {
         "type": 28,
-        "layer": 2,
-        "model": 0,
         "value": -1,
         "sign": ""
       },
       {
         "type": 30,
-        "layer": 2,
-        "model": 0,
         "value": 1,
         "sign": "f"
       },
       {
         "type": 29,
-        "layer": 2,
-        "model": 0,
         "value": 8,
         "sign": "f"
       },
       {
         "type": 37,
-        "layer": 2,
-        "model": 0,
         "value": 0,
         "sign": ""
       }
@@ -1504,6 +890,10 @@
         "$type": "ParalleSequentialNodeInfo",
         "index": 0,
         "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.ManaCheckInfo",
+        "parent_index": 0
       },
       {
         "$type": "casterevaluate.CooldownCheckInfo",
@@ -1551,29 +941,39 @@
   {
     "id": 10600,
     "alias": "跳劈",
-    "star": 1,
-    "cooldown": 1,
-    "mana_cost": 30,
-    "detect_range": 1,
-    "numeric_nodes": [
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": 30,
+        "sign": ""
+      },
+      {
+        "type": 41,
+        "value": 2,
+        "sign": "f"
+      },
       {
         "type": 40,
-        "layer": 2,
-        "model": 0,
         "value": 1.8,
         "sign": "f"
       },
       {
         "type": 28,
-        "layer": 2,
-        "model": 0,
         "value": 3,
         "sign": ""
       },
       {
         "type": 37,
-        "layer": 2,
-        "model": 0,
         "value": 25,
         "sign": ""
       }
@@ -1685,7 +1085,7 @@
                   "fix": 0
                 }
               ],
-              "damage_type": 0
+              "damage_type": 1
             }
           }
         ]
@@ -1696,41 +1096,51 @@
         "actions": []
       }
     ],
-    "traits": []
+    "traits": [
+      "大宝施法"
+    ]
   },
   {
     "id": 10700,
     "alias": "烈火刀法",
-    "star": 1,
-    "cooldown": 5,
-    "mana_cost": 0,
-    "detect_range": 1,
-    "numeric_nodes": [
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 5,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 41,
+        "value": 2,
+        "sign": "f"
+      },
       {
         "type": 40,
-        "layer": 2,
-        "model": 0,
         "value": 1.8,
         "sign": "f"
       },
       {
         "type": 28,
-        "layer": 2,
-        "model": 0,
         "value": -1,
         "sign": ""
       },
       {
         "type": 30,
-        "layer": 2,
-        "model": 0,
         "value": 2,
         "sign": "f"
       },
       {
         "type": 37,
-        "layer": 2,
-        "model": 0,
         "value": 25,
         "sign": ""
       }
@@ -1843,7 +1253,7 @@
                   "fix": 0
                 }
               ],
-              "damage_type": 0
+              "damage_type": 1
             },
             "center": {
               "x": 0,
@@ -1865,42 +1275,50 @@
       }
     ],
     "traits": [
-      10101
+      "燃烧"
     ]
   },
   {
     "id": 10800,
     "alias": "屠戮刀法",
-    "star": 1,
-    "cooldown": 5,
-    "mana_cost": 0,
-    "detect_range": 1,
-    "numeric_nodes": [
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 5,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 41,
+        "value": 2,
+        "sign": "f"
+      },
       {
         "type": 40,
-        "layer": 2,
-        "model": 0,
         "value": 1.8,
         "sign": "f"
       },
       {
         "type": 28,
-        "layer": 2,
-        "model": 0,
         "value": -1,
         "sign": ""
       },
       {
         "type": 30,
-        "layer": 2,
-        "model": 0,
         "value": 2,
         "sign": "f"
       },
       {
         "type": 37,
-        "layer": 2,
-        "model": 0,
         "value": 25,
         "sign": ""
       }
@@ -2013,7 +1431,7 @@
                   "fix": 0
                 }
               ],
-              "damage_type": 0
+              "damage_type": 1
             },
             "center": {
               "x": 0,
@@ -2035,49 +1453,55 @@
       }
     ],
     "traits": [
-      10100
+      "流血"
     ]
   },
   {
     "id": 10900,
     "alias": "地波斩",
-    "star": 1,
-    "cooldown": 5,
-    "mana_cost": 0,
-    "detect_range": 1,
-    "numeric_nodes": [
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 5,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 41,
+        "value": 2,
+        "sign": "f"
+      },
       {
         "type": 40,
-        "layer": 2,
-        "model": 0,
         "value": 6,
         "sign": "f"
       },
       {
         "type": 28,
-        "layer": 2,
-        "model": 0,
         "value": -1,
         "sign": ""
       },
       {
         "type": 30,
-        "layer": 2,
-        "model": 0,
         "value": 1.5,
         "sign": "f"
       },
       {
         "type": 29,
-        "layer": 2,
-        "model": 0,
         "value": 8,
         "sign": "f"
       },
       {
         "type": 37,
-        "layer": 2,
-        "model": 0,
         "value": 25,
         "sign": ""
       }
@@ -2189,7 +1613,7 @@
                   "fix": 0
                 }
               ],
-              "damage_type": 0
+              "damage_type": 1
             },
             "bolt_config_alias": "地波斩投射物",
             "num": 12,
@@ -2207,38 +1631,464 @@
     "traits": []
   },
   {
-    "id": 20000,
-    "alias": "怪物横砍",
-    "star": 0,
-    "cooldown": 3.5,
-    "mana_cost": -10,
-    "detect_range": 2,
-    "numeric_nodes": [
+    "id": 11000,
+    "alias": "瘴气",
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 28,
+        "value": -1,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "value": 6,
+        "sign": "f"
+      }
+    ],
+    "tags": [
+      13
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "CastWorkerNull"
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.ManaCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        2
+      ],
+      "enter_pri": 1,
+      "resist_pri": 0,
+      "exclu_pri": 0,
+      "keep_pri": 0,
+      "dis_pri": 0,
+      "run_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_exclu": [],
+      "sp_keep": [],
+      "sp_dis": [],
+      "sp_run": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 5,
+        "duration": 0.1,
+        "actions": [
+          {
+            "$type": "DeadBodyVampirOfSphereColliderInfo",
+            "model": 1,
+            "origin": 0,
+            "dest": 1,
+            "radius": 0.5,
+            "pct": 0.01
+          }
+        ]
+      }
+    ],
+    "traits": []
+  },
+  {
+    "id": 11001,
+    "alias": "哥布林巫医",
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 10,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": 0,
+        "sign": ""
+      },
+      {
+        "type": 50,
+        "value": 1,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      14,
+      15
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "CastWorkerNull"
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.ManaCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.CasterSummoningInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 40,
+      "resist_pri": 40,
+      "exclu_pri": 1,
+      "keep_pri": 0,
+      "dis_pri": 0,
+      "run_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_exclu": [],
+      "sp_keep": [],
+      "sp_dis": [],
+      "sp_run": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.15,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "attack3"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
+          {
+            "$type": "SummoningMinionInfo",
+            "model": 1,
+            "point": 0,
+            "minion_alias": "哥布林巫医"
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 0.333,
+        "actions": []
+      }
+    ],
+    "traits": []
+  },
+  {
+    "id": 11002,
+    "alias": "混乱之箭",
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 1,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": 30,
+        "sign": ""
+      },
+      {
+        "type": 41,
+        "value": 2,
+        "sign": "f"
+      },
       {
         "type": 40,
-        "layer": 2,
-        "model": 0,
+        "value": 8,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "value": 3,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 29,
+        "value": 6,
+        "sign": "f"
+      },
+      {
+        "type": 37,
+        "value": 50,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      11,
+      14,
+      16
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "CastWorkerNull"
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.ManaCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 40,
+      "resist_pri": 40,
+      "exclu_pri": 1,
+      "keep_pri": 0,
+      "dis_pri": 0,
+      "run_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_exclu": [],
+      "sp_keep": [],
+      "sp_dis": [],
+      "sp_run": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 2,
+        "duration": 1,
+        "actions": [
+          {
+            "$type": "DeadAbortCheckInfo",
+            "model": 1,
+            "origin": 0,
+            "dest": 1
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit"
+          }
+        ]
+      },
+      {
+        "stageType": 4,
+        "duration": 0,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "attack1"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0,
+        "actions": [
+          {
+            "$type": "HarmOfTargetedBoltInfo",
+            "model": 1,
+            "point": 0,
+            "harm_formula": {
+              "damage_formulas": [
+                {
+                  "type": 12,
+                  "pct": 3,
+                  "fix": 10
+                }
+              ],
+              "damage_type": 1
+            },
+            "bolt_config_alias": "混乱之箭投射物",
+            "speed": 0
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 0.333,
+        "actions": []
+      }
+    ],
+    "traits": [
+      "分裂",
+      "击退"
+    ]
+  },
+  {
+    "id": 20000,
+    "alias": "怪物横砍",
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 3.5,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": -10,
+        "sign": ""
+      },
+      {
+        "type": 41,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 40,
         "value": 1.75,
         "sign": "f"
       },
       {
         "type": 28,
-        "layer": 2,
-        "model": 0,
         "value": 1,
         "sign": ""
       },
       {
         "type": 30,
-        "layer": 2,
-        "model": 0,
         "value": 2,
         "sign": "f"
       },
       {
         "type": 37,
-        "layer": 2,
-        "model": 0,
         "value": 0,
         "sign": ""
       }
@@ -2366,7 +2216,7 @@
                   "fix": 0
                 }
               ],
-              "damage_type": 0
+              "damage_type": 1
             },
             "center": {
               "x": 0,
@@ -2392,36 +2242,44 @@
   {
     "id": 20005,
     "alias": "怪物快射",
-    "star": 0,
-    "cooldown": 3.5,
-    "mana_cost": -10,
-    "detect_range": 2,
-    "numeric_nodes": [
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 3.5,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": -10,
+        "sign": ""
+      },
+      {
+        "type": 41,
+        "value": 2,
+        "sign": "f"
+      },
       {
         "type": 40,
-        "layer": 2,
-        "model": 0,
         "value": 8,
         "sign": "f"
       },
       {
         "type": 28,
-        "layer": 2,
-        "model": 0,
         "value": 1,
         "sign": ""
       },
       {
         "type": 30,
-        "layer": 2,
-        "model": 0,
         "value": 0.75,
         "sign": "f"
       },
       {
         "type": 37,
-        "layer": 2,
-        "model": 0,
         "value": 0,
         "sign": ""
       }
@@ -2554,7 +2412,7 @@
                   "fix": 0
                 }
               ],
-              "damage_type": 0
+              "damage_type": 1
             },
             "bolt_config_alias": "快射投射物",
             "distance": 8,
@@ -2572,7 +2430,7 @@
                   "fix": 0
                 }
               ],
-              "damage_type": 0
+              "damage_type": 1
             },
             "bolt_config_alias": "快射投射物",
             "distance": 8,
@@ -2590,7 +2448,7 @@
                   "fix": 0
                 }
               ],
-              "damage_type": 0
+              "damage_type": 1
             },
             "bolt_config_alias": "快射投射物",
             "distance": 8,
@@ -2609,36 +2467,44 @@
   {
     "id": 20006,
     "alias": "怪物劈砍",
-    "star": 0,
-    "cooldown": 3.5,
-    "mana_cost": -10,
-    "detect_range": 2,
-    "numeric_nodes": [
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 3.5,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": -10,
+        "sign": ""
+      },
+      {
+        "type": 41,
+        "value": 2,
+        "sign": "f"
+      },
       {
         "type": 40,
-        "layer": 2,
-        "model": 0,
         "value": 1.75,
         "sign": "f"
       },
       {
         "type": 28,
-        "layer": 2,
-        "model": 0,
         "value": 1,
         "sign": ""
       },
       {
         "type": 30,
-        "layer": 2,
-        "model": 0,
         "value": 2,
         "sign": "f"
       },
       {
         "type": 37,
-        "layer": 2,
-        "model": 0,
         "value": 0,
         "sign": ""
       }
@@ -2766,7 +2632,7 @@
                   "fix": 0
                 }
               ],
-              "damage_type": 0
+              "damage_type": 1
             },
             "center": {
               "x": 0,
@@ -2777,6 +2643,201 @@
               "x": 0.65,
               "y": 1,
               "z": 2.15
+            }
+          }
+        ]
+      },
+      {
+        "stageType": 6,
+        "duration": 1.5,
+        "actions": []
+      }
+    ],
+    "traits": []
+  },
+  {
+    "id": 20007,
+    "alias": "怪物技能",
+    "numeric_infos": [
+      {
+        "type": 47,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 48,
+        "value": 3.5,
+        "sign": "f"
+      },
+      {
+        "type": 49,
+        "value": 100,
+        "sign": ""
+      },
+      {
+        "type": 41,
+        "value": 2,
+        "sign": "f"
+      },
+      {
+        "type": 40,
+        "value": 10,
+        "sign": "f"
+      },
+      {
+        "type": 28,
+        "value": 1,
+        "sign": ""
+      },
+      {
+        "type": 30,
+        "value": 4,
+        "sign": "f"
+      },
+      {
+        "type": 37,
+        "value": 0,
+        "sign": ""
+      }
+    ],
+    "tags": [
+      13,
+      10,
+      11,
+      14
+    ],
+    "caster": {
+      "$type": "ControlCastInfo",
+      "code": 7,
+      "support_continue": true
+    },
+    "caster_of_plw": {
+      "$type": "CastWorkerNull"
+    },
+    "target_tags": [
+      1
+    ],
+    "caster_evaluates": [
+      {
+        "$type": "ParalleSequentialNodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "casterevaluate.CooldownCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.ManaCheckInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PrioritiesEvaluateInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "casterevaluate.PickAndApproachTargetInfo",
+        "parent_index": 0
+      }
+    ],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 40,
+      "resist_pri": 30,
+      "exclu_pri": 1,
+      "keep_pri": 0,
+      "dis_pri": 0,
+      "run_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_exclu": [],
+      "sp_keep": [],
+      "sp_dis": [],
+      "sp_run": [],
+      "allow_reenter": false
+    },
+    "stages": [
+      {
+        "stageType": 1,
+        "duration": 0,
+        "actions": []
+      },
+      {
+        "stageType": 4,
+        "duration": 0.85,
+        "actions": [
+          {
+            "$type": "PlayAnimInfo",
+            "model": 0,
+            "point": 0.1,
+            "anim": "attack1"
+          },
+          {
+            "$type": "OpenWarningBoardInfo",
+            "model": 0,
+            "point": 0.1,
+            "asset_name": "hengkan",
+            "type": 0
+          },
+          {
+            "$type": "RecordCastDirectionInfo",
+            "model": 1,
+            "point": 0
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 1,
+            "value": "hit2"
+          },
+          {
+            "$type": "SetDataInfo",
+            "model": 1,
+            "point": 0,
+            "key": 0,
+            "value": "hit"
+          }
+        ]
+      },
+      {
+        "stageType": 5,
+        "duration": 0.05,
+        "actions": [
+          {
+            "$type": "CloseWarningBoardInfo",
+            "model": 1,
+            "point": 0,
+            "asset_name": "hengkan"
+          },
+          {
+            "$type": "HarmOfBoxColliderInfo",
+            "model": 1,
+            "origin": 0,
+            "dest": 1,
+            "harm_formula": {
+              "damage_formulas": [
+                {
+                  "type": 12,
+                  "pct": 0.75,
+                  "fix": 0
+                }
+              ],
+              "damage_type": 1
+            },
+            "center": {
+              "x": 0,
+              "y": 0,
+              "z": 0.5
+            },
+            "size": {
+              "x": 1,
+              "y": 1,
+              "z": 1
             }
           }
         ]

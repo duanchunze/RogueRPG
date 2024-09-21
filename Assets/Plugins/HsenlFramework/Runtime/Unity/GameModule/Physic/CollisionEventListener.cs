@@ -17,7 +17,7 @@
                 if (this.onTriggerEnter == null)
                     return;
 
-                var collider = other.gameObject.GetFrameworkComponent<Collider>();
+                var collider = other.gameObject.GetFrameworkComponent<Collider>(true);
                 if (collider == null)
                     return;
 
@@ -27,7 +27,7 @@
                 if (this.onTriggerStay == null)
                     return;
 
-                var collider = other.gameObject.GetFrameworkComponent<Collider>();
+                var collider = other.gameObject.GetFrameworkComponent<Collider>(true);
                 if (collider == null)
                     return;
 
@@ -37,7 +37,7 @@
                 if (this.onTriggerExit == null)
                     return;
 
-                var collider = other.gameObject.GetFrameworkComponent<Collider>();
+                var collider = other.gameObject.GetFrameworkComponent<Collider>(true);
                 if (collider == null)
                     return;
 
@@ -47,7 +47,7 @@
                 if (this.onCollisionEnter == null)
                     return;
 
-                var collider = other.gameObject.GetFrameworkComponent<Collider>();
+                var collider = other.gameObject.GetFrameworkComponent<Collider>(true);
                 if (collider == null)
                     return;
 
@@ -57,7 +57,7 @@
                 if (this.onCollisionStay == null)
                     return;
 
-                var collider = other.gameObject.GetFrameworkComponent<Collider>();
+                var collider = other.gameObject.GetFrameworkComponent<Collider>(true);
                 if (collider == null)
                     return;
 
@@ -67,7 +67,7 @@
                 if (this.onCollisionExit == null)
                     return;
 
-                var collider = other.gameObject.GetFrameworkComponent<Collider>();
+                var collider = other.gameObject.GetFrameworkComponent<Collider>(true);
                 if (collider == null)
                     return;
 

@@ -13,15 +13,13 @@ namespace Hsenl {
         
         public Type InfoType => typeof(T);
 
-        [ShadowFunction]
         protected override void OnAwake() {
-            this.OnAwakeShadow(); // 下面这段代码, 被我们放到影子函数里去实现了, 其他的组件也可以照样写到热重载程序集里
-            // if (this.info == null && this.infoInstanceId != 0) {
-            //     var inf = behavior.Info.GetInfo(this.infoInstanceId);
-            //     if (inf != null) {
-            //         this.InitInfo(inf);
-            //     }
-            // }
+            if (this.info == null && this.infoInstanceId != 0) {
+                var inf = behavior.Info.GetInfo(this.infoInstanceId);
+                if (inf != null) {
+                    this.InitInfo(inf);
+                }
+            }
         }
         
         public void InitInfo(object configInfo) {

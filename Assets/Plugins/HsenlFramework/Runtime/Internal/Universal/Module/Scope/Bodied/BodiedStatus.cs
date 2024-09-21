@@ -7,6 +7,6 @@
         /// 独立个体
         Individual,
         /// 一个需要依赖于独立个体的依赖者
-        Dependent
+        Dependent,
     }
 }

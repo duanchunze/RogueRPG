@@ -1,5 +1,4 @@
 ﻿using System;
-using FixedMath;
 
 namespace Hsenl {
     /// <summary>
@@ -8,11 +7,11 @@ namespace Hsenl {
     /// <para>自己掌管诸如旋转、缩放、位置等信息</para>>
     /// </summary>
     public abstract class FixCollider : IBroadPhase, INarrowPhase {
-        internal FMatrix3x3 _orientation = FMatrix3x3.Identity;
-        internal FMatrix3x3 _invOrientation = FMatrix3x3.Identity;
-        internal FVector3 _position;
-        internal FQuaternion _rotation;
-        internal FVector3 _scale;
+        internal Matrix3x3 _orientation = Matrix3x3.Identity;
+        internal Matrix3x3 _invOrientation = Matrix3x3.Identity;
+        internal Vector3 _position;
+        internal Quaternion _rotation;
+        internal Vector3 _scale;
 
         internal AABB _boundingBox;
         internal Box _box;
@@ -24,9 +23,9 @@ namespace Hsenl {
         private FixRigidbody m_rigidbody;
         private FixShape m_shape;
 
-        public FMatrix3x3 orientation => _orientation;
-        public FMatrix3x3 invOrientation => _invOrientation;
-        public FVector3 position => _position;
+        public Matrix3x3 orientation => _orientation;
+        public Matrix3x3 invOrientation => _invOrientation;
+        public Vector3 position => _position;
 
         public event Action<FixCollisionInfo> onCollisionStay;
 
@@ -64,21 +63,21 @@ namespace Hsenl {
             this._box = shape._box;
         }
 
-        private FVector3 supportLocalDirection;
+        private Vector3 supportLocalDirection;
 
-        public void SupportPoint(ref FVector3 direction, out FVector3 point) {
+        public void SupportPoint(ref Vector3 direction, out Vector3 point) {
             // 使用逆矩阵，把世界方向，转成support坐标系的局部方向
-            FMatrix3x3.Transform(ref _invOrientation, ref direction, out supportLocalDirection);
+            Matrix3x3.Transform(ref _invOrientation, ref direction, out supportLocalDirection);
             // 求出该形状的该方向的最远的点（形状坐标系）
             this.m_shape.SupportPoint(ref supportLocalDirection, out point);
             // 再把point转成世界坐标
-            FMatrix3x3.Transform(ref _orientation, ref point, out point);
+            Matrix3x3.Transform(ref _orientation, ref point, out point);
             // 加上位移
-            FVector3.Add(ref point, ref _position, out point);
+            Vector3.Add(ref point, ref _position, out point);
         }
 
-        public void SupportCenter(out FVector3 center) {
-            FVector3.Add(ref this.m_shape._geometricCenter, ref _position, out center);
+        public void SupportCenter(out Vector3 center) {
+            Vector3.Add(ref this.m_shape._geometricCenter, ref _position, out center);
         }
 
         /// <summary>
@@ -100,9 +99,9 @@ namespace Hsenl {
 
             m_isLatestBoundingBox = true;
             {
-                if (_orientation != FMatrix3x3.Identity) {
-                    FMatrix3x3.Transform(ref _orientation, ref this.m_shape._boundingBox.min, out _boundingBox.min);
-                    FMatrix3x3.Transform(ref _orientation, ref this.m_shape._boundingBox.max, out _boundingBox.max);
+                if (_orientation != Matrix3x3.Identity) {
+                    Matrix3x3.Transform(ref _orientation, ref this.m_shape._boundingBox.min, out _boundingBox.min);
+                    Matrix3x3.Transform(ref _orientation, ref this.m_shape._boundingBox.max, out _boundingBox.max);
                 }
 
                 _boundingBox.min = this.m_shape._boundingBox.min + _position;
@@ -120,14 +119,14 @@ namespace Hsenl {
 
             m_isLatestBox = true;
             {
-                if (_orientation != FMatrix3x3.Identity) {
-                    FMatrix3x3.Transform(ref _orientation, ref this.m_shape._box.axis0, out this._box.axis0);
-                    FMatrix3x3.Transform(ref _orientation, ref this.m_shape._box.axis1, out this._box.axis1);
-                    FMatrix3x3.Transform(ref _orientation, ref this.m_shape._box.axis2, out this._box.axis2);
+                if (_orientation != Matrix3x3.Identity) {
+                    Matrix3x3.Transform(ref _orientation, ref this.m_shape._box.axis0, out this._box.axis0);
+                    Matrix3x3.Transform(ref _orientation, ref this.m_shape._box.axis1, out this._box.axis1);
+                    Matrix3x3.Transform(ref _orientation, ref this.m_shape._box.axis2, out this._box.axis2);
                 }
 
-                FVector3.Add(ref this.m_shape._box.center, ref _position, out this._box.center);
-                FVector3.Scale(ref this.m_shape._box.extents, ref _scale, out this._box.extents);
+                Vector3.Add(ref this.m_shape._box.center, ref _position, out this._box.center);
+                Vector3.Scale(ref this.m_shape._box.extents, ref _scale, out this._box.extents);
             }
         }
 

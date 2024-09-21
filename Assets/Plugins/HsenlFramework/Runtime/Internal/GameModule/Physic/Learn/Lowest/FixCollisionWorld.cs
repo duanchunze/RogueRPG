@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using FixedMath;
 
 #if FIXED_MATH
 using FLOAT = FixedMath.FMath.Fixp;
@@ -56,7 +55,7 @@ namespace Hsenl {
         /// <param name="detectPrecisionType"></param>
         /// <param name="hit"></param>
         /// <returns></returns>
-        internal bool RaycastToWorld(ref FVector3 origin, ref FVector3 direction,
+        internal bool RaycastToWorld(ref Vector3 origin, ref Vector3 direction,
             DetectPrecisionType detectPrecisionType, out FixRaycastHit hit) {
             switch (detectPrecisionType) {
                 case DetectPrecisionType.Rough:
@@ -71,7 +70,7 @@ namespace Hsenl {
                     return RaycastToWorldAccurate(ref origin, ref direction, out hit);
             }
 
-            bool RaycastToWorldRough(ref FVector3 l_origin, ref FVector3 l_direction) {
+            bool RaycastToWorldRough(ref Vector3 l_origin, ref Vector3 l_direction) {
                 foreach (var collider in _colliders) {
                     if (RaycastToColliderRough(ref l_origin, ref l_direction, collider)) {
                         return true;
@@ -81,7 +80,7 @@ namespace Hsenl {
                 return false;
             }
 
-            bool RaycastToWorldTryFast(ref FVector3 l_origin, ref FVector3 l_direction) {
+            bool RaycastToWorldTryFast(ref Vector3 l_origin, ref Vector3 l_direction) {
                 foreach (var collider in _colliders) {
                     if (RaycastToColliderTryFast(ref l_origin, ref l_direction, collider)) {
                         return true;
@@ -91,7 +90,7 @@ namespace Hsenl {
                 return false;
             }
 
-            bool RaycastToWorldAccurate(ref FVector3 l_origin, ref FVector3 l_direction, out FixRaycastHit l_hit) {
+            bool RaycastToWorldAccurate(ref Vector3 l_origin, ref Vector3 l_direction, out FixRaycastHit l_hit) {
                 foreach (var collider in _colliders) {
                     if (!RaycastToColliderAccurate(ref l_origin, ref l_direction, collider, out var normal,
                             out var fraction)) {
@@ -116,13 +115,13 @@ namespace Hsenl {
             return false;
         }
 
-        internal bool RaycastToColliderRough(ref FVector3 origin, ref FVector3 direction,
+        internal bool RaycastToColliderRough(ref Vector3 origin, ref Vector3 direction,
             FixCollider collider) {
             return CollisionDetection.RayBoundingBoxCollision(ref origin, ref direction, ref collider.shape._boundingBox,
                 ref collider._invOrientation, ref collider._position);
         }
 
-        internal bool RaycastToColliderTryFast(ref FVector3 origin, ref FVector3 direction,
+        internal bool RaycastToColliderTryFast(ref Vector3 origin, ref Vector3 direction,
             FixCollider collider) {
             // 先使用包围盒做粗糙检测，如果包围盒都没碰撞，那就不用继续检测了，肯定没碰撞
             if (!CollisionDetection.RayBoundingBoxCollision(ref origin, ref direction, ref collider.shape._boundingBox,
@@ -141,10 +140,10 @@ namespace Hsenl {
                 out var normal);
         }
 
-        internal bool RaycastToColliderAccurate(ref FVector3 origin, ref FVector3 direction,
-            FixCollider collider, out FVector3 normal, out FLOAT fraction) {
+        internal bool RaycastToColliderAccurate(ref Vector3 origin, ref Vector3 direction,
+            FixCollider collider, out Vector3 normal, out FLOAT fraction) {
             fraction = Fixp.MaxValue;
-            normal = FVector3.Zero;
+            normal = Vector3.Zero;
 
             if (!CollisionDetection.RayBoundingBoxCollision(ref origin, ref direction, ref collider.shape._boundingBox,
                     ref collider._invOrientation, ref collider._position)) {

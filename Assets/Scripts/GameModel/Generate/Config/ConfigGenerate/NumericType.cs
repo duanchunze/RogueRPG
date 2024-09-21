@@ -119,7 +119,7 @@ namespace Hsenl
         /// </summary>
         Mspd = 26,
         /// <summary>
-        /// 法术极速 ability haste(int转float)
+        /// 法术极速(也就是传统的冷却缩减) ability haste(int转float)
         /// </summary>
         Ahaste = 27,
         /// <summary>
@@ -194,6 +194,26 @@ namespace Hsenl
         /// 身高
         /// </summary>
         Height = 45,
+        /// <summary>
+        /// 视度 Field of view
+        /// </summary>
+        Fov = 46,
+        /// <summary>
+        /// 等级level
+        /// </summary>
+        LV = 47,
+        /// <summary>
+        /// 冷却时间 cooldown
+        /// </summary>
+        CD = 48,
+        /// <summary>
+        /// 蓝耗
+        /// </summary>
+        ManaCost = 49,
+        /// <summary>
+        /// 最大召唤数 max summoning num
+        /// </summary>
+        Msn = 50,
     }
 
 } 

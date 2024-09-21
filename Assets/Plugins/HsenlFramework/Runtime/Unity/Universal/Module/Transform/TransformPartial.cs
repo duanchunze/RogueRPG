@@ -1,7 +1,5 @@
 ﻿using MemoryPack;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Hsenl {
     public partial class Transform {
@@ -44,37 +42,43 @@ namespace Hsenl {
             set => this.UnityTransformGetter().forward = value;
         }
 
+        [MemoryPackIgnore]
+        public Vector3 Right {
+            get => this.UnityTransformGetter().right;
+            set => this.UnityTransformGetter().right = value;
+        }
+
         private UnityEngine.Transform UnityTransformGetter() => this._transform ??= this.Entity.UnityTransform;
 
         public void Translate(Vector3 translation) {
             this.UnityTransformGetter().Translate(translation, Space.World);
         }
 
-        public void LookAtLerp(float3 forward, float t) {
-            var forwardRotation = quaternion.LookRotation(forward, math.up());
-            this.Quaternion = math.nlerp(this.Quaternion, forwardRotation, t);
+        public void LookAtLerp(Vector3 forward, float t) {
+            var forwardRotation = Quaternion.CreateLookRotation(forward, Vector3.Up);
+            this.Quaternion = Quaternion.Lerp(this.Quaternion, forwardRotation, t);
         }
 
-        public void LookAt(float3 forward) {
-            var forwardRotation = quaternion.LookRotation(forward, math.up());
+        public void LookAt(Vector3 forward) {
+            var forwardRotation = Quaternion.CreateLookRotation(forward, Vector3.Up);
             this.Quaternion = forwardRotation;
         }
 
-        public void LookAtPointLerp(float3 point, float t) {
-            var position = (float3)this.Position;
+        public void LookAtPointLerp(Vector3 point, float t) {
+            var position = this.Position;
             if (point.Equals(position)) return;
 
             var forward = point - position;
-            var forwardRotation = quaternion.LookRotation(forward, math.up());
-            this.Quaternion = math.nlerp(this.Quaternion, forwardRotation, t);
+            var forwardRotation = Quaternion.CreateLookRotation(forward, Vector3.Up);
+            this.Quaternion = Quaternion.Lerp(this.Quaternion, forwardRotation, t);
         }
 
-        public void LookAtPoint(float3 point) {
-            var position = (float3)this.Position;
+        public void LookAtPoint(Vector3 point) {
+            var position = this.Position;
             if (point.Equals(position)) return;
 
             var forward = point - position;
-            var forwardRotation = quaternion.LookRotation(forward, math.up());
+            var forwardRotation = Quaternion.CreateLookRotation(forward, Vector3.Up);
             this.Quaternion = forwardRotation;
         }
 

@@ -1,6 +1,4 @@
-﻿using FixedMath;
-
-namespace Hsenl {
+﻿namespace Hsenl {
     public static class FixPhysic {
         public static void Init() {
             FixPhysicWorldManager._Instance.Init();
@@ -40,7 +38,7 @@ namespace Hsenl {
         /// <param name="origin"></param>
         /// <param name="direction"></param>
         /// <returns></returns>
-        public static bool Raycast(FVector3 origin, FVector3 direction) {
+        public static bool Raycast(Vector3 origin, Vector3 direction) {
             return FixPhysicWorldManager._Instance._defaultWorld._collisionWorld.RaycastToWorld(ref origin,
                 ref direction, DetectPrecisionType.TryFast, out var hit);
         }
@@ -52,7 +50,7 @@ namespace Hsenl {
         /// <param name="direction"></param>
         /// <param name="hit"></param>
         /// <returns></returns>
-        public static bool Raycast(FVector3 origin, FVector3 direction, out FixRaycastHit hit) {
+        public static bool Raycast(Vector3 origin, Vector3 direction, out FixRaycastHit hit) {
             return FixPhysicWorldManager._Instance._defaultWorld._collisionWorld.RaycastToWorld(ref origin,
                 ref direction, DetectPrecisionType.Accurate, out hit);
         }
@@ -62,7 +60,7 @@ namespace Hsenl {
         /// </summary>
         /// <param name="origin"></param>
         /// <param name="direction"></param>
-        public static bool RaycastRough(FVector3 origin, FVector3 direction) {
+        public static bool RaycastRough(Vector3 origin, Vector3 direction) {
             return FixPhysicWorldManager._Instance._defaultWorld._collisionWorld.RaycastToWorld(ref origin,
                 ref direction, DetectPrecisionType.Rough, out var hit);
         }

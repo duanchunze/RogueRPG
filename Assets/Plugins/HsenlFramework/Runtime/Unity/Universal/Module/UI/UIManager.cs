@@ -129,7 +129,7 @@ namespace Hsenl {
 
         public static IUI SingleClose(string uiName) {
             if (!Instance._singles.TryGetValue(uiName, out var ui)) {
-                Log.Error($"single close ui fail, ui have not been single opened '{uiName}'");
+                // Log.Error($"single close ui fail, ui have not been single opened '{uiName}'");
                 return null;
             }
 
@@ -159,14 +159,14 @@ namespace Hsenl {
             return handle.AssetObject;
         }
 
-        public static bool WorldToUIPosition(RectTransform rect, Vector3 worldPos, out Vector3 uiWorldPos, Camera uiCamera = null, Camera worldCamera = null) {
+        public static bool WorldToUIPosition(RectTransform rect, UnityEngine.Vector3 worldPos, out UnityEngine.Vector3 uiWorldPos, Camera uiCamera = null, Camera worldCamera = null) {
             if (uiCamera == null)
                 uiCamera = UIManager.Instance.uiCamera;
 
             return UnityHelper.UI.WorldToUIPosition(rect, worldPos, out uiWorldPos, uiCamera, worldCamera);
         }
 
-        public static bool WorldToUILocalPosition(RectTransform rect, Vector3 worldPos, out Vector2 uiLocalPos, Camera uiCamera = null,
+        public static bool WorldToUILocalPosition(RectTransform rect, UnityEngine.Vector3 worldPos, out UnityEngine.Vector2 uiLocalPos, Camera uiCamera = null,
             Camera worldCamera = null) {
             if (uiCamera == null)
                 uiCamera = UIManager.Instance.uiCamera;

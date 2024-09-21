@@ -9,7 +9,7 @@ namespace Hsenl.View {
         private Motion _motion;
 
         protected override void OnEnable() {
-            var owner = this.manager.Bodied.AttachedBodied;
+            var owner = this.manager.Bodied.MainBodied;
             switch (this.manager.Bodied) {
                 case Ability ability:
                     this._motion = owner?.GetComponent<Motion>();

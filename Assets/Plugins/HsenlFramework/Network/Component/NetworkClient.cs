@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using MemoryPack;
 
 namespace Hsenl.Network {
-    public class NetworkClient : Network {
+    [Serializable]
+    public sealed class NetworkClient : Network {
         private Connector _connector;
         protected override Service Service => this._connector;
 
         public void Start(Connector connector) {
             this._connector = connector;
-            this._connector.OnRecvMessage = this.OnRecvMessage;
+            this._connector.OnRecvMessage += this.OnRecvMessage;
             this._connector.ConnectAsync().Tail();
         }
 

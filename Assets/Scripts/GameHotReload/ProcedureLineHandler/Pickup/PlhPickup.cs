@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Hsenl.Handler {
+namespace Hsenl {
     [ProcedureLineHandlerPriority(PliPickupPriority.Pickup)]
     public class PlhPickup : AProcedureLineHandler<PliPickupForm> {
         protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliPickupForm item) {
-            var config = Tables.Instance.TbPickableConfig.GetById(item.pickable.configId);
+            var config = item.pickable.Config;
             switch (config.Wrappage) {
                 case pickable.WrappageCoinInfo wrappageCoinInfo: {
                     // 拾取了金币

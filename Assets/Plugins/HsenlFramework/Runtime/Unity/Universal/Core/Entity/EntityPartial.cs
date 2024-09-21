@@ -22,7 +22,7 @@ namespace Hsenl {
             this.name = gameObject.name;
             this.instanceId = Guid.NewGuid().GetHashCode();
             this.uniqueId = this.instanceId;
-            this.imminentDispose = false;
+            this.disposing = false;
             EventSystemManager.Instance.RegisterInstanced(this);
             ((IGameObjectReference)this).SetUnityReference(gameObject);
         }
@@ -44,6 +44,9 @@ namespace Hsenl {
         }
 
         public void DontDestroyOnLoadWithUnity() {
+            this.CheckDisposingException("Entity is disposed, can't move scene");
+            this.CheckDisposedException("Entity is disposed, can't move scene");
+            this.SetParent(null);
             SceneManager.MoveEntityToSceneWithUnity(this, SceneManager.dontDestroyScene);
         }
 
@@ -104,6 +107,62 @@ namespace Hsenl {
                 this.GameObject = null;
                 t.GetComponent<IEntityReference>().SetFrameworkReference(null);
                 UnityEngine.Object.DestroyImmediate(t);
+            }
+        }
+
+        internal partial void PartialOnSetSiblingIndex(int index) {
+            UnityEngine.Transform anthor;
+            if (index == 0) {
+                anthor = this.children[1].GameObject.transform; // 后一位
+            }
+            else {
+                anthor = this.children[index - 1].GameObject.transform; // 前一位
+            }
+
+            int targetIndex = 0;
+            var tran = this.GameObject.transform;
+            for (int i = 0, len = tran.childCount; i < len; i++) {
+                var child = tran.GetChild(i);
+                if (child.Equals(anthor))
+                    targetIndex = i;
+            }
+
+            if (index == 0) {
+                this.GameObject.transform.SetSiblingIndex(targetIndex);
+            }
+            else {
+                this.GameObject.transform.SetSiblingIndex(targetIndex + 1);
+            }
+        }
+
+        internal partial void PartialOnSwapChildSeat(Entity child1, Entity child2) {
+            var tran = this.GameObject.transform;
+            var childTran1 = child1.GameObject.transform;
+            var childTran2 = child2.GameObject.transform;
+            var index1 = -1;
+            var index2 = -1;
+            for (int i = 0, len = tran.childCount; i < len; i++) {
+                var child = tran.GetChild(i);
+                if (childTran1.Equals(child)) {
+                    index1 = i;
+                    continue;
+                }
+
+                if (childTran2.Equals(child)) {
+                    index2 = i;
+                }
+            }
+
+            if (index1 == -1 || index2 == -1)
+                return;
+
+            if (index1 < index2) {
+                childTran1.SetSiblingIndex(index2);
+                childTran2.SetSiblingIndex(index1);
+            }
+            else {
+                childTran2.SetSiblingIndex(index1);
+                childTran1.SetSiblingIndex(index2);
             }
         }
     }

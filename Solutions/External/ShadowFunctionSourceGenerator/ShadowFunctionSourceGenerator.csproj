@@ -14,6 +14,10 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <OutputPath>bin\Release\</OutputPath>
+    </PropertyGroup>
+    
 <!--    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">-->
 <!--      <OutputPath>..\..\..\Assets\Plugins\HsenlFramework\Runtime\Internal\Universal\Module\ShadowFunction\</OutputPath>-->
 <!--    </PropertyGroup>-->

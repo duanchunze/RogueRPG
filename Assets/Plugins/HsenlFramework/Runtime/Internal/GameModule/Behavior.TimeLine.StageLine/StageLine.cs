@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MemoryPack;
-using Unity.Mathematics;
-using UnityEngine.Serialization;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
 #endif
@@ -32,7 +30,10 @@ namespace Hsenl {
         private float _speed = 1;
 
         [MemoryPackIgnore]
-        public Action<int, int> onStageChanged;
+        public Action<int, int> onStageChanged; // prev stage, curr stage
+
+        [MemoryPackIgnore]
+        public Action<int, float, float> onRunning; // curr stage, stage time, stage till time
 
         [MemoryPackIgnore]
         public int CurrentStage {
@@ -56,13 +57,13 @@ namespace Hsenl {
         [ShowInInspector]
 #endif
         [MemoryPackIgnore]
-        public float Time { get; set; }
+        public float StageTime { get; set; }
 
 #if UNITY_EDITOR
         [ShowInInspector]
 #endif
         [MemoryPackIgnore]
-        public float TillTime { get; set; }
+        public float StageTillTime { get; set; }
 
         [MemoryPackInclude]
         public float Speed {
@@ -126,12 +127,19 @@ namespace Hsenl {
             }
         }
 
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
+            this._currentStage = 0;
+            this.Status = default;
+            this._speed = 1;
+            this.StageTime = 0;
+            this.StageTillTime = 0;
+            this.BufferSpeed = 1f;
+            this.BufferLerpSpeed = 7.21f;
             this.onStageChanged = null;
         }
 
-        protected override void OnReset() {
+        public override void Reset() {
             this.BufferSpeed = this._speed;
             this.Status = StageStatus.Running;
             this.entryNode?.ResetNode();
@@ -144,10 +152,17 @@ namespace Hsenl {
         }
 
         public StageStatus Run(float deltaTime) {
-            this.BufferSpeed = math.lerp(this.BufferSpeed, this._speed, deltaTime * this.BufferLerpSpeed);
+            this.BufferSpeed = Math.Lerp(this.BufferSpeed, this._speed, deltaTime * this.BufferLerpSpeed);
             this.DeltaTime = deltaTime * this.Speed;
             this.Tick();
-            this.Time += this.DeltaTime;
+            this.StageTime += this.DeltaTime;
+            try {
+                this.onRunning?.Invoke(this._currentStage, this.StageTime, this.StageTillTime);
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
+
             return this.Status;
         }
     }

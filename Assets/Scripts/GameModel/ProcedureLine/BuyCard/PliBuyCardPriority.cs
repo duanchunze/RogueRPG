@@ -1,5 +1,8 @@
 ﻿namespace Hsenl {
     public enum PliBuyCardPriority {
+        // 技能补丁
+        AbilityPatch,
+        
         // 判断是否符合合成条件
         Synthesis,
 

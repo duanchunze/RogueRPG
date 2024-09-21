@@ -7,7 +7,7 @@ namespace Hsenl.Network {
         private const int BodySizeBits = 4;
         private const int TotalHeadBits = 4;
 
-        private readonly PackageBuffer _bufferRecv = new();
+        private readonly HBuffer _bufferRecv = new();
         private int _completeMessageSize; // 完整的消息大小, 该值如果不为0, 代表当前消息没有接收完
 
         public Action<Memory<byte>> OnMessageReaded { get; set; } // 当读取出了包

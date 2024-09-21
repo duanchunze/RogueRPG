@@ -55,6 +55,7 @@ public abstract partial class TimePointInfo :  timeline.TimeActionInfo
             case "HarmOfDirectionBoltInfo": return new timeline.HarmOfDirectionBoltInfo(_json);
             case "HarmOfPointBoltInfo": return new timeline.HarmOfPointBoltInfo(_json);
             case "HarmOfDibozhanBoltInfo": return new timeline.HarmOfDibozhanBoltInfo(_json);
+            case "SummoningMinionInfo": return new timeline.SummoningMinionInfo(_json);
             default: throw new SerializationException();
         }
     }

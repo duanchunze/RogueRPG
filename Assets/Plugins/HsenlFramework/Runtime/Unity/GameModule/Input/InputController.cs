@@ -1,5 +1,4 @@
-﻿using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Hsenl {
     public struct InputHappen {
@@ -8,7 +7,7 @@ namespace Hsenl {
         public bool isButton;
         public bool isButtonUp;
         public bool hasValue;
-        public float3 value;
+        public Vector3 value;
     }
     
     [DisallowMultipleComponent, DefaultExecutionOrder(-5)] // 让InputController的Update顺序在框架Update顺序的前面
@@ -42,9 +41,9 @@ namespace Hsenl {
                         inputCode = inputUnit.InputCode,
                         isButtonDown = true
                     };
-                    if (inputUnit.GetValue() is Vector2 value) {
+                    if (inputUnit.GetValue() is UnityEngine.Vector2 value) {
                         inputHappen.hasValue = true;
-                        inputHappen.value = new float3(value.x, 0, value.y);
+                        inputHappen.value = new Vector3(value.x, 0, value.y);
                     }
 
                     this.OnInputHappen(inputHappen);
@@ -55,9 +54,9 @@ namespace Hsenl {
                         inputCode = inputUnit.InputCode,
                         isButton = true
                     };
-                    if (inputUnit.GetValue() is Vector2 value) {
+                    if (inputUnit.GetValue() is UnityEngine.Vector2 value) {
                         inputHappen.hasValue = true;
-                        inputHappen.value = new float3(value.x, 0, value.y);
+                        inputHappen.value = new Vector3(value.x, 0, value.y);
                     }
 
                     this.OnInputHappen(inputHappen);
@@ -68,9 +67,9 @@ namespace Hsenl {
                         inputCode = inputUnit.InputCode,
                         isButtonUp = true
                     };
-                    if (inputUnit.GetValue() is Vector2 value) {
+                    if (inputUnit.GetValue() is UnityEngine.Vector2 value) {
                         inputHappen.hasValue = true;
-                        inputHappen.value = new float3(value.x, 0, value.y);
+                        inputHappen.value = new Vector3(value.x, 0, value.y);
                     }
 
                     this.OnInputHappen(inputHappen);
@@ -129,12 +128,12 @@ namespace Hsenl {
             return inputUnit.WasReleasedThisFrame;
         }
 
-        public static Vector2 GetVector2(InputCode inputCode) {
+        public static UnityEngine.Vector2 GetVector2(InputCode inputCode) {
             if (InputGroup.current == null)
-                return Vector2.zero;
+                return UnityEngine.Vector2.zero;
 
             if (!InputGroup.current.TryGet(inputCode, out var inputUnit))
-                return Vector2.zero;
+                return UnityEngine.Vector2.zero;
 
             return inputUnit.GetVector2();
         }
@@ -149,14 +148,14 @@ namespace Hsenl {
             return inputUnit.GetFloat();
         }
 
-        public static float3 GetMousePosition() {
+        public static Vector3 GetMousePosition() {
             if (InputGroup.current == null) {
                 return default;
             }
 
             var o = InputGroup.current[InputCode.MousePosition].GetValue();
-            var v = (Vector2)o;
-            return new float3(v.x, v.y, 0);
+            var v = (UnityEngine.Vector2)o;
+            return new Vector3(v.x, v.y, 0);
         }
     }
 }

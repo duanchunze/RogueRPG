@@ -1,5 +1,6 @@
 ﻿using System;
 using Hsenl.ability;
+using Hsenl.card;
 using Hsenl.localization;
 
 namespace Hsenl.View {
@@ -74,13 +75,15 @@ namespace Hsenl.View {
             }
         }
 
+        // ability ---------------------------------
+
         public static LocalizationAbilityConfig GetLocalizationAbilityConfig(AbilityConfig abilityConfig) {
             if (Localization.Instance?.Value == null)
                 return null;
 
             var config = Tables.Instance.TbLocalizationAbilityConfig.GetByAlias(abilityConfig.Alias);
             if (config == null) {
-                throw new Exception($"Cant not find LocalizationAbility by '{abilityConfig.Alias}'");
+                Log.Error($"Cant not find LocalizationAbility by '{abilityConfig.Alias}'");
             }
 
             return config;
@@ -88,12 +91,59 @@ namespace Hsenl.View {
 
         public static string GetAbilityLocalizationName(AbilityConfig self) {
             var localizationConfig = GetLocalizationAbilityConfig(self);
+            if (localizationConfig == null)
+                return null;
+
             return localizationConfig.Name.GetValueOrDefault(Localization.Instance?.Value);
         }
 
         public static string GetAbilityLocalizationDesc(AbilityConfig self) {
             var localizationConfig = GetLocalizationAbilityConfig(self);
+            if (localizationConfig == null)
+                return null;
+
             return localizationConfig.Desc.GetValueOrDefault(Localization.Instance?.Value);
+        }
+
+        // card ----------------------------------
+
+        // public static LocalizationCardConfig GetLocalizationCardConfig(CardConfig cardConfig) {
+        //     if (Localization.Instance?.Value == null)
+        //         return null;
+        //
+        //     var config = Tables.Instance.TbLocalizationCardConfig.GetByAlias(cardConfig.Alias);
+        //     if (config == null) {
+        //         throw new Exception($"Cant not find LocalizationCard by '{cardConfig.Alias}'");
+        //     }
+        //
+        //     return config;
+        // }
+        //
+        // public static string GetCardLocalizationName(CardConfig self) {
+        //     var localizationConfig = GetLocalizationCardConfig(self);
+        //     return localizationConfig.Name.GetValueOrDefault(Localization.Instance?.Value);
+        // }
+
+        // ability patch ----------------------------
+
+        public static LocalizationAbilityPatchConfig GetLocalizationAbilityPatchConfig(AbilityPatchConfig abilityPatchConfig) {
+            if (Localization.Instance?.Value == null)
+                return null;
+
+            var config = Tables.Instance.TbLocalizationAbilityPatchConfig.GetByAlias(abilityPatchConfig.Alias);
+            if (config == null) {
+                Log.Error($"Cant not find LocalizationAbilityPatch by '{abilityPatchConfig.Alias}'");
+            }
+
+            return config;
+        }
+
+        public static string GetAbilityPatchLocalizationName(AbilityPatchConfig self) {
+            var localizationConfig = GetLocalizationAbilityPatchConfig(self);
+            if (localizationConfig == null)
+                return null;
+
+            return localizationConfig.Name.GetValueOrDefault(Localization.Instance?.Value);
         }
     }
 }

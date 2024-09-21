@@ -255,7 +255,7 @@ namespace Hsenl.Network {
         }
 
         public class Configure {
-            public string ListenIPHost { get; set; }
+            public string LocalIPHost { get; set; }
             public int Port { get; set; }
             public int Backlog { get; set; }
 
@@ -264,7 +264,7 @@ namespace Hsenl.Network {
             public int SendBufferSize { get; set; }
 
             public IPEndPoint GetListenIPEndPoint() {
-                if (IPAddress.TryParse(this.ListenIPHost, out var address)) {
+                if (IPAddress.TryParse(this.LocalIPHost, out var address)) {
                     var endPoint = new IPEndPoint(address, this.Port);
                     return endPoint;
                 }
@@ -273,7 +273,7 @@ namespace Hsenl.Network {
             }
 
             public void Reset() {
-                this.ListenIPHost = null;
+                this.LocalIPHost = null;
                 this.Port = 0;
                 this.Backlog = 0;
                 this.RecvBufferSize = 0;

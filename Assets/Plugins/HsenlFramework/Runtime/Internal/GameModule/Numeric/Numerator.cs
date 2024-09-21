@@ -67,12 +67,11 @@ namespace Hsenl {
         [MemoryPackIgnore]
         private Dictionary<uint, Num> _attachNumerics = new(); // key: numericType 与 numericLayer 与 numericModel的组合, 也就是NumericNodeKey
 
-        // final里存的不仅仅只是最终数值, 还有每一层的最终数值
 #if UNITY_EDITOR
         [ShowInInspector]
 #endif
         [MemoryPackIgnore]
-        private MultiDictionary<uint, uint, Num> _finalNumerics = new(); // key1: NumericType key2: NumericLayer value: 最终值
+        private Dictionary<uint, Num> _finalNumerics = new(); // key: NumericType  value: 最终值
 
 #if UNITY_EDITOR
         [ShowInInspector]
@@ -86,12 +85,19 @@ namespace Hsenl {
 
         public event Action<Numerator, int, Num, Num> OnNumericChanged; // numerator, numType, old, now
 
-        protected override void OnDeserializedOverall() {
-            this.Recalculate();
+        protected override void OnDeserialized() {
+            CheckMaxLayerNumValid();
+            foreach (var kv in this._rawNumerics) {
+                this.RecalculateFinalNumeric(kv.Key);
+            }
         }
 
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
+            foreach (var node in this._attaches) {
+                node.UnlinkNumerator(this);
+            }
+
             this.allowAttacherExpand = false;
             this._rawNumerics.Clear();
             this._attachNumerics.Clear();
@@ -114,6 +120,7 @@ namespace Hsenl {
                 this.RecalculateFinalNumeric(numericType);
             }
 
+            node.LinkNumerator(this);
             return true;
         }
 
@@ -127,6 +134,7 @@ namespace Hsenl {
                 this.RecalculateFinalNumeric(numericType);
             }
 
+            node.UnlinkNumerator(this);
             return true;
         }
 
@@ -200,24 +208,14 @@ namespace Hsenl {
             CheckMaxLayerNumValid();
             if (numericType is < 1 or > NumericConst.NumericMaxTypeNumInTheory)
                 throw new ArgumentOutOfRangeException($"num key must be range of 1 - {NumericConst.NumericMaxTypeNumInTheory} '{numericType}'");
-            return !this._finalNumerics.TryGetValue(numericType, MaxLayerNum - 1, out var result) ? Num.Empty() : result;
-        }
-
-        public Num GetFinalValue(uint numericType, uint layer) {
-            CheckMaxLayerNumValid();
-            if (numericType is < 1 or > NumericConst.NumericMaxTypeNumInTheory) {
-                throw new ArgumentOutOfRangeException($"num key must be range of 1 - {NumericConst.NumericMaxTypeNumInTheory} '{numericType}'");
-            }
-
-            if (layer is < 1 or > NumericConst.NodeMaxLayerNumInTheory) {
-                throw new ArgumentOutOfRangeException($"layer num must be range of 1 - {NumericConst.NodeMaxLayerNumInTheory} '{layer}'");
-            }
-
-            return !this._finalNumerics.TryGetValue(numericType, layer, out var result) ? Num.Empty() : result;
+            return !this._finalNumerics.TryGetValue(numericType, out var result) ? Num.Empty() : result;
         }
 
         private void RecalculateAttachNumeric(uint numericType) {
-            for (uint layer = 1; layer < MaxLayerNum; layer++) {
+            if (this._attaches.Count == 0)
+                return;
+
+            for (uint layer = 1; layer <= MaxLayerNum; layer++) {
                 var pct = new Num(1f); // percentage of node value in current layer
                 var fix = new Num(); // fixed of node value in current layer
                 var pctKey = new NumericNodeKey(numericType, layer, NumericNodeModel.Percentage);
@@ -259,8 +257,8 @@ namespace Hsenl {
                 finalValue = basicValue;
             }
 
-            this._finalNumerics.TryGetValue(numericType, MaxLayerNum - 1, out var old);
-            for (uint layer = 1; layer < MaxLayerNum; layer++) {
+            this._finalNumerics.TryGetValue(numericType, out var old);
+            for (uint layer = 1; layer <= MaxLayerNum; layer++) {
                 var pctKey = new NumericNodeKey(numericType, layer, NumericNodeModel.Percentage);
                 var fixKey = new NumericNodeKey(numericType, layer, NumericNodeModel.FixedValue);
 
@@ -282,20 +280,25 @@ namespace Hsenl {
 
                 if (n == 2) {
                     if (basicHas) {
-                        this._finalNumerics[numericType, layer] = finalValue;
+                        // this._finalNumerics[numericType, layer] = finalValue;
                     }
                 }
                 else {
                     finalValue = finalValue * pct + fix; // 先按比例乘, 再加上固定值
                     finalValue.Convert(finalType);
-                    this._finalNumerics[numericType, layer] = finalValue;
+                    // this._finalNumerics[numericType, layer] = finalValue;
                 }
             }
 
-            // 如果该值为0, 且基础值里根本没有该类型的值, 说明该值是Node添加进来的, 则删除
-            if (finalValue == 0 && !basicHas) {
-                this._finalNumerics.Remove(numericType);
-            }
+            // // 如果该值为0, 且基础值里根本没有该类型的值, 则不添加
+            // if (finalValue == 0 && !basicHas) {
+            //     return;
+            // }
+
+            if (finalValue.Type == 64)
+                finalValue.Convert(1);
+
+            this._finalNumerics[numericType] = finalValue;
 
             if (sendEvent) {
                 try {
@@ -311,24 +314,21 @@ namespace Hsenl {
 
         public void Recalculate(bool sendEvent = true) {
             CheckMaxLayerNumValid();
-            Span<uint> array1 = stackalloc uint[this._attachNumerics.Count];
-            var n1 = 0;
-            foreach (var key in this._attachNumerics.Keys) {
-                array1[n1++] = key >> NumericConst.NumericTypeOffset;
+            using var list = ListComponent<uint>.Rent();
+            foreach (var kv in this._rawNumerics) {
+                list.Add(kv.Key);
             }
 
-            for (int i = 0, len = array1.Length; i < len; i++) {
-                this.RecalculateAttachNumeric(array1[i]);
+            foreach (var attach in this._attaches) {
+                foreach (var key in attach.Keys) {
+                    if (!list.Contains(key))
+                        list.Add(key);
+                }
             }
 
-            Span<uint> array2 = stackalloc uint[this._attachNumerics.Count];
-            var n2 = 0;
-            foreach (var finalNumericsKey in this._finalNumerics.Keys) {
-                array2[n2++] = finalNumericsKey;
-            }
-
-            for (int i = 0, len = array2.Length; i < len; i++) {
-                this.RecalculateFinalNumeric(array2[i]);
+            for (int i = 0, len = list.Count; i < len; i++) {
+                this.RecalculateAttachNumeric(list[i]);
+                this.RecalculateFinalNumeric(list[i]);
             }
         }
 
@@ -336,6 +336,10 @@ namespace Hsenl {
             CheckMaxLayerNumValid();
             this.RecalculateAttachNumeric(numericType);
             this.RecalculateFinalNumeric(numericType, sendEvent);
+        }
+
+        public void ClearRaw() {
+            this._rawNumerics.Clear();
         }
 
         public uint[] GetAllRawNumericTypes() {
@@ -370,7 +374,7 @@ namespace Hsenl {
                 finalValue = basicValue;
             }
 
-            for (uint layer = 1; layer < MaxLayerNum; layer++) {
+            for (uint layer = 1; layer <= MaxLayerNum; layer++) {
                 var pctKey = new NumericNodeKey(numericType, layer, NumericNodeModel.Percentage);
                 var fixKey = new NumericNodeKey(numericType, layer, NumericNodeModel.FixedValue);
                 if (!this._attachNumerics.TryGetValue(pctKey.key, out var pct)) {
@@ -399,7 +403,7 @@ namespace Hsenl {
         }
 
         // 把两个numerator的基础值相加, 然后把各自的numeric node合并到一起, 计算出最终结果, 最终结果不会缓存在任何numerator之中
-        public Num MergeCalculateValue(Numerator numerator, uint numericType, bool allowNodeExpend = false) {
+        public Num MergeCalculateValue(Numerator other, uint numericType, bool allowNodeExpend = false) {
             CheckMaxLayerNumValid();
             byte finalType = 64; // 64是随便取的, 只要比Num._type的最大数大就行, 因为byte不能为负, 所以无法使用-1标记该字段未设置.
             var finalValue = Num.Empty();
@@ -409,7 +413,7 @@ namespace Hsenl {
                 n++;
             }
 
-            if (!numerator._rawNumerics.TryGetValue(numericType, out var basicValue2)) {
+            if (!other._rawNumerics.TryGetValue(numericType, out var basicValue2)) {
                 n++;
             }
 
@@ -424,7 +428,7 @@ namespace Hsenl {
                 finalValue = basicValue;
             }
 
-            for (uint layer = 1; layer < MaxLayerNum; layer++) {
+            for (uint layer = 1; layer <= MaxLayerNum; layer++) {
                 var pct = new Num(1f);
                 var fix = new Num();
                 var pctKey = new NumericNodeKey(numericType, layer, NumericNodeModel.Percentage);
@@ -435,8 +439,8 @@ namespace Hsenl {
                     fix += attacher.GetValue(fixKey);
                 }
 
-                for (int i = 0, len = numerator._attaches.Count; i < len; i++) {
-                    var attacher = numerator._attaches[i];
+                for (int i = 0, len = other._attaches.Count; i < len; i++) {
+                    var attacher = other._attaches[i];
                     pct += attacher.GetValue(pctKey);
                     fix += attacher.GetValue(fixKey);
                 }
@@ -481,7 +485,7 @@ namespace Hsenl {
                 finalType = finalValue.Type;
             }
 
-            for (uint layer = 1; layer < MaxLayerNum; layer++) {
+            for (uint layer = 1; layer <= MaxLayerNum; layer++) {
                 var pct = new Num(1f);
                 var fix = new Num();
                 var pctKey = new NumericNodeKey(numericType, layer, NumericNodeModel.Percentage);
@@ -530,22 +534,18 @@ namespace Hsenl {
             return this.GetFinalValue((uint)numericType.GetHashCode());
         }
 
-        public Num GetFinalValue<T>(T numericType, uint layer) where T : Enum {
-            return this.GetFinalValue((uint)numericType.GetHashCode(), layer);
-        }
-
         public void Recalculate<T>(T numericType, bool sendEvent = true) where T : Enum {
             this.Recalculate((uint)numericType.GetHashCode(), sendEvent);
         }
 
         // 单独计算附加某个Node后的结果, 结果不会缓存在numerator之中
         public Num CalculateValue<T>(NumericNode node, T numericType, bool allowNodeExpend = false) where T : Enum {
-            return CalculateValue(node, (uint)numericType.GetHashCode(), allowNodeExpend);
+            return this.CalculateValue(node, (uint)numericType.GetHashCode(), allowNodeExpend);
         }
 
         // 把两个numerator的基础值相加, 然后把各自的numeric node合并到一起, 计算出最终结果, 最终结果不会缓存在任何numerator之中
-        public Num MergeCalculateValue<T>(Numerator numerator, T numericType, bool allowNodeExpend = false) where T : Enum {
-            return MergeCalculateValue(numerator, (uint)numericType.GetHashCode(), allowNodeExpend);
+        public Num MergeCalculateValue<T>(Numerator other, T numericType, bool allowNodeExpend = false) where T : Enum {
+            return this.MergeCalculateValue(other, (uint)numericType.GetHashCode(), allowNodeExpend);
         }
 
         // 同上, 但是是合并若干个

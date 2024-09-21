@@ -32,8 +32,8 @@ namespace Hsenl {
 
                 case TimePointModel.Percent:
                     // 如果时间线的总时间是无限, 且时间点的模式是百分比, 那么把时间点按照0来处理, 也就是一开始就触发
-                    var currTime = this.manager.Time;
-                    var totalTime = this.manager.TillTime;
+                    var currTime = this.manager.StageTime;
+                    var totalTime = this.manager.StageTillTime;
                     if (totalTime < 0 || totalTime < currTime) {
                         realPoint = 0;
                     }
@@ -58,7 +58,7 @@ namespace Hsenl {
 
             if (this.isPassed) return false;
             this.GetRealValue(out var realPoint);
-            var currTime = this.manager.Time;
+            var currTime = this.manager.StageTime;
             return currTime >= realPoint;
         }
 

@@ -59,8 +59,8 @@ namespace Hsenl {
             var candidatelistInfo = adventureConfig.Checkpoints[record.currentCheckpoint % adventureConfig.Checkpoints.Count];
             record.currentCheckpoint++;
 
-            using var checkpointAliases = ListComponent<string>.Create();
-            using var weights = ListComponent<int>.Create();
+            using var checkpointAliases = ListComponent<string>.Rent();
+            using var weights = ListComponent<int>.Rent();
             foreach (var candidateInfo in candidatelistInfo.Candidates) {
                 checkpointAliases.Add(candidateInfo.CheckpointAlias);
                 weights.Add(candidateInfo.Weight);
@@ -80,6 +80,8 @@ namespace Hsenl {
 
             var originalPoint = objectReference.Get<UnityEngine.Transform>("OriginalPoint");
             GameManager.Instance.MainMan.transform.SetPosition(originalPoint.position);
+            var minionsBar = GameManager.Instance.MainMan.GetComponent<MinionsBar>();
+            minionsBar?.ArrangeMinionsQueue();
 
             await Timer.WaitFrame();
 

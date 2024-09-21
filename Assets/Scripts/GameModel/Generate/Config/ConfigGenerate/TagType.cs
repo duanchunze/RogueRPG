@@ -19,7 +19,7 @@ namespace Hsenl
         /// </summary>
         Unit = 0,
         /// <summary>
-        /// 阵营tag
+        /// 身份tag
         /// </summary>
         Hero = 1,
         NPC = 2,
@@ -72,29 +72,37 @@ namespace Hsenl
         /// </summary>
         AbilityShowMessage = 14,
         /// <summary>
+        /// 召唤类技能
+        /// </summary>
+        AbilitySummoning = 15,
+        /// <summary>
+        /// 读条类技能
+        /// </summary>
+        AbilityReading = 16,
+        /// <summary>
         /// 状态tag
         /// </summary>
-        Status = 15,
+        Status = 17,
         /// <summary>
         /// 死亡状态
         /// </summary>
-        StatusDeath = 16,
+        StatusDeath = 18,
         /// <summary>
         /// 复活状态
         /// </summary>
-        StatusResurgence = 17,
+        StatusResurgence = 19,
         /// <summary>
         /// 受击硬直状态
         /// </summary>
-        StatusHitStun = 18,
+        StatusHitStun = 20,
         /// <summary>
         /// 控制类状态
         /// </summary>
-        StatusContorl = 19,
+        StatusContorl = 21,
         /// <summary>
         /// 已死亡
         /// </summary>
-        Dead = 20,
+        Dead = 22,
     }
 
 } 

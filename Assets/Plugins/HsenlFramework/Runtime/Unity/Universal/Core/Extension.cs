@@ -22,17 +22,17 @@
             return parent;
         }
 
-        public static T GetFrameworkComponent<T>(this UnityEngine.Component self) where T : class {
+        public static T GetFrameworkComponent<T>(this UnityEngine.Component self, bool polymorphic = false) where T : class {
             var entityRef = self.GetComponent<EntityReference>();
-            return entityRef == null ? null : entityRef.Entity.GetComponent<T>();
+            return entityRef == null ? null : entityRef.Entity.GetComponent<T>(polymorphic);
         }
 
-        public static T GetFrameworkComponentInParent<T>(this UnityEngine.Component self) where T : class {
+        public static T GetFrameworkComponentInParent<T>(this UnityEngine.Component self, bool polymorphic = false) where T : class {
             var parent = self.transform;
             while (parent != null) {
                 var entityRef = parent.GetComponent<EntityReference>();
                 if (entityRef != null) {
-                    var t = entityRef.Entity.GetComponent<T>();
+                    var t = entityRef.Entity.GetComponent<T>(polymorphic);
                     if (t != null) {
                         return t;
                     }
@@ -44,9 +44,9 @@
             return null;
         }
 
-        public static T GetFrameworkComponent<T>(this UnityEngine.GameObject self) where T : class {
+        public static T GetFrameworkComponent<T>(this UnityEngine.GameObject self, bool polymorphic = false) where T : class {
             var entityRef = self.GetComponent<EntityReference>();
-            return entityRef == null ? null : entityRef.Entity.GetComponent<T>();
+            return entityRef == null ? null : entityRef.Entity.GetComponent<T>(polymorphic);
         }
 
         public static T GetMonoComponent<T>(this Component self) {

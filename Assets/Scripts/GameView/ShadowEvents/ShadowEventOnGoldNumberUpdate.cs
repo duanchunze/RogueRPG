@@ -3,9 +3,9 @@
     public partial class ShadowEventOnGoldNumberUpdate {
         [ShadowFunction]
         private static void OnGoldNumberUpdate(int goldNum) {
-            var uiStore = UICardStore.instance;
-            if (uiStore == null) return;
-            uiStore.goldText.text = goldNum.ToString();
+            // var uiStore = UIManager.GetSingleUI<UICardStore>();
+            // if (uiStore == null) return;
+            // uiStore.goldText.text = goldNum.ToString();
         }
     }
 }

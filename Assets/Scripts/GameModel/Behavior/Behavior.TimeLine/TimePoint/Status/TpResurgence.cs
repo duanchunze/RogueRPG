@@ -7,11 +7,13 @@ namespace Hsenl {
     [MemoryPackable()]
     public partial class TpResurgence : TpInfo<timeline.ResurgenceInfo> {
         protected override void OnTimePointTrigger() {
-            switch (this.manager.Bodied.AttachedBodied) {
+            switch (this.manager.Bodied.MainBodied) {
                 case Actor actor: {
-                    var numerator = actor.GetComponent<Numerator>();
-                    Shortcut.RecoverHealth(numerator, int.MaxValue);
-                    Shortcut.RecoverMana(numerator, int.MaxValue);
+                    var dieForm = new PliResurgenceForm() {
+                        inflictor = (this.manager.Bodied as Status)?.inflictor,
+                        target = actor,
+                    };
+                    actor.GetComponent<ProcedureLine>().StartLine(dieForm);
                     
                     break;
                 }

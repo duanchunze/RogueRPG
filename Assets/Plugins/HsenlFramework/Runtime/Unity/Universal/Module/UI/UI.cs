@@ -41,11 +41,11 @@ namespace Hsenl {
             this.OpenType = openType;
             var rectTra = (RectTransform)this.transform;
             rectTra.SetParent(parent, false);
-            rectTra.pivot = new Vector2(0.5f, 0.5f);
-            rectTra.anchorMin = Vector2.zero;
-            rectTra.anchorMax = Vector2.one;
-            rectTra.sizeDelta = Vector2.zero;
-            rectTra.localPosition = Vector3.zero;
+            rectTra.pivot = new UnityEngine.Vector2(0.5f, 0.5f);
+            rectTra.anchorMin = UnityEngine.Vector2.zero;
+            rectTra.anchorMax = UnityEngine.Vector2.one;
+            rectTra.sizeDelta = UnityEngine.Vector2.zero;
+            rectTra.localPosition = UnityEngine.Vector3.zero;
             this.gameObject.SetActive(true);
             this.OnOpen();
         }

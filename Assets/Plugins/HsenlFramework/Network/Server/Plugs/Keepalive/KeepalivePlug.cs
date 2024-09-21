@@ -79,6 +79,7 @@ namespace Hsenl.Network {
                             goto FLGA; // 代表该channel已经不存在了, 或者是我们plug本身有问题
                         }
 
+                        // Log.Error($"检测数据变化: {tuple.bytesRecv} - {nowBytesRecv}");
                         if (tuple.bytesRecv == nowBytesRecv) {
                             // 接收数据没有变化, 则断开他
                             this.DisconnectChannel(tuple.channelId);

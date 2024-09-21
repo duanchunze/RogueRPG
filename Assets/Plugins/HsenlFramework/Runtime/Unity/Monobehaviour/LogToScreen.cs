@@ -45,8 +45,8 @@ namespace Hsenl {
         }
 
         private void OnGUI() {
-            GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(Screen.width / 1200.0f, Screen.height / 800.0f, 1.0f));
-            GUI.Label(new Rect(10, 10, 800, 370), this._logStr, new GUIStyle() { fontSize = Math.Max(10, this.fontSize) });
+            GUI.matrix = UnityEngine.Matrix4x4.TRS(UnityEngine.Vector3.zero, UnityEngine.Quaternion.identity, new UnityEngine.Vector3(Screen.width / 1200.0f, Screen.height / 800.0f, 1.0f));
+            GUI.Label(new Rect(10, 10, 800, 370), this._logStr, new GUIStyle() { fontSize = System.Math.Max(10, this.fontSize) });
         }
     }
 }

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Test\HThreadTest\HThreadTest.cs" />
     <Compile Include="Assets\Scripts\Test\NetworkTest\TClient.cs" />
+    <Compile Include="Assets\Scripts\Test\Tester2.cs" />
     <Compile Include="Assets\Scripts\Test\NetworkTest\NetworkTest.cs" />
     <Compile Include="Assets\Scripts\Test\MessageHandler\C2R_Login_Handler.cs" />
     <Compile Include="Assets\Scripts\Test\NetworkTest\KClient.cs" />
@@ -69,21 +70,19 @@
     <None Include="Assets\Scripts\HybridCLRGenerate\link.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Bundles\Config\LubanConfig\ai_tbaiconfig.json" />
+    <None Include="Assets\Bundles\Config\LubanConfig\synthesis_tbsynthesisconfig.json" />
     <None Include="Assets\Art\Shader\E3D-ActorPBR-GLow.shader" />
     <None Include="Assets\Bundles\Config\LubanConfig\adventure_tbadventureconfig.json" />
     <None Include="Assets\Bundles\Config\LubanConfig\checkpoint_tbcheckpointconfig.json" />
-    <None Include="Assets\Bundles\Config\LubanConfig\ability_tbabilitytraitconfig.json" />
     <None Include="Assets\Bundles\Config\LubanConfig\ability_tbabilityconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\Bundles\Config\LubanConfig\localization_tblocalizationconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
-    <None Include="Assets\Bundles\Config\LubanConfig\ability_upgrade_tbabilityupgradeconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
-    <None Include="Assets\Bundles\Config\LubanConfig\card_tbcardsynthesisconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Bundles\Config\LubanConfig\localization_tblocalizationabilityconfig.json" />
     <None Include="Assets\YooAssetsBackups\AssetBundleCollectorConfig.xml" />
@@ -92,14 +91,15 @@
     <None Include="Assets\Bundles\Config\LubanConfig\actor_tbactorconfig.json" />
     <None Include="Assets\Bundles\Config\LubanConfig\faction_tbfactionconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Bundles\Config\LubanConfig\localization_tblocalizationabilitypatchconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\Bundles\Config\LubanConfig\ability_assist_tbabilityassistconfig.json" />
     <None Include="Assets\Bundles\Config\LubanConfig\ability_tbabilitypatchconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\Bundles\Config\LubanConfig\ability_tbabilitytraitconfig.json" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne.json" />
-    <None Include="Assets\Bundles\Config\LubanConfig\card_tbcardconfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\Bundles\Config\LubanConfig\status_tbstatusconfig.json" />
     <Reference Include="UnityEngine">

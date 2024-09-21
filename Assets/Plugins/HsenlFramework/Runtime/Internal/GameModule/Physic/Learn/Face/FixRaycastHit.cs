@@ -1,6 +1,4 @@
-﻿using FixedMath;
-
-#if FIXED_MATH
+﻿#if FIXED_MATH
 using FLOAT = FixedMath.FMath.Fixp;
 #else
 using FLOAT = System.Single;
@@ -19,30 +17,30 @@ namespace Hsenl {
         /// <summary>
         /// 射线起点
         /// </summary>
-        public FVector3 origin;
+        public Vector3 origin;
 
         /// <summary>
         /// 射线方向
         /// </summary>
-        public FVector3 direction;
+        public Vector3 direction;
 
         /// <summary>
         /// 射线碰撞的面的法线
         /// </summary>
-        public FVector3 normal;
+        public Vector3 normal;
 
         /// <summary>
         /// 起点到碰撞点的长度
         /// </summary>
         public FLOAT fraction;
 
-        private FVector3 m_collisionPoint;
+        private Vector3 m_collisionPoint;
         private bool m_alrealyCalcuCollisionPoint;
 
         /// <summary>
         /// 碰撞点
         /// </summary>
-        public FVector3 collisionPoint {
+        public Vector3 collisionPoint {
             get {
                 if (!m_alrealyCalcuCollisionPoint) {
                     m_alrealyCalcuCollisionPoint = true;

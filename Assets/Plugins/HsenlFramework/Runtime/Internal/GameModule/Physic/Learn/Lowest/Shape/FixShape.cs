@@ -1,6 +1,4 @@
-﻿using FixedMath;
-
-namespace Hsenl {
+﻿namespace Hsenl {
     /// <summary>
     /// 形状
     /// <para>仅包含几何图形相关的信息</para>>
@@ -21,12 +19,12 @@ namespace Hsenl {
         /// <summary>
         /// 几何中心
         /// </summary>
-        internal FVector3 _geometricCenter;
+        internal Vector3 _geometricCenter;
 
         public abstract FittingDegreeType fittingDegreeType { get; }
-        public abstract void SupportPoint(ref FVector3 direction, out FVector3 point);
+        public abstract void SupportPoint(ref Vector3 direction, out Vector3 point);
 
-        public virtual void SupportCenter(out FVector3 center) {
+        public virtual void SupportCenter(out Vector3 center) {
             center = this._geometricCenter;
         }
 

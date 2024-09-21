@@ -10,7 +10,7 @@ namespace Hsenl.View {
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    var owner = ability.AttachedBodied;
+                    var owner = ability.MainBodied;
                     if (owner == null)
                         break;
 
@@ -30,7 +30,7 @@ namespace Hsenl.View {
                         warnBoard.transform.Position = owner.transform.Position;
                         switch (this.info.Type) {
                             case 0: {
-                                warnBoard.transform.LocalScale = Vector3.one * tsize;
+                                warnBoard.transform.LocalScale = Vector3.One * tsize;
                                 break;
                             }
 

@@ -12,10 +12,10 @@ namespace Hsenl.Network {
         private KcpChannel _channel;
         private Kcp _kcp;
 
-        private PackageBuffer _bufferRecv = new();
-        private PackageBuffer _bufferWriting = new();
-        private PackageBuffer _bufferSending = new();
-        private PackageBuffer _bufferReading = new();
+        private HBuffer _bufferRecv = new();
+        private HBuffer _bufferWriting = new();
+        private HBuffer _bufferSending = new();
+        private HBuffer _bufferReading = new();
         private ConcurrentQueue<(byte[] bytes, int len)> _outputs = new();
 
         private readonly object _locker = new();
@@ -65,8 +65,10 @@ namespace Hsenl.Network {
                 goto FAIL_RETURN;
             }
 
-            if (this._bufferSending.Length < this._kcp.WaitSnd)
-                this._bufferSending.SetLength(this._kcp.WaitSnd);
+            lock (this._locker) {
+                if (this._bufferSending.Length < this._kcp.WaitSnd)
+                    this._bufferSending.SetLength(this._kcp.WaitSnd);
+            }
 
             this._bufferSending.Advance(1);
 
@@ -172,7 +174,9 @@ namespace Hsenl.Network {
             this.OnMessageReaded = null;
 
             this._channel = null;
-            this._kcp = null;
+            lock (this._locker) {
+                this._kcp = null;
+            }
 
             this._bufferRecv.Reset();
             this._bufferWriting.Reset();

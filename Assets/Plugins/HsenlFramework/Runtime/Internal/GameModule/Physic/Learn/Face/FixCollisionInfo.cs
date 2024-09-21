@@ -1,6 +1,4 @@
-﻿using FixedMath;
-
-#if FIXED_MATH
+﻿#if FIXED_MATH
 using FLOAT = FixedMath.FMath.Fixp;
 #else
 using FLOAT = System.Single;
@@ -12,8 +10,8 @@ namespace Hsenl {
     /// </summary>
     public struct FixCollisionInfo {
         public FixCollider collider;
-        public FVector3 point;
-        public FVector3 normal;
+        public Vector3 point;
+        public Vector3 normal;
         public FLOAT penetration;
     }
 }

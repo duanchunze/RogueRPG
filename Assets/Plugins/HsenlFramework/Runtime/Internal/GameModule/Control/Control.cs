@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using MemoryPack;
-using Unity.Mathematics;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
 #endif
@@ -12,7 +11,7 @@ namespace Hsenl {
         bool GetStart();
         bool GetSustained();
         bool GetEnd();
-        bool GetValue(out float3 result);
+        bool GetValue(out Vector3 result);
     }
 
     namespace EventType {
@@ -22,7 +21,7 @@ namespace Hsenl {
             public bool isButton;
             public bool isButtonUp;
             public bool hasValue;
-            public float3 value;
+            public Vector3 value;
         }
     }
 
@@ -35,7 +34,8 @@ namespace Hsenl {
         [MemoryPackIgnore]
         private Dictionary<int, Element> _elementDict = new();
 
-        protected override void OnDestroy() {
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
             foreach (var kv in this._elementDict) {
                 kv.Value.Dispose();
             }
@@ -87,7 +87,7 @@ namespace Hsenl {
             element.SetEnd();
         }
 
-        public void SetValue(int controlCode, float3 val) {
+        public void SetValue(int controlCode, Vector3 val) {
             if (!this._elementDict.TryGetValue(controlCode, out var element)) return;
             element.SetValue(val);
         }
@@ -107,7 +107,7 @@ namespace Hsenl {
             return element.GetEnd();
         }
 
-        public bool GetValue(int controlCode, out float3 result) {
+        public bool GetValue(int controlCode, out Vector3 result) {
             result = default;
             if (!this._elementDict.TryGetValue(controlCode, out var element)) return false;
             return element.GetValue(out result);
@@ -166,7 +166,7 @@ namespace Hsenl {
             public long startFrameCount;
             public long sustainFrameCount;
             public long endFrameCount;
-            public float3? value;
+            public Vector3? value;
 
             public event Action onStart;
             public event Action onSustained;
@@ -182,7 +182,7 @@ namespace Hsenl {
                 this.isStart = false;
                 this.isSustained = false;
                 this.isEnd = false;
-                this.value = float3.zero;
+                this.value = Vector3.Zero;
 
                 this.onStart = null;
                 this.onSustained = null;
@@ -224,7 +224,7 @@ namespace Hsenl {
                 }
             }
 
-            public void SetValue(float3 val) {
+            public void SetValue(Vector3 val) {
                 this.value = val;
                 this.SetSustained();
             }
@@ -235,7 +235,7 @@ namespace Hsenl {
 
             public bool GetEnd() => this.isEnd;
 
-            public bool GetValue(out float3 result) {
+            public bool GetValue(out Vector3 result) {
                 if (this.value != null) {
                     result = this.value.Value;
                     return true;

@@ -8,7 +8,7 @@ namespace Hsenl {
     // 玩家的自动施法器. 按照卡牌栏的头部顺序, 依次释放, 头部是技能卡牌
     [MemoryPackable()]
     public partial class AIPlayerAutoCaster : AIInfo<ai.PlayerAutoCasterInfo> {
-        private CardBar _cardBar;
+        private AbilitesBar _abilitesBar;
         private List<Caster> _casters = new();
 
         // private float maxFrameTime = 1f / 30;
@@ -17,23 +17,22 @@ namespace Hsenl {
         // private int currentTryingPosition;
 
         protected override void OnEnable() {
-            this._cardBar = this.manager.Bodied.AttachedBodied.FindScopeInBodied<CardBar>();
-            if (this._cardBar != null) {
-                this._cardBar.onChanged += this.OnCardBarChanged;
-                this.OnCardBarChanged();
+            this._abilitesBar = this.manager.Bodied.MainBodied.FindBodiedInIndividual<AbilitesBar>();
+            if (this._abilitesBar != null) {
+                this._abilitesBar.OnAbilityChanged += this.OnAbilitesBarChanged;
+                this.OnAbilitesBarChanged();
             }
         }
 
         protected override void OnDisable() {
-            if (this._cardBar != null) {
-                this._cardBar.onChanged -= this.OnCardBarChanged;
+            if (this._abilitesBar != null) {
+                this._abilitesBar.OnAbilityChanged -= this.OnAbilitesBarChanged;
             }
         }
 
-        private void OnCardBarChanged() {
+        private void OnAbilitesBarChanged() {
             this._casters.Clear();
-            foreach (var headCard in this._cardBar.GetHeadCards()) {
-                if (headCard.Source is not Ability ability) continue;
+            foreach (var ability in this._abilitesBar.ExplicitAbilies) {
                 var controlTrigger = ability.GetComponent<ControlTrigger>();
                 if (controlTrigger == null) continue;
                 if (controlTrigger.ControlCode != (int)ControlCode.AutoTrigger) continue;
@@ -47,12 +46,6 @@ namespace Hsenl {
         }
 
         protected override bool Check() {
-            return true;
-        }
-
-        protected override void Enter() { }
-
-        protected override void Running() {
             // this.frametime += TimeInfo.DeltaTime;
             // if (this.frametime < this.maxFrameTime) {
             //     return;
@@ -60,13 +53,16 @@ namespace Hsenl {
             //
             // this.frametime = 0;
 
+            var succ = false;
             for (var i = 0; i < this._casters.Count; i++) {
                 var caster = this._casters[i];
                 var castStatus = caster.CastStart();
                 switch (castStatus) {
                     case CastEvaluateStatus.Success:
+                        succ = true;
                         break;
                     case CastEvaluateStatus.Trying:
+                        succ = true;
                         break;
                     case CastEvaluateStatus.PriorityStateEnterFailure:
                         break;
@@ -76,11 +72,17 @@ namespace Hsenl {
                         break;
                     case CastEvaluateStatus.Mana:
                         break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    case CastEvaluateStatus.MoreThanMaxSummoningNum:
+                        break;
                 }
             }
+
+            return succ;
         }
+
+        protected override void Enter() { }
+
+        protected override void Running() { }
 
         protected override void Exit() { }
     }

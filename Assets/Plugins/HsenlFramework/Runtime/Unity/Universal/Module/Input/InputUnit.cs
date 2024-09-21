@@ -14,15 +14,18 @@ namespace Hsenl {
         // 遥感需要偏移5成以上，才算是触发按下事件
         public float stickIgnoreError = 0.5f;
 
-        [FormerlySerializedAs("m_inputAction")] [SerializeField]
+        [FormerlySerializedAs("m_inputAction")]
+        [SerializeField]
         private InputAction _inputAction; // 输入行为
 
         private InputControl _control; // 指的是控制器，即设备
 
-        [FormerlySerializedAs("m_InputCode")] [SerializeField]
+        [FormerlySerializedAs("m_InputCode")]
+        [SerializeField]
         private InputCode _inputCode;
 
-        [SerializeField] private int _controlIndex;
+        [SerializeField]
+        private int _controlIndex;
 
         private int _controlMissProtection;
 
@@ -185,8 +188,8 @@ namespace Hsenl {
         /// 获取遥感或复合型输入的向量值，对于 Button Trigger 类按钮无效
         /// </summary>
         /// <returns></returns>
-        public Vector2 GetVector2() {
-            return this._inputAction.ReadValue<Vector2>();
+        public UnityEngine.Vector2 GetVector2() {
+            return this._inputAction.ReadValue<UnityEngine.Vector2>();
         }
 
         /// <summary>
@@ -198,44 +201,54 @@ namespace Hsenl {
         }
 
         private void Awake() {
-            this._inputAction.started += context => {
-                try {
-                    if (this.enabled == false) {
-                        return;
-                    }
+            this._inputAction.started += this.OnInputActionOnstarted;
+            this._inputAction.performed += this.OnInputActionOnperformed;
+            this._inputAction.canceled += this.OnInputActionOncanceled;
+        }
 
-                    this.OnStarted?.Invoke(context);
-                }
-                catch (Exception e) {
-                    Debug.LogError(e);
-                }
-            };
+        private void OnDestroy() {
+            this._inputAction.started -= this.OnInputActionOnstarted;
+            this._inputAction.performed -= this.OnInputActionOnperformed;
+            this._inputAction.canceled -= this.OnInputActionOncanceled;
+        }
 
-            this._inputAction.performed += context => {
-                try {
-                    if (this.enabled == false) {
-                        return;
-                    }
+        private void OnInputActionOncanceled(InputAction.CallbackContext context) {
+            try {
+                if (this.enabled == false) {
+                    return;
+                }
 
-                    this.OnPerformed?.Invoke(context);
-                }
-                catch (Exception e) {
-                    Debug.LogError(e);
-                }
-            };
+                this.OnCanceled?.Invoke(context);
+            }
+            catch (Exception e) {
+                Debug.LogError(e);
+            }
+        }
 
-            this._inputAction.canceled += context => {
-                try {
-                    if (this.enabled == false) {
-                        return;
-                    }
+        private void OnInputActionOnperformed(InputAction.CallbackContext context) {
+            try {
+                if (this.enabled == false) {
+                    return;
+                }
 
-                    this.OnCanceled?.Invoke(context);
+                this.OnPerformed?.Invoke(context);
+            }
+            catch (Exception e) {
+                Debug.LogError(e);
+            }
+        }
+
+        private void OnInputActionOnstarted(InputAction.CallbackContext context) {
+            try {
+                if (this.enabled == false) {
+                    return;
                 }
-                catch (Exception e) {
-                    Debug.LogError(e);
-                }
-            };
+
+                this.OnStarted?.Invoke(context);
+            }
+            catch (Exception e) {
+                Debug.LogError(e);
+            }
         }
 
         private void OnEnable() {
@@ -311,7 +324,7 @@ namespace Hsenl {
             }
         }
 
-        private bool IsValueConsideredPressed_Vector2(Vector2 v1, Vector2 v2) {
+        private bool IsValueConsideredPressed_Vector2(UnityEngine.Vector2 v1, UnityEngine.Vector2 v2) {
             var diff = v1 - v2;
             return diff.sqrMagnitude > this.stickIgnoreError;
         }
@@ -469,7 +482,7 @@ namespace Hsenl {
                 case InputCode.Menu:
                     this._inputAction.AddBinding($"<Keyboard>/{this._inputCode.ToString().ToLower()}");
                     break;
-                
+
                 case InputCode.RightControl:
                     this._inputAction.AddBinding($"<Keyboard>/rightCtrl");
                     break;

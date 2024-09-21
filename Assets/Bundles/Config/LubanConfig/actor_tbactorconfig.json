@@ -14,10 +14,8 @@
       "待机",
       "停止",
       "方向移动",
-      "点击移动"
-    ],
-    "org_cards": [
-      "劈砍卡牌"
+      "点击移动",
+      "劈砍"
     ],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
@@ -44,10 +42,8 @@
       "待机",
       "停止",
       "方向移动",
-      "点击移动"
-    ],
-    "org_cards": [
-      "月之投射卡牌"
+      "点击移动",
+      "月之投射"
     ],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
@@ -74,10 +70,8 @@
       "待机",
       "停止",
       "方向移动",
-      "点击移动"
-    ],
-    "org_cards": [
-      "月之投射卡牌"
+      "点击移动",
+      "月之投射"
     ],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
@@ -104,7 +98,6 @@
       "待机",
       "停止"
     ],
-    "org_cards": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -133,7 +126,6 @@
       "点击移动",
       "怪物横砍"
     ],
-    "org_cards": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -162,7 +154,6 @@
       "点击移动",
       "怪物劈砍"
     ],
-    "org_cards": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -191,7 +182,6 @@
       "点击移动",
       "怪物快射"
     ],
-    "org_cards": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -218,9 +208,9 @@
       "停止",
       "方向移动",
       "点击移动",
-      "怪物横砍"
+      "怪物横砍",
+      "怪物技能"
     ],
-    "org_cards": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -247,9 +237,9 @@
       "停止",
       "方向移动",
       "点击移动",
-      "怪物劈砍"
+      "怪物劈砍",
+      "怪物技能"
     ],
-    "org_cards": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -278,7 +268,121 @@
       "点击移动",
       "怪物快射"
     ],
-    "org_cards": [],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 20007,
+    "alias": "骷髅战士大",
+    "view_name": "骷髅战士大",
+    "labels": [
+      0,
+      3
+    ],
+    "model_name": "kulou_zs",
+    "numeric_alias": "骷髅战士大",
+    "ai_alias": "怪物AI1",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "怪物横砍",
+      "怪物技能"
+    ],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 20008,
+    "alias": "骷髅骑士大",
+    "view_name": "骷髅骑士大",
+    "labels": [
+      0,
+      3
+    ],
+    "model_name": "kulou_qs",
+    "numeric_alias": "骷髅骑士大",
+    "ai_alias": "怪物AI1",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "怪物劈砍",
+      "怪物技能"
+    ],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 20009,
+    "alias": "骷髅弓箭手大",
+    "view_name": "骷髅弓箭手大",
+    "labels": [
+      0,
+      3
+    ],
+    "model_name": "kulou_gjs",
+    "numeric_alias": "骷髅弓箭手大",
+    "ai_alias": "怪物AI1",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "怪物快射"
+    ],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 30000,
+    "alias": "哥布林巫医",
+    "view_name": "zhanshi",
+    "labels": [
+      0,
+      1
+    ],
+    "model_name": "warrior",
+    "numeric_alias": "哥布林巫医",
+    "ai_alias": "随从默认AI",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "劈砍",
+      "跳劈"
+    ],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {

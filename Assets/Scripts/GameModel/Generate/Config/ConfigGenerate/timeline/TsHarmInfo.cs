@@ -34,8 +34,11 @@ public abstract partial class TsHarmInfo :  timeline.TimeSegmentInfo
             case "HarmOfColliderInfo": return new timeline.HarmOfColliderInfo(_json);
             case "HarmOfSphereColliderInfo": return new timeline.HarmOfSphereColliderInfo(_json);
             case "HarmOfBoxColliderInfo": return new timeline.HarmOfBoxColliderInfo(_json);
+            case "TsStatusContinuousHarmInfo": return new timeline.TsStatusContinuousHarmInfo(_json);
             case "LiuXueInfo": return new timeline.LiuXueInfo(_json);
             case "RanshaoInfo": return new timeline.RanshaoInfo(_json);
+            case "WenyiInfo": return new timeline.WenyiInfo(_json);
+            case "WenyichuanboInfo": return new timeline.WenyichuanboInfo(_json);
             default: throw new SerializationException();
         }
     }

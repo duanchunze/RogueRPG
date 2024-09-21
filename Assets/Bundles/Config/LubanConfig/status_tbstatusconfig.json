@@ -5,9 +5,12 @@
     "view_name": "Death",
     "desc": "",
     "duration": -1,
+    "stack": 1,
+    "max_stack": 1,
+    "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [
-      16
+      18
     ],
     "priority_state": {
       "time_scale": 1,
@@ -25,7 +28,7 @@
       "dis_pri": 1000,
       "run_pri": 1000,
       "sp_pass": [
-        17
+        19
       ],
       "sp_inter": [],
       "sp_exclu": [],
@@ -56,9 +59,12 @@
     "view_name": "Resurgence",
     "desc": "",
     "duration": 0,
+    "stack": 1,
+    "max_stack": 1,
+    "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [
-      17
+      19
     ],
     "priority_state": {
       "time_scale": 1,
@@ -78,7 +84,7 @@
       "sp_pass": [],
       "sp_inter": [],
       "sp_exclu": [
-        16
+        18
       ],
       "sp_keep": [],
       "sp_dis": [],
@@ -107,10 +113,13 @@
     "view_name": "HitStun",
     "desc": "",
     "duration": 0.25,
+    "stack": 1,
+    "max_stack": 1,
+    "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [
-      18,
-      19
+      20,
+      21
     ],
     "priority_state": {
       "time_scale": 1,
@@ -149,9 +158,12 @@
     "view_name": "Beatback",
     "desc": "",
     "duration": 0.5,
+    "stack": 1,
+    "max_stack": 1,
+    "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [
-      19
+      21
     ],
     "priority_state": {
       "time_scale": 1,
@@ -197,15 +209,10 @@
     "view_name": "Liuxue",
     "desc": "",
     "duration": 5,
-    "numeric_nodes": [
-      {
-        "type": 37,
-        "layer": 2,
-        "model": 0,
-        "value": 0,
-        "sign": ""
-      }
-    ],
+    "stack": 1,
+    "max_stack": 20,
+    "numeric_infos": [],
+    "numeric_nodes": [],
     "tags": [],
     "priority_state": {
       "time_scale": 1,
@@ -242,7 +249,7 @@
                 "fix": 0
               }
             ],
-            "damage_type": 5
+            "damage_type": 6
           },
           "internalTime": 0.5
         }
@@ -255,6 +262,9 @@
     "view_name": "BaTi",
     "desc": "",
     "duration": 1,
+    "stack": 1,
+    "max_stack": 1,
+    "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [],
     "priority_state": {
@@ -271,10 +281,10 @@
       "run_pri": 0,
       "sp_pass": [],
       "sp_inter": [
-        18
+        20
       ],
       "sp_exclu": [
-        18
+        20
       ],
       "sp_keep": [],
       "sp_dis": [],
@@ -291,6 +301,9 @@
     "view_name": "WuQishou",
     "desc": "下次释放技能时, 无起手时间, 触发后该状态消失",
     "duration": -1,
+    "stack": 1,
+    "max_stack": 1,
+    "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [],
     "priority_state": {
@@ -323,15 +336,16 @@
     "view_name": "Ranshao",
     "desc": "",
     "duration": 5,
-    "numeric_nodes": [
+    "stack": 1,
+    "max_stack": 20,
+    "numeric_infos": [
       {
         "type": 37,
-        "layer": 2,
-        "model": 0,
-        "value": 0,
+        "value": 15,
         "sign": ""
       }
     ],
+    "numeric_nodes": [],
     "tags": [],
     "priority_state": {
       "time_scale": 1,
@@ -368,9 +382,77 @@
                 "fix": 0
               }
             ],
-            "damage_type": 0
+            "damage_type": 1
           },
-          "internalTime": 0.5
+          "internalTime": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": 10008,
+    "alias": "瘟疫",
+    "view_name": "瘟疫",
+    "desc": "",
+    "duration": 10,
+    "stack": 1,
+    "max_stack": 1,
+    "numeric_infos": [
+      {
+        "type": 37,
+        "value": 75,
+        "sign": ""
+      }
+    ],
+    "numeric_nodes": [],
+    "tags": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        1
+      ],
+      "enter_pri": 1,
+      "resist_pri": 0,
+      "exclu_pri": 0,
+      "keep_pri": 0,
+      "dis_pri": 0,
+      "run_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_exclu": [],
+      "sp_keep": [],
+      "sp_dis": [],
+      "sp_run": [],
+      "allow_reenter": true
+    },
+    "main": {
+      "actions": [
+        {
+          "$type": "TsStatusContinuousHarmInfo",
+          "model": 1,
+          "origin": 0,
+          "dest": 1,
+          "harm_formula": {
+            "damage_formulas": [
+              {
+                "type": 12,
+                "pct": 0.5,
+                "fix": 0
+              }
+            ],
+            "damage_type": 1
+          },
+          "internalTime": 5
+        },
+        {
+          "$type": "WenyichuanboInfo",
+          "model": 1,
+          "origin": 0,
+          "dest": 1,
+          "internalTime": 1,
+          "chuanbocengshu": 1,
+          "chuanbofanwei": 1
         }
       ]
     }

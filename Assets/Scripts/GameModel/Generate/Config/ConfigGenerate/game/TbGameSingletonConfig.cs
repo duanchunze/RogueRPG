@@ -31,10 +31,6 @@ public sealed partial class TbGameSingletonConfig
     }
 
     /// <summary>
-    /// 卡牌背包容量
-    /// </summary>
-     public int CardBackpackCap => _data.CardBackpackCap;
-    /// <summary>
     /// 卡牌商店刷新消耗金币
     /// </summary>
      public int CardStoreRefreshCost => _data.CardStoreRefreshCost;

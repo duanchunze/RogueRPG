@@ -13,7 +13,7 @@ namespace Hsenl {
 
         protected override void OnEnable() {
             base.OnEnable();
-            var owner = this.manager.Bodied.AttachedBodied;
+            var owner = this.manager.Bodied.MainBodied;
             switch (this.manager.Bodied) {
                 case Ability ability: {
                     this._faction = owner?.GetComponent<Faction>();
@@ -38,7 +38,7 @@ namespace Hsenl {
 
         private IEnumerator Fire(Vector3 dir, IReadOnlyBitlist constrainsTags) {
             var bolt = BoltManager.Instance.Rent(this._boltConfig, false);
-            var collider = bolt.GetComponent<Collider>();
+            var collider = bolt.GetComponent<Collider>(true);
             collider.SetUsage(GameColliderPurpose.Detection);
             var listener = CollisionEventListener.Get(collider.Entity);
             var counter = 0;
@@ -47,7 +47,7 @@ namespace Hsenl {
             var origin = this.harmable.transform.Position;
 
             listener.onTriggerEnter = col => {
-                if (col.Bodied.AttachedBodied == this.harmable.Bodied.AttachedBodied)
+                if (col.Bodied.MainBodied == this.harmable.Bodied.MainBodied)
                     return;
 
                 if (!col.Tags.ContainsAny(constrainsTags))

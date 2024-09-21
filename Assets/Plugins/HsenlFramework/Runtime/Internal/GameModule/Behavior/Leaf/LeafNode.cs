@@ -8,7 +8,7 @@ namespace Hsenl {
     public abstract partial class LeafNode<T> : Node<T> where T : IBehaviorTree {
         public sealed override void StartNode(IBehaviorTree tree) {
             if (this.manager != null) throw new Exception("already has manager");
-            if (tree == null) throw new ArgumentNullException("start node failure, tree is null");
+            if (tree == null) throw new ArgumentNullException(nameof(tree));
 
             this.manager = (T)tree;
             try {

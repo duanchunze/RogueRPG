@@ -1,5 +1,5 @@
 ﻿namespace Hsenl {
-    public class Pli#NAME#Form {
+    public struct Pli#NAME#Form {
         
     }
 }

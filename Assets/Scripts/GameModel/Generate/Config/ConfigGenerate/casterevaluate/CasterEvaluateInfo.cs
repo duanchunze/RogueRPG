@@ -37,6 +37,7 @@ public abstract partial class CasterEvaluateInfo :  behavior.LeafNodeInfo
             case "PickTargetInfo": return new casterevaluate.PickTargetInfo(_json);
             case "PickAndApproachTargetInfo": return new casterevaluate.PickAndApproachTargetInfo(_json);
             case "HealthLowerInfo": return new casterevaluate.HealthLowerInfo(_json);
+            case "CasterSummoningInfo": return new casterevaluate.CasterSummoningInfo(_json);
             default: throw new SerializationException();
         }
     }

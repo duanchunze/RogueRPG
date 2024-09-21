@@ -18,7 +18,7 @@ namespace Hsenl.Network {
         public Action<long> OnDisconnected { get; set; }
         public Container Container { get; }
 
-        private readonly PackageBuffer _recvBuffer = new(); // kcp所有的channel都用一个socket来实现数据收发
+        private readonly HBuffer _recvBuffer = new(); // kcp所有的channel都用一个socket来实现数据收发
         private const int MaxArrayLength = 24;
         private readonly ArrayPool<byte> _sendToArrayPool = ArrayPool<byte>.Create(MaxArrayLength, 100); // 专供SendTo方法使用
         private readonly ArrayPool<byte> _kcpArrayPool = ArrayPool<byte>.Create(2048, 1000); // 专供kcp使用

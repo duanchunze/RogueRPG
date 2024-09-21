@@ -11,6 +11,10 @@ namespace Hsenl.behavior {
             _idInfos[this.InstanceId] = this;
         }
 
+        public static void AddInfo(int instanceId, behavior.Info info) {
+            _idInfos.Add(instanceId, info);
+        }
+        
         public static behavior.Info GetInfo(int instanceId) {
             _idInfos.TryGetValue(instanceId, out var result);
             return result;

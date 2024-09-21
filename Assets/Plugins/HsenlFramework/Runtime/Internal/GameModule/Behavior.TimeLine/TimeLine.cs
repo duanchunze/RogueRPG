@@ -19,12 +19,12 @@ namespace Hsenl {
 #if UNITY_EDITOR
         [ShowInInspector]
 #endif
-        public float Time { get; set; }
+        public float StageTime { get; set; }
 
 #if UNITY_EDITOR
         [ShowInInspector]
 #endif
-        public float TillTime { get; set; }
+        public float StageTillTime { get; set; }
 
 #if UNITY_EDITOR
         [ShowInInspector]
@@ -38,7 +38,7 @@ namespace Hsenl {
 
         public TimeLineModel TimeLineModel {
             get {
-                return this.TillTime switch {
+                return this.StageTillTime switch {
                     < 0 => TimeLineModel.FiniteTime,
                     > 0 => TimeLineModel.InfiniteTime,
                     _ => TimeLineModel.Transient
@@ -46,23 +46,23 @@ namespace Hsenl {
             }
         }
 
-        protected override void OnReset() {
-            this.Time = 0;
+        public override void Reset() {
+            this.StageTime = 0;
             this.LoopCount = 0;
             this.entryNode.ResetNode();
         }
 
         public void Run(float deltaTime) {
             if (this.IsFinish) return;
-            if (this.TillTime >= 0) {
-                if (this.Time > this.TillTime) {
+            if (this.StageTillTime >= 0) {
+                if (this.StageTime > this.StageTillTime) {
                     this.LoopCount++;
 
                     switch (this.runModel) {
                         case TimePointRunModel.Once:
                             return;
                         case TimePointRunModel.Loop:
-                            this.Time = 0;
+                            this.StageTime = 0;
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -72,7 +72,7 @@ namespace Hsenl {
 
             this.DeltaTime = deltaTime * this.Speed;
             this.Tick();
-            this.Time += this.DeltaTime;
+            this.StageTime += this.DeltaTime;
         }
     }
 }

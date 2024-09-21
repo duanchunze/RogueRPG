@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace Hsenl.MultiCombiner {
+namespace Hsenl.CrossCombiner {
     public class Status_ProcedureLine_Combiner : CrossCombiner<Status, ProcedureLine> {
         protected override void OnCombin(Status arg1, ProcedureLine arg2) {
             arg1.onBegin += this.EnqueueAction<Action>(() => {
                 var form = new PliStatusChangesForm() {
                     changeType = 0,
                     inflictor = arg1.inflictor,
-                    target = arg1.AttachedBodied,
+                    target = arg1.MainBodied,
                     statusAlias = arg1.Name,
-                    duration = arg1.GetComponent<TimeLine>().TillTime,
+                    duration = arg1.GetComponent<TimeLine>().StageTillTime,
                 };
 
                 arg2.StartLine(ref form);
@@ -18,7 +18,7 @@ namespace Hsenl.MultiCombiner {
                 var form = new PliStatusChangesForm() {
                     changeType = 1,
                     inflictor = arg1.inflictor,
-                    target = arg1.AttachedBodied,
+                    target = arg1.MainBodied,
                     statusAlias = arg1.Name,
                     finishDetails = details,
                 };

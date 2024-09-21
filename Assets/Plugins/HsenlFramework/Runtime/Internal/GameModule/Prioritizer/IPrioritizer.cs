@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace Hsenl {
     /*
      * 优先级处理系统
-     * 
+     *
      * 类似无限状态机, 状态个数不确定, 可自行退出
      * 基于优先级与通道
      * 声明为接口, 并写好了部分逻辑(internal), 继承者自行决定是否实现. 接口更像是一个写好了完整逻辑的模板, 但不会强迫子类继承字段, 也不会强迫继承全部函数
@@ -359,7 +360,7 @@ namespace Hsenl {
             }
         }
 
-        protected void OnStateChanged(IPriorityState state, bool isEnter) { }
+        internal void OnStateChanged(IPriorityState state, bool isEnter);
 
         public bool Evaluate(IPriorityState state, bool successCache, IPriorityStateEnterFailDetails details) {
             if (state.Manager != null) {

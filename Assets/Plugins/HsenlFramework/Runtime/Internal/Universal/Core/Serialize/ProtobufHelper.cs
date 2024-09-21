@@ -2,17 +2,16 @@
 using System.ComponentModel;
 using System.IO;
 using ProtoBuf.Meta;
-using Unity.Mathematics;
 
 namespace Hsenl {
     public static class ProtobufHelper {
         public static void Init() { }
 
         static ProtobufHelper() {
-            RuntimeTypeModel.Default.Add(typeof(float2), false).Add("x", "y");
-            RuntimeTypeModel.Default.Add(typeof(float3), false).Add("x", "y", "z");
-            RuntimeTypeModel.Default.Add(typeof(float4), false).Add("x", "y", "z", "w");
-            RuntimeTypeModel.Default.Add(typeof(quaternion), false).Add("value");
+            RuntimeTypeModel.Default.Add(typeof(Vector2), false).Add("x", "y");
+            RuntimeTypeModel.Default.Add(typeof(Vector3), false).Add("x", "y", "z");
+            RuntimeTypeModel.Default.Add(typeof(Vector4), false).Add("x", "y", "z", "w");
+            RuntimeTypeModel.Default.Add(typeof(Quaternion), false).Add("x", "y", "z", "w");
         }
 
         public static object Deserialize(Type type, byte[] bytes, int index, int count) {

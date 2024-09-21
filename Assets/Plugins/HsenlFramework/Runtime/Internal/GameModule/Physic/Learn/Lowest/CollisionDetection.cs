@@ -39,8 +39,6 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-using FixedMath;
-
 #if FIXED_MATH
 using FLOAT = FixedMath.FMath.Fixp;
 #else
@@ -78,8 +76,8 @@ namespace Hsenl {
         /// <param name="invOrientation">包围盒的旋转缩放矩阵的逆矩阵</param>
         /// <param name="position"></param>
         /// <returns>是否碰撞</returns>
-        public static bool RayBoundingBoxCollision(ref FVector3 origin, ref FVector3 direction, ref AABB boundingBox,
-            ref FMatrix3x3 invOrientation, ref FVector3 position) {
+        public static bool RayBoundingBoxCollision(ref Vector3 origin, ref Vector3 direction, ref AABB boundingBox,
+            ref Matrix3x3 invOrientation, ref Vector3 position) {
             /*
              * 检测射线和包围盒碰撞的基础条件是：包围盒必须是轴对齐的(axis aligned)，也就是包围盒不能旋转。
              * 包围盒不能旋转，但要实现包围盒旋转的检测，就需要旋转射线，把射线按照包围盒旋转的逆旋转，就可以达到射线和旋转的包围盒检测的效果。
@@ -89,10 +87,10 @@ namespace Hsenl {
             var tmpExit = Fixp.MaxValue;
 
             // 把射线的位置转为以包围盒为原点的位置
-            FVector3.Subtract(ref origin, ref position, out var tmpOrigin);
+            Vector3.Subtract(ref origin, ref position, out var tmpOrigin);
             // 把射线的位置转为以包围盒为坐标系的位置
-            FMatrix3x3.Transform(ref invOrientation, ref tmpOrigin, out tmpOrigin);
-            FMatrix3x3.Transform(ref invOrientation, ref direction, out var tmpDirection);
+            Matrix3x3.Transform(ref invOrientation, ref tmpOrigin, out tmpOrigin);
+            Matrix3x3.Transform(ref invOrientation, ref direction, out var tmpDirection);
 
             /* 该段注释可以帮助在unity绘图
              *
@@ -124,7 +122,7 @@ namespace Hsenl {
             // enter代表区间起点，exit代表区间结束点
             bool Intersect1D(FLOAT org, FLOAT dir, FLOAT min, FLOAT max, ref FLOAT enter, ref FLOAT exit) {
                 // 如果方向和该轴平行，则直接根据起点位置判断是否重叠
-                if (dir * dir < FMath.Epsilon * FMath.Epsilon) return (org >= min && org <= max);
+                if (dir * dir < Math.Epsilon * Math.Epsilon) return (org >= min && org <= max);
 
                 /* 理解：
                  * 只判断一个轴是无法确定射线是否与包围盒碰撞的，除非射线的方向和包围盒为钝角，所以，至少要做两个轴判断
@@ -184,12 +182,12 @@ namespace Hsenl {
             // Xeno之所以好的原因是，他在检测碰撞的同时，也获得了用来计算碰撞信息的必要数据，碰撞检测完毕的同时，碰撞信息顺手也算出来了。而GJK检测完碰撞后留下的数据，却不足以计算出碰撞信息
             // 核心逻辑：构建单纯形（四面体），试图让单纯形包含原点。构建过程是可以描述为，一个点如果不在一个四面体内，说明它至少和某个顶点，以该顶点的对边为分水岭，呈对立关系。
             // 我们就是不断找出那个对立的顶点，然后把他取反，继续构建单纯形，并检测是否包含原点。如此循环直到包含原点，或证明无论如何都不可能包含原点为止。
-            bool DetectCollision(out FVector3 vertex1, out FVector3 vertex2, out FVector3 vertex3,
-                out FVector3 vertex4, // 四面体的四个顶点
-                out FVector3 axisDirection, out FVector3 rAxisDirection, // 每次用来获得Support Point的正反方向
-                out FVector3 supportPoint, out FVector3 rSupportPoint, // 通过正反方向获得形状1、2的各自的最远点
-                out FVector3 vertex2Vertex, out FVector3 origin2Vertex, // 顶点到顶点（边），原点到顶点
-                out FVector3 tmp1, out FVector3 tmp2, out FVector3 tmp3, out FVector3 tmp4) // 临时变量
+            bool DetectCollision(out Vector3 vertex1, out Vector3 vertex2, out Vector3 vertex3,
+                out Vector3 vertex4, // 四面体的四个顶点
+                out Vector3 axisDirection, out Vector3 rAxisDirection, // 每次用来获得Support Point的正反方向
+                out Vector3 supportPoint, out Vector3 rSupportPoint, // 通过正反方向获得形状1、2的各自的最远点
+                out Vector3 vertex2Vertex, out Vector3 origin2Vertex, // 顶点到顶点（边），原点到顶点
+                out Vector3 tmp1, out Vector3 tmp2, out Vector3 tmp3, out Vector3 tmp4) // 临时变量
             {
                 vertex1 = default;
                 vertex2 = default;
@@ -213,7 +211,7 @@ namespace Hsenl {
                 // 顶点1 ------------------- 只有首次使用中心轴来作为起始轴方向
                 support1.SupportCenter(out supportPoint);
                 support2.SupportCenter(out rSupportPoint);
-                FVector3.Subtract(ref rSupportPoint, ref supportPoint, out vertex1);
+                Vector3.Subtract(ref rSupportPoint, ref supportPoint, out vertex1);
 
                 // 提前判断相交 ------ 如果两个形状中心重叠，我们就认为他是相交的
                 if (vertex1.IsZero()) {
@@ -221,19 +219,19 @@ namespace Hsenl {
                 }
 
                 // 得到顶点2 ---------------------
-                FVector3.Copy(ref vertex1, out axisDirection);
+                Vector3.Copy(ref vertex1, out axisDirection);
                 if (GetVertex(ref axisDirection, out rAxisDirection, out supportPoint, out rSupportPoint, //
                         out vertex2, out isCollide)) {
                     return isCollide;
                 }
 
-                FVector3.Negate(ref vertex1, out origin2Vertex);
-                FVector3.Subtract(ref vertex2, ref vertex1, out vertex2Vertex);
+                Vector3.Negate(ref vertex1, out origin2Vertex);
+                Vector3.Subtract(ref vertex2, ref vertex1, out vertex2Vertex);
 
                 // 确定顶点3方向，顶点3的方向为原点对于v2v1线段的另一侧，这样取得的支持点才是原点这一侧的
                 // 比如v2v1直直朝前，原点在线段左侧，tmp1就是下侧，方向就是线段右侧（其中下侧和右侧都是以原点和线段组成的平面为参考）
-                FVector3.Cross(ref vertex2Vertex, ref origin2Vertex, out tmp1);
-                FVector3.Cross(ref vertex2Vertex, ref tmp1, out axisDirection);
+                Vector3.Cross(ref vertex2Vertex, ref origin2Vertex, out tmp1);
+                Vector3.Cross(ref vertex2Vertex, ref tmp1, out axisDirection);
 
                 // 得到顶点3 ---------------------
                 if (GetVertex(ref axisDirection, out rAxisDirection, out supportPoint, out rSupportPoint, //
@@ -242,12 +240,12 @@ namespace Hsenl {
                 }
 
                 // 确定顶点4方向。结合顶点3方向，如果顶点3在面的下方，那么说明原点是在面的上方，所以反着取方向，就是下方，就是tmp1
-                FVector3.Subtract(ref vertex3, ref vertex1, out vertex2Vertex);
-                if (FVector3.Dot(ref vertex2Vertex, ref tmp1) > 0) {
-                    FVector3.Copy(ref tmp1, out axisDirection);
+                Vector3.Subtract(ref vertex3, ref vertex1, out vertex2Vertex);
+                if (Vector3.Dot(ref vertex2Vertex, ref tmp1) > 0) {
+                    Vector3.Copy(ref tmp1, out axisDirection);
                 }
                 else {
-                    FVector3.NegateCopy(ref tmp1, out axisDirection);
+                    Vector3.NegateCopy(ref tmp1, out axisDirection);
                 }
 
                 // 得到顶点4 ---------------------
@@ -295,7 +293,7 @@ namespace Hsenl {
                 for (int i = 0; i < k_maximumIterations; i++) {
                     if (!EliminateVertex(ref vertex1, ref vertex4, ref vertex3, ref vertex2, ref axisDirection,
                             out tmp1, out tmp2, out tmp3, out tmp4)) {
-                        FVector3.Copy(ref vertex1, out vertex2);
+                        Vector3.Copy(ref vertex1, out vertex2);
                         if (GetVertex(ref axisDirection, out rAxisDirection, out supportPoint, out rSupportPoint, //
                                 out vertex1, out isCollide)) {
                             return isCollide;
@@ -306,7 +304,7 @@ namespace Hsenl {
 
                     if (!EliminateVertex(ref vertex1, ref vertex3, ref vertex2, ref vertex4, ref axisDirection,
                             out tmp1, out tmp2, out tmp3, out tmp4)) {
-                        FVector3.Copy(ref vertex1, out vertex4);
+                        Vector3.Copy(ref vertex1, out vertex4);
                         if (GetVertex(ref axisDirection, out rAxisDirection, out supportPoint, out rSupportPoint, //
                                 out vertex1, out isCollide)) {
                             return isCollide;
@@ -317,7 +315,7 @@ namespace Hsenl {
 
                     if (!EliminateVertex(ref vertex1, ref vertex2, ref vertex4, ref vertex3, ref axisDirection,
                             out tmp1, out tmp2, out tmp3, out tmp4)) {
-                        FVector3.Copy(ref vertex1, out vertex3);
+                        Vector3.Copy(ref vertex1, out vertex3);
                         if (GetVertex(ref axisDirection, out rAxisDirection, out supportPoint, out rSupportPoint, //
                                 out vertex1, out isCollide)) {
                             return isCollide;
@@ -337,24 +335,24 @@ namespace Hsenl {
             }
 
             // 通过SupportPoint得到顶点，同时，每次得到顶点时，都可以做分离轴判断，因为有可能快速结束检测
-            bool GetVertex(ref FVector3 direction, out FVector3 reverseDirection, out FVector3 supportPoint,
-                out FVector3 rSupportPoint, out FVector3 vertex, out bool isCollide) {
+            bool GetVertex(ref Vector3 direction, out Vector3 reverseDirection, out Vector3 supportPoint,
+                out Vector3 rSupportPoint, out Vector3 vertex, out bool isCollide) {
                 isCollide = false;
 
                 // 反方向
-                FVector3.Negate(ref direction, out reverseDirection);
+                Vector3.Negate(ref direction, out reverseDirection);
 
                 // 分别得到正方向和反方向上的 support point
                 support1.SupportPoint(ref direction, out supportPoint);
                 support2.SupportPoint(ref reverseDirection, out rSupportPoint);
 
                 // 相减，得到明可夫斯基差中的一个点，也是我们需要的三角体顶点
-                FVector3.Subtract(ref rSupportPoint, ref supportPoint, out vertex);
+                Vector3.Subtract(ref rSupportPoint, ref supportPoint, out vertex);
 
                 // 下面的就是做分离轴检测
                 // direction：用来获得SupportPoint的方向，也是轴方向
                 // vertex：【形状2在 -axisDirection方向的最远点】 - 【形状1在 axisDirection方向的最远点】
-                var dot = FVector3.Dot(ref direction, ref vertex);
+                var dot = Vector3.Dot(ref direction, ref vertex);
 
                 // 如果根据某轴得到的两个最远点的差，和该轴方向是同方向，则可以直接判定为两形状不相交（分离轴定律）；但即使是反方向，也无法确定是否相交，除非……
                 if (dot > 0) {
@@ -362,7 +360,7 @@ namespace Hsenl {
                     return true;
                 }
                 // 除非该轴和该方向平行
-                else if (FMath.Abs(dot) < s_collideEpsilon) {
+                else if (Math.Abs(dot) < s_collideEpsilon) {
                     // 相交
                     isCollide = true;
                     return true;
@@ -373,27 +371,27 @@ namespace Hsenl {
             }
 
             // 排除顶点，然后得到一个最可能使四面体包含原点的顶点，目标是剔除vertex4
-            bool EliminateVertex(ref FVector3 vertex1, ref FVector3 vertex2, ref FVector3 vertex3,
-                ref FVector3 vertex4, ref FVector3 newDirection, //
-                out FVector3 tmp1, out FVector3 tmp2, out FVector3 tmp3, out FVector3 tmp4) {
+            bool EliminateVertex(ref Vector3 vertex1, ref Vector3 vertex2, ref Vector3 vertex3,
+                ref Vector3 vertex4, ref Vector3 newDirection, //
+                out Vector3 tmp1, out Vector3 tmp2, out Vector3 tmp3, out Vector3 tmp4) {
                 // vertex1为主点，vertex4为要考察的点，
-                FVector3.Subtract(ref vertex2, ref vertex1, out tmp1);
-                FVector3.Subtract(ref vertex3, ref vertex1, out tmp2);
-                FVector3.Subtract(ref vertex4, ref vertex1, out tmp3);
-                FVector3.Negate(ref vertex1, out tmp4);
+                Vector3.Subtract(ref vertex2, ref vertex1, out tmp1);
+                Vector3.Subtract(ref vertex3, ref vertex1, out tmp2);
+                Vector3.Subtract(ref vertex4, ref vertex1, out tmp3);
+                Vector3.Negate(ref vertex1, out tmp4);
 
-                FVector3.Cross(ref tmp1, ref tmp2, out tmp1);
+                Vector3.Cross(ref tmp1, ref tmp2, out tmp1);
 
-                var dot1 = FVector3.Dot(ref tmp3, ref tmp1);
-                var dot2 = FVector3.Dot(ref tmp4, ref tmp1);
+                var dot1 = Vector3.Dot(ref tmp3, ref tmp1);
+                var dot2 = Vector3.Dot(ref tmp4, ref tmp1);
 
                 // 说明原点在边上，那就说明相交
-                if (FMath.Abs(dot2) < Fixp.Epsilon) {
+                if (Math.Abs(dot2) < Fixp.Epsilon) {
                     return true;
                 }
 
                 // 说明原点在vertex4的对边的另一侧，vertex4应当被剔除
-                if (FMath.Sign(dot1) != FMath.Sign(dot2)) {
+                if (Math.Sign(dot1) != Math.Sign(dot2)) {
                     if (dot1 > 0) {
                         newDirection = tmp1;
                     }
@@ -422,7 +420,7 @@ namespace Hsenl {
         /// <param name="collisionPenetration"></param>
         /// <returns></returns>
         public static bool ShapeCollision(ISupportPoint support1, ISupportPoint support2,
-            out FVector3 collisionNormal, out FVector3 collisionPoint, out FLOAT collisionPenetration) {
+            out Vector3 collisionNormal, out Vector3 collisionPoint, out FLOAT collisionPenetration) {
             var result = DetectCollision(out var ver1, out var ver2, out var ver3, out var ver4, //
                 out var axisDir, out var rAxisDir, //
                 out collisionNormal, out collisionPoint, out collisionPenetration, //
@@ -433,9 +431,9 @@ namespace Hsenl {
             // 检测碰撞
             bool DetectCollision(out Vertex vertex1, out Vertex vertex2, out Vertex vertex3,
                 out Vertex vertex4, // 四面体的四个顶点
-                out FVector3 axisDirection, out FVector3 rAxisDirection, // 每次用来获得Support Point的正反方向
-                out FVector3 normal, out FVector3 point, out FLOAT penetration, // 碰撞信息
-                out FVector3 tmp1, out FVector3 tmp2, out FVector3 tmp3, out Vertex tmpVertex) // 临时变量
+                out Vector3 axisDirection, out Vector3 rAxisDirection, // 每次用来获得Support Point的正反方向
+                out Vector3 normal, out Vector3 point, out FLOAT penetration, // 碰撞信息
+                out Vector3 tmp1, out Vector3 tmp2, out Vector3 tmp3, out Vertex tmpVertex) // 临时变量
             {
                 normal = default;
                 point = default;
@@ -461,7 +459,7 @@ namespace Hsenl {
                 // 顶点1 ------------------- 只有首次使用中心轴来作为起始轴方向
                 support1.SupportCenter(out vertex1.supportPoint1);
                 support2.SupportCenter(out vertex1.supportPoint2);
-                FVector3.Subtract(ref vertex1.supportPoint2, ref vertex1.supportPoint1, out vertex1.value);
+                Vector3.Subtract(ref vertex1.supportPoint2, ref vertex1.supportPoint1, out vertex1.value);
 
                 // 提前判断相交 ------ 如果两个形状中心重叠，我们就认为他是相交的
                 if (vertex1.value.IsZero()) {
@@ -471,20 +469,20 @@ namespace Hsenl {
                 }
 
                 // 得到顶点2 ---------------------
-                FVector3.Copy(ref vertex1.value, out axisDirection);
+                Vector3.Copy(ref vertex1.value, out axisDirection);
                 if (GetVertex(ref axisDirection, out rAxisDirection, out vertex2, //
                         ref normal, ref point, ref penetration, ref isCollide)) {
                     return isCollide;
                 }
 
                 // 0 - vertex1   和   v2 - v1
-                FVector3.Negate(ref vertex1.value, out tmp1);
-                FVector3.Subtract(ref vertex2.value, ref vertex1.value, out tmp2);
+                Vector3.Negate(ref vertex1.value, out tmp1);
+                Vector3.Subtract(ref vertex2.value, ref vertex1.value, out tmp2);
 
                 // 确定顶点3方向，顶点3的方向为原点对于v2v1线段的另一侧，这样取得的支持点才是原点这一侧的
                 // 比如v2v1直直朝前，原点在线段左侧，tmp1就是下侧，方向就是线段右侧（其中下侧和右侧都是以原点和线段组成的平面为参考）
-                FVector3.Cross(ref tmp2, ref tmp1, out tmp3);
-                FVector3.Cross(ref tmp2, ref tmp3, out axisDirection);
+                Vector3.Cross(ref tmp2, ref tmp1, out tmp3);
+                Vector3.Cross(ref tmp2, ref tmp3, out axisDirection);
 
                 // 得到顶点3 ---------------------
                 if (GetVertex(ref axisDirection, out rAxisDirection, out vertex3, //
@@ -493,12 +491,12 @@ namespace Hsenl {
                 }
 
                 // 确定顶点4方向。结合顶点3方向，如果顶点3在面的下方，那么说明原点是在面的上方，所以反着取方向，就是下方，就是tmp1
-                FVector3.Subtract(ref vertex3.value, ref vertex1.value, out tmp1);
-                if (FVector3.Dot(ref tmp1, ref tmp3) > 0) {
-                    FVector3.Copy(ref tmp3, out axisDirection);
+                Vector3.Subtract(ref vertex3.value, ref vertex1.value, out tmp1);
+                if (Vector3.Dot(ref tmp1, ref tmp3) > 0) {
+                    Vector3.Copy(ref tmp3, out axisDirection);
                 }
                 else {
-                    FVector3.NegateCopy(ref tmp3, out axisDirection);
+                    Vector3.NegateCopy(ref tmp3, out axisDirection);
                     swap = true;
                 }
 
@@ -570,14 +568,14 @@ namespace Hsenl {
                     // }
 
                     // 获得新支持点的方向，也就是顶点234组成的面的法线，需要确保，该法线必须是指向v1的方向，而上面的swap保证了这一点
-                    FVector3.Subtract(ref vertex3.value, ref vertex2.value, out tmp1);
-                    FVector3.Subtract(ref vertex4.value, ref vertex2.value, out tmp2);
-                    FVector3.Cross(ref tmp1, ref tmp2, out axisDirection);
+                    Vector3.Subtract(ref vertex3.value, ref vertex2.value, out tmp1);
+                    Vector3.Subtract(ref vertex4.value, ref vertex2.value, out tmp2);
+                    Vector3.Cross(ref tmp1, ref tmp2, out axisDirection);
 
                     // 首先，在还没有确定是否碰撞前，每次都判断一下是否发生碰撞，只要证明原点和顶点1在顶点234组成的面的同一侧就可以证明相交
                     // 我们每次得到的axisDirection都是指向明差内部的，所以只要证明（原点 - vertex2）和 axisDirection 是同向或平行的，就可以证明相交
                     if (isCollide == false) {
-                        if (FVector3.Dot(ref vertex2.value, ref axisDirection) <= 0) {
+                        if (Vector3.Dot(ref vertex2.value, ref axisDirection) <= 0) {
                             isCollide = true;
                             // 如果不需要计算碰撞信息，那么到这里就可以提前结束了
                         }
@@ -592,15 +590,15 @@ namespace Hsenl {
                     // }
 
                     // 继续，检测该顶点是否无效，如果该点在顶点234组成的面上，说明该顶点无效，自然顶点234组成的面就是边缘面
-                    FVector3.Subtract(ref tmpVertex.value, ref vertex2.value, out tmp3);
-                    var dot = FVector3.Dot(ref tmp3, ref axisDirection);
+                    Vector3.Subtract(ref tmpVertex.value, ref vertex2.value, out tmp3);
+                    var dot = Vector3.Dot(ref tmp3, ref axisDirection);
                     if (dot >= 0 || cycleCount++ > k_maximumIterations) {
                         // 渗透法线就是顶点234组成的面的法线的反向，但该法线的长度并不是渗透深度
-                        FVector3.NegateCopy(ref axisDirection, out normal);
+                        Vector3.NegateCopy(ref axisDirection, out normal);
                         normal.Normalize();
 
                         // 渗透深度 = 明差点 在 法线上投影的长度。只有边缘面的法线，得到的才是真的渗透深度
-                        penetration = FVector3.Dot(ref tmpVertex.value, ref normal);
+                        penetration = Vector3.Dot(ref tmpVertex.value, ref normal);
 
                         // 碰撞点就是两个形状在碰撞法线上的“支持点”的中点
                         // 现在，知道渗透法线了。直接得到两个支持点，就可以得出碰撞点了，但有个问题，对于正方体，获得的支持点经常不是我们认为的正确的点
@@ -610,49 +608,49 @@ namespace Hsenl {
                         // 以下摘抄 Xeno方法，为什么能算出来，我也不清楚
                         if (isCollide) {
                             // 计算原点的重心坐标
-                            FVector3.Cross(ref vertex2.value, ref vertex4.value, out tmp1);
-                            FVector3.Dot(ref tmp1, ref vertex3.value, out var b0);
-                            FVector3.Cross(ref vertex3.value, ref vertex4.value, out tmp1);
-                            FVector3.Dot(ref tmp1, ref vertex1.value, out var b1);
-                            FVector3.Cross(ref vertex1.value, ref vertex2.value, out tmp1);
-                            FVector3.Dot(ref tmp1, ref vertex3.value, out var b2);
-                            FVector3.Cross(ref vertex4.value, ref vertex2.value, out tmp1);
-                            FVector3.Dot(ref tmp1, ref vertex1.value, out var b3);
+                            Vector3.Cross(ref vertex2.value, ref vertex4.value, out tmp1);
+                            Vector3.Dot(ref tmp1, ref vertex3.value, out var b0);
+                            Vector3.Cross(ref vertex3.value, ref vertex4.value, out tmp1);
+                            Vector3.Dot(ref tmp1, ref vertex1.value, out var b1);
+                            Vector3.Cross(ref vertex1.value, ref vertex2.value, out tmp1);
+                            Vector3.Dot(ref tmp1, ref vertex3.value, out var b2);
+                            Vector3.Cross(ref vertex4.value, ref vertex2.value, out tmp1);
+                            Vector3.Dot(ref tmp1, ref vertex1.value, out var b3);
 
                             var sum = b0 + b1 + b2 + b3;
 
                             if (sum <= 0) {
                                 b0 = 0;
-                                FVector3.Cross(ref vertex4.value, ref vertex3.value, out tmp1);
-                                FVector3.Dot(ref tmp1, ref normal, out b1);
-                                FVector3.Cross(ref vertex3.value, ref vertex2.value, out tmp1);
-                                FVector3.Dot(ref tmp1, ref normal, out b2);
-                                FVector3.Cross(ref vertex2.value, ref vertex4.value, out tmp1);
-                                FVector3.Dot(ref tmp1, ref normal, out b3);
+                                Vector3.Cross(ref vertex4.value, ref vertex3.value, out tmp1);
+                                Vector3.Dot(ref tmp1, ref normal, out b1);
+                                Vector3.Cross(ref vertex3.value, ref vertex2.value, out tmp1);
+                                Vector3.Dot(ref tmp1, ref normal, out b2);
+                                Vector3.Cross(ref vertex2.value, ref vertex4.value, out tmp1);
+                                Vector3.Dot(ref tmp1, ref normal, out b3);
 
                                 sum = b1 + b2 + b3;
                             }
 
                             var inv = Fixp.One / sum;
 
-                            FVector3.Multiply(ref vertex1.supportPoint1, b0, out point);
-                            FVector3.Multiply(ref vertex2.supportPoint1, b1, out tmp1);
-                            FVector3.Add(ref point, ref tmp1, out point);
-                            FVector3.Multiply(ref vertex4.supportPoint1, b2, out tmp1);
-                            FVector3.Add(ref point, ref tmp1, out point);
-                            FVector3.Multiply(ref vertex3.supportPoint1, b3, out tmp1);
-                            FVector3.Add(ref point, ref tmp1, out point);
+                            Vector3.Multiply(ref vertex1.supportPoint1, b0, out point);
+                            Vector3.Multiply(ref vertex2.supportPoint1, b1, out tmp1);
+                            Vector3.Add(ref point, ref tmp1, out point);
+                            Vector3.Multiply(ref vertex4.supportPoint1, b2, out tmp1);
+                            Vector3.Add(ref point, ref tmp1, out point);
+                            Vector3.Multiply(ref vertex3.supportPoint1, b3, out tmp1);
+                            Vector3.Add(ref point, ref tmp1, out point);
 
-                            FVector3.Multiply(ref vertex1.supportPoint2, b0, out tmp1);
-                            FVector3.Add(ref tmp1, ref point, out point);
-                            FVector3.Multiply(ref vertex2.supportPoint2, b1, out tmp1);
-                            FVector3.Add(ref point, ref tmp1, out point);
-                            FVector3.Multiply(ref vertex4.supportPoint2, b2, out tmp1);
-                            FVector3.Add(ref point, ref tmp1, out point);
-                            FVector3.Multiply(ref vertex3.supportPoint2, b3, out tmp1);
-                            FVector3.Add(ref point, ref tmp1, out point);
+                            Vector3.Multiply(ref vertex1.supportPoint2, b0, out tmp1);
+                            Vector3.Add(ref tmp1, ref point, out point);
+                            Vector3.Multiply(ref vertex2.supportPoint2, b1, out tmp1);
+                            Vector3.Add(ref point, ref tmp1, out point);
+                            Vector3.Multiply(ref vertex4.supportPoint2, b2, out tmp1);
+                            Vector3.Add(ref point, ref tmp1, out point);
+                            Vector3.Multiply(ref vertex3.supportPoint2, b3, out tmp1);
+                            Vector3.Add(ref point, ref tmp1, out point);
 
-                            FVector3.Multiply(ref point, inv * Fixp.Half, out point);
+                            Vector3.Multiply(ref point, inv * Fixp.Half, out point);
                         }
 
                         // Gizmos.color = Color.red;
@@ -676,8 +674,8 @@ namespace Hsenl {
 
                     // 得到新顶点和顶点1的法线
                     // 这里思路是，如果原点相对于四面体的某个面和剩下的顶点呈对立关系，那么该点就是要被取缔的点。同时，Xeno特性，v1点永不被取缔
-                    FVector3.Cross(ref tmpVertex.value, ref vertex1.value, out tmp1);
-                    dot = FVector3.Dot(ref tmp1, ref vertex2.value);
+                    Vector3.Cross(ref tmpVertex.value, ref vertex1.value, out tmp1);
+                    dot = Vector3.Dot(ref tmp1, ref vertex2.value);
 
                     // if (cycleCount == testStep - 2) {
                     //     Debug.DrawLine(Vector3.zero, tmp3.ToVector3(), Color.magenta);
@@ -689,7 +687,7 @@ namespace Hsenl {
                     // }
 
                     if (dot <= Fixp.Zero) {
-                        dot = FVector3.Dot(ref tmp1, ref vertex3.value);
+                        dot = Vector3.Dot(ref tmp1, ref vertex3.value);
 
                         if (dot <= Fixp.Zero) {
                             CopyVertex(ref tmpVertex, out vertex2);
@@ -699,7 +697,7 @@ namespace Hsenl {
                         }
                     }
                     else {
-                        dot = FVector3.Dot(ref tmp1, ref vertex4.value);
+                        dot = Vector3.Dot(ref tmp1, ref vertex4.value);
 
                         if (dot <= Fixp.Zero) {
                             CopyVertex(ref tmpVertex, out vertex3);
@@ -716,31 +714,31 @@ namespace Hsenl {
             }
 
             // 通过SupportPoint得到顶点，同时，每次得到顶点时，都可以做分离轴判断，因为有可能快速结束检测
-            bool GetVertex(ref FVector3 direction, out FVector3 reverseDirection, out Vertex vertex,
-                ref FVector3 normal, ref FVector3 point, ref FLOAT penetration, ref bool isCollide) {
+            bool GetVertex(ref Vector3 direction, out Vector3 reverseDirection, out Vertex vertex,
+                ref Vector3 normal, ref Vector3 point, ref FLOAT penetration, ref bool isCollide) {
                 // 反方向
-                FVector3.Negate(ref direction, out reverseDirection);
+                Vector3.Negate(ref direction, out reverseDirection);
 
                 // 分别得到正方向和反方向上的 support point
                 support1.SupportPoint(ref direction, out vertex.supportPoint1);
                 support2.SupportPoint(ref reverseDirection, out vertex.supportPoint2);
 
                 // 相减，得到明可夫斯基差中的一个点，也是我们需要的三角体顶点
-                FVector3.Subtract(ref vertex.supportPoint2, ref vertex.supportPoint1, out vertex.value);
+                Vector3.Subtract(ref vertex.supportPoint2, ref vertex.supportPoint1, out vertex.value);
 
                 // 下面的就是做分离轴检测
                 // direction：用来获得SupportPoint的方向，也是轴方向
                 // vertex：【形状2在 -axisDirection方向的最远点】 - 【形状1在 axisDirection方向的最远点】
-                var dot = FVector3.Dot(ref direction, ref vertex.value);
+                var dot = Vector3.Dot(ref direction, ref vertex.value);
 
                 // 除非该轴和该方向平行
-                if (FMath.Abs(dot) < s_collideEpsilon) {
+                if (Math.Abs(dot) < s_collideEpsilon) {
                     // 相交
                     // 计算渗透。在这种情况下，渗透很容易计算
-                    FVector3.Copy(ref vertex.value, out normal);
+                    Vector3.Copy(ref vertex.value, out normal);
                     normal.Normalize();
-                    FVector3.Add(ref vertex.supportPoint1, ref vertex.supportPoint2, out var sum);
-                    FVector3.Multiply(ref sum, Fixp.Half, out point);
+                    Vector3.Add(ref vertex.supportPoint1, ref vertex.supportPoint2, out var sum);
+                    Vector3.Multiply(ref sum, Fixp.Half, out point);
                     penetration = dot;
                     isCollide = true;
                     return true;
@@ -759,37 +757,37 @@ namespace Hsenl {
             }
 
             // 只得到顶点
-            void GetVertexOnly(ref FVector3 direction, out FVector3 reverseDirection, out Vertex vertex) {
+            void GetVertexOnly(ref Vector3 direction, out Vector3 reverseDirection, out Vertex vertex) {
                 // 反方向
-                FVector3.Negate(ref direction, out reverseDirection);
+                Vector3.Negate(ref direction, out reverseDirection);
 
                 // 分别得到正方向和反方向上的 support point
                 support1.SupportPoint(ref direction, out vertex.supportPoint1);
                 support2.SupportPoint(ref reverseDirection, out vertex.supportPoint2);
 
                 // 相减，得到明可夫斯基差中的一个点，也是我们需要的三角体顶点
-                FVector3.Subtract(ref vertex.supportPoint2, ref vertex.supportPoint1, out vertex.value);
+                Vector3.Subtract(ref vertex.supportPoint2, ref vertex.supportPoint1, out vertex.value);
             }
 
             // 拷贝顶点
             void CopyVertex(ref Vertex copier, out Vertex target) {
-                FVector3.Copy(ref copier.value, out target.value);
-                FVector3.Copy(ref copier.supportPoint1, out target.supportPoint1);
-                FVector3.Copy(ref copier.supportPoint2, out target.supportPoint2);
+                Vector3.Copy(ref copier.value, out target.value);
+                Vector3.Copy(ref copier.supportPoint1, out target.supportPoint1);
+                Vector3.Copy(ref copier.supportPoint2, out target.supportPoint2);
             }
 
             // 交换顶点
             void SwapVertex(ref Vertex v1, ref Vertex v2) {
-                FVector3.Swap(ref v1.value, ref v2.value);
-                FVector3.Swap(ref v1.supportPoint1, ref v2.supportPoint1);
-                FVector3.Swap(ref v1.supportPoint2, ref v2.supportPoint2);
+                Vector3.Swap(ref v1.value, ref v2.value);
+                Vector3.Swap(ref v1.supportPoint1, ref v2.supportPoint1);
+                Vector3.Swap(ref v1.supportPoint2, ref v2.supportPoint2);
             }
         }
 
         private struct Vertex {
-            public FVector3 value;
-            public FVector3 supportPoint1;
-            public FVector3 supportPoint2;
+            public Vector3 value;
+            public Vector3 supportPoint1;
+            public Vector3 supportPoint2;
         }
 
         #region 废弃：（GJK算法，废弃是因为其中EPA渗透算法没有Xeno方式快）

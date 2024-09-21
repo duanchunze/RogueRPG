@@ -18,7 +18,7 @@ namespace Hsenl {
             // 而因为我们用的是dotween来进行运动, 而不是用OnTimeSegmentRunning来运动, 所以更适合写在这里
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._leaper = ability.AttachedBodied;
+                    this._leaper = ability.MainBodied;
                     this._controlTrigger = ability.GetComponent<ControlTrigger>();
 
                     this._tweener?.Kill();
@@ -28,13 +28,14 @@ namespace Hsenl {
                     this._leaper.transform.StopMove();
 
                     if (this._controlTrigger.GetValue(out var point)) {
-                        var dir = (Vector3)point - this._leaper.transform.Position;
+                        var u_point = point;
+                        var dir = u_point - this._leaper.transform.Position;
                         this._leaper.transform.LookAt(dir);
                         var position = this._leaper.transform.Position;
                         this._tweener = DOTween.To(() => position, p => {
                             position = p;
                             this._leaper.transform.Position = p;
-                        }, point, 6.5f).SetSpeedBased().OnComplete(() => { this.manager.Abort(); }).SetEase(Ease.Linear);
+                        }, u_point, 6.5f).SetSpeedBased().OnComplete(() => { this.manager.Abort(); }).SetEase(Ease.Linear);
                     }
 
                     Shortcut.InflictionStatus(this._leaper, this._leaper, StatusAlias.Wuqishou);

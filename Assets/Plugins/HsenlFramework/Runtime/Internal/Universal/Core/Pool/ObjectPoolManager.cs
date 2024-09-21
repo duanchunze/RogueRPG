@@ -13,6 +13,17 @@ namespace Hsenl {
 #endif
         private Dictionary<Type, Queue<object>> _pool = new();
 
+        public bool Contains<T>() where T : class {
+            var type = typeof(T);
+            if (this._pool.TryGetValue(type, out var queue)) {
+                if (queue.Count != 0) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public T Rent<T>() where T : class {
             return this.Rent(typeof(T)) as T;
         }

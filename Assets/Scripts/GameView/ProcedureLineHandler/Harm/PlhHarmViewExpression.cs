@@ -1,17 +1,19 @@
 ﻿namespace Hsenl.View {
-    [ProcedureLineHandlerPriority(PliDamageArbitramentPriority.ViewExpression)]
-    public class PlhHarmViewExpression : AProcedureLineHandler<PliDamageArbitramentForm> {
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliDamageArbitramentForm item) {
+    [ProcedureLineHandlerPriority(PliHarmPriority.ViewExpression)]
+    public class PlhHarmViewExpression : AProcedureLineHandler<PliHarmForm> {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHarmForm item) {
             if (item.source is Ability ability) {
-                var sound = item.hurt.GetComponent<Sound>();
-                if (sound != null) {
+                var sound = item.harmable.GetComponent<Sound>();
+                if (sound != null && item.hitsound != null) {
                     var clip = AppearanceSystem.LoadSoundClip(item.hitsound);
                     if (clip != null) {
                         sound.Play(clip);
                     }
                 }
 
-                FxManager.Instance.Play(item.hitfx, item.hurt.transform.Position);
+                if (item.hitfx != null) {
+                    FxManager.Instance.Play(item.hitfx, item.hurtable.transform.Position);
+                }
             }
 
             return ProcedureLineHandleResult.Success;

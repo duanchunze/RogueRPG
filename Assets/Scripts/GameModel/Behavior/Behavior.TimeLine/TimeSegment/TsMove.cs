@@ -1,8 +1,5 @@
 ﻿using System;
 using MemoryPack;
-using Unity.Mathematics;
-using UnityEngine;
-using UnityEngine.AI;
 
 namespace Hsenl {
     [Serializable]
@@ -15,7 +12,7 @@ namespace Hsenl {
         protected override void OnReset() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._moveTarget = ability.AttachedBodied.transform;
+                    this._moveTarget = ability.MainBodied.transform;
                     this._controlTrigger = ability.GetComponent<ControlTrigger>();
                     this._numerator = this._moveTarget.GetComponent<Numerator>();
                     break;
@@ -38,8 +35,8 @@ namespace Hsenl {
             if (this.info.MoveModel == 0) {
                 // 按照方向去移动, 这种方式需要持续的指定移动方向, 否则就不会移动
                 if (this._controlTrigger.GetValue(out var float3)) {
-                    var dir3d = new float3(float3.x, 0, float3.z);
-                    this._moveTarget.MoveToPoint(this._moveTarget.Position + (Vector3)dir3d);
+                    var dir3d = new Vector3(float3.x, 0, float3.z);
+                    this._moveTarget.MoveToPoint(this._moveTarget.Position + dir3d);
                     this._moveTarget.LookAtLerp(float3, TimeInfo.DeltaTime * 25f);
                 }
             }

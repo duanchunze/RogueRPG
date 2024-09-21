@@ -54,7 +54,6 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HybridCLR\HybridCLRCompileEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\BuildEditor\BundleLabelEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\InspectorEditor\AbilityEditorInspector.cs" />
-    <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\ProcedureLineHandlerScriptsGen\ProcedureLineHandlerScriptsGen.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\LubanGenEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\GenUtils.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\Guide\GuideEditorWindow.cs" />
@@ -66,6 +65,7 @@
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\Helper\ShellHelper.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\ECSScriptsCreatorEditor\ECSScriptsCreatorEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\Helper\EditorResHelper.cs" />
+    <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\ProcedureLineHandlerScriptsGen\ProcedureLineScriptsGen.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LockingLaunchSceneEditor\LockingLaunchSceneEditor.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\IHsenlScriptsGenerateScheme.cs" />
     <Compile Include="Assets\Plugins\HsenlFramework\Editor\LubanEditor\Defines\NamingConvertion.cs" />
@@ -87,6 +87,7 @@
     <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\MonoComponentScriptsGen\Hsenl2MonoComponentTemplate.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\ECSScriptsCreatorEditor\ScriptTemplates\EcsAuthoringTemplate.cs.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\ECSScriptsCreatorEditor\ScriptTemplates\EcsSystemTemplate.cs.txt" />
+    <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\ProcedureLineHandlerScriptsGen\ProcedureLineHandlerTemplate.txt" />
     <None Include="Assets\Plugins\HsenlFramework\Editor\HsenlScriptsGeneratorEditor\ProcedureLineHandlerScriptsGen\ProcedureLineItemPriorityTemplate.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

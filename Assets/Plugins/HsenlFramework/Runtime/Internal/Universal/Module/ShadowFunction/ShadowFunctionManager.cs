@@ -77,7 +77,7 @@ namespace Hsenl {
             return this._dictionary.TryGetValue(hashcode, out dels!);
         }
 
-        [OnEventSystemInitialized, OnEventSystemChanged]
+        [OnEventSystemInitialized, OnEventSystemReload]
         private static void RegisterShadowFunctions() {
             if (!SingletonManager.IsDisposed<ShadowFunctionManager>()) {
                 SingletonManager.Unregister<ShadowFunctionManager>();

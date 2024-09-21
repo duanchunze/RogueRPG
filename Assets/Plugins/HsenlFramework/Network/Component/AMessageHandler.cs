@@ -1,5 +1,4 @@
 ﻿using System;
-using MemoryPack;
 
 namespace Hsenl.Network {
     [MessageHandler]
@@ -7,7 +6,7 @@ namespace Hsenl.Network {
         public Type MessageType => typeof(T);
 
         void IMessageHandler.Handler(Span<byte> message, Network network, long channelId) {
-            var t = MemoryPackSerializer.Deserialize<T>(message);
+            var t = SerializeHelper.DeserializeOfMemoryPack<T>(message);
             this.Handle(t, network, channelId);
         }
 
@@ -21,7 +20,7 @@ namespace Hsenl.Network {
         public Type ResponseType => typeof(TResponse);
 
         void IMessageHandler.Handler(Span<byte> message, Network network, long channelId) {
-            var request = MemoryPackSerializer.Deserialize<TRequest>(message);
+            var request = SerializeHelper.DeserializeOfMemoryPack<TRequest>(message);
             var response = this.Handle(request, channelId);
             network.SendWithRpcId(response, request.RpcId, channelId);
         }
@@ -36,7 +35,7 @@ namespace Hsenl.Network {
         public Type ResponseType => typeof(TResponse);
 
         void IMessageHandler.Handler(Span<byte> message, Network network, long channelId) {
-            var request = MemoryPackSerializer.Deserialize<TRequest>(message);
+            var request = SerializeHelper.DeserializeOfMemoryPack<TRequest>(message);
             this.Run(request, network, channelId);
         }
 

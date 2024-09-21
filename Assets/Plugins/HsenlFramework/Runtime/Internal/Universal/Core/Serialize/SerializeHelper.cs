@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System;
+using System.Buffers;
 using MemoryPack;
-#if UNITY_EDITOR
 using Sirenix.Serialization;
-#endif
+#pragma warning disable CS8632 // 只能在 "#nullable" 注释上下文内的代码中使用可为 null 的引用类型的注释。
 
 namespace Hsenl {
     /*
@@ -17,7 +17,7 @@ namespace Hsenl {
      * 微软自带的BinaryFormatter序列化 - 330ms
      * 反射 - 36ms
      * unity Instantiate - 8.9ms (unity的测试时, 不仅要序列化, 背后大概还有一系列的操作, 哪怕这种情况下, 依然秒杀 odin 等序列化)
-     * 
+     *
      * 总结
      * 除了自己手动赋值以外, 最快的就是unity的序列化, 而且是非常快
      * odin 和 protobuf差不多, odin 稍微快一点
@@ -44,7 +44,6 @@ namespace Hsenl {
 
         // odin - 实际测试下来, odin的速度要比 protobuf dotnet 版的速度要快一点点
         // odin在反序列化时, 不会变量的默认值赋值, 比如 private int a = 1; 反序列化后的新实例, a 依然是默认值 0, 这点很操蛋
-#if UNITY_EDITOR
         public static byte[] SerializeOfOdin(object message) {
             return SerializationUtility.SerializeValue(message, DataFormat.Binary);
         }
@@ -60,19 +59,22 @@ namespace Hsenl {
         public static T DeserializeOfOdin<T>(Stream stream) {
             return SerializationUtility.DeserializeValue<T>(stream, DataFormat.Binary);
         }
-#endif
 
         // 这个采用了源码生成技术, 速度比odin还要快, 在预热之后(第一次执行之后), 更是快出8倍左右. 但使用起来比较麻烦
-        public static byte[] SerializeOfMemoryPack(in Object message) {
-            return MemoryPackSerializer.Serialize(in message);
+        public static void SerializeOfMemoryPack<T>(in IBufferWriter<byte> bufferWriter, in T? value, MemoryPackSerializerOptions? options = default) {
+            MemoryPackSerializer.Serialize(bufferWriter, value, options);
         }
 
-        public static byte[] SerializeOfMemoryPack<T>(T message) {
-            return MemoryPackSerializer.Serialize(message);
+        public static byte[] SerializeOfMemoryPack<T>(in T? value, MemoryPackSerializerOptions? options = default) {
+            return MemoryPackSerializer.Serialize(value, options);
         }
-        
-        public static T DeserializeOfMemoryPack<T>(byte[] bytes) {
-            return MemoryPackSerializer.Deserialize<T>(bytes);
+
+        public static T? DeserializeOfMemoryPack<T>(ReadOnlySpan<byte> buffer, MemoryPackSerializerOptions? options = default) {
+            return MemoryPackSerializer.Deserialize<T>(buffer, options);
+        }
+
+        public static int Deserialize<T>(ReadOnlySpan<byte> buffer, ref T? value, MemoryPackSerializerOptions? options = default) {
+            return MemoryPackSerializer.Deserialize(buffer, ref value, options);
         }
 
         /* 关于MemoryPack
@@ -86,29 +88,29 @@ namespace Hsenl {
          *      public int ReadOnlyPublicProperty { get; }
          *      public int InitProperty { get; init; }
          *      public required int RequiredInitProperty { get; init; }
-         *      
+         *
          *      // 以下默认不序列化
          *      int privateProperty { get; set; }
          *      int privateField;
          *      readonly int privateReadOnlyField;
          *      internal int internalField
-         * 
+         *
          * 如果成员不是默认支持的类型, 则需要给目标类型也打上[MemoryPackable], 如果不方便添加特性, 可以给成员变量加上[MemoryPackAllowSerialize]以静默报错诊断
-         * 
+         *
          * 成员顺序很重要，MemoryPack 不会序列化成员名称或其他信息，而是按照声明的顺序序列化字段。如果类型是继承的，则按照父→子的顺序进行序列化。反序列化时成员的顺序不能改变
-         * 
+         *
          * MemoryPack可以通过构造函数来进行序列化, 所以在有多个构造函数的时候, 需要使用[MemoryPackConstructor]来特别指定使用那个构造函数
          *
          * 事件回调
          *
          * 如果我们的类是一个集合类型的类, 比如 public partial class MyList<T> : List<T>, 我们也需要[MemoryPackable(GenerateType.Collection)]来特别指定, 因为默认使用的GenerateType.Object, 用在一般类上
-         *  
+         *
          * interface 和 abstract 可以使用[MemoryPackUnion]来支持多态序列化
-         * 
-         * 
-         * 
-         * 
-         * 
+         *
+         *
+         *
+         *
+         *
          */
     }
 }

@@ -5,7 +5,7 @@ namespace Hsenl {
     public class GizmosDebug : MonoBehaviour {
         public static GizmosDebug Instance { get; private set; }
 
-        public List<Vector3> Path;
+        public List<UnityEngine.Vector3> Path;
 
         private void Awake() {
             Instance = this;

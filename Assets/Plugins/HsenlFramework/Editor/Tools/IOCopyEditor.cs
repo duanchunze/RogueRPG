@@ -85,7 +85,7 @@ namespace Hsenl {
                     Directory.CreateDirectory(dstDir);
 
                     // 开始拷贝
-                    FileHelper.CopyDirectory(copyInfo._srcDir, dstDir);
+                    IOHelper.CopyDirectory(copyInfo._srcDir, dstDir);
 
                     Debug.Log($"Copy Dir Succ: {dstDir}");
                 }

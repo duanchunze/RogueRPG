@@ -10,7 +10,7 @@ namespace Hsenl {
         protected override void OnEnable() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._numerator = ability.AttachedBodied.GetComponent<Numerator>();        
+                    this._numerator = ability.MainBodied.GetComponent<Numerator>();        
                     break;
                 }
             }

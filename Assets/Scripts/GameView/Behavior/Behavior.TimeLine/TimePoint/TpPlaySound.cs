@@ -6,7 +6,7 @@ namespace Hsenl.View {
     [MemoryPackable()]
     public partial class TpPlaySound : TpInfo<timeline.PlaySoundInfo> {
         protected override void OnTimePointTrigger() {
-            var sound = this.manager.Bodied.AttachedBodied.GetComponent<Sound>();
+            var sound = this.manager.Bodied.MainBodied.GetComponent<Sound>();
             sound?.Play(this.info.ClipName);
         }
     }

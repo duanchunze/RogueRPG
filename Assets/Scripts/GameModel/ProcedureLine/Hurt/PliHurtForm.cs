@@ -8,6 +8,7 @@
 
         public bool iseva; // 是否闪避
         public bool isblk; // 是否格挡
+        public bool sneakAtk; // 偷袭
         public bool backhit; // 背后攻击
         public bool ispcrit; // 是否物暴
         public float fluctuate; // 波动比例

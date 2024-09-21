@@ -10,7 +10,7 @@ namespace Hsenl.Network {
         private KcpChannel _channel;
         private EndPoint _remoteEndPoint;
 
-        private readonly PackageBuffer _recvBuffer = new();
+        private readonly HBuffer _recvBuffer = new();
         private readonly byte[] _sendToCache = new byte[12];
         private HTask<int> _connectTask;
         private readonly ArrayPool<byte> _kcpArrayPool = ArrayPool<byte>.Create(2048, 100);
@@ -257,9 +257,9 @@ namespace Hsenl.Network {
                 }
 
                 var currentTime = TimeInfo.CurrentUtcMilliseconds;
-                this._channel.Update(currentTime);
+                this._channel?.Update(currentTime);
 
-                Thread.Sleep(0);
+                Thread.Sleep(5);
             }
         }
 

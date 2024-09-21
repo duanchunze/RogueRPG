@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.Mathematics;
 using Random = System.Random;
 
 namespace Hsenl {
@@ -11,7 +12,9 @@ namespace Hsenl {
 
         private static int[] _cumulativeWeights = Array.Empty<int>(); // 用于权重随机数
 
-        public static Unity.Mathematics.Random mtRandom = Unity.Mathematics.Random.CreateFromIndex(721);
+        private static Unity.Mathematics.Random _mtRandom = Unity.Mathematics.Random.CreateFromIndex(721);
+
+        private static readonly object _locker = new();
 
         private static Random GetRandom() {
             return _random ??= new Random(Guid.NewGuid().GetHashCode());
@@ -56,8 +59,14 @@ namespace Hsenl {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float NextFloat() {
-            var a = NextInt(0, 1000000);
-            return a / 1000000f;
+            return _mtRandom.NextFloat();
+            // var a = NextInt(0, 1000000);
+            // return a / 1000000f;
+        }
+
+        public static Vector3 NextFloat3(Vector3 min, Vector3 max) {
+            var v = _mtRandom.NextFloat3(new float3(min.x, min.y, min.z), new float3(max.x, max.y, max.z));
+            return new Vector3(v.x, v.y, v.z);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -105,14 +114,16 @@ namespace Hsenl {
                 throw new ArgumentException("every value must has it weight.");
             }
 
-            CalculateCumulativeWeights(weights);
+            lock (_locker) {
+                CalculateCumulativeWeights(weights);
 
-            var totalWeight = _cumulativeWeights[len - 1];
-            var randNum = mtRandom.NextInt(totalWeight);
+                var totalWeight = _cumulativeWeights[len - 1];
+                var randNum = _mtRandom.NextInt(totalWeight);
 
-            var index = GetIndexOfCumulativeWeight(randNum, len);
+                var index = GetIndexOfCumulativeWeight(randNum, len);
 
-            return min + index;
+                return min + index;
+            }
         }
 
         /// <summary>
@@ -139,28 +150,87 @@ namespace Hsenl {
                 maxEach = count;
             }
 
-            using var list = ListComponent<T>.Create();
+            if (len * maxEach < count) {
+                // 比如从5个元素里, 抽6个, 假如每个元素的最大抽取数为1, 则永远抽不够6个出来, 但如果最大抽取数为2, 那么5个元素每个都可能有两次机会, 总数就是10个, 那么就
+                // 有可能抽出6个出来.
+                throw new ArgumentException("Theoretically, you can't extract enough elements");
+            }
+
+            using var list = ListComponent<T>.Rent();
             var weightsCopy = stackalloc int[len];
             for (var i = 0; i < len; i++) {
                 weightsCopy[i] = weights[i];
             }
 
-            while (list.Count < count) {
-                CalculateCumulativeWeights(weightsCopy, len);
-                var totalWeight = _cumulativeWeights[len - 1];
+            lock (_locker) {
+                while (list.Count < count) {
+                    CalculateCumulativeWeights(weightsCopy, len);
+                    var totalWeight = _cumulativeWeights[len - 1];
 
-                for (var i = 0; i < maxEach; i++) {
-                    var randNum = mtRandom.NextInt(totalWeight);
-                    var index = GetIndexOfCumulativeWeight(randNum, len);
-                    list.Add(array[index]);
-                    if (list.Count == count)
-                        break;
+                    for (var i = 0; i < maxEach; i++) {
+                        var randNum = _mtRandom.NextInt(totalWeight);
+                        var index = GetIndexOfCumulativeWeight(randNum, len);
+                        list.Add(array[index]);
+                        if (list.Count == count)
+                            break;
 
-                    weightsCopy[index] = 0;
+                        weightsCopy[index] = 0;
+                    }
                 }
+
+                return list.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// 从一个数组里, 随机跳出若干个元素, 且可以使用权重对结果进行干扰 (默认所有元素的权重都为1)
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="count"></param>
+        /// <param name="maxEach"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static unsafe T[] RandomArrayOfWeight<T>(IList<T> array, int count, int maxEach = -1) {
+            var len = array.Count;
+            if (maxEach > count) {
+                throw new ArgumentException("count cant less of maxEach");
             }
 
-            return list.ToArray();
+            if (maxEach < 1) {
+                maxEach = count;
+            }
+
+            if (len * maxEach < count) {
+                // 比如从5个元素里, 抽6个, 假如每个元素的最大抽取数为1, 则永远抽不够6个出来, 但如果最大抽取数为2, 那么5个元素每个都可能有两次机会, 总数就是10个, 那么就
+                // 有可能抽出6个出来.
+                throw new ArgumentException("Theoretically, you can't extract enough elements");
+            }
+
+            using var list = ListComponent<T>.Rent();
+            var weightsCopy = stackalloc int[len];
+            for (var i = 0; i < len; i++) {
+                weightsCopy[i] = 1;
+            }
+
+            lock (_locker) {
+                while (list.Count < count) {
+                    CalculateCumulativeWeights(weightsCopy, len);
+                    var totalWeight = _cumulativeWeights[len - 1];
+
+                    for (var i = 0; i < maxEach; i++) {
+                        var randNum = _mtRandom.NextInt(totalWeight);
+                        var index = GetIndexOfCumulativeWeight(randNum, len);
+                        list.Add(array[index]);
+                        if (list.Count == count)
+                            break;
+
+                        weightsCopy[index] = 0;
+                    }
+                }
+
+                return list.ToArray();
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -215,7 +285,9 @@ namespace Hsenl {
         }
 
         public static void ClearCache() {
-            _cumulativeWeights = Array.Empty<int>();
+            lock (_locker) {
+                _cumulativeWeights = Array.Empty<int>();
+            }
         }
     }
 

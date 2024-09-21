@@ -16,15 +16,13 @@ public sealed partial class Tables
 {
     public card.TbCardSingletonConfig TbCardSingletonConfig {get; }
     public game.TbGameSingletonConfig TbGameSingletonConfig {get; }
+    public synthesis.TbSynthesisConfig TbSynthesisConfig {get; }
     public faction.TbFactionConfig TbFactionConfig {get; }
     public actor.TbActorConfig TbActorConfig {get; }
-    public card.TbCardConfig TbCardConfig {get; }
-    public card.TbCardSynthesisConfig TbCardSynthesisConfig {get; }
     public pickable.TbPickableConfig TbPickableConfig {get; }
     public ability.TbAbilityConfig TbAbilityConfig {get; }
     public ability.TbAbilityPatchConfig TbAbilityPatchConfig {get; }
     public ability.TbAbilityTraitConfig TbAbilityTraitConfig {get; }
-    public ability_upgrade.TbAbilityUpgradeConfig TbAbilityUpgradeConfig {get; }
     public ability_assist.TbAbilityAssistConfig TbAbilityAssistConfig {get; }
     public status.TbStatusConfig TbStatusConfig {get; }
     public numeric.TbNumericActorConfig TbNumericActorConfig {get; }
@@ -34,6 +32,7 @@ public sealed partial class Tables
     public bolt.TbBoltConfig TbBoltConfig {get; }
     public localization.TbLocalizationConfig TbLocalizationConfig {get; }
     public localization.TbLocalizationAbilityConfig TbLocalizationAbilityConfig {get; }
+    public localization.TbLocalizationAbilityPatchConfig TbLocalizationAbilityPatchConfig {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
@@ -42,14 +41,12 @@ public sealed partial class Tables
         tables.Add("card.TbCardSingletonConfig", TbCardSingletonConfig);
         TbGameSingletonConfig = new game.TbGameSingletonConfig(loader("game_tbgamesingletonconfig")); 
         tables.Add("game.TbGameSingletonConfig", TbGameSingletonConfig);
+        TbSynthesisConfig = new synthesis.TbSynthesisConfig(loader("synthesis_tbsynthesisconfig")); 
+        tables.Add("synthesis.TbSynthesisConfig", TbSynthesisConfig);
         TbFactionConfig = new faction.TbFactionConfig(loader("faction_tbfactionconfig")); 
         tables.Add("faction.TbFactionConfig", TbFactionConfig);
         TbActorConfig = new actor.TbActorConfig(loader("actor_tbactorconfig")); 
         tables.Add("actor.TbActorConfig", TbActorConfig);
-        TbCardConfig = new card.TbCardConfig(loader("card_tbcardconfig")); 
-        tables.Add("card.TbCardConfig", TbCardConfig);
-        TbCardSynthesisConfig = new card.TbCardSynthesisConfig(loader("card_tbcardsynthesisconfig")); 
-        tables.Add("card.TbCardSynthesisConfig", TbCardSynthesisConfig);
         TbPickableConfig = new pickable.TbPickableConfig(loader("pickable_tbpickableconfig")); 
         tables.Add("pickable.TbPickableConfig", TbPickableConfig);
         TbAbilityConfig = new ability.TbAbilityConfig(loader("ability_tbabilityconfig")); 
@@ -58,8 +55,6 @@ public sealed partial class Tables
         tables.Add("ability.TbAbilityPatchConfig", TbAbilityPatchConfig);
         TbAbilityTraitConfig = new ability.TbAbilityTraitConfig(loader("ability_tbabilitytraitconfig")); 
         tables.Add("ability.TbAbilityTraitConfig", TbAbilityTraitConfig);
-        TbAbilityUpgradeConfig = new ability_upgrade.TbAbilityUpgradeConfig(loader("ability_upgrade_tbabilityupgradeconfig")); 
-        tables.Add("ability_upgrade.TbAbilityUpgradeConfig", TbAbilityUpgradeConfig);
         TbAbilityAssistConfig = new ability_assist.TbAbilityAssistConfig(loader("ability_assist_tbabilityassistconfig")); 
         tables.Add("ability_assist.TbAbilityAssistConfig", TbAbilityAssistConfig);
         TbStatusConfig = new status.TbStatusConfig(loader("status_tbstatusconfig")); 
@@ -78,19 +73,19 @@ public sealed partial class Tables
         tables.Add("localization.TbLocalizationConfig", TbLocalizationConfig);
         TbLocalizationAbilityConfig = new localization.TbLocalizationAbilityConfig(loader("localization_tblocalizationabilityconfig")); 
         tables.Add("localization.TbLocalizationAbilityConfig", TbLocalizationAbilityConfig);
+        TbLocalizationAbilityPatchConfig = new localization.TbLocalizationAbilityPatchConfig(loader("localization_tblocalizationabilitypatchconfig")); 
+        tables.Add("localization.TbLocalizationAbilityPatchConfig", TbLocalizationAbilityPatchConfig);
         PostInit();
 
         TbCardSingletonConfig.Resolve(tables); 
         TbGameSingletonConfig.Resolve(tables); 
+        TbSynthesisConfig.Resolve(tables); 
         TbFactionConfig.Resolve(tables); 
         TbActorConfig.Resolve(tables); 
-        TbCardConfig.Resolve(tables); 
-        TbCardSynthesisConfig.Resolve(tables); 
         TbPickableConfig.Resolve(tables); 
         TbAbilityConfig.Resolve(tables); 
         TbAbilityPatchConfig.Resolve(tables); 
         TbAbilityTraitConfig.Resolve(tables); 
-        TbAbilityUpgradeConfig.Resolve(tables); 
         TbAbilityAssistConfig.Resolve(tables); 
         TbStatusConfig.Resolve(tables); 
         TbNumericActorConfig.Resolve(tables); 
@@ -100,6 +95,7 @@ public sealed partial class Tables
         TbBoltConfig.Resolve(tables); 
         TbLocalizationConfig.Resolve(tables); 
         TbLocalizationAbilityConfig.Resolve(tables); 
+        TbLocalizationAbilityPatchConfig.Resolve(tables); 
         PostResolve();
     }
 
@@ -107,15 +103,13 @@ public sealed partial class Tables
     {
         TbCardSingletonConfig.TranslateText(translator); 
         TbGameSingletonConfig.TranslateText(translator); 
+        TbSynthesisConfig.TranslateText(translator); 
         TbFactionConfig.TranslateText(translator); 
         TbActorConfig.TranslateText(translator); 
-        TbCardConfig.TranslateText(translator); 
-        TbCardSynthesisConfig.TranslateText(translator); 
         TbPickableConfig.TranslateText(translator); 
         TbAbilityConfig.TranslateText(translator); 
         TbAbilityPatchConfig.TranslateText(translator); 
         TbAbilityTraitConfig.TranslateText(translator); 
-        TbAbilityUpgradeConfig.TranslateText(translator); 
         TbAbilityAssistConfig.TranslateText(translator); 
         TbStatusConfig.TranslateText(translator); 
         TbNumericActorConfig.TranslateText(translator); 
@@ -125,6 +119,7 @@ public sealed partial class Tables
         TbBoltConfig.TranslateText(translator); 
         TbLocalizationConfig.TranslateText(translator); 
         TbLocalizationAbilityConfig.TranslateText(translator); 
+        TbLocalizationAbilityPatchConfig.TranslateText(translator); 
     }
     
     partial void PostInit();

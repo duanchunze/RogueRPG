@@ -9,7 +9,7 @@ public class MonoComponentScriptsGen : HsenlScriptsGeneratorEditor {
 
     [MenuItem("Hsenl/ScriptsGenerator/清空并生成Hsenl组件的Mono版")]
     private static void Generate() {
-        FileHelper.CleanDirectory(_outputDir);
+        IOHelper.CleanDirectory(_outputDir);
         new MonoComponentScriptsGen().ScriptsGenerate();
     }
 

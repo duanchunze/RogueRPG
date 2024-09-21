@@ -119,7 +119,7 @@ namespace Hsenl {
             /// <param name="position"></param>
             /// <param name="target"></param>
             /// <returns></returns>
-            public static bool IsHaveTarget(Vector2 position, GameObject target) {
+            public static bool IsHaveTarget(UnityEngine.Vector2 position, GameObject target) {
                 PointerEventData eventDataCurrentPosition = new(UnityEngine.EventSystems.EventSystem.current) {
                     position = position
                 };
@@ -160,7 +160,7 @@ namespace Hsenl {
                 return GetComponentInPoint<T>(Input.mousePosition);
             }
 
-            public static T GetComponentInPoint<T>(Vector2 position) {
+            public static T GetComponentInPoint<T>(UnityEngine.Vector2 position) {
                 PointerEventData eventDataCurrentPosition = new(UnityEngine.EventSystems.EventSystem.current) {
                     position = position
                 };
@@ -213,7 +213,7 @@ namespace Hsenl {
                 }
             }
 
-            public static bool WorldToUIPosition(RectTransform rect, Vector3 worldPos, out Vector3 uiWorldPos, Camera uiCamera, Camera worldCamera = null) {
+            public static bool WorldToUIPosition(RectTransform rect, UnityEngine.Vector3 worldPos, out UnityEngine.Vector3 uiWorldPos, Camera uiCamera, Camera worldCamera = null) {
                 if (worldCamera == null) worldCamera = Camera.main;
 
                 // 世界坐标在主相机中的位置
@@ -222,7 +222,7 @@ namespace Hsenl {
                 return RectTransformUtility.ScreenPointToWorldPointInRectangle(rect, screenPoint, uiCamera, out uiWorldPos);
             }
 
-            public static bool WorldToUILocalPosition(RectTransform rect, Vector3 worldPos, out Vector2 uiLocalPos, Camera uiCamera,
+            public static bool WorldToUILocalPosition(RectTransform rect, UnityEngine.Vector3 worldPos, out UnityEngine.Vector2 uiLocalPos, Camera uiCamera,
                 Camera worldCamera = null) {
                 if (worldCamera == null) worldCamera = Camera.main;
 
@@ -257,9 +257,9 @@ namespace Hsenl {
             /// <param name="offsetDirection">xyz三个轴的值分别表示在各个轴的偏移量</param>
             /// <param name="tra">目标Transform</param>
             /// <returns></returns>
-            public static Vector3 GetOffsetOfTransform(Vector3 offsetDirection, UnityEngine.Transform tra) {
+            public static UnityEngine.Vector3 GetOffsetOfTransform(UnityEngine.Vector3 offsetDirection, UnityEngine.Transform tra) {
                 var localDirection =
-                    Quaternion.Euler(offsetDirection) * Vector3.forward; // 相对于前方 旋转 offsetDirection，得到的是一个 local 的方向
+                    UnityEngine.Quaternion.Euler(offsetDirection) * UnityEngine.Vector3.forward; // 相对于前方 旋转 offsetDirection，得到的是一个 local 的方向
                 var worldDirection = tra.TransformDirection(localDirection);
                 return worldDirection;
             }
@@ -277,7 +277,7 @@ namespace Hsenl {
                 var pos1 = position;
                 var pos2 = target.position;
                 pos2.y = position.y;
-                return Vector3.Angle(trans.forward, pos2 - pos1) < viewAngle / 2;
+                return UnityEngine.Vector3.Angle(trans.forward, pos2 - pos1) < viewAngle / 2;
             }
 
             /// <summary>
@@ -286,9 +286,9 @@ namespace Hsenl {
             /// <param name="a"></param>
             /// <param name="b"></param>
             /// <returns></returns>
-            public static float Angle(Vector3 a, Vector3 b) {
-                var c = Vector3.Cross(a, b);
-                var angle = Vector3.Angle(a, b);
+            public static float Angle(UnityEngine.Vector3 a, UnityEngine.Vector3 b) {
+                var c = UnityEngine.Vector3.Cross(a, b);
+                var angle = UnityEngine.Vector3.Angle(a, b);
 
                 return angle * Mathf.Sign(c.y);
             }
@@ -299,9 +299,9 @@ namespace Hsenl {
             /// <param name="a"></param>
             /// <param name="b"></param>
             /// <returns></returns>
-            public static float Angle(Vector2 a, Vector2 b) {
-                var c = Vector3.Cross(a, b);
-                var angle = Vector2.Angle(a, b);
+            public static float Angle(UnityEngine.Vector2 a, UnityEngine.Vector2 b) {
+                var c = UnityEngine.Vector3.Cross(a, b);
+                var angle = UnityEngine.Vector2.Angle(a, b);
 
                 return angle * Mathf.Sign(-c.z);
             }
@@ -311,35 +311,35 @@ namespace Hsenl {
             /// </summary>
             /// <param name="direction"></param>
             /// <returns></returns>
-            public static Vector2 GetRoundDirection(Vector2 direction) {
+            public static UnityEngine.Vector2 GetRoundDirection(UnityEngine.Vector2 direction) {
                 var x = direction.x;
                 var y = direction.y;
                 var consult = Mathf.Abs(x) - Mathf.Abs(y);
 
-                if (x == 0 && y == 0) return Vector2.zero;
+                if (x == 0 && y == 0) return UnityEngine.Vector2.zero;
 
                 if (consult > 0) {
                     // 不是左就是右
-                    if (x < 0) return Vector2.left;
-                    if (x > 0) return Vector2.right;
+                    if (x < 0) return UnityEngine.Vector2.left;
+                    if (x > 0) return UnityEngine.Vector2.right;
                 }
                 else if (consult < 0) {
                     // 不是上就是下
-                    if (y < 0) return Vector2.down;
-                    if (y > 0) return Vector2.up;
+                    if (y < 0) return UnityEngine.Vector2.down;
+                    if (y > 0) return UnityEngine.Vector2.up;
                 }
                 else {
                     if (x > 0 && y > 0)
-                        return Vector2.right;
+                        return UnityEngine.Vector2.right;
                     else if (x > 0 && y < 0)
-                        return Vector2.down;
+                        return UnityEngine.Vector2.down;
                     else if (x < 0 && y > 0)
-                        return Vector2.up;
+                        return UnityEngine.Vector2.up;
                     else
-                        return Vector2.left;
+                        return UnityEngine.Vector2.left;
                 }
 
-                return Vector2.zero;
+                return UnityEngine.Vector2.zero;
             }
 
             /// <summary>
@@ -347,7 +347,7 @@ namespace Hsenl {
             /// </summary>
             /// <param name="direction"></param>
             /// <returns></returns>
-            public static Vector3Int GetQuadrant(Vector3 direction) {
+            public static Vector3Int GetQuadrant(UnityEngine.Vector3 direction) {
                 int x;
                 int y;
                 int z;
@@ -381,7 +381,7 @@ namespace Hsenl {
             /// </summary>
             /// <param name="pos"></param>
             /// <returns></returns>
-            public static bool IsWorld3DPosInScreen(Vector3 pos) {
+            public static bool IsWorld3DPosInScreen(UnityEngine.Vector3 pos) {
                 var cam3d = Camera.main;
                 if (null == cam3d) return false;
 
@@ -397,13 +397,13 @@ namespace Hsenl {
             /// <param name="v1"></param>
             /// <param name="v2"></param>
             /// <returns></returns>
-            public static float SimpleDistance(Vector3 v1, Vector3 v2) {
+            public static float SimpleDistance(UnityEngine.Vector3 v1, UnityEngine.Vector3 v2) {
                 return Mathf.Abs(v1.x - v2.x) + Mathf.Abs(v1.y - v2.y) + Mathf.Abs(v1.z - v2.z);
             }
 
-            public static float Vector3ToAngle360(Vector3 from, Vector3 to) {
-                var angle = Vector3.Angle(from, to);
-                var cross = Vector3.Cross(from, to);
+            public static float Vector3ToAngle360(UnityEngine.Vector3 from, UnityEngine.Vector3 to) {
+                var angle = UnityEngine.Vector3.Angle(from, to);
+                var cross = UnityEngine.Vector3.Cross(from, to);
                 return cross.y > 0 ? angle : 360 - angle;
             }
 
@@ -415,12 +415,12 @@ namespace Hsenl {
             /// <param name="radius"></param>
             /// <param name="dist"></param>
             /// <returns></returns>
-            public static bool RayCastSphere(UnityEngine.Ray ray, Vector3 center, float radius, out float dist) {
+            public static bool RayCastSphere(UnityEngine.Ray ray, UnityEngine.Vector3 center, float radius, out float dist) {
                 dist = 0;
                 var ma = center - ray.origin;
-                var distance = Vector3.Cross(ma, ray.direction).magnitude / ray.direction.magnitude;
+                var distance = UnityEngine.Vector3.Cross(ma, ray.direction).magnitude / ray.direction.magnitude;
                 if (distance < radius) {
-                    var op = GGTheorem(Vector3.Distance(center, ray.origin), distance);
+                    var op = GGTheorem(UnityEngine.Vector3.Distance(center, ray.origin), distance);
                     var rp = GGTheorem(radius, distance);
                     dist = op - rp;
                     return true;

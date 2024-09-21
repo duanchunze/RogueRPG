@@ -33,5 +33,24 @@
         "patrol_range": 3
       }
     ]
+  },
+  {
+    "id": 10002,
+    "alias": "随从默认AI",
+    "nodes": [
+      {
+        "$type": "AINodeInfo",
+        "index": 0,
+        "parent_index": -1
+      },
+      {
+        "$type": "ai.MinionDefaultIntelligentAssaultInfo",
+        "parent_index": 0
+      },
+      {
+        "$type": "ai.FollowMaster",
+        "parent_index": 0
+      }
+    ]
   }
 ]

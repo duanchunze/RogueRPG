@@ -34,6 +34,8 @@ public abstract partial class AIInfo :  behavior.LeafNodeInfo
             case "PlayerAutoCasterInfo": return new ai.PlayerAutoCasterInfo(_json);
             case "PatrolInfo": return new ai.PatrolInfo(_json);
             case "IntelligentAssaultInfo": return new ai.IntelligentAssaultInfo(_json);
+            case "MinionDefaultIntelligentAssaultInfo": return new ai.MinionDefaultIntelligentAssaultInfo(_json);
+            case "FollowMaster": return new ai.FollowMaster(_json);
             default: throw new SerializationException();
         }
     }

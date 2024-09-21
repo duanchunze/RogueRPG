@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using MemoryPack;
-using Unity.Mathematics;
-using UnityEngine;
 
 namespace Hsenl {
     // 例如剑魔的平a
@@ -16,7 +14,7 @@ namespace Hsenl {
             base.OnEnable();
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._faction = this.manager.Bodied.AttachedBodied?.GetComponent<Faction>();
+                    this._faction = this.manager.Bodied.MainBodied?.GetComponent<Faction>();
                     break;
                 }
             }
@@ -40,7 +38,7 @@ namespace Hsenl {
             const int internalTime = 250; // 每次波及的间隔时间(ms)
             
             var constrainsTags = this._faction.GetTagsOfFactionTypes(factionTypes);
-            using var currentTargets = ListComponent<SelectionTarget>.Create();
+            using var currentTargets = ListComponent<SelectionTarget>.Rent();
             using var buffers = HashSetComponent<SelectionTarget>.Create();
             using var harmedTargets = HashSetComponent<SelectionTarget>.Create();
             currentTargets.Add(target);
@@ -57,10 +55,10 @@ namespace Hsenl {
                         this.Harm(hurtable, this.info.HarmFormula, damageRate);
 
                         float v = 0;
-                        var dis = math.distance(hurtable.transform.Position, target.transform.Position);
+                        var dis = Vector3.Distance(hurtable.transform.Position, target.transform.Position);
                         if (dis != 0) {
                             v = 1.8f / dis;
-                            v = math.clamp(v, 0.3f, 1f);
+                            v = Math.Clamp(v, 0.3f, 1f);
                         }
 
                         volume = (volume + v) * 0.5f;

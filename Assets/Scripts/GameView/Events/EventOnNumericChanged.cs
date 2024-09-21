@@ -33,6 +33,30 @@ namespace Hsenl.View {
                     break;
                 }
 
+                case NumericType.Exp: {
+                    if (Shortcut.IsMainMan(bodied)) {
+                        var ui = UIManager.GetSingleUI<UILvInfo>();
+                        if (ui != null) {
+                            var max = numerator.GetValue(NumericType.MaxExp);
+                            max.ToFloat();
+                            ui.UpdateSlider(arg.now / max);
+                        }
+                    }
+
+                    break;
+                }
+
+                case NumericType.LV: {
+                    if (Shortcut.IsMainMan(bodied)) {
+                        var ui = UIManager.GetSingleUI<UILvInfo>();
+                        if (ui != null) {
+                            ui.UpdateLv(arg.now);
+                        }
+                    }
+
+                    break;
+                }
+
                 case NumericType.Height: {
                     var headMessage = bodied.GetComponent<HeadInfo>();
                     if (headMessage != null) {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using MemoryPack;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
 #endif
@@ -29,42 +31,71 @@ namespace Hsenl {
      * 同样的，如果有两个装备都有该词条，那就添加两次，同样的，计算伤害时，也会被执行两次，也就是攻击后，会一共增加10%的攻速
      */
     [Serializable]
-    public class ProcedureLine : Unbodied {
+    [MemoryPackable()]
+    public partial class ProcedureLine : Unbodied {
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly, PropertySpace]
 #endif
         private readonly MultiList<Type, IProcedureLineWorker> _workerDict = new();
 
+        private readonly List<ProcedureLineNode> _attaches = new();
+
         public void AddWorker(IProcedureLineWorker worker) {
-            this._workerDict.Add(worker.GetType(), worker);
+            this.AddWorker_Internal(worker);
             worker.OnAddToProcedureLine(this);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal void AddWorker_Internal(IProcedureLineWorker worker) {
+            this._workerDict.Add(worker.GetType(), worker);
+        }
+
         public void RemoveWorker(IProcedureLineWorker worker) {
-            this._workerDict.Remove(worker.GetType(), worker);
+            this.RemoveWorker_Internal(worker);
             worker.OnRemoveFromProcedureLine(this);
         }
 
-        public void AddWorker(ProcedureLineNode node) {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal void RemoveWorker_Internal(IProcedureLineWorker worker) {
+            this._workerDict.Remove(worker.GetType(), worker);
+        }
+
+        public bool Attach(ProcedureLineNode node) {
+            if (this._attaches.Contains(node)) return false;
+            this._attaches.Add(node);
             var workers = node.Workers;
             for (int i = 0, len = workers.Count; i < len; i++) {
                 var worker = workers[i];
-                this.AddWorker(worker);
+                this.AddWorker_Internal(worker);
             }
+
+            node.LinkProcedureLine(this);
+            return true;
         }
 
-        public void RemoveWorker(ProcedureLineNode node) {
+        public bool Detach(ProcedureLineNode node) {
+            var succ = this._attaches.Remove(node);
+            if (!succ)
+                return false;
             var workers = node.Workers;
             for (int i = 0, len = workers.Count; i < len; i++) {
                 var worker = workers[i];
-                this.RemoveWorker(worker);
+                this.RemoveWorker_Internal(worker);
             }
+
+            node.UnlinkProcedureLine(this);
+            return true;
         }
 
 
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
+            foreach (var node in this._attaches) {
+                node.UnlinkProcedureLine(this);
+            }
+
             this._workerDict.Clear();
+            this._attaches.Clear();
         }
 
         /// <summary>
@@ -115,8 +146,132 @@ namespace Hsenl {
             return ProcedureLineHandleResult.Success;
         }
 
+        /// <summary>
+        /// 合并两个pl的workers, 并开启一条流水线
+        /// </summary>
+        /// <param name="other"></param>
+        /// <param name="item"></param>
+        /// <param name="throwIfNull"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public ProcedureLineHandleResult MergeStartLine<T>(ProcedureLine other, ref T item, bool throwIfNull = true) {
+            if (!_handlerDict.TryGetValue(typeof(T), out var concurrentQueue)) {
+                if (throwIfNull)
+                    throw new InvalidOperationException($"procedure line handler 'Hsen.AProcedureLineHandler`1{typeof(T)}' is not unrealized");
+
+                return ProcedureLineHandleResult.Fail;
+            }
+
+            foreach (var handlerPair in concurrentQueue) {
+                ProcedureLineHandleResult result;
+                switch (handlerPair.handler) {
+                    case IProcedureLineHandlerOfWorker<T> handler:
+                        if (this._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
+                            foreach (var worker in workers) {
+                                result = handler.Run(this, ref item, worker);
+                                if (result == ProcedureLineHandleResult.Break) {
+                                    return result;
+                                }
+                            }
+                        }
+
+                        if (other._workerDict.TryGetValue(handlerPair.workerType, out workers)) {
+                            foreach (var worker in workers) {
+                                result = handler.Run(this, ref item, worker);
+                                if (result == ProcedureLineHandleResult.Break) {
+                                    return result;
+                                }
+                            }
+                        }
+
+                        break;
+
+                    // no worker就和普通的event系统没多大区别
+                    case IProcedureLineHandlerNoWorker<T> handler:
+                        result = handler.Run(this, ref item);
+                        if (result == ProcedureLineHandleResult.Break) {
+                            return result;
+                        }
+
+                        break;
+
+                    default:
+                        throw new ArgumentException($"{handlerPair.handler} is async, but start line is sync");
+                }
+            }
+
+            return ProcedureLineHandleResult.Success;
+        }
+
+        public static ProcedureLineHandleResult MergeStartLine<T>(IList<ProcedureLine> procedureLines, ref T item, bool throwIfNull = true) {
+            if (procedureLines == null || procedureLines.Count == 0)
+                return ProcedureLineHandleResult.Fail;
+
+            var mainline = procedureLines[0];
+
+            if (!_handlerDict.TryGetValue(typeof(T), out var concurrentQueue)) {
+                if (throwIfNull)
+                    throw new InvalidOperationException($"procedure line handler 'Hsen.AProcedureLineHandler`1{typeof(T)}' is not unrealized");
+
+                return ProcedureLineHandleResult.Fail;
+            }
+
+            foreach (var handlerPair in concurrentQueue) {
+                ProcedureLineHandleResult result;
+                switch (handlerPair.handler) {
+                    case IProcedureLineHandlerOfWorker<T> handler:
+                        if (mainline._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
+                            foreach (var worker in workers) {
+                                result = handler.Run(mainline, ref item, worker);
+                                if (result == ProcedureLineHandleResult.Break) {
+                                    return result;
+                                }
+                            }
+                        }
+
+                        for (int i = 1, len = procedureLines.Count; i < len; i++) {
+                            var other = procedureLines[i];
+                            if (other._workerDict.TryGetValue(handlerPair.workerType, out workers)) {
+                                foreach (var worker in workers) {
+                                    result = handler.Run(mainline, ref item, worker);
+                                    if (result == ProcedureLineHandleResult.Break) {
+                                        return result;
+                                    }
+                                }
+                            }
+                        }
+
+                        break;
+
+                    // no worker就和普通的event系统没多大区别
+                    case IProcedureLineHandlerNoWorker<T> handler:
+                        result = handler.Run(mainline, ref item);
+                        if (result == ProcedureLineHandleResult.Break) {
+                            return result;
+                        }
+
+                        break;
+
+                    default:
+                        throw new ArgumentException($"{handlerPair.handler} is async, but start line is sync");
+                }
+            }
+
+            return ProcedureLineHandleResult.Success;
+        }
+
         public ProcedureLineHandleResult StartLine<T>(T item, bool throwIfNull = true) {
             return this.StartLine(ref item, throwIfNull);
+        }
+
+        public ProcedureLineHandleResult MergeStartLine<T>(ProcedureLine other, T item, bool throwIfNull = true) {
+            return this.MergeStartLine(other, ref item, throwIfNull);
+        }
+
+        public static ProcedureLineHandleResult MergeStartLine<T>(IList<ProcedureLine> procedureLines, T item, bool throwIfNull = true) {
+            return MergeStartLine(procedureLines, ref item, throwIfNull);
         }
 
         public async HTask<ProcedureLineHandleResult> StartLineAsync<T>(T item, bool throwIfNull = true) {
@@ -179,6 +334,173 @@ namespace Hsenl {
             return ProcedureLineHandleResult.Success;
         }
 
+        public async HTask<ProcedureLineHandleResult> MergeStartLineAsync<T>(ProcedureLine other, T item, bool throwIfNull = true) {
+            if (!_handlerDict.TryGetValue(typeof(T), out var concurrentQueue)) {
+                if (throwIfNull)
+                    throw new InvalidOperationException($"procedure line handler 'Hsen.AProcedureLineHandler`1{typeof(T)}' is not unrealized");
+
+                return ProcedureLineHandleResult.Fail;
+            }
+
+            foreach (var handlerPair in concurrentQueue) {
+                ProcedureLineHandleResult result;
+                switch (handlerPair.handler) {
+                    case IProcedureLineHandlerOfWorker<T> handler: {
+                        if (this._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
+                            foreach (var productLineWorker in workers) {
+                                result = handler.Run(this, ref item, productLineWorker);
+                                if (result == ProcedureLineHandleResult.Break) {
+                                    return result;
+                                }
+                            }
+                        }
+
+                        if (other._workerDict.TryGetValue(handlerPair.workerType, out workers)) {
+                            foreach (var productLineWorker in workers) {
+                                result = handler.Run(this, ref item, productLineWorker);
+                                if (result == ProcedureLineHandleResult.Break) {
+                                    return result;
+                                }
+                            }
+                        }
+
+                        break;
+                    }
+
+                    case IProcedureLineHandlerNoWorker<T> handler: {
+                        result = handler.Run(this, ref item);
+                        if (result == ProcedureLineHandleResult.Break) {
+                            return result;
+                        }
+
+                        break;
+                    }
+
+                    case IProcedureLineHandlerOfWorkerAsync<T> handler: {
+                        if (this._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
+                            foreach (var productLineWorker in workers) {
+                                result = await handler.Run(this, item, productLineWorker);
+                                if (result == ProcedureLineHandleResult.Break) {
+                                    return result;
+                                }
+                            }
+                        }
+
+                        if (other._workerDict.TryGetValue(handlerPair.workerType, out workers)) {
+                            foreach (var productLineWorker in workers) {
+                                result = await handler.Run(this, item, productLineWorker);
+                                if (result == ProcedureLineHandleResult.Break) {
+                                    return result;
+                                }
+                            }
+                        }
+
+                        break;
+                    }
+
+                    case IProcedureLineHandlerNoWorkerAsync<T> handler: {
+                        result = await handler.Run(this, item);
+                        if (result == ProcedureLineHandleResult.Break) {
+                            return result;
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            return ProcedureLineHandleResult.Success;
+        }
+
+        public static async HTask<ProcedureLineHandleResult> MergeStartLineAsync<T>(IList<ProcedureLine> procedureLines, T item, bool throwIfNull = true) {
+            if (procedureLines == null || procedureLines.Count == 0)
+                return ProcedureLineHandleResult.Fail;
+
+            var mainline = procedureLines[0];
+
+            if (!_handlerDict.TryGetValue(typeof(T), out var concurrentQueue)) {
+                if (throwIfNull)
+                    throw new InvalidOperationException($"procedure line handler 'Hsen.AProcedureLineHandler`1{typeof(T)}' is not unrealized");
+
+                return ProcedureLineHandleResult.Fail;
+            }
+
+            foreach (var handlerPair in concurrentQueue) {
+                ProcedureLineHandleResult result;
+                switch (handlerPair.handler) {
+                    case IProcedureLineHandlerOfWorker<T> handler: {
+                        if (mainline._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
+                            foreach (var productLineWorker in workers) {
+                                result = handler.Run(mainline, ref item, productLineWorker);
+                                if (result == ProcedureLineHandleResult.Break) {
+                                    return result;
+                                }
+                            }
+                        }
+
+                        for (int i = 1, len = procedureLines.Count; i < len; i++) {
+                            var other = procedureLines[i];
+                            if (other._workerDict.TryGetValue(handlerPair.workerType, out workers)) {
+                                foreach (var productLineWorker in workers) {
+                                    result = handler.Run(mainline, ref item, productLineWorker);
+                                    if (result == ProcedureLineHandleResult.Break) {
+                                        return result;
+                                    }
+                                }
+                            }
+                        }
+
+                        break;
+                    }
+
+                    case IProcedureLineHandlerNoWorker<T> handler: {
+                        result = handler.Run(mainline, ref item);
+                        if (result == ProcedureLineHandleResult.Break) {
+                            return result;
+                        }
+
+                        break;
+                    }
+
+                    case IProcedureLineHandlerOfWorkerAsync<T> handler: {
+                        if (mainline._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
+                            foreach (var productLineWorker in workers) {
+                                result = await handler.Run(mainline, item, productLineWorker);
+                                if (result == ProcedureLineHandleResult.Break) {
+                                    return result;
+                                }
+                            }
+                        }
+
+                        for (int i = 1, len = procedureLines.Count; i < len; i++) {
+                            var other = procedureLines[i];
+                            if (other._workerDict.TryGetValue(handlerPair.workerType, out workers)) {
+                                foreach (var productLineWorker in workers) {
+                                    result = await handler.Run(mainline, item, productLineWorker);
+                                    if (result == ProcedureLineHandleResult.Break) {
+                                        return result;
+                                    }
+                                }
+                            }
+                        }
+
+                        break;
+                    }
+
+                    case IProcedureLineHandlerNoWorkerAsync<T> handler: {
+                        result = await handler.Run(mainline, item);
+                        if (result == ProcedureLineHandleResult.Break) {
+                            return result;
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            return ProcedureLineHandleResult.Success;
+        }
+
         private class HandlerPair {
             public readonly Type workerType;
             public readonly IProcedureLineHandler handler;
@@ -193,7 +515,7 @@ namespace Hsenl {
 #endif
         private static readonly ConcurrentMultiQueue<Type, HandlerPair> _handlerDict = new();
 
-        [OnEventSystemInitialized, OnEventSystemChanged]
+        [OnEventSystemInitialized, OnEventSystemReload]
         private static void CacheHandles() {
             _handlerDict.Clear();
             Dictionary<Type, SortedDictionary<int, IProcedureLineHandler>> sortedDict = new();

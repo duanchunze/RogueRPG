@@ -5,8 +5,7 @@ namespace Hsenl {
     public class DontDestroyOnLoadForFramework : MonoBehaviour {
         private void Awake() {
             var go = this.gameObject;
-            go.GetOrCreateEntityReference().Entity.DontDestroyOnLoad();
-            DontDestroyOnLoad(go);
+            go.GetOrCreateEntityReference().Entity.DontDestroyOnLoadWithUnity();
         }
     }
 }

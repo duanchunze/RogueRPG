@@ -45,8 +45,10 @@ namespace Hsenl {
                 this._task = HTask.Create();
             }
 
-            // stateMachine因为awaiter被挂起了, 所以当awaiter完成时, 回调通知stateMachine继续
-            awaiter.OnCompleted(stateMachine.MoveNext);
+            var body = this._task.Body;
+            body.StateMachine = stateMachine;
+            // 把自己的MoveNext交给下层的awaiter, 当下层的task进行SetResult时, 可以通过这个回调让自己继续执行MoveNext, 并通过下层的await.GetResult来获取其返回的值
+            awaiter.OnCompleted(body.MoveNext);
         }
 
         // 6. AwaitUnsafeOnCompleted
@@ -58,7 +60,9 @@ namespace Hsenl {
                 this._task = HTask.Create();
             }
 
-            awaiter.UnsafeOnCompleted(stateMachine.MoveNext);
+            var body = this._task.Body;
+            body.StateMachine = stateMachine;
+            awaiter.UnsafeOnCompleted(body.MoveNext);
         }
 
         // 7. Start
@@ -110,7 +114,9 @@ namespace Hsenl {
                 this._task = HTask<T>.Create();
             }
 
-            awaiter.OnCompleted(stateMachine.MoveNext);
+            var body = this._task.Body;
+            body.StateMachine = stateMachine;
+            awaiter.OnCompleted(body.MoveNext);
         }
 
         // 6. AwaitUnsafeOnCompleted
@@ -122,7 +128,9 @@ namespace Hsenl {
                 this._task = HTask<T>.Create();
             }
 
-            awaiter.UnsafeOnCompleted(stateMachine.MoveNext);
+            var body = this._task.Body;
+            body.StateMachine = stateMachine;
+            awaiter.UnsafeOnCompleted(body.MoveNext);
         }
 
         // 7. Start

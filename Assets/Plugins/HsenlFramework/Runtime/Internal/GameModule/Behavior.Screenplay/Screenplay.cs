@@ -21,9 +21,7 @@ namespace Hsenl {
      * 以一个档案(record)为单位, 开启一个剧本, 每个剧本下具体哪些node, 可以随便添加
      */
     [Serializable]
-    public abstract class Screenplay<TRecord, TNode> : Bodied, IBehaviorTree, IUpdate where TRecord : IRecord where TNode : INode {
-        public Bodied Bodied => this;
-
+    public abstract class Screenplay<TRecord, TNode> : Unbodied, IBehaviorTree, IUpdate where TRecord : IRecord where TNode : INode {
 #if UNITY_EDITOR
         [ShowInInspector]
 #endif
@@ -43,7 +41,7 @@ namespace Hsenl {
 
         public IBlackboard Blackboard => null;
 
-        public float DeltaTime { get; protected set; }
+        public float DeltaTime { get; set; }
 
         INode IBehaviorTree.CurrentNode {
             get => this.currentNode;
@@ -104,15 +102,6 @@ namespace Hsenl {
             }
         }
 
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
-            this.record = default;
-            this.entryNode = default;
-            this.currentNode = null;
-            this._recordDir = null;
-            this._recordPath = null;
-        }
-
         protected override void OnEnable() {
             this.entryNode?.OpenNode();
         }
@@ -123,7 +112,18 @@ namespace Hsenl {
         }
 
         protected override void OnDestroy() {
-            this.SetEntryNode(default);
+            this.entryNode?.DestroyNode();
+        }
+
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
+            this.record = default;
+            this.Blackboard?.Clear();
+            this.entryNode = default;
+            this.currentNode = null;
+            this._recordDir = null;
+            this._recordPath = null;
+            this.DeltaTime = 0;
         }
 
         public NodeStatus Tick() {
@@ -134,7 +134,7 @@ namespace Hsenl {
             return status;
         }
 
-        protected override void OnReset() {
+        public void Reset() {
             this.entryNode?.ResetNode();
         }
 

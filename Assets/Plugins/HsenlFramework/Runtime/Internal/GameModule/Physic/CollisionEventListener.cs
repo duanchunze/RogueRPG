@@ -31,8 +31,8 @@ namespace Hsenl {
 
             return result;
         }
-
-        protected override void OnDestroy() {
+        
+        internal override void OnDisposedInternal() {
             this.Clear();
         }
 

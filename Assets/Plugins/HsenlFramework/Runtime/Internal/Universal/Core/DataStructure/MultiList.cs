@@ -5,13 +5,17 @@ using MemoryPack;
 namespace Hsenl {
     [MemoryPackable(GenerateType.Collection)]
     public partial class MultiList<T, K> : Dictionary<T, List<K>> where T : notnull {
+        private int _listCapacity;
         public MultiList() { }
-        public MultiList(int capacity) : base(capacity) { }
+
+        public MultiList(int dictCapacity, int listCapacity) : base(dictCapacity) {
+            this._listCapacity = listCapacity;
+        }
 
         public void Add(T t, K k) {
             this.TryGetValue(t, out var list);
             if (list == null) {
-                list = new List<K>();
+                list = new List<K>(this._listCapacity);
                 base[t] = list;
             }
 

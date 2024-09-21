@@ -17,7 +17,11 @@ namespace Hsenl {
         }
 
         public static void SetOrder(this Component self, int order) {
-            self.entity.SetOrder(order);
+            self.entity.SetSiblingIndex(order);
+        }
+
+        public static void SwapChildrenSeat(this Component self, Entity child1, Entity child2) {
+            self.entity.SwapChildren(child1, child2);
         }
 
         public static Entity GetChild(this Component self, int index) {
@@ -37,11 +41,11 @@ namespace Hsenl {
         }
 
         public static void SwapChild(this Component self, int idx1, int idx2) {
-            self.entity.SwapChild(idx1, idx2);
+            self.entity.SwapChildren(idx1, idx2);
         }
 
-        public static bool HasComponent<T>(this Component self, bool declaredOnly = false) where T : class {
-            return self.entity.HasComponent<T>(declaredOnly);
+        public static bool HasComponent<T>(this Component self, bool polymorphic = false) where T : class {
+            return self.entity.HasComponent<T>(polymorphic);
         }
 
         public static bool HasComponentsAny(this Component self, ComponentTypeCacher typeCacher) {
@@ -64,8 +68,15 @@ namespace Hsenl {
             return self.entity.AddComponent(type);
         }
 
-        public static T GetComponent<T>(this Component self, bool declaredOnly = false) where T : class {
-            return self.entity.GetComponent<T>(declaredOnly);
+        public static T GetComponent<T>(this Component self, bool polymorphic = false) where T : class {
+            return self.entity.GetComponent<T>(polymorphic);
+        }
+
+        public static T GetOrAddComponent<T>(this Component self, bool polymorphic = false) where T : Component {
+            var t = self.entity.GetComponent<T>(polymorphic);
+            if (t == null)
+                t = self.entity.AddComponent<T>();
+            return t;
         }
 
         public static Component GetComponent(this Component self, int componentIndex) {
@@ -76,12 +87,12 @@ namespace Hsenl {
             return self.entity.GetComponent<T>(componentIndex);
         }
 
-        public static T[] GetComponents<T>(this Component self, bool declaredOnly = false) where T : class {
-            return self.entity.GetComponents<T>(declaredOnly);
+        public static T[] GetComponents<T>(this Component self, bool polymorphic = false) where T : class {
+            return self.entity.GetComponents<T>(polymorphic);
         }
 
-        public static void GetComponents<T>(this Component self, List<T> results, bool declaredOnly = false) where T : class {
-            self.entity.GetComponents(results, declaredOnly);
+        public static void GetComponents<T>(this Component self, List<T> results, bool polymorphic = false) where T : class {
+            self.entity.GetComponents(results, polymorphic);
         }
 
         public static Component[] GetComponentsOfTypeCacher(this Component self, ComponentTypeCacher typeCacher) {
@@ -92,12 +103,12 @@ namespace Hsenl {
             self.entity.GetComponentsOfTypeCacher(typeCacher, results);
         }
 
-        public static T GetComponentInParent<T>(this Component self, bool includeInactive = false, bool declaredOnly = false) where T : class {
-            return self.entity.GetComponentInParent<T>(includeInactive, declaredOnly);
+        public static T GetComponentInParent<T>(this Component self, bool includeInactive = false, bool polymorphic = false) where T : class {
+            return self.entity.GetComponentInParent<T>(includeInactive, polymorphic);
         }
 
-        public static T[] GetComponentsInParent<T>(this Component self, bool includeInactive = false, bool declaredOnly = false) where T : class {
-            return self.entity.GetComponentsInParent<T>(includeInactive, declaredOnly);
+        public static T[] GetComponentsInParent<T>(this Component self, bool includeInactive = false, bool polymorphic = false) where T : class {
+            return self.entity.GetComponentsInParent<T>(includeInactive, polymorphic);
         }
 
         public static Component[] GetComponentsInParentOfTypeCacher(this Component self, ComponentTypeCacher typeCacher, bool includeInactive = false) {
@@ -109,20 +120,20 @@ namespace Hsenl {
             self.entity.GetComponentsInParentOfTypeCacher(typeCacher, results, includeInactive);
         }
 
-        public static void GetComponentsInParent<T>(this Component self, List<T> results, bool includeInactive = false, bool declaredOnly = false) where T : class {
-            self.entity.GetComponentsInParent(results, includeInactive, declaredOnly);
+        public static void GetComponentsInParent<T>(this Component self, List<T> results, bool includeInactive = false, bool polymorphic = false) where T : class {
+            self.entity.GetComponentsInParent(results, includeInactive, polymorphic);
         }
 
-        public static T GetComponentInChildren<T>(this Component self, bool includeInactive = false, bool declaredOnly = false) where T : class {
-            return self.entity.GetComponentInChildren<T>(includeInactive, declaredOnly);
+        public static T GetComponentInChildren<T>(this Component self, bool includeInactive = false, bool polymorphic = false) where T : class {
+            return self.entity.GetComponentInChildren<T>(includeInactive, polymorphic);
         }
 
-        public static T[] GetComponentsInChildren<T>(this Component self, bool includeInactive = false, bool declaredOnly = false) where T : class {
-            return self.entity.GetComponentsInChildren<T>(includeInactive, declaredOnly);
+        public static T[] GetComponentsInChildren<T>(this Component self, bool includeInactive = false, bool polymorphic = false) where T : class {
+            return self.entity.GetComponentsInChildren<T>(includeInactive, polymorphic);
         }
 
-        public static void GetComponentsInChildren<T>(this Component self, List<T> results, bool includeInactive = false, bool declaredOnly = false) where T : class {
-            self.entity.GetComponentsInChildren(results, includeInactive, declaredOnly);
+        public static void GetComponentsInChildren<T>(this Component self, List<T> results, bool includeInactive = false, bool polymorphic = false) where T : class {
+            self.entity.GetComponentsInChildren(results, includeInactive, polymorphic);
         }
 
         public static Component[] GetComponentsInChildrenOfTypeCacher(this Component self, ComponentTypeCacher typeCacher, bool includeInactive = false) {
@@ -134,8 +145,12 @@ namespace Hsenl {
             self.entity.GetComponentsInChildrenOfTypeCacher(typeCacher, results, includeInactive);
         }
 
-        public static T GetOrAddComponent<T>(this Hsenl.Entity self, bool declaredOnly = false) where T : Hsenl.Component {
-            var c = self.GetComponent<T>(declaredOnly);
+        public static Iterator<Entity> ForeachChildren(this Component self) {
+            return self.Entity.ForeachChildren();
+        }
+
+        public static T GetOrAddComponent<T>(this Hsenl.Entity self, bool polymorphic = false) where T : Hsenl.Component {
+            var c = self.GetComponent<T>(polymorphic);
             c ??= self.AddComponent<T>();
 
             return c;

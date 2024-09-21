@@ -19,24 +19,15 @@ namespace Hsenl.View {
         }
 
         [ShadowFunction]
-        private static Hsenl.Actor ShowSelectHero(int index) {
-            var configList = Tables.Instance.TbActorConfig.DataList;
-            if (index < 0 || index >= configList.Count)
-                return null;
-
-            var config = configList[index];
-
-            var actor = ActorManager.Instance.Rent(config.Id);
+        private static void OnShowSelectHero(Hsenl.Actor actor) {
             actor.GetComponent<HeadInfo>().Enable = false;
             actor.transform.Forward = new Vector3(0, 0, -1);
             var followTarget = Camera.main.GetComponent<FollowTarget>();
             followTarget.targetTransform = actor.UnityTransform;
-            followTarget.positionOffset = new Vector3(0, 1, -5);
-            followTarget.rotationOffset = new Vector3(-18, 0, 0);
-            
+            followTarget.positionOffset = new UnityEngine.Vector3(0, 1, -5);
+            followTarget.rotationOffset = new UnityEngine.Vector3(-18, 0, 0);
+
             UIManager.GetSingleUI<UIActorInfo>()?.FillInActor(actor);
-            
-            return actor;
         }
     }
 }

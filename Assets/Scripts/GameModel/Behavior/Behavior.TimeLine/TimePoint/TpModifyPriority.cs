@@ -8,7 +8,7 @@ namespace Hsenl {
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    var priorityState = ability.GetComponent<IPriorityState>();
+                    var priorityState = ability.GetComponent<IPriorityState>(true);
                     if (priorityState == null) return;
                     if (this.info.ResistPriority != -1) {
                         priorityState.ResistPriority = this.info.ResistPriority;

@@ -1,5 +1,4 @@
 ﻿using System;
-using Unity.Mathematics;
 using UnityEngine;
 using Transform = UnityEngine.Transform;
 
@@ -86,39 +85,39 @@ namespace Hsenl {
         }
 
         /// <summary>
-        /// 取 <see cref="Vector3" /> 的 (x, y, z) 转换为 <see cref="Vector2" /> 的 (x, z)。
+        /// 取 <see cref="UnityEngine.Vector3" /> 的 (x, y, z) 转换为 <see cref="UnityEngine.Vector2" /> 的 (x, z)。
         /// </summary>
         /// <param name="vector3">要转换的 Vector3。</param>
         /// <returns>转换后的 Vector2。</returns>
-        public static Vector2 ToVector2(this Vector3 vector3) {
-            return new Vector2(vector3.x, vector3.z);
+        public static UnityEngine.Vector2 ToVector2(this UnityEngine.Vector3 vector3) {
+            return new UnityEngine.Vector2(vector3.x, vector3.z);
         }
 
         /// <summary>
-        /// 取 <see cref="Vector2" /> 的 (x, y) 转换为 <see cref="Vector3" /> 的 (x, 0, y)。
+        /// 取 <see cref="UnityEngine.Vector2" /> 的 (x, y) 转换为 <see cref="UnityEngine.Vector3" /> 的 (x, 0, y)。
         /// </summary>
         /// <param name="vector2">要转换的 Vector2。</param>
         /// <returns>转换后的 Vector3。</returns>
-        public static Vector3 ToVector3(this Vector2 vector2) {
-            return new Vector3(vector2.x, 0f, vector2.y);
+        public static UnityEngine.Vector3 ToVector3(this UnityEngine.Vector2 vector2) {
+            return new UnityEngine.Vector3(vector2.x, 0f, vector2.y);
         }
 
         /// <summary>
-        /// 取 <see cref="Vector2" /> 的 (x, y) 和给定参数 y 转换为 <see cref="Vector3" /> 的 (x, 参数 y, y)。
+        /// 取 <see cref="UnityEngine.Vector2" /> 的 (x, y) 和给定参数 y 转换为 <see cref="UnityEngine.Vector3" /> 的 (x, 参数 y, y)。
         /// </summary>
         /// <param name="vector2">要转换的 Vector2。</param>
         /// <param name="y">Vector3 的 y 值。</param>
         /// <returns>转换后的 Vector3。</returns>
-        public static Vector3 ToVector3(this Vector2 vector2, float y) {
-            return new Vector3(vector2.x, y, vector2.y);
+        public static UnityEngine.Vector3 ToVector3(this UnityEngine.Vector2 vector2, float y) {
+            return new UnityEngine.Vector3(vector2.x, y, vector2.y);
         }
 
         #region Transform
 
         public static void Reset(this UnityEngine.Transform transform) {
-            transform.localPosition = Vector3.zero;
-            transform.localRotation = Quaternion.identity;
-            transform.localScale = Vector3.one;
+            transform.localPosition = UnityEngine.Vector3.zero;
+            transform.localRotation = UnityEngine.Quaternion.identity;
+            transform.localScale = UnityEngine.Vector3.one;
         }
 
         /// <summary>
@@ -324,28 +323,28 @@ namespace Hsenl {
         /// </summary>
         /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
         /// <param name="lookAtPoint2D">要朝向的二维坐标点。</param>
-        /// <remarks>假定其 forward 向量为 <see cref="Vector3.up" />。</remarks>
-        public static void LookAt2D(this UnityEngine.Transform transform, Vector2 lookAtPoint2D) {
+        /// <remarks>假定其 forward 向量为 <see cref="UnityEngine.Vector3.up" />。</remarks>
+        public static void LookAt2D(this UnityEngine.Transform transform, UnityEngine.Vector2 lookAtPoint2D) {
             var vector = lookAtPoint2D.ToVector3() - transform.position;
             vector.y = 0f;
 
             if (vector.magnitude > 0f) {
-                transform.rotation = Quaternion.LookRotation(vector.normalized, Vector3.up);
+                transform.rotation = UnityEngine.Quaternion.LookRotation(vector.normalized, UnityEngine.Vector3.up);
             }
         }
 
-        public static void LookAtLerp(this UnityEngine.Transform self, float3 forward, float t) {
-            var forwardRotation = quaternion.LookRotation(forward, math.up());
-            self.rotation = math.nlerp(self.rotation, forwardRotation, t);
+        public static void LookAtLerp(this UnityEngine.Transform self, Vector3 forward, float t) {
+            var forwardRotation = Quaternion.CreateLookRotation(forward, Vector3.Up);
+            self.rotation = Quaternion.Lerp(self.rotation, forwardRotation, t);
         }
 
-        public static void LookAtPointLerp(this UnityEngine.Transform self, float3 point, float t) {
-            var position = (float3)self.transform.position;
+        public static void LookAtPointLerp(this UnityEngine.Transform self, Vector3 point, float t) {
+            var position = (Vector3)self.transform.position;
             if (point.Equals(position)) return;
 
             var forward = point - position;
-            var forwardRotation = quaternion.LookRotation(forward, math.up());
-            self.rotation = math.nlerp(self.rotation, forwardRotation, t);
+            var forwardRotation = Quaternion.CreateLookRotation(forward, Vector3.Up);
+            self.rotation = Quaternion.Lerp(self.rotation, forwardRotation, t);
         }
 
         #endregion Transform

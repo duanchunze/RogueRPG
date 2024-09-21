@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using FixedMath;
-
 #if FIXED_MATH
 using FLOAT = FixedMath.FMath.Fixp;
 #else
@@ -48,8 +46,8 @@ namespace Hsenl {
             /// <param name="position">该形状的位置</param>
             /// <param name="direction">指定的方向</param>
             /// <param name="result">返回一个形状指定方向上，最远的点（世界坐标系）</param>
-            internal static void SupportMapTransformed(INarrowPhase support, ref FMatrix3x3 orientation,
-                ref FMatrix3x3 invOrientation, ref FVector3 position, ref FVector3 direction, out FVector3 result) {
+            internal static void SupportMapTransformed(INarrowPhase support, ref Matrix3x3 orientation,
+                ref Matrix3x3 invOrientation, ref Vector3 position, ref Vector3 direction, out Vector3 result) {
                 // 【该方法是计算碰撞部分的高频代码】
 
                 /* 注释掉的这部分代码是只需要orientation不需要invOrientation的方案，在缩放为1时，逆矩阵=转置矩阵，但缩放不为1时，
@@ -79,13 +77,13 @@ namespace Hsenl {
                  */
 
                 // 使用逆矩阵，把世界方向，转成support坐标系的局部方向
-                FMatrix3x3.Transform(ref invOrientation, ref direction, out result);
+                Matrix3x3.Transform(ref invOrientation, ref direction, out result);
 
                 // 求出该形状的该方向的最远的点（形状坐标系）
                 support.SupportPoint(ref result, out result);
 
                 // 再把direction转成世界方向
-                FMatrix3x3.Transform(ref orientation, ref result, out result);
+                Matrix3x3.Transform(ref orientation, ref result, out result);
 
                 // 得到该形状，指定方向上，最远点的世界坐标
                 result.x = position.x + result.x;
@@ -102,23 +100,23 @@ namespace Hsenl {
             /// <param name="position">The position of the shape.</param>
             /// <param name="point">The point to check.</param>
             /// <returns>Returns true if the point is within the shape, otherwise false.</returns>
-            public static bool Pointcast(INarrowPhase support, ref FMatrix3x3 orientation,
-                ref FMatrix3x3 invOrientation, ref FVector3 position, ref FVector3 point) {
+            public static bool Pointcast(INarrowPhase support, ref Matrix3x3 orientation,
+                ref Matrix3x3 invOrientation, ref Vector3 position, ref Vector3 point) {
                 SupportMapTransformed(support, ref orientation, ref invOrientation, ref position, ref point,
                     out var arbitraryPoint);
-                FVector3.Subtract(ref point, ref arbitraryPoint, out arbitraryPoint);
+                Vector3.Subtract(ref point, ref arbitraryPoint, out arbitraryPoint);
 
                 support.SupportCenter(out var r);
-                FMatrix3x3.Transform(ref orientation, ref r, out r);
-                FVector3.Add(ref position, ref r, out r);
-                FVector3.Subtract(ref point, ref r, out r);
+                Matrix3x3.Transform(ref orientation, ref r, out r);
+                Vector3.Add(ref position, ref r, out r);
+                Vector3.Subtract(ref point, ref r, out r);
 
-                FVector3 x = point;
-                FVector3 w, p;
+                Vector3 x = point;
+                Vector3 w, p;
                 FLOAT VdotR;
 
-                FVector3 v;
-                FVector3.Subtract(ref x, ref arbitraryPoint, out v);
+                Vector3 v;
+                Vector3.Subtract(ref x, ref arbitraryPoint, out v);
                 FLOAT dist = v.sqrMagnitude;
                 FLOAT epsilon = CollideEpsilon;
 
@@ -130,14 +128,14 @@ namespace Hsenl {
 
                 while ((dist > epsilon) && (maxIter-- != 0)) {
                     SupportMapTransformed(support, ref orientation, ref invOrientation, ref position, ref v, out p);
-                    FVector3.Subtract(ref x, ref p, out w);
+                    Vector3.Subtract(ref x, ref p, out w);
 
-                    FVector3.Dot(ref v, ref w, out var VdotW);
+                    Vector3.Dot(ref v, ref w, out var VdotW);
 
                     if (VdotW > Fixp.Zero) {
-                        FVector3.Dot(ref v, ref r, out VdotR);
+                        Vector3.Dot(ref v, ref r, out VdotR);
 
-                        if (VdotR >= -(FMath.Epsilon * FMath.Epsilon)) {
+                        if (VdotR >= -(Math.Epsilon * Math.Epsilon)) {
                             simplexSolverPool.Recycle(simplexSolver);
                             return false;
                         }
@@ -174,32 +172,32 @@ namespace Hsenl {
             /// <param name="normal"></param>
             /// <returns></returns>
             public static bool ClosestPoints(INarrowPhase support1, INarrowPhase support2,
-                ref FMatrix3x3 orientation1, ref FMatrix3x3 orientation2, ref FMatrix3x3 invOrientation1,
-                ref FMatrix3x3 invOrientation2, ref FVector3 position1, ref FVector3 position2, out FVector3 p1,
-                out FVector3 p2, out FVector3 normal) {
+                ref Matrix3x3 orientation1, ref Matrix3x3 orientation2, ref Matrix3x3 invOrientation1,
+                ref Matrix3x3 invOrientation2, ref Vector3 position1, ref Vector3 position2, out Vector3 p1,
+                out Vector3 p2, out Vector3 normal) {
                 VoronoiSimplexSolver simplexSolver = simplexSolverPool.Fetch();
                 simplexSolver.Reset();
 
-                p1 = p2 = FVector3.Zero;
+                p1 = p2 = Vector3.Zero;
 
-                FVector3 r = position1 - position2;
-                FVector3 w, v;
+                Vector3 r = position1 - position2;
+                Vector3 w, v;
 
-                FVector3 supVertexA;
-                FVector3 rn, vn;
+                Vector3 supVertexA;
+                Vector3 rn, vn;
 
                 rn = -r;
 
                 SupportMapTransformed(support1, ref orientation1, ref invOrientation1, ref position1, ref rn,
                     out supVertexA);
 
-                FVector3 supVertexB;
+                Vector3 supVertexB;
                 SupportMapTransformed(support2, ref orientation2, ref invOrientation2, ref position2, ref r,
                     out supVertexB);
 
                 v = supVertexA - supVertexB;
 
-                normal = FVector3.Zero;
+                normal = Vector3.Zero;
 
                 int maxIter = MaxIterations;
 
@@ -226,7 +224,7 @@ namespace Hsenl {
 
                 simplexSolver.ComputePoints(out p1, out p2);
 
-                if (normal.sqrMagnitude > FMath.Epsilon * FMath.Epsilon) normal.Normalize();
+                if (normal.sqrMagnitude > Math.Epsilon * Math.Epsilon) normal.Normalize();
 
                 simplexSolverPool.Recycle(simplexSolver);
 
@@ -249,26 +247,26 @@ namespace Hsenl {
             /// ray the collision occured. The hitPoint is calculated by: origin+friction*direction.</param>
             /// <param name="normal">The normal from the ray collision.</param>
             /// <returns>Returns true if the ray hit the shape, false otherwise.</returns>
-            public static bool Raycast(INarrowPhase support, ref FMatrix3x3 orientation,
-                ref FMatrix3x3 invOrientation, ref FVector3 position, ref FVector3 origin,
-                ref FVector3 direction, out FLOAT fraction, out FVector3 normal) {
+            public static bool Raycast(INarrowPhase support, ref Matrix3x3 orientation,
+                ref Matrix3x3 invOrientation, ref Vector3 position, ref Vector3 origin,
+                ref Vector3 direction, out FLOAT fraction, out Vector3 normal) {
                 VoronoiSimplexSolver simplexSolver = simplexSolverPool.Fetch();
                 simplexSolver.Reset();
 
-                normal = FVector3.Zero;
+                normal = Vector3.Zero;
                 fraction = Fixp.MaxValue;
 
                 FLOAT lambda = Fixp.Zero;
 
-                FVector3 r = direction;
-                FVector3 x = origin;
-                FVector3 w, p, v;
+                Vector3 r = direction;
+                Vector3 x = origin;
+                Vector3 w, p, v;
 
                 // 获得形状指定方向上最远的点
                 SupportMapTransformed(support, ref orientation, ref invOrientation, ref position, ref r,
                     out var arbitraryPoint);
                 // 射线起点 - 射线方向上，形状的最远点 = 形状离射线起点最远的距离
-                FVector3.Subtract(ref x, ref arbitraryPoint, out v);
+                Vector3.Subtract(ref x, ref arbitraryPoint, out v);
 
                 int maxIter = MaxIterations;
 
@@ -277,22 +275,22 @@ namespace Hsenl {
 
                 while ((distSq > epsilon) && (maxIter-- != 0)) {
                     SupportMapTransformed(support, ref orientation, ref invOrientation, ref position, ref v, out p);
-                    FVector3.Subtract(ref x, ref p, out w);
+                    Vector3.Subtract(ref x, ref p, out w);
 
-                    FVector3.Dot(ref v, ref w, out var VdotW);
+                    Vector3.Dot(ref v, ref w, out var VdotW);
 
                     if (VdotW > Fixp.Zero) {
-                        FVector3.Dot(ref v, ref r, out var VdotR);
+                        Vector3.Dot(ref v, ref r, out var VdotR);
 
-                        if (VdotR >= -FMath.Epsilon) {
+                        if (VdotR >= -Math.Epsilon) {
                             simplexSolverPool.Recycle(simplexSolver);
                             return false;
                         }
                         else {
                             lambda = lambda - VdotW / VdotR;
-                            FVector3.Multiply(ref r, lambda, out x);
-                            FVector3.Add(ref origin, ref x, out x);
-                            FVector3.Subtract(ref x, ref p, out w);
+                            Vector3.Multiply(ref r, lambda, out x);
+                            Vector3.Add(ref origin, ref x, out x);
+                            Vector3.Subtract(ref x, ref p, out w);
                             normal = v;
                         }
                     }
@@ -314,7 +312,7 @@ namespace Hsenl {
 
                 #endregion
 
-                if (normal.sqrMagnitude > FMath.Epsilon * FMath.Epsilon) normal.Normalize();
+                if (normal.sqrMagnitude > Math.Epsilon * Math.Epsilon) normal.Normalize();
 
                 simplexSolverPool.Recycle(simplexSolver);
 
@@ -356,14 +354,14 @@ namespace Hsenl {
 
                 private int _numVertices;
 
-                private FVector3[] _simplexVectorW = new FVector3[VoronoiSimplexMaxVerts];
-                private FVector3[] _simplexPointsP = new FVector3[VoronoiSimplexMaxVerts];
-                private FVector3[] _simplexPointsQ = new FVector3[VoronoiSimplexMaxVerts];
+                private Vector3[] _simplexVectorW = new Vector3[VoronoiSimplexMaxVerts];
+                private Vector3[] _simplexPointsP = new Vector3[VoronoiSimplexMaxVerts];
+                private Vector3[] _simplexPointsQ = new Vector3[VoronoiSimplexMaxVerts];
 
-                private FVector3 _cachedPA;
-                private FVector3 _cachedPB;
-                private FVector3 _cachedV;
-                private FVector3 _lastW;
+                private Vector3 _cachedPA;
+                private Vector3 _cachedPB;
+                private Vector3 _cachedV;
+                private Vector3 _lastW;
                 private bool _cachedValidClosest;
 
                 private SubSimplexClosestResult _cachedBC = new SubSimplexClosestResult();
@@ -389,11 +387,11 @@ namespace Hsenl {
                     _cachedValidClosest = false;
                     _numVertices = 0;
                     _needsUpdate = true;
-                    _lastW = new FVector3(Fixp.MaxValue, Fixp.MaxValue, Fixp.MaxValue);
+                    _lastW = new Vector3(Fixp.MaxValue, Fixp.MaxValue, Fixp.MaxValue);
                     _cachedBC.Reset();
                 }
 
-                public void AddVertex(ref FVector3 w, ref FVector3 p, ref FVector3 q) {
+                public void AddVertex(ref Vector3 w, ref Vector3 p, ref Vector3 q) {
                     _lastW = w;
                     _needsUpdate = true;
 
@@ -405,7 +403,7 @@ namespace Hsenl {
                 }
 
                 //return/calculate the closest vertex
-                public bool Closest(out FVector3 v) {
+                public bool Closest(out Vector3 v) {
                     bool succes = UpdateClosestVectorAndPoints();
                     v = _cachedV;
                     return succes;
@@ -425,11 +423,11 @@ namespace Hsenl {
                 }
 
                 //return the current simplex
-                public int GetSimplex(out FVector3[] pBuf, out FVector3[] qBuf, out FVector3[] yBuf) {
+                public int GetSimplex(out Vector3[] pBuf, out Vector3[] qBuf, out Vector3[] yBuf) {
                     int numverts = NumVertices;
-                    pBuf = new FVector3[numverts];
-                    qBuf = new FVector3[numverts];
-                    yBuf = new FVector3[numverts];
+                    pBuf = new Vector3[numverts];
+                    qBuf = new Vector3[numverts];
+                    yBuf = new Vector3[numverts];
                     for (int i = 0; i < numverts; i++) {
                         yBuf[i] = _simplexVectorW[i];
                         pBuf[i] = _simplexPointsP[i];
@@ -439,7 +437,7 @@ namespace Hsenl {
                     return numverts;
                 }
 
-                public bool InSimplex(FVector3 w) {
+                public bool InSimplex(Vector3 w) {
                     //check in case lastW is already removed
                     if (w == _lastW) return true;
 
@@ -452,7 +450,7 @@ namespace Hsenl {
                     return false;
                 }
 
-                public void BackupClosest(out FVector3 v) {
+                public void BackupClosest(out Vector3 v) {
                     v = _cachedV;
                 }
 
@@ -460,7 +458,7 @@ namespace Hsenl {
                     get { return NumVertices == 0; }
                 }
 
-                public void ComputePoints(out FVector3 p1, out FVector3 p2) {
+                public void ComputePoints(out Vector3 p1, out Vector3 p2) {
                     UpdateClosestVectorAndPoints();
                     p1 = _cachedPA;
                     p2 = _cachedPB;
@@ -487,7 +485,7 @@ namespace Hsenl {
                         _cachedBC.Reset();
                         _needsUpdate = false;
 
-                        FVector3 p, a, b, c, d;
+                        Vector3 p, a, b, c, d;
                         switch (NumVertices) {
                             case 0:
                                 _cachedValidClosest = false;
@@ -502,13 +500,13 @@ namespace Hsenl {
                                 break;
                             case 2:
                                 //closest point origin from line segment
-                                FVector3 from = _simplexVectorW[0];
-                                FVector3 to = _simplexVectorW[1];
+                                Vector3 from = _simplexVectorW[0];
+                                Vector3 to = _simplexVectorW[1];
                                 //FixVector3 nearest;
 
-                                FVector3 diff = from * (-1);
-                                FVector3 v = to - from;
-                                FVector3.Dot(ref v, ref diff, out var t);
+                                Vector3 diff = from * (-1);
+                                Vector3 v = to - from;
+                                Vector3.Dot(ref v, ref diff, out var t);
 
                                 if (t > 0) {
                                     FLOAT dotVV = v.sqrMagnitude;
@@ -544,7 +542,7 @@ namespace Hsenl {
                                 break;
                             case 3:
                                 //closest point origin from triangle
-                                p = new FVector3();
+                                p = new Vector3();
                                 a = _simplexVectorW[0];
                                 b = _simplexVectorW[1];
                                 c = _simplexVectorW[2];
@@ -566,7 +564,7 @@ namespace Hsenl {
                                 _cachedValidClosest = _cachedBC.IsValid;
                                 break;
                             case 4:
-                                p = new FVector3();
+                                p = new Vector3();
                                 a = _simplexVectorW[0];
                                 b = _simplexVectorW[1];
                                 c = _simplexVectorW[2];
@@ -615,18 +613,18 @@ namespace Hsenl {
                     return _cachedValidClosest;
                 }
 
-                public bool ClosestPtPointTriangle(ref FVector3 p, ref FVector3 a, ref FVector3 b,
-                    ref FVector3 c, ref SubSimplexClosestResult result) {
+                public bool ClosestPtPointTriangle(ref Vector3 p, ref Vector3 a, ref Vector3 b,
+                    ref Vector3 c, ref SubSimplexClosestResult result) {
                     result.UsedVertices.Reset();
 
                     FLOAT v, w;
 
                     // Check if P in vertex region outside A
-                    FVector3 ab = b - a;
-                    FVector3 ac = c - a;
-                    FVector3 ap = p - a;
-                    FVector3.Dot(ref ab, ref ap, out var d1);
-                    FVector3.Dot(ref ac, ref ap, out var d2);
+                    Vector3 ab = b - a;
+                    Vector3 ac = c - a;
+                    Vector3 ap = p - a;
+                    Vector3.Dot(ref ab, ref ap, out var d1);
+                    Vector3.Dot(ref ac, ref ap, out var d2);
                     if (d1 <= Fixp.Zero && d2 <= Fixp.Zero) {
                         result.ClosestPointOnSimplex = a;
                         result.UsedVertices.UsedVertexA = true;
@@ -635,9 +633,9 @@ namespace Hsenl {
                     }
 
                     // Check if P in vertex region outside B
-                    FVector3 bp = p - b;
-                    FVector3.Dot(ref ab, ref bp, out var d3);
-                    FVector3.Dot(ref ac, ref bp, out var d4);
+                    Vector3 bp = p - b;
+                    Vector3.Dot(ref ab, ref bp, out var d3);
+                    Vector3.Dot(ref ac, ref bp, out var d4);
                     if (d3 >= Fixp.Zero && d4 <= d3) {
                         result.ClosestPointOnSimplex = b;
                         result.UsedVertices.UsedVertexB = true;
@@ -659,9 +657,9 @@ namespace Hsenl {
                     }
 
                     // Check if P in vertex region outside C
-                    FVector3 cp = p - c;
-                    FVector3.Dot(ref ab, ref cp, out var d5);
-                    FVector3.Dot(ref ac, ref cp, out var d6);
+                    Vector3 cp = p - c;
+                    Vector3.Dot(ref ab, ref cp, out var d5);
+                    Vector3.Dot(ref ac, ref cp, out var d6);
                     if (d6 >= Fixp.Zero && d5 <= d6) {
                         result.ClosestPointOnSimplex = c;
                         result.UsedVertices.UsedVertexC = true;
@@ -709,14 +707,14 @@ namespace Hsenl {
                 }
 
                 /// Test if point p and d lie on opposite sides of plane through abc
-                public int PointOutsideOfPlane(ref FVector3 p, ref FVector3 a, ref FVector3 b, ref FVector3 c,
-                    ref FVector3 d) {
-                    FVector3 normal = FVector3.Cross(b - a, c - a);
+                public int PointOutsideOfPlane(ref Vector3 p, ref Vector3 a, ref Vector3 b, ref Vector3 c,
+                    ref Vector3 d) {
+                    Vector3 normal = Vector3.Cross(b - a, c - a);
 
                     var pa = p - a;
                     var da = d - a;
-                    FVector3.Dot(ref pa, ref normal, out var signp); // [AP AB AC]
-                    FVector3.Dot(ref da, ref normal, out var signd); // [AD AB AC]
+                    Vector3.Dot(ref pa, ref normal, out var signp); // [AP AB AC]
+                    Vector3.Dot(ref da, ref normal, out var signd); // [AD AB AC]
 
                     //if (CatchDegenerateTetrahedron)
                     if (signd * signd < (Fixp.EN8)) return -1;
@@ -725,8 +723,8 @@ namespace Hsenl {
                     return signp * signd < Fixp.Zero ? 1 : 0;
                 }
 
-                public bool ClosestPtPointTetrahedron(ref FVector3 p, ref FVector3 a, ref FVector3 b,
-                    ref FVector3 c, ref FVector3 d, ref SubSimplexClosestResult finalResult) {
+                public bool ClosestPtPointTetrahedron(ref Vector3 p, ref Vector3 a, ref Vector3 b,
+                    ref Vector3 c, ref Vector3 d, ref SubSimplexClosestResult finalResult) {
                     tempResult.Reset();
 
                     // Start out assuming point inside all halfspaces, so closest to itself
@@ -754,7 +752,7 @@ namespace Hsenl {
                     // If point outside face abc then compute closest point on abc
                     if (pointOutsideABC != 0) {
                         ClosestPtPointTriangle(ref p, ref a, ref b, ref c, ref tempResult);
-                        FVector3 q = tempResult.ClosestPointOnSimplex;
+                        Vector3 q = tempResult.ClosestPointOnSimplex;
 
                         FLOAT sqDist = ((q - p)).sqrMagnitude;
                         // Update best closest point if (squared) distance is less than current best
@@ -774,7 +772,7 @@ namespace Hsenl {
                     // Repeat test for face acd
                     if (pointOutsideACD != 0) {
                         ClosestPtPointTriangle(ref p, ref a, ref c, ref d, ref tempResult);
-                        FVector3 q = tempResult.ClosestPointOnSimplex;
+                        Vector3 q = tempResult.ClosestPointOnSimplex;
                         //convert result bitmask!
 
                         FLOAT sqDist = ((q - p)).sqrMagnitude;
@@ -793,7 +791,7 @@ namespace Hsenl {
 
                     if (pointOutsideADB != 0) {
                         ClosestPtPointTriangle(ref p, ref a, ref d, ref b, ref tempResult);
-                        FVector3 q = tempResult.ClosestPointOnSimplex;
+                        Vector3 q = tempResult.ClosestPointOnSimplex;
                         //convert result bitmask!
 
                         FLOAT sqDist = ((q - p)).sqrMagnitude;
@@ -812,9 +810,9 @@ namespace Hsenl {
 
                     if (pointOutsideBDC != 0) {
                         ClosestPtPointTriangle(ref p, ref b, ref d, ref c, ref tempResult);
-                        FVector3 q = tempResult.ClosestPointOnSimplex;
+                        Vector3 q = tempResult.ClosestPointOnSimplex;
                         //convert result bitmask!
-                        FLOAT sqDist = ((FVector3)(q - p)).sqrMagnitude;
+                        FLOAT sqDist = ((Vector3)(q - p)).sqrMagnitude;
                         if (sqDist < bestSqDist) {
                             bestSqDist = sqDist;
                             finalResult.ClosestPointOnSimplex = q;
@@ -868,7 +866,7 @@ namespace Hsenl {
             }
 
             internal class SubSimplexClosestResult {
-                private FVector3 _closestPointOnSimplex;
+                private Vector3 _closestPointOnSimplex;
 
                 //MASK for m_usedVertices
                 //stores the simplex vertex-usage, using the MASK, 
@@ -877,7 +875,7 @@ namespace Hsenl {
                 private FLOAT[] _barycentricCoords = new FLOAT[4];
                 private bool _degenerate;
 
-                public FVector3 ClosestPointOnSimplex {
+                public Vector3 ClosestPointOnSimplex {
                     get => _closestPointOnSimplex;
                     set => _closestPointOnSimplex = value;
                 }

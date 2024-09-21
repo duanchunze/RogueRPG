@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using Hsenl.View;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace Hsenl {
@@ -13,6 +12,10 @@ namespace Hsenl {
             var height = item.hurtable.GetComponent<Numerator>().GetValue(NumericType.Height);
             this._stringBuilder.Clear();
             this._stringBuilder.Append(item.deductHp.ToString());
+            if (item.sneakAtk) {
+                this._stringBuilder.Append(" 偷袭");
+            }
+            
             if (item.backhit) {
                 this._stringBuilder.Append(" 背刺");
             }
@@ -23,21 +26,23 @@ namespace Hsenl {
 
             switch (item.damageType) {
                 case DamageType.PhysicalDamage:
-                    ViewShortcut.ShowJumpMessage(this._stringBuilder.ToString(),
+                    ViewShortcut.ShowJumpMessage(
+                        this._stringBuilder.ToString(),
                         item.hurtable.transform.Position,
-                        new float3(0, 0, height + 0.5f),
-                        new float3(RandomHelper.mtRandom.NextFloat(-0.1f, 0.1f), 0, RandomHelper.mtRandom.NextFloat(0f, 0.1f)),
-                        1,
+                        new Vector3(0, 0, height + 0.5f),
+                        new Vector3(RandomHelper.NextFloat(-0.1f, 0.1f), 0, RandomHelper.NextFloat(0f, 0.1f)),
+                        Vector3.One,
                         Color.red
                     );
 
                     break;
                 case DamageType.TrueDamage:
-                    ViewShortcut.ShowJumpMessage(this._stringBuilder.ToString(),
+                    ViewShortcut.ShowJumpMessage(
+                        this._stringBuilder.ToString(),
                         item.hurtable.transform.Position,
-                        new float3(0, 0, height + 0.5f),
-                        new float3(RandomHelper.mtRandom.NextFloat(-0.1f, 0.1f), 0, RandomHelper.mtRandom.NextFloat(0f, 0.1f)),
-                        1,
+                        new Vector3(0, 0, height + 0.5f),
+                        new Vector3(RandomHelper.NextFloat(-0.1f, 0.1f), 0, RandomHelper.NextFloat(0f, 0.1f)),
+                        Vector3.One,
                         Color.white
                     );
                     break;

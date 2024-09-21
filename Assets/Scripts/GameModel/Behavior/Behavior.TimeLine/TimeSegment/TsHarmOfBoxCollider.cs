@@ -10,7 +10,7 @@ namespace Hsenl {
         protected override void OnReset() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    var owner = ability.AttachedBodied;
+                    var owner = ability.MainBodied;
                     if (owner == null)
                         break;
 
@@ -23,11 +23,11 @@ namespace Hsenl {
         protected override void OnTimeSegmentOrigin() {
             this._boxCollider = ColliderManager.Instance.Rent<BoxCollider>(active: false);
             this._boxCollider.IsTrigger = true;
-            this._boxCollider.Center = this.info.Center.ToUnityVector3();
-            this._boxCollider.Size = this.info.Size.ToUnityVector3();
+            this._boxCollider.Center = this.info.Center.ToVector3();
+            this._boxCollider.Size = this.info.Size.ToVector3();
             this._boxCollider.SetUsage(GameColliderPurpose.Detection);
             var tsize = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Tsize);
-            this._boxCollider.transform.LocalScale = Vector3.one * tsize;
+            this._boxCollider.transform.LocalScale = Vector3.One * tsize;
 
             var eventListener = CollisionEventListener.Get(this._boxCollider.Entity);
             eventListener.onTriggerEnter = col => {
@@ -35,7 +35,7 @@ namespace Hsenl {
                 if (bod == null)
                     return;
 
-                if (bod == this.manager.Bodied.AttachedBodied)
+                if (bod == this.manager.Bodied.MainBodied)
                     return;
 
                 if (!bod.Tags.ContainsAny(this._containsTags))

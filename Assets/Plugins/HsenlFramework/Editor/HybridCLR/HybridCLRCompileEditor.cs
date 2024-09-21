@@ -34,13 +34,13 @@ namespace Hsenl {
                 Directory.CreateDirectory(_codeEntryDllDir);
             }
 
-            FileHelper.CleanDirectory(_codeEntryDllDir);
+            IOHelper.CleanDirectory(_codeEntryDllDir);
 
             if (!Directory.Exists(_codeDllDir)) {
                 Directory.CreateDirectory(_codeDllDir);
             }
 
-            FileHelper.CleanDirectory(_codeDllDir);
+            IOHelper.CleanDirectory(_codeDllDir);
 
             foreach (var definition in HybridCLRSettings.Instance.hotUpdateAssemblyDefinitions) {
                 var sourceDllPath = Path.Combine(fromDir, $"{definition.name}.dll");

@@ -32,7 +32,7 @@ namespace Hsenl {
         }
 
         [MemoryPackIgnore]
-        public Bodied AttachedBodied => this.Bodied?.AttachedBodied;
+        public Bodied MainBodied => this.Bodied?.MainBodied;
 
         public override Scope ParentScope {
             get => this.parentScope;
@@ -102,8 +102,8 @@ namespace Hsenl {
             }, this);
         }
 
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
             this._bodied = null;
         }
 
@@ -121,11 +121,11 @@ namespace Hsenl {
             }
 
             if (Combiner.CombinerCache.CrossCombinLookupTable.TryGetValue(unbodied.ComponentIndex, out var combinInfo)) {
-                if (combinInfo.childCombiners.Count != 0) {
+                if (combinInfo.combiners1.Count != 0) {
                     if (this.CombinMatchMode == CombinMatchMode.Auto) {
                         if (this.ParentScope != null) {
-                            if (this.HasComponentsAny(combinInfo.totalChildTypeCacher)) {
-                                foreach (var combiner in combinInfo.childCombiners) {
+                            if (this.HasComponentsAny(combinInfo.totalTypeCacher1)) {
+                                foreach (var combiner in combinInfo.combiners1) {
                                     CrossCombinMatchForParent(this, this.ParentScope, 1, combiner);
                                 }
                             }
@@ -133,11 +133,11 @@ namespace Hsenl {
                     }
                 }
                 
-                if (combinInfo.parentCombiners.Count != 0) {
-                    if (this.HasComponentsAny(combinInfo.totalParentTypeCacher)) {
+                if (combinInfo.combiners2.Count != 0) {
+                    if (this.HasComponentsAny(combinInfo.totalTypeCacher2)) {
                         this.ForeachChildrenScope<(CrossCombinInfo ci, Scope p)>((child, layer, data) => {
                             if (child.CombinMatchMode == CombinMatchMode.Auto) {
-                                foreach (var combiner in data.ci.parentCombiners) {
+                                foreach (var combiner in data.ci.combiners2) {
                                     CrossCombinMatchForParent(child, data.p, layer, combiner);
                                 }
                             }

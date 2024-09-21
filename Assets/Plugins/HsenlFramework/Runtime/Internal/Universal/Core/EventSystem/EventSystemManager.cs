@@ -108,9 +108,9 @@ namespace Hsenl {
             this.ClearCacheOfAssembles(assemblies);
             this.AddTypes(types);
             // 事件系统初始化完成
-            foreach (var method in this.GetMethodsOfAttribute(typeof(OnEventSystemChangedAttribute))) {
-                if (!method.IsStatic) throw new InvalidOperationException($"OnEventSystemChangedAttribute only use for static method '{method.Name}'");
+            foreach (var method in this.GetMethodsOfAttribute(typeof(OnEventSystemReloadAttribute))) {
                 try {
+                    if (!method.IsStatic) throw new InvalidOperationException($"OnEventSystemChangedAttribute only use for static method '{method.Name}'");
                     method.Invoke(null, null);
                 }
                 catch (Exception e) {
@@ -338,7 +338,8 @@ namespace Hsenl {
                 // 成员获取规则:
                 // 非静态成员, 获取自己和父级的所有的成员, 因为非静态成员有类的类型作key, 不会重复
                 // 而静态成员, 只获取自己的所有成员
-                var members = ArrayHelper.Combin(type.GetMembersInBase(AssemblyHelper.BindingFlagsInstanceIgnorePublic), type.GetMembers(AssemblyHelper.All));
+                var members = ArrayHelper.Combin(type.GetMembersInBase(AssemblyHelper.BindingFlagsInstanceIgnorePublic).AsSpan(),
+                    type.GetMembers(AssemblyHelper.All));
                 foreach (var member in members) {
                     var objects = member.GetCustomAttributes(false);
                     if (objects.Length == 0) continue;
@@ -582,7 +583,7 @@ namespace Hsenl {
 
             // == 0的事件, 是并行执行的, 大于或小于0的事件, 是按顺序依次执行的, 这么做的目的是为了保持并行的速度, 因为有时候我们可能并不在意执行顺序, 所以如果都统一按顺序依次执行,
             // 对于异步事件来说, 会大大影响速度
-            using var asyncEvents = ListComponent<HTask>.Create();
+            using var asyncEvents = ListComponent<HTask>.Rent();
 
             for (int i = 0, len = eventList.Count; i < len; i++) {
                 var eventInfo = eventList[i];

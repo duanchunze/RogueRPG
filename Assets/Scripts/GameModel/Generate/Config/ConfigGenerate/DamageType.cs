@@ -12,29 +12,33 @@ namespace Hsenl
     public enum DamageType
     {
         /// <summary>
+        /// 无
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// 物理伤害
         /// </summary>
-        PhysicalDamage = 0,
+        PhysicalDamage = 1,
         /// <summary>
         /// 光属性伤害
         /// </summary>
-        LightDamage = 1,
+        LightDamage = 2,
         /// <summary>
         /// 暗属性伤害
         /// </summary>
-        DarkDamage = 2,
+        DarkDamage = 3,
         /// <summary>
         /// 火属性伤害
         /// </summary>
-        FireDamage = 3,
+        FireDamage = 4,
         /// <summary>
         /// 冰属性伤害
         /// </summary>
-        IceDamage = 4,
+        IceDamage = 5,
         /// <summary>
         /// 真实伤害
         /// </summary>
-        TrueDamage = 5,
+        TrueDamage = 6,
     }
 
 } 

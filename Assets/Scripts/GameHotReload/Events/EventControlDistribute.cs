@@ -1,5 +1,4 @@
 using Hsenl.EventType;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace Hsenl {
@@ -63,7 +62,7 @@ namespace Hsenl {
                 case InputGroupType.Keycode:
                     var ray = Camera.main.ScreenPointToRay(InputController.GetMousePosition());
                     if (Physics.Raycast(ray, out var hit, 1000, 1 << 6)) {
-                        inputMessage.value = new float3(hit.point.x, 0, hit.point.z);
+                        inputMessage.value = new Vector3(hit.point.x, 0, hit.point.z);
                     }
 
                     break;

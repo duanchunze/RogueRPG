@@ -1,5 +1,8 @@
 ﻿using System;
 using YooAsset;
+#if UNITY_EDITOR
+using UnityEngine;
+#endif
 
 namespace Hsenl {
     public static partial class SceneManager {
@@ -7,11 +10,13 @@ namespace Hsenl {
 
         static SceneManager() { }
 
-        [OnEventSystemInitialized]
+#if UNITY_EDITOR
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize() {
             UnloadAllScene();
         }
-        
+#endif
+
         public static async HTask<Scene> LoadSceneWithUnity(string name, LoadSceneMode loadSceneMode) {
             var scene = LoadScene(name, loadSceneMode);
             await YooAssets.LoadSceneAsync(name, (UnityEngine.SceneManagement.LoadSceneMode)(int)loadSceneMode);

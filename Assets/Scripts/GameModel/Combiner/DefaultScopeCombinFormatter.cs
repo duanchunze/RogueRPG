@@ -9,7 +9,7 @@ namespace Hsenl {
                     scopeType = typeof(Ability),
                     layers = new ScopeCrossCombinFormatterTypes.Layer[] {
                         new() { // layer1
-                            types = new Type[] { typeof(AbilityBar) },
+                            types = new Type[] { typeof(AbilitesBar) },
                         },
                         new() { // layer2
                             types = new Type[] { typeof(Actor) },
@@ -25,18 +25,6 @@ namespace Hsenl {
                         },
                         new() { // layer2
                             types = new Type[] { typeof(Actor) },
-                        }
-                    },
-                },
-
-                new() {
-                    scopeType = typeof(CardBarAssistSlot),
-                    layers = new ScopeCrossCombinFormatterTypes.Layer[] {
-                        new() { // layer1
-                            types = new Type[] { typeof(CardBarHeadSlot) },
-                        },
-                        new() { // layer2
-                            types = new Type[] { typeof(CardBar) },
                         }
                     },
                 },

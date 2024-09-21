@@ -28,10 +28,22 @@ namespace Hsenl {
         }
 
         public static void UnloadAllScene() {
-            if (activeScene != null) Object.Destroy(activeScene);
-            if (dontDestroyScene != null) Object.Destroy(dontDestroyScene);
-            foreach (var scene in scenes) {
-                Object.Destroy(scene.Value);
+            if (activeScene != null) {
+                if (!activeScene.IsDisposed)
+                    Object.Destroy(activeScene);
+
+                activeScene = null;
+            }
+
+            if (dontDestroyScene != null) {
+                if (!dontDestroyScene.IsDisposed)
+                    Object.Destroy(dontDestroyScene);
+
+                dontDestroyScene = null;
+            }
+
+            foreach (var kv in scenes) {
+                Object.Destroy(kv.Value);
             }
 
             scenes.Clear();
@@ -47,7 +59,7 @@ namespace Hsenl {
                     break;
                 case LoadSceneMode.Additional:
                     scene = SceneFactory.Create(name);
-                    activeScene ??= scene;
+                    // activeScene ??= scene;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
@@ -78,8 +90,13 @@ namespace Hsenl {
 
         public static void MoveEntityToScene(Entity entity, Scene scene) {
             Assert.NullReference(entity, $"scene is null '{scene.sceneName}'");
-            // 先把自己和父级剥离开来, 再操作
-            entity.SetParent(null, scene);
+            if (entity.Scene == scene)
+                return;
+
+            if (entity.Parent != null)
+                throw new Exception("Entity is not root entity, can't move scene");
+            
+            entity.SetSceneInternal(scene, null, null);
         }
     }
 }

@@ -30,31 +30,30 @@ namespace Hsenl {
             UnityRegister<UnityEngine.BoundsInt>();
 
             // class
-            if (!MemoryPack.MemoryPackFormatterProvider.IsRegistered<AnimationCurve>()) {
-                MemoryPack.MemoryPackFormatterProvider.Register(new AnimationCurveFormatter());
-                MemoryPack.MemoryPackFormatterProvider.Register(new ArrayFormatter<AnimationCurve>());
-                MemoryPack.MemoryPackFormatterProvider.Register(new ListFormatter<AnimationCurve>());
+            if (!MemoryPackFormatterProvider.IsRegistered<AnimationCurve>()) {
+                MemoryPackFormatterProvider.Register(new AnimationCurveFormatter());
+                MemoryPackFormatterProvider.Register(new ArrayFormatter<AnimationCurve>());
+                MemoryPackFormatterProvider.Register(new ListFormatter<AnimationCurve>());
             }
 
-            if (!MemoryPack.MemoryPackFormatterProvider.IsRegistered<Gradient>()) {
-                MemoryPack.MemoryPackFormatterProvider.Register(new GradientFormatter());
-                MemoryPack.MemoryPackFormatterProvider.Register(new ArrayFormatter<Gradient>());
-                MemoryPack.MemoryPackFormatterProvider.Register(new ListFormatter<Gradient>());
+            if (!MemoryPackFormatterProvider.IsRegistered<Gradient>()) {
+                MemoryPackFormatterProvider.Register(new GradientFormatter());
+                MemoryPackFormatterProvider.Register(new ArrayFormatter<Gradient>());
+                MemoryPackFormatterProvider.Register(new ListFormatter<Gradient>());
             }
 
             if (!MemoryPack.MemoryPackFormatterProvider.IsRegistered<RectOffset>()) {
-                MemoryPack.MemoryPackFormatterProvider.Register(new RectOffsetFormatter());
-                MemoryPack.MemoryPackFormatterProvider.Register(new ArrayFormatter<RectOffset>());
-                MemoryPack.MemoryPackFormatterProvider.Register(new ListFormatter<RectOffset>());
+                MemoryPackFormatterProvider.Register(new RectOffsetFormatter());
+                MemoryPackFormatterProvider.Register(new ArrayFormatter<RectOffset>());
+                MemoryPackFormatterProvider.Register(new ListFormatter<RectOffset>());
             }
         }
 
-        static void UnityRegister<T>()
-            where T : unmanaged {
-            MemoryPack.MemoryPackFormatterProvider.Register(new UnmanagedFormatter<T>());
-            MemoryPack.MemoryPackFormatterProvider.Register(new UnmanagedArrayFormatter<T>());
-            MemoryPack.MemoryPackFormatterProvider.Register(new ListFormatter<T>());
-            MemoryPack.MemoryPackFormatterProvider.Register(new NullableFormatter<T>());
+        static void UnityRegister<T>() where T : unmanaged {
+            MemoryPackFormatterProvider.Register(new UnmanagedFormatter<T>());
+            MemoryPackFormatterProvider.Register(new UnmanagedArrayFormatter<T>());
+            MemoryPackFormatterProvider.Register(new ListFormatter<T>());
+            MemoryPackFormatterProvider.Register(new NullableFormatter<T>());
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MemoryPack;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
@@ -36,16 +37,19 @@ namespace Hsenl {
 #endif
         [MemoryPackIgnore]
         protected IPriorityState currentEnterState;
-        
+
         [MemoryPackIgnore]
         protected IPriorityState evaluateSuccessdCache;
 
         [MemoryPackIgnore]
         protected List<IPriorityState> exclusionsCache = new();
+
         [MemoryPackIgnore]
         protected List<IPriorityState> highestDisablesCache = new();
+
         [MemoryPackIgnore]
         protected Bitlist specialDisableLabelsCache = new();
+
         [MemoryPackIgnore]
         protected Stack<IPriorityState> pollingCache = new();
 
@@ -55,17 +59,23 @@ namespace Hsenl {
         [MemoryPackIgnore]
         protected Dictionary<int, IPriorityState> defaults = new();
 
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
-            foreach (var state in this.states) {
+        public event Action<IPriorityState> OnStateEnter;
+        public event Action<IPriorityState> OnStateLeave;
+
+        internal override void OnDestroyInternal() {
+            foreach (var state in this.states.ToArray()) {
                 state.Leave();
             }
+        }
 
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
             this.timeScale = 1f;
             this.states?.Clear();
             this.aisles?.Clear();
             this.dirtyFlags?.Clear();
             this.currentEnterState = null;
+            this.evaluateSuccessdCache = null;
             this.exclusionsCache?.Clear();
             this.highestDisablesCache?.Clear();
             this.specialDisableLabelsCache?.Clear();
@@ -107,6 +117,25 @@ namespace Hsenl {
         Stack<IPriorityState> IPrioritizer.PollingCache => this.pollingCache;
 
         Dictionary<int, IPriorityState> IPrioritizer.Defaults => this.defaults;
+
+        void IPrioritizer.OnStateChanged(IPriorityState state, bool isEnter) {
+            if (isEnter) {
+                try {
+                    this.OnStateEnter?.Invoke(state);
+                }
+                catch (Exception e) {
+                    Log.Error(e);
+                }
+            }
+            else {
+                try {
+                    this.OnStateLeave?.Invoke(state);
+                }
+                catch (Exception e) {
+                    Log.Error(e);
+                }
+            }
+        }
 
         public void SetDefaultPriorityState(int aisle, IPriorityState state) {
             ((IPrioritizer)this).SetDefaultState(aisle, state);

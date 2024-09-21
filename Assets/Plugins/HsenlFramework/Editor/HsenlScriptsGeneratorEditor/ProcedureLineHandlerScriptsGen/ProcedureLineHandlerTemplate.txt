@@ -1,0 +1,6 @@
+﻿namespace Hsenl {
+    [ProcedureLineHandlerPriority(Pli#NAME#Priority)]
+    public class Plh#NAME# : AProcedureLineHandler<Pli#NAME#Form> {
+        
+    }
+}

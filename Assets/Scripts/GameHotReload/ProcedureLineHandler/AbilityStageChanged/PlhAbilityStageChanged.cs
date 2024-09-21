@@ -11,8 +11,7 @@ namespace Hsenl {
                 case StageType.None:
                     break;
                 case StageType.Enter: {
-                    EventStation.OnAbilityCasted(item.attachedBodied, abi);
-
+                    EventStation.OnAbilityCasted(item.Spellcaster, abi);
                     break;
                 }
                 case StageType.Reading: {
@@ -22,17 +21,17 @@ namespace Hsenl {
                     break;
                 }
                 case StageType.Lifting: {
-                    var status = abi.AttachedBodied.FindScopeInBodied<StatusBar>().GetStatus(StatusAlias.Wuqishou);
+                    var status = abi.MainBodied.FindBodiedInIndividual<StatusBar>().GetStatus(StatusAlias.Wuqishou);
                     if (status is { IsEnter: true }) {
                         item.stageLine.BufferSpeed = 5.2f;
-                        item.stageLine.TillTime = 0;
+                        item.stageLine.StageTillTime = 0;
                         status.Finish();
                     }
                     else {
                         if (abi.casterCompensate > 0) {
-                            item.stageLine.TillTime -= item.stageLine.TillTime * abi.casterCompensate;
-                            if (item.stageLine.TillTime < 0) {
-                                item.stageLine.TillTime = 0;
+                            item.stageLine.StageTillTime -= item.stageLine.StageTillTime * abi.casterCompensate;
+                            if (item.stageLine.StageTillTime < 0) {
+                                item.stageLine.StageTillTime = 0;
                             }
                         }
 
@@ -45,18 +44,20 @@ namespace Hsenl {
                     break;
                 }
                 case StageType.Casting: {
-                    if (abi.manaCost != 0) {
-                        if (abi.manaCost > 0) {
-                            Shortcut.SubtractMana(item.CasterNumerator, abi.manaCost);
+                    item.manaCost = item.AbilityNumerator.GetValue(NumericType.ManaCost);
+                    item.cd = item.AbilityNumerator.GetValue(NumericType.CD);
+                    if (item.manaCost != 0) {
+                        if (item.manaCost > 0) {
+                            Shortcut.SubtractMana(item.SpellcasterNumerator, item.manaCost);
                         }
                         else {
-                            Shortcut.RecoverMana(item.CasterNumerator, -abi.manaCost);
+                            Shortcut.RecoverMana(item.SpellcasterNumerator, -item.manaCost);
                         }
                     }
-                    
+
                     // 开始进入冷却. 法术极速影响所有技能的冷却
-                    var cooldown = abi.Config.Cooldown;
-                    var abiHaste = GameAlgorithm.MergeCalculateNumeric(item.AbilityNumerator, item.CasterNumerator, NumericType.Ahaste);
+                    var cooldown = item.cd;
+                    var abiHaste = GameAlgorithm.MergeCalculateNumeric(item.AbilityNumerator, item.SpellcasterNumerator, NumericType.Ahaste);
                     cooldown = GameFormula.CalculateCooldownTime(cooldown, abiHaste);
                     if (abi.cooldownCompensate > 0) {
                         cooldown -= cooldown * abi.cooldownCompensate;
@@ -64,7 +65,7 @@ namespace Hsenl {
                     }
 
                     var cooltilltime = TimeInfo.Time + cooldown;
-                    abi.ResetCooldown(cooltilltime);
+                    abi.Cooldown(cooltilltime);
                     EventStation.OnAbilityCooldown(abi, cooldown, cooltilltime);
 
                     if (abi.casterCompensate > 0) {

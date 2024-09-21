@@ -171,7 +171,7 @@ namespace Hsenl {
             if (lhs._type == rhs._type) return new Num(lhs._raw + rhs._raw) { _type = lhs._type };
 
             // 如果不是同类型, 但都不是浮点类型, 则直接相加, 且类型保留为最大类型
-            if (lhs._type != 0 && rhs._type != 0) return new Num(lhs._raw + rhs._raw) { _type = Math.Max(lhs._type, rhs._type) };
+            if (lhs._type != 0 && rhs._type != 0) return new Num(lhs._raw + rhs._raw) { _type = System.Math.Max(lhs._type, rhs._type) };
 
             // 如果不是同类型, 且存在浮点类型, 则都转成浮点, 然后让原始值相加, 结果取为浮点类型
             lhs.ToFloat();
@@ -181,7 +181,7 @@ namespace Hsenl {
 
         public static Num operator -(Num lhs, Num rhs) {
             if (lhs._type == rhs._type) return new Num(lhs._raw - rhs._raw) { _type = lhs._type };
-            if (lhs._type != 0 && rhs._type != 0) return new Num(lhs._raw - rhs._raw) { _type = Math.Max(lhs._type, rhs._type) };
+            if (lhs._type != 0 && rhs._type != 0) return new Num(lhs._raw - rhs._raw) { _type = System.Math.Max(lhs._type, rhs._type) };
             lhs.ToFloat();
             rhs.ToFloat();
             return new Num(lhs._raw - rhs._raw) { _type = 0 };
@@ -189,14 +189,14 @@ namespace Hsenl {
 
         public static Num operator *(Num lhs, Num rhs) {
             // 如果两数均不为浮点数, 则直接相乘, 类型取最大类型
-            if (lhs._type != 0 && rhs._type != 0) return new Num(lhs._raw * rhs._raw) { _type = Math.Max(lhs._type, rhs._type) };
+            if (lhs._type != 0 && rhs._type != 0) return new Num(lhs._raw * rhs._raw) { _type = System.Math.Max(lhs._type, rhs._type) };
 
             // 如果两数存在浮点数, 则用两数的浮点结果相乘, 结果取为浮点数
             return new Num(lhs.GetAsDouble() * rhs.GetAsDouble());
         }
 
         public static Num operator /(Num lhs, Num rhs) {
-            if (lhs._type != 0 && rhs._type != 0) return new Num(lhs._raw / rhs._raw) { _type = Math.Max(lhs._type, rhs._type) };
+            if (lhs._type != 0 && rhs._type != 0) return new Num(lhs._raw / rhs._raw) { _type = System.Math.Max(lhs._type, rhs._type) };
             return new Num(lhs.GetAsDouble() / rhs.GetAsDouble());
         }
 

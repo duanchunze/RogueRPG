@@ -6,7 +6,7 @@ namespace Hsenl {
     public abstract class TsHarm<T> : TsInfo<T>, IHarmInfo where T : timeline.TsHarmInfo {
         protected List<Numerator> numerators;
         protected Harmable harmable;
-        protected ProcedureLine procedureLine;
+        protected List<ProcedureLine> procedureLines;
 
         [MemoryPackIgnore]
         public object HarmInfo => this.info;
@@ -19,43 +19,27 @@ namespace Hsenl {
                     this.numerators.Clear();
                     var numerator = ability.GetComponent<Numerator>();
                     if (numerator != null) this.numerators.Add(numerator);
-                    numerator = ability.AttachedBodied?.GetComponent<Numerator>();
+                    numerator = ability.MainBodied?.GetComponent<Numerator>();
                     if (numerator != null) this.numerators.Add(numerator);
-                    this.harmable = ability.AttachedBodied?.GetComponent<Harmable>();
-                    this.procedureLine = ability.AttachedBodied?.GetComponent<ProcedureLine>();
+
+                    this.harmable = ability.MainBodied?.GetComponent<Harmable>();
+
+                    this.procedureLines ??= new(2);
+                    this.procedureLines.Clear();
+                    var pl = ability.MainBodied?.GetComponent<ProcedureLine>();
+                    if (pl != null) this.procedureLines.Add(pl);
+                    pl = ability.GetComponent<ProcedureLine>();
+                    if (pl != null) this.procedureLines.Add(pl);
                     break;
                 }
             }
         }
 
 
-        protected virtual void Harm(Hurtable hurtable, DamageFormulaInfo damageFormulaInfo, float damageRate = 1f) {
-            var dmg = Num.Empty();
-            for (int i = 0, len = damageFormulaInfo.DamageFormulas.Count; i < len; i++) {
-                var formulaInfo = damageFormulaInfo.DamageFormulas[i];
-                var d = GameAlgorithm.MergeCalculateNumeric(this.numerators, formulaInfo.Type);
-                d *= formulaInfo.Pct;
-                d += formulaInfo.Fix;
-                dmg += d;
-            }
-
-            var damageForm = new PliDamageArbitramentForm {
-                harm = this.harmable,
-                hurt = hurtable,
-                source = this.manager.Bodied,
-                damageType = damageFormulaInfo.DamageType,
-                damage = dmg * damageRate,
-                astun = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Astun),
-            };
-            
-            this.manager.Blackboard.TryGetData(BlackboardKey.HitSound.ToString(), out damageForm.hitsound);
-            this.manager.Blackboard.TryGetData(BlackboardKey.HitFx.ToString(), out damageForm.hitfx);
-
-            this.OnHarm(ref damageForm);
-        }
-
-        protected virtual void OnHarm(ref PliDamageArbitramentForm damageArbitramentForm) {
-            this.procedureLine.StartLineAsync(damageArbitramentForm).Tail();
+        protected void Harm(Hurtable hurtable, DamageFormulaInfo damageFormulaInfo, float damageRate = 1f) {
+            this.manager.Blackboard.TryGetData(BlackboardKey.HitSound.ToString(), out string hitsound);
+            this.manager.Blackboard.TryGetData(BlackboardKey.HitFx.ToString(), out string hitfx);
+            Shortcut.TakeDamage(this.harmable, hurtable, this.manager.Bodied, damageFormulaInfo, this.procedureLines, hitfx, hitsound, damageRate);
         }
     }
 }

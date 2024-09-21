@@ -22,8 +22,7 @@ namespace Hsenl {
             }
         }
         
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
+        internal override void OnDisposedInternal() {
             this.unbodiedHead = null;
         }
     }

@@ -49,8 +49,8 @@ namespace Hsenl {
         }
 
         protected sealed override void OnNodeEnter() {
-            this.manager.Time = 0;
-            this.manager.TillTime = this.Duration;
+            this.manager.StageTime = 0;
+            this.manager.StageTillTime = this.Duration;
             this.stageLine.CurrentStage = this.StageType;
         }
 
@@ -64,11 +64,11 @@ namespace Hsenl {
         }
 
         protected sealed override void OnNodeRunning() {
-            if (this.manager.TillTime < 0) {
+            if (this.manager.StageTillTime < 0) {
                 return;
             }
 
-            if (this.manager.Time >= this.manager.TillTime) {
+            if (this.manager.StageTime >= this.manager.StageTillTime) {
                 this.passed = true;
             }
         }

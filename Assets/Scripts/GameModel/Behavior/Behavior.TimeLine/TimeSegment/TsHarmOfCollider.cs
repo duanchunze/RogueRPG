@@ -15,7 +15,7 @@ namespace Hsenl {
             base.OnEnable();
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._faction = ability.AttachedBodied?.GetComponent<Faction>();
+                    this._faction = ability.MainBodied?.GetComponent<Faction>();
 
                     if (this._collisionEventListener == null) {
                         this._collisionEventListener = ability.FindChild<CollisionEventListener>();
@@ -39,7 +39,7 @@ namespace Hsenl {
                 case Ability ability: {
                     var bod = collider.Bodied;
                     if (bod == null) return;
-                    if (bod == this.manager.Bodied.AttachedBodied) return;
+                    if (bod == this.manager.Bodied.MainBodied) return;
                     var tags = this._faction.GetTagsOfFactionTypes(ability.factionTypes);
                     if (!bod.Tags.ContainsAny(tags)) {
                         return;
@@ -62,7 +62,7 @@ namespace Hsenl {
             if (tsize == 0)
                 tsize = 1;
 
-            this._collisionEventListener.transform.LocalScale = Vector3.one * tsize;
+            this._collisionEventListener.transform.LocalScale = Vector3.One * tsize;
             this._targetHurtable = null;
             // 将物理模拟临时改为脚本调用模式, 然后手动进行一次模拟运行, 这样哪怕collider只被开启一帧, 也能检测出来
             var simulationMode = Physics.simulationMode;

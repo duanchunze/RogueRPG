@@ -15,6 +15,8 @@ namespace Hsenl {
 
         private IHTaskBody? _body;
         private readonly uint _version;
+        
+        internal IHTaskBody Body => this._body;
 
         private HTask(IHTaskBody body) {
             this._body = body;
@@ -61,7 +63,7 @@ namespace Hsenl {
             }
         }
 
-        // 一个类型想要能被await, 必须有GetAwaiter(), 并返回一个ICriticalNotifyCompletion
+        // 一个类型想要能被await, 必须有GetAwaiter()函数, 拓展的也行, 并返回一个ICriticalNotifyCompletion
         // 一个类型想要能被async, 必须指定一个AsyncMethodBuilder
         public readonly struct Awaiter : ICriticalNotifyCompletion {
             private readonly HTask _task;
@@ -100,6 +102,8 @@ namespace Hsenl {
         private IHTaskBody<T>? _body;
         private readonly uint _version;
         private T _value;
+
+        internal IHTaskBody<T> Body => this._body;
 
         private HTask(IHTaskBody<T> body) {
             this._body = body;
@@ -164,7 +168,7 @@ namespace Hsenl {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public T GetResult() {
                 // 假如task没有被挂起的话, 会先调用SetResult(value), 然后在调用GetAwaiter(), value自然会被传过来, 
-                // 但如果task别挂起的话, 会先调用GetAwaiter(), SetResult(value)被在之后被调用, 此时value自然传不过来, 因为HTask是结构体
+                // 但如果task被挂起的话, 会先调用GetAwaiter(), SetResult(value)被在之后被调用, 此时value自然传不过来, 因为HTask是结构体
                 // 所以针对value, 设计了两种方式, 如果挂起了, 自然就会有body, 那么就把value存在body里, 因为body是引用类型, 如果没挂起, 就不会有body, 那就把值存在HTask里.
                 // 详情可以看上面SetResult()方法中, 对保存value的写法.
                 if (this._task._body == null)

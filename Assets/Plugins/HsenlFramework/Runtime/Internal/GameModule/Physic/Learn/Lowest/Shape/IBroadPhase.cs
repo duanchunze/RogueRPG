@@ -1,6 +1,4 @@
-﻿using FixedMath;
-
-namespace Hsenl {
+﻿namespace Hsenl {
     /// <summary>
     /// 试想一下,一个有N个物体的场景,如果我们对这些物体每两个之间进行碰撞检测,需要的计算复杂度是 [N²] ,对于计算机显然是不能接受的.
     /// 所以我们将碰撞检测分成两个阶段来实现,Broad-Phase和Narrow-Phase.

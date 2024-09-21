@@ -6,7 +6,7 @@ namespace Hsenl {
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    var inflictior = ability.AttachedBodied;
+                    var inflictior = ability.MainBodied;
                     foreach (var selectionTarget in ability.targets) {
                         Shortcut.TerminationStatus(inflictior, selectionTarget.Bodied, this.info.StatusAlias);
                     }

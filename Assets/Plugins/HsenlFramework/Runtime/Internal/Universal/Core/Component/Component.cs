@@ -15,7 +15,7 @@ namespace Hsenl {
         public string ViewName => this.IsDisposed ? "Null" : this.Name;
 #endif
 
-        [System.NonSerialized] // unity那个 depth limit 10警告
+        [NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackIgnore]
         internal Entity entity;
 
@@ -24,7 +24,7 @@ namespace Hsenl {
 
         [MemoryPackOrder(1)]
         [MemoryPackInclude]
-        protected internal bool enable = true;
+        internal bool enable = true;
 
         [MemoryPackIgnore]
         private int _componentIndex = -1;
@@ -46,10 +46,7 @@ namespace Hsenl {
         [MemoryPackIgnore]
         public Entity Entity {
             get {
-                if (this.IsDisposed) {
-                    throw new NullReferenceException("The entity has been destroyed, but you're still trying to get it");
-                }
-
+                this.CheckDisposedException("Component is disposed, can't get entity");
                 return this.entity;
             }
         }
@@ -67,6 +64,8 @@ namespace Hsenl {
         public bool Enable {
             get => this.enable;
             set {
+                this.CheckDisposingException("Component is Disposed, can't set enable");
+                this.CheckDisposedException("Component is Disposed, can't set enable");
                 if (this.enable == value)
                     return;
 
@@ -90,6 +89,7 @@ namespace Hsenl {
         [MemoryPackIgnore]
         public bool RealEnable {
             get {
+                this.CheckDisposedException("Component is disposed");
                 if (this.enable == false) return false;
                 return this.Entity.RealActive;
             }
@@ -105,13 +105,28 @@ namespace Hsenl {
         public Transform transform => this.Entity.transform;
 
         public void Reenable() {
+            this.CheckDisposingException("Component is Disposed, can't set enable");
+            this.CheckDisposedException("Component is Disposed, can't set enable");
             this.Enable = false;
             this.Enable = true;
         }
 
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
+        internal sealed override void Dispose() {
+            base.Dispose();
             this.entity = null;
+            try {
+                this.OnDisposedInternal();
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
+
+            try {
+                this.OnDisposed();
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
 #if UNITY_EDITOR
             this.PartialOnDestroyFinish();
 #endif
@@ -221,16 +236,6 @@ namespace Hsenl {
 
             try {
                 this.OnDestroy();
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
-        }
-
-        // 其他事件都是有系统调用的, 唯独这个是用户自己调用的
-        public void Reset() {
-            try {
-                this.OnReset();
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -380,11 +385,11 @@ namespace Hsenl {
 
         internal virtual void OnDestroyInternal() { }
 
-        // dispose 的意义在于, 如果有其他地方做了自己的引用, 那么即使自己已经 destroy 了, 该引用依然能正常使用, 而我们可能并不知道已经被删除了, 所以, 我们要把数据全部清空, 达到一种提示的
-        // 目的
         protected virtual void OnDestroy() { }
 
-        protected virtual void OnReset() { }
+        internal virtual void OnDisposedInternal() { }
+
+        protected virtual void OnDisposed() { }
 
         // 父级改变时涉及到的函数
         // BeforeParent => (此时赋值改变了父级) => ParentChange => OnChildRemove => OnChildAdd => AfterParent

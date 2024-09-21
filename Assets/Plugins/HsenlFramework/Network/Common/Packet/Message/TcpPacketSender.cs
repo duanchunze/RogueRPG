@@ -7,8 +7,8 @@ namespace Hsenl.Network {
         private const int TotalHeadBits = 4;
         private const int MaxBufferSize = 1024 * 1024; // 当一个buffer的缓存被括的超过该值, 则进行警报, 看看发生什么事了
 
-        private PackageBuffer _bufferSending = new(); // 两个send缓存区, 一个用来发送, 一个用来写入, 谁没在发送中, 谁当写入
-        private PackageBuffer _bufferWriting = new();
+        private HBuffer _bufferSending = new(); // 两个send缓存区, 一个用来发送, 一个用来写入, 谁没在发送中, 谁当写入
+        private HBuffer _bufferWriting = new();
 
         public Action<Memory<byte>> OnMessageWrited { get; set; } // 当写入了包(包括包装包)
 

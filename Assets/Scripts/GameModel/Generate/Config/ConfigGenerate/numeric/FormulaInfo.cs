@@ -27,7 +27,7 @@ public sealed partial class FormulaInfo :  numeric.Info
         PostInit();
     }
 
-    public FormulaInfo(NumericType type, float pct, float fix )  : base() 
+    public FormulaInfo(NumericType type, float pct, int fix )  : base() 
     {
         this.Type = type;
         this.Pct = pct;
@@ -42,7 +42,7 @@ public sealed partial class FormulaInfo :  numeric.Info
 
     public NumericType Type { get; private set; }
     public float Pct { get; private set; }
-    public float Fix { get; private set; }
+    public int Fix { get; private set; }
 
     public const int __ID__ = -1581296205;
     public override int GetTypeId() => __ID__;

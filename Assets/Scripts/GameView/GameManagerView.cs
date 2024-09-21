@@ -9,14 +9,16 @@ namespace Hsenl.View {
             if (InputController.GetButtonDown(InputCode.LeftControl)) {
                 this._uiopen = !this._uiopen;
                 if (this._uiopen) {
-                    UIManager.SingleOpen<UICardStore>(UILayer.High);
-                    UIManager.SingleOpen<UICardBar>(UILayer.High);
-                    UIManager.SingleOpen<UICardBackpack>(UILayer.High);
+                    UIManager.SingleOpen<UICardPool>(UILayer.High);
+                    // UIManager.SingleOpen<UICardStore>(UILayer.High);
+                    // UIManager.SingleOpen<UICardBar>(UILayer.High);
+                    // UIManager.SingleOpen<UICardBackpack>(UILayer.High);
                 }
                 else {
-                    UIManager.SingleClose<UICardStore>();
-                    UIManager.SingleClose<UICardBar>();
-                    UIManager.SingleClose<UICardBackpack>();
+                    UIManager.SingleClose<UICardPool>();
+                    // UIManager.SingleClose<UICardStore>();
+                    // UIManager.SingleClose<UICardBar>();
+                    // UIManager.SingleClose<UICardBackpack>();
                 }
             }
         }

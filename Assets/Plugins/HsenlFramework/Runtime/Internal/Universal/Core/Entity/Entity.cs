@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -26,7 +25,7 @@ namespace Hsenl {
         // 在框架里, 只要是和组件类有关的 (包括父类、继承的接口), 都会被指定一个编号, 并记录再此, 该编号是唯一的, 该编号是按01234...顺序分配的, 该编号为ComponentTypeIndex
         // ComponentTypeCacher.originalIndex == 该缓存器所代表的类型的编号
         // ComponentTypeCacher.bits 里保存了该类型所有的子类型的TypeIndex, 包括该类型自己的TypeIndex
-        private static readonly Dictionary<int, ComponentTypeCacher> _typeLookupTable = new(); // key: 某类型的哈希值, value: 某类型的'组件类型缓存器'
+        private static readonly Dictionary<Type, ComponentTypeCacher> _typeLookupTable = new(); // key: 某类型的哈希值, value: 某类型的'组件类型缓存器'
 
         private static readonly MultiQueue<Type, (ComponentTypeCacher require, Type add)> _requireComponentLookupTable = new();
         internal static readonly Dictionary<int, ComponentTypeCacher> requireInverseLookupTable = new();
@@ -86,18 +85,17 @@ namespace Hsenl {
             _cacherCount = uniques.Count;
             // 第二步, 给每个类分配编号
             foreach (var type in uniques) {
-                var hashCode = type.GetHashCode();
                 var cacher = ComponentTypeCacher.Create(num++);
                 cacher.Add(cacher.originalIndex);
-                _typeLookupTable[hashCode] = cacher;
+                _typeLookupTable[type] = cacher;
             }
 
             // 第三步, 给每个类添加基类到映射表
             foreach (var kv in map) {
-                var cacher = _typeLookupTable[kv.Key.GetHashCode()];
+                var cacher = _typeLookupTable[kv.Key];
                 foreach (var baseType in kv.Value) {
                     if (baseType == null) continue;
-                    _typeLookupTable[baseType.GetHashCode()].Add(cacher.originalIndex);
+                    _typeLookupTable[baseType].Add(cacher.originalIndex);
                 }
             }
         }
@@ -125,7 +123,7 @@ namespace Hsenl {
                     }
                 }
 
-                var typeCacher = _typeLookupTable[attr.requireType.GetHashCode()];
+                var typeCacher = _typeLookupTable[attr.requireType];
                 _requireComponentLookupTable.Enqueue(type, (typeCacher, attr.addType));
                 var componentIndex = GetComponentIndex(type);
                 if (!requireInverseLookupTable.TryGetValue(componentIndex, out var value)) {
@@ -150,7 +148,7 @@ namespace Hsenl {
             if (length == -1) length = types.Count;
             var result = ComponentTypeCacher.CreateNull();
             for (var i = start; i < length; i++) {
-                result.Add(_typeLookupTable[types[i].GetHashCode()].originalIndex);
+                result.Add(_typeLookupTable[types[i]].originalIndex);
             }
 
             return result;
@@ -159,19 +157,19 @@ namespace Hsenl {
         public static ComponentTypeCacher CombineComponentType(params Type[] types) {
             var result = ComponentTypeCacher.CreateNull();
             for (int i = 0, len = types.Length; i < len; i++) {
-                result.Add(_typeLookupTable[types[i].GetHashCode()].originalIndex);
+                result.Add(_typeLookupTable[types[i]].originalIndex);
             }
 
             return result;
         }
 
         public static void CombineComponentType(ComponentTypeCacher cacher, Type type) {
-            cacher.Add(_typeLookupTable[type.GetHashCode()].originalIndex);
+            cacher.Add(_typeLookupTable[type].originalIndex);
         }
 
         public static void CombineComponentType(ComponentTypeCacher cacher, params Type[] types) {
             for (int i = 0, len = types.Length; i < len; i++) {
-                cacher.Add(_typeLookupTable[types[i].GetHashCode()].originalIndex);
+                cacher.Add(_typeLookupTable[types[i]].originalIndex);
             }
         }
 
@@ -180,7 +178,7 @@ namespace Hsenl {
         }
 
         public static int GetComponentIndex(Type componentType) {
-            if (_typeLookupTable.TryGetValue(componentType.GetHashCode(), out var cacher)) {
+            if (_typeLookupTable.TryGetValue(componentType, out var cacher)) {
                 return cacher.originalIndex;
             }
 
@@ -219,6 +217,9 @@ namespace Hsenl {
         [MemoryPackIgnore]
         internal Scene scene;
 
+#if UNITY_EDITOR
+        [ShowInInspector, ReadOnly]
+#endif
         [MemoryPackInclude]
         internal bool active = true;
 
@@ -233,6 +234,8 @@ namespace Hsenl {
         public bool Active {
             get => this.active;
             set {
+                this.CheckDisposingException("Entity is Disposed, can't set active");
+                this.CheckDisposedException("Entity is Disposed, can't set active");
                 if (this.active == value) return;
                 this.active = value;
                 if (this.active) {
@@ -272,6 +275,9 @@ namespace Hsenl {
         public Entity Parent => this.parent;
 
         [MemoryPackIgnore]
+        public Scene Scene => this.scene;
+
+        [MemoryPackIgnore]
         public Bitlist Tags => this.tags;
 
         [MemoryPackIgnore]
@@ -293,17 +299,19 @@ namespace Hsenl {
         private Entity(string name) {
             this.name = name;
             this.instanceId = Guid.NewGuid().GetHashCode();
-            this.imminentDispose = false;
+            this.disposing = false;
             EventSystemManager.Instance.RegisterInstanced(this);
         }
 
         // 实体的创建共两种, 一种是该方法, 另一种是反序列化, 最后还有一种特殊的, 就是unity序列化entity的时候, 会用到的默认构造函数
         private Entity(string name, Entity parent = null) {
             // 如果有父级, 则放到父级场景下, 没有则放到当前激活的场景下
+            if (name == "Manager") { }
+
             this.name = name;
             this.instanceId = Guid.NewGuid().GetHashCode();
             this.uniqueId = this.instanceId;
-            this.imminentDispose = false;
+            this.disposing = false;
             EventSystemManager.Instance.RegisterInstanced(this);
 #if UNITY_5_3_OR_NEWER
             this.PartialOnCreated();
@@ -337,8 +345,8 @@ namespace Hsenl {
             }
         }
 
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
+        internal override void Dispose() {
+            base.Dispose();
             this.name = null;
             this.componentTypeCacher?.Clear();
             this.componentTypeCacher = null;
@@ -361,13 +369,16 @@ namespace Hsenl {
         }
 
         public void Reactivation() {
+            this.CheckDisposingException("Entity is Disposed, can't set active");
+            this.CheckDisposedException("Entity is Disposed, can't set active");
             this.Active = false;
             this.Active = true;
         }
 
-        private MultiList<int, Component> GetOrCreateComponents(int capacity = 0) => this.components ??= new(capacity); // basIdx, component
+        private MultiList<int, Component> GetOrCreateComponents(int capacity1 = 1, int capacity2 = 1)
+            => this.components ??= new(capacity1, capacity2); // basIdx, components
 
-        private List<Entity> GetOrCreateChildren(int capacity = 0) => this.children ??= new(capacity);
+        private List<Entity> GetOrCreateChildren(int capacity = 1) => this.children ??= new(capacity);
 
         // 先把父子关系以及所有的组件先搭好, 待整个模型成型后, 再去触发应有的事件
         internal void InitializeBySerialization() {
@@ -381,23 +392,24 @@ namespace Hsenl {
             // 把整个实体树的所有组件、子实体的关系都恢复好, 实例不用创建, 发序列化过后都实例化好的.
             if (this.componentsOfSerialize != null) {
                 this.GetOrCreateComponents(this.componentsOfSerialize.Count);
-                foreach (var componentSerialize in this.componentsOfSerialize) {
-                    var type = componentSerialize.GetType();
-                    if (!_typeLookupTable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
-                    if (componentSerialize.entity != null)
-                        throw new InvalidOperationException($"this component has been added to other entities '{this.Name}' '{componentSerialize.Name}'");
+                for (int i = 0, len = this.componentsOfSerialize.Count; i < len; i++) {
+                    var component = componentsOfSerialize[i];
+                    var type = component.GetType();
+                    if (!_typeLookupTable.TryGetValue(type, out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
+                    if (component.entity != null)
+                        throw new InvalidOperationException($"this component has been added to other entities '{this.Name}' '{component.Name}'");
 
                     // 把组件的一些初始化的东西设置好
-                    componentSerialize.entity = this;
-                    componentSerialize.instanceId = Guid.NewGuid().GetHashCode();
-                    componentSerialize.imminentDispose = false;
+                    component.entity = this;
+                    component.instanceId = Guid.NewGuid().GetHashCode();
+                    component.disposing = false;
 
-                    EventSystemManager.Instance.RegisterInstanced(componentSerialize);
+                    EventSystemManager.Instance.RegisterInstanced(component);
 
                     this.componentTypeCacher.Add(cacher.originalIndex);
-                    this.GetOrCreateComponents().Add(cacher.originalIndex, componentSerialize);
+                    this.GetOrCreateComponents().Add(cacher.originalIndex, component);
 
-                    if (componentSerialize is Transform t) {
+                    if (component is Transform t) {
                         this.transform = t;
                     }
                 }
@@ -405,15 +417,17 @@ namespace Hsenl {
 
             if (this.childrenOfSerialize != null) {
                 this.GetOrCreateChildren(this.childrenOfSerialize.Count);
-                foreach (var childSerialize in this.childrenOfSerialize) {
-                    this.GetOrCreateChildren().Add(childSerialize);
+                for (int i = 0, len = this.childrenOfSerialize.Count; i < len; i++) {
+                    var child = this.childrenOfSerialize[i];
+                    this.GetOrCreateChildren().Add(child);
                     // 父子关系, 场景所属设置好
-                    childSerialize.parent = this;
-                    childSerialize.scene = this.scene;
+                    child.parent = this;
+                    child.scene = this.scene;
                 }
 
-                foreach (var childSerialize in this.childrenOfSerialize) {
-                    childSerialize.InitializeBySerizlizationRestorationRelation();
+                for (int i = 0, len = this.childrenOfSerialize.Count; i < len; i++) {
+                    var child = this.childrenOfSerialize[i];
+                    child.InitializeBySerizlizationRestorationRelation();
                 }
 
                 this.childrenOfSerialize = null;
@@ -462,15 +476,20 @@ namespace Hsenl {
             }
 
 #if UNITY_5_3_OR_NEWER
-            this.PartialOnActiveSelfChanged(false);
+            this.PartialOnActiveSelfChanged(this.active);
 #endif
         }
 
-        public void SetParent(Entity value, Scene targetScene = null) {
-            this.SetParentInternal(value, targetScene);
+        public void SetParent(Entity value) {
+            this.CheckDisposingException("Entity is Disposed, can't set parent");
+            this.CheckDisposedException("Entity is Disposed, can't set parent");
+            value?.CheckDisposingException("Entity is Disposed, can't be parent");
+            value?.CheckDisposedException("Entity is Disposed, can't be parent");
+
+            this.SetParentInternal(value, true);
         }
 
-        internal void SetParentInternal(Entity futrueParent, Scene targetScene = null) {
+        internal void SetParentInternal(Entity futrueParent, bool setScene) {
             if (futrueParent == this)
                 throw new Exception("you cannot set yourself as the parent");
 
@@ -478,7 +497,6 @@ namespace Hsenl {
             this.OnBeforeParentChangeInternal(futrueParent);
 
             // 先把父子关系处理好
-            var prevScene = this.scene;
             var prevParent = this.parent;
             this.parent = futrueParent;
 
@@ -498,19 +516,19 @@ namespace Hsenl {
             this.OnParentChangedInternal(prevParent);
             prevParent?.OnChildRemoveInternal(this);
             this.parent?.OnChildAddInternal(this);
+            
+            if (!setScene)
+                return;
 
+            Scene futrueScene; // 设置父级是可能会改变实体的场景的
             // 有父级, 则直接设置为父级的场景
-            Scene futrueScene = null;
             if (futrueParent != null) {
                 futrueScene = futrueParent.scene;
             }
-            // 如果指定了场景, 则设置为指定场景
-            else if (targetScene != null) {
-                futrueScene = targetScene;
-            }
-            // 既没有父级, 也没有指定场景, 则保持本来的场景, 如果缺少本来场景, 则设置为当前激活的场景
+            // 既没有父级, 自己也没有场景, 则设置为当前激活的场景
             else {
-                if (this.scene == null) {
+                futrueScene = this.scene;
+                if (futrueScene == null) {
                     if (SceneManager.activeScene == null) {
                         throw new Exception("active scene is null");
                     }
@@ -519,56 +537,61 @@ namespace Hsenl {
                 }
             }
 
-            if (futrueScene != null) {
-                this.SetScene(futrueScene);
-
-                if (prevScene != futrueScene || prevParent != this.parent) {
-                    if (prevScene != null && prevParent == null) {
-                        prevScene.rootEntities.Remove(this);
-                    }
-
-                    if (this.parent == null) {
-                        futrueScene.rootEntities.Add(this);
-                    }
-                }
+            if (futrueScene == null) {
+                Log.Error("BUG!"); // 设置父级时, 理应不该存在未来场景为空的情况.
             }
 
-            this.OnSceneChangedInternal();
+            // 说明存在切换场景的情况
+            if (futrueScene != this.scene) {
+                this.SetSceneInternal(futrueScene, prevParent, futrueParent);
+            }
+            // 没有切换场景, 则检查是否出现根实体变化的情况
+            else {
+                // 如果从无父级到有父级, 则从场景删除根实体
+                if (prevParent == null && futrueParent != null) {
+                    this.scene!.RemoveRootEntity(this);
+                }
+
+                // 如果从有父级到无父级, 则在场景添加根实体
+                if (prevParent != null && futrueParent == null) {
+                    this.scene!.AddRootEntity(this);
+                }
+            }
         }
 
-        public int GetOrder() {
-            if (this.parent == null) return -1;
-            return this.parent.children.IndexOf(this);
-        }
+        internal void SetSceneInternal(Scene value, Entity prevParent, Entity currParent) {
+            if (this.scene == value)
+                return;
 
-        public void SetOrder(int index) {
-            if (this.parent == null) return;
-            this.parent.children.Remove(this);
-            this.parent.children.Insert(index, this);
-        }
-
-        public void DontDestroyOnLoad() {
-            SceneManager.MoveEntityToScene(this, SceneManager.dontDestroyScene);
-        }
-
-        internal void SetScene(Scene value) {
-            if (value == null)
-                throw new NullReferenceException("set scene is null");
-
-            if (this.scene == value) return;
+            var prevScene = this.scene;
             this.scene = value;
 
-            RecursionSetScene(this.children);
+            if (prevParent == null)
+                prevScene?.RemoveRootEntity(this);
+            if (currParent == null)
+                value?.AddRootEntity(this);
 
-            void RecursionSetScene(List<Entity> childlist) {
+            RecursionSetScene(this.children, value);
+            this.OnSceneChangedInternal();
+
+            return;
+
+            void RecursionSetScene(List<Entity> childlist, Scene val) {
                 if (childlist != null) {
                     for (int i = 0, len = childlist.Count; i < len; i++) {
                         var child = childlist[i];
-                        childlist[i].scene = value;
-                        RecursionSetScene(child.children);
+                        childlist[i].scene = val;
+                        RecursionSetScene(child.children, val);
                     }
                 }
             }
+        }
+
+        public void DontDestroyOnLoad() {
+            this.CheckDisposingException("Entity is disposed, can't move scene");
+            this.CheckDisposedException("Entity is disposed, can't move scene");
+            this.SetParent(null);
+            SceneManager.MoveEntityToScene(this, SceneManager.dontDestroyScene);
         }
 
         public T AddComponent<T>(bool enabled = true) where T : Component {
@@ -582,10 +605,15 @@ namespace Hsenl {
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public T AddComponent<T>(Action<T> initializeInvoke, bool enabled = true) where T : Component {
+            if (this.CheckDisposingLog("Entity is disposed, can't add component"))
+                return default;
+
+            this.CheckDisposedException("Entity is disposed, can't add component");
+
             var type = typeof(T);
             if (componentOptions.TryGetValue(type, out var options)) {
                 if (options.ComponentMode == ComponentMode.Single) {
-                    if (this.HasComponent(type, true)) {
+                    if (this.HasComponent(type)) {
                         throw new InvalidOperationException($"Component mode is single, but you're still trying to add multiple '{type.FullName}'");
                     }
                 }
@@ -599,12 +627,12 @@ namespace Hsenl {
                 }
             }
 
-            if (!_typeLookupTable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
+            if (!_typeLookupTable.TryGetValue(type, out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
             var component = (T)Activator.CreateInstance(type);
             component.entity = this;
             component.instanceId = Guid.NewGuid().GetHashCode();
             component.uniqueId = component.instanceId;
-            component.imminentDispose = false;
+            component.disposing = false;
             component.enable = enabled;
 
             try {
@@ -637,9 +665,14 @@ namespace Hsenl {
         }
 
         public Component AddComponent(Type type, Action<Component> initializeInvoke = null, bool enabled = true) {
+            if (this.CheckDisposingLog("Entity is disposed, can't add component"))
+                return default;
+
+            this.CheckDisposedException("Entity is disposed, can't add component");
+
             if (componentOptions.TryGetValue(type, out var options)) {
                 if (options.ComponentMode == ComponentMode.Single) {
-                    if (this.HasComponent(type, true)) {
+                    if (this.HasComponent(type)) {
                         throw new InvalidOperationException($"Component mode is single, but you're still trying to add multiple '{type.FullName}'");
                     }
                 }
@@ -653,12 +686,12 @@ namespace Hsenl {
                 }
             }
 
-            if (!_typeLookupTable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
+            if (!_typeLookupTable.TryGetValue(type, out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
             var component = (Component)Activator.CreateInstance(type);
             component.entity = this;
             component.instanceId = Guid.NewGuid().GetHashCode();
             component.uniqueId = component.instanceId;
-            component.imminentDispose = false;
+            component.disposing = false;
             component.enable = enabled;
 
             try {
@@ -691,10 +724,15 @@ namespace Hsenl {
         }
 
         public Component AddComponent(Component component) {
+            if (this.CheckDisposingLog("Entity is disposed, can't add component"))
+                return default;
+
+            this.CheckDisposedException("Entity is disposed, can't add component");
+
             var type = component.GetType();
             if (componentOptions.TryGetValue(type, out var options)) {
                 if (options.ComponentMode == ComponentMode.Single) {
-                    if (this.HasComponent(type, true)) {
+                    if (this.HasComponent(type)) {
                         throw new InvalidOperationException($"Component mode is single, but you're still trying to add multiple '{type.FullName}'");
                     }
                 }
@@ -708,11 +746,11 @@ namespace Hsenl {
                 }
             }
 
-            if (!_typeLookupTable.TryGetValue(type.GetHashCode(), out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
+            if (!_typeLookupTable.TryGetValue(type, out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
             component.entity = this;
             component.instanceId = Guid.NewGuid().GetHashCode();
             component.uniqueId = component.instanceId;
-            component.imminentDispose = false;
+            component.disposing = false;
 
             EventSystemManager.Instance.RegisterInstanced(component);
 
@@ -745,7 +783,7 @@ namespace Hsenl {
             if (this.components == null) return;
             if (component.entity != this) return;
 
-            if (!_typeLookupTable.TryGetValue(component.GetType().GetHashCode(), out var cacher))
+            if (!_typeLookupTable.TryGetValue(component.GetType(), out var cacher))
                 throw new Exception($"component type is not register '{component.GetType().Name}'");
             if (this.components.TryGetValue(cacher.originalIndex, out var list)) {
                 var remove = list.Remove(component);
@@ -759,16 +797,17 @@ namespace Hsenl {
             }
         }
 
-        public bool HasComponent<T>(bool declaredOnly = false) where T : class {
-            return this.HasComponent(typeof(T), declaredOnly);
+        public bool HasComponent<T>(bool polymorphic = false) where T : class {
+            return this.HasComponent(typeof(T), polymorphic);
         }
 
-        public bool HasComponent(Type type, bool declaredOnly = false) {
+        public bool HasComponent(Type type, bool polymorphic = false) {
+            this.CheckDisposedException("Entity is disposed, can't check has component");
             if (this.components == null) return false;
-            if (!_typeLookupTable.TryGetValue(type.GetHashCode(), out var cacher))
+            if (!_typeLookupTable.TryGetValue(type, out var cacher))
                 throw new Exception($"component type is not register '{type.Name}'");
 
-            if (declaredOnly) {
+            if (!polymorphic) {
                 return this.components.ContainsKey(cacher.originalIndex);
             }
             else {
@@ -777,27 +816,32 @@ namespace Hsenl {
         }
 
         public bool HasComponent(int componentIndex) {
+            this.CheckDisposedException("Entity is disposed, can't check has component");
             return this.components.ContainsKey(componentIndex);
         }
 
         public bool HasComponentsAny(ComponentTypeCacher typeCacher) {
+            this.CheckDisposedException("Entity is disposed, can't check has component");
             return this.componentTypeCacher.ContainsAny(typeCacher);
         }
 
         public bool HasComponentsAny(ComponentTypeCacher typeCacher, out int idx) {
+            this.CheckDisposedException("Entity is disposed, can't check has component");
             return this.componentTypeCacher.ContainsAny(typeCacher, out idx);
         }
 
         public bool HasComponentsAll(ComponentTypeCacher typeCacher) {
+            this.CheckDisposedException("Entity is disposed, can't check has component");
             return this.componentTypeCacher.ContainsAll(typeCacher);
         }
 
-        // declaredOnly为true代表不判断自己的多态, 只判断自己的类型
-        public T GetComponent<T>(bool declaredOnly = false) where T : class {
-            if (!_typeLookupTable.TryGetValue(typeof(T).GetHashCode(), out var cacher))
+        // polymorphic为true代表获取自己和自己的多态
+        public T GetComponent<T>(bool polymorphic = false) where T : class {
+            this.CheckDisposedException("Entity is disposed, can't get component");
+            if (!_typeLookupTable.TryGetValue(typeof(T), out var cacher))
                 throw new Exception($"component type is not register '{typeof(T).Name}'");
 
-            if (declaredOnly) {
+            if (!polymorphic) {
                 if (this.components.TryGetValue(cacher.originalIndex, out var list)) return list[0] as T;
                 return null;
             }
@@ -809,6 +853,7 @@ namespace Hsenl {
 
         // 直接通过组件的编号来获取组件
         public Component GetComponent(int componentIndex) {
+            this.CheckDisposedException("Entity is disposed, can't get component");
             if (this.components.TryGetValue(componentIndex, out var list))
                 return list[0];
 
@@ -817,29 +862,32 @@ namespace Hsenl {
 
         // 直接通过组件的编号来获取组件
         public T GetComponent<T>(int componentIndex) where T : class {
+            this.CheckDisposedException("Entity is disposed, can't get component");
             if (this.components.TryGetValue(componentIndex, out var list))
                 return list[0] as T;
 
             return null;
         }
 
-        public T[] GetComponents<T>(bool declaredOnly = false) where T : class {
-            using var list = ListComponent<T>.Create();
-            this.InternalGetComponents(list, declaredOnly);
+        public T[] GetComponents<T>(bool polymorphic = false) where T : class {
+            this.CheckDisposedException("Entity is disposed, can't get component");
+            using var list = ListComponent<T>.Rent();
+            this.InternalGetComponents(list, polymorphic);
             return list.ToArray();
         }
 
-        public void GetComponents<T>(List<T> results, bool declaredOnly = false) where T : class {
-            this.InternalGetComponents(results, declaredOnly);
+        public void GetComponents<T>(List<T> results, bool polymorphic = false) where T : class {
+            this.CheckDisposedException("Entity is disposed, can't get component");
+            this.InternalGetComponents(results, polymorphic);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void InternalGetComponents<T>(List<T> results, bool declaredOnly) where T : class {
+        private void InternalGetComponents<T>(List<T> results, bool polymorphic) where T : class {
             if (this.components == null) return;
-            if (!_typeLookupTable.TryGetValue(typeof(T).GetHashCode(), out var cacher))
+            if (!_typeLookupTable.TryGetValue(typeof(T), out var cacher))
                 throw new Exception($"component type is not register '{typeof(T).Name}'");
 
-            if (declaredOnly) {
+            if (!polymorphic) {
                 if (this.components.TryGetValue(cacher.originalIndex, out var list)) {
                     for (int i = 0, len = list.Count; i < len; i++) {
                         if (list[i] is T t) {
@@ -861,12 +909,14 @@ namespace Hsenl {
         }
 
         public Component[] GetComponentsOfTypeCacher(ComponentTypeCacher typeCacher) {
-            using var list = ListComponent<Component>.Create();
+            this.CheckDisposedException("Entity is disposed, can't get component");
+            using var list = ListComponent<Component>.Rent();
             this.InternalGetComponentsOfTypeCacher(typeCacher, list);
             return list.ToArray();
         }
 
         public void GetComponentsOfTypeCacher(ComponentTypeCacher typeCacher, List<Component> results) {
+            this.CheckDisposedException("Entity is disposed, can't get component");
             this.InternalGetComponentsOfTypeCacher(typeCacher, results);
         }
 
@@ -881,11 +931,12 @@ namespace Hsenl {
             }
         }
 
-        public T GetComponentInParent<T>(bool includeInactive = false, bool declaredOnly = false) where T : class {
+        public T GetComponentInParent<T>(bool includeInactive = false, bool polymorphic = false) where T : class {
+            this.CheckDisposedException("Entity is disposed, can't get component");
             var curr = this;
             while (curr != null) {
                 if (!includeInactive && !curr.active) goto NEXT;
-                var t = curr.GetComponent<T>(declaredOnly);
+                var t = curr.GetComponent<T>(polymorphic);
                 if (t != null) return t;
 
                 NEXT:
@@ -895,22 +946,24 @@ namespace Hsenl {
             return null;
         }
 
-        public T[] GetComponentsInParent<T>(bool includeInactive = false, bool declaredOnly = false) where T : class {
-            using var list = ListComponent<T>.Create();
-            this.InternalGetComponentsInParent(list, includeInactive, declaredOnly);
+        public T[] GetComponentsInParent<T>(bool includeInactive = false, bool polymorphic = false) where T : class {
+            this.CheckDisposedException("Entity is disposed, can't get component");
+            using var list = ListComponent<T>.Rent();
+            this.InternalGetComponentsInParent(list, includeInactive, polymorphic);
             return list.ToArray();
         }
 
-        public void GetComponentsInParent<T>(List<T> results, bool includeInactive = false, bool declaredOnly = false) where T : class {
-            this.InternalGetComponentsInParent(results, includeInactive, declaredOnly);
+        public void GetComponentsInParent<T>(List<T> results, bool includeInactive = false, bool polymorphic = false) where T : class {
+            this.CheckDisposedException("Entity is disposed, can't get component");
+            this.InternalGetComponentsInParent(results, includeInactive, polymorphic);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void InternalGetComponentsInParent<T>(List<T> results, bool includeInactive, bool declaredOnly) where T : class {
+        private void InternalGetComponentsInParent<T>(List<T> results, bool includeInactive, bool polymorphic) where T : class {
             var curr = this;
             while (curr != null) {
                 if (!includeInactive && !curr.active) goto NEXT;
-                curr.InternalGetComponents(results, declaredOnly);
+                curr.InternalGetComponents(results, polymorphic);
 
                 NEXT:
                 curr = curr.parent;
@@ -918,12 +971,14 @@ namespace Hsenl {
         }
 
         public Component[] GetComponentsInParentOfTypeCacher(ComponentTypeCacher typeCacher, bool includeInactive = false) {
-            using var list = ListComponent<Component>.Create();
+            this.CheckDisposedException("Entity is disposed, can't get component");
+            using var list = ListComponent<Component>.Rent();
             this.InternalGetComponentsInParentOfTypeCacher(typeCacher, list, includeInactive);
             return list.ToArray();
         }
 
         public void GetComponentsInParentOfTypeCacher(ComponentTypeCacher typeCacher, List<Component> results, bool includeInactive = false) {
+            this.CheckDisposedException("Entity is disposed, can't get component");
             this.InternalGetComponentsInParentOfTypeCacher(typeCacher, results, includeInactive);
         }
 
@@ -939,14 +994,15 @@ namespace Hsenl {
             }
         }
 
-        public T GetComponentInChildren<T>(bool includeInactive = false, bool declaredOnly = false) where T : class {
-            var t = this.GetComponent<T>(declaredOnly);
+        public T GetComponentInChildren<T>(bool includeInactive = false, bool polymorphic = false) where T : class {
+            this.CheckDisposedException("Entity is disposed, can't get component");
+            var t = this.GetComponent<T>(polymorphic);
             if (t != null) return t;
             if (this.children != null) {
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
                     if (!includeInactive && !child.active) continue;
-                    t = child.GetComponentInChildren<T>(includeInactive, declaredOnly);
+                    t = child.GetComponentInChildren<T>(includeInactive, polymorphic);
                     if (t != null) return t;
                 }
             }
@@ -954,36 +1010,40 @@ namespace Hsenl {
             return null;
         }
 
-        public T[] GetComponentsInChildren<T>(bool includeInactive = false, bool declaredOnly = false) where T : class {
-            using var list = ListComponent<T>.Create();
-            this.InternalGetComponentsInChildren(list, includeInactive, declaredOnly);
+        public T[] GetComponentsInChildren<T>(bool includeInactive = false, bool polymorphic = false) where T : class {
+            this.CheckDisposedException("Entity is disposed, can't get component");
+            using var list = ListComponent<T>.Rent();
+            this.InternalGetComponentsInChildren(list, includeInactive, polymorphic);
             return list.ToArray();
         }
 
-        public void GetComponentsInChildren<T>(List<T> result, bool includeInactive = false, bool declaredOnly = false) where T : class {
+        public void GetComponentsInChildren<T>(List<T> result, bool includeInactive = false, bool polymorphic = false) where T : class {
+            this.CheckDisposedException("Entity is disposed, can't get component");
             result.Clear();
-            this.InternalGetComponentsInChildren(result, includeInactive, declaredOnly);
+            this.InternalGetComponentsInChildren(result, includeInactive, polymorphic);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void InternalGetComponentsInChildren<T>(List<T> results, bool includeInactive, bool declaredOnly) where T : class {
-            this.InternalGetComponents(results, declaredOnly);
+        private void InternalGetComponentsInChildren<T>(List<T> results, bool includeInactive, bool polymorphic) where T : class {
+            this.InternalGetComponents(results, polymorphic);
             if (this.children != null) {
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
                     if (!includeInactive && !child.active) continue;
-                    child.InternalGetComponentsInChildren(results, includeInactive, declaredOnly);
+                    child.InternalGetComponentsInChildren(results, includeInactive, polymorphic);
                 }
             }
         }
 
         public Component[] GetComponentsInChildrenOfTypeCacher(ComponentTypeCacher typeCacher, bool includeInactive = false) {
-            using var list = ListComponent<Component>.Create();
+            this.CheckDisposedException("Entity is disposed, can't get component");
+            using var list = ListComponent<Component>.Rent();
             this.InternalGetComponentsInChildrenOfTypeCacher(typeCacher, list, includeInactive);
             return list.ToArray();
         }
 
         public void GetComponentsInChildrenOfTypeCacher(ComponentTypeCacher typeCacher, List<Component> results, bool includeInactive = false) {
+            this.CheckDisposedException("Entity is disposed, can't get component");
             this.InternalGetComponentsInChildrenOfTypeCacher(typeCacher, results, includeInactive);
         }
 
@@ -1000,6 +1060,7 @@ namespace Hsenl {
         }
 
         public void ForeachComponents<T>(Action<Component, T> callback, T data = default) {
+            this.CheckDisposedException("Entity is disposed, can't foreach components");
             if (this.components == null) return;
             foreach (var kv in this.components) {
                 var list = kv.Value;
@@ -1010,6 +1071,7 @@ namespace Hsenl {
         }
 
         public Iterator<Entity> ForeachChildren() {
+            this.CheckDisposedException("Entity is disposed, can't foreach children");
             if (this.children == null)
                 return default;
 
@@ -1053,11 +1115,13 @@ namespace Hsenl {
         }
 
         public Entity GetChild(int index) {
+            this.CheckDisposedException("Entity is disposed, can't get child");
             if (this.children == null) throw new ArgumentOutOfRangeException(index.ToString());
             return this.children[index];
         }
 
         public Entity FindChild(string childName) {
+            this.CheckDisposedException("Entity is disposed, can't find child");
             if (this.children != null) {
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
@@ -1069,6 +1133,7 @@ namespace Hsenl {
         }
 
         public T FindChild<T>() where T : Component {
+            this.CheckDisposedException("Entity is disposed, can't find child");
             if (this.children != null) {
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
@@ -1081,16 +1146,58 @@ namespace Hsenl {
             return null;
         }
 
+        public int GetOrder() {
+            this.CheckDisposedException("Entity is disposed, can't get order");
+            if (this.parent == null) return -1;
+            return this.parent.children.IndexOf(this);
+        }
+
+        public void SetSiblingIndex(int index) {
+            this.CheckDisposedException("Entity is disposed, can't set sibling index");
+            if (this.parent == null) return;
+            if (this.parent.children.Count <= 1) // 如果只有一个child, 则无需排序
+                return;
+
+            this.parent.children.Remove(this);
+            this.parent.children.Insert(index, this);
+#if UNITY_EDITOR
+            this.PartialOnSetSiblingIndex(index);
+#endif
+        }
+
         public void SortChildren(Comparison<Entity> comparison) {
+            this.CheckDisposedException("Entity is disposed, can't set sibling index");
             this.children?.Sort(comparison);
         }
 
-        public void SwapChild(int idx1, int idx2) {
+        public void SwapChildren(int idx1, int idx2) {
+            this.CheckDisposedException("Entity is disposed, can't swap children");
             if (this.children == null) return;
+
+            if (idx1 < 0 || idx1 > this.children.Count)
+                throw new ArgumentOutOfRangeException();
+
+            if (idx2 < 0 || idx2 > this.children.Count)
+                throw new ArgumentOutOfRangeException();
+
             var child1 = this.children[idx1];
             var child2 = this.children[idx2];
             this.children[idx1] = child2;
             this.children[idx2] = child1;
+        }
+
+        public void SwapChildren(Entity child1, Entity child2) {
+            this.CheckDisposedException("Entity is disposed, can't swap children");
+
+            if (child1 == null)
+                throw new ArgumentNullException(nameof(child1));
+            if (child2 == null)
+                throw new ArgumentNullException(nameof(child2));
+
+            this.children.SwapElements(child1, child2);
+#if UNITY_EDITOR
+            this.PartialOnSwapChildSeat(child1, child2);
+#endif
         }
 
         private void OnSerializedOverallInternal() {
@@ -1246,6 +1353,10 @@ namespace Hsenl {
             }
         }
 
+        public override string ToString() {
+            return $"{this.GetType()} '{this.name}'";
+        }
+
         #region partial
 
 #if UNITY_5_3_OR_NEWER
@@ -1254,6 +1365,8 @@ namespace Hsenl {
         internal partial void PartialOnParentChanged();
         internal partial void PartialOnComponentAdd(Component component);
         internal partial void PartialOnDestroyFinish();
+        internal partial void PartialOnSetSiblingIndex(int index);
+        internal partial void PartialOnSwapChildSeat(Entity child1, Entity child2);
 #endif
 
         #endregion

@@ -36,7 +36,7 @@ namespace Hsenl {
         }
 
         [MemoryPackIgnore]
-        public float DeltaTime { get; protected set; }
+        public float DeltaTime { get; set; }
 
         void IBehaviorTree.SetEntryNode(INode node) {
             this.SetEntryNode((T)node);
@@ -63,13 +63,6 @@ namespace Hsenl {
             }
         }
 
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
-            this.blackboard = null;
-            this.entryNode = default;
-            this.currentNode = null;
-        }
-
         protected override void OnEnable() {
             this.entryNode?.OpenNode();
         }
@@ -80,7 +73,15 @@ namespace Hsenl {
         }
 
         protected override void OnDestroy() {
-            this.SetEntryNode(default);
+            this.entryNode?.DestroyNode();
+        }
+
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
+            this.blackboard?.Clear();
+            this.entryNode = default;
+            this.currentNode = null;
+            this.DeltaTime = 0;
         }
 
         public virtual NodeStatus Tick() {
@@ -91,7 +92,7 @@ namespace Hsenl {
             return status;
         }
 
-        protected override void OnReset() {
+        public virtual void Reset() {
             this.entryNode?.ResetNode();
         }
 

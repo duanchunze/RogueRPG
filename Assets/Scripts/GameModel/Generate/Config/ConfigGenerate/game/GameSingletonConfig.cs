@@ -18,15 +18,13 @@ public sealed partial class GameSingletonConfig :  Bright.Config.BeanBase
 {
     public GameSingletonConfig(JSONNode _json) 
     {
-        { if(!_json["card_backpack_cap"].IsNumber) { throw new SerializationException(); }  CardBackpackCap = _json["card_backpack_cap"]; }
         { if(!_json["card_store_refresh_cost"].IsNumber) { throw new SerializationException(); }  CardStoreRefreshCost = _json["card_store_refresh_cost"]; }
         { if(!_json["coin_each"].IsNumber) { throw new SerializationException(); }  CoinEach = _json["coin_each"]; }
         PostInit();
     }
 
-    public GameSingletonConfig(int card_backpack_cap, int card_store_refresh_cost, int coin_each ) 
+    public GameSingletonConfig(int card_store_refresh_cost, int coin_each ) 
     {
-        this.CardBackpackCap = card_backpack_cap;
         this.CardStoreRefreshCost = card_store_refresh_cost;
         this.CoinEach = coin_each;
         PostInit();
@@ -37,10 +35,6 @@ public sealed partial class GameSingletonConfig :  Bright.Config.BeanBase
         return new game.GameSingletonConfig(_json);
     }
 
-    /// <summary>
-    /// 卡牌背包容量
-    /// </summary>
-    public int CardBackpackCap { get; private set; }
     /// <summary>
     /// 卡牌商店刷新消耗金币
     /// </summary>
@@ -65,7 +59,6 @@ public sealed partial class GameSingletonConfig :  Bright.Config.BeanBase
     public override string ToString()
     {
         return "{ "
-        + "CardBackpackCap:" + CardBackpackCap + ","
         + "CardStoreRefreshCost:" + CardStoreRefreshCost + ","
         + "CoinEach:" + CoinEach + ","
         + "}";

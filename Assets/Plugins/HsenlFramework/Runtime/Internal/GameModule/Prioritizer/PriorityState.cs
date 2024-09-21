@@ -144,12 +144,12 @@ namespace Hsenl {
             }
         }
         
-        protected override void OnDisable() {
+        internal override void OnDestroyInternal() {
             this.LeaveState();
         }
 
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
             this._handledFlag = false;
             this.timeScale = 1f;
             this.aisles = null;

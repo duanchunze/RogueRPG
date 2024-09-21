@@ -6,8 +6,8 @@ namespace Hsenl.View {
     public partial class ShadowEventOnHeroUnlockUpdate {
         [ShadowFunction]
         private void OnHeroUnlockUpdate() {
-            var ui = UISelectHero.instance;
-            using var allHeroCandidates = ListComponent<ActorConfig>.Create();
+            var ui = UIManager.GetSingleUI<UISelectHero>();
+            using var allHeroCandidates = ListComponent<ActorConfig>.Rent();
             foreach (var actorConfig in Tables.Instance.TbActorConfig.DataList) {
                 if (!actorConfig.Labels.Contains(TagType.Hero))
                     continue;

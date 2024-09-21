@@ -49,6 +49,7 @@ namespace Hsenl {
             // 热重载测试
             if (InputController.GetButtonDown(InputCode.R)) {
                 this._event.AddOrReplaceAssembles(new [] { this._reloadAssembly });
+                Log.Info("热重载成功!");
             }
         }
     }

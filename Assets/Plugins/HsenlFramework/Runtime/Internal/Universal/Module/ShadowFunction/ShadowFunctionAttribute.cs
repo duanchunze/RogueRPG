@@ -16,7 +16,7 @@ namespace Hsenl {
         // 由影子端使用, 当一个源函数有多个影子函数时, 用来给每个影子函数排序, 如果在影子类上赋值, 代表该类下所有影子函数都是该priority, 除非该函数自己指定了priority
         public int Priority { get; }
 
-        // 是否允许有多个影子函数实现, 如果为false, 那么一个源函数在全域内, 只能有一个对应的影子函数
+        // 由源函数使用, 是否允许有多个影子函数实现, 如果为false, 那么一个源函数在全域内, 只能有一个对应的影子函数
         public bool AllowMultiShadowFuncs { get; }
 
         public ShadowFunctionAttribute(Type targetType = null, int priority = 0, bool allowMultiShadowFuncs = false) {

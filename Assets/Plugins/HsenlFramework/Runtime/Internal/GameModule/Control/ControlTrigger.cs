@@ -1,6 +1,5 @@
 ﻿using System;
 using MemoryPack;
-using Unity.Mathematics;
 #if UNITY_EDITOR
 using UnityEngine;
 #endif
@@ -38,8 +37,15 @@ namespace Hsenl {
             }
         }
 
-        protected internal override void OnDisposed() {
-            this._control = null;
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
+            if (this._control != null) {
+                this.UnregisterControlListening(this._control, this.controlCode);
+                this._control = null;
+            }
+
+            this.controlCode = 0;
+            this.supportContinue = false;
             this.onBegin = null;
             this.onFinish = null;
         }
@@ -82,7 +88,7 @@ namespace Hsenl {
             this.onFinish?.Invoke();
         }
 
-        public bool GetValue(out float3 value) {
+        public bool GetValue(out Vector3 value) {
             if (this._control == null) {
                 value = default;
                 return false;

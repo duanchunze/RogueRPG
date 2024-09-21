@@ -4,11 +4,13 @@ namespace Hsenl {
     [MemoryPackable()]
     public partial class CeManaCheck : CeInfo<casterevaluate.ManaCheckInfo> {
         private Numerator _numerator;
+        private Numerator _abiNumerator;
 
         protected override void OnEnable() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    this._numerator = ability.AttachedBodied?.GetComponent<Numerator>();        
+                    this._numerator = ability.MainBodied?.GetComponent<Numerator>();
+                    this._abiNumerator = ability.GetComponent<Numerator>();
                     break;
                 }
             }
@@ -17,9 +19,10 @@ namespace Hsenl {
         protected override NodeStatus OnNodeTick() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    if (ability.manaCost > 0) {
+                    var manaCost = this._abiNumerator.GetValue(NumericType.ManaCost);
+                    if (manaCost > 0) {
                         var mana = this._numerator.GetValue(NumericType.Mana);
-                        if (mana < ability.manaCost) {
+                        if (mana < manaCost) {
                             this.manager.status = CastEvaluateStatus.Mana;
                             return NodeStatus.Failure;
                         }

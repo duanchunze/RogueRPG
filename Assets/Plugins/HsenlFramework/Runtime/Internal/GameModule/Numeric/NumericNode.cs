@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using MemoryPack;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
@@ -30,33 +29,35 @@ namespace Hsenl {
         private Dictionary<uint, Num> _finalNumerics = new(); // key: numericType 与 numericLayer 与 numericModel 三者的组合,  value: 数值
 
         [MemoryPackIgnore]
-        public List<INumerator> linkNumerators = new();
+        private List<INumerator> _linkNumerators = new();
 
         [MemoryPackIgnore]
         public IEnumerable<uint> Keys => this._numerics.Keys;
-
-        [MemoryPackInclude]
-        public NumericNodeLinkModel LinkModel { get; set; }
 
         protected override void OnDeserializedOverall() {
             this.Recalculate();
         }
 
-        protected internal override void OnDisposed() {
-            base.OnDisposed();
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
+            for (int i = this._linkNumerators.Count - 1; i >= 0; i--) {
+                var numerator = this._linkNumerators[i];
+                numerator.Detach(this);
+            }
+
+            this._linkNumerators.Clear();
             this._numerics.Clear();
             this._finalNumerics.Clear();
-            this.linkNumerators.Clear();
         }
 
-        public bool LinkNumerator(INumerator numerator) {
-            if (this.linkNumerators.Contains(numerator)) return false;
-            this.linkNumerators.Add(numerator);
+        bool INumericNode.LinkNumerator(INumerator numerator) {
+            if (this._linkNumerators.Contains(numerator)) return false;
+            this._linkNumerators.Add(numerator);
             return true;
         }
 
-        public bool UnlinkNumerator(INumerator numerator) {
-            return this.linkNumerators.Remove(numerator);
+        bool INumericNode.UnlinkNumerator(INumerator numerator) {
+            return this._linkNumerators.Remove(numerator);
         }
 
         public Num GetValue(NumericNodeKey key) {
@@ -136,10 +137,10 @@ namespace Hsenl {
         }
 
         private void OnChanged(uint key) {
-            if (this.linkNumerators == null) return;
+            if (this._linkNumerators == null) return;
 
-            for (int i = 0, len = this.linkNumerators.Count; i < len; i++) {
-                this.linkNumerators[i].Recalculate(key >> NumericConst.NumericTypeOffset);
+            for (int i = 0, len = this._linkNumerators.Count; i < len; i++) {
+                this._linkNumerators[i].Recalculate(key >> NumericConst.NumericTypeOffset);
             }
         }
     }

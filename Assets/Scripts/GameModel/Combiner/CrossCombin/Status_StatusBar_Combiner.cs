@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hsenl.MultiCombiner {
+namespace Hsenl.CrossCombiner {
     public class Status_StatusBar_Combiner : CrossCombiner<Status, StatusBar> {
         protected override void OnCombin(Status arg1, StatusBar arg2) {
             arg1.onBegin += this.EnqueueAction<Action>(() => {

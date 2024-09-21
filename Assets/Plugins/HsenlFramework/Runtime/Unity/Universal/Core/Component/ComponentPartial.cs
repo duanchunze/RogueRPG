@@ -1,5 +1,4 @@
 ﻿using MemoryPack;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Hsenl {

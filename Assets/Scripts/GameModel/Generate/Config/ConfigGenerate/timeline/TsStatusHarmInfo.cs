@@ -31,8 +31,11 @@ public abstract partial class TsStatusHarmInfo :  timeline.TsHarmInfo
         string type = _json["$type"];
         switch (type)
         {
+            case "TsStatusContinuousHarmInfo": return new timeline.TsStatusContinuousHarmInfo(_json);
             case "LiuXueInfo": return new timeline.LiuXueInfo(_json);
             case "RanshaoInfo": return new timeline.RanshaoInfo(_json);
+            case "WenyiInfo": return new timeline.WenyiInfo(_json);
+            case "WenyichuanboInfo": return new timeline.WenyichuanboInfo(_json);
             default: throw new SerializationException();
         }
     }
