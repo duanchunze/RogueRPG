@@ -104,9 +104,10 @@ namespace Hsenl {
         /// </summary>
         /// <param name="item">这条流水线的作业物，也是该流水线的标志</param>
         /// <param name="throwIfNull"></param>
+        /// <param name="userToken"></param>
         /// <typeparam name="T">作业物的类型</typeparam>
         /// <returns></returns>
-        public ProcedureLineHandleResult StartLine<T>(ref T item, bool throwIfNull = true) {
+        public ProcedureLineHandleResult StartLine<T>(ref T item, bool throwIfNull = true, object userToken = null) {
             if (!_handlerDict.TryGetValue(typeof(T), out var concurrentQueue)) {
                 if (throwIfNull)
                     throw new InvalidOperationException($"procedure line handler 'Hsen.AProcedureLineHandler`1{typeof(T)}' is not unrealized");
@@ -120,7 +121,7 @@ namespace Hsenl {
                     case IProcedureLineHandlerOfWorker<T> handler:
                         if (this._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
                             foreach (var productLineWorker in workers) {
-                                result = handler.Run(this, ref item, productLineWorker);
+                                result = handler.Run(this, ref item, productLineWorker, userToken);
                                 if (result == ProcedureLineHandleResult.Break) {
                                     return result;
                                 }
@@ -131,7 +132,7 @@ namespace Hsenl {
 
                     // no worker就和普通的event系统没多大区别
                     case IProcedureLineHandlerNoWorker<T> handler:
-                        result = handler.Run(this, ref item);
+                        result = handler.Run(this, ref item, userToken);
                         if (result == ProcedureLineHandleResult.Break) {
                             return result;
                         }
@@ -152,11 +153,12 @@ namespace Hsenl {
         /// <param name="other"></param>
         /// <param name="item"></param>
         /// <param name="throwIfNull"></param>
+        /// <param name="userToken"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public ProcedureLineHandleResult MergeStartLine<T>(ProcedureLine other, ref T item, bool throwIfNull = true) {
+        public ProcedureLineHandleResult MergeStartLine<T>(ProcedureLine other, ref T item, bool throwIfNull = true, object userToken = null) {
             if (!_handlerDict.TryGetValue(typeof(T), out var concurrentQueue)) {
                 if (throwIfNull)
                     throw new InvalidOperationException($"procedure line handler 'Hsen.AProcedureLineHandler`1{typeof(T)}' is not unrealized");
@@ -170,7 +172,7 @@ namespace Hsenl {
                     case IProcedureLineHandlerOfWorker<T> handler:
                         if (this._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
                             foreach (var worker in workers) {
-                                result = handler.Run(this, ref item, worker);
+                                result = handler.Run(this, ref item, worker, userToken);
                                 if (result == ProcedureLineHandleResult.Break) {
                                     return result;
                                 }
@@ -179,7 +181,7 @@ namespace Hsenl {
 
                         if (other._workerDict.TryGetValue(handlerPair.workerType, out workers)) {
                             foreach (var worker in workers) {
-                                result = handler.Run(this, ref item, worker);
+                                result = handler.Run(this, ref item, worker, userToken);
                                 if (result == ProcedureLineHandleResult.Break) {
                                     return result;
                                 }
@@ -190,7 +192,7 @@ namespace Hsenl {
 
                     // no worker就和普通的event系统没多大区别
                     case IProcedureLineHandlerNoWorker<T> handler:
-                        result = handler.Run(this, ref item);
+                        result = handler.Run(this, ref item, userToken);
                         if (result == ProcedureLineHandleResult.Break) {
                             return result;
                         }
@@ -205,7 +207,7 @@ namespace Hsenl {
             return ProcedureLineHandleResult.Success;
         }
 
-        public static ProcedureLineHandleResult MergeStartLine<T>(IList<ProcedureLine> procedureLines, ref T item, bool throwIfNull = true) {
+        public static ProcedureLineHandleResult MergeStartLine<T>(IList<ProcedureLine> procedureLines, ref T item, bool throwIfNull = true, object userToken = null) {
             if (procedureLines == null || procedureLines.Count == 0)
                 return ProcedureLineHandleResult.Fail;
 
@@ -224,7 +226,7 @@ namespace Hsenl {
                     case IProcedureLineHandlerOfWorker<T> handler:
                         if (mainline._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
                             foreach (var worker in workers) {
-                                result = handler.Run(mainline, ref item, worker);
+                                result = handler.Run(mainline, ref item, worker, userToken);
                                 if (result == ProcedureLineHandleResult.Break) {
                                     return result;
                                 }
@@ -235,7 +237,7 @@ namespace Hsenl {
                             var other = procedureLines[i];
                             if (other._workerDict.TryGetValue(handlerPair.workerType, out workers)) {
                                 foreach (var worker in workers) {
-                                    result = handler.Run(mainline, ref item, worker);
+                                    result = handler.Run(mainline, ref item, worker, userToken);
                                     if (result == ProcedureLineHandleResult.Break) {
                                         return result;
                                     }
@@ -247,7 +249,7 @@ namespace Hsenl {
 
                     // no worker就和普通的event系统没多大区别
                     case IProcedureLineHandlerNoWorker<T> handler:
-                        result = handler.Run(mainline, ref item);
+                        result = handler.Run(mainline, ref item, userToken);
                         if (result == ProcedureLineHandleResult.Break) {
                             return result;
                         }
@@ -262,19 +264,19 @@ namespace Hsenl {
             return ProcedureLineHandleResult.Success;
         }
 
-        public ProcedureLineHandleResult StartLine<T>(T item, bool throwIfNull = true) {
-            return this.StartLine(ref item, throwIfNull);
+        public ProcedureLineHandleResult StartLine<T>(T item, bool throwIfNull = true, object userToken = null) {
+            return this.StartLine(ref item, throwIfNull, userToken);
         }
 
-        public ProcedureLineHandleResult MergeStartLine<T>(ProcedureLine other, T item, bool throwIfNull = true) {
-            return this.MergeStartLine(other, ref item, throwIfNull);
+        public ProcedureLineHandleResult MergeStartLine<T>(ProcedureLine other, T item, bool throwIfNull = true, object userToken = null) {
+            return this.MergeStartLine(other, ref item, throwIfNull, userToken);
         }
 
-        public static ProcedureLineHandleResult MergeStartLine<T>(IList<ProcedureLine> procedureLines, T item, bool throwIfNull = true) {
-            return MergeStartLine(procedureLines, ref item, throwIfNull);
+        public static ProcedureLineHandleResult MergeStartLine<T>(IList<ProcedureLine> procedureLines, T item, bool throwIfNull = true, object userToken = null) {
+            return MergeStartLine(procedureLines, ref item, throwIfNull, userToken);
         }
 
-        public async HTask<ProcedureLineHandleResult> StartLineAsync<T>(T item, bool throwIfNull = true) {
+        public async HTask<ProcedureLineHandleResult> StartLineAsync<T>(T item, bool throwIfNull = true, object userToken = null) {
             if (!_handlerDict.TryGetValue(typeof(T), out var concurrentQueue)) {
                 if (throwIfNull)
                     throw new InvalidOperationException($"procedure line handler 'Hsen.AProcedureLineHandler`1{typeof(T)}' is not unrealized");
@@ -288,7 +290,7 @@ namespace Hsenl {
                     case IProcedureLineHandlerOfWorker<T> handler: {
                         if (this._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
                             foreach (var productLineWorker in workers) {
-                                result = handler.Run(this, ref item, productLineWorker);
+                                result = handler.Run(this, ref item, productLineWorker, userToken);
                                 if (result == ProcedureLineHandleResult.Break) {
                                     return result;
                                 }
@@ -299,7 +301,7 @@ namespace Hsenl {
                     }
 
                     case IProcedureLineHandlerNoWorker<T> handler: {
-                        result = handler.Run(this, ref item);
+                        result = handler.Run(this, ref item, userToken);
                         if (result == ProcedureLineHandleResult.Break) {
                             return result;
                         }
@@ -310,7 +312,7 @@ namespace Hsenl {
                     case IProcedureLineHandlerOfWorkerAsync<T> handler: {
                         if (this._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
                             foreach (var productLineWorker in workers) {
-                                result = await handler.Run(this, item, productLineWorker);
+                                result = await handler.Run(this, item, productLineWorker, userToken);
                                 if (result == ProcedureLineHandleResult.Break) {
                                     return result;
                                 }
@@ -321,7 +323,7 @@ namespace Hsenl {
                     }
 
                     case IProcedureLineHandlerNoWorkerAsync<T> handler: {
-                        result = await handler.Run(this, item);
+                        result = await handler.Run(this, item, userToken);
                         if (result == ProcedureLineHandleResult.Break) {
                             return result;
                         }
@@ -334,7 +336,7 @@ namespace Hsenl {
             return ProcedureLineHandleResult.Success;
         }
 
-        public async HTask<ProcedureLineHandleResult> MergeStartLineAsync<T>(ProcedureLine other, T item, bool throwIfNull = true) {
+        public async HTask<ProcedureLineHandleResult> MergeStartLineAsync<T>(ProcedureLine other, T item, bool throwIfNull = true, object userToken = null) {
             if (!_handlerDict.TryGetValue(typeof(T), out var concurrentQueue)) {
                 if (throwIfNull)
                     throw new InvalidOperationException($"procedure line handler 'Hsen.AProcedureLineHandler`1{typeof(T)}' is not unrealized");
@@ -348,7 +350,7 @@ namespace Hsenl {
                     case IProcedureLineHandlerOfWorker<T> handler: {
                         if (this._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
                             foreach (var productLineWorker in workers) {
-                                result = handler.Run(this, ref item, productLineWorker);
+                                result = handler.Run(this, ref item, productLineWorker, userToken);
                                 if (result == ProcedureLineHandleResult.Break) {
                                     return result;
                                 }
@@ -357,7 +359,7 @@ namespace Hsenl {
 
                         if (other._workerDict.TryGetValue(handlerPair.workerType, out workers)) {
                             foreach (var productLineWorker in workers) {
-                                result = handler.Run(this, ref item, productLineWorker);
+                                result = handler.Run(this, ref item, productLineWorker, userToken);
                                 if (result == ProcedureLineHandleResult.Break) {
                                     return result;
                                 }
@@ -368,7 +370,7 @@ namespace Hsenl {
                     }
 
                     case IProcedureLineHandlerNoWorker<T> handler: {
-                        result = handler.Run(this, ref item);
+                        result = handler.Run(this, ref item, userToken);
                         if (result == ProcedureLineHandleResult.Break) {
                             return result;
                         }
@@ -379,7 +381,7 @@ namespace Hsenl {
                     case IProcedureLineHandlerOfWorkerAsync<T> handler: {
                         if (this._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
                             foreach (var productLineWorker in workers) {
-                                result = await handler.Run(this, item, productLineWorker);
+                                result = await handler.Run(this, item, productLineWorker, userToken);
                                 if (result == ProcedureLineHandleResult.Break) {
                                     return result;
                                 }
@@ -388,7 +390,7 @@ namespace Hsenl {
 
                         if (other._workerDict.TryGetValue(handlerPair.workerType, out workers)) {
                             foreach (var productLineWorker in workers) {
-                                result = await handler.Run(this, item, productLineWorker);
+                                result = await handler.Run(this, item, productLineWorker, userToken);
                                 if (result == ProcedureLineHandleResult.Break) {
                                     return result;
                                 }
@@ -399,7 +401,7 @@ namespace Hsenl {
                     }
 
                     case IProcedureLineHandlerNoWorkerAsync<T> handler: {
-                        result = await handler.Run(this, item);
+                        result = await handler.Run(this, item, userToken);
                         if (result == ProcedureLineHandleResult.Break) {
                             return result;
                         }
@@ -412,7 +414,7 @@ namespace Hsenl {
             return ProcedureLineHandleResult.Success;
         }
 
-        public static async HTask<ProcedureLineHandleResult> MergeStartLineAsync<T>(IList<ProcedureLine> procedureLines, T item, bool throwIfNull = true) {
+        public static async HTask<ProcedureLineHandleResult> MergeStartLineAsync<T>(IList<ProcedureLine> procedureLines, T item, bool throwIfNull = true, object userToken = null) {
             if (procedureLines == null || procedureLines.Count == 0)
                 return ProcedureLineHandleResult.Fail;
 
@@ -431,7 +433,7 @@ namespace Hsenl {
                     case IProcedureLineHandlerOfWorker<T> handler: {
                         if (mainline._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
                             foreach (var productLineWorker in workers) {
-                                result = handler.Run(mainline, ref item, productLineWorker);
+                                result = handler.Run(mainline, ref item, productLineWorker, userToken);
                                 if (result == ProcedureLineHandleResult.Break) {
                                     return result;
                                 }
@@ -442,7 +444,7 @@ namespace Hsenl {
                             var other = procedureLines[i];
                             if (other._workerDict.TryGetValue(handlerPair.workerType, out workers)) {
                                 foreach (var productLineWorker in workers) {
-                                    result = handler.Run(mainline, ref item, productLineWorker);
+                                    result = handler.Run(mainline, ref item, productLineWorker, userToken);
                                     if (result == ProcedureLineHandleResult.Break) {
                                         return result;
                                     }
@@ -454,7 +456,7 @@ namespace Hsenl {
                     }
 
                     case IProcedureLineHandlerNoWorker<T> handler: {
-                        result = handler.Run(mainline, ref item);
+                        result = handler.Run(mainline, ref item, userToken);
                         if (result == ProcedureLineHandleResult.Break) {
                             return result;
                         }
@@ -465,7 +467,7 @@ namespace Hsenl {
                     case IProcedureLineHandlerOfWorkerAsync<T> handler: {
                         if (mainline._workerDict.TryGetValue(handlerPair.workerType, out var workers)) {
                             foreach (var productLineWorker in workers) {
-                                result = await handler.Run(mainline, item, productLineWorker);
+                                result = await handler.Run(mainline, item, productLineWorker, userToken);
                                 if (result == ProcedureLineHandleResult.Break) {
                                     return result;
                                 }
@@ -476,7 +478,7 @@ namespace Hsenl {
                             var other = procedureLines[i];
                             if (other._workerDict.TryGetValue(handlerPair.workerType, out workers)) {
                                 foreach (var productLineWorker in workers) {
-                                    result = await handler.Run(mainline, item, productLineWorker);
+                                    result = await handler.Run(mainline, item, productLineWorker, userToken);
                                     if (result == ProcedureLineHandleResult.Break) {
                                         return result;
                                     }
@@ -488,7 +490,7 @@ namespace Hsenl {
                     }
 
                     case IProcedureLineHandlerNoWorkerAsync<T> handler: {
-                        result = await handler.Run(mainline, item);
+                        result = await handler.Run(mainline, item, userToken);
                         if (result == ProcedureLineHandleResult.Break) {
                             return result;
                         }

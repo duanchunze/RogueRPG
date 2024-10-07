@@ -1,7 +1,7 @@
 ﻿namespace Hsenl {
     [ProcedureLineHandlerPriority(PliHurtPriority.FrameSlower)]
     public class PlhHurt_FrameSlower : AProcedureLineHandler<PliHurtForm> {
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHurtForm item) {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHurtForm item, object userToken) {
             if (item.frameSlower) {
                 var abilityHolder = item.hurtable.Bodied.FindBodiedInIndividual<AbilitesBar>();
                 var bufferSpeed = GameFormula.CalculateFrameSlower(item.astun);

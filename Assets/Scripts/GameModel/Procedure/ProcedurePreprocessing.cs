@@ -12,9 +12,6 @@ namespace Hsenl {
             InputMaptable.RegisterControlCode(InputCode.Alpha5, ControlCode.Ability5);
             InputMaptable.RegisterControlCode(InputCode.Alpha6, ControlCode.Ability6);
 
-            // 初始化数值系统
-            Numerator.InitNumerator(NumericLayer.Max - 1);
-
             // 加载初始场景
             SceneManager.GetOrLoadDontDestroyScene();
             await SceneManager.LoadSceneWithUnity("GameMain", LoadSceneMode.Single);

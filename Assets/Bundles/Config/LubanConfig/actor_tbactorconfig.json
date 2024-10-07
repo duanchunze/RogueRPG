@@ -1,6 +1,34 @@
 [
   {
     "id": 10000,
+    "alias": "剑圣",
+    "view_name": "jiansheng",
+    "labels": [
+      0,
+      1
+    ],
+    "model_name": "blademaster",
+    "numeric_alias": "战士",
+    "ai_alias": "玩家自动释放技能AI",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "劈砍"
+    ],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 10001,
     "alias": "战士",
     "view_name": "zhanshi",
     "labels": [
@@ -28,7 +56,7 @@
     }
   },
   {
-    "id": 10001,
+    "id": 10002,
     "alias": "猎人",
     "view_name": "lieren",
     "labels": [
@@ -56,7 +84,7 @@
     }
   },
   {
-    "id": 10002,
+    "id": 10003,
     "alias": "法师",
     "view_name": "fashi",
     "labels": [

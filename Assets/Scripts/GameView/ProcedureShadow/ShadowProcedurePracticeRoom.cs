@@ -6,6 +6,7 @@ namespace Hsenl.View {
     public static partial class ShadowProcedurePracticeRoom {
         [ShadowFunction]
         private static async Hsenl.HTask OnEnter(Hsenl.IFsm fsm, Hsenl.IFsmState prev) {
+            await HTask.Completed;
             GameManager.Instance.MainMan.GetComponent<HeadInfo>().Enable = true;
 
             try {

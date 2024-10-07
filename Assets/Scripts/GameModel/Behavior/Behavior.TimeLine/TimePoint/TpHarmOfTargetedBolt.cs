@@ -22,7 +22,7 @@ namespace Hsenl {
             }
         }
 
-        protected override async void OnTimePointTrigger() {
+        protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
                     foreach (var selectionTarget in ability.targets) {

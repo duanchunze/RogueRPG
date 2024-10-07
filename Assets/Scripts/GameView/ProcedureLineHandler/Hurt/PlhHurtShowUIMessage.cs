@@ -8,7 +8,7 @@ namespace Hsenl {
     public class PlhHurtShowUIMessage : AProcedureLineHandler<PliHurtForm> {
         private StringBuilder _stringBuilder = new();
 
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHurtForm item) {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHurtForm item, object userToken) {
             var height = item.hurtable.GetComponent<Numerator>().GetValue(NumericType.Height);
             this._stringBuilder.Clear();
             this._stringBuilder.Append(item.deductHp.ToString());

@@ -23,8 +23,6 @@ public sealed partial class StatusConfig :  Bright.Config.BeanBase
         { if(!_json["view_name"].IsString) { throw new SerializationException(); }  ViewName = _json["view_name"]; }
         { if(!_json["desc"].IsString) { throw new SerializationException(); }  Desc = _json["desc"]; }
         { if(!_json["duration"].IsNumber) { throw new SerializationException(); }  Duration = _json["duration"]; }
-        { if(!_json["stack"].IsNumber) { throw new SerializationException(); }  Stack = _json["stack"]; }
-        { if(!_json["max_stack"].IsNumber) { throw new SerializationException(); }  MaxStack = _json["max_stack"]; }
         { var __json0 = _json["numeric_infos"]; if(!__json0.IsArray) { throw new SerializationException(); } NumericInfos = new System.Collections.Generic.List<numeric.BasicValueInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { numeric.BasicValueInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = numeric.BasicValueInfo.DeserializeBasicValueInfo(__e0);  }  NumericInfos.Add(__v0); }   }
         { var __json0 = _json["numeric_nodes"]; if(!__json0.IsArray) { throw new SerializationException(); } NumericNodes = new System.Collections.Generic.List<numeric.AttachValueInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { numeric.AttachValueInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = numeric.AttachValueInfo.DeserializeAttachValueInfo(__e0);  }  NumericNodes.Add(__v0); }   }
         { var __json0 = _json["tags"]; if(!__json0.IsArray) { throw new SerializationException(); } Tags = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  Tags.Add(__v0); }   }
@@ -33,15 +31,13 @@ public sealed partial class StatusConfig :  Bright.Config.BeanBase
         PostInit();
     }
 
-    public StatusConfig(int id, string alias, string view_name, string desc, float duration, int stack, int max_stack, System.Collections.Generic.List<numeric.BasicValueInfo> numeric_infos, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes, System.Collections.Generic.List<TagType> tags, priority.StateInfo priority_state, status.StatusActionInfo main ) 
+    public StatusConfig(int id, string alias, string view_name, string desc, float duration, System.Collections.Generic.List<numeric.BasicValueInfo> numeric_infos, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes, System.Collections.Generic.List<TagType> tags, priority.StateInfo priority_state, status.StatusActionInfo main ) 
     {
         this.Id = id;
         this.Alias = alias;
         this.ViewName = view_name;
         this.Desc = desc;
         this.Duration = duration;
-        this.Stack = stack;
-        this.MaxStack = max_stack;
         this.NumericInfos = numeric_infos;
         this.NumericNodes = numeric_nodes;
         this.Tags = tags;
@@ -75,8 +71,6 @@ public sealed partial class StatusConfig :  Bright.Config.BeanBase
     /// 持续时间<br/>(只是默认持续时间, 游戏中可以随时更改)
     /// </summary>
     public float Duration { get; private set; }
-    public int Stack { get; private set; }
-    public int MaxStack { get; private set; }
     /// <summary>
     /// 自己的数值
     /// </summary>
@@ -123,8 +117,6 @@ public sealed partial class StatusConfig :  Bright.Config.BeanBase
         + "ViewName:" + ViewName + ","
         + "Desc:" + Desc + ","
         + "Duration:" + Duration + ","
-        + "Stack:" + Stack + ","
-        + "MaxStack:" + MaxStack + ","
         + "NumericInfos:" + Bright.Common.StringUtil.CollectionToString(NumericInfos) + ","
         + "NumericNodes:" + Bright.Common.StringUtil.CollectionToString(NumericNodes) + ","
         + "Tags:" + Bright.Common.StringUtil.CollectionToString(Tags) + ","

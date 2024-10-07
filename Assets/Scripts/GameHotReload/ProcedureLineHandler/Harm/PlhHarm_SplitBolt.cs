@@ -5,7 +5,7 @@ namespace Hsenl {
     public class PlhHarm_SplitBolt : AProcedureLineHandler<PliHarmForm, PlwSplitBoltOnHit> {
         private readonly List<SelectionTarget> _cache = new();
 
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHarmForm item, PlwSplitBoltOnHit worker) {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHarmForm item, PlwSplitBoltOnHit worker, object userToken) {
             var selector = item.harmable.GetComponent<Selector>();
             var faction = item.harmable.GetComponent<Faction>();
             IReadOnlyBitlist constrainsTags = null;
@@ -34,7 +34,7 @@ namespace Hsenl {
             return ProcedureLineHandleResult.Success;
         }
 
-        private async void FireBolts(PliHarmForm item, PlwSplitBoltOnHit worker) {
+        private void FireBolts(PliHarmForm item, PlwSplitBoltOnHit worker) {
             if (this._cache.Count != 0) {
                 for (int i = 0; i < this._cache.Count; i++) {
                     var selectionTarget = this._cache[i];
@@ -63,7 +63,6 @@ namespace Hsenl {
                 source = item.source,
                 damageType = item.damageType,
                 damage = item.damage * 0.7f,
-                damageRatio = 1f,
                 astun = item.astun,
                 hitsound = item.hitsound,
                 hitfx = item.hitfx,

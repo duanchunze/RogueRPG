@@ -43,7 +43,6 @@ namespace Hsenl {
                         source = this,
                         damageType = DamageType.PhysicalDamage,
                         damage = 30,
-                        damageRatio = 1f,
                         astun = 50,
                         dex = 1,
                     };

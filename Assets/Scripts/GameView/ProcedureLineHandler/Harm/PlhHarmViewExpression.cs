@@ -1,7 +1,7 @@
 ﻿namespace Hsenl.View {
     [ProcedureLineHandlerPriority(PliHarmPriority.ViewExpression)]
     public class PlhHarmViewExpression : AProcedureLineHandler<PliHarmForm> {
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHarmForm item) {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHarmForm item, object userToken) {
             if (item.source is Ability ability) {
                 var sound = item.harmable.GetComponent<Sound>();
                 if (sound != null && item.hitsound != null) {

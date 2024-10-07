@@ -15,7 +15,6 @@ namespace Hsenl {
 
         private void Start() {
             SceneManager.LoadScene("main", LoadSceneMode.Single);
-            Numerator.InitNumerator(3);
             _logStopwatch = new("start");
 
             ShadowFunctionExampleInvocation.Invoke();
@@ -35,8 +34,6 @@ namespace Hsenl {
             }
         }
 
-        private void OnDestroy() {
-            
-        }
+        private void OnDestroy() { }
     }
 }

@@ -6,7 +6,8 @@ namespace Hsenl {
     public static class AnimationClipExtractEditor {
         [MenuItem("Hsenl/Tools/从FBX中提取动画片段")]
         private static void CopyClip() {
-            foreach (var obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Unfiltered)) {
+            var filtereds = Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Unfiltered);
+            foreach (var obj in filtereds) {
                 // 这里需要用这个 mode，不然拷贝的动画片段无法使用
                 if (obj is not GameObject go) {
                     continue;

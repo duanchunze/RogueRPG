@@ -5,7 +5,7 @@ namespace Hsenl.View {
     public class PlhStatusChangesBodyUndergoChanges : AProcedureLineHandler<PliStatusChangesForm> {
         private static readonly Color _BaTiColor = new Color(1, 101 / 255f, 0, 1);
 
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliStatusChangesForm item) {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliStatusChangesForm item, object userToken) {
             switch (item.statusAlias) {
                 case StatusAlias.BaTi: {
                     var model = item.target.GetComponent<Model>();

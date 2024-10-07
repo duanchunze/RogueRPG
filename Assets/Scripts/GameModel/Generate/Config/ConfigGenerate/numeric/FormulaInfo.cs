@@ -17,35 +17,31 @@ namespace Hsenl.numeric
 /// <summary>
 /// 数值配方
 /// </summary>
-public sealed partial class FormulaInfo :  numeric.Info 
+public abstract partial class FormulaInfo :  numeric.Info 
 {
     public FormulaInfo(JSONNode _json)  : base(_json) 
     {
-        { if(!_json["type"].IsNumber) { throw new SerializationException(); }  Type = (NumericType)_json["type"].AsInt; }
-        { if(!_json["pct"].IsNumber) { throw new SerializationException(); }  Pct = _json["pct"]; }
-        { if(!_json["fix"].IsNumber) { throw new SerializationException(); }  Fix = _json["fix"]; }
         PostInit();
     }
 
-    public FormulaInfo(NumericType type, float pct, int fix )  : base() 
+    public FormulaInfo()  : base() 
     {
-        this.Type = type;
-        this.Pct = pct;
-        this.Fix = fix;
         PostInit();
     }
 
     public static FormulaInfo DeserializeFormulaInfo(JSONNode _json)
     {
-        return new numeric.FormulaInfo(_json);
+        string type = _json["$type"];
+        switch (type)
+        {
+            case "FormulaInfo1": return new numeric.FormulaInfo1(_json);
+            case "FormulaInfo2": return new numeric.FormulaInfo2(_json);
+            case "FormulaInfo3": return new numeric.FormulaInfo3(_json);
+            default: throw new SerializationException();
+        }
     }
 
-    public NumericType Type { get; private set; }
-    public float Pct { get; private set; }
-    public int Fix { get; private set; }
 
-    public const int __ID__ = -1581296205;
-    public override int GetTypeId() => __ID__;
 
     public override void Resolve(Dictionary<string, object> _tables)
     {
@@ -61,9 +57,6 @@ public sealed partial class FormulaInfo :  numeric.Info
     public override string ToString()
     {
         return "{ "
-        + "Type:" + Type + ","
-        + "Pct:" + Pct + ","
-        + "Fix:" + Fix + ","
         + "}";
     }
     

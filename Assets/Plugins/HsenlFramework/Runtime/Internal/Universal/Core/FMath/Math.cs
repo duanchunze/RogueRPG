@@ -154,6 +154,15 @@ namespace Hsenl {
             int fix = val1 > val2 ? val1 : val2;
             return fix > val3 ? fix : val3;
         }
+        
+        public static uint Max(uint val1, uint val2) {
+            return val1 > val2 ? val1 : val2;
+        }
+
+        public static uint Max(uint val1, uint val2, uint val3) {
+            uint fix = val1 > val2 ? val1 : val2;
+            return fix > val3 ? fix : val3;
+        }
 
         public static FLOAT Min(FLOAT val1, FLOAT val2) {
             return val1 < val2 ? val1 : val2;
@@ -169,6 +178,15 @@ namespace Hsenl {
         }
 
         public static int Min(int val1, int val2, int val3) {
+            val1 = val1 < val2 ? val1 : val2;
+            return val1 < val3 ? val1 : val3;
+        }
+        
+        public static uint Min(uint val1, uint val2) {
+            return val1 > val2 ? val2 : val1;
+        }
+
+        public static uint Min(uint val1, uint val2, uint val3) {
             val1 = val1 < val2 ? val1 : val2;
             return val1 < val3 ? val1 : val3;
         }

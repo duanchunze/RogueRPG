@@ -1,9 +1,10 @@
 ﻿using System;
+using Hsenl.numeric;
 
 namespace Hsenl {
     [ProcedureLineHandlerPriority(PliHarmPriority.CalcNumeric)]
     public class PlhHarm_CalcNumeric : AProcedureLineHandler<PliHarmForm> {
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHarmForm item) {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHarmForm item, object userToken) {
             // 伤害类型和伤害值
             if (item.damageFormulaInfo != null) {
                 switch (item.source) {
@@ -12,10 +13,15 @@ namespace Hsenl {
                         item.damageType = item.damageFormulaInfo.DamageType;
                         for (int i = 0, len = item.damageFormulaInfo.DamageFormulas.Count; i < len; i++) {
                             var formulaInfo = item.damageFormulaInfo.DamageFormulas[i];
-                            var d = GameAlgorithm.MergeCalculateNumeric(item.harmNumerator, item.sourceNumerator, formulaInfo.Type);
-                            d *= formulaInfo.Pct;
-                            d += formulaInfo.Fix;
-                            item.damage += d;
+                            switch (formulaInfo) {
+                                case FormulaInfo1 f1: {
+                                    var d = GameAlgorithm.MergeCalculateNumeric(item.harmNumerator, item.sourceNumerator, f1.Type);
+                                    d *= f1.Pct;
+                                    d += f1.Fix;
+                                    item.damage += d;
+                                    break;
+                                }
+                            }
                         }
 
                         break;
@@ -35,7 +41,7 @@ namespace Hsenl {
                     item.damage -= item.damage * intensify;
                 }
             }
-            
+
             // 乘以伤害比例
             {
                 if (item.damageRatio == 0)

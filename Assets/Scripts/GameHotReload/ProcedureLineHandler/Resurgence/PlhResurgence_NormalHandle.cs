@@ -1,7 +1,7 @@
 namespace Hsenl {
     [ProcedureLineHandlerPriority(PliResurgencePriority.NoramlHandle)]
     public class PlhResurgence_NormalHandle : AProcedureLineHandler<PliResurgenceForm> {
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliResurgenceForm item) {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliResurgenceForm item, object userToken) {
             var agent = item.target.transform.NavMeshAgent;
             if (agent != null) {
                 agent.Enable = true;

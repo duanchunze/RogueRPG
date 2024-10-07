@@ -214,6 +214,14 @@ namespace Hsenl
         /// 最大召唤数 max summoning num
         /// </summary>
         Msn = 50,
+        /// <summary>
+        /// 叠加层数
+        /// </summary>
+        Stack = 51,
+        /// <summary>
+        /// 最大叠加层数
+        /// </summary>
+        MaxStack = 52,
     }
 
 } 

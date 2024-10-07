@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Hsenl.Handler {
     [ProcedureLineHandlerPriority(PliCasterBreakPriority.CompensateMana)]
     public class PlhCasterBreak_CompensateMana : AProcedureLineHandler<PliCasterBreakForm> {
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliCasterBreakForm item) {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliCasterBreakForm item, object userToken) {
             switch (item.caster.Bodied) {
                 case Ability ability: {
                     

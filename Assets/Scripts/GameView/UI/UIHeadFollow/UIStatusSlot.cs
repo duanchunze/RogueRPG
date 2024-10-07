@@ -10,10 +10,16 @@ namespace Hsenl.View {
 
         protected override void OnFillerIn() {
             base.OnFillerIn();
-            
+
             try {
                 var viewName = this.Filler.Name;
-                this.text.text = this.Filler.StackNum.ToString();
+                var stack = this.Filler.GetStack();
+                if (stack != 0) {
+                    this.text.text = stack.ToString();
+                }
+                else {
+                    this.text.text = null;
+                }
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -26,9 +32,7 @@ namespace Hsenl.View {
         }
 
         private void Update() {
-            if (this.Filler != null) {
-                
-            }
+            if (this.Filler != null) { }
         }
     }
 }

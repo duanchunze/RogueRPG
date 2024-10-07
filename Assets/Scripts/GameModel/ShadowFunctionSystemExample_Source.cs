@@ -195,7 +195,7 @@ namespace Hsenl {
     }
 
     [ShadowFunction(allowMultiShadowFuncs: true)]
-    public partial class ShadowFunctionSystemExample_Source3<T1, T2> { // 静态类
+    public partial class ShadowFunctionSystemExample_Source3<T1, T2> { // 泛型类
         public int a = 2;
         public string b = "dafad";
 

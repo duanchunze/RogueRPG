@@ -16,14 +16,14 @@ using UnityEditor;
 #endif
 
 namespace Hsenl.Mono {
-    public class NumericNodeComponent : MonoBehaviour, IHsenlComponentReference<Hsenl.NumericNode> {
+    public class NumericNodeComponent : MonoBehaviour, IHsenlComponentReference<Hsenl.Numeric> {
         [ReadOnly]
         public int hsenlComponentInstanceId;
     
         [SerializeField]
-        private Hsenl.NumericNode _hsenlComponent;
+        private Hsenl.Numeric _hsenlComponent;
     
-        public Hsenl.NumericNode HsenlComponent => this._hsenlComponent;
+        public Hsenl.Numeric HsenlComponent => this._hsenlComponent;
         
         private void Awake() {
             // 如果是从资源加载go对象的话, hsenlComponentInstanceId一定等于0, 而如果是Object.InstantiateWithUnity创建的话, hsenlComponentInstanceId则一定不为0
@@ -41,7 +41,7 @@ namespace Hsenl.Mono {
         private void Start() { }
         
         void IHsenlComponentReference.SetFrameworkReference(Component reference) {
-            this._hsenlComponent = reference as Hsenl.NumericNode;
+            this._hsenlComponent = reference as Hsenl.Numeric;
             this.hsenlComponentInstanceId = this._hsenlComponent?.InstanceId??0;
         }
     }

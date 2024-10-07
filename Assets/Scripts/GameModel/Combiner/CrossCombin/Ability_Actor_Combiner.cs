@@ -3,7 +3,7 @@
         // 这里为了省事, 就把 Numerator和ProcedureLine相关的组件交互都写在一个组合里面了, 
         // 这么做的话就需要确定在组合前, 相关组件都已经被添加过了.
         protected override void OnCombin(Ability arg1, Actor arg2) {
-            var numeratorNode = arg1.GetComponent<NumericNode>();
+            var numeratorNode = arg1.GetComponent<Numeric>();
             var numerator = arg2.GetComponent<Numerator>();
             if (numerator != null && numeratorNode != null)
                 numerator.Attach(numeratorNode);
@@ -15,7 +15,7 @@
         }
 
         protected override void OnDecombin(Ability arg1, Actor arg2) {
-            var numeratorNode = arg1.GetComponent<NumericNode>();
+            var numeratorNode = arg1.GetComponent<Numeric>();
             var numerator = arg2.GetComponent<Numerator>();
             if (numerator != null && numeratorNode != null)
                 numerator.Detach(numeratorNode);

@@ -519,6 +519,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 1,
                   "fix": 0
@@ -663,7 +664,7 @@
             "$type": "PlayAnimInfo",
             "model": 1,
             "point": 0,
-            "anim": "attack1"
+            "anim": "attack2"
           },
           {
             "$type": "SetDataInfo",
@@ -692,6 +693,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 0.7,
                   "fix": 0
@@ -821,6 +823,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 0.2,
                   "fix": 0
@@ -1080,6 +1083,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 1.5,
                   "fix": 0
@@ -1248,6 +1252,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 1.5,
                   "fix": 0
@@ -1426,6 +1431,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 1.2,
                   "fix": 0
@@ -1608,6 +1614,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 0.8,
                   "fix": 0
@@ -1981,6 +1988,12 @@
         "duration": 1,
         "actions": [
           {
+            "$type": "PlayAnimInfo",
+            "model": 1,
+            "point": 0,
+            "anim": "reading"
+          },
+          {
             "$type": "DeadAbortCheckInfo",
             "model": 1,
             "origin": 0,
@@ -2025,6 +2038,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 3,
                   "fix": 10
@@ -2211,6 +2225,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 0.75,
                   "fix": 0
@@ -2407,6 +2422,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 0.75,
                   "fix": 0
@@ -2425,6 +2441,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 0.75,
                   "fix": 0
@@ -2443,6 +2460,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 0.75,
                   "fix": 0
@@ -2627,6 +2645,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 0.75,
                   "fix": 0
@@ -2822,6 +2841,7 @@
             "harm_formula": {
               "damage_formulas": [
                 {
+                  "$type": "FormulaInfo1",
                   "type": 12,
                   "pct": 0.75,
                   "fix": 0

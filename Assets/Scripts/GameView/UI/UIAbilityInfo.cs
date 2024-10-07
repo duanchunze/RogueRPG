@@ -33,7 +33,7 @@ namespace Hsenl.View {
             for (int i = 0, len = keys.Length; i < len; i++) {
                 var element = this.statsElementHolder.GetChild(i);
                 var key = keys[i];
-                var tuple = NumericNodeKey.Split(key);
+                var tuple = NumericKey.Split(key);
                 if (!Enum.IsDefined(typeof(NumericType), (int)tuple.numType))
                     continue;
 
@@ -65,13 +65,19 @@ namespace Hsenl.View {
                                 var info = harmInfo.HarmInfo;
                                 var harmFormula = AssemblyHelper.GetPropertyValue<numeric.DamageFormulaInfo>(info.GetType(), "HarmFormula", info);
                                 foreach (var damageFormula in harmFormula.DamageFormulas) {
-                                    if (damageFormula.Fix != 0) {
-                                        harmStr += LocalizationHelper.GetStringOrDefault(damageFormula.Type) +
-                                                   $"(*{damageFormula.Pct} +{damageFormula.Fix})";
-                                    }
-                                    else {
-                                        harmStr += LocalizationHelper.GetStringOrDefault(damageFormula.Type) +
-                                                   $"(*{damageFormula.Pct})";
+                                    switch (damageFormula) {
+                                        case Hsenl.numeric.FormulaInfo1 f1: {
+                                            if (f1.Fix != 0) {
+                                                harmStr += LocalizationHelper.GetStringOrDefault(f1.Type) +
+                                                           $"(*{f1.Pct} +{f1.Fix})";
+                                            }
+                                            else {
+                                                harmStr += LocalizationHelper.GetStringOrDefault(f1.Type) +
+                                                           $"(*{f1.Pct})";
+                                            }
+
+                                            break;
+                                        }
                                     }
                                 }
 

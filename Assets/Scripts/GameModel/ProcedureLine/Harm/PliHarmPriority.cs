@@ -2,12 +2,12 @@
     public enum PliHarmPriority {
         // 合法性判断
         Validity,
+        // 计算数值
+        CalcNumeric,
         // 丢失被选中: 每次造成伤害时, 会对所有选中自己为目标的selector, 丢失选中(可以让每次伤害都是偷袭)
         MissBeSelectOnHarming,
         // 分裂投射物
         SplitBolt,
-        // 计算数值
-        CalcNumeric,
         // 仲裁
         Arbiter,
         // 造成伤害

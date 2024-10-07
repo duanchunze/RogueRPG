@@ -1,7 +1,7 @@
 ﻿namespace Hsenl {
     [ProcedureLineHandlerPriority(PliHarmPriority.TakeHurt)]
     public class PlhHarm_TakeHurt : AProcedureLineHandler<PliHarmForm> {
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHarmForm item) {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHarmForm item, object userToken) {
             PliHurtForm hurtForm = new() {
                 harmable = item.harmable,
                 hurtable = item.hurtable,

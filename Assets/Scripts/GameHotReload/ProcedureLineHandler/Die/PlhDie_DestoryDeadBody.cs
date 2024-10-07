@@ -1,7 +1,7 @@
 ﻿namespace Hsenl {
     [ProcedureLineHandlerPriority(PliDiePriority.DestoryDeadBody)]
     public class PlhDie_DestoryDeadBody : AProcedureLineHandler<PliDieForm> {
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliDieForm item) {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliDieForm item, object userToken) {
             if (item.target is Actor actor) {
                 if (!Shortcut.IsMainMan(actor)) {
                     this.WaitForDestoryBody(actor);

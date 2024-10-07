@@ -1,7 +1,7 @@
 namespace Hsenl {
     [ProcedureLineHandlerPriority(PliGainExpPriority.AddNumeric)]
     public class PlhGainExp : AProcedureLineHandlerAsync<PliGainExpForm> {
-        protected override async HTask<ProcedureLineHandleResult> Handle(ProcedureLine procedureLine, PliGainExpForm item) {
+        protected override async HTask<ProcedureLineHandleResult> Handle(ProcedureLine procedureLine, PliGainExpForm item, object userToken) {
             if (item.exp == 0)
                 return ProcedureLineHandleResult.Break;
 

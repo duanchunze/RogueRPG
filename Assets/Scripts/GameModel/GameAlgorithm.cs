@@ -5,7 +5,7 @@ namespace Hsenl {
     // 当前游戏的一些算法
     public static class GameAlgorithm {
         // 计算数值
-        public static Num CalculateNumeric(Numerator numerator, NumericNode node, NumericType numericType) {
+        public static Num CalculateNumeric(Numerator numerator, Numeric node, NumericType numericType) {
             if (numerator == null) throw new ArgumentException(nameof(numerator));
             if (node == null) throw new ArgumentException(nameof(node));
 

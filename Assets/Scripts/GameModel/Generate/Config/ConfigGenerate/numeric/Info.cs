@@ -36,8 +36,10 @@ public abstract partial class Info :  Bright.Config.BeanBase
         {
             case "BasicValueInfo": return new numeric.BasicValueInfo(_json);
             case "AttachValueInfo": return new numeric.AttachValueInfo(_json);
-            case "FormulaInfo": return new numeric.FormulaInfo(_json);
             case "DamageFormulaInfo": return new numeric.DamageFormulaInfo(_json);
+            case "FormulaInfo1": return new numeric.FormulaInfo1(_json);
+            case "FormulaInfo2": return new numeric.FormulaInfo2(_json);
+            case "FormulaInfo3": return new numeric.FormulaInfo3(_json);
             default: throw new SerializationException();
         }
     }

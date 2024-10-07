@@ -13,16 +13,16 @@ namespace Hsenl.MultiCombiner {
             arg2.onLeaveDetails += this.EnqueueAction<Action<IPrioritizer, PriorityStateLeaveDetails>>((manager, details) => {
                 switch (details.leaveType) {
                     case PriorityStateLeaveType.TimeOut: {
-                        arg1.onFinish(new StatusFinishDetails() { finishType = StatusFinishType.NormalFinish, initiator = (PriorityState)details.initiator });
+                        arg1.OnFinish(new StatusFinishDetails() { finishType = StatusFinishType.NormalFinish, initiator = (PriorityState)details.initiator });
                         break;
                     }
                     case PriorityStateLeaveType.InitiativeInvoke: {
-                        arg1.onFinish(new StatusFinishDetails { finishType = StatusFinishType.InitiativeInvoke });
+                        arg1.OnFinish(new StatusFinishDetails { finishType = StatusFinishType.InitiativeInvoke });
                         break;
                     }
                     case PriorityStateLeaveType.ReEnter:
                     case PriorityStateLeaveType.Exclusion: {
-                        arg1.onFinish(new StatusFinishDetails { finishType = StatusFinishType.ForcedFinish, initiator = (PriorityState)details.initiator });
+                        arg1.OnFinish(new StatusFinishDetails { finishType = StatusFinishType.ForcedFinish, initiator = (PriorityState)details.initiator });
                         break;
                     }
                     default:

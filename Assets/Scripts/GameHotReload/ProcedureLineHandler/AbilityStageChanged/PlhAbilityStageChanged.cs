@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Hsenl {
     [ProcedureLineHandlerPriority(PliAbilityStageChangedPriority.ModifyArg)]
     public class PlhAbilityStageChanged : AProcedureLineHandler<PliAbilityStageChangedForm> {
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliAbilityStageChangedForm item) {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliAbilityStageChangedForm item, object userToken) {
             var abi = item.ability;
             switch ((StageType)item.currStage) {
                 case StageType.None:

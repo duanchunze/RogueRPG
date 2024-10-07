@@ -10,21 +10,6 @@ namespace Hsenl {
         public int configId;
         public StatusConfig Config => Tables.Instance.TbStatusConfig.GetById(this.configId);
 
-#if UNITY_EDITOR
-        [ShowInInspector]
-#endif
-        private int _stackNum;
-
-        public int StackNum {
-            get => this._stackNum;
-            set => this._stackNum = value;
-        }
-
-#if UNITY_EDITOR
-        [ShowInInspector]
-#endif
-        public int MaxStackNum { get; private set; }
-
         public Action beginInvoke; // 开始
         public Action finishInvoke; // 结束
         public Func<bool> isEnterInvoke; // 是否在进入的状态
@@ -36,18 +21,7 @@ namespace Hsenl {
 
         public Bodied inflictor; // 施加的那个人
 
-        public void SetMaxStackNum(int value) {
-            this.MaxStackNum = value;
-        }
-
         public void Begin() {
-            // 对于重复进入的状态, 增加层数
-            if (this.IsEnter) {
-                this._stackNum++;
-                if (this._stackNum > this.MaxStackNum)
-                    this._stackNum = this.MaxStackNum;
-            }
-
             try {
                 this.beginInvoke?.Invoke();
             }

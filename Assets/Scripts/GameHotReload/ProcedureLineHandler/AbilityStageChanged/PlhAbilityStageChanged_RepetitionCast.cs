@@ -3,7 +3,7 @@
 namespace Hsenl {
     [ProcedureLineHandlerPriority(PliAbilityStageChangedPriority.RepetitionCast)]
     public class PlhAbilityStageChanged_RepetitionCast : AProcedureLineHandler<PliAbilityStageChangedForm, PlwRepetitionCastOfProbabilistic> {
-        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliAbilityStageChangedForm item, PlwRepetitionCastOfProbabilistic worker) {
+        protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliAbilityStageChangedForm item, PlwRepetitionCastOfProbabilistic worker, object userToken) {
             switch ((StageType)item.currStage) {
                 case StageType.Enter: {
                     var random = RandomHelper.NextFloat();

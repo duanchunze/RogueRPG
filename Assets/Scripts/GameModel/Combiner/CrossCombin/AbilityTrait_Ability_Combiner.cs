@@ -1,7 +1,7 @@
 ﻿namespace Hsenl.CrossCombiner {
     public class AbilityTrait_Ability_Combiner : CrossCombiner<AbilityTrait, Ability> {
         protected override void OnCombin(AbilityTrait arg1, Ability arg2) {
-            var numeratorNode = arg1.GetComponent<NumericNode>();
+            var numeratorNode = arg1.GetComponent<Numeric>();
             var numerator = arg2.GetComponent<Numerator>();
             if (numerator != null && numeratorNode != null)
                 numerator.Attach(numeratorNode);
@@ -13,7 +13,7 @@
         }
 
         protected override void OnDecombin(AbilityTrait arg1, Ability arg2) {
-            var numeratorNode = arg1.GetComponent<NumericNode>();
+            var numeratorNode = arg1.GetComponent<Numeric>();
             var numerator = arg2.GetComponent<Numerator>();
             if (numerator != null && numeratorNode != null)
                 numerator.Detach(numeratorNode);

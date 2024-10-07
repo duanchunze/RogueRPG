@@ -7,19 +7,19 @@ namespace Hsenl {
     }
 
     public interface IProcedureLineHandlerOfWorker<T> : IProcedureLineHandler {
-        ProcedureLineHandleResult Run(ProcedureLine procedureLine, ref T item, IProcedureLineWorker wk);
+        ProcedureLineHandleResult Run(ProcedureLine procedureLine, ref T item, IProcedureLineWorker wk, object userToken);
     }
 
     public interface IProcedureLineHandlerNoWorker<T> : IProcedureLineHandler {
-        ProcedureLineHandleResult Run(ProcedureLine procedureLine, ref T item);
+        ProcedureLineHandleResult Run(ProcedureLine procedureLine, ref T item, object userToken);
     }
 
     public interface IProcedureLineHandlerOfWorkerAsync<T> : IProcedureLineHandler {
-        HTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T item, IProcedureLineWorker wk);
+        HTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T item, IProcedureLineWorker wk, object userToken);
     }
 
     public interface IProcedureLineHandlerNoWorkerAsync<T> : IProcedureLineHandler {
-        HTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T item);
+        HTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T item, object userToken);
     }
 
 
@@ -29,10 +29,10 @@ namespace Hsenl {
         public Type ItemType => typeof(T1);
         public Type WorkerType => typeof(T2);
 
-        public ProcedureLineHandleResult Run(ProcedureLine procedureLine, ref T1 item, IProcedureLineWorker wk) {
+        public ProcedureLineHandleResult Run(ProcedureLine procedureLine, ref T1 item, IProcedureLineWorker wk, object userToken) {
             var worker = (T2)wk;
             try {
-                return this.Handle(procedureLine, ref item, worker);
+                return this.Handle(procedureLine, ref item, worker, userToken);
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -40,7 +40,7 @@ namespace Hsenl {
             }
         }
 
-        protected abstract ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref T1 item, T2 worker);
+        protected abstract ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref T1 item, T2 worker, object userToken);
     }
 
     // 没有工人的处理者，就类似于一个Event系统
@@ -49,9 +49,9 @@ namespace Hsenl {
         public Type ItemType => typeof(T1);
         public Type WorkerType => null;
 
-        public ProcedureLineHandleResult Run(ProcedureLine procedureLine, ref T1 item) {
+        public ProcedureLineHandleResult Run(ProcedureLine procedureLine, ref T1 item, object userToken) {
             try {
-                return this.Handle(procedureLine, ref item);
+                return this.Handle(procedureLine, ref item, userToken);
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -59,7 +59,7 @@ namespace Hsenl {
             }
         }
 
-        protected abstract ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref T1 item);
+        protected abstract ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref T1 item, object userToken);
     }
 
     // 有工人的handler，就像是给Event系统加了热插拔的功能
@@ -68,10 +68,10 @@ namespace Hsenl {
         public Type ItemType => typeof(T1);
         public Type WorkerType => typeof(T2);
 
-        public async HTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T1 item, IProcedureLineWorker wk) {
+        public async HTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T1 item, IProcedureLineWorker wk, object userToken) {
             var worker = (T2)wk;
             try {
-                return await this.Handle(procedureLine, item, worker);
+                return await this.Handle(procedureLine, item, worker, userToken);
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -79,7 +79,7 @@ namespace Hsenl {
             }
         }
 
-        protected abstract HTask<ProcedureLineHandleResult> Handle(ProcedureLine procedureLine, T1 item, T2 worker);
+        protected abstract HTask<ProcedureLineHandleResult> Handle(ProcedureLine procedureLine, T1 item, T2 worker, object userToken);
     }
 
     // 没有工人的处理者，就类似于一个Event系统
@@ -88,9 +88,9 @@ namespace Hsenl {
         public Type ItemType => typeof(T1);
         public Type WorkerType => null;
 
-        public async HTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T1 item) {
+        public async HTask<ProcedureLineHandleResult> Run(ProcedureLine procedureLine, T1 item, object userToken) {
             try {
-                return await this.Handle(procedureLine, item);
+                return await this.Handle(procedureLine, item, userToken);
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -98,6 +98,6 @@ namespace Hsenl {
             }
         }
 
-        protected abstract HTask<ProcedureLineHandleResult> Handle(ProcedureLine procedureLine, T1 item);
+        protected abstract HTask<ProcedureLineHandleResult> Handle(ProcedureLine procedureLine, T1 item, object userToken);
     }
 }

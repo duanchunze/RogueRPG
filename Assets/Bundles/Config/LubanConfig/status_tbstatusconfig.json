@@ -5,8 +5,6 @@
     "view_name": "Death",
     "desc": "",
     "duration": -1,
-    "stack": 1,
-    "max_stack": 1,
     "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [
@@ -59,8 +57,6 @@
     "view_name": "Resurgence",
     "desc": "",
     "duration": 0,
-    "stack": 1,
-    "max_stack": 1,
     "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [
@@ -113,8 +109,6 @@
     "view_name": "HitStun",
     "desc": "",
     "duration": 0.25,
-    "stack": 1,
-    "max_stack": 1,
     "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [
@@ -158,8 +152,6 @@
     "view_name": "Beatback",
     "desc": "",
     "duration": 0.5,
-    "stack": 1,
-    "max_stack": 1,
     "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [
@@ -204,66 +196,11 @@
     }
   },
   {
-    "id": 10004,
-    "alias": "流血",
-    "view_name": "Liuxue",
-    "desc": "",
-    "duration": 5,
-    "stack": 1,
-    "max_stack": 20,
-    "numeric_infos": [],
-    "numeric_nodes": [],
-    "tags": [],
-    "priority_state": {
-      "time_scale": 1,
-      "duration": 0,
-      "aisles": [
-        1
-      ],
-      "enter_pri": 1,
-      "resist_pri": 0,
-      "exclu_pri": 0,
-      "keep_pri": 0,
-      "dis_pri": 0,
-      "run_pri": 0,
-      "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [],
-      "sp_keep": [],
-      "sp_dis": [],
-      "sp_run": [],
-      "allow_reenter": true
-    },
-    "main": {
-      "actions": [
-        {
-          "$type": "LiuXueInfo",
-          "model": 1,
-          "origin": 0,
-          "dest": 1,
-          "harm_formula": {
-            "damage_formulas": [
-              {
-                "type": 12,
-                "pct": 0.5,
-                "fix": 0
-              }
-            ],
-            "damage_type": 6
-          },
-          "internalTime": 0.5
-        }
-      ]
-    }
-  },
-  {
     "id": 10005,
     "alias": "霸体",
     "view_name": "BaTi",
     "desc": "",
     "duration": 1,
-    "stack": 1,
-    "max_stack": 1,
     "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [],
@@ -301,8 +238,6 @@
     "view_name": "WuQishou",
     "desc": "下次释放技能时, 无起手时间, 触发后该状态消失",
     "duration": -1,
-    "stack": 1,
-    "max_stack": 1,
     "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [],
@@ -331,14 +266,75 @@
     }
   },
   {
-    "id": 10007,
-    "alias": "燃烧",
-    "view_name": "Ranshao",
+    "id": 10004,
+    "alias": "流血",
+    "view_name": "流血",
     "desc": "",
     "duration": 5,
-    "stack": 1,
-    "max_stack": 20,
     "numeric_infos": [
+      {
+        "type": 52,
+        "value": 20,
+        "sign": ""
+      }
+    ],
+    "numeric_nodes": [],
+    "tags": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        1
+      ],
+      "enter_pri": 1,
+      "resist_pri": 0,
+      "exclu_pri": 0,
+      "keep_pri": 0,
+      "dis_pri": 0,
+      "run_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_exclu": [],
+      "sp_keep": [],
+      "sp_dis": [],
+      "sp_run": [],
+      "allow_reenter": true
+    },
+    "main": {
+      "actions": [
+        {
+          "$type": "LiuXueInfo",
+          "model": 1,
+          "origin": 0,
+          "dest": 1,
+          "harm_formula": {
+            "damage_formulas": [
+              {
+                "$type": "FormulaInfo1",
+                "type": 12,
+                "pct": 0.5,
+                "fix": 0
+              }
+            ],
+            "damage_type": 6
+          },
+          "internalTime": 0.5
+        }
+      ]
+    }
+  },
+  {
+    "id": 10007,
+    "alias": "燃烧",
+    "view_name": "燃烧",
+    "desc": "",
+    "duration": 5,
+    "numeric_infos": [
+      {
+        "type": 52,
+        "value": 10,
+        "sign": ""
+      },
       {
         "type": 37,
         "value": 15,
@@ -377,6 +373,7 @@
           "harm_formula": {
             "damage_formulas": [
               {
+                "$type": "FormulaInfo1",
                 "type": 12,
                 "pct": 0.5,
                 "fix": 0
@@ -395,12 +392,10 @@
     "view_name": "瘟疫",
     "desc": "",
     "duration": 10,
-    "stack": 1,
-    "max_stack": 1,
     "numeric_infos": [
       {
-        "type": 37,
-        "value": 75,
+        "type": 52,
+        "value": 1,
         "sign": ""
       }
     ],
@@ -436,6 +431,7 @@
           "harm_formula": {
             "damage_formulas": [
               {
+                "$type": "FormulaInfo1",
                 "type": 12,
                 "pct": 0.5,
                 "fix": 0
@@ -443,7 +439,7 @@
             ],
             "damage_type": 1
           },
-          "internalTime": 5
+          "internalTime": 1
         },
         {
           "$type": "WenyichuanboInfo",
@@ -452,9 +448,40 @@
           "dest": 1,
           "internalTime": 1,
           "chuanbocengshu": 1,
-          "chuanbofanwei": 1
+          "chuanbofanwei": 2
         }
       ]
+    }
+  },
+  {
+    "id": 10009,
+    "alias": "中毒",
+    "view_name": "中毒",
+    "desc": "",
+    "duration": 0,
+    "numeric_infos": [],
+    "numeric_nodes": [],
+    "tags": [],
+    "priority_state": {
+      "time_scale": 0,
+      "duration": 0,
+      "aisles": [],
+      "enter_pri": 0,
+      "resist_pri": 0,
+      "exclu_pri": 0,
+      "keep_pri": 0,
+      "dis_pri": 0,
+      "run_pri": 0,
+      "sp_pass": [],
+      "sp_inter": [],
+      "sp_exclu": [],
+      "sp_keep": [],
+      "sp_dis": [],
+      "sp_run": [],
+      "allow_reenter": false
+    },
+    "main": {
+      "actions": []
     }
   }
 ]

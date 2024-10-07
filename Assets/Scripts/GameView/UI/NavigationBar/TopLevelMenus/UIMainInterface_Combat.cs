@@ -15,7 +15,7 @@ namespace Hsenl.View {
                 ProcedureManager.Procedure.ChangeState<ProcedureAdventure>(state.CurrentSelectHero);
             });
 
-            this.practiceRoomButton.onClick.AddListener(async () => {
+            this.practiceRoomButton.onClick.AddListener(() => {
                 var actor = ProcedureManager.Procedure.GetState<ProcedureMainInterface_Combat>().CurrentSelectHero;
                 var state = ProcedureManager.Procedure.GetState<ProcedurePracticeRoom>();
                 state.actor = actor;

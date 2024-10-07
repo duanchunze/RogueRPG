@@ -131,14 +131,6 @@ namespace Hsenl {
                 this.breathingTimer += TimeInfo.DeltaTime;
             }
 
-            // if (Vector3.Distance(this._prevPosition, this._control.transform.Position) > 0.001f) {
-            //     // 如果怪物处于移动中, 则最少附加0.15秒的喘息时间
-            //     this.breathingTimer = this.breathingTime - 0.75f;
-            // }
-            //
-            // this._prevPosition = this._control.transform.Position;
-
-            var attackAbilityCastSuccess = false; // 是否成功释放了一个攻击类技能
             foreach (var caster in this._casters) {
                 // 挨个评估每个施法器
                 var castEvaluateStatus = caster.Evaluate();
@@ -148,7 +140,6 @@ namespace Hsenl {
                         if (caster.Tags.Contains(TagType.AbilityAttack)) {
                             if (this.BreathingDone) {
                                 caster.CastStart();
-                                attackAbilityCastSuccess = true;
                             }
                         }
 
@@ -165,10 +156,6 @@ namespace Hsenl {
                         break;
                 }
             }
-
-            // if (attackAbilityCastSuccess) {
-            //     this.breathingTimer = 0;
-            // }
         }
 
         protected override void Exit() {

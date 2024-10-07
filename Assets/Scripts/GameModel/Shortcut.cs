@@ -20,9 +20,10 @@ namespace Hsenl {
         /// <param name="alias"></param>
         /// <param name="duration"></param>
         /// <param name="replaceActionInfo">允许替换该状态原本的config action info</param>
+        /// <param name="stack">施加层数</param>
         /// <returns></returns>
         public static Status InflictionStatus(Bodied inflictor, Bodied target, string alias, float duration = float.MinValue,
-            timeline.TimeActionInfo replaceActionInfo = null) {
+            timeline.TimeActionInfo replaceActionInfo = null, int stack = 1) {
             var statusBar = target.FindBodiedInIndividual<StatusBar>();
             var config = Tables.Instance.TbStatusConfig.GetByAlias(alias);
             var status = statusBar.GetStatus(config.Alias);
@@ -58,6 +59,16 @@ namespace Hsenl {
                 status.GetComponent<TimeLine>().StageTillTime = status.Config.Duration;
             }
 
+            var numerator = status.GetComponent<Numerator>();
+            var max = numerator.GetValue(NumericType.MaxStack);
+            if (max != 0) {
+                var cur = numerator.GetValue(NumericType.Stack);
+                cur += stack;
+                if (cur > max)
+                    cur = max;
+                numerator.SetValue(NumericType.Stack, cur + stack);
+            }
+
             status.Begin();
             return status;
         }
@@ -68,6 +79,11 @@ namespace Hsenl {
             var status = statusHolder.GetStatus(alias);
             status?.Finish();
             return status;
+        }
+
+        public static Num GetStack(this Status self) {
+            var numerator = self.GetComponent<Numerator>();
+            return numerator.GetValue(NumericType.Stack);
         }
 
         #endregion
@@ -197,7 +213,9 @@ namespace Hsenl {
             var cur = numerator.GetValue(NumericType.Exp);
             var max = numerator.GetValue(NumericType.MaxExp);
             if (max == 0)
-                return 0;
+                return 0f;
+
+            cur.ToFloat();
             return cur / max;
         }
 
@@ -302,7 +320,7 @@ namespace Hsenl {
                 hitsound = hitsound,
             };
 
-            ProcedureLine.MergeStartLineAsync(procedureLines, damageForm).Tail();
+            ProcedureLine.MergeStartLineAsync(procedureLines, damageForm, userToken: procedureLines).Tail();
         }
 
         public static bool IsDead(Bodied bodied) {
