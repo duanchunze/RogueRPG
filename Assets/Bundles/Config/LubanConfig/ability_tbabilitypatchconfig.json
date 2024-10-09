@@ -1,0 +1,21 @@
+[
+  {
+    "id": 10100,
+    "alias": "劈砍加伤",
+    "target_ability": "劈砍",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "numeric_nodes": [
+      {
+        "type": 12,
+        "layer": 2,
+        "model": 1,
+        "value": 0.3,
+        "sign": "f"
+      }
+    ],
+    "workers": []
+  }
+]

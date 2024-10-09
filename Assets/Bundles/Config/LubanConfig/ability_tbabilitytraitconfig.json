@@ -1,0 +1,100 @@
+[
+  {
+    "id": 10100,
+    "alias": "流血",
+    "numeric_nodes": [],
+    "workers": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo2",
+        "status_alias": "流血",
+        "duration": 3,
+        "action": {
+          "$type": "LiuXueInfo",
+          "model": 1,
+          "origin": 0,
+          "dest": 1,
+          "harm_formula": {
+            "damage_formulas": [
+              {
+                "$type": "FormulaInfo1",
+                "type": 12,
+                "pct": 0.5,
+                "fix": 0
+              }
+            ],
+            "damage_type": 6
+          },
+          "internalTime": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": 10101,
+    "alias": "燃烧",
+    "numeric_nodes": [],
+    "workers": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "燃烧"
+      }
+    ]
+  },
+  {
+    "id": 10102,
+    "alias": "瘟疫",
+    "numeric_nodes": [],
+    "workers": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "瘟疫"
+      }
+    ]
+  },
+  {
+    "id": 10103,
+    "alias": "击退",
+    "numeric_nodes": [],
+    "workers": [
+      {
+        "$type": "AdditionalStatusOnAbilityDamageInfo",
+        "status_alias": "击退"
+      }
+    ]
+  },
+  {
+    "id": 10104,
+    "alias": "大宝施法",
+    "numeric_nodes": [],
+    "workers": [
+      {
+        "$type": "ProbabilisticRepetitionCastInfo",
+        "probability": 0.5
+      }
+    ]
+  },
+  {
+    "id": 10105,
+    "alias": "偷袭攻击",
+    "numeric_nodes": [],
+    "workers": [
+      {
+        "$type": "MissBeSelectOnHarmInfo"
+      }
+    ]
+  },
+  {
+    "id": 10106,
+    "alias": "分裂",
+    "numeric_nodes": [],
+    "workers": [
+      {
+        "$type": "SplitBoltOnHitInfo",
+        "split_num": 3,
+        "bolt_alias": "月镖投射物",
+        "speed": 8,
+        "radius": 8
+      }
+    ]
+  }
+]

@@ -1,0 +1,70 @@
+[
+  {
+    "id": 10000,
+    "alias": "月镖投射物",
+    "shape": -1,
+    "center": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "size": {
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "size_ratio": 1,
+    "model_name": "yuebiao"
+  },
+  {
+    "id": 10001,
+    "alias": "地波斩投射物",
+    "shape": 1,
+    "center": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "size": {
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "size_ratio": 1,
+    "model_name": "dibozhan"
+  },
+  {
+    "id": 10002,
+    "alias": "快射投射物",
+    "shape": 0,
+    "center": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "size": {
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "size_ratio": 1,
+    "model_name": "kuaishe"
+  },
+  {
+    "id": 10003,
+    "alias": "混乱之箭投射物",
+    "shape": -1,
+    "center": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "size": {
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "size_ratio": 1,
+    "model_name": "hunluanzhijian"
+  }
+]
