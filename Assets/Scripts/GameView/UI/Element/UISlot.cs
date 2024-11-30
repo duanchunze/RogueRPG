@@ -5,36 +5,30 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Hsenl.View {
-    public class UISlot<TFiller> : MonoBehaviour, IUISlot {
+    public class UISlot<TFiller> : MonoBehaviour, IUISlot, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
         public TFiller Filler { get; private set; }
-
-        protected UnityEventListener eventListener;
-
-        protected virtual void Start() {
-            this.eventListener = UnityEventListener.Get(this);
-            this.eventListener.onClick += this.OnPointerClick;
-            this.eventListener.onEnter += this.OnPointerEnter;
-            this.eventListener.onExit += this.OnPointerExit;
-        }
-
-        protected virtual void OnDestroy() {
-            if (this.eventListener) {
-                this.eventListener.onClick -= this.OnPointerClick;
-                this.eventListener.onEnter -= this.OnPointerEnter;
-                this.eventListener.onExit -= this.OnPointerExit;
-            }
-        }
 
         public virtual void FillIn(TFiller filler) {
             if (filler == null) {
                 if (this.Filler != null) {
-                    this.OnFillerTakeout();
+                    try {
+                        this.OnFillerTakeout();
+                    }
+                    catch (Exception e) {
+                        Log.Error(e);
+                    }
+
                     this.Filler = default;
                 }
             }
             else {
                 this.Filler = filler;
-                this.OnFillerIn();
+                try {
+                    this.OnFillerIn();
+                }
+                catch (Exception e) {
+                    Log.Error(e);
+                }
             }
         }
 
@@ -50,13 +44,21 @@ namespace Hsenl.View {
 
         protected virtual void OnPointerExit(PointerEventData eventData) { }
 
-        public void OnPointerClick(PointerEventData eventData) {
+        void IPointerClickHandler.OnPointerClick(PointerEventData eventData) {
             if (eventData.button == PointerEventData.InputButton.Left) {
                 this.OnButtonClick();
             }
             else if (eventData.button == PointerEventData.InputButton.Right) {
                 this.OnRightButtonClick();
             }
+        }
+
+        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData) {
+            this.OnPointerEnter(eventData);
+        }
+
+        void IPointerExitHandler.OnPointerExit(PointerEventData eventData) {
+            this.OnPointerExit(eventData);
         }
     }
 }

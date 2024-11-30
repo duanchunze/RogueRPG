@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MemoryPack;
+using UnityEngine.Serialization;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,114 +10,144 @@ using UnityEngine;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class PriorityState : Unbodied, IPriorityState {
+        #region 提供给接口
+
         private bool _handledFlag;
 
         /// 该时间缩放应该用在游戏逻辑上, 而不是用在比如击败boss的慢动作上, 那个应该用TimeInfo.TimeScale
 #if UNITY_EDITOR
         [SerializeField, PropertyRange(0f, 5f), LabelText("时间缩放"), FoldoutGroup("优先级")]
 #endif
-        public float timeScale = 1f;
+        [MemoryPackInclude]
+        private float _timeScale = 1f;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("通道"), FoldoutGroup("优先级")]
 #endif
-        public int[] aisles = { 0 };
+        [MemoryPackInclude]
+        private int[] _aisles = { 0 };
+
+        [MemoryPackInclude]
+        private int _enterPriorityAnchor;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("进入等级"), FoldoutGroup("优先级")]
 #endif
-        public int enterPriority;
+        [MemoryPackInclude]
+        private int _enterPriority;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("阻拦等级锚点"), FoldoutGroup("优先级")]
 #endif
-        public int resistPriorityAnchor;
+        [MemoryPackInclude]
+        private int _obstructPriorityAnchor;
 
 #if UNITY_EDITOR
         [ShowInInspector, LabelText("阻拦等级"), DisableInEditorMode, FoldoutGroup("优先级")]
 #endif
         [MemoryPackInclude]
-        protected int resistPriority;
+        private int _obstructPriority;
+
+        [MemoryPackInclude]
+        private int _exclusionPriorityAnchor;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("排挤等级"), FoldoutGroup("优先级")]
 #endif
-        public int exclusionPriority;
+        [MemoryPackInclude]
+        private int _exclusionPriority;
+
+        [MemoryPackInclude]
+        private int _keepPriorityAnchor;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("保持等级"), FoldoutGroup("优先级")]
 #endif
-        public int keepPriority;
+        [MemoryPackInclude]
+        private int _keepPriority;
+
+        [MemoryPackInclude]
+        private int _disablePriorityAnchor;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("禁用等级"), FoldoutGroup("优先级")]
 #endif
-        public int disablePriority;
+        [MemoryPackInclude]
+        private int _disablePriority;
+
+        [MemoryPackInclude]
+        private int _runPriorityAnchor;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("运行等级"), FoldoutGroup("优先级")]
 #endif
-        public int runPriority;
+        [MemoryPackInclude]
+        private int _runPriority;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("指定通过"), FoldoutGroup("优先级")]
 #endif
-        public Bitlist specialPassLabels;
+        [MemoryPackInclude]
+        private Bitlist _specialPassLabels;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("指定拦截"), FoldoutGroup("优先级")]
 #endif
-        public Bitlist specialInterceptLabels;
+        [MemoryPackInclude]
+        private Bitlist _specialInterceptLabels;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("指定排挤"), FoldoutGroup("优先级")]
 #endif
-        public Bitlist specialExclusionLabels;
+        [MemoryPackInclude]
+        private Bitlist _specialExclusionLabels;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("指定保持"), FoldoutGroup("优先级")]
 #endif
-        public Bitlist specialKeepLabels;
+        [MemoryPackInclude]
+        private Bitlist _specialKeepLabels;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("指定禁用"), FoldoutGroup("优先级")]
 #endif
-        public Bitlist specialDisableLabels;
+        [MemoryPackInclude]
+        private Bitlist _specialDisableLabels;
 
 #if UNITY_EDITOR
         [SerializeField, LabelText("指定运行"), FoldoutGroup("优先级")]
 #endif
-        public Bitlist specialRunLabels;
+        [MemoryPackInclude]
+        private Bitlist _specialRunLabels;
 
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly, LabelText("上一帧暂停"), FoldoutGroup("优先级")]
 #endif
         [MemoryPackInclude]
-        protected bool pausedPrevious;
+        private bool _pausedPrevious;
 
 #if UNITY_EDITOR
         [ShowInInspector, LabelText("暂停"), DisableInEditorMode, FoldoutGroup("优先级")]
 #endif
         [MemoryPackInclude]
-        protected bool paused;
+        private bool _paused;
 
 #if UNITY_EDITOR
         [SerializeField, ReadOnly, LabelText("持续时间"), FoldoutGroup("优先级")]
 #endif
-        public float duration;
+        [MemoryPackInclude]
+        private float _duration;
 
 #if UNITY_EDITOR
         [SerializeField, ReadOnly, LabelText("当前时间"), FoldoutGroup("优先级")]
 #endif
-        [MemoryPackInclude]
-        protected float time;
+        private float _time;
 
 #if UNITY_EDITOR
         [ShowInInspector, LabelText("时间暂停"), DisableInEditorMode, FoldoutGroup("优先级")]
 #endif
-        [MemoryPackInclude]
         public bool timeParse;
 
 #if UNITY_EDITOR
@@ -124,166 +155,135 @@ namespace Hsenl {
 #endif
         private IPrioritizer _manager;
 
-#if UNITY_EDITOR
-        [LabelText("允许重进"), FoldoutGroup("优先级")]
-#endif
-        public bool allowReenter;
-
-#if UNITY_EDITOR
-        [ShowInInspector]
-#endif
-        private IPrioritizer _targetPrioritizer;
-
-        [MemoryPackIgnore]
-        public IPrioritizer TargetPrioritizer {
-            set {
-                this._targetPrioritizer = value;
-                if (this._targetPrioritizer == null) {
-                    this.LeaveState();
-                }
-            }
-        }
-        
-        internal override void OnDestroyInternal() {
-            this.LeaveState();
-        }
-
-        internal override void OnDisposedInternal() {
-            base.OnDisposedInternal();
-            this._handledFlag = false;
-            this.timeScale = 1f;
-            this.aisles = null;
-            this.enterPriority = 0;
-            this.resistPriorityAnchor = 0;
-            this.resistPriority = 0;
-            this.keepPriority = 0;
-            this.exclusionPriority = 0;
-            this.runPriority = 0;
-            this.disablePriority = 0;
-            this.specialPassLabels?.Clear();
-            this.specialInterceptLabels?.Clear();
-            this.specialExclusionLabels?.Clear();
-            this.specialKeepLabels?.Clear();
-            this.specialDisableLabels?.Clear();
-            this.specialRunLabels?.Clear();
-            this.pausedPrevious = false;
-            this.paused = false;
-            this.duration = 0;
-            this.time = 0;
-            this.timeParse = false;
-            this._manager = null;
-            this.allowReenter = false;
-            this.TargetPrioritizer = null;
-        }
-
-        bool IPriorityState.HandledFlag {
+        bool IPriorityState.handledFlag {
             get => this._handledFlag;
             set => this._handledFlag = value;
         }
 
         float IPriorityState.TimeScale {
-            get => this.timeScale;
-            set => this.timeScale = value;
+            get => this._timeScale;
         }
 
         string IPriorityState.Name {
             get => this.Entity.name;
-            set => this.Entity.name = value;
         }
 
-        IList<int> IPriorityState.Aisles {
-            get => this.aisles;
-            set => this.aisles = value.ToArray();
+        IList<int> IPriorityState.aisles {
+            get => this._aisles;
+            set => this._aisles = value.ToArray();
         }
 
-        Bitlist IPriorityState.Labels {
+        Bitlist IPriorityState.labels {
             get => this.Tags;
-            set => throw new InvalidOperationException();
+        }
+
+        int IPriorityState.EnterPriorityAnchor {
+            get => this._enterPriorityAnchor;
+            set => this._enterPriorityAnchor = value;
         }
 
         int IPriorityState.EnterPriority {
-            get => this.enterPriority;
-            set => this.enterPriority = value;
+            get => this._enterPriority;
+            set => this._enterPriority = value;
         }
 
-        int IPriorityState.ResistPriorityAnchor {
-            get => this.resistPriorityAnchor;
-            set => this.resistPriorityAnchor = value;
+        int IPriorityState.ObstructPriorityAnchor {
+            get => this._obstructPriorityAnchor;
+            set => this._obstructPriorityAnchor = value;
         }
 
-        int IPriorityState.ResistPriority {
-            get => this.resistPriority;
-            set => this.resistPriority = value;
+        int IPriorityState.ObstructPriority {
+            get => this._obstructPriority;
+            set => this._obstructPriority = value;
+        }
+
+        int IPriorityState.KeepPriorityAnchor {
+            get => this._keepPriorityAnchor;
+            set => this._keepPriorityAnchor = value;
+        }
+
+        int IPriorityState.ExclusionPriorityAnchor {
+            get => this._exclusionPriorityAnchor;
+            set => this._exclusionPriorityAnchor = value;
         }
 
         int IPriorityState.ExclusionPriority {
-            get => this.exclusionPriority;
-            set => this.exclusionPriority = value;
+            get => this._exclusionPriority;
+            set => this._exclusionPriority = value;
+        }
+
+        int IPriorityState.RunPriorityAnchor {
+            get => this._runPriorityAnchor;
+            set => this._runPriorityAnchor = value;
         }
 
         int IPriorityState.KeepPriority {
-            get => this.keepPriority;
-            set => this.keepPriority = value;
+            get => this._keepPriority;
+            set => this._keepPriority = value;
+        }
+
+        int IPriorityState.DisablePriorityAnchor {
+            get => this._disablePriorityAnchor;
+            set => this._disablePriorityAnchor = value;
         }
 
         int IPriorityState.DisablePriority {
-            get => this.disablePriority;
-            set => this.disablePriority = value;
+            get => this._disablePriority;
+            set => this._disablePriority = value;
         }
 
         int IPriorityState.RunPriority {
-            get => this.runPriority;
-            set => this.runPriority = value;
+            get => this._runPriority;
+            set => this._runPriority = value;
         }
 
-        Bitlist IPriorityState.SpecialPassLabels {
-            get => this.specialPassLabels;
-            set => this.specialPassLabels = value;
+        Bitlist IPriorityState._specialPassLabels {
+            get => this._specialPassLabels;
+            set => this._specialPassLabels = value;
         }
 
-        Bitlist IPriorityState.SpecialInterceptLabels {
-            get => this.specialInterceptLabels;
-            set => this.specialInterceptLabels = value;
+        Bitlist IPriorityState.specialObstructLabels {
+            get => this._specialInterceptLabels;
+            set => this._specialInterceptLabels = value;
         }
 
-        Bitlist IPriorityState.SpecialExclusionLabels {
-            get => this.specialExclusionLabels;
-            set => this.specialExclusionLabels = value;
+        Bitlist IPriorityState._specialExclusionLabels {
+            get => this._specialExclusionLabels;
+            set => this._specialExclusionLabels = value;
         }
 
-        Bitlist IPriorityState.SpecialKeepLabels {
-            get => this.specialKeepLabels;
-            set => this.specialKeepLabels = value;
+        Bitlist IPriorityState._specialKeepLabels {
+            get => this._specialKeepLabels;
+            set => this._specialKeepLabels = value;
         }
 
-        Bitlist IPriorityState.SpecialDisableLabels {
-            get => this.specialDisableLabels;
-            set => this.specialDisableLabels = value;
+        Bitlist IPriorityState.specialDisableLabels {
+            get => this._specialDisableLabels;
+            set => this._specialDisableLabels = value;
         }
 
-        Bitlist IPriorityState.SpecialRunLabels {
-            get => this.specialRunLabels;
-            set => this.specialRunLabels = value;
+        Bitlist IPriorityState._specialRunLabels {
+            get => this._specialRunLabels;
+            set => this._specialRunLabels = value;
         }
 
-        bool IPriorityState.PausedPrevious {
-            get => this.pausedPrevious;
-            set => this.pausedPrevious = value;
+        bool IPriorityState._pausedPrevious {
+            get => this._pausedPrevious;
+            set => this._pausedPrevious = value;
         }
 
         bool IPriorityState.Paused {
-            get => this.paused;
-            set => this.paused = value;
+            get => this._paused;
+            set => this._paused = value;
         }
 
         float IPriorityState.Duration {
-            get => this.duration;
-            set => this.duration = value;
+            get => this._duration;
         }
 
         float IPriorityState.Time {
-            get => this.time;
-            set => this.time = value;
+            get => this._time;
+            set => this._time = value;
         }
 
         bool IPriorityState.TimeParse {
@@ -331,6 +331,13 @@ namespace Hsenl {
             this.OnLeaveDetails(manager, leaveDetails);
         }
 
+        #endregion
+
+#if UNITY_EDITOR
+        [LabelText("允许重进"), FoldoutGroup("优先级")]
+#endif
+        public bool allowReenter;
+
         [MemoryPackIgnore]
         public Action<IPrioritizer> onEnter;
 
@@ -352,11 +359,163 @@ namespace Hsenl {
         [MemoryPackIgnore]
         public Action<IPrioritizer, PriorityStateLeaveDetails> onLeaveDetails;
 
+#if UNITY_EDITOR
+        [ShowInInspector]
+#endif
+        private IPrioritizer _targetPrioritizer;
+
+        [MemoryPackIgnore]
+        public float TimeScale {
+            get => this._timeScale;
+            set => this._timeScale = value;
+        }
+        
+        [MemoryPackIgnore]
+        public int ObstructPriorityAnchor => this._obstructPriorityAnchor;
+
+        [MemoryPackIgnore]
+        public int ObstructPriority {
+            get => this._obstructPriority;
+            set => ((IPriorityState)this).ModifyObstruct_Interface(value);
+        }
+
+        [MemoryPackIgnore]
+        public float Duration {
+            get => this._duration;
+            set => this._duration = value;
+        }
+
         /// <summary>
         /// 是否在管理器里
         /// </summary>
         [MemoryPackIgnore]
-        public bool IsEntered => this._manager != null;
+        public bool IsEntered => ((IPriorityState)this).IsEntered_Interface;
+
+        [MemoryPackIgnore]
+        public IPrioritizer TargetPrioritizer {
+            set {
+                this._targetPrioritizer = value;
+                if (this._targetPrioritizer == null) {
+                    this.Leave();
+                }
+            }
+        }
+
+        internal override void OnDestroyInternal() {
+            this.Leave();
+        }
+
+        internal override void OnDisposedInternal() {
+            base.OnDisposedInternal();
+            this._handledFlag = false;
+            this._timeScale = 1f;
+            this._aisles = null;
+            this._enterPriorityAnchor = 0;
+            this._enterPriority = 0;
+            this._obstructPriorityAnchor = 0;
+            this._obstructPriority = 0;
+            this._keepPriorityAnchor = 0;
+            this._keepPriority = 0;
+            this._exclusionPriorityAnchor = 0;
+            this._exclusionPriority = 0;
+            this._runPriorityAnchor = 0;
+            this._runPriority = 0;
+            this._disablePriority = 0;
+            this._specialPassLabels?.Clear();
+            this._specialInterceptLabels?.Clear();
+            this._specialExclusionLabels?.Clear();
+            this._specialKeepLabels?.Clear();
+            this._specialDisableLabels?.Clear();
+            this._specialRunLabels?.Clear();
+            this._pausedPrevious = false;
+            this._paused = false;
+            this._duration = 0;
+            this._time = 0;
+            this.timeParse = false;
+            this._manager = null;
+            this.allowReenter = false;
+            this.TargetPrioritizer = null;
+        }
+
+        public void InitAisles(IList<int> aisleIds) => ((IPriorityState)this).InitAisles_Interface(aisleIds);
+
+        public void InitPriorities(int enter, int obstruct, int keep, int exclusion, int run, int disable) =>
+            ((IPriorityState)this).InitPriorities_Interface(enter, obstruct, keep, exclusion, run, disable);
+
+        /// <summary>
+        /// 测试是否能进入，但不真的进入
+        /// </summary>
+        /// <param name="successCache">如果成功, 则缓存该状态, 在优先器内的任何状态发生改变之前, 该状态进入时, 不需要再次对比检查, 使用前要自行确定这期间, 不会有影响公正性的改变</param>
+        /// <returns></returns>
+        public bool Evaluate(bool successCache = false) {
+            if (this._targetPrioritizer == null) {
+                return false;
+            }
+
+            if (this.IsEntered && !this.allowReenter) {
+                return false;
+            }
+
+            return ((IPriorityState)this).Evaluate_Interface(this._targetPrioritizer, successCache);
+        }
+
+        public bool Evaluate(out PriorityStateEnterDetails details, bool successCache = false) {
+            details = default;
+            if (this._targetPrioritizer == null) {
+                details.FailType = PriorityStateEnterFailType.PrioritiesIsNull;
+                return false;
+            }
+
+            if (this.IsEntered && !this.allowReenter) {
+                details.FailType = PriorityStateEnterFailType.AlreadyExits;
+                return false;
+            }
+
+            return ((IPriorityState)this).Evaluate_Interface(this._targetPrioritizer, out details, successCache);
+        }
+
+        /// <summary>
+        /// 进入
+        /// </summary>
+        /// <returns></returns>
+        public bool Enter() {
+            if (this._targetPrioritizer == null) {
+                return false;
+            }
+
+            if (this.IsEntered && !this.allowReenter) {
+                return false;
+            }
+
+            return ((IPriorityState)this).Enter_Interface(this._targetPrioritizer);
+        }
+
+        public bool Enter(out PriorityStateEnterDetails details) {
+            details = default;
+            if (this._targetPrioritizer == null) {
+                details.FailType = PriorityStateEnterFailType.PrioritiesIsNull;
+                return false;
+            }
+
+            if (this.IsEntered && !this.allowReenter) {
+                details.FailType = PriorityStateEnterFailType.AlreadyExits;
+                return false;
+            }
+
+            return ((IPriorityState)this).Enter_Interface(this._targetPrioritizer, out details);
+        }
+
+        /// <summary>
+        /// 刷新, 会重置时间, 并且触发一次刷新回调
+        /// </summary>
+        /// <returns></returns>
+        public bool Refresh() => ((IPriorityState)this).Refresh_Interface();
+
+        /// <summary>
+        /// 离开状态
+        /// </summary>
+        /// <returns></returns>
+        public bool Leave() => ((IPriorityState)this).Leave_Interface();
 
         protected virtual void OnEnter(IPrioritizer manager) { }
 
@@ -371,68 +530,5 @@ namespace Hsenl {
         protected virtual void OnLeave(IPrioritizer manager) { }
 
         protected virtual void OnLeaveDetails(IPrioritizer manager, PriorityStateLeaveDetails leaveDetails) { }
-
-        /// <summary>
-        /// 进入
-        /// </summary>
-        /// <param name="details"></param>
-        /// <returns></returns>
-        public bool EnterState(PriorityStateEnterFailDetails details = null) {
-            if (this._targetPrioritizer == null) {
-                if (details != null) {
-                    details.FailType = PriorityStateEnterFailType.PrioritiesIsNull;
-                }
-
-                return false;
-            }
-
-            if (this.IsEntered && !this.allowReenter) {
-                if (details != null) {
-                    details.FailType = PriorityStateEnterFailType.NoReentry;
-                }
-
-                return false;
-            }
-
-            return ((IPriorityState)this).Enter(this._targetPrioritizer, details);
-        }
-
-        /// <summary>
-        /// 测试是否能进入，但不真的进入
-        /// </summary>
-        /// <param name="successCache">如果成功, 则缓存该状态, 在优先器内的任何状态发生改变之前, 该状态进入时, 不需要再次对比检查, 使用前要自行确定这期间, 不会有影响公正性的改变</param>
-        /// <param name="details"></param>
-        /// <returns></returns>
-        public bool EvaluateState(bool successCache = false, PriorityStateEnterFailDetails details = null) {
-            if (this._targetPrioritizer == null) {
-                if (details != null) {
-                    details.FailType = PriorityStateEnterFailType.PrioritiesIsNull;
-                }
-
-                return false;
-            }
-            
-            if (this.IsEntered && !this.allowReenter) {
-                if (details != null) {
-                    details.FailType = PriorityStateEnterFailType.NoReentry;
-                }
-
-                return false;
-            }
-
-            return ((IPriorityState)this).Evaluate(this._targetPrioritizer, successCache, details);
-        }
-
-        /// <summary>
-        /// 刷新, 会重置时间, 并且触发一次刷新回调
-        /// </summary>
-        /// <returns></returns>
-        public bool RefreshState() => ((IPriorityState)this).Refresh();
-
-        /// <summary>
-        /// 离开状态机
-        /// </summary>
-        /// <returns></returns>
-        public bool LeaveState() => ((IPriorityState)this).Leave();
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Hsenl.View {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpPlayAnim : TpInfo<timeline.PlayAnimInfo> {
         private Motion _motion;
 
@@ -22,13 +22,18 @@ namespace Hsenl.View {
         }
 
         protected override void OnUpdate() {
+            if (this._motion == null)
+                return;
+
             if (this.isPassed) {
-                this._motion?.SetSpeed(this.info.Anim, this.manager.Speed);
+                this._motion.SetSpeed(this.info.Anim, this.manager.Speed);
             }
         }
 
         protected override void OnTimePointTrigger() {
-            this._motion?.Play(this.info.Anim, this.manager.Speed);
+            if (!this._motion.Lock) {
+                this._motion.Play(this.info.Anim, this.manager.Speed);
+            }
         }
     }
 }

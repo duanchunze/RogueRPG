@@ -9,11 +9,5 @@ namespace Hsenl {
     public class Adventure : Screenplay<IRecord, INode<Adventure>> {
         public int configId;
         public adventure.AdventureConfig Config => Tables.Instance.TbAdventureConfig.GetById(this.configId);
-
-        public Action beginInvoke;
-        
-        public void Begin() {
-            this.beginInvoke?.Invoke();
-        }
     }
 }

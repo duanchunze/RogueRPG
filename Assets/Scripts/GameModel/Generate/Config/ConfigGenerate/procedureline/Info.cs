@@ -39,11 +39,12 @@ public abstract partial class Info :  Bright.Config.BeanBase
             case "CastWorkerNull": return new procedureline.CastWorkerNull(_json);
             case "HarmProbabilisticCastInfo": return new procedureline.HarmProbabilisticCastInfo(_json);
             case "HealthRatioCastInfo": return new procedureline.HealthRatioCastInfo(_json);
-            case "AdditionalStatusOnAbilityDamageInfo": return new procedureline.AdditionalStatusOnAbilityDamageInfo(_json);
-            case "AdditionalStatusOnAbilityDamageInfo2": return new procedureline.AdditionalStatusOnAbilityDamageInfo2(_json);
+            case "ProbAdditionalStatusOnHarmInfo": return new procedureline.ProbAdditionalStatusOnHarmInfo(_json);
+            case "ProbAdditionalStatusOnHarmInfo2": return new procedureline.ProbAdditionalStatusOnHarmInfo2(_json);
             case "ProbabilisticRepetitionCastInfo": return new procedureline.ProbabilisticRepetitionCastInfo(_json);
             case "MissBeSelectOnHarmInfo": return new procedureline.MissBeSelectOnHarmInfo(_json);
             case "SplitBoltOnHitInfo": return new procedureline.SplitBoltOnHitInfo(_json);
+            case "AddStageDurationInfo": return new procedureline.AddStageDurationInfo(_json);
             default: throw new SerializationException();
         }
     }

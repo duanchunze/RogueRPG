@@ -169,7 +169,15 @@ ZString(0GC字符串库)
 
 #### 使用说明
 
-1、直接打开
+1、下载后直接打开
+
+2、启动场景为Launch, 也可以勾选 Hsenl > 锁定启动场景 选项, 以保持始终以Launch作为启动场景
+
+3、关于代码热更的使用
+
++ HybridCLR > Installer 安装必须的库文件
++ Generate < ALL
++ 后续的代码小修改(非程序集方面的修改) Hsenl > Compile and Copy (或者快捷键 ctrl + e) 即可
 
 
 #### 参与贡献

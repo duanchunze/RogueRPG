@@ -29,14 +29,14 @@ namespace Hsenl {
 
         public static void UnloadAllScene() {
             if (activeScene != null) {
-                if (!activeScene.IsDisposed)
+                if (!activeScene.IsDisposing)
                     Object.Destroy(activeScene);
 
                 activeScene = null;
             }
 
             if (dontDestroyScene != null) {
-                if (!dontDestroyScene.IsDisposed)
+                if (!dontDestroyScene.IsDisposing)
                     Object.Destroy(dontDestroyScene);
 
                 dontDestroyScene = null;

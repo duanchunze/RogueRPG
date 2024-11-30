@@ -334,9 +334,14 @@ namespace Hsenl {
             return diff > this.stickIgnoreError;
         }
 
+#if UNITY_EDITOR
         [Button("自动匹配"), ButtonGroup()]
         public void MatchOfName() {
-            if (!Enum.TryParse(this.name, out this._inputCode)) return;
+            var codeName = this.name;
+            if (!Enum.TryParse(codeName, out this._inputCode)) {
+                Debug.LogError($"Enum parse error '{codeName}'");
+                return;
+            }
 
             switch (this._inputCode) {
                 // 键盘
@@ -364,6 +369,8 @@ namespace Hsenl {
                 case InputCode.Minus:
                 case InputCode.Period:
                 case InputCode.Slash:
+                    this._inputAction.AddBinding($"<Keyboard>/{this._inputCode.ToString().ToLower()}");
+                    break;
                 case InputCode.Alpha0:
                 case InputCode.Alpha1:
                 case InputCode.Alpha2:
@@ -420,6 +427,8 @@ namespace Hsenl {
                 case InputCode.RightCurlyBracket:
                 case InputCode.Tilde:
                 case InputCode.Delete:
+                    this._inputAction.AddBinding($"<Keyboard>/{this._inputCode.ToString().ToLower()}");
+                    break;
                 case InputCode.Keypad0:
                 case InputCode.Keypad1:
                 case InputCode.Keypad2:
@@ -430,8 +439,6 @@ namespace Hsenl {
                 case InputCode.Keypad7:
                 case InputCode.Keypad8:
                 case InputCode.Keypad9:
-                    this._inputAction.AddBinding($"<Keyboard>/numpad{this._inputCode.ToString()[^1]}");
-                    break;
                 case InputCode.KeypadPeriod:
                 case InputCode.KeypadDivide:
                 case InputCode.KeypadMultiply:
@@ -439,6 +446,8 @@ namespace Hsenl {
                 case InputCode.KeypadPlus:
                 case InputCode.KeypadEnter:
                 case InputCode.KeypadEquals:
+                    this._inputAction.AddBinding($"<Keyboard>/{this._inputCode.ToString().Replace("Keypad", "numpad").ToLower()}");
+                    break;
                 case InputCode.UpArrow:
                 case InputCode.DownArrow:
                 case InputCode.RightArrow:
@@ -480,18 +489,18 @@ namespace Hsenl {
                 case InputCode.SysReq:
                 case InputCode.Break:
                 case InputCode.Menu:
+                case InputCode.RightCtrl:
+                case InputCode.LeftCtrl:
                     this._inputAction.AddBinding($"<Keyboard>/{this._inputCode.ToString().ToLower()}");
-                    break;
-
-                case InputCode.RightControl:
-                    this._inputAction.AddBinding($"<Keyboard>/rightCtrl");
-                    break;
-                case InputCode.LeftControl:
-                    this._inputAction.AddBinding($"<Keyboard>/leftCtrl");
                     break;
 
                 // 特殊
                 case InputCode.WASD:
+                    this._inputAction.AddCompositeBinding("2DVector")
+                        .With("Up", "<Keyboard>/w")
+                        .With("Down", "<Keyboard>/s")
+                        .With("Left", "<Keyboard>/a")
+                        .With("Right", "<Keyboard>/d");
                     break;
 
                 // 鼠标
@@ -544,6 +553,7 @@ namespace Hsenl {
         public void Clear() {
             this._inputAction = new InputAction();
         }
+#endif
     }
 
 // #if UNITY_EDITOR

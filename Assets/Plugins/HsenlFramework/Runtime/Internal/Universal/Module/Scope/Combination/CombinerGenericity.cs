@@ -9,7 +9,7 @@ namespace Hsenl {
         private T1 member1;
         private T2 member2;
 
-        internal override void Combin(IList<Component> components) {
+        protected sealed override int Combin(IList<Component> components) {
             base.Combin(components);
             if (components.Count != 2) Log.Warning($"combiner components count has something the matter '{components.Count}'");
             var len = components.Count;
@@ -38,9 +38,11 @@ namespace Hsenl {
             if (this.actionCounter != 0) {
                 this.actionCounters[this.GetComponentCombineHashCode()] = this.actionCounter;
             }
+
+            return this.GetComponentCombineHashCode();
         }
 
-        internal override void Decombin(IList<Component> components) {
+        protected sealed override int Decombin(IList<Component> components) {
             base.Decombin(components);
             if (components.Count != 2) Log.Warning($"combiner components count has something the matter '{components.Count}'");
             for (int i = 0, len = components.Count; i < len; i++) {
@@ -74,11 +76,14 @@ namespace Hsenl {
                 this.actionCounters.Remove(hashcode);
             }
 
+            this.RemoveUserToken();
             this.member1 = null;
             this.member2 = null;
+
+            return hashcode;
         }
 
-        protected override int GetComponentCombineHashCode() {
+        protected sealed override int GetComponentCombineHashCode() {
             return HashCode.Combine(this.member1.InstanceId, this.member2.InstanceId);
         }
 
@@ -93,7 +98,7 @@ namespace Hsenl {
         private T2 member2;
         private T3 member3;
 
-        internal override void Combin(IList<Component> components) {
+        protected sealed override int Combin(IList<Component> components) {
             base.Combin(components);
             if (components.Count != 3) Log.Warning($"combiner components count has something the matter '{components.Count}'");
             for (int i = 0, len = components.Count; i < len; i++) {
@@ -123,9 +128,11 @@ namespace Hsenl {
             if (this.actionCounter != 0) {
                 this.actionCounters[this.GetComponentCombineHashCode()] = this.actionCounter;
             }
+            
+            return this.GetComponentCombineHashCode();
         }
 
-        internal override void Decombin(IList<Component> components) {
+        protected sealed override int Decombin(IList<Component> components) {
             base.Decombin(components);
             if (components.Count != 3) Log.Warning($"combiner components count has something the matter '{components.Count}'");
             for (int i = 0, len = components.Count; i < len; i++) {
@@ -162,12 +169,15 @@ namespace Hsenl {
                 this.actionCounters.Remove(hashcode);
             }
 
+            this.RemoveUserToken();
             this.member1 = null;
             this.member2 = null;
             this.member3 = null;
+
+            return hashcode;
         }
 
-        protected override int GetComponentCombineHashCode() {
+        protected sealed override int GetComponentCombineHashCode() {
             return HashCode.Combine(this.member1.InstanceId, this.member2.InstanceId, this.member3.InstanceId);
         }
 
@@ -183,7 +193,7 @@ namespace Hsenl {
         private T3 member3;
         private T4 member4;
 
-        internal override void Combin(IList<Component> components) {
+        protected sealed override int Combin(IList<Component> components) {
             base.Combin(components);
             if (components.Count != 4) Log.Warning($"combiner components count has something the matter '{components.Count}'");
             for (int i = 0, len = components.Count; i < len; i++) {
@@ -217,9 +227,11 @@ namespace Hsenl {
             if (this.actionCounter != 0) {
                 this.actionCounters[this.GetComponentCombineHashCode()] = this.actionCounter;
             }
+            
+            return this.GetComponentCombineHashCode();
         }
 
-        internal override void Decombin(IList<Component> components) {
+        protected sealed override int Decombin(IList<Component> components) {
             base.Decombin(components);
             if (components.Count != 4) Log.Warning($"combiner components count has something the matter '{components.Count}'");
             for (int i = 0, len = components.Count; i < len; i++) {
@@ -260,13 +272,16 @@ namespace Hsenl {
                 this.actionCounters.Remove(hashcode);
             }
 
+            this.RemoveUserToken();
             this.member1 = null;
             this.member2 = null;
             this.member3 = null;
             this.member4 = null;
+
+            return hashcode;
         }
 
-        protected override int GetComponentCombineHashCode() {
+        protected sealed override int GetComponentCombineHashCode() {
             return HashCode.Combine(this.member1.InstanceId, this.member2.InstanceId, this.member3.InstanceId, this.member4.InstanceId);
         }
 
@@ -288,7 +303,7 @@ namespace Hsenl {
         private T4 member4;
         private T5 member5;
 
-        internal override void Combin(IList<Component> components) {
+        protected sealed override int Combin(IList<Component> components) {
             base.Combin(components);
             if (components.Count != 5) Log.Warning($"combiner components count has something the matter '{components.Count}'");
             for (int i = 0, len = components.Count; i < len; i++) {
@@ -326,9 +341,11 @@ namespace Hsenl {
             if (this.actionCounter != 0) {
                 this.actionCounters[this.GetComponentCombineHashCode()] = this.actionCounter;
             }
+            
+            return this.GetComponentCombineHashCode();
         }
 
-        internal override void Decombin(IList<Component> components) {
+        protected sealed override int Decombin(IList<Component> components) {
             base.Decombin(components);
             if (components.Count != 5) Log.Warning($"combiner components count has something the matter '{components.Count}'");
             for (int i = 0, len = components.Count; i < len; i++) {
@@ -373,14 +390,17 @@ namespace Hsenl {
                 this.actionCounters.Remove(hashcode);
             }
 
+            this.RemoveUserToken();
             this.member1 = null;
             this.member2 = null;
             this.member3 = null;
             this.member4 = null;
             this.member5 = null;
+
+            return hashcode;
         }
 
-        protected override int GetComponentCombineHashCode() {
+        protected sealed override int GetComponentCombineHashCode() {
             return HashCode.Combine(this.member1.InstanceId, this.member2.InstanceId, this.member3.InstanceId, this.member4.InstanceId,
                 this.member5.InstanceId);
         }

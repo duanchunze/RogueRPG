@@ -6,15 +6,17 @@ namespace Hsenl {
         public Action onShoppingFinish;
 
         [ShadowFunction]
-        protected override void OnEnter(IFsm fsm, IFsmState prev) {
+        protected override HTask OnEnter(IFsm fsm, IFsmState prev) {
             this.OnEnterShadow(fsm, prev);
             this.onShoppingFinish?.Invoke();
+            return default;
         }
 
         [ShadowFunction]
-        protected override void OnLeave(IFsm fsm, IFsmState next) {
+        protected override HTask OnLeave(IFsm fsm, IFsmState next) {
             this.onShoppingFinish = null;
             this.OnLeaveShadow(fsm, next);
+            return default;
         }
         
         public void OnShoppingFinish() {

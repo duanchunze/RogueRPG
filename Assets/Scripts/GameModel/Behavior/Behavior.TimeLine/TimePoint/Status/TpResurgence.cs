@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpResurgence : TpInfo<timeline.ResurgenceInfo> {
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied.MainBodied) {

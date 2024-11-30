@@ -14,6 +14,9 @@
                 }
             }
 
+            if (Shortcut.IsDead(item.hurtNumerator.Bodied))
+                return ProcedureLineHandleResult.Break;
+
             // 判断伤害类型是否指定
             {
                 if (item.damageFormulaInfo != null) {

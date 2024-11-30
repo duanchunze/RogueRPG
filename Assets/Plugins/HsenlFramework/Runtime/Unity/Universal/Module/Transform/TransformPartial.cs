@@ -50,34 +50,22 @@ namespace Hsenl {
 
         private UnityEngine.Transform UnityTransformGetter() => this._transform ??= this.Entity.UnityTransform;
 
+        public void NormalizeValue() {
+            this.LocalPosition = Vector3.Zero;
+            this.LocalRotation = Quaternion.Identity;
+            this.LocalScale = Vector3.One;
+        }
+
         public void Translate(Vector3 translation) {
             this.UnityTransformGetter().Translate(translation, Space.World);
         }
 
-        public void LookAtLerp(Vector3 forward, float t) {
+        public void LookRotationLerp(Vector3 forward, float t) {
             var forwardRotation = Quaternion.CreateLookRotation(forward, Vector3.Up);
             this.Quaternion = Quaternion.Lerp(this.Quaternion, forwardRotation, t);
         }
 
-        public void LookAt(Vector3 forward) {
-            var forwardRotation = Quaternion.CreateLookRotation(forward, Vector3.Up);
-            this.Quaternion = forwardRotation;
-        }
-
-        public void LookAtPointLerp(Vector3 point, float t) {
-            var position = this.Position;
-            if (point.Equals(position)) return;
-
-            var forward = point - position;
-            var forwardRotation = Quaternion.CreateLookRotation(forward, Vector3.Up);
-            this.Quaternion = Quaternion.Lerp(this.Quaternion, forwardRotation, t);
-        }
-
-        public void LookAtPoint(Vector3 point) {
-            var position = this.Position;
-            if (point.Equals(position)) return;
-
-            var forward = point - position;
+        public void LookRotation(Vector3 forward) {
             var forwardRotation = Quaternion.CreateLookRotation(forward, Vector3.Up);
             this.Quaternion = forwardRotation;
         }
@@ -88,12 +76,12 @@ namespace Hsenl {
 
         public NavMeshAgent NavMeshAgent => this._navMeshAgent ??= this.GetComponent<NavMeshAgent>();
 
-        public bool IsNavMoveDone() {
+        public bool IsMoveStop() {
             var agent = this.NavMeshAgent;
             if (agent == null)
                 return true;
 
-            return agent.IsNavMoveDone();
+            return agent.IsNavMoveStop();
         }
 
         public void StopMove() {

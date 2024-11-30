@@ -43,7 +43,7 @@ namespace Hsenl {
 
             // 掉落物刚刚掉落后先不可拾取, 延迟后再可拾取
             if (delay > 0)
-                await Timer.WaitTime((long)(delay * 1000f));
+                await Timer.WaitTimeWithScale(delay);
 
             this._collider.Entity.Active = true;
         }

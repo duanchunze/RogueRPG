@@ -29,17 +29,17 @@ namespace Hsenl {
             }
         }
 
-        public sealed override void StartNode(IBehaviorTree tree) {
+        public sealed override void AwakeNode(IBehaviorTree tree) {
             if (this.manager != null) throw new Exception("already has manager");
             if (tree == null) throw new ArgumentNullException(nameof(tree));
 
             this.manager = (TManager)tree;
             for (int i = 0, len = this.children.Count; i < len; i++) {
-                this.children[i].StartNode(this.manager);
+                this.children[i].AwakeNode(this.manager);
             }
 
             try {
-                this.InternalStart();
+                this.InternalAwake();
             }
             catch (Exception e) {
                 Log.Error($"<start node error> {e}");
@@ -89,13 +89,13 @@ namespace Hsenl {
             }
         }
 
-        public sealed override void ResetNode() {
+        public sealed override void StartNode() {
             for (int i = 0, len = this.children.Count; i < len; i++) {
-                this.children[i].ResetNode();
+                this.children[i].StartNode();
             }
 
             try {
-                this.InternalReset();
+                this.InternalStart();
             }
             catch (Exception e) {
                 Log.Error($"<reset node error> {e}");
@@ -111,22 +111,24 @@ namespace Hsenl {
             this.InternalAbort();
         }
 
-        public void AddChild(TNode node) {
-            if (node == null) return;
+        public bool AddChild(TNode node) {
+            if (node == null) return false;
             this.children.Add(node);
             node.Parent = this;
 
             if (this.manager != null) {
-                node.StartNode(this.manager);
+                node.AwakeNode(this.manager);
                 if (this.manager.RealEnable) {
                     node.OpenNode();
                 }
             }
+
+            return true;
         }
 
-        public void RemoveChild(TNode node) {
-            if (node == null) return;
-            if (node.Parent != this) return;
+        public bool RemoveChild(TNode node) {
+            if (node == null) return false;
+            if (node.Parent != this) return false;
             if (this.manager != null) {
                 node.AbortNode();
                 if (this.manager.RealEnable)
@@ -134,8 +136,9 @@ namespace Hsenl {
                 node.DestroyNode();
             }
 
-            this.children.Remove(node);
+            var b = this.children.Remove(node);
             node.Parent = null;
+            return b;
         }
 
         public void Clear() {
@@ -157,7 +160,7 @@ namespace Hsenl {
             return new Iterator<INode>(this.children.GetEnumerator());
         }
 
-        public sealed override T GetNodeInChildren<T>(bool once = false) {
+        public sealed override T GetNodeInChildren<T>() {
             if (this.children == null) return default;
             for (int i = 0, len = this.children.Count; i < len; i++) {
                 var child = this.children[i];
@@ -165,8 +168,6 @@ namespace Hsenl {
                     return t;
                 }
             }
-
-            if (once) return default;
 
             for (int i = 0, len = this.children.Count; i < len; i++) {
                 var child = this.children[i];
@@ -179,7 +180,7 @@ namespace Hsenl {
             return default;
         }
 
-        public sealed override T[] GetNodesInChildren<T>(bool once = false) {
+        public sealed override T[] GetNodesInChildren<T>() {
             if (this.children == null)
                 return default;
 
@@ -188,7 +189,7 @@ namespace Hsenl {
             return list.ToArray();
         }
 
-        public sealed override void GetNodesInChildren<T>(List<T> cache, bool once = false) {
+        public sealed override void GetNodesInChildren<T>(List<T> cache) {
             if (this.children == null) return;
             for (int i = 0, len = this.children.Count; i < len; i++) {
                 var child = this.children[i];
@@ -196,8 +197,6 @@ namespace Hsenl {
                     cache.Add(t);
                 }
             }
-
-            if (once) return;
 
             for (int i = 0, len = this.children.Count; i < len; i++) {
                 var child = this.children[i];

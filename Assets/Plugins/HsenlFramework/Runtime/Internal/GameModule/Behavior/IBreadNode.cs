@@ -4,8 +4,8 @@
     public interface IBreadNode { }
 
     public interface IBreadNode<in T> where T : INode {
-        void AddChild(T t);
-        void RemoveChild(T t);
+        bool AddChild(T t);
+        bool RemoveChild(T t);
         void Clear();
     }
 }

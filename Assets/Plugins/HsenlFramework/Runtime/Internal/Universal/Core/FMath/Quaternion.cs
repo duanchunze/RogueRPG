@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 #if FIXED_MATH
@@ -177,39 +178,7 @@ namespace Hsenl {
         /// <param name="matrix"></param>
         /// <param name="result"></param>
         internal static void CreateMatrix(ref Matrix3x3 matrix, out Quaternion result) {
-            var num8 = (matrix.m11 + matrix.m22) + matrix.m33;
-            if (num8 > 0) {
-                var num = Math.Sqrt(num8 + 1);
-                result.w = num * 0.5f;
-                num = 0.5f / num;
-                result.x = (matrix.m23 - matrix.m32) * num;
-                result.y = (matrix.m31 - matrix.m13) * num;
-                result.z = (matrix.m12 - matrix.m21) * num;
-            }
-            else if (matrix.m11 >= matrix.m22 && matrix.m11 >= matrix.m33) {
-                var num7 = Math.Sqrt(1 + matrix.m11 - matrix.m22 - matrix.m33);
-                var num4 = 0.5f / num7;
-                result.x = 0.5f * num7;
-                result.y = (matrix.m12 + matrix.m21) * num4;
-                result.z = (matrix.m13 + matrix.m31) * num4;
-                result.w = (matrix.m23 - matrix.m32) * num4;
-            }
-            else if (matrix.m22 > matrix.m33) {
-                var num6 = Math.Sqrt(1 + matrix.m22 - matrix.m11 - matrix.m33);
-                var num3 = 0.5f / num6;
-                result.x = (matrix.m21 + matrix.m12) * num3;
-                result.y = 0.5f * num6;
-                result.z = (matrix.m32 + matrix.m23) * num3;
-                result.w = (matrix.m31 - matrix.m13) * num3;
-            }
-            else {
-                var num5 = Math.Sqrt(1 + matrix.m33 - matrix.m11 - matrix.m22);
-                var num2 = 0.5f / num5;
-                result.x = (matrix.m31 + matrix.m13) * num2;
-                result.y = (matrix.m32 + matrix.m23) * num2;
-                result.z = 0.5f * num5;
-                result.w = (matrix.m12 - matrix.m21) * num2;
-            }
+            Internal_MatrixToQuaternion(ref matrix, out result);
         }
 
         /// <summary>
@@ -269,50 +238,6 @@ namespace Hsenl {
         }
 
         /// <summary>
-        /// 创建一个LookAt四元数
-        /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        public static Quaternion CreateLookAt(Vector3 point) {
-            var up = Vector3.Up;
-            Matrix3x3.CreateLookAt(ref point, ref up, out var mt);
-            CreateMatrix(ref mt, out var result);
-            return result;
-        }
-
-        /// <summary>
-        /// 创建一个LookAt四元数
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="result"></param>
-        public static void CreateLookAt(ref Vector3 point, out Quaternion result) {
-            var up = Vector3.Up;
-            Matrix3x3.CreateLookAt(ref point, ref up, out var mt);
-            CreateMatrix(ref mt, out result);
-        }
-
-        /// <summary>
-        /// 创建一个LookAt四元数
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="up"></param>
-        /// <returns></returns>
-        public static Quaternion CreateLookAt(Vector3 point, Vector3 up) {
-            return CreateMatrix(Matrix3x3.CreateLookAt(point, up));
-        }
-
-        /// <summary>
-        /// 创建一个LookAt四元数
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="up"></param>
-        /// <param name="result"></param>
-        public static void CreateLookAt(ref Vector3 point, ref Vector3 up, out Quaternion result) {
-            Matrix3x3.CreateLookAt(ref point, ref up, out var mt);
-            CreateMatrix(ref mt, out result);
-        }
-
-        /// <summary>
         /// 注视旋转
         /// </summary>
         /// <param name="forward"></param>
@@ -352,11 +277,8 @@ namespace Hsenl {
         /// <returns></returns>
         public static bool CreateLookRotation(ref Vector3 forward, ref Vector3 up, out Quaternion result) {
             result = Identity;
-
-            // Generates a Right handed Quaternion from a look rotation. Returns if conversion was successful.
-            if (!Matrix3x3.LookRotationToMatrix(ref forward, ref up, out var matrix)) return false;
-
-            Internal_MatrixToQuaternion(ref matrix, out result);
+            Matrix3x3.CreateLookRotation(ref forward, ref up, out var matrix);
+            CreateMatrix(ref matrix, out result);
 
             return true;
         }
@@ -380,8 +302,7 @@ namespace Hsenl {
         /// <param name="to"></param>
         /// <param name="maxDegreesDelta"></param>
         /// <param name="result"></param>
-        public static void CreateRotateTowards(ref Quaternion from, ref Quaternion to, FLOAT maxDegreesDelta,
-            out Quaternion result) {
+        public static void CreateRotateTowards(ref Quaternion from, ref Quaternion to, FLOAT maxDegreesDelta, out Quaternion result) {
             Dot(ref from, ref to, out var dot);
 
             if (dot < 0.0f) {
@@ -1043,9 +964,10 @@ namespace Hsenl {
 
         #endregion
 
-        #region ---------私有函数
+        #region ---------第三方函数
 
         // 3x3矩阵转成向量。不能转复合矩阵，就是同时包含[旋转]和[非1缩放]的矩阵。如果缩放始终为1的话，可以使用该方法获得欧拉角，因为速度比较快
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void Internal_MatrixToEuler(ref Matrix3x3 matrix, out Vector3 result) {
             // from http://www.geometrictools.com/Documentation/EulerAngles.pdf
             // YXZ order
@@ -1079,6 +1001,7 @@ namespace Hsenl {
         }
 
         // 3x3矩阵转成四元数
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void Internal_MatrixToQuaternion(ref Matrix3x3 matrix, out Quaternion result) {
             // Algorithm in Ken Shoemake's article in 1987 SIGGRAPH course notes
             // article "Quaternionf Calculus and Fast Animation".

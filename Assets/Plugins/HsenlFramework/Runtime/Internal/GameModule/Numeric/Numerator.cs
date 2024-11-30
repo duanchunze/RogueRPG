@@ -29,7 +29,7 @@ namespace Hsenl {
     }
 
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class Numerator : Unbodied, INumerator {
 #if UNITY_EDITOR
         [ShowInInspector]

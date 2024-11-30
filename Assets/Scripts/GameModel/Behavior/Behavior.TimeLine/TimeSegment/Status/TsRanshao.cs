@@ -2,7 +2,7 @@
 using MemoryPack;
 
 namespace Hsenl {
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TsRanshao : TsStatusHarm<RanshaoInfo> {
         private float _timer;
 

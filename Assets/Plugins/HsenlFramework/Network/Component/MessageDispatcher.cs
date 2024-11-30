@@ -16,6 +16,7 @@ namespace Hsenl.Network {
         private static void CacheHandlers() {
             _messageHandlers.Clear();
             foreach (var type in EventSystem.GetTypesOfAttribute(typeof(MessageHandlerAttribute))) {
+                if (type.IsGenericType || type.IsAbstract) continue;
                 var obj = Activator.CreateInstance(type);
                 if (obj is not IMessageHandler handler) {
                     throw new InvalidOperationException($"type '{type}' is not MessageHandler");

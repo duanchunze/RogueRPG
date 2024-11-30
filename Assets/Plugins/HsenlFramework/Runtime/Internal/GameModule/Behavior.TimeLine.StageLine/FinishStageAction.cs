@@ -3,7 +3,7 @@ using MemoryPack;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public sealed partial class FinishStageAction : ActionNode<ITimeLine>, IStageNode {
         public int StageType { get; } = 0;
 

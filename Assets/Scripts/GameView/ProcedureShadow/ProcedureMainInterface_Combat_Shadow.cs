@@ -6,16 +6,18 @@ namespace Hsenl.View {
     [ShadowFunction(typeof(ProcedureMainInterface_Combat))]
     public static partial class ProcedureMainInterface_Combat_Shadow {
         [ShadowFunction]
-        private static void OnEnter(ProcedureMainInterface_Combat self, IFsm fsm, IFsmState prev) {
+        private static HTask OnEnter(ProcedureMainInterface_Combat self, IFsm fsm, IFsmState prev) {
             UIManager.SingleOpen<UIMainInterface_Combat>(UILayer.High);
             UIManager.SingleOpen<UIActorInfo>(UILayer.High);
             self.CurrentSelectHeroIndex = 0;
+            return default;
         }
 
         [ShadowFunction]
-        private static void OnLeave(IFsm fsm, IFsmState next) {
+        private static HTask OnLeave(IFsm fsm, IFsmState next) {
             UIManager.SingleClose<UIMainInterface_Combat>();
             UIManager.SingleClose<UIActorInfo>();
+            return default;
         }
 
         [ShadowFunction]

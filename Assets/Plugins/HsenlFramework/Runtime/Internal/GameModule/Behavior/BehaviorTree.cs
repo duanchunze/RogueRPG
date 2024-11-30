@@ -48,7 +48,7 @@ namespace Hsenl {
             if (node == null)
                 return;
 
-            this.entryNode.StartNode(this);
+            this.entryNode.AwakeNode(this);
             if (this.RealEnable) {
                 // 刚设置的时候, 如果tree已经enable过了, 则需要补一次
                 this.entryNode.OpenNode();
@@ -56,7 +56,7 @@ namespace Hsenl {
         }
 
         protected override void OnDeserializedOverall() {
-            this.entryNode?.StartNode(this);
+            this.entryNode?.AwakeNode(this);
             if (this.RealEnable) {
                 // 因为OnDeserialized在Enable之后触发, 所以, 需要补一次
                 this.entryNode?.OpenNode();
@@ -92,8 +92,8 @@ namespace Hsenl {
             return status;
         }
 
-        public virtual void Reset() {
-            this.entryNode?.ResetNode();
+        public virtual void Start() {
+            this.entryNode?.StartNode();
         }
 
         public virtual void Abort() {
@@ -102,7 +102,7 @@ namespace Hsenl {
     }
 
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class BehaviorTree : BehaviorTree<INode>, IBehaviorTree<BehaviorTree>, IUpdate {
         public void Update() {
             this.DeltaTime = TimeInfo.DeltaTime;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Hsenl {
     [DisallowMultipleComponent]
+    [DefaultExecutionOrder(-19)]
     public class TimeProxy : MonoBehaviour {
         [OnValueChanged("OnTimeScaleChanged"), PropertyRange(0f, 5f)] public float timeScale = 1;
         [SerializeField, HideLabel] private TimeInfoManager _timeInfoManager;

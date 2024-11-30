@@ -18,11 +18,11 @@ namespace Hsenl {
             var result = go.GetComponent<UnityPhysicsListener>();
             if (result == null) {
                 result = go.AddComponent<UnityPhysicsListener>();
-                result._collider = result.GetComponent<UnityEngine.Collider>();
-                result._rigidbody = result.GetComponent<UnityEngine.Rigidbody>();
+                result._collider = go.GetComponent<UnityEngine.Collider>();
+                result._rigidbody = go.GetComponent<UnityEngine.Rigidbody>();
 
                 if (!result._collider && !result._rigidbody)
-                    throw new Exception($"cant find collider or rigidbody on gameObject '{result.gameObject}'");
+                    throw new Exception($"cant find collider or rigidbody on gameObject '{go}'");
             }
 
             return result;

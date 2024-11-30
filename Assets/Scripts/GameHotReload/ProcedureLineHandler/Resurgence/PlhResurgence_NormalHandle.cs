@@ -13,6 +13,11 @@ namespace Hsenl {
                 Shortcut.RecoverMana(numerator, int.MaxValue);
             }
 
+            var abiBar = item.target.FindBodiedInIndividual<AbilitesBar>();
+            if (abiBar != null) {
+                Shortcut.ResetAllAbilitiesCD(abiBar);
+            }
+
             return ProcedureLineHandleResult.Success;
         }
     }

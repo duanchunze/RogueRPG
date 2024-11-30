@@ -2,13 +2,13 @@
 using MemoryPack;
 
 namespace Hsenl {
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class CeCooldownCheck : CeInfo<CooldownCheckInfo> {
         protected override NodeStatus OnNodeTick() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
                     if (!ability.IsCooldown) {
-                        this.manager.status = CastEvaluateStatus.Cooldown;
+                        this.manager.castEvaluateResult.CastEvaluateState = CastEvaluateState.Cooldown;
                         return NodeStatus.Failure;
                     }
 

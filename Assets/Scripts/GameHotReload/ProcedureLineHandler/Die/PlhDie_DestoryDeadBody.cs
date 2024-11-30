@@ -12,7 +12,7 @@
         }
 
         private async void WaitForDestoryBody(Actor actor) {
-            await Timer.WaitTime(3000);
+            await Timer.WaitTimeWithScale(3f);
             ActorManager.Instance.Return(actor);
         }
     }

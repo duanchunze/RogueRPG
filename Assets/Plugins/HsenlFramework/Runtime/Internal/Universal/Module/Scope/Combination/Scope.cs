@@ -26,10 +26,10 @@ namespace Hsenl {
         internal Queue<int> multiMatchs;
 
         [MemoryPackIgnore]
-        internal CrossMatchQueue crossMatchQueue1;
+        internal CrossMatchQueue crossMatchQueue1; // 与自己所有子域做的组合
 
         [MemoryPackIgnore]
-        internal CrossMatchQueue crossMatchQueue2;
+        internal CrossMatchQueue crossMatchQueue2; // 与自己所有父域做的组合
 
         // 每当父级发生改变时(包括父级以上发生改变时), 会算出一个在当前父子链下, 最大跨域层数, 默认为1
         // 指的注意的是, CombinerOptionsAttribute中有个crossMaximumLayer参数, 虽然看起来类似, 但二者本质并不同, 那个参数是用来决定某个具体的组合的最大匹配层数,
@@ -278,73 +278,73 @@ namespace Hsenl {
                 if (combiner.memberTypes.Length > matchCount)
                     break;
 
-                // 判断能否形成组合
-                if (scope.HasComponentsAll(combiner.multiTypeCacher)) {
-                    if (scope.multiMatchs != null) {
-                        if (scope.multiMatchs.Contains(combiner.id))
-                            goto CONTINUE;
 
-                        // 如果符合, 先判断该组合有没有覆盖者, 如果有, 则不能形成组合
-                        if (Combiner.CombinerCache.InverseOverrides.TryGetValue(combiner.id, out var ids)) {
-                            foreach (var overrideCombinerId in ids) {
-                                if (scope.multiMatchs.Contains(overrideCombinerId)) {
-                                    goto CONTINUE;
-                                }
-                            }
-                        }
+                MultiCombinMatchOfCombiner(scope, combiner);
+            }
+        }
 
-                        // 再判断该组合有没有需要覆盖的, 如果有, 就断开其组合
-                        if (Combiner.CombinerCache.Overrides.TryGetValue(combiner.id, out ids)) {
-                            foreach (var overrideCombinerId in ids) {
-                                if (scope.multiMatchs == null) break;
+        internal static void MultiCombinMatchOfCombiner(Scope scope, Combiner combiner) {
+            // 判断能否形成组合
+            if (scope.HasComponentsAll(combiner.multiTypeCacher)) {
+                if (scope.multiMatchs != null) {
+                    if (scope.multiMatchs.Contains(combiner.id))
+                        return;
 
-                                // 断开被覆盖的multi组合
-                                var matchcount = scope.multiMatchs.Count;
-                                while (matchcount-- > 0) {
-                                    var id = scope.multiMatchs.Dequeue();
-                                    if (id == overrideCombinerId) {
-                                        var decombiner = Combiner.CombinerCache.TotalCombiners[overrideCombinerId];
-                                        _componentCache.Clear();
-                                        scope.GetComponentsOfTypeCacher(decombiner.multiTypeCacher, _componentCache);
-                                        decombiner.Decombin(_componentCache);
-                                        continue;
-                                    }
-
-                                    scope.multiMatchs.Enqueue(id);
-                                }
-
-                                if (scope.multiMatchs.Count == 0)
-                                    scope.multiMatchs = null;
-
-                                // 断开被覆盖的cross组合
-                                scope.crossMatchQueue2?.Select<(List<Component> cache, Scope scope, int overrideId)>(
-                                    (parentScope, crossCombiner, data) => {
-                                        if (crossCombiner.id == data.overrideId) {
-                                            parentScope.crossMatchQueue1.Dequeue(data.scope, crossCombiner);
-                                            if (parentScope.crossMatchQueue1.Count == 0)
-                                                parentScope.crossMatchQueue1 = null;
-                                            data.cache.Clear();
-                                            data.scope.GetComponentsOfTypeCacher(crossCombiner.crossTypeCacher1, data.cache);
-                                            parentScope.GetComponentsOfTypeCacher(crossCombiner.crossTypeCacher2, data.cache);
-                                            crossCombiner.Decombin(data.cache);
-                                            return false; // 返回false, 代表该combiner在代码域执行完后, 该combiner不会再重新被添加到queue中(也就是删除了)
-                                        }
-
-                                        return true;
-                                    }, (_componentCache, scope, overrideCombinerId));
+                    // 如果符合, 先判断该组合有没有覆盖者, 如果有, 则不能形成组合
+                    if (Combiner.CombinerCache.InverseOverrides.TryGetValue(combiner.id, out var ids)) {
+                        foreach (var overrideCombinerId in ids) {
+                            if (scope.multiMatchs.Contains(overrideCombinerId)) {
+                                return;
                             }
                         }
                     }
 
-                    // 正式形成新的multi组合
-                    scope.multiMatchs ??= new();
-                    scope.multiMatchs.Enqueue(combiner.id);
-                    _componentCache.Clear();
-                    scope.GetComponentsOfTypeCacher(combiner.multiTypeCacher, _componentCache);
-                    combiner.Combin(_componentCache);
+                    // 再判断该组合有没有需要覆盖的, 如果有, 就断开其组合
+                    if (Combiner.CombinerCache.Overrides.TryGetValue(combiner.id, out ids)) {
+                        foreach (var overrideCombinerId in ids) {
+                            if (scope.multiMatchs == null) break;
+
+                            // 断开被覆盖的multi组合
+                            var matchcount = scope.multiMatchs.Count;
+                            while (matchcount-- > 0) {
+                                var id = scope.multiMatchs.Dequeue();
+                                if (id == overrideCombinerId) {
+                                    var decombiner = Combiner.CombinerCache.TotalCombiners[overrideCombinerId];
+                                    _componentCache.Clear();
+                                    scope.GetComponentsOfTypeCacher(decombiner.multiTypeCacher, _componentCache);
+                                    decombiner.DecombinInternal(_componentCache);
+                                    continue;
+                                }
+
+                                scope.multiMatchs.Enqueue(id);
+                            }
+
+                            // // 断开被覆盖的cross组合
+                            // scope.crossMatchQueue2?.Select<(List<Component> cache, Scope scope, int overrideId)>(
+                            //     (parentScope, crossCombiner, data) => {
+                            //         if (crossCombiner.id == data.overrideId) {
+                            //             parentScope.crossMatchQueue1.Dequeue(data.scope, crossCombiner);
+                            //             if (parentScope.crossMatchQueue1.Count == 0)
+                            //                 parentScope.crossMatchQueue1 = null;
+                            //             data.cache.Clear();
+                            //             data.scope.GetComponentsOfTypeCacher(crossCombiner.crossTypeCacher1, data.cache);
+                            //             parentScope.GetComponentsOfTypeCacher(crossCombiner.crossTypeCacher2, data.cache);
+                            //             crossCombiner.DecombinInternal(data.cache);
+                            //             return false; // 返回false, 代表该combiner在代码域执行完后, 该combiner不会再重新被添加到queue中(也就是删除了)
+                            //         }
+                            //
+                            //         return true;
+                            //     }, (_componentCache, scope, overrideCombinerId));
+                        }
+                    }
                 }
 
-                CONTINUE: ;
+                // 正式形成新的multi组合
+                scope.multiMatchs ??= new();
+                scope.multiMatchs.Enqueue(combiner.id);
+                _componentCache.Clear();
+                scope.GetComponentsOfTypeCacher(combiner.multiTypeCacher, _componentCache);
+                combiner.CombinInternal(_componentCache);
             }
         }
 
@@ -359,6 +359,7 @@ namespace Hsenl {
 
             var combiners = Combiner.CombinerCache.TotalCombiners;
             var count = scope.multiMatchs.Count;
+            ListComponent<int> beoverlays = null; // 被覆盖的组合编号
             while (count-- > 0) {
                 var combinerId = scope.multiMatchs.Dequeue();
                 var combiner = combiners[combinerId];
@@ -367,11 +368,31 @@ namespace Hsenl {
                     _componentCache.Clear();
                     scope.GetComponentsOfTypeCacher(combiner.multiTypeCacher, _componentCache);
                     if (componentIndex != -1) _componentCache.Add(removed);
-                    combiner.Decombin(_componentCache);
+                    combiner.DecombinInternal(_componentCache);
+
+                    if (componentIndex != -1) {
+                        if (Combiner.CombinerCache.Overrides.TryGetValue(combiner.id, out var list)) {
+                            beoverlays ??= ListComponent<int>.Rent();
+                            for (int i = 0; i < list.Count; i++) {
+                                beoverlays[i] = list[i];
+                            }
+                        }
+                    }
+
                     continue;
                 }
 
                 scope.multiMatchs.Enqueue(combinerId);
+            }
+
+            if (beoverlays != null) {
+                // 断开的组合里, 有覆盖者, 这就说明存在有被覆盖者现在可以进行组合了的可能, 所以尝试进行一次组合匹配.
+                for (int i = 0; i < beoverlays.Count; i++) {
+                    var combiner = Combiner.CombinerCache.TotalCombiners[beoverlays[i]];
+                    MultiCombinMatchOfCombiner(scope, combiner);
+                }
+
+                beoverlays.Dispose();
             }
 
             if (scope.multiMatchs.Count == 0)
@@ -499,7 +520,7 @@ namespace Hsenl {
 
             // 再判断该组合是不是已经组合过了
             if (scope1.crossMatchQueue2 != null)
-                if (scope1.crossMatchQueue2.Contains(scope2, crossCombiner))
+                if (scope1.crossMatchQueue2.Contains(scope2, crossCombiner.id))
                     return 1;
 
             // 再判断该组合有没有覆盖者, 如果有, 则不能形成组合
@@ -515,12 +536,12 @@ namespace Hsenl {
             // 到这里, 就说明可以形成组合了
             scope1.crossMatchQueue2 ??= new CrossMatchQueue();
             scope2.crossMatchQueue1 ??= new CrossMatchQueue();
-            scope1.crossMatchQueue2.Enqueue(scope2, crossCombiner);
-            scope2.crossMatchQueue1.Enqueue(scope1, crossCombiner);
+            scope1.crossMatchQueue2.Enqueue(scope2, crossCombiner.id);
+            scope2.crossMatchQueue1.Enqueue(scope1, crossCombiner.id);
             _componentCache.Clear();
             scope1.GetComponentsOfTypeCacher(crossCombiner.crossTypeCacher1, _componentCache);
             scope2.GetComponentsOfTypeCacher(crossCombiner.crossTypeCacher2, _componentCache);
-            crossCombiner.Combin(_componentCache);
+            crossCombiner.CombinInternal(_componentCache);
 
             return 3;
         }
@@ -531,32 +552,34 @@ namespace Hsenl {
                 throw new ArgumentNullException(nameof(removed));
 
             var componentIndex = removed.ComponentIndex;
-            scope.crossMatchQueue2?.Select<(Scope scope, Element removed, int index, List<Component> cache)>((parentScope, combiner, data) => {
+            scope.crossMatchQueue2?.Select<(Scope scope, Element removed, int index, List<Component> cache)>((parentScope, id, data) => {
+                var combiner = Combiner.CombinerCache.TotalCombiners[id];
                 if (combiner.crossTypeCacher1.Contains(data.index)) {
-                    parentScope.crossMatchQueue1.Dequeue(data.scope, combiner);
+                    parentScope.crossMatchQueue1.Dequeue(data.scope, id);
                     if (parentScope.crossMatchQueue1.Count == 0)
                         parentScope.crossMatchQueue1 = null;
                     data.cache.Clear();
                     data.scope.GetComponentsOfTypeCacher(combiner.crossTypeCacher1, data.cache);
                     parentScope.GetComponentsOfTypeCacher(combiner.crossTypeCacher2, data.cache);
                     data.cache.Add(data.removed);
-                    combiner.Decombin(data.cache);
+                    combiner.DecombinInternal(data.cache);
                     return false;
                 }
 
                 return true;
             }, (scope, removed, componentIndex, _componentCache));
 
-            scope.crossMatchQueue1.Select<(Scope scope, Element removed, int index, List<Component> cache)>((childScope, combiner, data) => {
+            scope.crossMatchQueue1.Select<(Scope scope, Element removed, int index, List<Component> cache)>((childScope, id, data) => {
+                var combiner = Combiner.CombinerCache.TotalCombiners[id];
                 if (combiner.crossTypeCacher2.Contains(data.index)) {
-                    childScope.crossMatchQueue2.Dequeue(data.scope, combiner);
+                    childScope.crossMatchQueue2.Dequeue(data.scope, id);
                     if (childScope.crossMatchQueue2.Count == 0)
                         childScope.crossMatchQueue2 = null;
                     data.cache.Clear();
                     childScope.GetComponentsOfTypeCacher(combiner.crossTypeCacher1, data.cache);
                     data.scope.GetComponentsOfTypeCacher(combiner.crossTypeCacher2, data.cache);
                     data.cache.Add(data.removed);
-                    combiner.Decombin(data.cache);
+                    combiner.DecombinInternal(data.cache);
                     return false;
                 }
 
@@ -570,15 +593,16 @@ namespace Hsenl {
             child.crossMatchQueue2?.SelectMatchs<(Scope child, Scope parent, List<Component> cache)>((match, data) => {
                 var parentScope = match.scope;
                 if (parentScope.Entity.IsParentOf(data.parent.Entity)) {
-                    foreach (var combiner in match.combiners) {
+                    foreach (var id in match.combinerIds) {
+                        var combiner = Combiner.CombinerCache.TotalCombiners[id];
                         if (parentScope.crossMatchQueue1 == null) break;
-                        parentScope.crossMatchQueue1.Dequeue(data.child, combiner);
+                        parentScope.crossMatchQueue1.Dequeue(data.child, id);
                         if (parentScope.crossMatchQueue1.Count == 0)
                             parentScope.crossMatchQueue1 = null;
                         data.cache.Clear();
                         parentScope.GetComponentsOfTypeCacher(combiner.crossTypeCacher2, data.cache);
                         data.child.GetComponentsOfTypeCacher(combiner.crossTypeCacher1, data.cache);
-                        combiner.Decombin(data.cache);
+                        combiner.DecombinInternal(data.cache);
                     }
 
                     return false;
@@ -595,15 +619,16 @@ namespace Hsenl {
                 if (match.scope == data.scope2) {
                     var s1 = data.scope1;
                     var s2 = data.scope2;
-                    foreach (var combiner in match.combiners) {
+                    foreach (var id in match.combinerIds) {
+                        var combiner = Combiner.CombinerCache.TotalCombiners[id];
                         if (s2.crossMatchQueue1 == null) break;
-                        s2.crossMatchQueue1.Dequeue(s1, combiner);
+                        s2.crossMatchQueue1.Dequeue(s1, id);
                         if (s2.crossMatchQueue1.Count == 0)
                             s2.crossMatchQueue1 = null;
                         data.cache.Clear();
                         s2.GetComponentsOfTypeCacher(combiner.crossTypeCacher2, data.cache);
                         s1.GetComponentsOfTypeCacher(combiner.crossTypeCacher1, data.cache);
-                        combiner.Decombin(data.cache);
+                        combiner.DecombinInternal(data.cache);
                     }
 
                     return false;
@@ -775,22 +800,51 @@ namespace Hsenl {
                 CrossDecombinMatchForParents(this, this.ParentScope);
             }
         }
-
-        private int GetLayerNum(Scope parent) {
-            var layer = 0;
-            var p = this.parentScope;
-            while (p != null) {
-                layer++;
-
-                if (p == parent) {
-                    return layer;
-                }
-
-                p = p.parentScope;
+        
+        /*
+         * 这是一个手动组合的示例
+        protected override void OnAwake() {
+            this.MultiCombin(null);
+            var abiBar = this.FindScopeInParent<AbilitesBar>();
+            if (abiBar != null) {
+                this.CrossCombinForOther(abiBar, null);
+                this.CrossCombinForOther(this.FindScopeInParent<Actor>(), null);
             }
-
-            return -1;
         }
+
+        protected override void OnDestroy() {
+            this.DecombinAll();
+        }
+
+        protected override void OnComponentAdd(Component component) {
+            if (component is not Element element)
+                return;
+
+            this.MultiCombin(element);
+            var abiBar = this.FindScopeInParent<AbilitesBar>();
+            if (abiBar != null) {
+                this.CrossCombinForOther(abiBar, element);
+                this.CrossCombinForOther(this.FindScopeInParent<Actor>(), element);
+            }
+        }
+
+        protected override void OnComponentRemove(Component component) {
+            if (component is not Element element)
+                return;
+
+            this.MultiDecombin(element);
+            this.CrossDecombinByComponent(element);
+        }
+
+        protected override void OnParentChanged(Entity previousParent) {
+            this.CrossDecombinForParents(previousParent?.GetComponentInParent<Scope>(true, true));
+            var abiBar = this.FindScopeInParent<AbilitesBar>();
+            if (abiBar != null) {
+                this.CrossCombinForOther(abiBar, null);
+                this.CrossCombinForOther(this.FindScopeInParent<Actor>(), null);
+            }
+        }
+         */
 
         #endregion
 
@@ -847,12 +901,12 @@ namespace Hsenl {
 
             public int Count => this._matches?.Count ?? 0;
 
-            public bool Contains(Scope scope, Combiner combiner) {
+            public bool Contains(Scope scope, int combinerId) {
                 if (this._matches == null)
                     return false;
 
                 foreach (var match in this._matches) {
-                    if (match.scope == scope && match.combiners.Contains(combiner)) {
+                    if (match.scope == scope && match.combinerIds.Contains(combinerId)) {
                         return true;
                     }
                 }
@@ -873,14 +927,14 @@ namespace Hsenl {
                 return false;
             }
 
-            public void Enqueue(Scope scope, Combiner combiner) {
+            public void Enqueue(Scope scope, int combinerId) {
                 if (this._matches == null) {
                     this._matches = new();
                 }
                 else {
                     foreach (var match in this._matches) {
                         if (match.scope == scope) {
-                            match.combiners.Enqueue(combiner);
+                            match.combinerIds.Enqueue(combinerId);
                             return;
                         }
                     }
@@ -888,13 +942,13 @@ namespace Hsenl {
 
                 CrossMatch newMatch = new() {
                     scope = scope,
-                    combiners = new()
+                    combinerIds = new()
                 };
-                newMatch.combiners.Enqueue(combiner);
+                newMatch.combinerIds.Enqueue(combinerId);
                 this._matches.Enqueue(newMatch);
             }
 
-            public void Dequeue(Scope scope, Combiner combiner) {
+            public void Dequeue(Scope scope, int combinerId) {
                 if (this._matches == null)
                     return;
 
@@ -902,12 +956,12 @@ namespace Hsenl {
                 while (matchCount-- > 0) {
                     var match = this._matches.Dequeue();
                     if (match.scope == scope) {
-                        var combinerCount = match.combiners.Count;
+                        var combinerCount = match.combinerIds.Count;
                         while (combinerCount-- > 0) {
-                            var tempCombiner = match.combiners.Dequeue();
-                            if (tempCombiner == combiner) {
-                                if (match.combiners.Count == 0) {
-                                    match.combiners = null;
+                            var tempCombiner = match.combinerIds.Dequeue();
+                            if (tempCombiner == combinerId) {
+                                if (match.combinerIds.Count == 0) {
+                                    match.combinerIds = null;
                                 }
                                 else {
                                     this._matches.Enqueue(match);
@@ -916,7 +970,7 @@ namespace Hsenl {
                                 return;
                             }
 
-                            match.combiners.Enqueue(tempCombiner);
+                            match.combinerIds.Enqueue(tempCombiner);
                         }
                     }
 
@@ -928,25 +982,25 @@ namespace Hsenl {
             }
 
             // func的返回值为false时, 代表顺便移除该combiner
-            public void Select<T>(Func<Scope, Combiner, T, bool> func, T data = default) {
+            public void Select<T>(Func<Scope, int, T, bool> func, T data = default) {
                 if (this._matches == null)
                     return;
 
                 var matchCount = this._matches.Count;
                 while (matchCount-- > 0) {
                     var match = this._matches.Dequeue();
-                    var combinerCount = match.combiners.Count;
+                    var combinerCount = match.combinerIds.Count;
                     while (combinerCount-- > 0) {
-                        var tempCombiner = match.combiners.Dequeue();
+                        var tempCombiner = match.combinerIds.Dequeue();
                         var ret = func.Invoke(match.scope, tempCombiner, data);
                         if (!ret) {
                             continue;
                         }
 
-                        match.combiners.Enqueue(tempCombiner);
+                        match.combinerIds.Enqueue(tempCombiner);
                     }
 
-                    if (match.combiners.Count != 0)
+                    if (match.combinerIds.Count != 0)
                         this._matches.Enqueue(match);
                 }
 
@@ -973,19 +1027,19 @@ namespace Hsenl {
                     this._matches = null;
             }
 
-            public void Foreach<T>(Action<Scope, Combiner, T> action, T data = default) {
+            public void Foreach<T>(Action<Scope, int, T> action, T data = default) {
                 if (this._matches == null)
                     return;
 
                 var matchCount = this._matches.Count;
                 while (matchCount-- > 0) {
                     var match = this._matches.Dequeue();
-                    var combinerCount = match.combiners.Count;
+                    var combinerCount = match.combinerIds.Count;
                     while (combinerCount-- > 0) {
-                        var tempCombiner = match.combiners.Dequeue();
+                        var tempCombiner = match.combinerIds.Dequeue();
                         action.Invoke(match.scope, tempCombiner, data);
 
-                        match.combiners.Enqueue(tempCombiner);
+                        match.combinerIds.Enqueue(tempCombiner);
                     }
 
                     this._matches.Enqueue(match);
@@ -999,8 +1053,8 @@ namespace Hsenl {
                 var count = this._matches.Count;
                 while (count-- > 0) {
                     var match = this._matches.Dequeue();
-                    match.combiners?.Clear();
-                    match.combiners = null;
+                    match.combinerIds?.Clear();
+                    match.combinerIds = null;
                 }
 
                 this._matches = null;
@@ -1009,7 +1063,7 @@ namespace Hsenl {
 
         internal class CrossMatch {
             public Scope scope;
-            public Queue<Combiner> combiners;
+            public Queue<int> combinerIds;
         }
     }
 }

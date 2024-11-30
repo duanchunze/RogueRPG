@@ -67,7 +67,7 @@ namespace Hsenl.View {
             // 通过这种世界位置转换，求得的移动距离，可以确保即便在不同的分辨率下，移动的距离都是相同的
             var translate = endLocalPos - staLocalPos;
             this.text.transform.DOLocalMove(translate, 0.3f);
-            await Timer.WaitTime(700);
+            await Timer.WaitTimeWithScale(0.7f);
             this.Close();
         }
     }

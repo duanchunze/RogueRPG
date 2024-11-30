@@ -15,8 +15,9 @@ public class MonoComponentScriptsGen : HsenlScriptsGeneratorEditor {
 
     public override List<IHsenlScriptsGenerateScheme> GetSchemes() {
         List<IHsenlScriptsGenerateScheme> schemes = new();
-        
-        foreach (var hsenlComponentType in AssemblyHelper.GetSubTypes(typeof(Hsenl.Component))) {
+
+        var types = AssemblyHelper.GetSubTypes(typeof(Hsenl.Component));
+        foreach (var hsenlComponentType in types) {
             if (hsenlComponentType.IsAbstract)
                 continue;
             
@@ -24,7 +25,6 @@ public class MonoComponentScriptsGen : HsenlScriptsGeneratorEditor {
                 continue;
 
             switch (hsenlComponentType.Name) {
-                // case "Substantive":
                 case "Unbodied":
                     continue;
             }

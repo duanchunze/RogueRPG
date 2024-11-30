@@ -18,11 +18,12 @@ namespace Hsenl.View {
         public void FillIn(AbilitesBar abilitesBar) {
             this.AbilitesBar = abilitesBar;
 
-            var abilites = abilitesBar.ExplicitAbilies.Where(x => x.Tags.Contains(TagType.AbilityExplicit)).ToArray();
-            this.holder.NormalizeChildren(this.slotTemplate.transform, abilitesBar.ExplicitAbilityCapacity);
-            for (int i = 0; i < abilitesBar.ExplicitAbilityCapacity; i++) {
+            var abilites = abilitesBar.ExplicitAbilies;
+            var length = abilites.Count > abilitesBar.ExplicitAbilityCapacity ? abilites.Count : abilitesBar.ExplicitAbilityCapacity;
+            this.holder.MakeSureChildrenCount(this.slotTemplate.transform, length);
+            for (int i = 0; i < length; i++) {
                 var uiSlot = this.holder.GetChild(i).GetComponent<UIAbilitySlot>();
-                var abi = i < abilites.Length ? abilites[i] : null;
+                var abi = i < abilites.Count ? abilites[i] : null;
                 if (abi != null) {
                     uiSlot.FillIn(abi);
                 }

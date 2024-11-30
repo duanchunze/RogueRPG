@@ -20,15 +20,13 @@ public sealed partial class CardSingletonConfig :  Bright.Config.BeanBase
     {
         { var __json0 = _json["ability_pool"]; if(!__json0.IsArray) { throw new SerializationException(); } AbilityPool = new System.Collections.Generic.List<string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string __v0;  { if(!__e0.IsString) { throw new SerializationException(); }  __v0 = __e0; }  AbilityPool.Add(__v0); }   }
         { var __json0 = _json["ability_patch_pool"]; if(!__json0.IsArray) { throw new SerializationException(); } AbilityPatchPool = new System.Collections.Generic.List<string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string __v0;  { if(!__e0.IsString) { throw new SerializationException(); }  __v0 = __e0; }  AbilityPatchPool.Add(__v0); }   }
-        { var __json0 = _json["ability_assist_pool"]; if(!__json0.IsArray) { throw new SerializationException(); } AbilityAssistPool = new System.Collections.Generic.List<string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string __v0;  { if(!__e0.IsString) { throw new SerializationException(); }  __v0 = __e0; }  AbilityAssistPool.Add(__v0); }   }
         PostInit();
     }
 
-    public CardSingletonConfig(System.Collections.Generic.List<string> ability_pool, System.Collections.Generic.List<string> ability_patch_pool, System.Collections.Generic.List<string> ability_assist_pool ) 
+    public CardSingletonConfig(System.Collections.Generic.List<string> ability_pool, System.Collections.Generic.List<string> ability_patch_pool ) 
     {
         this.AbilityPool = ability_pool;
         this.AbilityPatchPool = ability_patch_pool;
-        this.AbilityAssistPool = ability_assist_pool;
         PostInit();
     }
 
@@ -39,7 +37,6 @@ public sealed partial class CardSingletonConfig :  Bright.Config.BeanBase
 
     public System.Collections.Generic.List<string> AbilityPool { get; private set; }
     public System.Collections.Generic.List<string> AbilityPatchPool { get; private set; }
-    public System.Collections.Generic.List<string> AbilityAssistPool { get; private set; }
 
     public const int __ID__ = 1423035903;
     public override int GetTypeId() => __ID__;
@@ -58,7 +55,6 @@ public sealed partial class CardSingletonConfig :  Bright.Config.BeanBase
         return "{ "
         + "AbilityPool:" + Bright.Common.StringUtil.CollectionToString(AbilityPool) + ","
         + "AbilityPatchPool:" + Bright.Common.StringUtil.CollectionToString(AbilityPatchPool) + ","
-        + "AbilityAssistPool:" + Bright.Common.StringUtil.CollectionToString(AbilityAssistPool) + ","
         + "}";
     }
     

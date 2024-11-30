@@ -32,7 +32,6 @@ public sealed partial class TbCardSingletonConfig
 
      public System.Collections.Generic.List<string> AbilityPool => _data.AbilityPool;
      public System.Collections.Generic.List<string> AbilityPatchPool => _data.AbilityPatchPool;
-     public System.Collections.Generic.List<string> AbilityAssistPool => _data.AbilityAssistPool;
 
     public void Resolve(Dictionary<string, object> _tables)
     {

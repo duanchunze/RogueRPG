@@ -27,13 +27,13 @@ namespace Hsenl
         /// </summary>
         MoveOfDirection = 2,
         /// <summary>
-        /// 点击移动
+        /// 点移动
         /// </summary>
         MoveOfPoint = 3,
         /// <summary>
-        /// 点击移动-内部
+        /// 强势点移动
         /// </summary>
-        MoveOfPoint_Internal = 4,
+        MoveOfPoint_Force = 4,
         /// <summary>
         /// 跃进
         /// </summary>

@@ -19,8 +19,8 @@ namespace Hsenl {
         [MemoryPackIgnore]
         internal Entity entity;
 
-        // [MemoryPackIgnore]
-        // private bool _start;
+        [MemoryPackIgnore]
+        private bool _awaked;
 
         [MemoryPackOrder(1)]
         [MemoryPackInclude]
@@ -60,12 +60,17 @@ namespace Hsenl {
         [MemoryPackIgnore]
         public Scene Scene => this.Entity.scene;
 
+#if UNITY_EDITOR
+        [ShowInInspector]
+#endif
         [MemoryPackIgnore]
         public bool Enable {
             get => this.enable;
             set {
-                this.CheckDisposingException("Component is Disposed, can't set enable");
-                this.CheckDisposedException("Component is Disposed, can't set enable");
+                if (this.CheckDisposingLog())
+                    return;
+
+                this.CheckDisposedException("Component is disposed, can't set enable");
                 if (this.enable == value)
                     return;
 
@@ -105,8 +110,10 @@ namespace Hsenl {
         public Transform transform => this.Entity.transform;
 
         public void Reenable() {
-            this.CheckDisposingException("Component is Disposed, can't set enable");
-            this.CheckDisposedException("Component is Disposed, can't set enable");
+            if (this.CheckDisposingLog())
+                return;
+
+            this.CheckDisposedException("Component is disposed, can't set enable");
             this.Enable = false;
             this.Enable = true;
         }
@@ -165,6 +172,9 @@ namespace Hsenl {
         }
 
         internal void InternalOnAwake() {
+            if (this._awaked)
+                return;
+            this._awaked = true;
             try {
                 this.OnAwakeInternal();
             }
@@ -182,19 +192,14 @@ namespace Hsenl {
 
         internal void InternalOnEnable() {
             if (!this.enable) return;
+            this.InternalOnAwake();
+
             try {
                 this.OnEnable();
             }
             catch (Exception e) {
                 Log.Error(e);
             }
-
-            // try {
-            //     this.InternalOnStart();
-            // }
-            // catch (Exception e) {
-            //     Log.Error(e);
-            // }
         }
 
         internal void InternalOnStart() {
@@ -226,7 +231,7 @@ namespace Hsenl {
         }
 
         internal void InternalOnDestroy() {
-            // this._start = false;
+            this._awaked = false;
             try {
                 this.OnDestroyInternal();
             }
@@ -370,15 +375,12 @@ namespace Hsenl {
 
         internal virtual void OnAwakeInternal() { }
 
-        // 不受Enable影响的Start
         protected virtual void OnAwake() { }
 
-        // 常用于初始化游戏逻辑方面的数据 (比如添加Control的监听事件)
         protected virtual void OnEnable() { }
 
         internal virtual void OnStartInternal() { }
 
-        // 不同于unity, 这个start和awake是在同一帧执行的
         protected virtual void OnStart() { }
 
         protected virtual void OnDisable() { }
@@ -391,17 +393,12 @@ namespace Hsenl {
 
         protected virtual void OnDisposed() { }
 
-        // 父级改变时涉及到的函数
-        // BeforeParent => (此时赋值改变了父级) => ParentChange => OnChildRemove => OnChildAdd => AfterParent
-
-        // 实例化时不会触发
         internal virtual void OnBeforeParentChangeInternal(Entity futrueParent) { }
 
         protected virtual void OnBeforeParentChange(Entity futrueParent) { }
 
         internal virtual void OnParentChangedInternal(Entity previousParent) { }
 
-        // 父级在改变后, 添加新父级的影响, 实例化时也会触发
         protected virtual void OnParentChanged(Entity previousParent) { }
 
         internal virtual void OnComponentAddInternal(Component component) { }

@@ -7,16 +7,18 @@ using MemoryPack;
 using Sirenix.OdinInspector;
 #endif
 
+// ReSharper disable SuspiciousTypeConversion.Global
+
 namespace Hsenl {
     // 事件执行顺序
     //   添加一个组件时的执行顺序
-    //     构造函数 -> initializeInvoke -> Awake -> OnComponentAdd -> Enable -> Start -> AheadUpdate -> Update -> LateUpdate -> Disable -> Destroy -> OnComponentRemove
+    //     构造函数 -> initializeInvoke -> OnComponentAdd -> Awake -> Enable -> Start -> Update -> LateUpdate -> Disable -> Destroy -> OnComponentRemove
     //   设置父级时的执行顺序
     //     BeforeParentChange -> OnParentChanged -> OnChildAdd -> OnChildRmove -> OnSceneChange
     //   序列化时的顺序
     //     OnDeserialized -> Awake -> Enable -> OnDeserializedOverall
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public sealed partial class Entity : Object {
         private static int _cacherCount;
 
@@ -217,9 +219,6 @@ namespace Hsenl {
         [MemoryPackIgnore]
         internal Scene scene;
 
-#if UNITY_EDITOR
-        [ShowInInspector, ReadOnly]
-#endif
         [MemoryPackInclude]
         internal bool active = true;
 
@@ -230,12 +229,17 @@ namespace Hsenl {
         [MemoryPackInclude]
         internal Bitlist tags = new();
 
+#if UNITY_EDITOR
+        [ShowInInspector]
+#endif
         [MemoryPackIgnore]
         public bool Active {
             get => this.active;
             set {
-                this.CheckDisposingException("Entity is Disposed, can't set active");
-                this.CheckDisposedException("Entity is Disposed, can't set active");
+                if (this.CheckDisposingLog())
+                    return;
+
+                this.CheckDisposedException("Entity is disposed, can't set active");
                 if (this.active == value) return;
                 this.active = value;
                 if (this.active) {
@@ -321,7 +325,7 @@ namespace Hsenl {
         public static Entity Create(string name, Entity parent = null) {
             var entity = new Entity(name, parent);
             entity.transform = entity.AddComponent<Transform>();
-            entity.SetParent(parent);
+            entity.SetParent(parent, false);
             return entity;
         }
 
@@ -369,8 +373,10 @@ namespace Hsenl {
         }
 
         public void Reactivation() {
-            this.CheckDisposingException("Entity is Disposed, can't set active");
-            this.CheckDisposedException("Entity is Disposed, can't set active");
+            if (this.CheckDisposingLog())
+                return;
+
+            this.CheckDisposedException("Entity is disposed, can't set active");
             this.Active = false;
             this.Active = true;
         }
@@ -435,8 +441,6 @@ namespace Hsenl {
         }
 
         private void InitializeBySerizlizationInvokeEvent() {
-            var realActive = this.RealActive;
-
             if (this.componentsOfSerialize != null) {
                 for (int i = 0, len = this.componentsOfSerialize.Count; i < len; i++) {
                     var component = this.componentsOfSerialize[i];
@@ -446,8 +450,6 @@ namespace Hsenl {
 
                     component.InternalOnDeserialized();
 
-                    component.InternalOnAwake();
-
 #if UNITY_5_3_OR_NEWER
                     this.PartialOnComponentAdd(component);
 #endif
@@ -456,7 +458,8 @@ namespace Hsenl {
                     //     this.componentsOfSerialize[j].InternalOnComponentAdd(component);
                     // }
 
-                    if (realActive) {
+                    if (this.RealActive) {
+                        component.InternalOnAwake();
                         component.InternalOnEnable();
                     }
                 }
@@ -468,7 +471,7 @@ namespace Hsenl {
                 for (int i = 0, len = this.children.Count; i < len; i++) {
                     var child = this.children[i];
 #if UNITY_5_3_OR_NEWER
-                    child.PartialOnParentChanged();
+                    child.PartialOnParentChanged(true);
 #endif
 
                     child.InitializeBySerizlizationInvokeEvent();
@@ -481,15 +484,20 @@ namespace Hsenl {
         }
 
         public void SetParent(Entity value) {
-            this.CheckDisposingException("Entity is Disposed, can't set parent");
-            this.CheckDisposedException("Entity is Disposed, can't set parent");
-            value?.CheckDisposingException("Entity is Disposed, can't be parent");
-            value?.CheckDisposedException("Entity is Disposed, can't be parent");
-
-            this.SetParentInternal(value, true);
+            // ReSharper disable once IntroduceOptionalParameters.Global
+            this.SetParent(value, true);
         }
 
-        internal void SetParentInternal(Entity futrueParent, bool setScene) {
+        public void SetParent(Entity value, bool worldPositionStays) {
+            this.CheckDisposingException("Entity is disposing, can't set parent");
+            this.CheckDisposedException("Entity is disposed, can't set parent");
+            value?.CheckDisposingException("Entity is disposing, can't be parent");
+            value?.CheckDisposedException("Entity is disposed, can't be parent");
+
+            this.SetParentInternal(value, true, worldPositionStays);
+        }
+
+        internal void SetParentInternal(Entity futrueParent, bool setScene, bool worldPositionStays) {
             if (futrueParent == this)
                 throw new Exception("you cannot set yourself as the parent");
 
@@ -511,12 +519,16 @@ namespace Hsenl {
 
             // 然后触发事件
 #if UNITY_5_3_OR_NEWER
-            this.PartialOnParentChanged();
+            this.PartialOnParentChanged(worldPositionStays);
 #endif
+            if (!worldPositionStays) {
+                this.transform.NormalizeValue();
+            }
+
             this.OnParentChangedInternal(prevParent);
             prevParent?.OnChildRemoveInternal(this);
             this.parent?.OnChildAddInternal(this);
-            
+
             if (!setScene)
                 return;
 
@@ -588,143 +600,84 @@ namespace Hsenl {
         }
 
         public void DontDestroyOnLoad() {
-            this.CheckDisposingException("Entity is disposed, can't move scene");
+            this.CheckDisposingException("Entity is disposing, can't move scene");
             this.CheckDisposedException("Entity is disposed, can't move scene");
             this.SetParent(null);
             SceneManager.MoveEntityToScene(this, SceneManager.dontDestroyScene);
         }
 
         public T AddComponent<T>(bool enabled = true) where T : Component {
-            return this.AddComponent<T>(null, enabled);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="initializeInvoke">初始化委托, 该委托会在Awake之前被执行, 可以用来配置文件赋值</param>
-        /// <param name="enabled"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public T AddComponent<T>(Action<T> initializeInvoke, bool enabled = true) where T : Component {
-            if (this.CheckDisposingLog("Entity is disposed, can't add component"))
+            if (this.CheckDisposingLog("Entity is disposing, can't add component"))
                 return default;
 
             this.CheckDisposedException("Entity is disposed, can't add component");
 
             var type = typeof(T);
-            if (componentOptions.TryGetValue(type, out var options)) {
-                if (options.ComponentMode == ComponentMode.Single) {
-                    if (this.HasComponent(type)) {
-                        throw new InvalidOperationException($"Component mode is single, but you're still trying to add multiple '{type.FullName}'");
-                    }
-                }
-            }
-
-            if (_requireComponentLookupTable.TryGetValue(type, out var requires)) {
-                foreach (var tuple in requires) {
-                    if (!this.HasComponentsAny(tuple.require)) {
-                        this.AddComponent(tuple.add);
-                    }
-                }
-            }
-
-            if (!_typeLookupTable.TryGetValue(type, out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
-            var component = (T)Activator.CreateInstance(type);
-            component.entity = this;
-            component.instanceId = Guid.NewGuid().GetHashCode();
-            component.uniqueId = component.instanceId;
-            component.disposing = false;
-            component.enable = enabled;
-
-            try {
-                initializeInvoke?.Invoke(component);
-            }
-            catch (Exception e) {
-                Log.Error($"<add component initialize delegate error> {e}");
-            }
-
-            EventSystemManager.Instance.RegisterInstanced(component);
-
-            EventSystemManager.Instance.RegisterStart(component);
-            if (component is IUpdate update) EventSystemManager.Instance.RegisterUpdate(update);
-            if (component is ILateUpdate lateUpdate) EventSystemManager.Instance.RegisterLateUpdate(lateUpdate);
-
-            this.InternalAddComponent(cacher.originalIndex, component);
-
-            component.InternalOnAwake();
-
-#if UNITY_5_3_OR_NEWER
-            this.PartialOnComponentAdd(component);
-#endif
-            this.OnComponentAddInternal(component);
-
-            if (this.RealActive) {
-                component.InternalOnEnable();
-            }
-
+            var component = this.AddComponentFrontPart<T>(type, enabled);
+            this.AddComponentLatterPart(component);
             return component;
         }
 
-        public Component AddComponent(Type type, Action<Component> initializeInvoke = null, bool enabled = true) {
-            if (this.CheckDisposingLog("Entity is disposed, can't add component"))
+        /// <summary>
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <param name="initializedCallback">初始化委托, 该委托会在Awake之前被执行, 可以用来配置文件赋值</param>
+        /// <param name="enabled"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TArg"></typeparam>
+        /// <returns></returns>
+        public T AddComponent<T, TArg>(TArg arg, Action<T, TArg> initializedCallback, bool enabled = true) where T : Component {
+            if (this.CheckDisposingLog("Entity is disposing, can't add component"))
                 return default;
 
             this.CheckDisposedException("Entity is disposed, can't add component");
 
-            if (componentOptions.TryGetValue(type, out var options)) {
-                if (options.ComponentMode == ComponentMode.Single) {
-                    if (this.HasComponent(type)) {
-                        throw new InvalidOperationException($"Component mode is single, but you're still trying to add multiple '{type.FullName}'");
-                    }
-                }
-            }
-
-            if (_requireComponentLookupTable.TryGetValue(type, out var requires)) {
-                foreach (var tuple in requires) {
-                    if (!this.HasComponentsAny(tuple.require)) {
-                        this.AddComponent(tuple.add);
-                    }
-                }
-            }
-
-            if (!_typeLookupTable.TryGetValue(type, out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
-            var component = (Component)Activator.CreateInstance(type);
-            component.entity = this;
-            component.instanceId = Guid.NewGuid().GetHashCode();
-            component.uniqueId = component.instanceId;
-            component.disposing = false;
-            component.enable = enabled;
+            var type = typeof(T);
+            var component = this.AddComponentFrontPart<T>(type, enabled);
 
             try {
-                initializeInvoke?.Invoke(component);
+                initializedCallback?.Invoke(component, arg);
             }
             catch (Exception e) {
                 Log.Error($"<add component initialize delegate error> {e}");
             }
 
-            EventSystemManager.Instance.RegisterInstanced(component);
+            this.AddComponentLatterPart(component);
+            return component;
+        }
 
-            EventSystemManager.Instance.RegisterStart(component);
-            if (component is IUpdate update) EventSystemManager.Instance.RegisterUpdate(update);
-            if (component is ILateUpdate lateUpdate) EventSystemManager.Instance.RegisterLateUpdate(lateUpdate);
+        public Component AddComponent(Type type, bool enabled = true) {
+            if (this.CheckDisposingLog("Entity is disposing, can't add component"))
+                return default;
 
-            this.InternalAddComponent(cacher.originalIndex, component);
+            this.CheckDisposedException("Entity is disposed, can't add component");
 
-            component.InternalOnAwake();
+            var component = this.AddComponentFrontPart<Component>(type, enabled);
+            this.AddComponentLatterPart(component);
+            return component;
+        }
 
-#if UNITY_5_3_OR_NEWER
-            this.PartialOnComponentAdd(component);
-#endif
-            this.OnComponentAddInternal(component);
+        public Component AddComponent<TArg>(Type type, TArg arg, Action<Component, TArg> initializedCallback, bool enabled = true) {
+            if (this.CheckDisposingLog("Entity is disposing, can't add component"))
+                return default;
 
-            if (this.RealActive) {
-                component.InternalOnEnable();
+            this.CheckDisposedException("Entity is disposed, can't add component");
+
+            var component = this.AddComponentFrontPart<Component>(type, enabled);
+
+            try {
+                initializedCallback?.Invoke(component, arg);
+            }
+            catch (Exception e) {
+                Log.Error($"<add component initialize delegate error> {e}");
             }
 
+            this.AddComponentLatterPart(component);
             return component;
         }
 
         public Component AddComponent(Component component) {
-            if (this.CheckDisposingLog("Entity is disposed, can't add component"))
+            if (this.CheckDisposingLog("Entity is disposing, can't add component"))
                 return default;
 
             this.CheckDisposedException("Entity is disposed, can't add component");
@@ -752,15 +705,47 @@ namespace Hsenl {
             component.uniqueId = component.instanceId;
             component.disposing = false;
 
+            this.InternalAddComponent(cacher.originalIndex, component);
+            EventSystemManager.Instance.RegisterInstanced(component);
+            this.AddComponentLatterPart(component);
+            return component;
+        }
+
+        private T AddComponentFrontPart<T>(Type type, bool enabled) where T : Component {
+            if (componentOptions.TryGetValue(type, out var options)) {
+                if (options.ComponentMode == ComponentMode.Single) {
+                    if (this.HasComponent(type)) {
+                        throw new InvalidOperationException($"Component mode is single, but you're still trying to add multiple '{type.FullName}'");
+                    }
+                }
+            }
+
+            if (_requireComponentLookupTable.TryGetValue(type, out var requires)) {
+                foreach (var tuple in requires) {
+                    if (!this.HasComponentsAny(tuple.require)) {
+                        this.AddComponent(tuple.add);
+                    }
+                }
+            }
+
+            if (!_typeLookupTable.TryGetValue(type, out var cacher)) throw new Exception($"component type is not register '{type.Name}'");
+            var component = (T)Activator.CreateInstance(type);
+            component.entity = this;
+            component.instanceId = Guid.NewGuid().GetHashCode();
+            component.uniqueId = component.instanceId;
+            component.disposing = false;
+            component.enable = enabled;
+
+            this.InternalAddComponent(cacher.originalIndex, component);
             EventSystemManager.Instance.RegisterInstanced(component);
 
+            return component;
+        }
+
+        private void AddComponentLatterPart<T>(T component) where T : Component {
             EventSystemManager.Instance.RegisterStart(component);
             if (component is IUpdate update) EventSystemManager.Instance.RegisterUpdate(update);
             if (component is ILateUpdate lateUpdate) EventSystemManager.Instance.RegisterLateUpdate(lateUpdate);
-
-            this.InternalAddComponent(cacher.originalIndex, component);
-
-            component.InternalOnAwake();
 
 #if UNITY_5_3_OR_NEWER
             this.PartialOnComponentAdd(component);
@@ -768,10 +753,9 @@ namespace Hsenl {
             this.OnComponentAddInternal(component);
 
             if (this.RealActive) {
+                component.InternalOnAwake();
                 component.InternalOnEnable();
             }
-
-            return component;
         }
 
         private void InternalAddComponent(int index, Component component) {
@@ -1362,7 +1346,7 @@ namespace Hsenl {
 #if UNITY_5_3_OR_NEWER
         internal partial void PartialOnCreated();
         internal partial void PartialOnActiveSelfChanged(bool act);
-        internal partial void PartialOnParentChanged();
+        internal partial void PartialOnParentChanged(bool worldPositionStays);
         internal partial void PartialOnComponentAdd(Component component);
         internal partial void PartialOnDestroyFinish();
         internal partial void PartialOnSetSiblingIndex(int index);

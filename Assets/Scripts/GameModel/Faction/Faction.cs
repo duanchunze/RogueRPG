@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using MemoryPack;
 
 namespace Hsenl {
     [Serializable]
-    public class Faction : Unbodied {
+    [MemoryPackable]
+    public partial class Faction : Unbodied {
         // 阵营模式
+        [MemoryPackInclude]
         private FactionModel _factionModel;
 
+        [MemoryPackIgnore]
         public FactionModel FactionModel {
             get => this._factionModel;
             set => this._factionModel = value;

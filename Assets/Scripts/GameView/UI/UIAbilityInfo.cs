@@ -29,7 +29,7 @@ namespace Hsenl.View {
             // 数值信息
             var numerator = ability.GetComponent<Numerator>();
             var keys = numerator.GetAllAttachNumericKeys();
-            this.statsElementHolder.NormalizeChildren(this.statsElementTemplate, keys.Length);
+            this.statsElementHolder.MakeSureChildrenCount(this.statsElementTemplate, keys.Length);
             for (int i = 0, len = keys.Length; i < len; i++) {
                 var element = this.statsElementHolder.GetChild(i);
                 var key = keys[i];

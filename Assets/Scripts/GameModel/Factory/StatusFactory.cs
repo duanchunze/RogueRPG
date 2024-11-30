@@ -8,44 +8,51 @@ namespace Hsenl {
             var entity = Entity.Create(config.Alias);
             entity.Tags.Add(config.Tags);
 
-            var status = entity.AddComponent<Status>(initializeInvoke: s => { s.configId = config.Id; });
-
-            entity.AddComponent<PriorityState>(initializeInvoke: state => {
-                state.timeScale = config.PriorityState.TimeScale;
-                state.duration = config.PriorityState.Duration;
-                state.aisles = config.PriorityState.Aisles.ToArray();
-                state.enterPriority = config.PriorityState.EnterPri;
-                state.resistPriorityAnchor = config.PriorityState.ResistPri;
-                state.keepPriority = config.PriorityState.KeepPri;
-                state.exclusionPriority = config.PriorityState.ExcluPri;
-                state.runPriority = config.PriorityState.RunPri;
-                state.disablePriority = config.PriorityState.DisPri;
-                ((IPriorityState)state).AddSpecialPassedOfLabels(config.PriorityState.SpPass);
-                ((IPriorityState)state).AddSpecialInterceptOfLabels(config.PriorityState.SpInter);
-                ((IPriorityState)state).AddSpecialKeepOfLabels(config.PriorityState.SpKeep);
-                ((IPriorityState)state).AddSpecialExclusionOfLabels(config.PriorityState.SpExclu);
-                ((IPriorityState)state).AddSpecialRunOfLabels(config.PriorityState.SpRun);
-                ((IPriorityState)state).AddSpecialDisableOfLabels(config.PriorityState.SpDis);
-                state.allowReenter = config.PriorityState.AllowReenter;
+            // var status = entity.AddComponent(new Status { configId = config.Id });
+            var status = entity.AddComponent<Status, StatusConfig>(config, (c, statusConfig) => {
+                c.configId = statusConfig.Id;
             });
 
-            var numerator = entity.AddComponent<Numerator>();
-            foreach (var basicValueInfo in config.NumericInfos) {
-                switch (basicValueInfo.Sign) {
-                    case "f":
-                        numerator.SetValue(basicValueInfo.Type, basicValueInfo.Value);
-                        break;
-                    default:
-                        numerator.SetValue(basicValueInfo.Type, (long)basicValueInfo.Value);
-                        break;
-                }
-            }
+            entity.AddComponent<PriorityState, StatusConfig>(config, (c, cfg) => {
+                c.TimeScale = cfg.PriorityState.TimeScale;
+                c.Duration = cfg.PriorityState.Duration;
+                c.InitAisles(cfg.PriorityState.Aisles);
+                c.InitPriorities(
+                    cfg.PriorityState.EnterPri,
+                    cfg.PriorityState.ObsPri,
+                    cfg.PriorityState.KeepPri,
+                    cfg.PriorityState.ExcluPri,
+                    cfg.PriorityState.RunPri,
+                    cfg.PriorityState.DisPri);
 
-            entity.AddComponent<Numeric>(initializeInvoke: node => {
-                foreach (var attachValueInfo in config.NumericNodes) {
+                var ips = (IPriorityState)c;
+                ips.AddSpecialPassedOfLabels(cfg.PriorityState.SpPass);
+                ips.AddSpecialObstructOfLabels(cfg.PriorityState.SpObs);
+                ips.AddSpecialKeepOfLabels(cfg.PriorityState.SpKeep);
+                ips.AddSpecialExclusionOfLabels(cfg.PriorityState.SpExclu);
+                ips.AddSpecialRunOfLabels(cfg.PriorityState.SpRun);
+                ips.AddSpecialDisableOfLabels(cfg.PriorityState.SpDis);
+                c.allowReenter = cfg.PriorityState.AllowReenter;
+            });
+
+            entity.AddComponent<Numerator, StatusConfig>(config, (c, cfg) => {
+                foreach (var basicValueInfo in cfg.NumericInfos) {
+                    switch (basicValueInfo.Sign) {
+                        case "f":
+                            c.SetValue(basicValueInfo.Type, basicValueInfo.Value);
+                            break;
+                        default:
+                            c.SetValue(basicValueInfo.Type, (long)basicValueInfo.Value);
+                            break;
+                    }
+                }
+            });
+
+            entity.AddComponent<Numeric, StatusConfig>(config, (c, cfg) => {
+                foreach (var attachValueInfo in cfg.NumericNodes) {
                     switch (attachValueInfo.Sign) {
                         case "f":
-                            node.SetValue(new NumericKey(
+                            c.SetValue(new NumericKey(
                                     (uint)attachValueInfo.Type,
                                     (uint)attachValueInfo.Layer,
                                     (NumericMode)(int)attachValueInfo.Model),
@@ -53,7 +60,7 @@ namespace Hsenl {
                             break;
 
                         default:
-                            node.SetValue(new NumericKey(
+                            c.SetValue(new NumericKey(
                                     (uint)attachValueInfo.Type,
                                     (uint)attachValueInfo.Layer,
                                     (NumericMode)(int)attachValueInfo.Model),
@@ -63,9 +70,19 @@ namespace Hsenl {
                 }
             });
 
+            var procedureLineNode = entity.AddComponent<ProcedureLineNode>();
+            foreach (var workerInfo in config.Workers) {
+                if (workerInfo is procedureline.CastWorkerNull)
+                    continue;
+
+                entity.AddComponent<Caster>();
+                var worker = ProcedureLineFactory.CreateWorker<Plw>(workerInfo);
+                procedureLineNode.AddWorker(worker);
+            }
+
             var timeline = entity.AddComponent<TimeLine>();
             timeline.SetEntryNode(new ParallelNode<ITimeLine, ActionNode<ITimeLine>>());
-            timeline.StageTillTime = config.Duration;
+            timeline.TillTime = config.Duration;
             foreach (var actionInfo in config.Main.Actions) {
                 try {
                     var action = BehaviorNodeFactory.CreateNode<ActionNode<ITimeLine>>(actionInfo);

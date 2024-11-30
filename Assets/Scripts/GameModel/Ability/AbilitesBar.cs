@@ -1,25 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using MemoryPack;
 using UnityEngine;
 
 namespace Hsenl {
     [Serializable]
-    public class AbilitesBar : Bodied {
+    [MemoryPackable]
+    public partial class AbilitesBar : Bodied {
+        [MemoryPackInclude]
         private int _explicitAbilityCapacity; // 显示技能的容量
         private readonly List<Ability> _abilities = new();
         private readonly List<Ability> _explicitAbilities = new();
+
+        [MemoryPackIgnore]
         public List<Ability> currentCastingAbilities = new(); // 当前释放中的技能
 
+        [MemoryPackIgnore]
         public Action<Ability> onAbilityAdd;
+
+        [MemoryPackIgnore]
         public Action<Ability> onAbilityRemove;
+
         private Action _onAbilityChanged;
 
+        [MemoryPackIgnore]
         public int ExplicitAbilityCapacity {
             get => this._explicitAbilityCapacity;
             set => this._explicitAbilityCapacity = value;
         }
 
-        public IReadOnlyList<Ability> Abilities1 => this._abilities;
+        [MemoryPackIgnore]
+        public IReadOnlyList<Ability> Abilities => this._abilities;
+
+        [MemoryPackIgnore]
         public IReadOnlyList<Ability> ExplicitAbilies => this._explicitAbilities;
 
         public event Action OnAbilityChanged {
@@ -63,7 +76,7 @@ namespace Hsenl {
             if (child is not Ability ability)
                 return;
 
-            ability.transform.NormalTransfrom();
+            ability.transform.NormalizeValue();
             ability.Reactivation();
             this._abilities.Add(ability);
             if (ability.Tags.Contains(TagType.AbilityExplicit))

@@ -3,7 +3,7 @@ using MemoryPack;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpInflictionStatusToTarget : TpInfo<timeline.InflictionStatusToTargetInfo> {
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied) {

@@ -8,8 +8,9 @@
         }
 
         [ShadowFunction]
-        private static void OnLeave(Hsenl.IFsm fsm, Hsenl.IFsmState next) {
+        private static HTask OnLeave(Hsenl.IFsm fsm, Hsenl.IFsmState next) {
             UIManager.SingleClose<UISceneLoading>();
+            return default;
         }
     }
 }

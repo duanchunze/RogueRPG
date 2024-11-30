@@ -1,6 +1,5 @@
 ﻿using Hsenl.ability;
-using Hsenl.ability_assist;
-using UnityEngine.EventSystems;
+using Hsenl.item;
 using UnityEngine.UI;
 
 namespace Hsenl.View {
@@ -20,8 +19,8 @@ namespace Hsenl.View {
                     break;
                 }
 
-                case AbilityAssistConfig abilityAssistConfig: {
-                    this.text.text = abilityAssistConfig.Alias;
+                case PropConfig propConfig: {
+                    this.text.text = propConfig.Alias;
                     break;
                 }
             }
@@ -52,29 +51,35 @@ namespace Hsenl.View {
                     break;
                 }
 
-                case AbilityAssistConfig abilityAssistConfig: {
+                case PropConfig propConfig: {
+                    var propBar = GameManager.Instance.MainMan?.FindBodiedInIndividual<PropBar>();
+                    if (propBar != null) {
+                        var prop = PropFactory.Create(propConfig);
+                        propBar.EquipProp(prop);
+                    }
+
                     break;
                 }
             }
         }
 
-        protected override void OnEndDrag(PointerEventData data) {
-            switch (this.Filler) {
-                case AbilityAssistConfig abilityAssistConfig: {
-                    var slot = UnityHelper.UI.GetComponentInPoint<IUISlot>();
-                    switch (slot) {
-                        case UIAbilitySlot uiAbilitySlot: {
-                            var abi = uiAbilitySlot.Filler;
-                            if (abi != null) {
-                                var assist = AbilityAssistFactory.Create(abilityAssistConfig);
-                                abi.AddAssist(assist);
-                            }
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-        }
+        // protected override void OnEndDrag(PointerEventData data) {
+        //     switch (this.Filler) {
+        //         case AbilityAssistConfig abilityAssistConfig: {
+        //             var slot = UnityHelper.UI.GetComponentInPoint<IUISlot>();
+        //             switch (slot) {
+        //                 case UIAbilitySlot uiAbilitySlot: {
+        //                     var abi = uiAbilitySlot.Filler;
+        //                     if (abi != null) {
+        //                         var assist = AbilityAssistFactory.Create(abilityAssistConfig);
+        //                         abi.AddAssist(assist);
+        //                     }
+        //                     break;
+        //                 }
+        //             }
+        //             break;
+        //         }
+        //     }
+        // }
     }
 }

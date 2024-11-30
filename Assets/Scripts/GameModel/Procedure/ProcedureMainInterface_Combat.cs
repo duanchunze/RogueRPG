@@ -7,33 +7,43 @@
             get => this._currentSelectHeroIndex;
             set {
                 var actor = this.ShowSelectHero(value);
-                if (actor == null)
-                    return;
-                
-                if (this.CurrentSelectHero == actor)
+                if (actor == null) // actor == null, 说明index无效
                     return;
 
-                if (this.CurrentSelectHero != null) {
-                    Object.Destroy(this.CurrentSelectHero.Entity);
+                if (this.CurrentSelectHero != actor) {
+                    if (this.CurrentSelectHero != null) {
+                        Object.Destroy(this.CurrentSelectHero.Entity);
+                    }
+
+                    this.CurrentSelectHero = actor;
                 }
-                
+
                 this._currentSelectHeroIndex = value;
-                this.CurrentSelectHero = actor;
             }
         }
 
         public Actor CurrentSelectHero { get; private set; }
 
-        [ShadowFunction]
-        protected override void OnEnter(IFsm fsm, IFsmState prev) {
-            this.OnEnterShadow(fsm, prev);
+        public Actor TakeCurrentSelectHero() {
+            var actor = this.CurrentSelectHero;
+            this.CurrentSelectHero = null;
+            return actor;
         }
 
         [ShadowFunction]
-        protected override void OnLeave(IFsm fsm, IFsmState next) {
-            this.OnLeaveShadow(fsm, next);
+        protected override async HTask OnEnter(IFsm fsm, IFsmState prev) {
+            await this.OnEnterShadow(fsm, prev);
         }
-        
+
+        [ShadowFunction]
+        protected override async HTask OnLeave(IFsm fsm, IFsmState next) {
+            await this.OnLeaveShadow(fsm, next);
+            if (this.CurrentSelectHero != null) {
+                Object.Destroy(this.CurrentSelectHero.Entity);
+                this.CurrentSelectHero = null;
+            }
+        }
+
         private Actor ShowSelectHero(int index) {
             var configList = Tables.Instance.TbActorConfig.DataList;
             if (index < 0 || index >= configList.Count)

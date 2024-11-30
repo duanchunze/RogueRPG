@@ -1,6 +1,7 @@
 ﻿using System;
 using Hsenl.ability;
 using Hsenl.card;
+using Hsenl.item;
 using Hsenl.localization;
 
 namespace Hsenl.View {
@@ -23,7 +24,7 @@ namespace Hsenl.View {
 
                 _localizationValue = v;
 
-                _localizationConfig = Tables.Instance.TbLocalizationConfig.GetByAlias(v);
+                _localizationConfig = Tables.Instance.TbLocalizationConfig.Get(v);
                 return _localizationConfig;
             }
         }
@@ -81,7 +82,7 @@ namespace Hsenl.View {
             if (Localization.Instance?.Value == null)
                 return null;
 
-            var config = Tables.Instance.TbLocalizationAbilityConfig.GetByAlias(abilityConfig.Alias);
+            var config = Tables.Instance.TbLocalizationAbilityConfig.Get(abilityConfig.Alias);
             if (config == null) {
                 Log.Error($"Cant not find LocalizationAbility by '{abilityConfig.Alias}'");
             }
@@ -105,32 +106,13 @@ namespace Hsenl.View {
             return localizationConfig.Desc.GetValueOrDefault(Localization.Instance?.Value);
         }
 
-        // card ----------------------------------
-
-        // public static LocalizationCardConfig GetLocalizationCardConfig(CardConfig cardConfig) {
-        //     if (Localization.Instance?.Value == null)
-        //         return null;
-        //
-        //     var config = Tables.Instance.TbLocalizationCardConfig.GetByAlias(cardConfig.Alias);
-        //     if (config == null) {
-        //         throw new Exception($"Cant not find LocalizationCard by '{cardConfig.Alias}'");
-        //     }
-        //
-        //     return config;
-        // }
-        //
-        // public static string GetCardLocalizationName(CardConfig self) {
-        //     var localizationConfig = GetLocalizationCardConfig(self);
-        //     return localizationConfig.Name.GetValueOrDefault(Localization.Instance?.Value);
-        // }
-
         // ability patch ----------------------------
 
         public static LocalizationAbilityPatchConfig GetLocalizationAbilityPatchConfig(AbilityPatchConfig abilityPatchConfig) {
             if (Localization.Instance?.Value == null)
                 return null;
 
-            var config = Tables.Instance.TbLocalizationAbilityPatchConfig.GetByAlias(abilityPatchConfig.Alias);
+            var config = Tables.Instance.TbLocalizationAbilityPatchConfig.Get(abilityPatchConfig.Alias);
             if (config == null) {
                 Log.Error($"Cant not find LocalizationAbilityPatch by '{abilityPatchConfig.Alias}'");
             }
@@ -140,6 +122,28 @@ namespace Hsenl.View {
 
         public static string GetAbilityPatchLocalizationName(AbilityPatchConfig self) {
             var localizationConfig = GetLocalizationAbilityPatchConfig(self);
+            if (localizationConfig == null)
+                return null;
+
+            return localizationConfig.Name.GetValueOrDefault(Localization.Instance?.Value);
+        }
+        
+        // prop -------------------------------------
+        
+        public static LocalizationPropConfig GetLocalizationPropConfig(PropConfig propConfig) {
+            if (Localization.Instance?.Value == null)
+                return null;
+
+            var config = Tables.Instance.TbLocalizationPropConfig.Get(propConfig.Alias);
+            if (config == null) {
+                Log.Error($"Cant not find LocalizationProp by '{propConfig.Alias}'");
+            }
+
+            return config;
+        }
+
+        public static string GetPropLocalizationName(PropConfig self) {
+            var localizationConfig = GetLocalizationPropConfig(self);
             if (localizationConfig == null)
                 return null;
 

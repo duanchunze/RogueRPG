@@ -14,7 +14,6 @@ namespace Hsenl {
         public ThreadSynchronizationContext ThreadSynchronizationContext { get; private set; }
 
 #if UNITY_EDITOR
-        [FormerlySerializedAs("displayMono")]
         [SerializeField]
 #endif
         private bool displayMonoComponent;

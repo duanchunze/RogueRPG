@@ -23,7 +23,7 @@ namespace Hsenl {
             var owner = this.manager.Bodied.MainBodied;
             if (this._minionsBar.TryGetQueuePositionOfMinion(this._minion, out var followPoint)) {
                 if (Vector3.Distance(owner.transform.Position, followPoint) > 0.2f) {
-                    this._control.SetValue(ControlCode.MoveOfPoint, followPoint);
+                    Shortcut.SimulatePointMove(this._control, followPoint);
                 }
             }
         }

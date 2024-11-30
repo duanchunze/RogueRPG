@@ -35,9 +35,19 @@ namespace Hsenl {
      * 而如果你把allow设置为true, 那么代表你将把他当成一个event来使用, 那么你应该专门建一个类去使用他, 就像event系统中的声明一个EventType一样, 这样可以让项目保持工整.
      */
     public static class ShadowFunction {
-        public static void Register<T>(uint hashcode, string assemblyName, string typeFullName, int priority, T del) where T : Delegate => ShadowFunctionManager.Instance.Register(hashcode, assemblyName, typeFullName, priority, del);
-        public static void Unregister(uint hashcode) => ShadowFunctionManager.Instance.Unregister(hashcode);
-        public static void Unregister(uint hashcode, string assemblyName, string typeFullName, int priority) => ShadowFunctionManager.Instance.Unregister(hashcode, assemblyName, typeFullName, priority);
-        public static bool GetFunctions(uint hashcode, out List<ShadowFunctionManager.DelegateWrap> dels) => ShadowFunctionManager.Instance.GetFunctions(hashcode, out dels);
+        public static void Register<T>(int hashcode, string assemblyName, string typeFullName, int priority, T del) where T : Delegate
+            => ShadowFunctionManager.Instance.Register(hashcode, assemblyName, typeFullName, priority, del);
+
+        public static void Unregister(int hashcode) 
+            => ShadowFunctionManager.Instance.Unregister(hashcode);
+
+        public static void Unregister(int hashcode, string assemblyName, string typeFullName, int priority)
+            => ShadowFunctionManager.Instance.Unregister(hashcode, assemblyName, typeFullName, priority);
+
+        public static bool GetFunctions(int hashcode, out List<ShadowFunctionManager.DelegateWrap> dels)
+            => ShadowFunctionManager.Instance.GetFunctions(hashcode, out dels);
+
+        public static bool GetFunction(int hashcode, out Delegate del) 
+            => ShadowFunctionManager.Instance.GetFunction(hashcode, out del);
     }
 }

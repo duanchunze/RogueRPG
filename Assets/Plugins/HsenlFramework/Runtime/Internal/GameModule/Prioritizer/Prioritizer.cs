@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class Prioritizer : Unbodied, IPrioritizer, IUpdate {
 #if UNITY_EDITOR
         [SerializeField, PropertyRange(0f, 5f), LabelText("时间缩放")]
@@ -27,7 +27,7 @@ namespace Hsenl {
         [ShowInInspector, ReadOnly, LabelText("所有通道"), DictionaryDrawerSettings(KeyLabel = "通道", ValueLabel = "状态们")]
 #endif
         [MemoryPackIgnore]
-        protected MultiList<int, IPriorityState> aisles = new();
+        protected Dictionary<int, IPrioritizer.Aisle> aisles = new();
 
         [MemoryPackIgnore]
         protected Queue<int> dirtyFlags = new();
@@ -42,13 +42,7 @@ namespace Hsenl {
         protected IPriorityState evaluateSuccessdCache;
 
         [MemoryPackIgnore]
-        protected List<IPriorityState> exclusionsCache = new();
-
-        [MemoryPackIgnore]
-        protected List<IPriorityState> highestDisablesCache = new();
-
-        [MemoryPackIgnore]
-        protected Bitlist specialDisableLabelsCache = new();
+        protected List<IPriorityState> removesCache = new();
 
         [MemoryPackIgnore]
         protected Stack<IPriorityState> pollingCache = new();
@@ -64,7 +58,7 @@ namespace Hsenl {
 
         internal override void OnDestroyInternal() {
             foreach (var state in this.states.ToArray()) {
-                state.Leave();
+                state.Leave_Interface();
             }
         }
 
@@ -76,9 +70,7 @@ namespace Hsenl {
             this.dirtyFlags?.Clear();
             this.currentEnterState = null;
             this.evaluateSuccessdCache = null;
-            this.exclusionsCache?.Clear();
-            this.highestDisablesCache?.Clear();
-            this.specialDisableLabelsCache?.Clear();
+            this.removesCache?.Clear();
             this.pollingCache?.Clear();
             this.defaults?.Clear();
         }
@@ -92,11 +84,11 @@ namespace Hsenl {
             set => this.timeScale = value;
         }
 
-        HashSet<IPriorityState> IPrioritizer.States => this.states;
+        HashSet<IPriorityState> IPrioritizer._allStates => this.states;
 
-        MultiList<int, IPriorityState> IPrioritizer.Aisles => this.aisles;
+        Dictionary<int, IPrioritizer.Aisle> IPrioritizer._aisles => this.aisles;
 
-        Queue<int> IPrioritizer.DirtyFlags => this.dirtyFlags;
+        Queue<int> IPrioritizer._dirtyFlags => this.dirtyFlags;
 
         IPriorityState IPrioritizer.CurrentEnterState {
             get => this.currentEnterState;
@@ -108,15 +100,11 @@ namespace Hsenl {
             set => this.evaluateSuccessdCache = value;
         }
 
-        List<IPriorityState> IPrioritizer.ExclusionsCache => this.exclusionsCache;
+        List<IPriorityState> IPrioritizer._removesCache => this.removesCache;
 
-        List<IPriorityState> IPrioritizer.HighestDisablesCache => this.highestDisablesCache;
+        Stack<IPriorityState> IPrioritizer._pollingCache => this.pollingCache;
 
-        Bitlist IPrioritizer.SpecialDisableLabelsCache => this.specialDisableLabelsCache;
-
-        Stack<IPriorityState> IPrioritizer.PollingCache => this.pollingCache;
-
-        Dictionary<int, IPriorityState> IPrioritizer.Defaults => this.defaults;
+        Dictionary<int, IPriorityState> IPrioritizer._defaults => this.defaults;
 
         void IPrioritizer.OnStateChanged(IPriorityState state, bool isEnter) {
             if (isEnter) {

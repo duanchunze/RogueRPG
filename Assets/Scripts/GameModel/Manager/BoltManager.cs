@@ -18,6 +18,11 @@ namespace Hsenl {
                 bolt = BoltFactory.Create(config);
                 ((IPoolable)bolt).SetPoolKey(key);
             }
+            else {
+                var tra = bolt.transform;
+                var size = config.Size;
+                tra.LocalScale = new Vector3(size.X, size.Y, size.Z);
+            }
 
             return bolt;
         }

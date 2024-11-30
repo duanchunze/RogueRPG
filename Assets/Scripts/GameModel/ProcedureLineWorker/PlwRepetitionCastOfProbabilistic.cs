@@ -1,6 +1,6 @@
 ﻿using MemoryPack;
 
 namespace Hsenl {
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class PlwRepetitionCastOfProbabilistic : PlwInfo<procedureline.ProbabilisticRepetitionCastInfo> { }
 }

@@ -31,7 +31,7 @@ namespace Hsenl {
      * 同样的，如果有两个装备都有该词条，那就添加两次，同样的，计算伤害时，也会被执行两次，也就是攻击后，会一共增加10%的攻速
      */
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class ProcedureLine : Unbodied {
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly, PropertySpace]
@@ -522,6 +522,7 @@ namespace Hsenl {
             _handlerDict.Clear();
             Dictionary<Type, SortedDictionary<int, IProcedureLineHandler>> sortedDict = new();
             foreach (var type in EventSystem.GetTypesOfAttribute(typeof(ProcedureLineHandlerAttribute))) {
+                if (type.IsGenericType || type.IsAbstract) continue;
                 var obj = Activator.CreateInstance(type);
                 if (obj is not IProcedureLineHandler handler) {
                     throw new InvalidOperationException($"type '{type}' is not procedure line handler");

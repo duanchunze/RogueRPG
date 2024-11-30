@@ -45,6 +45,9 @@ namespace Hsenl {
 
         [MemoryPackIgnore]
         internal bool disposing; // 正在销毁中
+        
+        [MemoryPackIgnore]
+        public bool IsDisposing => this.disposing;
 
         protected virtual void BeginInit() { }
 
@@ -83,7 +86,9 @@ namespace Hsenl {
                 }
 
                 case Component originalComponent: {
-                    throw new Exception("暂时不支持组件实例化"); // 因为需要能直接给实体AddComponent(Component component); 实例化组件才有意义, 但现在暂时不考虑这种添加组件方式
+                    var obj = Instantiate((Object)originalComponent);
+                    var t = (T)obj;
+                    return t;
                 }
             }
 
@@ -109,8 +114,8 @@ namespace Hsenl {
 
         public static void Destroy(Component component) {
             if (component.disposing | component.IsDisposed) return;
-            var instanceId = component.instanceId;
             component.disposing = true;
+            var instanceId = component.instanceId;
             component.InternalOnDisable();
             component.InternalOnDestroy();
             component.entity.InternalRemoveComponent(component);
@@ -185,7 +190,7 @@ namespace Hsenl {
 
                 // 事件都触发后, 再移除父级和所属场景
                 var prevParent = entity.parent;
-                entity.SetParentInternal(null, false); // 已经要销毁了, 就不再设置场景了
+                entity.SetParentInternal(null, false, true); // 已经要销毁了, 就不再设置场景了
                 entity.SetSceneInternal(null, prevParent, null);
 
                 // 实体已经被销毁了, 也不必再触发组件移除事件了, 也就不用一个个的移除了, 等后面Dispose的时候, 一并清空就行
@@ -212,6 +217,11 @@ namespace Hsenl {
         }
 
         public static void Destroy(Scene scene) {
+            if (scene.disposing || scene.IsDisposed)
+                return;
+
+            scene.disposing = true;
+            
             var rootEntities = scene.RootEntities;
             while (rootEntities.Count != 0) {
                 var entity = rootEntities[rootEntities.Count - 1];
@@ -234,9 +244,10 @@ namespace Hsenl {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal bool CheckDisposingLog(string message) {
+        internal bool CheckDisposingLog(string message = null) {
             if (this.disposing) {
-                Log.Debug($"{message} {this}");
+                if (!string.IsNullOrEmpty(message))
+                    Log.Debug($"{message} {this}");
                 return true;
             }
 

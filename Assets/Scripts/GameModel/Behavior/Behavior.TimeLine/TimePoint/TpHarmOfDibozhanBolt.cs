@@ -4,7 +4,7 @@ using MemoryPack;
 using UnityEngine;
 
 namespace Hsenl {
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpHarmOfDibozhanBolt : TpHarm<timeline.HarmOfDibozhanBoltInfo> {
         private Faction _faction;
         private BoltConfig _boltConfig;
@@ -44,6 +44,7 @@ namespace Hsenl {
             var counter = 0;
             var maxNum = this.info.Num;
             var tsize = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Tsize);
+            var size = this._boltConfig.Size.ToVector3();
             var origin = this.harmable.transform.Position;
 
             listener.onTriggerEnter = col => {
@@ -70,7 +71,7 @@ namespace Hsenl {
                     num = maxNum;
                 var pos = origin + dir * num * this.info.InternalDistance;
                 bolt.transform.Position = pos;
-                bolt.transform.LocalScale = collider.transform.LocalScale;
+                bolt.transform.LocalScale = size * tsize;
                 bolt.transform.Forward = dir;
                 bolt.Entity.Active = true;
                 

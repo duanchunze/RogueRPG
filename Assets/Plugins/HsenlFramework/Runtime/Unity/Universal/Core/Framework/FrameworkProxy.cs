@@ -41,11 +41,10 @@ namespace Hsenl {
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(FrameworkProxy))]
-    public class FrameworkProxyEditor : OdinEditor {
+    public class FrameworkProxyEditor : Editor {
         private FrameworkProxy _t;
 
-        protected override void OnEnable() {
-            base.OnEnable();
+        protected void OnEnable() {
             this._t = (FrameworkProxy)this.target;
         }
 

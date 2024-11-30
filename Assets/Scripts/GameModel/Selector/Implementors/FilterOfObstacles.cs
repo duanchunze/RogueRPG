@@ -11,9 +11,8 @@ namespace Hsenl {
             for (int i = 0, len = sts.Count; i < len; i++) {
                 var target = sts[i];
 
-                if (Physics.Linecast(this.selector.transform.Position, target.transform.Position, 1 << 3)) {
+                if (Shortcut.HasObstacles(this.Selector.transform.Position, target.transform.Position))
                     continue;
-                }
 
                 this.filtered.Add(target);
             }

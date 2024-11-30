@@ -5,19 +5,18 @@ using System.Reflection;
 namespace Hsenl {
     public static class EventSystem {
         public static void RegisterAttributeType(Type type) => EventSystemManager.Instance.RegisterAttributeType(type);
-
         public static void AddAssembles(Assembly[] assemblies) =>
             EventSystemManager.Instance.SetAssembles(assemblies);
 
         public static Assembly[] GetAssemblies() => EventSystemManager.Instance.GetAssemblies();
-
         public static Type[] GetAllTypes() => EventSystemManager.Instance.GetAllTypes();
         public static Type FindType(string typeName) => EventSystemManager.Instance.FindType(typeName);
-        
+
         /// <param name="attributeType"></param>
         /// <param name="polymorphism">是否支持多态</param>
         /// <returns></returns>
-        public static IReadOnlyList<Type> GetTypesOfAttribute(Type attributeType, bool polymorphism = false) => EventSystemManager.Instance.GetTypesOfAttribute(attributeType, polymorphism);
+        public static IReadOnlyList<Type> GetTypesOfAttribute(Type attributeType, bool polymorphism = false) =>
+            EventSystemManager.Instance.GetTypesOfAttribute(attributeType, polymorphism);
 
         public static IReadOnlyList<FieldInfo> GetFieldsOfAttribute(Type attributeType, Type classType = null) =>
             EventSystemManager.Instance.GetFieldsOfAttribute(attributeType, classType);
@@ -36,7 +35,9 @@ namespace Hsenl {
         public static void Invoke<TArg>(TArg args) where TArg : struct => EventSystemManager.Instance.Invoke(args);
         public static TReturn Invoke<TArg, TReturn>(TArg args) where TArg : struct => EventSystemManager.Instance.Invoke<TArg, TReturn>(args);
 
-        public static void Link<T>(int instanceId, int instanceIdTarget, int key = 0) where T : Object => EventSystemManager.Instance.Link<T>(instanceId, instanceIdTarget, key);
+        public static void Link<T>(int instanceId, int instanceIdTarget, int key = 0) where T : Object =>
+            EventSystemManager.Instance.Link<T>(instanceId, instanceIdTarget, key);
+
         public static void Link(int instanceId, int instanceIdTarget, int key) => EventSystemManager.Instance.Link(instanceId, instanceIdTarget, key);
         public static void Unlink(int instanceId) => EventSystemManager.Instance.Unlink(instanceId);
         public static void Unlink<T>(int instanceId, int key = 0) where T : Object => EventSystemManager.Instance.Unlink<T>(instanceId, key);

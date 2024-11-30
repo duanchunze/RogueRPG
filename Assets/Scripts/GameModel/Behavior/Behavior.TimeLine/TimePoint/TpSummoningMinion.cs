@@ -8,20 +8,20 @@ namespace Hsenl {
             var self = this.manager.Bodied.MainBodied;
             var minionsBar = self.GetComponent<MinionsBar>();
 
-            var spawnPoint = RandomHelper.NextFloat3(self.transform.Position - Vector3.One, self.transform.Position + Vector3.One);
-            var validPoint = NavMeshAgent.CheckIfPointWalkable(spawnPoint, out var hit);
-            if (!validPoint) {
-                spawnPoint = self.transform.Position;
-            }
-
+            var spawnPoint = self.transform.Position;
 
             Minion minion = null;
             if (minionsBar != null) {
                 minion = minionsBar.Rent(this.info.MinionAlias, spawnPoint);
             }
-            else {
-                minion = ActorManager.Instance.Rent(this.info.MinionAlias, spawnPoint)?.GetOrAddComponent<Minion>();
-            }
+            // else {
+            //     var actor = ActorManager.Instance.Rent(this.info.MinionAlias, spawnPoint);
+            //     minion = actor.GetComponent<Minion>();
+            //     if (minion == null) {
+            //         minion = actor.AddComponent<Minion>();
+            //         minion.Entity.Reactivation(); // 因为新添加了组件, 所以重置enable以更新下
+            //     }
+            // }
 
             if (minion != null) {
                 minion.source = this.manager.Bodied;

@@ -15,6 +15,13 @@ namespace Hsenl {
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
 #endif
+        private readonly Dictionary<Type, (int order, int compactOrder)> _typeExecutionOrderLookupTable = new();
+
+        private int _typeExecutionOrderDefaultIndex;
+
+#if UNITY_EDITOR
+        [ShowInInspector, ReadOnly]
+#endif
         private readonly Dictionary<string, Type> _allTypes = new(); // key: type.FullName, value: type
 
 #if UNITY_EDITOR
@@ -40,9 +47,9 @@ namespace Hsenl {
         private readonly MultiDictionary<Type, Type, List<PropertyInfo>> _instancePropertiesOfAttribute = new();
         private readonly MultiDictionary<Type, Type, List<MethodInfo>> _instanceMethodsOfAttribute = new();
 
-        private readonly Queue<StartWrap> _starters = new();
-        private readonly Queue<UpdateWrap> _updaters = new();
-        private readonly Queue<LateUpdateWrap> _lateUpaters = new();
+        private readonly List<Queue<StartWrap>> _starters = new();
+        private readonly List<Queue<UpdateWrap>> _updaters = new();
+        private readonly List<Queue<LateUpdateWrap>> _lateUpaters = new();
 
         private readonly Dictionary<int, Object> _instances = new();
 
@@ -103,15 +110,27 @@ namespace Hsenl {
                 }
             }
 
-            this.Assemblies = temp.ToArray();
             var types = AssemblyHelper.GetAssemblyTypes(assemblies);
+            var baseType = typeof(Object);
+            foreach (var type in types) {
+                if (type.IsSubclassOf(baseType))
+                    // 继承自Object的类是明确不能热重载的
+                    throw new InvalidOperationException($"Cannot reload type '{type.FullName}'");
+            }
+
+            this.Assemblies = temp.ToArray();
+
             this.ClearCacheOfAssembles(assemblies);
             this.AddTypes(types);
             // 事件系统初始化完成
             foreach (var method in this.GetMethodsOfAttribute(typeof(OnEventSystemReloadAttribute))) {
                 try {
-                    if (!method.IsStatic) throw new InvalidOperationException($"OnEventSystemChangedAttribute only use for static method '{method.Name}'");
-                    method.Invoke(null, null);
+                    if (!method.IsStatic)
+                        throw new InvalidOperationException($"OnEventSystemReloadAttribute only use for static method '{method.Name}'");
+                    if (method.GetParameters().Length != 0)
+                        method.Invoke(null, new object[] { types });
+                    else
+                        method.Invoke(null, null);
                 }
                 catch (Exception e) {
                     Log.Error(e);
@@ -120,6 +139,8 @@ namespace Hsenl {
         }
 
         private void ClearCache() {
+            this._typeExecutionOrderLookupTable.Clear();
+            this._typeExecutionOrderDefaultIndex = 0;
             this._allTypes.Clear();
             this._typesOfAttribute.Clear();
             this._allEvents.Clear();
@@ -136,6 +157,15 @@ namespace Hsenl {
             HashSet<string> fullNames = new();
             foreach (var assembly in assemblies) {
                 fullNames.Add(assembly.FullName);
+            }
+
+            {
+                var list = (from kv in this._typeExecutionOrderLookupTable where fullNames.Contains(kv.Key.Assembly.FullName) select kv.Key).ToList();
+                foreach (var type in list) {
+                    this._typeExecutionOrderLookupTable.Remove(type);
+                }
+
+                this._typeExecutionOrderDefaultIndex = 0;
             }
 
             {
@@ -283,7 +313,7 @@ namespace Hsenl {
             // attribute ：types
             foreach (var type in types) {
                 // 抽象类跳过, 但不包括静态类
-                if (type.IsAbstract && !type.IsSealed) continue;
+                // if (type.IsAbstract && !type.IsSealed) continue;
 
                 var attrs = type.GetCustomAttributes(true);
                 if (attrs.Length == 0) continue;
@@ -299,8 +329,42 @@ namespace Hsenl {
                 }
             }
 
+            // execution orders
+            List<int> orders = new() { 0 };
+            var baseType = typeof(Component);
+            foreach (var type in this.GetTypesOfAttribute(typeof(ExecutionOrderAttribute))) {
+                if (!type.IsSubclassOf(baseType)) {
+                    // 这个特性是对组件事件进行排序的, 所以, 只能对组件类, 才能使用.
+                    Log.Error($"ExecutionOrderAttribute only use for Component, '{type.Name}'");
+                    continue;
+                }
+
+                var attr = type.GetCustomAttribute<ExecutionOrderAttribute>();
+                if (attr == null) continue;
+                this._typeExecutionOrderLookupTable[type] = (attr.order, -1);
+                orders.Add(attr.order);
+            }
+
+            orders.Sort();
+            this._typeExecutionOrderDefaultIndex = ArrayHelper.GetSortedIndex(orders, 0);
+
+            Dictionary<Type, (int, int)> compactOrderDict = new();
+            foreach (var kv in this._typeExecutionOrderLookupTable) {
+                var tuple = kv.Value;
+                var order = tuple.order;
+                var index = ArrayHelper.GetSortedIndex(orders, order);
+                compactOrderDict[kv.Key] = (order, index);
+            }
+
+            foreach (var kv in compactOrderDict) {
+                this._typeExecutionOrderLookupTable[kv.Key] = kv.Value;
+            }
+
             // events
             foreach (var type in this.GetTypesOfAttribute(typeof(EventAttribute))) {
+                if (type.IsAbstract || type.IsGenericType)
+                    continue;
+
                 if (Activator.CreateInstance(type) is not IEvent obj) {
                     throw new Exception($"type not is AEvent: {type.Name}");
                 }
@@ -321,6 +385,9 @@ namespace Hsenl {
 
             // invokes
             foreach (var type in this.GetTypesOfAttribute(typeof(InvokeAttribute))) {
+                if (type.IsAbstract || type.IsGenericType)
+                    continue;
+
                 if (Activator.CreateInstance(type) is not IInvoke obj) {
                     throw new Exception($"type not is AInvoke: {type.Name}");
                 }
@@ -484,7 +551,8 @@ namespace Hsenl {
         /// <returns></returns>
         public IReadOnlyList<Type> GetTypesOfAttribute(Type attributeType, bool polymorphism = false) {
             if (!polymorphism) {
-                return this._typesOfAttribute.TryGetValue(attributeType, out var result) ? result : Type.EmptyTypes;
+                IReadOnlyList<Type> list = this._typesOfAttribute.TryGetValue(attributeType, out var result) ? result : Type.EmptyTypes;
+                return list;
             }
             else {
                 List<Type> list = new();
@@ -538,6 +606,28 @@ namespace Hsenl {
             }
         }
 
+        public int GetExecutionOrderOfType<T>() {
+            return this.GetExecutionOrderOfType(typeof(T));
+        }
+
+        public int GetExecutionIndexOfType<T>() {
+            return this.GetExecutionIndexOfType(typeof(T));
+        }
+
+        public int GetExecutionOrderOfType(Type type) {
+            if (this._typeExecutionOrderLookupTable.TryGetValue(type, out var tuple))
+                return tuple.order;
+
+            return 0;
+        }
+
+        public int GetExecutionIndexOfType(Type type) {
+            if (this._typeExecutionOrderLookupTable.TryGetValue(type, out var tuple))
+                return tuple.compactOrder;
+
+            return this._typeExecutionOrderDefaultIndex;
+        }
+
         internal void RegisterInstanced(Object instance) {
             this._instances.Add(instance.InstanceId, instance);
         }
@@ -565,15 +655,57 @@ namespace Hsenl {
         }
 
         internal void RegisterStart(Component starter) {
-            this._starters.Enqueue(new StartWrap() { instanceId = starter.InstanceId, starter = starter });
+            var type = starter.GetType();
+            var index = this.GetExecutionIndexOfType(type);
+            for (int i = this._starters.Count; i <= index; i++) {
+                this._starters.Add(null);
+            }
+
+            var queue = this._starters[index];
+            if (queue == null) {
+                queue = new Queue<StartWrap>();
+                queue.Enqueue(new StartWrap { instanceId = starter.InstanceId, starter = starter });
+                this._starters[index] = queue;
+                return;
+            }
+
+            queue.Enqueue(new StartWrap { instanceId = starter.InstanceId, starter = starter });
         }
 
-        internal void RegisterUpdate(IUpdate update) {
-            this._updaters.Enqueue(new UpdateWrap() { instanceId = update.InstanceId, updater = update });
+        internal void RegisterUpdate(IUpdate updater) {
+            var type = updater.GetType();
+            var index = this.GetExecutionIndexOfType(type);
+            for (int i = this._updaters.Count; i <= index; i++) {
+                this._updaters.Add(null);
+            }
+
+            var queue = this._updaters[index];
+            if (queue == null) {
+                queue = new Queue<UpdateWrap>();
+                queue.Enqueue(new UpdateWrap { instanceId = updater.InstanceId, updater = updater });
+                this._updaters[index] = queue;
+                return;
+            }
+
+            queue.Enqueue(new UpdateWrap { instanceId = updater.InstanceId, updater = updater });
         }
 
-        internal void RegisterLateUpdate(ILateUpdate update) {
-            this._lateUpaters.Enqueue(new LateUpdateWrap() { instanceId = update.InstanceId, updater = update });
+        internal void RegisterLateUpdate(ILateUpdate updater) {
+            var type = updater.GetType();
+            var index = this.GetExecutionIndexOfType(type);
+            for (int i = this._lateUpaters.Count; i <= index; i++) {
+                this._lateUpaters.Add(null);
+            }
+
+            var queue = this._lateUpaters[index];
+            if (queue == null) {
+                queue = new Queue<LateUpdateWrap>();
+                queue.Enqueue(new LateUpdateWrap { instanceId = updater.InstanceId, updater = updater });
+                this._lateUpaters[index] = queue;
+                return;
+            }
+
+            queue.Enqueue(new LateUpdateWrap { instanceId = updater.InstanceId, updater = updater });
         }
 
         public async HTask PublishAsync<T>(T a) where T : struct {
@@ -742,56 +874,71 @@ namespace Hsenl {
         }
 
         public void Update() {
-            var startersCount = this._starters.Count;
-            while (startersCount-- > 0) {
-                var starter = this._starters.Dequeue();
-                if (starter.starter.InstanceId != starter.instanceId)
+            for (int i = 0, len = this._starters.Count; i < len; i++) {
+                var queue = this._starters[i];
+                if (queue == null)
                     continue;
+                var startersCount = queue.Count;
+                while (startersCount-- > 0) {
+                    var starter = queue.Dequeue();
+                    if (starter.starter.InstanceId != starter.instanceId)
+                        continue;
 
-                if (starter.starter.RealEnable) {
-                    starter.starter.InternalOnStart();
-                    continue;
+                    if (starter.starter.RealEnable) {
+                        starter.starter.InternalOnStart();
+                        continue;
+                    }
+
+                    queue.Enqueue(starter);
                 }
-
-                this._starters.Enqueue(starter);
             }
 
-            var updatersCount = this._updaters.Count;
-            while (updatersCount-- > 0) {
-                var updater = this._updaters.Dequeue();
-                if (updater.updater.InstanceId != updater.instanceId)
+            for (int i = 0, len = this._updaters.Count; i < len; i++) {
+                var queue = this._updaters[i];
+                if (queue == null)
                     continue;
+                var updatersCount = queue.Count;
+                while (updatersCount-- > 0) {
+                    var updater = queue.Dequeue();
+                    if (updater.updater.InstanceId != updater.instanceId)
+                        continue;
 
-                if (updater.updater.RealEnable) {
-                    try {
-                        updater.updater.Update();
+                    if (updater.updater.RealEnable) {
+                        try {
+                            updater.updater.Update();
+                        }
+                        catch (Exception e) {
+                            Log.Error(e);
+                        }
                     }
-                    catch (Exception e) {
-                        Log.Error(e);
-                    }
+
+                    queue.Enqueue(updater);
                 }
-
-                this._updaters.Enqueue(updater);
             }
         }
 
         public void LateUpdate() {
-            var count = this._lateUpaters.Count;
-            while (count-- > 0) {
-                var updater = this._lateUpaters.Dequeue();
-                if (updater.updater.InstanceId != updater.instanceId)
+            for (int i = 0, len = this._lateUpaters.Count; i < len; i++) {
+                var queue = this._lateUpaters[i];
+                if (queue == null)
                     continue;
+                var count = queue.Count;
+                while (count-- > 0) {
+                    var updater = queue.Dequeue();
+                    if (updater.updater.InstanceId != updater.instanceId)
+                        continue;
 
-                if (updater.updater.RealEnable) {
-                    try {
-                        updater.updater.LateUpdate();
+                    if (updater.updater.RealEnable) {
+                        try {
+                            updater.updater.LateUpdate();
+                        }
+                        catch (Exception e) {
+                            Log.Error(e);
+                        }
                     }
-                    catch (Exception e) {
-                        Log.Error(e);
-                    }
+
+                    queue.Enqueue(updater);
                 }
-
-                this._lateUpaters.Enqueue(updater);
             }
         }
 
@@ -831,16 +978,7 @@ namespace Hsenl {
 
         protected override void OnUnregister() {
             this.Assemblies = Array.Empty<Assembly>();
-            this._allTypes.Clear();
-            this._typesOfAttribute.Clear();
-            this._allEvents.Clear();
-            this._allInvokes.Clear();
-            this._staticFieldsOfAttribute.Clear();
-            this._staticPropertiesOfAttribute.Clear();
-            this._staticMethodsOfAttribute.Clear();
-            this._instanceFieldsOfAttribute.Clear();
-            this._instancePropertiesOfAttribute.Clear();
-            this._instanceMethodsOfAttribute.Clear();
+            this.ClearCache();
             this._starters.Clear();
             this._updaters.Clear();
             this._lateUpaters.Clear();

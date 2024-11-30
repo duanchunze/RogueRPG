@@ -52,17 +52,25 @@ public class ShadowFunctionCodeFixProvider : CodeFixProvider {
         if (sourceTypeSymbol == null)
             return;
 
-        var sourceTypeNameWithoutGenericParam = Common.GetTypeNameWithoutGenericParams((INamedTypeSymbol)sourceTypeSymbol);
+        var currentAssemblyName = sourceTypeSymbol.ContainingAssembly.Name;
+        var sourceTypeNameWithoutGenericParam = Common.GetTypeDisplayNameWithoutGenericParams((INamedTypeSymbol)sourceTypeSymbol);
+        Dictionary<string, HashSet<string>> dict;
+        if (ShadowFunctionGenerator.UseSourceManifestCarrier) {
+            var metadataName = Common.GetSourceFunctionManifestCarrierMetadataName_Plaintext(currentAssemblyName);
+            var manifestCarrierTypeSymbol = compilation.GetTypeByMetadataName(metadataName);
+            if (manifestCarrierTypeSymbol == null) {
+                return;
+            }
 
-        var metadataName = Common.GetSourceFunctionManifestCarrierMetadataName_Plaintext(sourceTypeSymbol.ContainingAssembly.Name);
-        var manifestCarrierTypeSymbol = compilation.GetTypeByMetadataName(metadataName);
-        if (manifestCarrierTypeSymbol == null) {
-            return;
+            if (!Common.ParseSourceFunctionManifest(manifestCarrierTypeSymbol, ShadowFunctionGenerator.ManifestSplit2, ShadowFunctionGenerator.ManifestSplit1,
+                    out dict)) {
+                return;
+            }
         }
-
-        if (!Common.ParseSourceFunctionManifest(manifestCarrierTypeSymbol, ShadowFunctionGenerator.ManifestSplit2, ShadowFunctionGenerator.ManifestSplit1,
-                out var dict)) {
-            return;
+        else {
+            if (!ShadowFunctionGenerator.MehtodPlaintextCollection.TryGetValue(currentAssemblyName, out dict)) {
+                return;
+            }
         }
 
         if (!dict.TryGetValue(sourceTypeNameWithoutGenericParam, out var all_source_method_plaintext)) {
@@ -74,20 +82,23 @@ public class ShadowFunctionCodeFixProvider : CodeFixProvider {
         try {
             // 获取当前类里所有影子函数, 并转化成唯一明文的名字, 用于后面的判存
             var memberSymbols = methodSymbol.ContainingType.GetMembers();
-            var alrealyExistMethodSymbols = memberSymbols.Where(x => x.GetAttributes().Any(xx => xx.AttributeClass?.Name == "ShadowFunctionAttribute")).Select(x => (IMethodSymbol)x);
+            var alrealyExistMethodSymbols = memberSymbols
+                .Where(x => x.GetAttributes()
+                    .Any(xx => xx.AttributeClass?.Name == "ShadowFunctionAttribute"))
+                .Select(x => (IMethodSymbol)x);
             HashSet<string> alrealyExistFuncNames = new();
             foreach (var existMethodSymbol in alrealyExistMethodSymbols) {
                 Common.DeconstructShadowFunction(existMethodSymbol, sourceTypeSymbol, out _, out var self2, out var finalName, out var finalReturn);
-                var alrealyExistFuncName = Common.ConstructMethodUniqueNameIncludeParaName(existMethodSymbol, self2 ? 1 : 0, finalName, finalReturn);
+                var alrealyExistFuncName = Common.ConstructMethodCombinationNameIncludeParaName(existMethodSymbol, self2 ? 1 : 0, finalName, finalReturn);
                 alrealyExistFuncNames.Add(alrealyExistFuncName);
             }
-            
+
             foreach (var plaintext in all_source_method_plaintext) {
                 // 如果已经实现的影子函数, 就不再加入待选列表中
                 if (alrealyExistFuncNames.Contains(plaintext))
                     continue;
 
-                if (Common.DeconstructMethodUniqueName(plaintext, out var methodReturn, out var methodName, out var paramlist)) {
+                if (Common.DeconstructMethodCombinationName(plaintext, out var methodReturn, out var methodName, out var paramlist)) {
                     // 组合参数内容
                     SeparatedSyntaxList<ParameterSyntax> newParameters = new();
                     if (self) {

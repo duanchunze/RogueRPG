@@ -84,6 +84,21 @@ namespace Hsenl {
             set => this._navMeshAgent.obstacleAvoidanceType = value;
         }
 
+        [MemoryPackIgnore]
+        public bool PathPending => this._navMeshAgent.pathPending;
+
+        [MemoryPackIgnore]
+        public float RemainingDistance => this._navMeshAgent.remainingDistance;
+
+        [MemoryPackIgnore]
+        public NavMeshPathStatus PathStatus => this._navMeshAgent.pathStatus;
+
+        [MemoryPackIgnore]
+        public Vector3 PathEndPosition => this._navMeshAgent.pathEndPosition;
+
+        [MemoryPackIgnore]
+        public bool HasPath => this._navMeshAgent.hasPath;
+
         protected override void OnDeserialized() {
             this._navMeshAgent = this.GetMonoComponent<UnityEngine.AI.NavMeshAgent>();
             if (this._navMeshAgent == null) {
@@ -107,18 +122,24 @@ namespace Hsenl {
             this._navMeshAgent.enabled = false;
         }
 
-        public bool IsNavMoveDone() {
-            if (!this._navMeshAgent.isOnNavMesh)
+        public bool IsNavMoveStop() {
+            if (!this.IsOnNavMesh)
                 return true;
 
-            return this._navMeshAgent.remainingDistance <= this._navMeshAgent.stoppingDistance;
+            if (this.PathPending)
+                return false;
+
+            if (this.IsStopped)
+                return true;
+
+            return this.RemainingDistance <= this.StoppingDistance;
         }
 
         public void SetPosition(Vector3 position) {
             if (!this.Enable)
                 return;
 
-            this._navMeshAgent.isStopped = true;
+            this.IsStopped = true;
             this._navMeshAgent.enabled = false;
             this.transform.Position = position;
             this._navMeshAgent.enabled = true;
@@ -128,18 +149,18 @@ namespace Hsenl {
             if (!this.Enable)
                 return;
 
-            if (!this._navMeshAgent.isOnNavMesh) {
+            if (!this.IsOnNavMesh) {
                 // 如果出现代理不在寻路网格上的话, 就重开一下.
                 this._navMeshAgent.enabled = false;
             }
 
             this._navMeshAgent.enabled = true;
 
-            if (this._navMeshAgent.isOnNavMesh) {
-                this._navMeshAgent.isStopped = false;
-                this._navMeshAgent.destination = point;
-                this._navMeshAgent.speed = speed;
-                this._navMeshAgent.stoppingDistance = stopDis;
+            if (this.IsOnNavMesh) {
+                this.IsStopped = false;
+                this.Destination = point;
+                this.Speed = speed;
+                this.StoppingDistance = stopDis;
             }
         }
 
@@ -147,23 +168,27 @@ namespace Hsenl {
             if (!this.Enable)
                 return;
 
-            if (!this._navMeshAgent.isOnNavMesh)
+            if (!this.IsOnNavMesh)
                 this._navMeshAgent.enabled = false;
 
             this._navMeshAgent.enabled = true;
 
-            if (this._navMeshAgent.isOnNavMesh) {
-                this._navMeshAgent.isStopped = false;
-                this._navMeshAgent.destination = point;
+            if (this.IsOnNavMesh) {
+                this.IsStopped = false;
+                this.Destination = point;
             }
         }
 
-        public static bool CheckIfPointWalkable(Vector3 point) {
-            return NavMesh.SamplePosition(point, out var hit, 1, NavMesh.AllAreas);
+        public bool SamplePathPosition(out NavMeshHit hit, float maxDistance, int areaMask = NavMesh.AllAreas) {
+            return this._navMeshAgent.SamplePathPosition(areaMask, maxDistance, out hit);
         }
-        
-        public static bool CheckIfPointWalkable(Vector3 point, out NavMeshHit hit) {
-            return NavMesh.SamplePosition(point, out hit, 1, NavMesh.AllAreas);
+
+        public static bool SamplePosition(Vector3 targetPosition, out NavMeshHit hit, float maxDistance, int areaMask = NavMesh.AllAreas) {
+            return NavMesh.SamplePosition(targetPosition, out hit, maxDistance, areaMask);
+        }
+
+        public bool CalculatePath(Vector3 targetPosition, NavMeshPath path) {
+            return this._navMeshAgent.CalculatePath(targetPosition, path);
         }
     }
 }

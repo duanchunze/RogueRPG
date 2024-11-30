@@ -23,6 +23,9 @@ namespace Hsenl {
                      "1、Hsenl/Compile and Copy..\n" +
                      "2、Yoo Assets构建\n" +
                      "3、打包\n" +
+                     "注意: " +
+                     "1、Launch场景里的Play Mode在打包时应该考虑设置为需要的选项" +
+                     "2、记得把测试用的快捷键删除" +
                      "如果我们的热更程序集发生了改变, 比如修改了引用, 记得执行 HybridCLR/Generate/All\n" +
                      "如果运行时, 有关于泛型missing的报错, 看他缺的什么, 把其dll添加patch metadata list中,\n" +
                      "    list在HybridCLRCompileEditor脚本的CopyMetadataAotDll函数中\n" +

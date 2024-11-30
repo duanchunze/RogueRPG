@@ -14,13 +14,9 @@ namespace Hsenl {
     // 原理: 赶在所有的子物体被唤醒前, 将其关闭, 然后再Start里, 统一按顺序开启. 因为是被唤醒前就被关闭了, 所以类似 OnDisable 也不会触发
     // 优点: 对于子物体来说, 不需要做任何额外操作, 也没有任何影响
     // 缺点: 需要对脚本执行顺序进行设置, 迁移脚本后, 可能需要对项目重新设置, but, 后来知道了下面这个api, 就不用麻烦的从编辑器设置了, 所以现在, 没什么缺点了
-    [DefaultExecutionOrder(-10)]
+    [DefaultExecutionOrder(-20)]
     [DisallowMultipleComponent]
     public class SortedAwake : MonoBehaviour {
-        public int delayAwake;
-
-        public UnityEvent onAwakeDone;
-
         private HashSet<GameObject> _inactives = new();
 
         private void Awake() {
@@ -35,15 +31,11 @@ namespace Hsenl {
 
                 go.SetActive(false);
             }
+
+            this.OpenInSequence();
         }
 
-        private IEnumerator Start() {
-            var delay = this.delayAwake;
-            while (delay > 0) {
-                delay--;
-                yield return null;
-            }
-
+        private void OpenInSequence() {
             for (int i = 0, len = this.transform.childCount; i < len; i++) {
                 var child = this.transform.GetChild(i);
                 if (child.GetComponent<SortedAwakeIgnore>()) continue;
@@ -60,10 +52,6 @@ namespace Hsenl {
                 if (this._inactives.Contains(child.gameObject)) continue;
                 child.gameObject.SetActive(true);
             }
-
-            yield return null;
-
-            this.onAwakeDone?.Invoke();
         }
     }
 

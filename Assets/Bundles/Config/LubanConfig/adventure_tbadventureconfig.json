@@ -14,11 +14,7 @@
       {
         "candidates": [
           {
-            "checkpoint_alias": "lv2",
-            "weight": 1
-          },
-          {
-            "checkpoint_alias": "lv3",
+            "checkpoint_alias": "lv5",
             "weight": 1
           }
         ]

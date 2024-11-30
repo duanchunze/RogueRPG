@@ -191,7 +191,7 @@ namespace Hsenl.Network {
 
                     this._channels.TryRemove(channelId, out var channel);
 
-                    Log.Info($"一个客户端从服务器断开 '{((TcpSocket)channel.UserToken).Socket.RemoteEndPoint}'! 现在有{{0}}个客户端在连接服务器", this._channels?.Count ?? 0);
+                    Log.Info($"一个客户端从服务器断开 '{((TcpSocket)channel.UserToken).Socket.RemoteEndPoint}'! 现在有{0}个客户端在连接服务器", this._channels?.Count ?? 0);
                     (channel.UserToken as TcpSocket)?.Dispose();
                     channel.Dispose();
                     this.ReturnChannel(channel);

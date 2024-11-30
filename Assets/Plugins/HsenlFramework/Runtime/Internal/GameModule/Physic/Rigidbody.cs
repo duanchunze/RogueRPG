@@ -3,7 +3,7 @@ using MemoryPack;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class Rigidbody : Unbodied {
         
     }

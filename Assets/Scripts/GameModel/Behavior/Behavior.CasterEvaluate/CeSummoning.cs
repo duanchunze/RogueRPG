@@ -31,7 +31,7 @@ namespace Hsenl {
                         return NodeStatus.Success;
                     }
 
-                    this.manager.status = CastEvaluateStatus.MoreThanMaxSummoningNum;
+                    this.manager.castEvaluateResult.CastEvaluateState = CastEvaluateState.MoreThanMaxSummoningNum;
                     break;
                 }
             }

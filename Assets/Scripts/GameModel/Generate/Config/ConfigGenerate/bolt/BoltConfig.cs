@@ -21,21 +21,17 @@ public sealed partial class BoltConfig :  Bright.Config.BeanBase
         { if(!_json["id"].IsNumber) { throw new SerializationException(); }  Id = _json["id"]; }
         { if(!_json["alias"].IsString) { throw new SerializationException(); }  Alias = _json["alias"]; }
         { if(!_json["shape"].IsNumber) { throw new SerializationException(); }  Shape = _json["shape"]; }
-        { if(!_json["center"].IsObject) { throw new SerializationException(); }  Center = hmath.Vector3.DeserializeVector3(_json["center"]);  }
         { if(!_json["size"].IsObject) { throw new SerializationException(); }  Size = hmath.Vector3.DeserializeVector3(_json["size"]);  }
-        { if(!_json["size_ratio"].IsNumber) { throw new SerializationException(); }  SizeRatio = _json["size_ratio"]; }
         { if(!_json["model_name"].IsString) { throw new SerializationException(); }  ModelName = _json["model_name"]; }
         PostInit();
     }
 
-    public BoltConfig(int id, string alias, int shape, hmath.Vector3 center, hmath.Vector3 size, float size_ratio, string model_name ) 
+    public BoltConfig(int id, string alias, int shape, hmath.Vector3 size, string model_name ) 
     {
         this.Id = id;
         this.Alias = alias;
         this.Shape = shape;
-        this.Center = center;
         this.Size = size;
-        this.SizeRatio = size_ratio;
         this.ModelName = model_name;
         PostInit();
     }
@@ -54,9 +50,7 @@ public sealed partial class BoltConfig :  Bright.Config.BeanBase
     /// </summary>
     public string Alias { get; private set; }
     public int Shape { get; private set; }
-    public hmath.Vector3 Center { get; private set; }
     public hmath.Vector3 Size { get; private set; }
-    public float SizeRatio { get; private set; }
     public string ModelName { get; private set; }
 
     public const int __ID__ = -1164417200;
@@ -64,14 +58,12 @@ public sealed partial class BoltConfig :  Bright.Config.BeanBase
 
     public  void Resolve(Dictionary<string, object> _tables)
     {
-        Center?.Resolve(_tables);
         Size?.Resolve(_tables);
         PostResolve();
     }
 
     public  void TranslateText(System.Func<string, string, string> translator)
     {
-        Center?.TranslateText(translator);
         Size?.TranslateText(translator);
     }
 
@@ -81,9 +73,7 @@ public sealed partial class BoltConfig :  Bright.Config.BeanBase
         + "Id:" + Id + ","
         + "Alias:" + Alias + ","
         + "Shape:" + Shape + ","
-        + "Center:" + Center + ","
         + "Size:" + Size + ","
-        + "SizeRatio:" + SizeRatio + ","
         + "ModelName:" + ModelName + ","
         + "}";
     }

@@ -123,8 +123,8 @@
         ScrollLock = 302, // 0x0000012E
         RightShift = 303, // 0x0000012F
         LeftShift = 304, // 0x00000130
-        RightControl = 305, // 0x00000131
-        LeftControl = 306, // 0x00000132
+        RightCtrl = 305, // 0x00000131
+        LeftCtrl = 306, // 0x00000132
         RightAlt = 307, // 0x00000133
         LeftAlt = 308, // 0x00000134
         RightApple = 309, // 0x00000135

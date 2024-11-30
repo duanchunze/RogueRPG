@@ -6,7 +6,7 @@
         INode CurrentNode { get; internal set; }
         void SetEntryNode(INode node);
         NodeStatus Tick();
-        void Reset();
+        void Start();
         void Abort();
     }
 

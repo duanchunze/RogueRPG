@@ -3,6 +3,6 @@ using MemoryPack;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class NavMeshAgent : Unbodied { }
 }

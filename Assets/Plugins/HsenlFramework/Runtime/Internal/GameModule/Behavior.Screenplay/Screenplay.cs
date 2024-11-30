@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using MemoryPack;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
 #endif
@@ -21,32 +22,19 @@ namespace Hsenl {
      * 以一个档案(record)为单位, 开启一个剧本, 每个剧本下具体哪些node, 可以随便添加
      */
     [Serializable]
-    public abstract class Screenplay<TRecord, TNode> : Unbodied, IBehaviorTree, IUpdate where TRecord : IRecord where TNode : INode {
+    [MemoryPackable(GenerateType.NoGenerate)]
+    public abstract partial class Screenplay<TRecord, TNode> : BehaviorTree<TNode>, IUpdate where TRecord : IRecord where TNode : INode {
 #if UNITY_EDITOR
         [ShowInInspector]
 #endif
+        [MemoryPackIgnore]
         protected TRecord record;
-
-#if UNITY_EDITOR
-        [ShowInInspector]
-#endif
-        protected TNode entryNode;
-
-        protected INode currentNode;
 
         private string _recordDir;
         private string _recordPath;
 
+        [MemoryPackIgnore]
         public ref TRecord Record => ref this.record;
-
-        public IBlackboard Blackboard => null;
-
-        public float DeltaTime { get; set; }
-
-        INode IBehaviorTree.CurrentNode {
-            get => this.currentNode;
-            set => this.currentNode = value;
-        }
 
         public void SetRecordPath(string dir, string recordName) {
             this._recordDir = dir;
@@ -79,67 +67,11 @@ namespace Hsenl {
             return true;
         }
 
-        void IBehaviorTree.SetEntryNode(INode node) {
-            this.SetEntryNode((TNode)node);
-        }
-
-        public void SetEntryNode(TNode node) {
-            this.entryNode?.DestroyNode();
-            this.entryNode = node;
-            if (node == null)
-                return;
-
-            this.entryNode.StartNode(this);
-            if (this.RealEnable) {
-                this.entryNode.OpenNode();
-            }
-        }
-
-        protected override void OnDeserializedOverall() {
-            this.entryNode?.StartNode(this);
-            if (this.RealEnable) {
-                this.entryNode?.OpenNode();
-            }
-        }
-
-        protected override void OnEnable() {
-            this.entryNode?.OpenNode();
-        }
-
-        protected override void OnDisable() {
-            this.Abort();
-            this.entryNode?.CloseNode();
-        }
-
-        protected override void OnDestroy() {
-            this.entryNode?.DestroyNode();
-        }
-
         internal override void OnDisposedInternal() {
             base.OnDisposedInternal();
             this.record = default;
-            this.Blackboard?.Clear();
-            this.entryNode = default;
-            this.currentNode = null;
             this._recordDir = null;
             this._recordPath = null;
-            this.DeltaTime = 0;
-        }
-
-        public NodeStatus Tick() {
-            if (this.entryNode == null)
-                return NodeStatus.Success;
-
-            var status = this.entryNode.TickNode();
-            return status;
-        }
-
-        public void Reset() {
-            this.entryNode?.ResetNode();
-        }
-
-        public void Abort() {
-            this.entryNode?.AbortNode();
         }
 
         public void Update() {

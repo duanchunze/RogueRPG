@@ -23,7 +23,7 @@ namespace Hsenl {
                     var status = abi.MainBodied.FindBodiedInIndividual<StatusBar>().GetStatus(StatusAlias.Wuqishou);
                     if (status is { IsEnter: true }) {
                         item.stageLine.BufferSpeed = 5.2f;
-                        item.stageLine.StageTillTime = 0;
+                        item.stageLine.TillTime = 0;
                         status.Finish();
                     }
 

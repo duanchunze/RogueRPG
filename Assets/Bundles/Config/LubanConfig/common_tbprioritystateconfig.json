@@ -1,0 +1,27 @@
+[
+  {
+    "alias": "施法评估",
+    "priority_state": {
+      "time_scale": 1,
+      "duration": -1,
+      "aisles": [
+        0
+      ],
+      "enter_pri": 1,
+      "obs_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 1,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_obs": [],
+      "sp_keep": [
+        8
+      ],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    }
+  }
+]

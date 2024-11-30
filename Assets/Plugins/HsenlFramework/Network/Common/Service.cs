@@ -141,6 +141,8 @@ namespace Hsenl.Network {
                 foreach (var kv in dict) {
                     array[index++] = (Tg)kv.Value;
                 }
+
+                return array;
             }
 
             array = Array.Empty<Tg>();

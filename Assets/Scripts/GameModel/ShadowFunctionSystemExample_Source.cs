@@ -60,6 +60,7 @@ namespace Hsenl {
         [ShadowFunction]
         public async HTask<int> Func4() {
             return await this.Func4Shadow(); // 带返回值的异步, 且AllowMultiShadowFuncs为false, 如果没实现影子函数, 调用会报错
+            
         }
 
         [ShadowFunction]

@@ -1,12 +1,27 @@
 ﻿using System;
 
 namespace Hsenl {
+    public enum PriorityStateEnterSuccType {
+        
+    }
+    
     public enum PriorityStateEnterFailType {
+        // 没对比者,
+        NoContraster,
+        
+        // 权限足够
+        PriorityOk,
+
+        // 被指定放行
+        SpecialPass,
+        
+        // ----- 上面是成功的类型
+        
         // 管理器为空
         PrioritiesIsNull,
 
-        // 不许重进
-        NoReentry,
+        // 已经存在
+        AlreadyExits,
 
         // 权限不够
         PriorityLow,
@@ -15,19 +30,16 @@ namespace Hsenl {
         SpecialIntercept,
     }
 
-    public interface IPriorityStateEnterFailDetails : IDisposable {
+    public struct PriorityStateEnterDetails {
+        /// <summary>
+        /// 失败原因
+        /// </summary>
         public PriorityStateEnterFailType FailType { get; set; }
-        public IPriorityState Blocker { get; set; } // 阻挡者
-    }
-
-    public class PriorityStateEnterFailDetails : IPriorityStateEnterFailDetails {
-        public PriorityStateEnterFailType FailType { get; set; }
+        
+        /// <summary>
+        /// 谁阻止我进入的
+        /// </summary>
         public IPriorityState Blocker { get; set; }
-
-        public void Dispose() {
-            this.FailType = 0;
-            this.Blocker = null;
-        }
     }
 
     public enum PriorityStateLeaveType {
@@ -42,11 +54,11 @@ namespace Hsenl {
         /// <summary>
         /// 离开的原因
         /// </summary>
-        public PriorityStateLeaveType leaveType;
+        public PriorityStateLeaveType LeaveType { get; set; }
 
         /// <summary>
         /// 导致离开的始作俑者
         /// </summary>
-        public IPriorityState initiator;
+        public IPriorityState Initiator { get; set; }
     }
 }

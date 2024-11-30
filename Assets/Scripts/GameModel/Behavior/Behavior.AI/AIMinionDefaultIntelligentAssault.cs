@@ -5,8 +5,9 @@ using MemoryPack;
 namespace Hsenl {
     [MemoryPackable]
     public partial class AIMinionDefaultIntelligentAssault : AIInfo<ai.MinionDefaultIntelligentAssaultInfo> {
+        private Minion _minion;
         private Numerator _numerator;
-        private Selector _selector;
+        private SelectorDefault _selector;
         private Faction _faction;
         private Control _control;
 
@@ -14,17 +15,13 @@ namespace Hsenl {
         private AbilitesBar _abiBar;
         private List<Caster> _casters = new();
 
-        private float breathingTime;
-        private float breathingTimer;
-        private bool BreathingDone => this.breathingTimer >= this.breathingTime;
-        private int ads; // 攻击欲望
-
         private Vector3 _prevPosition;
 
         protected override void OnEnable() {
             var owner = this.manager.Bodied.MainBodied;
+            this._minion = owner.GetComponent<Minion>();
             this._numerator = owner.GetComponent<Numerator>();
-            this._selector = owner.GetComponent<Selector>();
+            this._selector = owner.GetComponent<SelectorDefault>();
             this._faction = owner.GetComponent<Faction>();
             this._control = owner.GetComponent<Control>();
             this._statusBar = owner.FindBodiedInIndividual<StatusBar>();
@@ -37,12 +34,6 @@ namespace Hsenl {
                 this._abiBar.OnAbilityChanged += this.OnCardBarChanged;
                 this.OnCardBarChanged();
             }
-
-            this.ads = this._numerator.GetValue(NumericType.Ads);
-            this._numerator.OnNumericChanged += this.OnNumericChanged;
-
-            this.breathingTime = (100 - this.ads) / 10f;
-            this.breathingTimer = this.breathingTime;
         }
 
         protected override void OnDisable() {
@@ -58,10 +49,7 @@ namespace Hsenl {
         }
 
         private void OnNumericChanged(Numerator arg1, int numType, Num old, Num now) {
-            if (numType == (int)NumericType.Ads) {
-                this.ads = now;
-                this.breathingTime = (100 - this.ads) / 10f;
-            }
+            if (numType == (int)NumericType.Ads) { }
         }
 
         private void OnStatusAdd(Status status) {
@@ -81,85 +69,61 @@ namespace Hsenl {
             }
         }
 
-        private void OnAbilityChanged() {
-            this._casters.Clear();
-            for (int i = 0, len = this._abiBar.ExplicitAbilies.Count; i < len; i++) {
-                var ability = this._abiBar.ExplicitAbilies[i];
-                var controlTrigger = ability.GetComponent<ControlTrigger>();
-                if (controlTrigger == null) continue;
-                if (controlTrigger.ControlCode != (int)ControlCode.AutoTrigger) continue;
-                this._casters.Add(ability.GetComponent<Caster>());
-            }
-        }
-
-
         protected override bool Check() {
-            if (this._selector.PrimarySelection != null) {
-                // 计算距离, 超出侦查范围时, 清空目标
-                // var dis = math.distancesq(this._self.transform.position, this._selfSelections.PrimarySelection.transform.position);
-                // var srange = this._selfNumerator.GetValue(NumericType.Srange);
-                // if (dis > math.pow(srange, 2)) {
-                //     this._selfSelections.PrimarySelection = null;
-                // }
-
-                if (Shortcut.IsDead(this._selector.PrimarySelection.Bodied)) {
-                    this._selector.PrimarySelection = null;
-                }
-            }
-
-
-            if (this._selector.PrimarySelection == null) {
+            SelectionTargetDefault target = null;
+            // 如果主人有目标, 则优先以主人的目标
+            target = this._minion?.master?.GetComponent<SelectorDefault>()?.PrimaryTarget;
+            // 如果没主人目标, 则检测自己的目标
+            if (target == null)
+                target = this._selector.PrimaryTarget;
+            // 如果还没有目标, 则尝试侦查敌人
+            if (target == null) {
                 var constrainsTags = this._faction.GetTagsOfFactionType(FactionType.Enemy);
                 var srange = this._numerator.GetValue(NumericType.Srange);
                 var fov = this._numerator.GetValue(NumericType.Fov);
-                this._selector.PrimarySelection = this._selector
-                    .SearcherSectorBody(srange, fov)
-                    .FilterAlive()
-                    .FilterTags(constrainsTags, null)
-                    .FilterObstacles()
-                    .SelectNearest()
-                    .Target;
+                GameAlgorithm.SpyTarget(this._selector, srange, fov, constrainsTags, null);
             }
 
-            return this._selector.PrimarySelection != null;
+            if (target != null) {
+                if (Shortcut.IsDead(target.Bodied)) {
+                    target = null;
+                }
+            }
+
+            this._selector.PrimaryTarget = target;
+            return this._selector.PrimaryTarget != null;
         }
 
         protected override void Enter() { }
 
         protected override void Running() {
-            if (this.breathingTimer < this.breathingTime) {
-                this.breathingTimer += TimeInfo.DeltaTime;
-            }
+            if (!Timer.ClockTick(0.15f)) // 不需要每帧执行, 大概和人按键的速度差不多就行
+                return;
 
             foreach (var caster in this._casters) {
                 // 挨个评估每个施法器
                 var castEvaluateStatus = caster.Evaluate();
                 switch (castEvaluateStatus) {
-                    case CastEvaluateStatus.Success:
+                    case CastEvaluateState.Success:
+                        caster.StartCast();
                         // 如果一个攻击类技能评估成功, 则需要判断是否呼吸是否完成了
-                        if (caster.Tags.Contains(TagType.AbilityAttack)) {
-                            if (this.BreathingDone) {
-                                caster.CastStart();
-                            }
-                        }
+                        if (caster.Tags.Contains(TagType.AbilityAttack)) { }
 
                         break;
-                    case CastEvaluateStatus.PriorityStateEnterFailure:
+                    case CastEvaluateState.PriorityStateEnterFailure:
                         break;
-                    case CastEvaluateStatus.PickTargetFailure:
+                    case CastEvaluateState.PickTargetFailure:
                         // 选择目标失败, 距离不够, 可以选择靠近目标, 可以选择徘徊, 都行
-                        this._control.SetValue(ControlCode.MoveOfPoint, this._selector.PrimarySelection.transform.Position);
+                        Shortcut.SimulatePointMove(this._control, this._selector.PrimaryTarget.transform.Position);
                         break;
-                    case CastEvaluateStatus.Trying:
+                    case CastEvaluateState.Trying:
                         break;
-                    case CastEvaluateStatus.Cooldown:
+                    case CastEvaluateState.Cooldown:
                         break;
                 }
             }
         }
 
-        protected override void Exit() {
-            this._control.SetEnd(ControlCode.MoveOfPoint);
-        }
+        protected override void Exit() { }
     }
 }

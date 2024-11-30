@@ -8,18 +8,18 @@ namespace Hsenl {
         NodeType NodeType { get; }
         NodeStatus NowStatus { get; }
         INode Parent { get; internal set; }
-        void StartNode(IBehaviorTree tree);
+        void AwakeNode(IBehaviorTree tree);
         void OpenNode();
         NodeStatus TickNode();
         void CloseNode();
         void DestroyNode();
-        void ResetNode();
+        void StartNode();
         void AbortNode();
         Iterator<INode> ForeachChildren();
-        T GetNodeInParent<T>(bool once = false);
-        T GetNodeInChildren<T>(bool once = false);
-        T[] GetNodesInChildren<T>(bool once = false);
-        void GetNodesInChildren<T>(List<T> cache, bool once = false);
+        T GetNodeInParent<T>();
+        T GetNodeInChildren<T>();
+        T[] GetNodesInChildren<T>();
+        void GetNodesInChildren<T>(List<T> cache);
     }
 
     [MemoryPackable(GenerateType.NoGenerate)]

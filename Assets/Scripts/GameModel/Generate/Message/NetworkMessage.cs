@@ -18,6 +18,7 @@ namespace Hsenl {
     [MessageResponse]
     public partial struct R2C_Login : IRpcMessage {
         public int RpcId { get; set; }
+
         public string ip;
         public int token;
         public int uniqueId;

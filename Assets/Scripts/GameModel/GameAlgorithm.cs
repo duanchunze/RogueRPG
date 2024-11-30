@@ -28,5 +28,55 @@ namespace Hsenl {
             var value = Numerator.MergeCalculateValue(numerators, numericType, true);
             return value;
         }
+
+        public static void SpyTarget(SelectorDefault selector, float range, float fov, IReadOnlyBitlist constrainsTags, IReadOnlyBitlist exclusiveTags) {
+            selector.PrimaryTarget = selector
+                .SearcherSectorBody(range, fov)
+                .FilterAlive()
+                .FilterTags(constrainsTags, exclusiveTags)
+                .FilterObstacles()
+                .FilterThreat()
+                .SelectNearest()
+                .Target as SelectionTargetDefault;
+        }
+
+        public static ASelectionsSelect SelectTargets(SelectorDefault selector, float range, IReadOnlyBitlist constrainsTags, IReadOnlyBitlist exclusiveTags,
+            int count) {
+            var s = selector
+                .SearcherSphereBody(range)
+                .FilterAlive()
+                .FilterTags(constrainsTags, exclusiveTags)
+                .FilterObstacles()
+                .FilterThreat();
+            if (count == 1) {
+                return s.SelectNearest();
+            }
+
+            return s.SelectNearests(count);
+        }
+
+        public static ASelectionsSelect SelectBackForMeTargets(SelectorDefault selector, float range, IReadOnlyBitlist constrainsTags, IReadOnlyBitlist exclusiveTags,
+            int count) {
+            var s = selector
+                .SearcherSphereBody(range)
+                .FilterAlive()
+                .FilterBackToSelf()
+                .FilterTags(constrainsTags, exclusiveTags)
+                .FilterObstacles()
+                .FilterThreat();
+            if (count == 1) {
+                return s.SelectNearest();
+            }
+            else {
+                return s.SelectNearests(count);
+            }
+        }
+
+        /// <returns>true代表受到威胁</returns>
+        public static bool ComparisonThreat(Numerator numerator, Numerator other) {
+            var vig = numerator.GetValue(NumericType.Vigilant);
+            var threat = other.GetValue(NumericType.Threat);
+            return threat > (100 - vig);
+        }
     }
 }

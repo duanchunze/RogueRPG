@@ -478,6 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e62f42540d4c9fa9ae4e961ae81e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  expendEvent: 0
   dragTransform: {fileID: 4243107767488740317}
   dragLock: 0
   icon: {fileID: 3916340557431809273}
@@ -899,8 +900,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e37a845a961eef14a95f82a2d9fd8989, type: 2}
-  m_sharedMaterial: {fileID: -7882360652830877896, guid: e37a845a961eef14a95f82a2d9fd8989,
+  m_fontAsset: {fileID: 11400000, guid: bf37197eda9a3db4e89af110ba396fd0, type: 2}
+  m_sharedMaterial: {fileID: -7923078134447458831, guid: bf37197eda9a3db4e89af110ba396fd0,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

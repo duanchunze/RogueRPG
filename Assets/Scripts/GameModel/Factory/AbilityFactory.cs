@@ -1,5 +1,6 @@
 ﻿using System;
 using Hsenl.ability;
+using Hsenl.common;
 
 namespace Hsenl {
     public static class AbilityFactory {
@@ -17,19 +18,14 @@ namespace Hsenl {
 
             // 一个技能的组成:
             // 控制触发器, 优先器, 施法器, 阶段线, 技能本体. 根据情况不同, 可以不要控制器, 比如有些靠条件触发的技能, 比如卢安娜的飓风
-            var ability = entity.AddComponent<Ability>(initializeInvoke: abi => {
-                // 注意这里我们把abi的组合匹配改为手动了, 所以abi里写了很多关于匹配的代码
-                // 这么做的目的是为了让abi的组合更有针对性, 且让我们可以更灵活的控制abi的组合与解组
-                abi.CombinMatchMode = CombinMatchMode.Manual;
+            var ability = entity.AddComponent<Ability>();
+            ability.SetConfigId(config.Id);
+            ability.factionTypes.Clear();
+            foreach (var factionType in config.TargetTags) {
+                ability.factionTypes.Add(factionType);
+            }
 
-                abi.SetConfigId(config.Id);
-                abi.factionTypes.Clear();
-                foreach (var factionType in config.TargetTags) {
-                    abi.factionTypes.Add(factionType);
-                }
-            });
-
-            var pl = entity.AddComponent<ProcedureLine>();
+            entity.AddComponent<ProcedureLine>();
             var procedureLineNode = entity.AddComponent<ProcedureLineNode>();
 
             switch (config.Caster) {
@@ -37,7 +33,7 @@ namespace Hsenl {
                     entity.AddComponent<Caster>();
                     var controlTrigger = entity.AddComponent<ControlTrigger>();
                     controlTrigger.ControlCode = (int)controlCastInfo.Code;
-                    controlTrigger.supportContinue = controlCastInfo.SupportContinue;
+                    controlTrigger.supportBurstFire = controlCastInfo.SupportBurstFire;
                     break;
                 }
 
@@ -52,52 +48,85 @@ namespace Hsenl {
                         break;
 
                     entity.AddComponent<Caster>();
-                    var worker = ProcedureLineFactory.CreateWorker<PlwInfo>(config.CasterOfPlw);
+                    var worker = ProcedureLineFactory.CreateWorker<Plw>(config.CasterOfPlw);
                     procedureLineNode.AddWorker(worker);
                     break;
                 }
             }
 
-            if (entity.GetComponent<Caster>() != null) {
-                var evaluate = entity.AddComponent<CasterEvaluate>();
-                var entryNode = BehaviorNodeFactory.CreateNodeLink<CasterEvaluate>(config.CasterEvaluates);
-                evaluate.SetEntryNode(entryNode);
-            }
-
-            var numerator = entity.AddComponent<Numerator>();
-            foreach (var basicValueInfo in config.NumericInfos) {
-                switch (basicValueInfo.Sign) {
-                    case "f":
-                        numerator.SetValue(basicValueInfo.Type, basicValueInfo.Value);
-                        break;
-                    default:
-                        numerator.SetValue(basicValueInfo.Type, (long)basicValueInfo.Value);
-                        break;
+            entity.AddComponent<Numerator, AbilityConfig>(config, (c, cfg) => {
+                c.allowAttacherExpand = true;
+                foreach (var basicValueInfo in cfg.NumericInfos) {
+                    switch (basicValueInfo.Sign) {
+                        case "f":
+                            c.SetValue(basicValueInfo.Type, basicValueInfo.Value);
+                            break;
+                        default:
+                            c.SetValue(basicValueInfo.Type, (long)basicValueInfo.Value);
+                            break;
+                    }
                 }
+            });
+
+            var caster = entity.GetComponent<Caster>();
+            if (caster != null) {
+                var entryNode = BehaviorNodeFactory.CreateNodeLink<Caster>(config.CasterEvaluates);
+                caster.SetEntryNode(entryNode);
             }
 
-            entity.AddComponent<PriorityState>(initializeInvoke: state => {
-                state.timeScale = config.PriorityState.TimeScale;
-                state.duration = config.PriorityState.Duration;
-                state.aisles = config.PriorityState.Aisles.ToArray();
-                state.enterPriority = config.PriorityState.EnterPri;
-                state.resistPriorityAnchor = config.PriorityState.ResistPri;
-                state.keepPriority = config.PriorityState.KeepPri;
-                state.exclusionPriority = config.PriorityState.ExcluPri;
-                state.runPriority = config.PriorityState.RunPri;
-                state.disablePriority = config.PriorityState.DisPri;
-                ((IPriorityState)state).AddSpecialPassedOfLabels(config.PriorityState.SpPass);
-                ((IPriorityState)state).AddSpecialInterceptOfLabels(config.PriorityState.SpInter);
-                ((IPriorityState)state).AddSpecialKeepOfLabels(config.PriorityState.SpKeep);
-                ((IPriorityState)state).AddSpecialExclusionOfLabels(config.PriorityState.SpExclu);
-                ((IPriorityState)state).AddSpecialRunOfLabels(config.PriorityState.SpRun);
-                ((IPriorityState)state).AddSpecialDisableOfLabels(config.PriorityState.SpDis);
-                state.allowReenter = config.PriorityState.AllowReenter;
+            if (!string.IsNullOrEmpty(config.EvaluatePriorityState)) {
+                var pscfg = Tables.Instance.TbPriorityStateConfig.Get(config.EvaluatePriorityState);
+                entity.AddComponent<CastEvaluatePriorityState, PriorityStateConfig>(pscfg, (c, cfg) => {
+                    c.TimeScale = cfg.PriorityState.TimeScale;
+                    c.Duration = cfg.PriorityState.Duration;
+                    c.InitAisles(cfg.PriorityState.Aisles);
+                    c.InitPriorities(
+                        cfg.PriorityState.EnterPri,
+                        cfg.PriorityState.ObsPri,
+                        cfg.PriorityState.KeepPri,
+                        cfg.PriorityState.ExcluPri,
+                        cfg.PriorityState.RunPri,
+                        cfg.PriorityState.DisPri);
+
+                    var ips = (IPriorityState)c;
+                    ips.AddSpecialPassedOfLabels(cfg.PriorityState.SpPass);
+                    ips.AddSpecialObstructOfLabels(cfg.PriorityState.SpObs);
+                    ips.AddSpecialKeepOfLabels(cfg.PriorityState.SpKeep);
+                    ips.AddSpecialExclusionOfLabels(cfg.PriorityState.SpExclu);
+                    ips.AddSpecialRunOfLabels(cfg.PriorityState.SpRun);
+                    ips.AddSpecialDisableOfLabels(cfg.PriorityState.SpDis);
+                    c.allowReenter = cfg.PriorityState.AllowReenter;
+                });
+            }
+
+            entity.AddComponent<PriorityState, AbilityConfig>(config, (c, cfg) => {
+                c.TimeScale = cfg.PriorityState.TimeScale;
+                c.Duration = cfg.PriorityState.Duration;
+                c.InitAisles(cfg.PriorityState.Aisles);
+                c.InitPriorities(
+                    cfg.PriorityState.EnterPri,
+                    cfg.PriorityState.ObsPri,
+                    cfg.PriorityState.KeepPri,
+                    cfg.PriorityState.ExcluPri,
+                    cfg.PriorityState.RunPri,
+                    cfg.PriorityState.DisPri);
+
+                var ips = (IPriorityState)c;
+                ips.AddSpecialPassedOfLabels(cfg.PriorityState.SpPass);
+                ips.AddSpecialObstructOfLabels(cfg.PriorityState.SpObs);
+                ips.AddSpecialKeepOfLabels(cfg.PriorityState.SpKeep);
+                ips.AddSpecialExclusionOfLabels(cfg.PriorityState.SpExclu);
+                ips.AddSpecialRunOfLabels(cfg.PriorityState.SpRun);
+                ips.AddSpecialDisableOfLabels(cfg.PriorityState.SpDis);
+                c.allowReenter = cfg.PriorityState.AllowReenter;
             });
 
             var stageline = entity.AddComponent<StageLine>();
             stageline.SetEntryNode(new SelectorNode<ITimeLine, IStageNode>());
             foreach (var stageInfo in config.Stages) {
+                if (stageInfo.StageType == StageType.None)
+                    continue;
+
                 Stage stage = null;
                 foreach (var actionInfo in stageInfo.Actions) {
                     stage ??= new Stage {
@@ -105,7 +134,15 @@ namespace Hsenl {
                         Duration = stageInfo.Duration,
                     };
 
-                    var action = BehaviorNodeFactory.CreateNode<ITimeNode>(actionInfo);
+                    ITimeNode action;
+                    try {
+                        action = BehaviorNodeFactory.CreateNode<ITimeNode>(actionInfo);
+                    }
+                    catch (Exception e) {
+                        Log.Error(e);
+                        continue;
+                    }
+
                     stage.AddChild(action);
                 }
 
@@ -121,8 +158,13 @@ namespace Hsenl {
 
             // 技能的特性, 里面包含数值, worker等元素
             foreach (var traitAlias in config.Traits) {
-                var trait = AbilityTraitFactory.Create(traitAlias);
-                trait.SetParent(entity);
+                try {
+                    var trait = AbilityTraitFactory.Create(traitAlias);
+                    trait.SetParent(entity);
+                }
+                catch (Exception e) {
+                    Log.Error(e);
+                }
             }
 
             return ability;

@@ -37,7 +37,7 @@ namespace Hsenl {
         public INode Parent => this._parent;
 
         // 行为树的初始行为, 对其下所有子节点进行激活
-        public abstract void StartNode(IBehaviorTree tree);
+        public abstract void AwakeNode(IBehaviorTree tree);
 
         public abstract void OpenNode();
 
@@ -60,7 +60,7 @@ namespace Hsenl {
 
             if (this.NowStatus == NodeStatus.Running) {
                 if (oldStatus != NodeStatus.Running) {
-                    this.InternalRunStart();
+                    this.InternalRunBegin();
                 }
 
                 this.InternalRunning();
@@ -82,12 +82,12 @@ namespace Hsenl {
 
         public abstract void DestroyNode();
 
-        public abstract void ResetNode();
+        public abstract void StartNode();
 
         // 终止, 非自然终止, 由外部调用
         public abstract void AbortNode();
 
-        internal void InternalStart() {
+        internal void InternalAwake() {
             try {
                 this.OnAwake();
             }
@@ -135,7 +135,7 @@ namespace Hsenl {
             }
         }
 
-        internal void InternalRunStart() {
+        internal void InternalRunBegin() {
             this.manager.CurrentNode = this;
             try {
                 this.OnNodeRunStart();
@@ -187,9 +187,9 @@ namespace Hsenl {
             }
         }
 
-        internal void InternalReset() {
+        internal void InternalStart() {
             try {
-                this.OnReset();
+                this.OnStart();
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -247,24 +247,25 @@ namespace Hsenl {
          * OnNodeExit
          */
 
-        /// 可以看做是Awake, 当节点被添加到行为树的时候触发
+        /// 在标准情况下(自定义行为树的情况除外), 该事件在节点被添加到行为树的时候触发
         protected virtual void OnAwake() { }
 
-        /// 当节点被外部激活, 类比 OnEnable, 可以把初始化, 例如获取组件的代码写在这. 该函数在关键的时候被调用, 比如父级改变, 重新激活等情况时
+        /// 在标准情况下(自定义行为树的情况除外), 该事件应该跟随其所在的组件一同开启与关闭
         protected virtual void OnEnable() { }
 
-        /// 当节点被外部关闭, 类比 OnDisable
+        /// 与 OnEnable 同理
         protected virtual void OnDisable() { }
 
-        /// 当节点被外部重置, 比Open调用的频繁, 适合重置数据, 比如技能cd, 比如每次进入技能的时候, 调用该函数.
-        protected virtual void OnReset() { }
+        /// 在标准情况下, 不会主动调用该事件, 应由外部自行调用, 代表该行为树开始Tick
+        protected virtual void OnStart() { }
 
-        /// 当节点被终止时
+        /// 在标准情况下, 不会主动调用该事件, 应由外部自行调用, 代表该行为树终止Tick
         protected virtual void OnAbort() { }
         
-        /// 当节点从行为树移除时触发
+        /// 在标准情况下, 当所在组件被销毁时触发
         protected virtual void OnDestroy() { }
-
+        
+        // --- 下面的事件的名字都包含Node, 所以他们不像上面的事件都是全局事件, 同一个行为树下, 所有的Node都会同一时间触发事件, 下面这些事件每个Node触发的时间都不同.
 
         // 当节点评估, 返回的结果将决定还是否需要进入该节点
         // 如果评估为假, 则该节点会被跳过, 状态会被认为是 continue
@@ -291,25 +292,24 @@ namespace Hsenl {
         
         public abstract Iterator<INode> ForeachChildren();
 
-        public TNode GetNodeInParent<TNode>(bool once = false) {
+        public TNode GetNodeInParent<TNode>() {
             var parent = this.Parent;
             while (parent != null) {
                 if (parent is TNode t) {
                     return t;
                 }
 
-                if (once) break;
                 parent = parent.Parent;
             }
 
             return default;
         }
 
-        public abstract TNode GetNodeInChildren<TNode>(bool once = false);
+        public abstract TNode GetNodeInChildren<TNode>();
 
-        public abstract TNode[] GetNodesInChildren<TNode>(bool once = false);
+        public abstract TNode[] GetNodesInChildren<TNode>();
 
-        public abstract void GetNodesInChildren<TNode>(List<TNode> cache, bool once = false);
+        public abstract void GetNodesInChildren<TNode>(List<TNode> cache);
 
         public override string ToString() {
             return this.GetType().Name;

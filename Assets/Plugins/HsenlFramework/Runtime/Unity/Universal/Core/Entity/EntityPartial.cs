@@ -61,15 +61,15 @@ namespace Hsenl {
             ((IGameObjectReference)this).SetUnityReference(gameObject);
         }
 
-        internal partial void PartialOnParentChanged() {
+        internal partial void PartialOnParentChanged(bool worldPositionStays) {
             if (this.GameObject == null) return;
             if (this.parent == null) {
-                this.GameObject.transform.SetParent(null);
+                this.GameObject.transform.SetParent(null, worldPositionStays);
                 return;
             }
 
             var unityParent = this.parent.GameObject.transform;
-            this.GameObject.transform.SetParent(unityParent, false);
+            this.GameObject.transform.SetParent(unityParent, worldPositionStays);
         }
 
         internal partial void PartialOnActiveSelfChanged(bool act) {

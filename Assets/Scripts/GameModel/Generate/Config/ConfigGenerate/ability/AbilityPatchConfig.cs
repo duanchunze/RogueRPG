@@ -25,12 +25,15 @@ public sealed partial class AbilityPatchConfig :  Bright.Config.BeanBase
         { var __json0 = _json["repulsion_patchs"]; if(!__json0.IsArray) { throw new SerializationException(); } RepulsionPatchs = new System.Collections.Generic.List<string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string __v0;  { if(!__e0.IsString) { throw new SerializationException(); }  __v0 = __e0; }  RepulsionPatchs.Add(__v0); }   }
         { if(!_json["max_count"].IsNumber) { throw new SerializationException(); }  MaxCount = _json["max_count"]; }
         { if(!_json["lowest_lv"].IsNumber) { throw new SerializationException(); }  LowestLv = _json["lowest_lv"]; }
+        { var __json0 = _json["specials_lvs"]; if(!__json0.IsArray) { throw new SerializationException(); } SpecialsLvs = new System.Collections.Generic.List<int>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { int __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = __e0; }  SpecialsLvs.Add(__v0); }   }
+        { var __json0 = _json["specials_no_lvs"]; if(!__json0.IsArray) { throw new SerializationException(); } SpecialsNoLvs = new System.Collections.Generic.List<int>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { int __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = __e0; }  SpecialsNoLvs.Add(__v0); }   }
+        { var __json0 = _json["patch_candidates"]; if(!__json0.IsArray) { throw new SerializationException(); } PatchCandidates = new System.Collections.Generic.List<string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string __v0;  { if(!__e0.IsString) { throw new SerializationException(); }  __v0 = __e0; }  PatchCandidates.Add(__v0); }   }
         { var __json0 = _json["numeric_nodes"]; if(!__json0.IsArray) { throw new SerializationException(); } NumericNodes = new System.Collections.Generic.List<numeric.AttachValueInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { numeric.AttachValueInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = numeric.AttachValueInfo.DeserializeAttachValueInfo(__e0);  }  NumericNodes.Add(__v0); }   }
         { var __json0 = _json["workers"]; if(!__json0.IsArray) { throw new SerializationException(); } Workers = new System.Collections.Generic.List<procedureline.WorkerInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { procedureline.WorkerInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = procedureline.WorkerInfo.DeserializeWorkerInfo(__e0);  }  Workers.Add(__v0); }   }
         PostInit();
     }
 
-    public AbilityPatchConfig(int id, string alias, string target_ability, System.Collections.Generic.List<string> precondition_patchs, System.Collections.Generic.List<string> repulsion_patchs, int max_count, int lowest_lv, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes, System.Collections.Generic.List<procedureline.WorkerInfo> workers ) 
+    public AbilityPatchConfig(int id, string alias, string target_ability, System.Collections.Generic.List<string> precondition_patchs, System.Collections.Generic.List<string> repulsion_patchs, int max_count, int lowest_lv, System.Collections.Generic.List<int> specials_lvs, System.Collections.Generic.List<int> specials_no_lvs, System.Collections.Generic.List<string> patch_candidates, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes, System.Collections.Generic.List<procedureline.WorkerInfo> workers ) 
     {
         this.Id = id;
         this.Alias = alias;
@@ -39,6 +42,9 @@ public sealed partial class AbilityPatchConfig :  Bright.Config.BeanBase
         this.RepulsionPatchs = repulsion_patchs;
         this.MaxCount = max_count;
         this.LowestLv = lowest_lv;
+        this.SpecialsLvs = specials_lvs;
+        this.SpecialsNoLvs = specials_no_lvs;
+        this.PatchCandidates = patch_candidates;
         this.NumericNodes = numeric_nodes;
         this.Workers = workers;
         PostInit();
@@ -78,6 +84,18 @@ public sealed partial class AbilityPatchConfig :  Bright.Config.BeanBase
     /// </summary>
     public int LowestLv { get; private set; }
     /// <summary>
+    /// 指定在哪些等级才会出现
+    /// </summary>
+    public System.Collections.Generic.List<int> SpecialsLvs { get; private set; }
+    /// <summary>
+    /// 指定在哪些等级不会出现
+    /// </summary>
+    public System.Collections.Generic.List<int> SpecialsNoLvs { get; private set; }
+    /// <summary>
+    /// 包含的候选人补丁
+    /// </summary>
+    public System.Collections.Generic.List<string> PatchCandidates { get; private set; }
+    /// <summary>
     /// 附加的数值
     /// </summary>
     public System.Collections.Generic.List<numeric.AttachValueInfo> NumericNodes { get; private set; }
@@ -109,6 +127,9 @@ public sealed partial class AbilityPatchConfig :  Bright.Config.BeanBase
         + "RepulsionPatchs:" + Bright.Common.StringUtil.CollectionToString(RepulsionPatchs) + ","
         + "MaxCount:" + MaxCount + ","
         + "LowestLv:" + LowestLv + ","
+        + "SpecialsLvs:" + Bright.Common.StringUtil.CollectionToString(SpecialsLvs) + ","
+        + "SpecialsNoLvs:" + Bright.Common.StringUtil.CollectionToString(SpecialsNoLvs) + ","
+        + "PatchCandidates:" + Bright.Common.StringUtil.CollectionToString(PatchCandidates) + ","
         + "NumericNodes:" + Bright.Common.StringUtil.CollectionToString(NumericNodes) + ","
         + "Workers:" + Bright.Common.StringUtil.CollectionToString(Workers) + ","
         + "}";

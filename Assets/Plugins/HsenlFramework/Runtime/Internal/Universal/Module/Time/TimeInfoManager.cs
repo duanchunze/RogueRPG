@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 #endif
 
 namespace Hsenl {
+    // 时间信息要在逻辑代码之前被执行, 才能保证同一帧下, 时间信息的一致性
     [Serializable]
     public class TimeInfoManager : Singleton<TimeInfoManager> {
 #if UNITY_EDITOR
@@ -14,7 +15,7 @@ namespace Hsenl {
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
 #endif
-        private int _frameCount;
+        private int _frameCount = -1;
 
         private DateTime _dt1970;
 
@@ -61,7 +62,7 @@ namespace Hsenl {
 
         protected override void OnUnregister() {
             this._deltaTime = 0;
-            this._frameCount = 0;
+            this._frameCount = -1;
             this._now = 0;
             this._nowRaw = 0;
             this._time = 0;

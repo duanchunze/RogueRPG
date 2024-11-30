@@ -1,8 +1,10 @@
 ﻿using System;
+using MemoryPack;
 
 namespace Hsenl {
     [Serializable]
-    public class Harmable : Unbodied {
+    [MemoryPackable]
+    public partial class Harmable : Unbodied {
         
     }
 }

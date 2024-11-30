@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MemoryPack;
 using UnityEngine;
 
 namespace Hsenl {
@@ -10,15 +11,28 @@ namespace Hsenl {
     //    比如, 三个掉落物的权重分别为90, 1, 1, 那么90就会极大的积压另两个被随机到的概率. 效果就是, 每次掉落几乎都只掉落若干个90, 其他一个都没有
     // 3、也是固定掉落数, 大体上与第二种相同, 唯一区别就是不会重复, 例如上面的90, 1, 1, 当90被选中后, 就会从候选人中剔除, 造成的效果就是, 90几乎每一次都会被随机到, 但其他目标也会正常掉落
     [Serializable]
-    public class Dropable : Unbodied {
+    [MemoryPackable]
+    public partial class Dropable : Unbodied {
+        [MemoryPackInclude]
         private List<DropByWeight> _dropByWeights = new();
+
+        [MemoryPackInclude]
         private List<int> _weights = new();
+
+        [MemoryPackInclude]
         private List<DropByProbability> _dropByProbabilities = new();
+
+        [MemoryPackInclude]
         private Int2 _dropNumeberRange; // 可能掉落的物品的个数区间
+
+        [MemoryPackInclude]
         private List<int> _dropNumberWeights = new(); // 每个掉落个数的权重
+
+        [MemoryPackInclude]
         public int killExp = 10;
 
-        public Vector3 DropRange { get; private set; } = new (1, 1, 1);
+        [MemoryPackInclude]
+        public Vector3 DropRange { get; private set; } = new(1, 1, 1);
 
         public void AddPossibleDrop(DropByWeight dropByWeight) {
             this._dropByWeights.Add(dropByWeight);
@@ -83,7 +97,7 @@ namespace Hsenl {
                     var dropCount = RandomHelper.RandomInt32OfWeight(this._dropNumeberRange.x, this._dropNumeberRange.y, this._dropNumberWeights);
                     if (dropCount <= 0)
                         break;
-                    
+
                     var finalDrops = RandomHelper.RandomArrayOfWeight(this._dropByWeights, this._weights, dropCount);
 
                     var posMin = this.transform.Position - this.DropRange;
@@ -106,7 +120,7 @@ namespace Hsenl {
                     var dropCount = RandomHelper.RandomInt32OfWeight(this._dropNumeberRange.x, this._dropNumeberRange.y, this._dropNumberWeights);
                     if (dropCount <= 0)
                         break;
-                    
+
                     var finalDrops = RandomHelper.RandomArrayOfWeight(this._dropByWeights, this._weights, dropCount, 1);
 
                     var posMin = this.transform.Position - this.DropRange;
@@ -130,7 +144,8 @@ namespace Hsenl {
             }
         }
 
-        public class DropByWeight {
+        [MemoryPackable]
+        public partial class DropByWeight {
             public string name;
             public int id;
             public int weight;
@@ -138,7 +153,8 @@ namespace Hsenl {
             public bool stackable;
         }
 
-        public class DropByProbability {
+        [MemoryPackable]
+        public partial class DropByProbability {
             public string name;
             public int id;
             public float probability;

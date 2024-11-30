@@ -28,10 +28,11 @@ public sealed partial class StatusConfig :  Bright.Config.BeanBase
         { var __json0 = _json["tags"]; if(!__json0.IsArray) { throw new SerializationException(); } Tags = new System.Collections.Generic.List<TagType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (TagType)__e0.AsInt; }  Tags.Add(__v0); }   }
         { if(!_json["priority_state"].IsObject) { throw new SerializationException(); }  PriorityState = priority.StateInfo.DeserializeStateInfo(_json["priority_state"]);  }
         { if(!_json["main"].IsObject) { throw new SerializationException(); }  Main = status.StatusActionInfo.DeserializeStatusActionInfo(_json["main"]);  }
+        { var __json0 = _json["workers"]; if(!__json0.IsArray) { throw new SerializationException(); } Workers = new System.Collections.Generic.List<procedureline.WorkerInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { procedureline.WorkerInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = procedureline.WorkerInfo.DeserializeWorkerInfo(__e0);  }  Workers.Add(__v0); }   }
         PostInit();
     }
 
-    public StatusConfig(int id, string alias, string view_name, string desc, float duration, System.Collections.Generic.List<numeric.BasicValueInfo> numeric_infos, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes, System.Collections.Generic.List<TagType> tags, priority.StateInfo priority_state, status.StatusActionInfo main ) 
+    public StatusConfig(int id, string alias, string view_name, string desc, float duration, System.Collections.Generic.List<numeric.BasicValueInfo> numeric_infos, System.Collections.Generic.List<numeric.AttachValueInfo> numeric_nodes, System.Collections.Generic.List<TagType> tags, priority.StateInfo priority_state, status.StatusActionInfo main, System.Collections.Generic.List<procedureline.WorkerInfo> workers ) 
     {
         this.Id = id;
         this.Alias = alias;
@@ -43,6 +44,7 @@ public sealed partial class StatusConfig :  Bright.Config.BeanBase
         this.Tags = tags;
         this.PriorityState = priority_state;
         this.Main = main;
+        this.Workers = workers;
         PostInit();
     }
 
@@ -88,6 +90,7 @@ public sealed partial class StatusConfig :  Bright.Config.BeanBase
     /// 动作
     /// </summary>
     public status.StatusActionInfo Main { get; private set; }
+    public System.Collections.Generic.List<procedureline.WorkerInfo> Workers { get; private set; }
 
     public const int __ID__ = 177777264;
     public override int GetTypeId() => __ID__;
@@ -98,6 +101,7 @@ public sealed partial class StatusConfig :  Bright.Config.BeanBase
         foreach(var _e in NumericNodes) { _e?.Resolve(_tables); }
         PriorityState?.Resolve(_tables);
         Main?.Resolve(_tables);
+        foreach(var _e in Workers) { _e?.Resolve(_tables); }
         PostResolve();
     }
 
@@ -107,6 +111,7 @@ public sealed partial class StatusConfig :  Bright.Config.BeanBase
         foreach(var _e in NumericNodes) { _e?.TranslateText(translator); }
         PriorityState?.TranslateText(translator);
         Main?.TranslateText(translator);
+        foreach(var _e in Workers) { _e?.TranslateText(translator); }
     }
 
     public override string ToString()
@@ -122,6 +127,7 @@ public sealed partial class StatusConfig :  Bright.Config.BeanBase
         + "Tags:" + Bright.Common.StringUtil.CollectionToString(Tags) + ","
         + "PriorityState:" + PriorityState + ","
         + "Main:" + Main + ","
+        + "Workers:" + Bright.Common.StringUtil.CollectionToString(Workers) + ","
         + "}";
     }
     

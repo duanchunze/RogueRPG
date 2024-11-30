@@ -46,7 +46,7 @@
 //     /// 但需要特别注意：使用时，enum一定要从0开始，不然会造成内存浪费，比如，如果从1000开始，那么就会浪费1000/64，大概10个int大小的内存
 //     /// </summary>
 //     [Serializable]
-//     [MemoryPackable()]
+//     [MemoryPackable]
 //     public partial class BitList : IBitList, IReadOnlyBitList, IEnumerable<int> {
 //         protected const int DefaultLength = 64;
 //         protected const int SizeOfElement = 8;

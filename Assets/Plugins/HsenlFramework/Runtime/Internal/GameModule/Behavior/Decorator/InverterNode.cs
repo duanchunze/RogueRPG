@@ -4,7 +4,7 @@ using MemoryPack;
 namespace Hsenl {
     // 给子节点取反
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class InverterNode<TManager, TNode> : DecoratorNode<TManager, TNode> where TManager : IBehaviorTree where TNode : class, INode<TManager> {
         protected override bool OnNodeEvaluate() {
             return true;
@@ -27,6 +27,6 @@ namespace Hsenl {
     }
 
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class InverterNode : RepeaterNode<BehaviorTree, Node<BehaviorTree>> { }
 }

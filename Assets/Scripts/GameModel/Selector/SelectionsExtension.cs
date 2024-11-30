@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Hsenl {
     public static class SelectionsExtension {
-        public static ASelectionsSearcher SearcherSphereBody(this Selector self, float radius, int layerMask = 1 << Constant.ReceptorLayer) {
+        public static ASelectionsSearcher SearcherSphereBody(this SelectorDefault self, float radius, int layerMask = 1 << Constant.ReceptorLayer) {
             return self.SearcherSphereBody(self.transform.Position, radius, layerMask);
         }
 
-        public static ASelectionsSearcher SearcherSphereBody(this Selector self, Vector3 position, float radius, int layerMask = 1 << Constant.ReceptorLayer) {
+        public static ASelectionsSearcher SearcherSphereBody(this SelectorDefault self, Vector3 position, float radius, int layerMask = 1 << Constant.ReceptorLayer) {
             var searcher = self.GetSearcher<SearcherOfOverlapSphere>();
             searcher.position = position;
             searcher.radius = radius;
@@ -15,11 +16,12 @@ namespace Hsenl {
             return searcher;
         }
 
-        public static ASelectionsSearcher SearcherSectorBody(this Selector self, float radius, float angle, int layerMask = 1 << Constant.ReceptorLayer) {
+        public static ASelectionsSearcher SearcherSectorBody(this SelectorDefault self, float radius, float angle, int layerMask = 1 << Constant.ReceptorLayer) {
             return self.SearcherSectorBody(self.transform.Position, radius, self.transform.Forward, angle, layerMask);
         }
-        
-        public static ASelectionsSearcher SearcherSectorBody(this Selector self, Vector3 position, float radius, Vector3 dir, float angle, int layerMask = 1 << Constant.ReceptorLayer) {
+
+        public static ASelectionsSearcher SearcherSectorBody(this SelectorDefault self, Vector3 position, float radius, Vector3 dir, float angle,
+            int layerMask = 1 << Constant.ReceptorLayer) {
             var searcher = self.GetSearcher<SearcherOfOverlapSector>();
             searcher.position = position;
             searcher.radius = radius;
@@ -31,7 +33,7 @@ namespace Hsenl {
         }
 
         public static ASelectionsFilter FilterTags(this ASelections self, IReadOnlyBitlist constrainsTags, IReadOnlyBitlist exclusiveTags) {
-            var filter = self.selector.GetFilter<FilterOfTags>();
+            var filter = self.Selector.GetFilter<FilterOfTags>();
             filter.constrainsTags = constrainsTags;
             filter.exclusivesTags = exclusiveTags;
             self.Filter(filter);
@@ -39,7 +41,7 @@ namespace Hsenl {
         }
 
         public static ASelectionsFilter FilterTargets(this ASelections self, Bodied target) {
-            var filter = self.selector.GetFilter<FilterOfTargets>();
+            var filter = self.Selector.GetFilter<FilterOfTargets>();
             filter.targets ??= new();
             filter.targets.Clear();
             filter.targets.Add(target);
@@ -48,7 +50,7 @@ namespace Hsenl {
         }
 
         public static ASelectionsFilter FilterTargets(this ASelections self, IList<Bodied> targets) {
-            var filter = self.selector.GetFilter<FilterOfTargets>();
+            var filter = self.Selector.GetFilter<FilterOfTargets>();
             filter.targets ??= new();
             filter.targets.Clear();
             filter.targets.AddRange(targets);
@@ -57,118 +59,42 @@ namespace Hsenl {
         }
 
         public static ASelectionsFilter FilterAlive(this ASelections self) {
-            var filter = self.selector.GetFilter<FilterOfAlive>();
+            var filter = self.Selector.GetFilter<FilterOfAlive>();
+            self.Filter(filter);
+            return filter;
+        }
+
+        public static ASelectionsFilter FilterBackToSelf(this ASelections self) {
+            var filter = self.Selector.GetFilter<FilterOfBackToSelf>();
             self.Filter(filter);
             return filter;
         }
 
         public static ASelectionsFilter FilterObstacles(this ASelections self) {
-            var filter = self.selector.GetFilter<FilterOfObstacles>();
+            var filter = self.Selector.GetFilter<FilterOfObstacles>();
+            self.Filter(filter);
+            return filter;
+        }
+
+        public static ASelectionsFilter FilterThreat(this ASelections self) {
+            var filter = self.Selector.GetFilter<FilterOfThreat>();
             self.Filter(filter);
             return filter;
         }
 
         public static ASelectionsSelect SelectNearest(this ASelections self) {
-            var select = self.selector.GetSelect<SelectOfNearest>();
-            select.position = self.selector.transform.Position;
+            var select = self.Selector.GetSelect<SelectOfNearest>();
+            select.position = self.Selector.transform.Position;
             self.Select(select);
             return select;
         }
 
         public static ASelectionsSelect SelectNearests(this ASelections self, int count) {
-            var select = self.selector.GetSelect<SelectOfNearests>();
-            select.position = self.selector.transform.Position;
+            var select = self.Selector.GetSelect<SelectOfNearests>();
+            select.position = self.Selector.transform.Position;
             select.count = count;
             self.Select(select);
             return select;
         }
-
-        // // 球形范围内选择敌对的最近目标
-        // public static SelectionTarget SelectSphereNearestTarget(this Selector self, float radius, IReadOnlyBitlist constrainsTags = null,
-        //     IReadOnlyBitlist exclusiveTags = null) {
-        //     if (self.Enable == false) return null;
-        //     var searcher = self.GetSearcher<SearcherOfOverlapSphere>();
-        //     searcher.position = self.transform.Position;
-        //     searcher.radius = radius;
-        //     searcher.layerMask = 1 << Constant.BodyLayer;
-        //     var filterOfTags = self.GetFilter<FilterOfTags>();
-        //     filterOfTags.constrainsTags = constrainsTags;
-        //     filterOfTags.exclusivesTags = exclusiveTags;
-        //     var selector = self.GetSelect<SelectOfNearest>();
-        //     selector.position = searcher.position;
-        //     searcher.Obsolesce();
-        //     searcher.Search().Filter(filterOfTags).Select(selector);
-        //     return selector.Target;
-        // }
-        //
-        // public static SelectionTarget SelectShpereAliveNearestTarget(this Selector self, float radius, IReadOnlyBitlist constrainsTags = null,
-        //     IReadOnlyBitlist exclusiveTags = null) {
-        //     if (self.Enable == false) return null;
-        //     var searcher = self.GetSearcher<SearcherOfOverlapSphere>();
-        //     searcher.position = self.transform.Position;
-        //     searcher.radius = radius;
-        //     searcher.layerMask = 1 << Constant.BodyLayer;
-        //     var filterOfTags = self.GetFilter<FilterOfTags>();
-        //     filterOfTags.constrainsTags = constrainsTags;
-        //     filterOfTags.exclusivesTags = exclusiveTags;
-        //     var filterOfAlive = self.GetFilter<FilterOfAlive>();
-        //     var filterOfObstacles = self.GetFilter<FilterOfObstacles>();
-        //     var selector = self.GetSelect<SelectOfNearest>();
-        //     selector.position = searcher.position;
-        //     searcher.Obsolesce();
-        //     searcher.Search().Filter(filterOfTags).Filter(filterOfAlive).Filter(filterOfObstacles).Select(selector);
-        //     return selector.Target;
-        // }
-        //
-        // public static IReadOnlyList<SelectionTarget> SelectShpereAliveTargets(this Selector self, float radius, IReadOnlyBitlist constrainsTags = null,
-        //     IReadOnlyBitlist exclusiveTags = null) {
-        //     if (self.Enable == false) return null;
-        //     var searcher = self.GetSearcher<SearcherOfOverlapSphere>();
-        //     searcher.position = self.transform.Position;
-        //     searcher.radius = radius;
-        //     searcher.layerMask = 1 << Constant.BodyLayer;
-        //     var filterOfTags = self.GetFilter<FilterOfTags>();
-        //     filterOfTags.constrainsTags = constrainsTags;
-        //     filterOfTags.exclusivesTags = exclusiveTags;
-        //     var filterOfAlive = self.GetFilter<FilterOfAlive>();
-        //     searcher.Obsolesce();
-        //     searcher.Search().Filter(filterOfTags).Filter(filterOfAlive);
-        //     return filterOfAlive.Targets;
-        // }
-        //
-        // // 球形范围内, 敌对的, 活着的, 最近的若干个目标
-        // public static IReadOnlyList<SelectionTarget> SelectShpereAliveNearestTargets(this Selector self, float radius, int count,
-        //     IReadOnlyBitlist constrainsTags = null, IReadOnlyBitlist exclusiveTags = null) {
-        //     if (self.Enable == false) return null;
-        //     var searcher = self.GetSearcher<SearcherOfOverlapSphere>();
-        //     searcher.position = self.transform.Position;
-        //     searcher.radius = radius;
-        //     searcher.layerMask = 1 << Constant.BodyLayer;
-        //     var filterOfTags = self.GetFilter<FilterOfTags>();
-        //     filterOfTags.constrainsTags = constrainsTags;
-        //     filterOfTags.exclusivesTags = exclusiveTags;
-        //     var filterOfAlive = self.GetFilter<FilterOfAlive>();
-        //     var filterOfObstacles = self.GetFilter<FilterOfObstacles>();
-        //     var selector = self.GetSelect<SelectOfNearests>();
-        //     selector.position = searcher.position;
-        //     selector.count = count;
-        //     searcher.Obsolesce();
-        //     searcher.Search().Filter(filterOfTags).Filter(filterOfAlive).Filter(filterOfObstacles).Select(selector);
-        //     return selector.Targets;
-        // }
-        //
-        // // 球形范围内, 敌对的, 活着的, 最近的若干个目标
-        // public static int SelectShpereAliveNearestTargets(this Selector self, float radius, int count, IList<SelectionTarget> list,
-        //     IReadOnlyBitlist constrainsTags = null, IReadOnlyBitlist exclusiveTags = null) {
-        //     var targets = self.SelectShpereAliveNearestTargets(radius, count, constrainsTags, exclusiveTags);
-        //     var len = targets.Count;
-        //     if (len != 0) {
-        //         for (var i = 0; i < len; i++) {
-        //             list.Add(targets[i]);
-        //         }
-        //     }
-        //
-        //     return len;
-        // }
     }
 }

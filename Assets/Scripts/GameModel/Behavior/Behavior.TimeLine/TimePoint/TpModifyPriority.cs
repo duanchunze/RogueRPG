@@ -3,18 +3,18 @@ using MemoryPack;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpModifyPriority : TpInfo<timeline.ModifyPriorityInfo> {
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied) {
                 case Ability ability: {
-                    var priorityState = ability.GetComponent<IPriorityState>(true);
+                    var priorityState = ability.GetComponent<PriorityState>();
                     if (priorityState == null) return;
                     if (this.info.ResistPriority != -1) {
-                        priorityState.ResistPriority = this.info.ResistPriority;
+                        priorityState.ObstructPriority = this.info.ResistPriority;
                     }
                     else {
-                        priorityState.ResistPriority = priorityState.ResistPriorityAnchor;
+                        priorityState.ObstructPriority = priorityState.ObstructPriorityAnchor;
                     }
 
                     break;

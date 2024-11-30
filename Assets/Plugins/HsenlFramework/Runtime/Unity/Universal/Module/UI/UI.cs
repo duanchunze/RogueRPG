@@ -9,6 +9,7 @@ namespace Hsenl {
 
     public interface IUI {
         string Name { get; }
+        bool IsOpen { get; }
 
         internal void InternalOpen(UIOpenType openType, UnityEngine.Transform parent);
         internal void InternalClose();
@@ -19,8 +20,9 @@ namespace Hsenl {
         protected UIOpenType OpenType { get; private set; }
 
         public string Name => typeof(T).Name;
+        public bool IsOpen => this.gameObject.activeSelf;
 
-        private void Start() {
+        private void Awake() {
             this.OnCreate();
         }
 

@@ -5,8 +5,9 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Hsenl {
+    [ShadowFunction]
     [Serializable]
-    public class GameManager : SingletonComponent<GameManager>, IUpdate {
+    public partial class GameManager : SingletonComponent<GameManager>, IUpdate {
         public ProcedureLine ProcedureLine { get; private set; }
 
         [ShowInInspector, ReadOnly]
@@ -16,13 +17,9 @@ namespace Hsenl {
         private Actor _mainMan;
 
         [ShowInInspector, ReadOnly]
-        private Control _mainControl;
-
-        [ShowInInspector, ReadOnly]
         private UnityEngine.Transform _cameraFocus;
 
         public Actor MainMan => this._mainMan;
-        public Control MainControl => this._mainControl;
         public UnityEngine.Transform CameraFocus => this._cameraFocus;
         public IReadOnlyList<Control> ControlTargets => this._controlTargets;
 
@@ -34,7 +31,7 @@ namespace Hsenl {
 
         public void Update() {
             if (InputController.GetButtonDown(InputCode.P)) {
-                var monsterRefresh = UnityEngine.Object.FindObjectOfType<MonsterRefreshManager>();
+                var monsterRefresh = UnityEngine.Object.FindObjectOfType<MonsterRefresher>();
                 foreach (var actor in monsterRefresh.aliveHolder.GetComponent<EntityReference>().Entity.GetComponentsInChildren<Actor>()) {
                     var hurtable = actor.GetComponent<Hurtable>();
                     var damageForm = new PliHarmForm {
@@ -76,12 +73,24 @@ namespace Hsenl {
             Camera.main.GetComponent<FollowTarget>().targetTransform = tra;
         }
 
+        [ShadowFunction]
         public void SetMainMan(Actor mainMan) {
             this._mainMan = mainMan;
+            this.AddControlTarget(mainMan.GetComponent<Control>());
+            this.SetMainManShadow(mainMan);
         }
 
-        public void SetMainControl(Control unityControl) {
-            this._mainControl = unityControl;
+        public void DestroyMainMain() {
+            var mainMan = this._mainMan;
+            for (int i = this._controlTargets.Count - 1; i >= 0; i--) {
+                if (this._controlTargets[i].Entity == mainMan.Entity)
+                    this._controlTargets.RemoveAt(i);
+            }
+
+            this._mainMan = null;
+            if (mainMan is { IsDisposed: false }) {
+                Object.Destroy(mainMan.Entity);
+            }
         }
 
         public void AddControlTarget(Control unityControl) {

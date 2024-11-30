@@ -67,35 +67,77 @@ namespace Hsenl {
             }
 
             // 计算影响伤害相关的数值
-            switch (item.damageType) {
-                case DamageType.PhysicalDamage:
-                    if (item.harmNumerator != null) {
-                        item.dex += item.harmNumerator.GetValue(NumericType.Dex);
-                        item.pcrit += item.harmNumerator.GetValue(NumericType.Pcirt);
-                        item.pcit += item.harmNumerator.GetValue(NumericType.Pcit);
-                        item.pvamp += item.harmNumerator.GetValue(NumericType.Pvamp);
-                    }
+            {
+                switch (item.source) {
+                    case Status: {
+                        switch (item.damageType) {
+                            case DamageType.PhysicalDamage:
+                                if (item.harmNumerator != null) {
+                                    item.dex += item.harmNumerator.GetValue(NumericType.Dex);
+                                    item.pcrit += item.harmNumerator.GetValue(NumericType.Pcirt);
+                                    item.pcit += item.harmNumerator.GetValue(NumericType.Pcit);
+                                    item.pvamp += item.harmNumerator.GetValue(NumericType.Pvamp);
+                                }
 
-                    item.amr += item.hurtNumerator.GetValue(NumericType.Amr);
-                    item.eva += item.hurtNumerator.GetValue(NumericType.Eva);
-                    item.blk += item.hurtNumerator.GetValue(NumericType.Blk);
-                    break;
-                case DamageType.TrueDamage:
-                    break;
-                case DamageType.LightDamage:
-                    item.lrt = item.hurtNumerator.GetValue(NumericType.Lrt);
-                    break;
-                case DamageType.DarkDamage:
-                    item.drt = item.hurtNumerator.GetValue(NumericType.Drt);
-                    break;
-                case DamageType.FireDamage:
-                    item.frt = item.hurtNumerator.GetValue(NumericType.Frt);
-                    break;
-                case DamageType.IceDamage:
-                    item.irt = item.hurtNumerator.GetValue(NumericType.Irt);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                                item.amr += item.hurtNumerator.GetValue(NumericType.Amr);
+                                item.eva += item.hurtNumerator.GetValue(NumericType.Eva);
+                                item.blk += item.hurtNumerator.GetValue(NumericType.Blk);
+                                break;
+                            case DamageType.TrueDamage:
+                                break;
+                            case DamageType.LightDamage:
+                                item.lrt = item.hurtNumerator.GetValue(NumericType.Lrt);
+                                break;
+                            case DamageType.DarkDamage:
+                                item.drt = item.hurtNumerator.GetValue(NumericType.Drt);
+                                break;
+                            case DamageType.FireDamage:
+                                item.frt = item.hurtNumerator.GetValue(NumericType.Frt);
+                                break;
+                            case DamageType.IceDamage:
+                                item.irt = item.hurtNumerator.GetValue(NumericType.Irt);
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+
+                        break;
+                    }
+                    case Ability: {
+                        switch (item.damageType) {
+                            case DamageType.PhysicalDamage:
+                                if (item.harmNumerator != null) {
+                                    item.dex += GameAlgorithm.MergeCalculateNumeric(item.harmNumerator, item.sourceNumerator, NumericType.Dex);
+                                    item.pcrit += GameAlgorithm.MergeCalculateNumeric(item.harmNumerator, item.sourceNumerator, NumericType.Pcirt);
+                                    item.pcit += GameAlgorithm.MergeCalculateNumeric(item.harmNumerator, item.sourceNumerator, NumericType.Pcit);
+                                    item.pvamp += GameAlgorithm.MergeCalculateNumeric(item.harmNumerator, item.sourceNumerator, NumericType.Pvamp);
+                                }
+
+                                item.amr += item.hurtNumerator.GetValue(NumericType.Amr);
+                                item.eva += item.hurtNumerator.GetValue(NumericType.Eva);
+                                item.blk += item.hurtNumerator.GetValue(NumericType.Blk);
+                                break;
+                            case DamageType.TrueDamage:
+                                break;
+                            case DamageType.LightDamage:
+                                item.lrt = item.hurtNumerator.GetValue(NumericType.Lrt);
+                                break;
+                            case DamageType.DarkDamage:
+                                item.drt = item.hurtNumerator.GetValue(NumericType.Drt);
+                                break;
+                            case DamageType.FireDamage:
+                                item.frt = item.hurtNumerator.GetValue(NumericType.Frt);
+                                break;
+                            case DamageType.IceDamage:
+                                item.irt = item.hurtNumerator.GetValue(NumericType.Irt);
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+
+                        break;
+                    }
+                }
             }
 
             return ProcedureLineHandleResult.Success;

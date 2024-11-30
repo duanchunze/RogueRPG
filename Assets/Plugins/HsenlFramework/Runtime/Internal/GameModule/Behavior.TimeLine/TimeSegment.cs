@@ -20,8 +20,8 @@ namespace Hsenl {
                     return;
 
                 case TimePointModel.Percent:
-                    var currTime = this.manager.StageTime;
-                    var totalTime = this.manager.StageTillTime;
+                    var currTime = this.manager.Time;
+                    var totalTime = this.manager.TillTime;
                     if (totalTime < 0) {
                         realOrig = 0;
                         realDest = float.MaxValue;
@@ -53,7 +53,7 @@ namespace Hsenl {
             }
 
             this.GetRealValue(out var realOrig, out var realDest);
-            var currTime = this.manager.StageTime;
+            var currTime = this.manager.Time;
             return currTime >= realOrig && currTime <= realDest;
         }
 
@@ -69,7 +69,7 @@ namespace Hsenl {
         protected sealed override void OnNodeExit() {
             // 因为节点有可能被意外终止, 所以离开时要做判断, 看时间是不是真的到了
             this.GetRealValue(out _, out var realDest);
-            var currTime = this.manager.StageTime;
+            var currTime = this.manager.Time;
             if (currTime >= realDest) {
                 this.OnTimeSegmentTerminate(true);
             }

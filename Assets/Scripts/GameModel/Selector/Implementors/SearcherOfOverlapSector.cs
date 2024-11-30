@@ -21,9 +21,9 @@ namespace Hsenl {
             if (count == 0) return this;
 
             for (int i = 0; i < count; i++) {
-                var target = searchCaches[i].GetFrameworkComponent<SelectionTarget>();
+                var target = searchCaches[i].GetFrameworkComponent<SelectionTargetDefault>();
                 if (target == null) continue;
-                if (target.Bodied == this.selector.Bodied) continue;
+                if (target.Bodied == this.Selector.Bodied) continue;
                 var targetDir = target.transform.Position - this.position;
                 var targetAngle = Vector3.Angle(targetDir, this.dir);
                 if (targetAngle <= this.angle / 2) {

@@ -44,7 +44,7 @@ namespace Hsenl
         /// </summary>
         AbilityMove = 7,
         /// <summary>
-        /// 点击移动技能
+        /// 点移动技能
         /// </summary>
         AbilityMoveOfPoint = 8,
         /// <summary>
@@ -80,29 +80,33 @@ namespace Hsenl
         /// </summary>
         AbilityReading = 16,
         /// <summary>
+        /// 可移动施法技能
+        /// </summary>
+        AbilityCanCastOnMove = 17,
+        /// <summary>
         /// 状态tag
         /// </summary>
-        Status = 17,
+        Status = 18,
         /// <summary>
         /// 死亡状态
         /// </summary>
-        StatusDeath = 18,
+        StatusDeath = 19,
         /// <summary>
         /// 复活状态
         /// </summary>
-        StatusResurgence = 19,
+        StatusResurgence = 20,
         /// <summary>
         /// 受击硬直状态
         /// </summary>
-        StatusHitStun = 20,
+        StatusHitStun = 21,
         /// <summary>
         /// 控制类状态
         /// </summary>
-        StatusContorl = 21,
+        StatusContorl = 22,
         /// <summary>
         /// 已死亡
         /// </summary>
-        Dead = 22,
+        Dead = 23,
     }
 
 } 

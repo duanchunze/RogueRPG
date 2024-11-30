@@ -11,9 +11,9 @@ namespace Hsenl.View {
             
             list.AddRange(Tables.Instance.TbAbilityConfig.DataList);
             list.AddRange(Tables.Instance.TbAbilityPatchConfig.DataList);
-            list.AddRange(Tables.Instance.TbAbilityAssistConfig.DataList);
+            list.AddRange(Tables.Instance.TbPropConfig.DataList);
             
-            this.holder.NormalizeChildren(this.slotTemplate.transform, list.Count);
+            this.holder.MakeSureChildrenCount(this.slotTemplate.transform, list.Count);
             for (int i = 0; i < list.Count; i++) {
                 var slot = this.holder.GetChild(i).GetComponent<UICardPoolSlot>();
                 var config = list[i];

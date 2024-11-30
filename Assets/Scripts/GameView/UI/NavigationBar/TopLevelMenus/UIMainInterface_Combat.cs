@@ -12,16 +12,17 @@ namespace Hsenl.View {
         protected override void OnCreate() {
             this.combatButton.onClick.AddListener(() => {
                 var state = ProcedureManager.Procedure.GetState<ProcedureMainInterface_Combat>();
-                ProcedureManager.Procedure.ChangeState<ProcedureAdventure>(state.CurrentSelectHero);
+                var actor = state.TakeCurrentSelectHero();
+                if (actor != null) {
+                    ProcedureManager.Procedure.ChangeState<ProcedureAdventure>(actor);
+                }
             });
 
             this.practiceRoomButton.onClick.AddListener(() => {
-                var actor = ProcedureManager.Procedure.GetState<ProcedureMainInterface_Combat>().CurrentSelectHero;
-                var state = ProcedureManager.Procedure.GetState<ProcedurePracticeRoom>();
-                state.actor = actor;
-                state.sceneName = "PracticeRoom";
-                state.loadSceneMode = LoadSceneMode.Single;
-                ProcedureManager.Procedure.ChangeState<ProcedurePracticeRoom>();
+                var actor = ProcedureManager.Procedure.GetState<ProcedureMainInterface_Combat>().TakeCurrentSelectHero();
+                if (actor != null) {
+                    ProcedureManager.Procedure.ChangeState<ProcedurePracticeRoom>(actor);
+                }
             });
 
             this.leftButton.onClick.AddListener(() => {

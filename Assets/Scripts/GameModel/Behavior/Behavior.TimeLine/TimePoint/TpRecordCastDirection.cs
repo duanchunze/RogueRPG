@@ -12,7 +12,7 @@ namespace Hsenl {
                     if (owner == null)
                         break;
 
-                    var directions = this.manager.Blackboard.GetOrCreateData<List<Vector3>>("AbilityCastDirections");
+                    var directions = this.manager.Blackboard.GetOrCreateData<List<Vector3>>(BlackboardKeys.Cast.CastDirections);
                     directions.Clear();
                     foreach (var target in ability.targets) {
                         var dir = target.transform.Position - owner.transform.Position;

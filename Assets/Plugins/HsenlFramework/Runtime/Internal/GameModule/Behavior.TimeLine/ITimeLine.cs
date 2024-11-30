@@ -3,9 +3,10 @@
 namespace Hsenl {
     [MemoryPackable(GenerateType.NoGenerate)]
     public partial interface ITimeLine : IBehaviorTree {
-        public float StageTime { get; set; }
-        public float StageTillTime { get; set; }
+        public float Time { get; set; }
+        public float TillTime { get; set; }
         public float Speed { get; set; }
+        public float DeltaTime { get; set; }
     }
 
     [MemoryPackable(GenerateType.NoGenerate)]

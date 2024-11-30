@@ -2,7 +2,8 @@
 using MemoryPack;
 
 namespace Hsenl {
-    [MemoryPackable()]
+    // 与 ParalleSelectorNode 同理
+    [MemoryPackable]
     public partial class ParalleSequentialNode<TManager, TNode> : CompositeNode<TManager, TNode> 
         where TManager : class, IBehaviorTree where TNode : class, INode<TManager> {
         public override NodeType NodeType => NodeType.Composite;
@@ -67,6 +68,6 @@ namespace Hsenl {
         }
     }
 
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class ParalleSequentialNode : ParalleSequentialNode<BehaviorTree, Node<BehaviorTree>> { }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Hsenl {
@@ -13,6 +14,9 @@ namespace Hsenl {
         [Button("Click2")]
         public void Click2() { }
 
+        [Button("Click3")]
+        public void Click3() { }
+
         private void Start() {
             SceneManager.LoadScene("main", LoadSceneMode.Single);
             _logStopwatch = new("start");
@@ -20,19 +24,7 @@ namespace Hsenl {
             ShadowFunctionExampleInvocation.Invoke();
         }
 
-        private static Action a;
-        public int i;
-
-        private void Update() {
-            a += OnAction;
-            a.Invoke();
-            return;
-
-            void OnAction() {
-                a -= OnAction;
-                this.i++;
-            }
-        }
+        private void Update() { }
 
         private void OnDestroy() { }
     }

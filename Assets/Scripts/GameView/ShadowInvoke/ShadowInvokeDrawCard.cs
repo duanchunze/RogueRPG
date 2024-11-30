@@ -1,21 +1,27 @@
-﻿namespace Hsenl.View {
+﻿using System;
+
+namespace Hsenl.View {
     [ShadowFunction(typeof(InvokeStation))]
     public static partial class ShadowInvokeDrawCard {
         private static HTask _task;
 
         [ShadowFunction]
-        private static async Hsenl.HTask<bool> InvokeDrawCard(Hsenl.DrawCard drawCard)
-        {
+        private static async Hsenl.HTask<bool> InvokeDrawCard(Hsenl.DrawCard drawCard) {
             TimeInfo.TimeScale = 0;
             {
                 var ui = UIManager.SingleOpen<UIDrawCard>(UILayer.High);
-                ui.FillIn(drawCard);
+                _task = HTask.Create();
                 ui.onSelected = () => {
                     _task.SetResult(); //
                 };
+                try {
+                    ui.FillIn(drawCard);
+                }
+                catch (Exception e) {
+                    Log.Error(e);
+                }
             }
 
-            _task = HTask.Create();
             await _task;
 
             {

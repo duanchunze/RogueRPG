@@ -17,7 +17,7 @@ namespace Hsenl.View {
 
             var unlockHeroCandidates = UnlockCircumstance.Instance.heroUnlock;
             var len = allHeroCandidates.Count;
-            ui.holder.NormalizeChildren(ui.template, len);
+            ui.holder.MakeSureChildrenCount(ui.template, len);
 
             for (var i = 0; i < len; i++) {
                 var uiSlot = ui.holder.GetChild(i).GetComponent<UISelectHeroSlot>();

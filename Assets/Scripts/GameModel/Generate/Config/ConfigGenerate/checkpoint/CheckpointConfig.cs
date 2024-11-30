@@ -39,9 +39,6 @@ public sealed partial class CheckpointConfig :  Bright.Config.BeanBase
         return new checkpoint.CheckpointConfig(_json);
     }
 
-    /// <summary>
-    /// 这是ID
-    /// </summary>
     public int Id { get; private set; }
     /// <summary>
     /// 别名

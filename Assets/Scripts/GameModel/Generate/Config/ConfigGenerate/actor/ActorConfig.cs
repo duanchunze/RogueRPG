@@ -26,13 +26,14 @@ public sealed partial class ActorConfig :  Bright.Config.BeanBase
         { if(!_json["numeric_alias"].IsString) { throw new SerializationException(); }  NumericAlias = _json["numeric_alias"]; }
         { if(!_json["ai_alias"].IsString) { throw new SerializationException(); }  AiAlias = _json["ai_alias"]; }
         { var __json0 = _json["org_abilitys"]; if(!__json0.IsArray) { throw new SerializationException(); } OrgAbilitys = new System.Collections.Generic.List<string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string __v0;  { if(!__e0.IsString) { throw new SerializationException(); }  __v0 = __e0; }  OrgAbilitys.Add(__v0); }   }
+        { var __json0 = _json["org_status"]; if(!__json0.IsArray) { throw new SerializationException(); } OrgStatus = new System.Collections.Generic.List<string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string __v0;  { if(!__e0.IsString) { throw new SerializationException(); }  __v0 = __e0; }  OrgStatus.Add(__v0); }   }
         { var __json0 = _json["possible_drops_by_probability"]; if(!__json0.IsArray) { throw new SerializationException(); } PossibleDropsByProbability = new System.Collections.Generic.List<drops.DropByProbability>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { drops.DropByProbability __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = drops.DropByProbability.DeserializeDropByProbability(__e0);  }  PossibleDropsByProbability.Add(__v0); }   }
         { var __json0 = _json["possible_drops_by_weight"]; if(!__json0.IsArray) { throw new SerializationException(); } PossibleDropsByWeight = new System.Collections.Generic.List<drops.DropByWeightInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { drops.DropByWeightInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = drops.DropByWeightInfo.DeserializeDropByWeightInfo(__e0);  }  PossibleDropsByWeight.Add(__v0); }   }
         { if(!_json["possible_drop_number"].IsObject) { throw new SerializationException(); }  PossibleDropNumber = drops.DropNumberInfo.DeserializeDropNumberInfo(_json["possible_drop_number"]);  }
         PostInit();
     }
 
-    public ActorConfig(int id, string alias, string view_name, System.Collections.Generic.List<TagType> labels, string model_name, string numeric_alias, string ai_alias, System.Collections.Generic.List<string> org_abilitys, System.Collections.Generic.List<drops.DropByProbability> possible_drops_by_probability, System.Collections.Generic.List<drops.DropByWeightInfo> possible_drops_by_weight, drops.DropNumberInfo possible_drop_number ) 
+    public ActorConfig(int id, string alias, string view_name, System.Collections.Generic.List<TagType> labels, string model_name, string numeric_alias, string ai_alias, System.Collections.Generic.List<string> org_abilitys, System.Collections.Generic.List<string> org_status, System.Collections.Generic.List<drops.DropByProbability> possible_drops_by_probability, System.Collections.Generic.List<drops.DropByWeightInfo> possible_drops_by_weight, drops.DropNumberInfo possible_drop_number ) 
     {
         this.Id = id;
         this.Alias = alias;
@@ -42,6 +43,7 @@ public sealed partial class ActorConfig :  Bright.Config.BeanBase
         this.NumericAlias = numeric_alias;
         this.AiAlias = ai_alias;
         this.OrgAbilitys = org_abilitys;
+        this.OrgStatus = org_status;
         this.PossibleDropsByProbability = possible_drops_by_probability;
         this.PossibleDropsByWeight = possible_drops_by_weight;
         this.PossibleDropNumber = possible_drop_number;
@@ -85,6 +87,10 @@ public sealed partial class ActorConfig :  Bright.Config.BeanBase
     /// 初始技能
     /// </summary>
     public System.Collections.Generic.List<string> OrgAbilitys { get; private set; }
+    /// <summary>
+    /// 初始状态
+    /// </summary>
+    public System.Collections.Generic.List<string> OrgStatus { get; private set; }
     public System.Collections.Generic.List<drops.DropByProbability> PossibleDropsByProbability { get; private set; }
     public System.Collections.Generic.List<drops.DropByWeightInfo> PossibleDropsByWeight { get; private set; }
     public drops.DropNumberInfo PossibleDropNumber { get; private set; }
@@ -118,6 +124,7 @@ public sealed partial class ActorConfig :  Bright.Config.BeanBase
         + "NumericAlias:" + NumericAlias + ","
         + "AiAlias:" + AiAlias + ","
         + "OrgAbilitys:" + Bright.Common.StringUtil.CollectionToString(OrgAbilitys) + ","
+        + "OrgStatus:" + Bright.Common.StringUtil.CollectionToString(OrgStatus) + ","
         + "PossibleDropsByProbability:" + Bright.Common.StringUtil.CollectionToString(PossibleDropsByProbability) + ","
         + "PossibleDropsByWeight:" + Bright.Common.StringUtil.CollectionToString(PossibleDropsByWeight) + ","
         + "PossibleDropNumber:" + PossibleDropNumber + ","

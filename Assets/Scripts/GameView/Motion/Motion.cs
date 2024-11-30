@@ -12,6 +12,13 @@ namespace Hsenl.View {
 
         private static readonly int _stop = Animator.StringToHash("stop");
 
+        private bool _lock;
+
+        public bool Lock {
+            get => _lock;
+            set => this._lock = value;
+        }
+
         protected override void OnDestroy() {
             this.animation = null;
             this.animator = null;
@@ -40,6 +47,12 @@ namespace Hsenl.View {
                 this.animation.CrossFade(clipName, this.fadeLength);
             }
             else {
+                if (!reenter) {
+                    var state = this.animator.GetCurrentAnimatorStateInfo(0);
+                    if (state.IsName(clipName))
+                        return;
+                }
+
                 this.animator.SetTrigger(clipName);
                 this.animator.speed = speed;
             }

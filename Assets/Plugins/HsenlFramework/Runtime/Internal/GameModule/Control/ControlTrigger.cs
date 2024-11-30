@@ -6,25 +6,28 @@ using UnityEngine;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class ControlTrigger : Unbodied {
 #if UNITY_EDITOR
         [SerializeField]
 #endif
         [MemoryPackInclude]
-        protected int controlCode = 0;
+        protected int controlCode;
 
         [MemoryPackInclude]
-        public bool supportContinue;
+        public bool supportBurstFire;
 
         [MemoryPackIgnore]
         private Control _control;
 
         [MemoryPackIgnore]
-        public Action onBegin;
+        public Action onStart;
 
         [MemoryPackIgnore]
-        public Action onFinish;
+        public Action onSustain;
+
+        [MemoryPackIgnore]
+        public Action onEnd;
 
         [MemoryPackIgnore]
         public int ControlCode {
@@ -45,9 +48,9 @@ namespace Hsenl {
             }
 
             this.controlCode = 0;
-            this.supportContinue = false;
-            this.onBegin = null;
-            this.onFinish = null;
+            this.onStart = null;
+            this.onSustain = null;
+            this.onEnd = null;
         }
 
         public void SetControl(Control control, bool onlySet = false) {
@@ -76,16 +79,15 @@ namespace Hsenl {
         }
 
         protected virtual void Start() {
-            this.onBegin?.Invoke();
+            this.onStart?.Invoke();
         }
 
         protected virtual void Sustain() {
-            if (!this.supportContinue) return;
-            this.onBegin?.Invoke();
+            this.onSustain?.Invoke();
         }
 
         protected virtual void End() {
-            this.onFinish?.Invoke();
+            this.onEnd?.Invoke();
         }
 
         public bool GetValue(out Vector3 value) {

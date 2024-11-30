@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpDie : TpInfo<timeline.DieInfo> {
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied.MainBodied) {

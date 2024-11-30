@@ -1,6 +1,6 @@
 ﻿using MemoryPack;
 
 namespace Hsenl {
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class PlwCastOfHarmProbabilistic : PlwInfo<procedureline.HarmProbabilisticCastInfo> { }
 }

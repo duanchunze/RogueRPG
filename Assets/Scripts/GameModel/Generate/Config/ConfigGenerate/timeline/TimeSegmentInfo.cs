@@ -37,20 +37,20 @@ public abstract partial class TimeSegmentInfo :  timeline.TimeActionInfo
         string type = _json["$type"];
         switch (type)
         {
+            case "ContinuesPlayAnimInfo": return new timeline.ContinuesPlayAnimInfo(_json);
             case "MoveInfo": return new timeline.MoveInfo(_json);
             case "ModifyTagsInfo": return new timeline.ModifyTagsInfo(_json);
             case "ForceMovementInfo": return new timeline.ForceMovementInfo(_json);
             case "LeapInfo": return new timeline.LeapInfo(_json);
             case "JumpAttackInfo": return new timeline.JumpAttackInfo(_json);
             case "HarmOfColliderInfo": return new timeline.HarmOfColliderInfo(_json);
-            case "HarmOfSphereColliderInfo": return new timeline.HarmOfSphereColliderInfo(_json);
-            case "HarmOfBoxColliderInfo": return new timeline.HarmOfBoxColliderInfo(_json);
+            case "ContinuousHarmOfColliderInfo": return new timeline.ContinuousHarmOfColliderInfo(_json);
             case "TsStatusContinuousHarmInfo": return new timeline.TsStatusContinuousHarmInfo(_json);
             case "LiuXueInfo": return new timeline.LiuXueInfo(_json);
             case "RanshaoInfo": return new timeline.RanshaoInfo(_json);
             case "WenyiInfo": return new timeline.WenyiInfo(_json);
             case "WenyichuanboInfo": return new timeline.WenyichuanboInfo(_json);
-            case "DeadBodyVampirOfSphereColliderInfo": return new timeline.DeadBodyVampirOfSphereColliderInfo(_json);
+            case "DeadBodyVampirOfColliderInfo": return new timeline.DeadBodyVampirOfColliderInfo(_json);
             case "DeadAbortCheckInfo": return new timeline.DeadAbortCheckInfo(_json);
             default: throw new SerializationException();
         }

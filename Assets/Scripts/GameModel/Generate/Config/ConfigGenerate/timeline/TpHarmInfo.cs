@@ -38,6 +38,7 @@ public abstract partial class TpHarmInfo :  timeline.TimePointInfo
             case "HarmOfTargetedBoltInfo": return new timeline.HarmOfTargetedBoltInfo(_json);
             case "HarmOfDirectionBoltInfo": return new timeline.HarmOfDirectionBoltInfo(_json);
             case "HarmOfPointBoltInfo": return new timeline.HarmOfPointBoltInfo(_json);
+            case "HarmOfLiuxingluoBoltInfo": return new timeline.HarmOfLiuxingluoBoltInfo(_json);
             case "HarmOfDibozhanBoltInfo": return new timeline.HarmOfDibozhanBoltInfo(_json);
             default: throw new SerializationException();
         }

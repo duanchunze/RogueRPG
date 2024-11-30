@@ -16,34 +16,29 @@ namespace Hsenl.localization
 
 public sealed partial class TbLocalizationAbilityPatchConfig
 {
+    private readonly Dictionary<string, localization.LocalizationAbilityPatchConfig> _dataMap;
     private readonly List<localization.LocalizationAbilityPatchConfig> _dataList;
     
-    private Dictionary<int, localization.LocalizationAbilityPatchConfig> _dataMap_id;
-    private Dictionary<string, localization.LocalizationAbilityPatchConfig> _dataMap_alias;
-
     public TbLocalizationAbilityPatchConfig(JSONNode _json)
     {
+        _dataMap = new Dictionary<string, localization.LocalizationAbilityPatchConfig>();
         _dataList = new List<localization.LocalizationAbilityPatchConfig>();
         
         foreach(JSONNode _row in _json.Children)
         {
             var _v = localization.LocalizationAbilityPatchConfig.DeserializeLocalizationAbilityPatchConfig(_row);
             _dataList.Add(_v);
+            _dataMap.Add(_v.Alias, _v);
         }
-        _dataMap_id = new Dictionary<int, localization.LocalizationAbilityPatchConfig>();
-        _dataMap_alias = new Dictionary<string, localization.LocalizationAbilityPatchConfig>();
-    foreach(var _v in _dataList)
-    {
-        _dataMap_id.Add(_v.Id, _v);
-        _dataMap_alias.Add(_v.Alias, _v);
-    }
         PostInit();
     }
 
+    public Dictionary<string, localization.LocalizationAbilityPatchConfig> DataMap => _dataMap;
     public List<localization.LocalizationAbilityPatchConfig> DataList => _dataList;
 
-    public localization.LocalizationAbilityPatchConfig GetById(int key) => _dataMap_id.TryGetValue(key, out localization.LocalizationAbilityPatchConfig __v) ? __v : null;
-    public localization.LocalizationAbilityPatchConfig GetByAlias(string key) => _dataMap_alias.TryGetValue(key, out localization.LocalizationAbilityPatchConfig __v) ? __v : null;
+    public localization.LocalizationAbilityPatchConfig GetOrDefault(string key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public localization.LocalizationAbilityPatchConfig Get(string key) => _dataMap[key];
+    public localization.LocalizationAbilityPatchConfig this[string key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {
@@ -61,7 +56,7 @@ public sealed partial class TbLocalizationAbilityPatchConfig
             v.TranslateText(translator);
         }
     }
-
+    
     
     partial void PostInit();
     partial void PostResolve();

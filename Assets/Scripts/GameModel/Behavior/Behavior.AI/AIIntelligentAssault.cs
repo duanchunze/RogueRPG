@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using MemoryPack;
 
 namespace Hsenl {
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class AIIntelligentAssault : AIInfo<ai.IntelligentAssaultInfo> {
         private Numerator _numerator;
-        private Selector _selector;
+        private SelectorDefault _selector;
         private Faction _faction;
         private Control _control;
 
@@ -15,8 +15,8 @@ namespace Hsenl {
         private List<Caster> _casters = new();
 
         private float breathingTime;
-        private float breathingTimer;
-        private bool BreathingDone => this.breathingTimer >= this.breathingTime;
+        private float breathingTillTime;
+        private bool BreathingDone => TimeInfo.Time >= this.breathingTillTime;
         private int ads; // 攻击欲望
 
         private Vector3 _prevPosition;
@@ -24,7 +24,7 @@ namespace Hsenl {
         protected override void OnEnable() {
             var owner = this.manager.Bodied.MainBodied;
             this._numerator = owner.GetComponent<Numerator>();
-            this._selector = owner.GetComponent<Selector>();
+            this._selector = owner.GetComponent<SelectorDefault>();
             this._faction = owner.GetComponent<Faction>();
             this._control = owner.GetComponent<Control>();
             this._statusBar = owner.FindBodiedInIndividual<StatusBar>();
@@ -42,7 +42,6 @@ namespace Hsenl {
             this._numerator.OnNumericChanged += this.OnNumericChanged;
 
             this.breathingTime = (100 - this.ads) / 10f;
-            this.breathingTimer = this.breathingTime;
         }
 
         protected override void OnDisable() {
@@ -94,7 +93,7 @@ namespace Hsenl {
 
 
         protected override bool Check() {
-            if (this._selector.PrimarySelection != null) {
+            if (this._selector.PrimaryTarget != null) {
                 // 计算距离, 超出侦查范围时, 清空目标
                 // var dis = math.distancesq(this._self.transform.position, this._selfSelections.PrimarySelection.transform.position);
                 // var srange = this._selfNumerator.GetValue(NumericType.Srange);
@@ -102,33 +101,27 @@ namespace Hsenl {
                 //     this._selfSelections.PrimarySelection = null;
                 // }
 
-                if (Shortcut.IsDead(this._selector.PrimarySelection.Bodied)) {
-                    this._selector.PrimarySelection = null;
+                if (Shortcut.IsDead(this._selector.PrimaryTarget.Bodied)) {
+                    this._selector.PrimaryTarget = null;
                 }
             }
 
 
-            if (this._selector.PrimarySelection == null) {
+            if (this._selector.PrimaryTarget == null) {
                 var constrainsTags = this._faction.GetTagsOfFactionType(FactionType.Enemy);
                 var srange = this._numerator.GetValue(NumericType.Srange);
                 var fov = this._numerator.GetValue(NumericType.Fov);
-                this._selector.PrimarySelection = this._selector
-                    .SearcherSectorBody(srange, fov)
-                    .FilterAlive()
-                    .FilterTags(constrainsTags, null)
-                    .FilterObstacles()
-                    .SelectNearest()
-                    .Target;
+                GameAlgorithm.SpyTarget(this._selector, srange, fov, constrainsTags, null);
             }
 
-            return this._selector.PrimarySelection != null;
+            return this._selector.PrimaryTarget != null;
         }
 
         protected override void Enter() { }
 
         protected override void Running() {
-            if (this.breathingTimer < this.breathingTime) {
-                this.breathingTimer += TimeInfo.DeltaTime;
+            if (TimeInfo.Time < this.breathingTillTime) {
+                return;
             }
 
             // if (Vector3.Distance(this._prevPosition, this._control.transform.Position) > 0.001f) {
@@ -139,40 +132,43 @@ namespace Hsenl {
             // this._prevPosition = this._control.transform.Position;
 
             var attackAbilityCastSuccess = false; // 是否成功释放了一个攻击类技能
-            foreach (var caster in this._casters) {
-                // 挨个评估每个施法器
-                var castEvaluateStatus = caster.Evaluate();
-                switch (castEvaluateStatus) {
-                    case CastEvaluateStatus.Success:
-                        // 如果一个攻击类技能评估成功, 则需要判断是否呼吸是否完成了
-                        if (caster.Tags.Contains(TagType.AbilityAttack)) {
-                            if (this.BreathingDone) {
-                                caster.CastStart();
-                                attackAbilityCastSuccess = true;
+            if (Timer.ClockTick(0.15f)) { // 不需要每帧执行, 大概和人按键的速度差不多就行
+                foreach (var caster in this._casters) {
+                    // 怪物会优先攻击指定的目标
+                    caster.castParameter.target = this._selector.PrimaryTarget;
+                    // 挨个评估每个施法器
+                    var castEvaluateStatus = caster.Evaluate();
+                    switch (castEvaluateStatus) {
+                        case CastEvaluateState.Success:
+                            // 如果一个攻击类技能评估成功, 则需要判断是否呼吸是否完成了
+                            if (caster.Tags.Contains(TagType.AbilityAttack)) {
+                                if (this.BreathingDone) {
+                                    caster.DirectStartCast();
+                                    attackAbilityCastSuccess = true;
+                                }
                             }
-                        }
 
-                        break;
-                    case CastEvaluateStatus.PriorityStateEnterFailure:
-                        break;
-                    case CastEvaluateStatus.PickTargetFailure:
-                        // 选择目标失败, 距离不够, 可以选择靠近目标, 可以选择徘徊, 都行
-                        this._control.SetValue(ControlCode.MoveOfPoint, this._selector.PrimarySelection.transform.Position);
-                        break;
-                    case CastEvaluateStatus.Trying:
-                        break;
-                    case CastEvaluateStatus.Cooldown:
-                        break;
+                            break;
+                        case CastEvaluateState.PriorityStateEnterFailure:
+                            break;
+                        case CastEvaluateState.HasObstacles:
+                        case CastEvaluateState.PickTargetFailure:
+                            // 选择目标失败, 距离不够, 可以选择靠近目标, 可以选择徘徊, 都行
+                            Shortcut.SimulatePointMove(this._control, this._selector.PrimaryTarget.transform.Position);
+                            break;
+                        case CastEvaluateState.Trying:
+                            break;
+                        case CastEvaluateState.Cooldown:
+                            break;
+                    }
                 }
             }
 
             if (attackAbilityCastSuccess) {
-                this.breathingTimer = 0;
+                this.breathingTillTime = TimeInfo.Time + this.breathingTime;
             }
         }
 
-        protected override void Exit() {
-            this._control.SetEnd(ControlCode.MoveOfPoint);
-        }
+        protected override void Exit() { }
     }
 }

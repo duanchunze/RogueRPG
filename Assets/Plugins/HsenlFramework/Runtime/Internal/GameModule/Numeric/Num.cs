@@ -7,10 +7,10 @@ using Sirenix.OdinInspector;
 
 namespace Hsenl {
     [Serializable]
-    public struct Num {
+    public struct Num : IEquatable<Num> {
         public const int Factor = 10000;
         public const float FactorFloat = 10000f;
-        
+
         public static Num Empty(byte type = 2) {
             return new Num { _type = type };
         }

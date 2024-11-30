@@ -18,16 +18,14 @@ public sealed partial class LocalizationAbilityPatchConfig :  Bright.Config.Bean
 {
     public LocalizationAbilityPatchConfig(JSONNode _json) 
     {
-        { if(!_json["id"].IsNumber) { throw new SerializationException(); }  Id = _json["id"]; }
         { if(!_json["alias"].IsString) { throw new SerializationException(); }  Alias = _json["alias"]; }
         { var __json0 = _json["name"]; if(!__json0.IsArray) { throw new SerializationException(); } Name = new System.Collections.Generic.Dictionary<string, string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string _k0;  { if(!__e0[0].IsString) { throw new SerializationException(); }  _k0 = __e0[0]; } string _v0;  { if(!__e0[1].IsString) { throw new SerializationException(); }  _v0 = __e0[1]; }  Name.Add(_k0, _v0); }   }
         { var __json0 = _json["desc"]; if(!__json0.IsArray) { throw new SerializationException(); } Desc = new System.Collections.Generic.Dictionary<string, string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string _k0;  { if(!__e0[0].IsString) { throw new SerializationException(); }  _k0 = __e0[0]; } string _v0;  { if(!__e0[1].IsString) { throw new SerializationException(); }  _v0 = __e0[1]; }  Desc.Add(_k0, _v0); }   }
         PostInit();
     }
 
-    public LocalizationAbilityPatchConfig(int id, string alias, System.Collections.Generic.Dictionary<string, string> name, System.Collections.Generic.Dictionary<string, string> desc ) 
+    public LocalizationAbilityPatchConfig(string alias, System.Collections.Generic.Dictionary<string, string> name, System.Collections.Generic.Dictionary<string, string> desc ) 
     {
-        this.Id = id;
         this.Alias = alias;
         this.Name = name;
         this.Desc = desc;
@@ -39,7 +37,6 @@ public sealed partial class LocalizationAbilityPatchConfig :  Bright.Config.Bean
         return new localization.LocalizationAbilityPatchConfig(_json);
     }
 
-    public int Id { get; private set; }
     public string Alias { get; private set; }
     public System.Collections.Generic.Dictionary<string, string> Name { get; private set; }
     public System.Collections.Generic.Dictionary<string, string> Desc { get; private set; }
@@ -59,7 +56,6 @@ public sealed partial class LocalizationAbilityPatchConfig :  Bright.Config.Bean
     public override string ToString()
     {
         return "{ "
-        + "Id:" + Id + ","
         + "Alias:" + Alias + ","
         + "Name:" + Bright.Common.StringUtil.CollectionToString(Name) + ","
         + "Desc:" + Bright.Common.StringUtil.CollectionToString(Desc) + ","

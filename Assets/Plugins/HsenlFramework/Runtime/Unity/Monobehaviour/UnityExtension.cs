@@ -4,8 +4,8 @@ using Transform = UnityEngine.Transform;
 
 namespace Hsenl {
     public static class UnityExtension {
-        // 规范子物体
-        public static void NormalizeChildren(this UnityEngine.Transform self, UnityEngine.Transform template, int count) {
+        // 确保子物体数量
+        public static void MakeSureChildrenCount(this UnityEngine.Transform self, UnityEngine.Transform template, int count) {
             if (self.childCount > count) {
                 for (var i = 0; i < self.childCount; i++) {
                     if (i < count) {

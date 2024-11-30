@@ -3,7 +3,7 @@
 namespace Hsenl.MultiCombiner {
     public class Status_TimeLine_Combiner : MultiCombiner<Status, TimeLine> {
         protected override void OnCombin(Status arg1, TimeLine arg2) {
-            arg1.onBegin += this.EnqueueAction<Action>(arg2.Reset);
+            arg1.onBegin += this.EnqueueAction<Action>(arg2.Start);
 
             arg1.onUpdate += this.EnqueueAction<Action<float>>(deltaTime => {
                 arg2.Run(deltaTime);

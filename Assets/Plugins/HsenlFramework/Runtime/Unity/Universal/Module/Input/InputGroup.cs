@@ -70,6 +70,7 @@ namespace Hsenl {
             this.onAnyInputEvent?.Invoke(this);
         }
 
+#if UNITY_EDITOR
         [Button("自动配置所有InputUnit"), ButtonGroup()]
         private void MatchAll() {
             foreach (var inputUnit in this.GetComponentsInChildren<InputUnit>()) {
@@ -83,5 +84,6 @@ namespace Hsenl {
                 inputUnit.Clear();
             }
         }
+#endif
     }
 }

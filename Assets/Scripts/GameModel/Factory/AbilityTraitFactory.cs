@@ -41,7 +41,7 @@ namespace Hsenl {
             if (config.Workers.Count != 0) {
                 var procedureLineNode = entity.AddComponent<ProcedureLineNode>();
                 foreach (var workerInfo in config.Workers) {
-                    var worker = ProcedureLineFactory.CreateWorker<PlwInfo>(workerInfo);
+                    var worker = ProcedureLineFactory.CreateWorker<Plw>(workerInfo);
                     procedureLineNode.AddWorker(worker);
                 }
             }

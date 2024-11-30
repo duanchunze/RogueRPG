@@ -6,7 +6,7 @@ using MemoryPack;
 namespace Hsenl {
     // 例如剑魔的平a
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpHarmOfTargeted : TpHarm<timeline.HarmOfTargetedInfo> {
         private Faction _faction;
 
@@ -33,9 +33,9 @@ namespace Hsenl {
             }
         }
 
-        private IEnumerator HarmTargets(SelectionTarget target, IList<FactionType> factionTypes, int count) {
+        private IEnumerator HarmTargets(SelectionTargetDefault target, IList<FactionType> factionTypes, int count) {
             const int maxBuffer = 3; // 每次波及时的最大缓冲数
-            const int internalTime = 250; // 每次波及的间隔时间(ms)
+            const int internalTime = 150; // 每次波及的间隔时间(ms)
             
             var constrainsTags = this._faction.GetTagsOfFactionTypes(factionTypes);
             using var currentTargets = ListComponent<SelectionTarget>.Rent();
@@ -72,11 +72,11 @@ namespace Hsenl {
                     if (count <= 0)
                         break;
 
-                    var targets = currentTarget.GetComponent<Selector>()?
+                    var targets = currentTarget.GetComponent<SelectorDefault>()?
                         .SearcherSphereBody(2.1f)
                         .FilterAlive()
                         .FilterTags(constrainsTags, null)
-                        .SelectNearests(-1).Targets;
+                        .SelectNearests(int.MaxValue).Targets;
 
                     if (targets == null)
                         continue;

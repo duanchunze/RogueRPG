@@ -9,7 +9,7 @@ namespace Hsenl {
     // 如果时间没到, 或者是无限时间, 则返回running
     // 相反, 则返回failure, 同时设为passed为true, 该阶段后续将不会再被执行
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class Stage : ParallelNode<ITimeLine, ITimeNode>, IStageNode {
 #if UNITY_EDITOR
         [ShowInInspector, PropertyOrder(-1)]
@@ -40,7 +40,7 @@ namespace Hsenl {
             this.stageLine = this.manager as StageLine;
         }
 
-        protected sealed override void OnReset() {
+        protected sealed override void OnStart() {
             this.passed = false;
         }
 
@@ -49,8 +49,8 @@ namespace Hsenl {
         }
 
         protected sealed override void OnNodeEnter() {
-            this.manager.StageTime = 0;
-            this.manager.StageTillTime = this.Duration;
+            this.manager.Time = 0;
+            this.manager.TillTime = this.Duration;
             this.stageLine.CurrentStage = this.StageType;
         }
 
@@ -64,11 +64,11 @@ namespace Hsenl {
         }
 
         protected sealed override void OnNodeRunning() {
-            if (this.manager.StageTillTime < 0) {
+            if (this.manager.TillTime < 0) {
                 return;
             }
 
-            if (this.manager.StageTime >= this.manager.StageTillTime) {
+            if (this.manager.Time >= this.manager.TillTime) {
                 this.passed = true;
             }
         }

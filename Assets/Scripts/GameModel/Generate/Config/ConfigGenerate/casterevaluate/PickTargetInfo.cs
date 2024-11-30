@@ -14,6 +14,9 @@ using SimpleJSON;
 namespace Hsenl.casterevaluate
 { 
 
+/// <summary>
+/// 如果没有主目标, 则挑选目标
+/// </summary>
 public sealed partial class PickTargetInfo :  casterevaluate.CasterEvaluateInfo 
 {
     public PickTargetInfo(JSONNode _json)  : base(_json) 

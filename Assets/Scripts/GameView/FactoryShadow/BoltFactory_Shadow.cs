@@ -7,7 +7,7 @@ namespace Hsenl.View {
     public static partial class BoltFactory_Shadow {
         [ShadowFunction]
         private static void CreateBolt(Bolt bolt) {
-            bolt.AddComponent<Model>();
+            bolt.Entity.AddComponent<Model>();
         }
     }
 }

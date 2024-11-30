@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using MemoryPack;
 
 namespace Hsenl {
     [Serializable]
-    public class MinionsBar : Unbodied {
+    [MemoryPackable]
+    public partial class MinionsBar : Unbodied {
         private List<Minion> _minions = new();
         private Entity _minionsHolder;
         private int _maxMinionCapacity;
 
         private Vector3[] _queuePointsCache;
 
+        [MemoryPackIgnore]
         public int MaxMinionCapacity {
             get => this._maxMinionCapacity;
             set {
@@ -21,6 +24,7 @@ namespace Hsenl {
             }
         }
 
+        [MemoryPackIgnore]
         public IReadOnlyList<Minion> Minions => this._minions;
 
         protected override void OnAwake() {
@@ -48,7 +52,12 @@ namespace Hsenl {
         public Minion Rent(string alias, Vector3 position) {
             var actor = ActorManager.Instance.Rent(alias, position);
             if (actor != null) {
-                var minion = actor.GetOrAddComponent<Minion>();
+                var minion = actor.GetComponent<Minion>();
+                if (minion == null) {
+                    minion = actor.Entity.AddComponent<Minion>();
+                    minion.Entity.Reactivation(); // 因为新添加了组件, 所以重置enable以更新下
+                }
+
                 minion.master = this.Bodied;
                 if (this._minions.Contains(minion)) {
                     Log.Error($"Minion is already haved '{minion.Name}'");

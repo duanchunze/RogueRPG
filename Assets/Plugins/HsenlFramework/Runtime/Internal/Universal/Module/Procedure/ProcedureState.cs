@@ -5,6 +5,22 @@ namespace Hsenl {
     public abstract class ProcedureState : IFsmState {
         private object _data;
         private HTask _task;
+        private bool _isEntering;
+        private bool _isLeaving;
+
+        bool IFsmState.IsEntering {
+            get => this._isEntering;
+            set => this._isEntering = value;
+        }
+
+        bool IFsmState.IsLeaving {
+            get => this._isLeaving;
+            set => this._isLeaving = value;
+        }
+
+        public bool IsEntering => this._isEntering;
+
+        public bool IsLeaving => this._isLeaving;
 
         void IFsmState.Init(IFsm fsm) {
             try {
@@ -15,9 +31,9 @@ namespace Hsenl {
             }
         }
 
-        void IFsmState.Enter(IFsm fsm, IFsmState prev) {
+        async HTask IFsmState.Enter(IFsm fsm, IFsmState prev) {
             try {
-                this.OnEnter(fsm, prev);
+                await this.OnEnter(fsm, prev);
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -33,9 +49,9 @@ namespace Hsenl {
             }
         }
 
-        void IFsmState.Leave(IFsm fsm, IFsmState next) {
+        async HTask IFsmState.Leave(IFsm fsm, IFsmState next) {
             try {
-                this.OnLeave(fsm, next);
+                await this.OnLeave(fsm, next);
             }
             catch (Exception e) {
                 Log.Error(e);
@@ -61,29 +77,28 @@ namespace Hsenl {
 
             return t;
         }
+        
+        /*
+         * 事件执行顺序
+         * -> 清空上个State
+         * -> 上个State开始OnLeave
+         * -> 上个State完成OnLeave
+         * -> 下个State开始OnEnter
+         * -> 下个State完成OnEnter
+         * -> 当前State赋值为下个State
+         * -> 下个State OnUpdate
+         */
 
         public virtual Type Group => null;
 
         protected virtual void OnInit(IFsm fsm) { }
 
-        protected abstract void OnEnter(IFsm fsm, IFsmState prev);
+        protected abstract HTask OnEnter(IFsm fsm, IFsmState prev);
 
         protected virtual void OnUpdate(IFsm fsm, float deltaTime) { }
 
-        protected abstract void OnLeave(IFsm fsm, IFsmState next);
+        protected abstract HTask OnLeave(IFsm fsm, IFsmState next);
 
         protected virtual void OnDestroy(IFsm fsm) { }
-
-        protected virtual void Wait() {
-            this._task = HTask.Create();
-        }
-
-        protected virtual void Done() {
-            this._task.SetResult();
-        }
-
-        public async HTask AsyncDone() {
-            await this._task;
-        }
     }
 }

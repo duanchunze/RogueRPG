@@ -1,68 +1,67 @@
 ﻿using System;
+using MemoryPack;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
 #endif
 
 namespace Hsenl {
+    // TimeLine采用的是ParallelNode, 所以其下的每个node都会被Tick, 所以每个node都可以时刻进行自己的计时.
     [Serializable]
-    public class TimeLine : BehaviorTree<ParallelNode<ITimeLine, ActionNode<ITimeLine>>>, ITimeLine {
+    [MemoryPackable]
+    public partial class TimeLine : BehaviorTree<ParallelNode<ITimeLine, ActionNode<ITimeLine>>>, ITimeLine {
 #if UNITY_EDITOR
         [ShowInInspector]
 #endif
+        [MemoryPackInclude]
         public TimePointRunModel runModel;
 
 #if UNITY_EDITOR
         [ShowInInspector]
 #endif
+        [MemoryPackIgnore]
         public int LoopCount { get; set; }
 
 #if UNITY_EDITOR
         [ShowInInspector]
 #endif
-        public float StageTime { get; set; }
+        [MemoryPackIgnore]
+        public float Time { get; set; }
 
 #if UNITY_EDITOR
         [ShowInInspector]
 #endif
-        public float StageTillTime { get; set; }
+        [MemoryPackIgnore]
+        public float TillTime { get; set; } // < 0代表始终运行
 
 #if UNITY_EDITOR
         [ShowInInspector]
 #endif
+        [MemoryPackInclude]
         public float Speed { get; set; } = 1f;
 
 #if UNITY_EDITOR
         [ShowInInspector]
 #endif
+        [MemoryPackIgnore]
         public bool IsFinish => this.runModel == TimePointRunModel.Once && this.LoopCount != 0;
 
-        public TimeLineModel TimeLineModel {
-            get {
-                return this.StageTillTime switch {
-                    < 0 => TimeLineModel.FiniteTime,
-                    > 0 => TimeLineModel.InfiniteTime,
-                    _ => TimeLineModel.Transient
-                };
-            }
-        }
-
-        public override void Reset() {
-            this.StageTime = 0;
+        public override void Start() {
+            this.Time = 0;
             this.LoopCount = 0;
-            this.entryNode.ResetNode();
+            this.entryNode.StartNode();
         }
 
         public void Run(float deltaTime) {
             if (this.IsFinish) return;
-            if (this.StageTillTime >= 0) {
-                if (this.StageTime > this.StageTillTime) {
+            if (this.TillTime >= 0) {
+                if (this.Time > this.TillTime) {
                     this.LoopCount++;
 
                     switch (this.runModel) {
                         case TimePointRunModel.Once:
                             return;
                         case TimePointRunModel.Loop:
-                            this.StageTime = 0;
+                            this.Time = 0;
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -72,7 +71,7 @@ namespace Hsenl {
 
             this.DeltaTime = deltaTime * this.Speed;
             this.Tick();
-            this.StageTime += this.DeltaTime;
+            this.Time += this.DeltaTime;
         }
     }
 }

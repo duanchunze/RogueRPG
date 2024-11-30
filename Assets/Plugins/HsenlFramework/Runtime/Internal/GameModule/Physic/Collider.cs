@@ -6,6 +6,6 @@ namespace Hsenl {
     [MemoryPackable(GenerateType.NoGenerate)]
     public abstract partial class Collider : Unbodied {
         [MemoryPackIgnore]
-        public Rigidbody Rigidbody { get; internal set; }
+        public Rigidbody Rigidbody => this.GetComponentInParent<Rigidbody>();
     }
 }

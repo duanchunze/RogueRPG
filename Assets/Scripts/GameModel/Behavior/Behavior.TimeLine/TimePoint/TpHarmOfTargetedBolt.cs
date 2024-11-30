@@ -6,7 +6,7 @@ using MemoryPack;
 namespace Hsenl {
     // 例如ez的平a
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpHarmOfTargetedBolt : TpHarm<timeline.HarmOfTargetedBoltInfo> {
         private string _boltBundleName;
 
@@ -32,14 +32,12 @@ namespace Hsenl {
                         var bolt = BoltManager.Instance.Rent(this._boltConfig, false);
                         var tspd = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Tspd);
                         var tsize = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Tsize);
-                        bolt.transform.LocalScale = new Vector3(tsize);
                         float speed = tspd + this.info.Speed;
                         if (speed <= 0) {
                             throw new Exception($"bolt speed is 0 or less of 0 '{speed}'");
                         }
 
-                        // Coroutine.Start(FireOfTargeted(bolt, this.harmable, hurtable, speed));
-                        this.Fire(bolt, hurtable, speed);
+                        this.Fire(bolt, hurtable, speed, tsize);
                     }
 
                     break;
@@ -47,13 +45,16 @@ namespace Hsenl {
             }
         }
 
-        private async void Fire(Bolt bolt, Hurtable hurtable, float speed) {
-            await FireToTarget(bolt, hurtable, this.harmable.transform.Position, speed);
+        private async void Fire(Bolt bolt, Hurtable hurtable, float speed, float tsize) {
+            await FireToTarget(bolt, hurtable, this.harmable.transform.Position, speed, tsize);
             this.Harm(hurtable, this.info.HarmFormula);
         }
 
-        public static async HTask FireToTarget(Bolt bolt, Hurtable hurtable, Vector3 origin, float speed) {
+        public static async HTask FireToTarget(Bolt bolt, Hurtable hurtable, Vector3 origin, float speed, float tsize) {
+            var config = bolt.Config;
+            var size = config.Size.ToVector3();
             bolt.transform.Position = origin;
+            bolt.transform.LocalScale = size * tsize;
             bolt.Entity.Active = true;
             var dis = Vector3.Distance(bolt.transform.Position, hurtable.transform.Position);
             var time = dis / speed;
@@ -65,6 +66,7 @@ namespace Hsenl {
                 var dir = hurtable.transform.Position - bolt.transform.Position;
                 var norDir = dir.normalized;
                 bolt.transform.Translate(norDir * speed * TimeInfo.DeltaTime);
+                bolt.transform.LocalScale = size * tsize;
                 if (Vector3.DistanceSquared(bolt.transform.Position, hurtable.transform.Position) < 0.1f) {
                     break;
                 }

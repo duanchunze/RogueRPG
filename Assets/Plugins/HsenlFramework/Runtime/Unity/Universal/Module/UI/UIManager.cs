@@ -68,6 +68,25 @@ namespace Hsenl {
             return ui;
         }
 
+        public static T SwitchSingleUI<T>(UILayer layer) where T : IUI {
+            var uiName = typeof(T).Name;
+            if (!Instance._singles.TryGetValue(uiName, out var ui)) {
+                var uiAsset = GetUIAssetSync(uiName);
+                var uiObj = (GameObject)UnityEngine.Object.Instantiate(uiAsset);
+                ui = uiObj.GetComponent<IUI>();
+                Assert.NullReference(ui, "cant get component");
+                Instance._singles[uiName] = ui;
+                ui.InternalOpen(UIOpenType.Single, Instance._layers[layer]);
+                return (T)ui;
+            }
+
+            if (ui.IsOpen)
+                ui.InternalClose();
+            else
+                ui.InternalOpen(UIOpenType.Single, Instance._layers[layer]);
+            return (T)ui;
+        }
+
         public static T MultiOpen<T>(UILayer layer) where T : IUI {
             return (T)MultiOpen(typeof(T).Name, layer);
         }

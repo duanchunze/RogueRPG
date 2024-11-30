@@ -2,10 +2,11 @@
 using MemoryPack;
 
 namespace Hsenl {
-    // selector node 和 sequential node都有一个共同特征, 如果有一个子节点处于Running状态, 那么其他的状态都不会被Tick
-    // 而ParalleSelectorNode就是在这个特征上修改为, 如果有一个子节点Running状态, 那么该节点前面的节点, 依然会被Tick
-    // ParalleSequentialNode同理.
-    [MemoryPackable()]
+    // selector node 和 sequential node都有一个共同特征, 如果有一个子节点处于Running状态, 那么其他的状态连Tick都不会被Tick.
+    // 而ParalleSelectorNode就是在这个特征上修改为, 如果有一个子节点Running状态, 那么该节点前面的节点, 依然会被Tick.
+    // 同时不同于单纯的ParalleNode, 该复合节点下同时最多只会有一个节点处于Running状态, 也就是说, 假如当前有一个Running的节点, 在下次Tick时, 其前面的某个节点返回了Running状态, 那么
+    // 当前节点会停止Running, 并由前面的节点进入Running状态.
+    [MemoryPackable]
     public partial class ParalleSelectorNode<TManager, TNode> : CompositeNode<TManager, TNode> 
         where TManager : class, IBehaviorTree where TNode : class, INode<TManager> {
         public override NodeType NodeType => NodeType.Composite;
@@ -71,6 +72,6 @@ namespace Hsenl {
         private void RunningLeave() { }
     }
 
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class ParalleSelectorNode : ParalleSelectorNode<BehaviorTree, Node<BehaviorTree>> { }
 }

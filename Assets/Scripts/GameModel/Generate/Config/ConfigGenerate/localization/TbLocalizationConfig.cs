@@ -16,34 +16,29 @@ namespace Hsenl.localization
 
 public sealed partial class TbLocalizationConfig
 {
+    private readonly Dictionary<string, localization.LocalizationConfig> _dataMap;
     private readonly List<localization.LocalizationConfig> _dataList;
     
-    private Dictionary<int, localization.LocalizationConfig> _dataMap_id;
-    private Dictionary<string, localization.LocalizationConfig> _dataMap_alias;
-
     public TbLocalizationConfig(JSONNode _json)
     {
+        _dataMap = new Dictionary<string, localization.LocalizationConfig>();
         _dataList = new List<localization.LocalizationConfig>();
         
         foreach(JSONNode _row in _json.Children)
         {
             var _v = localization.LocalizationConfig.DeserializeLocalizationConfig(_row);
             _dataList.Add(_v);
+            _dataMap.Add(_v.Alias, _v);
         }
-        _dataMap_id = new Dictionary<int, localization.LocalizationConfig>();
-        _dataMap_alias = new Dictionary<string, localization.LocalizationConfig>();
-    foreach(var _v in _dataList)
-    {
-        _dataMap_id.Add(_v.Id, _v);
-        _dataMap_alias.Add(_v.Alias, _v);
-    }
         PostInit();
     }
 
+    public Dictionary<string, localization.LocalizationConfig> DataMap => _dataMap;
     public List<localization.LocalizationConfig> DataList => _dataList;
 
-    public localization.LocalizationConfig GetById(int key) => _dataMap_id.TryGetValue(key, out localization.LocalizationConfig __v) ? __v : null;
-    public localization.LocalizationConfig GetByAlias(string key) => _dataMap_alias.TryGetValue(key, out localization.LocalizationConfig __v) ? __v : null;
+    public localization.LocalizationConfig GetOrDefault(string key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public localization.LocalizationConfig Get(string key) => _dataMap[key];
+    public localization.LocalizationConfig this[string key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {
@@ -61,7 +56,7 @@ public sealed partial class TbLocalizationConfig
             v.TranslateText(translator);
         }
     }
-
+    
     
     partial void PostInit();
     partial void PostResolve();

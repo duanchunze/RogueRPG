@@ -13,19 +13,15 @@ namespace Hsenl {
             switch (config.Shape) {
                 case 0: {
                     var collider = entity.AddComponent<SphereCollider>();
-                    collider.Center = config.Center.ToVector3();
-                    collider.Radius = config.Size.X;
                     collider.IsTrigger = true;
-                    bolt.AddComponent<CollisionEventListener>();
+                    bolt.Entity.AddComponent<CollisionEventListener>();
                     break;
                 }
 
                 case 1: {
                     var collider = entity.AddComponent<BoxCollider>();
-                    collider.Center = config.Center.ToVector3();
-                    collider.Size = config.Size.ToVector3();
                     collider.IsTrigger = true;
-                    bolt.AddComponent<CollisionEventListener>();
+                    bolt.Entity.AddComponent<CollisionEventListener>();
                     break;
                 }
 
@@ -33,6 +29,10 @@ namespace Hsenl {
                     break;
                 }
             }
+
+            var tra = bolt.transform;
+            var size = config.Size;
+            tra.LocalScale = new Vector3(size.X, size.Y, size.Z);
 
             CreateBolt(bolt);
 

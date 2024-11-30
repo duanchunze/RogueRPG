@@ -8,8 +8,9 @@
         }
 
         [ShadowFunction]
-        private static void OnLeave(ProcedureAdventure_ChangeScene self, IFsm fsm, IFsmState next) {
+        private static HTask OnLeave(ProcedureAdventure_ChangeScene self, IFsm fsm, IFsmState next) {
             UIManager.SingleClose<UISceneLoading>();
+            return default;
         }
     }
 }

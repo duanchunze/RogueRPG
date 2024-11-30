@@ -19,9 +19,12 @@ namespace Hsenl {
             _assemblies = AppDomain.CurrentDomain.GetAssemblies();
         }
 
-        public static Type GetType(string typeName) {
-            foreach (var assembly in _assemblies) {
-                var type = assembly.GetType(typeName);
+        public static Type GetType(string fullName, Assembly[] assemblies = null) {
+            if (assemblies == null)
+                assemblies = _assemblies;
+            
+            foreach (var assembly in assemblies) {
+                var type = assembly.GetType(fullName);
                 if (type != null) {
                     return type;
                 }
@@ -85,10 +88,13 @@ namespace Hsenl {
             return null;
         }
 
-        public static Type[] FindTypes(string typeName) {
+        public static Type[] FindTypes(string fullName, Assembly[] assemblies = null) {
+            if (assemblies == null)
+                assemblies = _assemblies;
+
             List<Type> types = new();
-            foreach (var ass in _assemblies) {
-                var type = ass.GetType(typeName);
+            foreach (var ass in assemblies) {
+                var type = ass.GetType(fullName);
                 if (type == null) continue;
                 types.Add(type);
             }
@@ -160,6 +166,9 @@ namespace Hsenl {
             foreach (var assembly in assemblies) {
                 var types = assembly.GetTypes();
                 foreach (var type in types) {
+                    if (type.Name == "SelectorDefault") {
+                        
+                    }
                     if (type.IsClass && type != typeBase && !type.IsAbstract && typeBase.IsAssignableFrom(type)) {
                         results.Add(type);
                     }
@@ -184,9 +193,13 @@ namespace Hsenl {
         /// 找到所有的继承自接口的子类
         /// </summary>
         /// <param name="interfaceType"></param>
+        /// <param name="assemblies"></param>
         /// <returns></returns>
-        public static Type[] GetDerivedTypesOfInterface(Type interfaceType) {
-            return _assemblies.SelectMany(a => a.GetTypes().Where(t => t.GetInterfaces().Contains(interfaceType)))
+        public static Type[] GetDerivedTypesOfInterface(Type interfaceType, Assembly[] assemblies = null) {
+            if (assemblies == null)
+                assemblies = _assemblies;
+            
+            return assemblies.SelectMany(a => a.GetTypes().Where(t => t.GetInterfaces().Contains(interfaceType)))
                 .ToArray();
         }
 

@@ -1,42 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector;
+
+// ReSharper disable HeuristicUnreachableCode
+#pragma warning disable CS0162 // 检测到不可到达的代码
 #endif
 
 namespace Hsenl {
     /*
-     * 影子系统可以在多线程中执行, 即便他什么锁都没加, 因为即便当重载时, 存在有多线程正在GetFunctions, 他获取的func依然是有效的, 只不过是旧的, 而当下次他再GetFunctions的时候, 获取的就是
-     * 新的, 在实际运行中, 这并不会造成什么影响.
+     * 影子系统可以在多线程中执行
      *
-     * 需要注意的是, Register与Unregister并不支持多线程, 但这些函数本就不是给用户使用的, 用户想调用他们, 也比较困难.
-     * 特别注意: ShadowFunctionManager中的所有的函数, 都不应该由用户调用, 应该由影子系统自行调用.
+     * 注意: ShadowFunctionManager中的所有的函数, 都不应该由用户调用, 应该由影子系统自行调用.
      */
     [Serializable]
     public class ShadowFunctionManager : Singleton<ShadowFunctionManager> {
+        // 每个源函数的唯一编号就等于其在列表中的索引, 获取速度比字典快7倍左右, 50w次执行快20ms左右(参考: 空转1ms, list 4ms, dict 24ms)
+        // todo 后续测试运行稳定后, 可以移除该参数, 并永久使用index作为key
+        private const bool UseIndex = true;
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly, HideLabel]
 #endif
-        private readonly Dictionary<uint, List<DelegateWrap>> _dictionary = new();
+        private readonly Dictionary<int, List<DelegateWrap>> _dictionary = new();
 
-        private readonly Dictionary<uint, string> _singleSourceFuncs = new();
+#if UNITY_EDITOR
+        [ShowInInspector, ReadOnly, HideLabel]
+#endif
+        private readonly List<List<DelegateWrap>> _list = new();
+
+        private readonly Dictionary<int, string> _singleSourceFuncs = new();
 
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly, HideLabel]
 #endif
         private readonly List<object> _shadowInstances = new();
 
+        private readonly object _locker = new();
+
         protected override void OnUnregister() { }
 
-        public void Register(uint hashcode, string assemblyName, string typeFullName, int priority, Delegate del) {
-            var shadowHashcode = (uint)HashCode.Combine(hashcode, assemblyName, typeFullName, priority);
-            if (!this._dictionary.TryGetValue(hashcode, out var list)) {
-                list = new List<DelegateWrap>() { new(priority, del, shadowHashcode) };
-                this._dictionary.Add(hashcode, list);
-                return;
+        public void Register(int hashcode, string assemblyName, string typeFullName, int priority, Delegate del) {
+            var id = HashCode.Combine(hashcode, assemblyName, typeFullName, priority);
+            List<DelegateWrap> list;
+            if (!UseIndex) {
+                if (!this._dictionary.TryGetValue(hashcode, out list)) {
+                    list = new List<DelegateWrap>() { new(priority, del, id) };
+                    this._dictionary.Add(hashcode, list);
+                    return;
+                }
+            }
+            else {
+                if (hashcode > 100000)
+                    throw new Exception("这个数有点过大, 可能是没和源生成器保持一致, 前者使用的是Hashcode模式, 而这里却使用了Index模式");
+
+                if (hashcode + 1 > this._list.Count) {
+                    for (int i = this._list.Count; i < hashcode + 1; i++) {
+                        this._list.Add(null);
+                    }
+                }
+
+                list = this._list[hashcode];
+                if (list == null) {
+                    list = new List<DelegateWrap>() { new(priority, del, id) };
+                    this._list[hashcode] = list;
+                    return;
+                }
             }
 
             if (this._singleSourceFuncs.TryGetValue(hashcode, out var uniqueName)) {
@@ -44,37 +73,101 @@ namespace Hsenl {
             }
 
             foreach (var wrap in list) {
-                if (wrap.HashCode == shadowHashcode) {
+                if (wrap.Id == id) {
                     // 应该不会出现完全重复的影子函数, 编译器都过不去
                     throw new Exception("Should not appear!");
                 }
             }
 
-            list.Add(new DelegateWrap(priority, del, shadowHashcode));
+            list.Add(new DelegateWrap(priority, del, id));
             list.Sort((wrap1, wrap2) => wrap1.Key.CompareTo(wrap2.Key));
         }
 
-        public bool Unregister(uint hashcode) {
-            return this._dictionary.Remove(hashcode);
+        public bool Unregister(int hashcode) {
+            if (!UseIndex) {
+                return this._dictionary.Remove(hashcode);
+            }
+            else {
+                if (hashcode >= this._list.Count)
+                    return false;
+                this._list[hashcode] = null;
+                return true;
+            }
         }
 
-        public bool Unregister(uint hashcode, string assemblyName, string typeFullName, int priority) {
-            var shadowHashcode = (uint)HashCode.Combine(hashcode, assemblyName, typeFullName, priority);
-            if (this._dictionary.TryGetValue(hashcode, out var list)) {
-                for (int i = 0, len = list.Count; i < len; i++) {
-                    var wrap = list[i];
-                    if (wrap.HashCode == shadowHashcode) {
-                        list.RemoveAt(i);
-                        break;
-                    }
+        public bool Unregister(int hashcode, string assemblyName, string typeFullName, int priority) {
+            var id = HashCode.Combine(hashcode, assemblyName, typeFullName, priority);
+            List<DelegateWrap> list;
+            if (!UseIndex) {
+                this._dictionary.TryGetValue(hashcode, out list);
+            }
+            else {
+                if (hashcode >= this._list.Count)
+                    return false;
+                list = this._list[hashcode];
+            }
+
+            if (list == null) return false;
+
+            for (int i = 0, len = list.Count; i < len; i++) {
+                var wrap = list[i];
+                if (wrap.Id == id) {
+                    list.RemoveAt(i);
+                    break;
                 }
+            }
+
+            if (list.Count == 0) {
+                this.Unregister(hashcode);
             }
 
             return false;
         }
 
-        public bool GetFunctions(uint hashcode, out List<DelegateWrap> dels) {
-            return this._dictionary.TryGetValue(hashcode, out dels!);
+        public bool GetFunctions(int hashcode, out List<DelegateWrap> dels) {
+            lock (this._locker) {
+                if (!UseIndex) {
+                    return this._dictionary.TryGetValue(hashcode, out dels!);
+                }
+                else {
+                    if (hashcode >= this._list.Count) {
+                        dels = null;
+                        return false;
+                    }
+
+                    dels = this._list[hashcode];
+                    return dels != null;
+                }
+            }
+        }
+
+        public bool GetFunction(int hashcode, out Delegate del) {
+            lock (this._locker) {
+                if (!UseIndex) {
+                    if (this._dictionary.TryGetValue(hashcode, out var dels)) {
+                        del = dels![0].Value;
+                        return true;
+                    }
+
+                    del = null;
+                    return false;
+                }
+                else {
+                    if (hashcode >= this._list.Count) {
+                        del = null;
+                        return false;
+                    }
+
+                    var dels = this._list[hashcode];
+                    if (dels == null) {
+                        del = null;
+                        return false;
+                    }
+
+                    del = dels[0].Value;
+                    return del != null;
+                }
+            }
         }
 
         [OnEventSystemInitialized, OnEventSystemReload]
@@ -98,15 +191,19 @@ namespace Hsenl {
                     if (!alreadyHandledAssembly.Add(type.Assembly))
                         continue;
 
-                    var singleSourceLookupTableType = type.Assembly.GetType($"{type.Assembly.GetName().Name}.SingleSourceFunctionLookupTable");
+                    var typeName = $"{type.Assembly.GetName().Name}.SFS_DC_SourceFunctionLookupTable_Single";
+                    var singleSourceLookupTableType = type.Assembly.GetType(typeName);
                     if (singleSourceLookupTableType != null) {
                         var o = Activator.CreateInstance(singleSourceLookupTableType);
                         if (singleSourceLookupTableType.GetField("lookupTable", BindingFlags.Public | BindingFlags.Instance)?.GetValue(o) is
-                            List<(uint hashcode, string uniqueName)> list) {
+                            List<(int hashcode, string uniqueName)> list) {
                             foreach (var tuple in list) {
                                 Instance._singleSourceFuncs.Add(tuple.hashcode, tuple.uniqueName);
                             }
                         }
+                    }
+                    else {
+                        Log.Error($"Can not find AutoCeneratorScript '{typeName}'");
                     }
                 }
             }
@@ -138,16 +235,16 @@ namespace Hsenl {
         public struct DelegateWrap {
             private readonly int _priority;
             private readonly Delegate _delegate;
-            private readonly uint _hashcode;
+            private readonly int _id;
 
             public int Key => this._priority;
             public Delegate Value => this._delegate;
-            public uint HashCode => this._hashcode;
+            public int Id => this._id;
 
-            public DelegateWrap(int priority, Delegate @delegate, uint hashcode) {
+            public DelegateWrap(int priority, Delegate @delegate, int id) {
                 this._priority = priority;
                 this._delegate = @delegate;
-                this._hashcode = hashcode;
+                this._id = id;
             }
         }
     }

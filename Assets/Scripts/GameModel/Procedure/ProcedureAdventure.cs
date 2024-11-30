@@ -5,11 +5,9 @@ namespace Hsenl {
     public partial class ProcedureAdventure : AProcedureState {
 
         [ShadowFunction]
-        protected override void OnEnter(IFsm fsm, IFsmState prev) {
+        protected override async HTask OnEnter(IFsm fsm, IFsmState prev) {
             var actor = this.GetData<Actor>();
             GameManager.Instance.SetMainMan(actor);
-            GameManager.Instance.SetMainControl(actor.GetComponent<Control>());
-            GameManager.Instance.AddControlTarget(actor.GetComponent<Control>());
             GameManager.Instance.SetCameraFocus(actor.UnityTransform);
             actor.Entity.DontDestroyOnLoadWithUnity();
 
@@ -17,14 +15,15 @@ namespace Hsenl {
             adv.SetRecord(new RcdDefaultCheckpointsAdventure() {
                 totalCheckpoint = adv.Config.Checkpoints.Count,
             });
-            adv.Begin();
+            adv.Start();
 
-            this.OnEnterShadow(fsm, prev);
+            await this.OnEnterShadow(fsm, prev);
         }
 
         [ShadowFunction]
-        protected override void OnLeave(IFsm fsm, IFsmState next) {
-            this.OnLeaveShadow(fsm, next);
+        protected override async HTask OnLeave(IFsm fsm, IFsmState next) {
+            await this.OnLeaveShadow(fsm, next);
+            GameManager.Instance.DestroyMainMain();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hsenl.numeric;
+using UnityEngine;
 
 namespace Hsenl {
     namespace EventType {
@@ -10,6 +11,63 @@ namespace Hsenl {
     }
 
     public static class Shortcut {
+        #region 常用方法
+
+        public static bool HasObstacles(Vector3 position1, Vector3 position2, int layerMask = 1 << 3) {
+            if (Physics.Linecast(position1, position2, layerMask)) {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool IsLookForTarget(Transform self, Transform target) {
+            var forward = self.Forward;
+            forward.y = 0;
+            var dir = target.transform.Position - self.Position;
+            dir.y = 0;
+            var angle = Vector3.Angle(forward, dir);
+            if (angle < 5f) {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool IsTargetInView(Transform self, Transform target, float view) {
+            var forward = self.Forward;
+            forward.y = 0;
+            var dir = target.transform.Position - self.Position;
+            dir.y = 0;
+            var angle = Vector3.Angle(forward, dir);
+            if (angle < view) {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 自己是否背对目标
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static bool IsBackForTarget(Transform self, Transform target) {
+            var targetDir = target.Position - self.Position;
+            var selfForward = self.Forward;
+            targetDir.y = 0;
+            selfForward.y = 0;
+            var angle = Vector3.Angle(targetDir, selfForward);
+            if (angle <= 100) {
+                return false;
+            }
+
+            return true;
+        }
+
+        #endregion
+
         #region Status Related
 
         /// <summary>
@@ -53,10 +111,10 @@ namespace Hsenl {
 
             status.inflictor = inflictor;
             if (duration > float.MinValue) {
-                status.GetComponent<TimeLine>().StageTillTime = duration;
+                status.GetComponent<TimeLine>().TillTime = duration;
             }
             else {
-                status.GetComponent<TimeLine>().StageTillTime = status.Config.Duration;
+                status.GetComponent<TimeLine>().TillTime = status.Config.Duration;
             }
 
             var numerator = status.GetComponent<Numerator>();
@@ -285,9 +343,46 @@ namespace Hsenl {
 
         #region Ability
 
-        public static bool IsAbilityAutoCast(Ability ability) {
+        public static ControlCode GetAbilityControlCodeOfAbilityBar(Ability ability) {
+            var abiBar = ability.FindScopeInParent<AbilitesBar>();
+            if (abiBar == null)
+                return ControlCode.None;
+
+            var abiIndex = -1;
+            for (int i = 0; i < abiBar.ExplicitAbilies.Count; i++) {
+                var abi = abiBar.ExplicitAbilies[i];
+                if (abi == ability)
+                    abiIndex = i;
+            }
+
+            if (abiIndex == -1)
+                return ControlCode.None;
+
+            switch (abiIndex) {
+                case 0:
+                    return ControlCode.Ability1;
+                case 1:
+                    return ControlCode.Ability2;
+                case 2:
+                    return ControlCode.Ability3;
+                case 3:
+                    return ControlCode.Ability4;
+                case 4:
+                    return ControlCode.Ability5;
+                case 5:
+                    return ControlCode.Ability6;
+            }
+
+            return ControlCode.None;
+        }
+
+        /// <returns>0: 非控制器触发, 1: 控制器自动触发, 2: 控制器主动触发</returns>
+        public static int GetAbilityCastMode(Ability ability) {
             var controlTrigger = ability.GetComponent<ControlTrigger>();
-            return controlTrigger.ControlCode == (int)ControlCode.AutoTrigger;
+            if (controlTrigger == null)
+                return 0;
+
+            return controlTrigger.ControlCode == (int)ControlCode.AutoTrigger ? 1 : 2;
         }
 
         public static void OpenAbilityAutoCast(Ability ability) {
@@ -298,8 +393,51 @@ namespace Hsenl {
 
         public static void CloseAbilityAutoCast(Ability ability) {
             var controlTrigger = ability.GetComponent<ControlTrigger>();
-            controlTrigger.ControlCode = (int)ControlCode.None;
+            controlTrigger.ControlCode = (int)GetAbilityControlCodeOfAbilityBar(ability);
             ability.FindScopeInParent<AbilitesBar>()?.Changed();
+        }
+
+        public static void SellCard(Bodied card) {
+            switch (card) {
+                case Ability ability: {
+                    var from = new PliSellCardForm() {
+                        card = ability
+                    };
+
+                    GameManager.Instance.ProcedureLine.StartLine(ref from);
+                    break;
+                }
+            }
+        }
+
+        public static void ResetAllAbilitiesCD(AbilitesBar abilitesBar) {
+            for (int i = 0; i < abilitesBar.Abilities.Count; i++) {
+                var abi = abilitesBar.Abilities[i];
+                abi.ResetCooldown();
+            }
+        }
+
+        #endregion
+
+        #region Control
+
+        public static void SimulatePointMove(Control control, Vector3 point) {
+            control.SetValue(ControlCode.MoveOfPoint, point);
+            control.SetStart(ControlCode.MoveOfPoint);
+        }
+
+        public static void SimulateDirectionMove(Control control, Vector3 point) {
+            control.SetValue(ControlCode.MoveOfDirection, point);
+            control.SetStart(ControlCode.MoveOfDirection);
+        }
+
+        public static void SimulateDirectionMoveEnd(Control control) {
+            control.SetEnd(ControlCode.MoveOfDirection);
+        }
+
+        public static void TurnAround(Control control, Vector3 direction) {
+            // 位移的时候, 也会同时转向, 所以利用位移进行转向, 移动非常小的距离, 以触发转向
+            SimulatePointMove(control, control.transform.Position + direction.normalized * 0.05f);
         }
 
         #endregion

@@ -21,15 +21,17 @@ public sealed partial class SplitBoltOnHitInfo :  procedureline.WorkerInfo
         { if(!_json["split_num"].IsNumber) { throw new SerializationException(); }  SplitNum = _json["split_num"]; }
         { if(!_json["bolt_alias"].IsString) { throw new SerializationException(); }  BoltAlias = _json["bolt_alias"]; }
         { if(!_json["speed"].IsNumber) { throw new SerializationException(); }  Speed = _json["speed"]; }
+        { if(!_json["size"].IsNumber) { throw new SerializationException(); }  Size = _json["size"]; }
         { if(!_json["radius"].IsNumber) { throw new SerializationException(); }  Radius = _json["radius"]; }
         PostInit();
     }
 
-    public SplitBoltOnHitInfo(int split_num, string bolt_alias, float speed, float radius )  : base() 
+    public SplitBoltOnHitInfo(int split_num, string bolt_alias, float speed, float size, float radius )  : base() 
     {
         this.SplitNum = split_num;
         this.BoltAlias = bolt_alias;
         this.Speed = speed;
+        this.Size = size;
         this.Radius = radius;
         PostInit();
     }
@@ -51,6 +53,10 @@ public sealed partial class SplitBoltOnHitInfo :  procedureline.WorkerInfo
     /// 弹道速度
     /// </summary>
     public float Speed { get; private set; }
+    /// <summary>
+    /// 大小
+    /// </summary>
+    public float Size { get; private set; }
     /// <summary>
     /// 分裂范围
     /// </summary>
@@ -76,6 +82,7 @@ public sealed partial class SplitBoltOnHitInfo :  procedureline.WorkerInfo
         + "SplitNum:" + SplitNum + ","
         + "BoltAlias:" + BoltAlias + ","
         + "Speed:" + Speed + ","
+        + "Size:" + Size + ","
         + "Radius:" + Radius + ","
         + "}";
     }

@@ -10,6 +10,7 @@ namespace Hsenl {
         private static void Cache() {
             _procedureTypeMap.Clear();
             foreach (var type in EventSystem.GetTypesOfAttribute(typeof(ProcedureLineWorkerAttribute))) {
+                if (type.IsAbstract) continue;
                 var infoType = type.BaseType?.GetGenericArguments()[0];
                 if (infoType == null) throw new Exception($"{type}'s base type is error");
                 _procedureTypeMap[infoType] = type;

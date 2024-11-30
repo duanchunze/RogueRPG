@@ -5,7 +5,7 @@
         protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHarmForm item, PlwCastOfHarmProbabilistic worker, object userToken) {
             var random = RandomHelper.NextFloat();
             if (random <= worker.info.Probability) {
-                worker.WorkerHolder.GetComponent<Caster>().CastStart(true);
+                worker.Component.GetComponent<Caster>().StartCastWithKeepTrying();
             }
 
             return ProcedureLineHandleResult.Success;

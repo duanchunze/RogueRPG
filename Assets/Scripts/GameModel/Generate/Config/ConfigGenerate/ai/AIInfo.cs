@@ -31,11 +31,14 @@ public abstract partial class AIInfo :  behavior.LeafNodeInfo
         string type = _json["$type"];
         switch (type)
         {
+            case "PlayerPickClosestTargetInfo": return new ai.PlayerPickClosestTargetInfo(_json);
             case "PlayerAutoCasterInfo": return new ai.PlayerAutoCasterInfo(_json);
             case "PatrolInfo": return new ai.PatrolInfo(_json);
             case "IntelligentAssaultInfo": return new ai.IntelligentAssaultInfo(_json);
             case "MinionDefaultIntelligentAssaultInfo": return new ai.MinionDefaultIntelligentAssaultInfo(_json);
+            case "MinionWuyiIntelligentAssaultInfo": return new ai.MinionWuyiIntelligentAssaultInfo(_json);
             case "FollowMaster": return new ai.FollowMaster(_json);
+            case "LoiterFollowMaster": return new ai.LoiterFollowMaster(_json);
             default: throw new SerializationException();
         }
     }

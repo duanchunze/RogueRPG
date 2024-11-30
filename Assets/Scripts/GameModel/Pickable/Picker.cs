@@ -1,21 +1,26 @@
 ﻿using System;
+using MemoryPack;
 
 namespace Hsenl {
     // 挂载该组件可以捡起拾取物
     [Serializable]
-    public class Picker : Unbodied {
+    [MemoryPackable]
+    public partial class Picker : Unbodied {
         private SphereCollider _collider;
 
+        [MemoryPackIgnore]
         public float Radius {
             get => this._collider.Radius;
             set => this._collider.Radius = value;
         }
 
+        [MemoryPackIgnore]
         public Vector3 Center {
             get => this._collider.Center;
             set => this._collider.Center = value;
         }
 
+        [MemoryPackIgnore]
         public Action<Pickable> onPickUp;
 
         protected override void OnAwake() {
@@ -26,7 +31,7 @@ namespace Hsenl {
             this._collider = ColliderManager.Instance.Rent<SphereCollider>("Picker Collider");
             this._collider.IsTrigger = true;
             this._collider.SetUsage(GameColliderPurpose.Picker);
-            this._collider.SetParent(this.Entity);
+            this._collider.SetParent(this.Entity, false);
             var listener = CollisionEventListener.Get(this._collider.Entity);
 
             listener.onTriggerEnter = this.OnTrigger;

@@ -3,7 +3,7 @@ using MemoryPack;
 
 namespace Hsenl {
     // 血量低于一定值
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class CeHealthLower : CeInfo<HealthLowerInfo> {
         private Numerator _numerator;
 

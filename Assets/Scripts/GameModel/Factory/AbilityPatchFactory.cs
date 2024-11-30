@@ -7,7 +7,6 @@ namespace Hsenl {
 
             var patch = entity.AddComponent<AbilityPatch>();
             patch.configId = config.Id;
-            patch.CombinMatchMode = CombinMatchMode.Manual;
 
             var numericNode = entity.AddComponent<Numeric>();
             foreach (var attachValueInfo in config.NumericNodes) {
@@ -32,7 +31,7 @@ namespace Hsenl {
 
             var procedureLineNode = entity.AddComponent<ProcedureLineNode>();
             foreach (var workerInfo in config.Workers) {
-                var worker = ProcedureLineFactory.CreateWorker<PlwInfo>(workerInfo);
+                var worker = ProcedureLineFactory.CreateWorker<Plw>(workerInfo);
                 procedureLineNode.AddWorker(worker);
             }
 

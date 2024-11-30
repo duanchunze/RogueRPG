@@ -6,13 +6,13 @@ namespace Hsenl {
     [Serializable]
     [MemoryPackable(GenerateType.NoGenerate)]
     public abstract partial class LeafNode<T> : Node<T> where T : IBehaviorTree {
-        public sealed override void StartNode(IBehaviorTree tree) {
+        public sealed override void AwakeNode(IBehaviorTree tree) {
             if (this.manager != null) throw new Exception("already has manager");
             if (tree == null) throw new ArgumentNullException(nameof(tree));
 
             this.manager = (T)tree;
             try {
-                this.InternalStart();
+                this.InternalAwake();
             }
             catch (Exception e) {
                 Log.Error($"<start node error> {e}");
@@ -50,9 +50,9 @@ namespace Hsenl {
             }
         }
 
-        public sealed override void ResetNode() {
+        public sealed override void StartNode() {
             try {
-                this.InternalReset();
+                this.InternalStart();
             }
             catch (Exception e) {
                 Log.Error($"<reset node error> {e}");
@@ -67,14 +67,14 @@ namespace Hsenl {
             return default;
         }
 
-        public sealed override TNode GetNodeInChildren<TNode>(bool once = false) {
+        public sealed override TNode GetNodeInChildren<TNode>() {
             return default;
         }
 
-        public sealed override TNode[] GetNodesInChildren<TNode>(bool once = false) {
+        public sealed override TNode[] GetNodesInChildren<TNode>() {
             return default;
         }
 
-        public sealed override void GetNodesInChildren<TNode>(List<TNode> cache, bool once = false) { }
+        public sealed override void GetNodesInChildren<TNode>(List<TNode> cache) { }
     }
 }

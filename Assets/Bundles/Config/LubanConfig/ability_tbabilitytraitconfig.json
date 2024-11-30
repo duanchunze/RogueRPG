@@ -5,8 +5,9 @@
     "numeric_nodes": [],
     "workers": [
       {
-        "$type": "AdditionalStatusOnAbilityDamageInfo2",
+        "$type": "ProbAdditionalStatusOnHarmInfo2",
         "status_alias": "流血",
+        "probabilistic": 1,
         "duration": 3,
         "action": {
           "$type": "LiuXueInfo",
@@ -35,8 +36,9 @@
     "numeric_nodes": [],
     "workers": [
       {
-        "$type": "AdditionalStatusOnAbilityDamageInfo",
-        "status_alias": "燃烧"
+        "$type": "ProbAdditionalStatusOnHarmInfo",
+        "status_alias": "燃烧",
+        "probabilistic": 1
       }
     ]
   },
@@ -46,8 +48,9 @@
     "numeric_nodes": [],
     "workers": [
       {
-        "$type": "AdditionalStatusOnAbilityDamageInfo",
-        "status_alias": "瘟疫"
+        "$type": "ProbAdditionalStatusOnHarmInfo",
+        "status_alias": "瘟疫",
+        "probabilistic": 1
       }
     ]
   },
@@ -57,8 +60,9 @@
     "numeric_nodes": [],
     "workers": [
       {
-        "$type": "AdditionalStatusOnAbilityDamageInfo",
-        "status_alias": "击退"
+        "$type": "ProbAdditionalStatusOnHarmInfo",
+        "status_alias": "击退",
+        "probabilistic": 1
       }
     ]
   },
@@ -93,7 +97,20 @@
         "split_num": 3,
         "bolt_alias": "月镖投射物",
         "speed": 8,
+        "size": 1,
         "radius": 8
+      }
+    ]
+  },
+  {
+    "id": 10107,
+    "alias": "医疗事故",
+    "numeric_nodes": [],
+    "workers": [
+      {
+        "$type": "ProbAdditionalStatusOnHarmInfo",
+        "status_alias": "大出血",
+        "probabilistic": 0.2
       }
     ]
   }

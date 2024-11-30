@@ -16,6 +16,11 @@ namespace Hsenl {
             OnAbilitesBarChangedShadow(abilitesBar);
         }
 
+        [ShadowFunction]
+        public static void OnPropBarChanged(PropBar propBar) {
+            OnPropBarChangedShadow(propBar);
+        }
+
         // 当状态栏发生变化
         [ShadowFunction]
         public static void OnStatusBarChanged(StatusBar statusBar) {

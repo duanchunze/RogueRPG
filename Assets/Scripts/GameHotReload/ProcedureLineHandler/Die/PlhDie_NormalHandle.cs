@@ -7,6 +7,10 @@
             if (agent != null) {
                 agent.Enable = false;
             }
+            
+            // 清除所有的被选中
+            var selectionTarget = item.target.GetComponent<SelectionTargetDefault>();
+            selectionTarget?.ClearAllSelectors();
 
             return ProcedureLineHandleResult.Success;
         }

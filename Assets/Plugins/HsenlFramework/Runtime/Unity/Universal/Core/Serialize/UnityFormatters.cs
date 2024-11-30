@@ -3,16 +3,12 @@
 using MemoryPack.Internal;
 using UnityEngine;
 
-namespace MemoryPack
-{
+namespace MemoryPack {
     [Preserve]
-    internal sealed class AnimationCurveFormatter : MemoryPackFormatter<AnimationCurve>
-    {
+    internal sealed class AnimationCurveFormatter : MemoryPackFormatter<AnimationCurve> {
         [Preserve]
-        public override void Serialize(ref MemoryPackWriter writer, ref AnimationCurve? value)
-        {
-            if (value == null)
-            {
+        public override void Serialize<TBufferWriter>(ref MemoryPackWriter<TBufferWriter> writer, ref AnimationCurve? value) {
+            if (value == null) {
                 writer.WriteNullObjectHeader();
                 return;
             }
@@ -22,10 +18,8 @@ namespace MemoryPack
         }
 
         [Preserve]
-        public override void Deserialize(ref MemoryPackReader reader, ref AnimationCurve? value)
-        {
-            if (!reader.TryReadObjectHeader(out var count))
-            {
+        public override void Deserialize(ref MemoryPackReader reader, ref AnimationCurve? value) {
+            if (!reader.TryReadObjectHeader(out var count)) {
                 value = null;
                 return;
             }
@@ -35,8 +29,7 @@ namespace MemoryPack
             reader.ReadUnmanaged(out WrapMode preWrapMode, out WrapMode postWrapMode);
             var keys = reader.ReadUnmanagedArray<global::UnityEngine.Keyframe>();
 
-            if (value == null)
-            {
+            if (value == null) {
                 value = new AnimationCurve();
             }
 
@@ -47,13 +40,10 @@ namespace MemoryPack
     }
 
     [Preserve]
-    internal sealed class GradientFormatter : MemoryPackFormatter<Gradient>
-    {
+    internal sealed class GradientFormatter : MemoryPackFormatter<Gradient> {
         [Preserve]
-        public override void Serialize(ref MemoryPackWriter writer, ref Gradient? value)
-        {
-            if (value == null)
-            {
+        public override void Serialize<TBufferWriter>(ref MemoryPackWriter<TBufferWriter> writer, ref Gradient? value) {
+            if (value == null) {
                 writer.WriteNullObjectHeader();
                 return;
             }
@@ -65,10 +55,8 @@ namespace MemoryPack
         }
 
         [Preserve]
-        public override void Deserialize(ref MemoryPackReader reader, ref Gradient? value)
-        {
-            if (!reader.TryReadObjectHeader(out var count))
-            {
+        public override void Deserialize(ref MemoryPackReader reader, ref Gradient? value) {
+            if (!reader.TryReadObjectHeader(out var count)) {
                 value = null;
                 return;
             }
@@ -79,8 +67,7 @@ namespace MemoryPack
             var alphaKeys = reader.ReadUnmanagedArray<global::UnityEngine.GradientAlphaKey>();
             reader.ReadUnmanaged(out GradientMode mode);
 
-            if (value == null)
-            {
+            if (value == null) {
                 value = new Gradient();
             }
 
@@ -91,13 +78,10 @@ namespace MemoryPack
     }
 
     [Preserve]
-    internal sealed class RectOffsetFormatter : MemoryPackFormatter<RectOffset>
-    {
+    internal sealed class RectOffsetFormatter : MemoryPackFormatter<RectOffset> {
         [Preserve]
-        public override void Serialize(ref MemoryPackWriter writer, ref RectOffset? value)
-        {
-            if (value == null)
-            {
+        public override void Serialize<TBufferWriter>(ref MemoryPackWriter<TBufferWriter> writer, ref RectOffset? value) {
+            if (value == null) {
                 writer.WriteNullObjectHeader();
                 return;
             }
@@ -106,10 +90,8 @@ namespace MemoryPack
         }
 
         [Preserve]
-        public override void Deserialize(ref MemoryPackReader reader, ref RectOffset? value)
-        {
-            if (!reader.TryReadObjectHeader(out var count))
-            {
+        public override void Deserialize(ref MemoryPackReader reader, ref RectOffset? value) {
+            if (!reader.TryReadObjectHeader(out var count)) {
                 value = null;
                 return;
             }
@@ -118,12 +100,10 @@ namespace MemoryPack
 
             reader.ReadUnmanaged(out int left, out int right, out int top, out int bottom);
 
-            if (value == null)
-            {
+            if (value == null) {
                 value = new RectOffset(left, right, top, bottom);
             }
-            else
-            {
+            else {
                 value.left = left;
                 value.right = right;
                 value.top = top;

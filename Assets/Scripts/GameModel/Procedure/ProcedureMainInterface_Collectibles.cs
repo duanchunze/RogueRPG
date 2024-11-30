@@ -2,13 +2,13 @@
     [ShadowFunction]
     public partial class ProcedureMainInterface_Collectibles : AProcedureState<ProcedureMainInterface> {
         [ShadowFunction]
-        protected override void OnEnter(IFsm fsm, IFsmState prev) {
-            this.OnEnterShadow(fsm, prev);
+        protected override async HTask OnEnter(IFsm fsm, IFsmState prev) {
+            await this.OnEnterShadow(fsm, prev);
         }
 
         [ShadowFunction]
-        protected override void OnLeave(IFsm fsm, IFsmState next) {
-            this.OnLeaveShadow(fsm, next);
+        protected override async HTask OnLeave(IFsm fsm, IFsmState next) {
+            await this.OnLeaveShadow(fsm, next);
         }
     }
 }

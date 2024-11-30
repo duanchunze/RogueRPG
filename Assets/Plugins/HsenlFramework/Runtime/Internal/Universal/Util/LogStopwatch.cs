@@ -21,5 +21,9 @@ namespace Hsenl {
             tick = (DateTime.Now - this._now).Ticks;
             this._now = DateTime.Now;
         }
+        
+        public void Peek() {
+            this._now = DateTime.Now;
+        }
     }
 }

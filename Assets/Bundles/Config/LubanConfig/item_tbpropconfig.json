@@ -1,0 +1,282 @@
+[
+  {
+    "id": 10000,
+    "alias": "物攻道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 12,
+        "layer": 2,
+        "model": 0,
+        "value": 10,
+        "sign": ""
+      }
+    ]
+  },
+  {
+    "id": 10001,
+    "alias": "护甲道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 21,
+        "layer": 2,
+        "model": 0,
+        "value": 10,
+        "sign": ""
+      }
+    ]
+  },
+  {
+    "id": 10002,
+    "alias": "攻速道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 27,
+        "layer": 2,
+        "model": 0,
+        "value": 0.2,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10003,
+    "alias": "目标数道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": ""
+      }
+    ]
+  },
+  {
+    "id": 10004,
+    "alias": "法术极速道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 29,
+        "layer": 2,
+        "model": 0,
+        "value": 10,
+        "sign": ""
+      }
+    ]
+  },
+  {
+    "id": 10005,
+    "alias": "抛投物大小道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 32,
+        "layer": 2,
+        "model": 0,
+        "value": 0.5,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10006,
+    "alias": "抛投物数量道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 33,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": ""
+      }
+    ]
+  },
+  {
+    "id": 10007,
+    "alias": "物理吸血道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 34,
+        "layer": 2,
+        "model": 0,
+        "value": 0.05,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10008,
+    "alias": "施法速度道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 28,
+        "layer": 2,
+        "model": 0,
+        "value": 0.2,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10009,
+    "alias": "移动速度道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 26,
+        "layer": 2,
+        "model": 0,
+        "value": 0.5,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10010,
+    "alias": "物暴道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 17,
+        "layer": 2,
+        "model": 0,
+        "value": 0.1,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10011,
+    "alias": "物暴强化道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 18,
+        "layer": 2,
+        "model": 0,
+        "value": 0.1,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10012,
+    "alias": "症状强化道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 19,
+        "layer": 2,
+        "model": 0,
+        "value": 0.1,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10013,
+    "alias": "症状抵抗道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 20,
+        "layer": 2,
+        "model": 0,
+        "value": 0.1,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10014,
+    "alias": "命中道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 35,
+        "layer": 2,
+        "model": 0,
+        "value": 0.1,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10015,
+    "alias": "闪避道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 36,
+        "layer": 2,
+        "model": 0,
+        "value": 0.1,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10016,
+    "alias": "格挡道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 37,
+        "layer": 2,
+        "model": 0,
+        "value": 0.1,
+        "sign": "f"
+      }
+    ]
+  },
+  {
+    "id": 10017,
+    "alias": "最大血量道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 1,
+        "layer": 2,
+        "model": 0,
+        "value": 20,
+        "sign": ""
+      }
+    ]
+  },
+  {
+    "id": 10018,
+    "alias": "生命恢复道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 9,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": ""
+      }
+    ]
+  },
+  {
+    "id": 10019,
+    "alias": "魔法恢复道具",
+    "tags": [],
+    "numeric_nodes": [
+      {
+        "type": 11,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": ""
+      }
+    ]
+  }
+]

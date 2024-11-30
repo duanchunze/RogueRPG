@@ -393,8 +393,8 @@ namespace Hsenl {
         /// <param name="to">看向的位置</param>
         /// <param name="up">自己的Up轴</param>
         /// <returns>返回一个矩阵</returns>
-        public static Matrix3x3 CreateLookAt(Vector3 from, Vector3 to, Vector3 up) {
-            CreateLookAt(ref from, ref to, ref up, out var result);
+        public static Matrix3x3 CreateLookRotation(Vector3 from, Vector3 to, Vector3 up) {
+            CreateLookRotation(ref from, ref to, ref up, out var result);
             return result;
         }
 
@@ -405,10 +405,9 @@ namespace Hsenl {
         /// <param name="to">看向的位置</param>
         /// <param name="up">自己的Up轴</param>
         /// <param name="result">返回一个矩阵</param>
-        public static void CreateLookAt(ref Vector3 from, ref Vector3 to, ref Vector3 up,
-            out Matrix3x3 result) {
+        public static void CreateLookRotation(ref Vector3 from, ref Vector3 to, ref Vector3 up, out Matrix3x3 result) {
             Vector3 dir = (from - to).normalized;
-            CreateLookAt(ref dir, ref up, out result);
+            CreateLookRotation(ref dir, ref up, out result);
         }
 
         /// <summary>
@@ -417,8 +416,8 @@ namespace Hsenl {
         /// <param name="direction"></param>
         /// <param name="up"></param>
         /// <returns></returns>
-        public static Matrix3x3 CreateLookAt(Vector3 direction, Vector3 up) {
-            CreateLookAt(ref direction, ref up, out var result);
+        public static Matrix3x3 CreateLookRotation(Vector3 direction, Vector3 up) {
+            CreateLookRotation(ref direction, ref up, out var result);
             return result;
         }
 
@@ -428,7 +427,8 @@ namespace Hsenl {
         /// <param name="direction"></param>
         /// <param name="up"></param>
         /// <param name="result"></param>
-        public static void CreateLookAt(ref Vector3 direction, ref Vector3 up, out Matrix3x3 result) {
+        public static void CreateLookRotation(ref Vector3 direction, ref Vector3 up, out Matrix3x3 result) {
+            direction.Normalize();
             Vector3.Cross(ref up, ref direction, out var u);
             u.Normalize();
             Vector3.Cross(ref direction, ref u, out var v);
@@ -442,38 +442,40 @@ namespace Hsenl {
             result.m13 = direction.x;
             result.m23 = direction.y;
             result.m33 = direction.z;
-        }
-
-        public static bool LookRotationToMatrix(ref Vector3 view, ref Vector3 up, out Matrix3x3 matrix) {
-            // 跟 Matrix4x4中的 LookAt一样的道理
-            matrix = Identity;
-
-            var z = view;
-            // compute u0
-            var mag = z.magnitude;
-            if (mag < Math.Epsilon) {
-                return false;
-            }
-
-            z /= mag;
-
-            Vector3 x = Vector3.Cross(up, z);
-            mag = x.magnitude;
-            if (mag < Math.Epsilon) {
-                return false;
-            }
-
-            x /= mag;
-
-            Vector3 y = Vector3.Cross(z, x);
-
-            if (!Math.CompareApproximate(y.magnitude, 1.0F)) {
-                // Log.Error("<可能存在这种情况吗？>");
-                return false;
-            }
-
-            matrix.SetOrthoNormalBasis(x, y, z);
-            return true;
+            
+            /*
+             * 下面这种写法跟 上面的是一样的原理, 只是写法不同.
+             * 但上面写法效率更高一点, 所以用上面
+             */
+            
+            // result = Identity;
+            //
+            // var z = direction;
+            // // compute u0
+            // var mag = z.magnitude;
+            // if (mag < Math.Epsilon) {
+            //     return false;
+            // }
+            //
+            // z /= mag;
+            //
+            // Vector3 x = Vector3.Cross(up, z);
+            // mag = x.magnitude;
+            // if (mag < Math.Epsilon) {
+            //     return false;
+            // }
+            //
+            // x /= mag;
+            //
+            // Vector3 y = Vector3.Cross(z, x);
+            //
+            // if (!Math.CompareApproximate(y.magnitude, 1.0F)) {
+            //     // Log.Error("<可能存在这种情况吗？>");
+            //     return false;
+            // }
+            //
+            // result.SetOrthoNormalBasis(x, y, z);
+            // return true;
         }
 
         /// <summary>
@@ -638,8 +640,7 @@ namespace Hsenl {
         /// <param name="matrix2"></param>
         /// <param name="amount"></param>
         /// <param name="result"></param>
-        public static void Lerp(ref Matrix3x3 matrix1, ref Matrix3x3 matrix2, FLOAT amount,
-            out Matrix3x3 result) {
+        public static void Lerp(ref Matrix3x3 matrix1, ref Matrix3x3 matrix2, FLOAT amount, out Matrix3x3 result) {
             var m11 = matrix1.m11 + (matrix2.m11 - matrix1.m11) * amount;
             var m12 = matrix1.m12 + (matrix2.m12 - matrix1.m12) * amount;
             var m13 = matrix1.m13 + (matrix2.m13 - matrix1.m13) * amount;

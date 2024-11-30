@@ -32,8 +32,7 @@ public abstract partial class TsHarmInfo :  timeline.TimeSegmentInfo
         switch (type)
         {
             case "HarmOfColliderInfo": return new timeline.HarmOfColliderInfo(_json);
-            case "HarmOfSphereColliderInfo": return new timeline.HarmOfSphereColliderInfo(_json);
-            case "HarmOfBoxColliderInfo": return new timeline.HarmOfBoxColliderInfo(_json);
+            case "ContinuousHarmOfColliderInfo": return new timeline.ContinuousHarmOfColliderInfo(_json);
             case "TsStatusContinuousHarmInfo": return new timeline.TsStatusContinuousHarmInfo(_json);
             case "LiuXueInfo": return new timeline.LiuXueInfo(_json);
             case "RanshaoInfo": return new timeline.RanshaoInfo(_json);

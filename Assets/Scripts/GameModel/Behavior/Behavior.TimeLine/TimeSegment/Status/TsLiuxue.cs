@@ -3,7 +3,7 @@ using MemoryPack;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TsLiuxue : TsStatusHarm<timeline.LiuXueInfo> {
         private float _timer;
 

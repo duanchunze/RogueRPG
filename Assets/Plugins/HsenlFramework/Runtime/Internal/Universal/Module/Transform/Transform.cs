@@ -3,7 +3,6 @@ using MemoryPack;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
-    public partial class Transform : Component {
-    }
+    [MemoryPackable]
+    public partial class Transform : Component { }
 }

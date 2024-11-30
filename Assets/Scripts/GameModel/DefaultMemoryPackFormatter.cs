@@ -7,20 +7,20 @@ using MemoryPack.Formatters;
 namespace Hsenl {
     public class DefaultMemoryPackFormatter : MemoryPackFormatter {
         protected override void Register() {
-            RegisterUnion<INode<CasterEvaluate>>(
-                typeof(SelectorNode<CasterEvaluate, INode<CasterEvaluate>>),
-                typeof(SequentialNode<CasterEvaluate, INode<CasterEvaluate>>),
-                typeof(ParallelNode<CasterEvaluate, INode<CasterEvaluate>>),
-                typeof(ParalleSelectorNode<CasterEvaluate, INode<CasterEvaluate>>),
-                typeof(ParalleSequentialNode<CasterEvaluate, INode<CasterEvaluate>>)
+            RegisterUnion<INode<Caster>>(
+                typeof(SelectorNode<Caster, INode<Caster>>),
+                typeof(SequentialNode<Caster, INode<Caster>>),
+                typeof(ParallelNode<Caster, INode<Caster>>),
+                typeof(ParalleSelectorNode<Caster, INode<Caster>>),
+                typeof(ParalleSequentialNode<Caster, INode<Caster>>)
             );
             
-            RegisterUnion<Node<CasterEvaluate>>(
-                typeof(SelectorNode<CasterEvaluate, INode<CasterEvaluate>>),
-                typeof(SequentialNode<CasterEvaluate, INode<CasterEvaluate>>),
-                typeof(ParallelNode<CasterEvaluate, INode<CasterEvaluate>>),
-                typeof(ParalleSelectorNode<CasterEvaluate, INode<CasterEvaluate>>),
-                typeof(ParalleSequentialNode<CasterEvaluate, INode<CasterEvaluate>>)
+            RegisterUnion<Node<Caster>>(
+                typeof(SelectorNode<Caster, INode<Caster>>),
+                typeof(SequentialNode<Caster, INode<Caster>>),
+                typeof(ParallelNode<Caster, INode<Caster>>),
+                typeof(ParalleSelectorNode<Caster, INode<Caster>>),
+                typeof(ParalleSequentialNode<Caster, INode<Caster>>)
             );
 
             RegisterUnion<Collider>();

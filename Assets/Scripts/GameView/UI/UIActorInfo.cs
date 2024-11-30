@@ -13,11 +13,11 @@ namespace Hsenl.View {
 
         public void FillInActor(Actor actor) {
             var locationValue = Localization.Instance.Value;
-            var localizationConfig = Tables.Instance.TbLocalizationConfig.GetByAlias(locationValue);
+            var localizationConfig = Tables.Instance.TbLocalizationConfig.Get(locationValue);
             
             var numerator = actor.GetComponent<Numerator>();
             var numericTypes = numerator.GetAllFinalNumericTypes();
-            this.statsElementHolder.NormalizeChildren(this.statsElementTemplate, numericTypes.Length);
+            this.statsElementHolder.MakeSureChildrenCount(this.statsElementTemplate, numericTypes.Length);
             for (int i = 0, len = numericTypes.Length; i < len; i++) {
                 var element = this.statsElementHolder.GetChild(i);
                 var numType = numericTypes[i];
@@ -34,7 +34,7 @@ namespace Hsenl.View {
 
             var abiBar = actor.FindBodiedInIndividual<AbilitesBar>();
             var abilities = abiBar.ExplicitAbilies; // 获得所有非隐式技能
-            this.abilityElementHolder.NormalizeChildren(this.abilityElementTemplate, abilities.Count);
+            this.abilityElementHolder.MakeSureChildrenCount(this.abilityElementTemplate, abilities.Count);
             for (int i = 0, len = abilities.Count; i < len; i++) {
                 var abi = abilities[i];
                 var element = this.abilityElementHolder.GetChild(i);

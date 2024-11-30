@@ -1,7 +1,7 @@
 ﻿using MemoryPack;
 
 namespace Hsenl {
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpRemoveStatusFromSelf : TpInfo<timeline.RemoveStatusFromSelfInfo>{
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied) {

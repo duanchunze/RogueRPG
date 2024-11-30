@@ -3,7 +3,7 @@
 namespace Hsenl {
     public static class HsenlHelper {
         // 规范子物体
-        public static void NormalizeChildren(this Entity self, int count, Func<Entity> instantiateCallback) {
+        public static void MakeSureChildrenCount(this Entity self, int count, Func<Entity> instantiateCallback) {
             var childCount = self.ChildCount;
             if (childCount > count) {
                 for (var i = 0; i < childCount; i++) {
@@ -28,8 +28,8 @@ namespace Hsenl {
             }
         }
         
-        public static void NormalizeChildren(this Component self, int count, Func<Entity> instantiateCallback) {
-            self.Entity.NormalizeChildren(count, instantiateCallback);
+        public static void MakeSureChildrenCount(this Component self, int count, Func<Entity> instantiateCallback) {
+            self.Entity.MakeSureChildrenCount(count, instantiateCallback);
         }
     }
 }

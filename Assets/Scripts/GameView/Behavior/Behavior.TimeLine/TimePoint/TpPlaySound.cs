@@ -3,7 +3,7 @@ using MemoryPack;
 
 namespace Hsenl.View {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpPlaySound : TpInfo<timeline.PlaySoundInfo> {
         protected override void OnTimePointTrigger() {
             var sound = this.manager.Bodied.MainBodied.GetComponent<Sound>();

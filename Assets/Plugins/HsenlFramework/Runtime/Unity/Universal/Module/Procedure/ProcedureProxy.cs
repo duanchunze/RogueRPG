@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Hsenl {
-    [DefaultExecutionOrder(10)]
+    [DefaultExecutionOrder(5)]
     [DisallowMultipleComponent]
     public class ProcedureProxy : MonoBehaviour {
         [LabelText("所有流程状态")]
@@ -42,7 +42,7 @@ namespace Hsenl {
         private void Start() {
             var type = EventSystem.FindType(this.entryProcedureState);
             if (type == null) throw new Exception($"type not find '{this.entryProcedureState}'");
-            ProcedureManager.Procedure.ChangeState(type);
+            ProcedureManager.Procedure.ChangeState(type).Tail();
         }
 
         private void Update() {

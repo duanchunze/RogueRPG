@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Buffers;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Hsenl {
     /* 什么逻辑写在组合里, 什么逻辑写在组件本身里
      * 只和自己有关系的逻辑写在本身里
      * 牵扯到其他的组件的逻辑, 则写在组合里
-     * 组合的触发不受Active影响, 无论实体是否激活, 只要组合条件符合, 就会激活组合.
+     * 在默认的自动组合模式下, 组合会优先于Awake被执行
      */
     internal class MultiCombinInfo {
         public ComponentTypeCacher totalTypeCacher; // total是所有combiner中的cacher做或运算的结果
@@ -58,53 +61,157 @@ namespace Hsenl {
     public abstract class Combiner {
         private static CombinerCache _cache;
 
+        // 组合系统的热重载是不完美的热重载! 因为组合系统的热重载并不是无感重载, 因为过程中会重组组合, 如果其中用户写了某些逻辑操作, 就可能表现出来, 甚至出现意料之外的问题,
+        // 所以, 应该使用影子函数系统来实现无感的热更, 把 += action写成独立的方法, 并标记成影子函数, 然后把逻辑放到HotReload程序集中实现.
+        // 但组合系统的热更本身是跑通的, 只是不好用, 所以暂且搁置, 以后可能会直接删除这部分代码
+        // 
+        // 目前热重载只支持OnCombin和OnDecombin方法的热重载.
+        // 不能修改组合的名称以及继承, 因为这相当于移除了一个组合又添加了一个新组合
+        // - 移除combiner的热重载, 不会起作用, 旧的组合依然会起作用
+        // - 添加combiner的热重载, 会报错
+        // - 特性的热重载, 不会立即其作用, 在其之后的组合才会起作用
+        // - userToken的热重载, 不会立即报错, 但在获取的时候会报错.
+        // 如果要支持完全的热重载, 则必须要在热更后, 对所有的实体进行重新的组合匹配, 这本没什么问题, 但问题在于
+        // 组合系统是支持手动组合的, 所以可能存在我们无法预测的匹配, 既然无法保证热重载的稳定性, 那干脆就不支持.
+        private static bool _useReload = false;
+
         internal static CombinerCache CombinerCache => _cache;
 
         [OnEventSystemInitialized]
         private static void CacheCombiner() {
             _cache = new CombinerCache();
-            var uniqueId = 0;
-            // 缓存所有Combiner
-            foreach (var type in EventSystem.GetTypesOfAttribute(typeof(CombinerAttribute))) {
-                var att = type.GetCustomAttribute<CombinerAttribute>(true);
-                var combiner = (Combiner)Activator.CreateInstance(type);
-                var genericType = AssemblyHelper.GetGenericBaseClass(type);
-                if (genericType == null)
-                    throw new NullReferenceException($"combiner must inherit from a generic combiner '{type.Name}'");
-                combiner.memberTypes = genericType.GetGenericArguments();
-                foreach (var memberType in combiner.memberTypes) {
-                    if (!memberType.IsSubclassOf(typeof(Scope)) && !memberType.IsSubclassOf(typeof(Unbodied))) {
-                        throw new Exception($"combiner member must inherit from <Scope> or <Unbodied> '{memberType.Name}'");
-                    }
-                }
+            // 添加所有Combiner
+            var types = EventSystem.GetTypesOfAttribute(typeof(CombinerAttribute));
+            foreach (var type in types) {
+                var combiner = CreateCombiner(type);
+                if (combiner == null)
+                    continue;
 
-                combiner.combinerType = att.combinerType;
-                switch (combiner.combinerType) {
-                    case CombinerType.MultiCombiner: {
-                        combiner.id = uniqueId++;
-                        combiner.multiTypeCacher = Entity.CombineComponentType(combiner.memberTypes);
-                        _cache.MultiCombiners.Add(combiner);
-                        break;
-                    }
-                    case CombinerType.CrossCombiner: {
-                        var optionsAtt = type.GetCustomAttribute<CombinerOptionsAttribute>(true);
-                        combiner.crossTypeCacher1 = ComponentTypeCacher.CreateNull();
-                        combiner.crossTypeCacher2 = ComponentTypeCacher.CreateNull();
-                        combiner.id = uniqueId++;
-                        combiner.crossTypeCacher1 = Entity.CombineComponentType(combiner.memberTypes, 0, optionsAtt.crossSplitPosition);
-                        combiner.crossTypeCacher2 = Entity.CombineComponentType(combiner.memberTypes, optionsAtt.crossSplitPosition);
-                        combiner.crossMaximumLayer = optionsAtt.crossMaximumLayer;
-                        _cache.CrossCombiners.Add(combiner);
-                        break;
-                    }
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                _cache.TypeCombinerMap.TryAdd(type, combiner);
-                _cache.TotalCombiners.Add(combiner);
+                AddCombiner(combiner);
             }
 
+            TidyUpAllCombiners();
+        }
+
+        private static Combiner CreateCombiner(Type type) {
+            var att = type.GetCustomAttribute<CombinerAttribute>(true);
+            if (type.IsGenericType || type.IsAbstract) return null;
+
+            var combiner = (Combiner)Activator.CreateInstance(type);
+            var genericType = AssemblyHelper.GetGenericBaseClass(type);
+            if (genericType == null) {
+                Log.Error($"combiner must inherit from a generic combiner '{type.Name}'");
+                return null;
+            }
+
+            combiner.memberTypes = genericType.GetGenericArguments();
+            foreach (var memberType in combiner.memberTypes) {
+                if (!memberType.IsSubclassOf(typeof(Scope)) && !memberType.IsSubclassOf(typeof(Element))) {
+                    Log.Error($"combiner member must inherit from <Scope> or <Element> '{memberType.Name}'");
+                    return null;
+                }
+            }
+
+            combiner.combinerType = att.combinerType;
+            switch (combiner.combinerType) {
+                case CombinerType.MultiCombiner: {
+                    combiner.multiTypeCacher = Entity.CombineComponentType(combiner.memberTypes);
+                    break;
+                }
+                case CombinerType.CrossCombiner: {
+                    var optionsAtt = type.GetCustomAttribute<CombinerOptionsAttribute>(true);
+                    combiner.crossTypeCacher1 = Entity.CombineComponentType(combiner.memberTypes, 0, optionsAtt.crossSplitPosition);
+                    combiner.crossTypeCacher2 = Entity.CombineComponentType(combiner.memberTypes, optionsAtt.crossSplitPosition);
+                    combiner.crossMaximumLayer = optionsAtt.crossMaximumLayer;
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return combiner;
+        }
+
+        private static void AddCombiner(Combiner combiner) {
+            var type = combiner.GetType();
+            if (_cache.TypeCombinerMap.ContainsKey(type))
+                return;
+
+            combiner.id = _cache.TotalCombiners.Count;
+            switch (combiner.combinerType) {
+                case CombinerType.MultiCombiner: {
+                    _cache.MultiCombiners.Add(combiner);
+                    break;
+                }
+                case CombinerType.CrossCombiner: {
+                    _cache.CrossCombiners.Add(combiner);
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            _cache.TypeCombinerMap.Add(type, combiner);
+            _cache.TotalCombiners.Add(combiner);
+        }
+
+        private static void ReplaceCombiner(Combiner combiner) {
+            var type = combiner.GetType();
+            var typeFullName = type.FullName;
+            Type oldType = null;
+            foreach (var kv in _cache.TypeCombinerMap) {
+                if (kv.Key.FullName == typeFullName) {
+                    oldType = kv.Key;
+                }
+            }
+
+            if (oldType == null)
+                throw new Exception("Cannot replace the combiner");
+
+            _cache.TypeCombinerMap.Remove(oldType, out var oldCombiner);
+            combiner._userTokens = oldCombiner._userTokens;
+            combiner._allCombinComponents = oldCombiner._allCombinComponents;
+
+            _cache.TypeCombinerMap.Add(type, combiner);
+
+            for (int i = 0; i < _cache.TotalCombiners.Count; i++) {
+                var c = _cache.TotalCombiners[i];
+                if (c.GetType().FullName == typeFullName) {
+                    combiner.id = c.id;
+                    _cache.TotalCombiners[i] = combiner;
+                }
+            }
+
+            switch (combiner.combinerType) {
+                case CombinerType.MultiCombiner: {
+                    for (int i = 0; i < _cache.MultiCombiners.Count; i++) {
+                        var c = _cache.MultiCombiners[i];
+                        if (c.GetType().FullName == typeFullName) {
+                            combiner.id = c.id;
+                            _cache.MultiCombiners[i] = combiner;
+                        }
+                    }
+
+                    break;
+                }
+                case CombinerType.CrossCombiner: {
+                    for (int i = 0; i < _cache.CrossCombiners.Count; i++) {
+                        var c = _cache.CrossCombiners[i];
+                        if (c.GetType().FullName == typeFullName) {
+                            combiner.id = c.id;
+                            _cache.CrossCombiners[i] = combiner;
+                        }
+                    }
+
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        // 整理所有组合的需要用到的信息
+        private static void TidyUpAllCombiners() {
             _cache.TotalMultiCombinerTypeCacher = ComponentTypeCacher.CreateNull();
             foreach (var combiner in _cache.MultiCombiners) {
                 _cache.TotalMultiCombinerTypeCacher.Add(combiner.multiTypeCacher);
@@ -116,23 +223,30 @@ namespace Hsenl {
             }
 
             // 缓存所有CombinerOverride
+            _cache.Overrides.Clear();
             foreach (var type in EventSystem.GetTypesOfAttribute(typeof(CombinerOverrideAttribute))) {
                 var att = type.GetCustomAttribute<CombinerOverrideAttribute>(false);
                 if (att != null) {
-                    if (type.GetCustomAttribute<CombinerAttribute>(true).combinerType != CombinerType.MultiCombiner) {
+                    var combienr = _cache.TypeCombinerMap[type];
+                    if (combienr.combinerType != CombinerType.MultiCombiner) {
                         // 暂时只允许multi作为覆盖者
                         throw new Exception($"CombinerOverrideAttribute only use for multi combiner '{type}'");
                     }
 
-                    var combienr = _cache.TypeCombinerMap[type];
                     foreach (var overrideType in att.overrides) {
                         var overrideCombiner = _cache.TypeCombinerMap[overrideType];
+                        if (overrideCombiner.combinerType != CombinerType.MultiCombiner) {
+                            // 只允许覆盖multi组合
+                            throw new Exception($"CombinerOverrideAttribute only use for combiner '{overrideType}'");
+                        }
+
                         _cache.Overrides.Add(combienr.id, overrideCombiner.id);
                     }
                 }
             }
 
             // 检查CombinerOverride是否存在冲突问题(两个组合相互覆盖)
+            _cache.InverseOverrides.Clear();
             foreach (var kv in _cache.Overrides) {
                 foreach (var overrideUniqueId in kv.Value) {
                     if (_cache.Overrides.TryGetValue(overrideUniqueId, out var list)) {
@@ -211,6 +325,46 @@ namespace Hsenl {
             ScopeCombinFormatter.Init();
         }
 
+        [OnEventSystemReload]
+        private static void Reload(Type[] reloadTypes) {
+            if (_useReload) {
+                var reloadedTypeNames = new HashSet<string>(reloadTypes.Select(x => x.FullName));
+                // 先把所有的组合都断开
+                foreach (var combiner in _cache.TotalCombiners) {
+                    if (!reloadedTypeNames.Contains(combiner.GetType().FullName))
+                        continue;
+
+                    foreach (var kv in combiner._allCombinComponents) {
+                        combiner.Decombin(kv.Value);
+                    }
+                }
+
+                var types = EventSystem.GetTypesOfAttribute(typeof(CombinerAttribute));
+                foreach (var type in types) {
+                    if (!reloadedTypeNames.Contains(type.FullName))
+                        continue;
+
+                    var combiner = CreateCombiner(type);
+                    if (combiner == null)
+                        continue;
+
+                    ReplaceCombiner(combiner);
+                }
+
+                TidyUpAllCombiners();
+
+                // 重新再组合
+                foreach (var combiner in _cache.TotalCombiners) {
+                    if (!reloadedTypeNames.Contains(combiner.GetType().FullName))
+                        continue;
+
+                    foreach (var kv in combiner._allCombinComponents) {
+                        combiner.Combin(kv.Value);
+                    }
+                }
+            }
+        }
+
         internal CombinerType combinerType;
         internal int id; // 唯一id, multi和cross之间也不会重复
         internal Type[] memberTypes;
@@ -223,16 +377,60 @@ namespace Hsenl {
         private readonly Dictionary<int, Delegate> _actions = new();
         protected readonly Dictionary<int, int> actionCounters = new(); // 记录每个形成的组合的事件数, 用以判断每个组合是不是忘了 -= action
 
-        private readonly Dictionary<int, object> _userTokens = new();
+        private Dictionary<int, object> _userTokens = new();
 
-        internal virtual void Combin(IList<Component> components) {
-            this.actionCounter = 0;
+        private Dictionary<int, Component[]> _allCombinComponents = new();
+        private readonly Queue<Component[]> _pool = new();
+
+        private Component[] Rent() {
+            var ret = this._pool.Count > 0 ? this._pool.Dequeue() : null;
+            if (ret == null) {
+                ret = new Component[this.memberTypes.Length];
+            }
+
+            return ret;
         }
 
-        internal virtual void Decombin(IList<Component> components) {
-            this.actionCounter = 0;
+        public void Return(Component[] components) {
+            for (int i = 0; i < components.Length; i++) {
+                components[i] = null;
+            }
+
+            this._pool.Enqueue(components);
         }
 
+        internal void CombinInternal(IList<Component> components) {
+            var hashcode = this.Combin(components);
+            if (_useReload) {
+                var array = this.Rent();
+                for (int i = 0; i < components.Count; i++) {
+                    array[i] = components[i];
+                }
+
+                this._allCombinComponents[hashcode] = array;
+            }
+        }
+
+        internal void DecombinInternal(List<Component> components) {
+            var hashcode = this.Decombin(components);
+            if (_useReload) {
+                if (this._allCombinComponents.Remove(hashcode, out var array)) {
+                    this.Return(array);
+                }
+            }
+        }
+
+        protected virtual int Combin(IList<Component> components) {
+            this.actionCounter = 0;
+            return 0;
+        }
+
+        protected virtual int Decombin(IList<Component> components) {
+            this.actionCounter = 0;
+            return 0;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected abstract int GetComponentCombineHashCode();
 
         protected T EnqueueAction<T>(T action) where T : Delegate {
@@ -254,19 +452,24 @@ namespace Hsenl {
             return (T)action;
         }
 
-        protected void SetUserToken(object o) {
+        protected T GetUserToken<T>() where T : class, new() {
             var hashcode = this.GetComponentCombineHashCode();
-            this._userTokens[hashcode] = o;
+            if (!this._userTokens.TryGetValue(hashcode, out var value)) {
+                // value = ObjectPool.Rent<T>();
+                value = new T();
+                this._userTokens[hashcode] = value;
+            }
+            else {
+                if (value is not T)
+                    throw new Exception($"UserToken is already assigned to '{value.GetType()}' in '{this.GetType()}'");
+            }
+
+            return (T)value;
         }
 
-        protected object GetUserToken() {
+        internal void RemoveUserToken() {
             var hashcode = this.GetComponentCombineHashCode();
-            this._userTokens.Remove(hashcode, out var value);
-            return value;
-        }
-
-        protected T GetUserToken<T>() {
-            return (T)this.GetUserToken();
+            this._userTokens.Remove(hashcode);
         }
     }
 

@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MemoryPack;
 using UnityEngine;
 
 namespace Hsenl {
-    public class StatusBar : Bodied {
+    [MemoryPackable]
+    public partial class StatusBar : Bodied {
         private readonly Dictionary<string, Status> _statuses = new();
         private readonly List<Status> _activeStatuses = new();
 
+        [MemoryPackIgnore]
         public Action<Status> onStatusEnter;
+
+        [MemoryPackIgnore]
         public Action<Status> onStatusLeave;
 
         public Status GetStatus(string name) {
@@ -35,7 +40,7 @@ namespace Hsenl {
             if (child is not Status status)
                 return;
 
-            status.transform.NormalTransfrom();
+            status.transform.NormalizeValue();
             status.Reactivation();
             this._statuses.Add(status.Name, status);
             this.Changed();

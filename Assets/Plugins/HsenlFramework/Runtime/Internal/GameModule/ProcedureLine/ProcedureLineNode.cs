@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 #endif
 
 namespace Hsenl {
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class ProcedureLineNode : Unbodied {
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly]

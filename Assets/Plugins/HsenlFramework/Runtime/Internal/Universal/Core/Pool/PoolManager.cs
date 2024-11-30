@@ -42,7 +42,7 @@ namespace Hsenl {
                 return;
             }
 
-            if (obj.IsDisposed)
+            if (obj.IsDisposing)
                 return;
 
             if (this._pool.TryGetValue(key.key, out var queue)) {

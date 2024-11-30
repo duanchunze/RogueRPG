@@ -6,6 +6,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	public static readonly IReadOnlyList<string> PatchedAOTAssemblyList = new List<string>
 	{
 		"DOTween.dll",
+		"MemoryPack.Core.dll",
+		"Sirenix.Serialization.dll",
 		"System.Core.dll",
 		"System.Runtime.CompilerServices.Unsafe.dll",
 		"System.dll",
@@ -23,24 +25,177 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// {{ AOT generic types
 	// DG.Tweening.Core.DOGetter<UnityEngine.Vector3>
 	// DG.Tweening.Core.DOSetter<UnityEngine.Vector3>
+	// MemoryPack.Formatters.ArrayFormatter<Hsenl.C2R_Login>
+	// MemoryPack.Formatters.ArrayFormatter<Hsenl.R2C_Login>
+	// MemoryPack.Formatters.ArrayFormatter<int>
+	// MemoryPack.Formatters.ArrayFormatter<object>
+	// MemoryPack.Formatters.ArrayFormatter<ulong>
+	// MemoryPack.Formatters.DictionaryFormatter<uint,Hsenl.Num>
+	// MemoryPack.Formatters.GenericDictionaryFormatter<object,object,object>
+	// MemoryPack.Formatters.GenericDictionaryFormatterBase<object,object,object>
+	// MemoryPack.Formatters.InterfaceReadOnlyListFormatter<object>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.Bounds>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.BoundsInt>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.Color32>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.Color>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.GradientAlphaKey>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.GradientColorKey>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.Keyframe>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.LayerMask>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.Matrix4x4>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.Quaternion>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.RangeInt>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.Rect>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.RectInt>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.Vector2>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.Vector2Int>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.Vector3>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.Vector3Int>
+	// MemoryPack.Formatters.ListFormatter<UnityEngine.Vector4>
+	// MemoryPack.Formatters.ListFormatter<int>
+	// MemoryPack.Formatters.ListFormatter<object>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.Bounds>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.BoundsInt>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.Color32>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.Color>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.GradientAlphaKey>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.GradientColorKey>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.Keyframe>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.LayerMask>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.Matrix4x4>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.Quaternion>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.RangeInt>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.Rect>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.RectInt>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.Vector2>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.Vector2Int>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.Vector3>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.Vector3Int>
+	// MemoryPack.Formatters.NullableFormatter<UnityEngine.Vector4>
+	// MemoryPack.Formatters.NullableFormatter<object>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.Bounds>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.BoundsInt>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.Color32>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.Color>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.GradientAlphaKey>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.GradientColorKey>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.Keyframe>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.LayerMask>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.Matrix4x4>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.Quaternion>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.RangeInt>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.Rect>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.RectInt>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.Vector2>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.Vector2Int>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.Vector3>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.Vector3Int>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<UnityEngine.Vector4>
+	// MemoryPack.Formatters.UnmanagedArrayFormatter<object>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.Bounds>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.BoundsInt>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.Color32>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.Color>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.GradientAlphaKey>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.GradientColorKey>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.Keyframe>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.LayerMask>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.Matrix4x4>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.Quaternion>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.RangeInt>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.Rect>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.RectInt>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.Vector2>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.Vector2Int>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.Vector3>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.Vector3Int>
+	// MemoryPack.Formatters.UnmanagedFormatter<UnityEngine.Vector4>
+	// MemoryPack.Formatters.UnmanagedFormatter<int>
+	// MemoryPack.Formatters.UnmanagedFormatter<object>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.Bounds>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.BoundsInt>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.Color32>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.Color>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.GradientAlphaKey>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.GradientColorKey>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.Keyframe>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.LayerMask>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.Matrix4x4>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.Quaternion>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.RangeInt>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.Rect>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.RectInt>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.Vector2>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.Vector2Int>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.Vector3>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.Vector3Int>
+	// MemoryPack.IMemoryPackFormatter<UnityEngine.Vector4>
+	// MemoryPack.IMemoryPackFormatter<int>
+	// MemoryPack.IMemoryPackFormatter<object>
+	// MemoryPack.IMemoryPackable<Hsenl.C2R_Login>
+	// MemoryPack.IMemoryPackable<Hsenl.R2C_Login>
+	// MemoryPack.IMemoryPackable<object>
+	// MemoryPack.MemoryPackFormatter<Hsenl.C2R_Login>
+	// MemoryPack.MemoryPackFormatter<Hsenl.R2C_Login>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Bounds>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.BoundsInt>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Color32>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Color>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.GradientAlphaKey>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.GradientColorKey>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Keyframe>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.LayerMask>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Matrix4x4>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Quaternion>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.RangeInt>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Rect>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.RectInt>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Vector2>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Vector2Int>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Vector3>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Vector3Int>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Vector4>>
+	// MemoryPack.MemoryPackFormatter<System.Nullable<object>>
+	// MemoryPack.MemoryPackFormatter<System.UIntPtr>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.Bounds>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.BoundsInt>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.Color32>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.Color>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.GradientAlphaKey>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.GradientColorKey>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.Keyframe>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.LayerMask>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.Matrix4x4>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.Quaternion>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.RangeInt>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.Rect>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.RectInt>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.Vector2>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.Vector2Int>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.Vector3>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.Vector3Int>
+	// MemoryPack.MemoryPackFormatter<UnityEngine.Vector4>
+	// MemoryPack.MemoryPackFormatter<int>
+	// MemoryPack.MemoryPackFormatter<object>
+	// Sirenix.Serialization.Serializer<object>
 	// System.Action<Cysharp.Text.Utf16FormatSegment>
 	// System.Action<Cysharp.Text.Utf8FormatSegment>
-	// System.Action<Hsenl.CasterLeaveDetails>
+	// System.Action<Hsenl.CasterEndDetails>
 	// System.Action<Hsenl.Container.MappingInfo>
 	// System.Action<Hsenl.FixCollisionInfo>
+	// System.Action<Hsenl.HTask<int>>
 	// System.Action<Hsenl.HTask>
 	// System.Action<Hsenl.Network.AckItem>
 	// System.Action<Hsenl.Network.SegmentStruct>
 	// System.Action<Hsenl.ShadowFunctionManager.DelegateWrap>
 	// System.Action<Hsenl.StatusFinishDetails>
+	// System.Action<Hsenl.Vector3>
 	// System.Action<MemoryPack.Internal.BufferSegment>
-	// System.Action<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Action<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Action<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Action<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Action<System.Memory<byte>>
-	// System.Action<System.Threading.CancellationToken>
+	// System.Action<System.ValueTuple<int,object>>
 	// System.Action<System.ValueTuple<object,object>>
-	// System.Action<System.ValueTuple<uint,object>>
 	// System.Action<System.ValueTuple<ushort,object>>
 	// System.Action<UnityEngine.Bounds>
 	// System.Action<UnityEngine.BoundsInt>
@@ -64,10 +219,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Action<UnityEngine.Vector4>
 	// System.Action<byte>
 	// System.Action<float>
+	// System.Action<int,float,float>
 	// System.Action<int,int>
 	// System.Action<int>
+	// System.Action<long,System.Memory<byte>>
 	// System.Action<long,int>
-	// System.Action<long,ushort,System.Memory<byte>>
 	// System.Action<long>
 	// System.Action<object,Hsenl.PriorityStateLeaveDetails>
 	// System.Action<object,System.Memory<byte>>
@@ -80,193 +236,66 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Action<object,object,object>
 	// System.Action<object,object>
 	// System.Action<object>
-	// System.Action<ushort,System.Memory<byte>>
+	// System.Action<uint>
 	// System.Action<ushort,object>
+	// System.Action<ushort,ushort>
 	// System.Action<ushort>
-	// System.ArraySegment.Enumerator<Hsenl.C2L_Login>
-	// System.ArraySegment.Enumerator<Hsenl.L2C_Login>
-	// System.ArraySegment.Enumerator<System.DateTime>
-	// System.ArraySegment.Enumerator<System.DateTimeOffset>
-	// System.ArraySegment.Enumerator<System.Decimal>
-	// System.ArraySegment.Enumerator<System.Guid>
-	// System.ArraySegment.Enumerator<System.IntPtr>
-	// System.ArraySegment.Enumerator<System.Numerics.BigInteger>
-	// System.ArraySegment.Enumerator<System.Numerics.Complex>
-	// System.ArraySegment.Enumerator<System.Numerics.Matrix3x2>
-	// System.ArraySegment.Enumerator<System.Numerics.Matrix4x4>
-	// System.ArraySegment.Enumerator<System.Numerics.Plane>
-	// System.ArraySegment.Enumerator<System.Numerics.Quaternion>
-	// System.ArraySegment.Enumerator<System.Numerics.Vector2>
-	// System.ArraySegment.Enumerator<System.Numerics.Vector3>
-	// System.ArraySegment.Enumerator<System.Numerics.Vector4>
-	// System.ArraySegment.Enumerator<System.TimeSpan>
-	// System.ArraySegment.Enumerator<System.UIntPtr>
-	// System.ArraySegment.Enumerator<UnityEngine.Bounds>
-	// System.ArraySegment.Enumerator<UnityEngine.BoundsInt>
-	// System.ArraySegment.Enumerator<UnityEngine.Color32>
-	// System.ArraySegment.Enumerator<UnityEngine.Color>
+	// System.ArraySegment.Enumerator<Hsenl.MergeSortFloatWrap<object>>
+	// System.ArraySegment.Enumerator<Hsenl.Vector3>
 	// System.ArraySegment.Enumerator<UnityEngine.GradientAlphaKey>
 	// System.ArraySegment.Enumerator<UnityEngine.GradientColorKey>
 	// System.ArraySegment.Enumerator<UnityEngine.Keyframe>
-	// System.ArraySegment.Enumerator<UnityEngine.LayerMask>
-	// System.ArraySegment.Enumerator<UnityEngine.Matrix4x4>
-	// System.ArraySegment.Enumerator<UnityEngine.Quaternion>
-	// System.ArraySegment.Enumerator<UnityEngine.RangeInt>
-	// System.ArraySegment.Enumerator<UnityEngine.Rect>
-	// System.ArraySegment.Enumerator<UnityEngine.RectInt>
-	// System.ArraySegment.Enumerator<UnityEngine.Vector2>
-	// System.ArraySegment.Enumerator<UnityEngine.Vector2Int>
-	// System.ArraySegment.Enumerator<UnityEngine.Vector3>
-	// System.ArraySegment.Enumerator<UnityEngine.Vector3Int>
-	// System.ArraySegment.Enumerator<UnityEngine.Vector4>
 	// System.ArraySegment.Enumerator<UnityEngine.jvalue>
 	// System.ArraySegment.Enumerator<byte>
-	// System.ArraySegment.Enumerator<double>
-	// System.ArraySegment.Enumerator<float>
 	// System.ArraySegment.Enumerator<int>
-	// System.ArraySegment.Enumerator<long>
 	// System.ArraySegment.Enumerator<object>
-	// System.ArraySegment.Enumerator<sbyte>
-	// System.ArraySegment.Enumerator<short>
-	// System.ArraySegment.Enumerator<uint>
 	// System.ArraySegment.Enumerator<ulong>
 	// System.ArraySegment.Enumerator<ushort>
-	// System.ArraySegment<Hsenl.C2L_Login>
-	// System.ArraySegment<Hsenl.L2C_Login>
-	// System.ArraySegment<System.DateTime>
-	// System.ArraySegment<System.DateTimeOffset>
-	// System.ArraySegment<System.Decimal>
-	// System.ArraySegment<System.Guid>
-	// System.ArraySegment<System.IntPtr>
-	// System.ArraySegment<System.Numerics.BigInteger>
-	// System.ArraySegment<System.Numerics.Complex>
-	// System.ArraySegment<System.Numerics.Matrix3x2>
-	// System.ArraySegment<System.Numerics.Matrix4x4>
-	// System.ArraySegment<System.Numerics.Plane>
-	// System.ArraySegment<System.Numerics.Quaternion>
-	// System.ArraySegment<System.Numerics.Vector2>
-	// System.ArraySegment<System.Numerics.Vector3>
-	// System.ArraySegment<System.Numerics.Vector4>
-	// System.ArraySegment<System.TimeSpan>
-	// System.ArraySegment<System.UIntPtr>
-	// System.ArraySegment<UnityEngine.Bounds>
-	// System.ArraySegment<UnityEngine.BoundsInt>
-	// System.ArraySegment<UnityEngine.Color32>
-	// System.ArraySegment<UnityEngine.Color>
+	// System.ArraySegment<Hsenl.MergeSortFloatWrap<object>>
+	// System.ArraySegment<Hsenl.Vector3>
 	// System.ArraySegment<UnityEngine.GradientAlphaKey>
 	// System.ArraySegment<UnityEngine.GradientColorKey>
 	// System.ArraySegment<UnityEngine.Keyframe>
-	// System.ArraySegment<UnityEngine.LayerMask>
-	// System.ArraySegment<UnityEngine.Matrix4x4>
-	// System.ArraySegment<UnityEngine.Quaternion>
-	// System.ArraySegment<UnityEngine.RangeInt>
-	// System.ArraySegment<UnityEngine.Rect>
-	// System.ArraySegment<UnityEngine.RectInt>
-	// System.ArraySegment<UnityEngine.Vector2>
-	// System.ArraySegment<UnityEngine.Vector2Int>
-	// System.ArraySegment<UnityEngine.Vector3>
-	// System.ArraySegment<UnityEngine.Vector3Int>
-	// System.ArraySegment<UnityEngine.Vector4>
 	// System.ArraySegment<UnityEngine.jvalue>
 	// System.ArraySegment<byte>
-	// System.ArraySegment<double>
-	// System.ArraySegment<float>
 	// System.ArraySegment<int>
-	// System.ArraySegment<long>
 	// System.ArraySegment<object>
-	// System.ArraySegment<sbyte>
-	// System.ArraySegment<short>
-	// System.ArraySegment<uint>
 	// System.ArraySegment<ulong>
 	// System.ArraySegment<ushort>
+	// System.Buffers.ArrayPool<Hsenl.MergeSortFloatWrap<object>>
 	// System.Buffers.ArrayPool<byte>
-	// System.Buffers.ArrayPool<object>
 	// System.Buffers.ArrayPool<ushort>
+	// System.Buffers.ConfigurableArrayPool.Bucket<Hsenl.MergeSortFloatWrap<object>>
 	// System.Buffers.ConfigurableArrayPool.Bucket<byte>
-	// System.Buffers.ConfigurableArrayPool.Bucket<object>
 	// System.Buffers.ConfigurableArrayPool.Bucket<ushort>
+	// System.Buffers.ConfigurableArrayPool<Hsenl.MergeSortFloatWrap<object>>
 	// System.Buffers.ConfigurableArrayPool<byte>
-	// System.Buffers.ConfigurableArrayPool<object>
 	// System.Buffers.ConfigurableArrayPool<ushort>
 	// System.Buffers.IBufferWriter<byte>
 	// System.Buffers.IBufferWriter<object>
 	// System.Buffers.IBufferWriter<ushort>
 	// System.Buffers.MemoryManager<byte>
-	// System.Buffers.MemoryManager<object>
 	// System.Buffers.MemoryManager<ushort>
-	// System.Buffers.ReadOnlySequence.<>c<byte>
-	// System.Buffers.ReadOnlySequence.<>c<object>
-	// System.Buffers.ReadOnlySequence.Enumerator<byte>
-	// System.Buffers.ReadOnlySequence.Enumerator<object>
-	// System.Buffers.ReadOnlySequence<byte>
-	// System.Buffers.ReadOnlySequence<object>
-	// System.Buffers.ReadOnlySequenceSegment<byte>
-	// System.Buffers.ReadOnlySequenceSegment<object>
-	// System.Buffers.SpanAction<ushort,System.Buffers.ReadOnlySequence<ushort>>
-	// System.Buffers.SpanAction<ushort,System.ValueTuple<System.Buffers.ReadOnlySequence<byte>,long,int,object>>
-	// System.Buffers.SpanAction<ushort,System.ValueTuple<System.IntPtr,int,int,object>>
+	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.LockedStack<Hsenl.MergeSortFloatWrap<object>>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.LockedStack<byte>
-	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.LockedStack<object>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.LockedStack<ushort>
+	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.PerCoreLockedStacks<Hsenl.MergeSortFloatWrap<object>>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.PerCoreLockedStacks<byte>
-	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.PerCoreLockedStacks<object>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool.PerCoreLockedStacks<ushort>
+	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool<Hsenl.MergeSortFloatWrap<object>>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool<byte>
-	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool<object>
 	// System.Buffers.TlsOverPerCoreLockedStacksArrayPool<ushort>
-	// System.ByReference<Hsenl.C2L_Login>
-	// System.ByReference<Hsenl.L2C_Login>
-	// System.ByReference<System.DateTime>
-	// System.ByReference<System.DateTimeOffset>
-	// System.ByReference<System.Decimal>
-	// System.ByReference<System.Guid>
-	// System.ByReference<System.IntPtr>
-	// System.ByReference<System.Numerics.BigInteger>
-	// System.ByReference<System.Numerics.Complex>
-	// System.ByReference<System.Numerics.Matrix3x2>
-	// System.ByReference<System.Numerics.Matrix4x4>
-	// System.ByReference<System.Numerics.Plane>
-	// System.ByReference<System.Numerics.Quaternion>
-	// System.ByReference<System.Numerics.Vector2>
-	// System.ByReference<System.Numerics.Vector3>
-	// System.ByReference<System.Numerics.Vector4>
-	// System.ByReference<System.TimeSpan>
-	// System.ByReference<System.UIntPtr>
-	// System.ByReference<UnityEngine.Bounds>
-	// System.ByReference<UnityEngine.BoundsInt>
-	// System.ByReference<UnityEngine.Color32>
-	// System.ByReference<UnityEngine.Color>
+	// System.ByReference<Hsenl.MergeSortFloatWrap<object>>
+	// System.ByReference<Hsenl.Vector3>
 	// System.ByReference<UnityEngine.GradientAlphaKey>
 	// System.ByReference<UnityEngine.GradientColorKey>
 	// System.ByReference<UnityEngine.Keyframe>
-	// System.ByReference<UnityEngine.LayerMask>
-	// System.ByReference<UnityEngine.Matrix4x4>
-	// System.ByReference<UnityEngine.Quaternion>
-	// System.ByReference<UnityEngine.RangeInt>
-	// System.ByReference<UnityEngine.Rect>
-	// System.ByReference<UnityEngine.RectInt>
-	// System.ByReference<UnityEngine.Vector2>
-	// System.ByReference<UnityEngine.Vector2Int>
-	// System.ByReference<UnityEngine.Vector3>
-	// System.ByReference<UnityEngine.Vector3Int>
-	// System.ByReference<UnityEngine.Vector4>
 	// System.ByReference<UnityEngine.jvalue>
 	// System.ByReference<byte>
-	// System.ByReference<double>
-	// System.ByReference<float>
 	// System.ByReference<int>
-	// System.ByReference<long>
 	// System.ByReference<object>
-	// System.ByReference<sbyte>
-	// System.ByReference<short>
-	// System.ByReference<uint>
 	// System.ByReference<ulong>
 	// System.ByReference<ushort>
-	// System.Collections.Concurrent.BlockingCollection.<GetConsumingEnumerable>d__68<object>
-	// System.Collections.Concurrent.BlockingCollection<object>
-	// System.Collections.Concurrent.ConcurrentBag.Enumerator<object>
-	// System.Collections.Concurrent.ConcurrentBag.WorkStealingQueue<object>
-	// System.Collections.Concurrent.ConcurrentBag<object>
 	// System.Collections.Concurrent.ConcurrentDictionary.<GetEnumerator>d__35<int,object>
 	// System.Collections.Concurrent.ConcurrentDictionary.<GetEnumerator>d__35<long,object>
 	// System.Collections.Concurrent.ConcurrentDictionary.<GetEnumerator>d__35<object,object>
@@ -283,29 +312,28 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Concurrent.ConcurrentDictionary<long,object>
 	// System.Collections.Concurrent.ConcurrentDictionary<object,object>
 	// System.Collections.Concurrent.ConcurrentQueue.<Enumerate>d__28<Hsenl.InjectionReflectionInfo>
+	// System.Collections.Concurrent.ConcurrentQueue.<Enumerate>d__28<System.ValueTuple<object,int>>
 	// System.Collections.Concurrent.ConcurrentQueue.<Enumerate>d__28<object>
 	// System.Collections.Concurrent.ConcurrentQueue.Segment<Hsenl.InjectionReflectionInfo>
+	// System.Collections.Concurrent.ConcurrentQueue.Segment<System.ValueTuple<object,int>>
 	// System.Collections.Concurrent.ConcurrentQueue.Segment<object>
 	// System.Collections.Concurrent.ConcurrentQueue<Hsenl.InjectionReflectionInfo>
+	// System.Collections.Concurrent.ConcurrentQueue<System.ValueTuple<object,int>>
 	// System.Collections.Concurrent.ConcurrentQueue<object>
-	// System.Collections.Concurrent.ConcurrentStack.<GetEnumerator>d__35<object>
-	// System.Collections.Concurrent.ConcurrentStack.Node<object>
-	// System.Collections.Concurrent.ConcurrentStack<object>
-	// System.Collections.Concurrent.IProducerConsumerCollection<object>
 	// System.Collections.Generic.ArraySortHelper<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.ArraySortHelper<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.ArraySortHelper<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.ArraySortHelper<Hsenl.HTask<int>>
 	// System.Collections.Generic.ArraySortHelper<Hsenl.HTask>
 	// System.Collections.Generic.ArraySortHelper<Hsenl.Network.AckItem>
 	// System.Collections.Generic.ArraySortHelper<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.ArraySortHelper<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Collections.Generic.ArraySortHelper<Hsenl.Vector3>
 	// System.Collections.Generic.ArraySortHelper<MemoryPack.Internal.BufferSegment>
-	// System.Collections.Generic.ArraySortHelper<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.Generic.ArraySortHelper<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.ArraySortHelper<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Collections.Generic.ArraySortHelper<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.ArraySortHelper<System.Threading.CancellationToken>
+	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<int,object>>
 	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<object,object>>
-	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<uint,object>>
 	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<ushort,object>>
 	// System.Collections.Generic.ArraySortHelper<UnityEngine.Bounds>
 	// System.Collections.Generic.ArraySortHelper<UnityEngine.BoundsInt>
@@ -331,25 +359,26 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ArraySortHelper<int>
 	// System.Collections.Generic.ArraySortHelper<long>
 	// System.Collections.Generic.ArraySortHelper<object>
+	// System.Collections.Generic.ArraySortHelper<uint>
 	// System.Collections.Generic.ArraySortHelper<ushort>
 	// System.Collections.Generic.Comparer<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.Comparer<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.Comparer<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.Comparer<Hsenl.HTask<int>>
 	// System.Collections.Generic.Comparer<Hsenl.HTask>
 	// System.Collections.Generic.Comparer<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.Comparer<Hsenl.Network.AckItem>
 	// System.Collections.Generic.Comparer<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.Comparer<Hsenl.Num>
 	// System.Collections.Generic.Comparer<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Collections.Generic.Comparer<Hsenl.Vector3>
 	// System.Collections.Generic.Comparer<MemoryPack.Internal.BufferSegment>
-	// System.Collections.Generic.Comparer<System.Buffers.ReadOnlySequence<byte>>
 	// System.Collections.Generic.Comparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.Comparer<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.Comparer<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Collections.Generic.Comparer<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.Comparer<System.IntPtr>
-	// System.Collections.Generic.Comparer<System.Threading.CancellationToken>
+	// System.Collections.Generic.Comparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.Comparer<System.ValueTuple<object,object>>
-	// System.Collections.Generic.Comparer<System.ValueTuple<uint,object>>
 	// System.Collections.Generic.Comparer<System.ValueTuple<ushort,object>>
 	// System.Collections.Generic.Comparer<UnityEngine.Bounds>
 	// System.Collections.Generic.Comparer<UnityEngine.BoundsInt>
@@ -380,21 +409,21 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ComparisonComparer<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.ComparisonComparer<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.ComparisonComparer<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.ComparisonComparer<Hsenl.HTask<int>>
 	// System.Collections.Generic.ComparisonComparer<Hsenl.HTask>
 	// System.Collections.Generic.ComparisonComparer<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.ComparisonComparer<Hsenl.Network.AckItem>
 	// System.Collections.Generic.ComparisonComparer<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.ComparisonComparer<Hsenl.Num>
 	// System.Collections.Generic.ComparisonComparer<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Collections.Generic.ComparisonComparer<Hsenl.Vector3>
 	// System.Collections.Generic.ComparisonComparer<MemoryPack.Internal.BufferSegment>
-	// System.Collections.Generic.ComparisonComparer<System.Buffers.ReadOnlySequence<byte>>
 	// System.Collections.Generic.ComparisonComparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ComparisonComparer<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.ComparisonComparer<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Collections.Generic.ComparisonComparer<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.ComparisonComparer<System.IntPtr>
-	// System.Collections.Generic.ComparisonComparer<System.Threading.CancellationToken>
+	// System.Collections.Generic.ComparisonComparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.ComparisonComparer<System.ValueTuple<object,object>>
-	// System.Collections.Generic.ComparisonComparer<System.ValueTuple<uint,object>>
 	// System.Collections.Generic.ComparisonComparer<System.ValueTuple<ushort,object>>
 	// System.Collections.Generic.ComparisonComparer<UnityEngine.Bounds>
 	// System.Collections.Generic.ComparisonComparer<UnityEngine.BoundsInt>
@@ -422,6 +451,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ComparisonComparer<object>
 	// System.Collections.Generic.ComparisonComparer<uint>
 	// System.Collections.Generic.ComparisonComparer<ushort>
+	// System.Collections.Generic.Dictionary.Enumerator<float,object>
+	// System.Collections.Generic.Dictionary.Enumerator<int,Hsenl.Network.Network.RpcInfo>
 	// System.Collections.Generic.Dictionary.Enumerator<int,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.Enumerator<int,int>
 	// System.Collections.Generic.Dictionary.Enumerator<int,object>
@@ -430,6 +461,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.Enumerator<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.Dictionary.Enumerator<object,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.Enumerator<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
+	// System.Collections.Generic.Dictionary.Enumerator<object,System.ValueTuple<int,int>>
 	// System.Collections.Generic.Dictionary.Enumerator<object,int>
 	// System.Collections.Generic.Dictionary.Enumerator<object,object>
 	// System.Collections.Generic.Dictionary.Enumerator<object,uint>
@@ -437,6 +469,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.Enumerator<uint,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.Enumerator<uint,object>
 	// System.Collections.Generic.Dictionary.Enumerator<ushort,object>
+	// System.Collections.Generic.Dictionary.Enumerator<ushort,ushort>
+	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<float,object>
+	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,Hsenl.Network.Network.RpcInfo>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,int>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,object>
@@ -445,6 +480,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
+	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,System.ValueTuple<int,int>>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,int>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,object>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,uint>
@@ -452,6 +488,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<uint,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<uint,object>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<ushort,object>
+	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<ushort,ushort>
+	// System.Collections.Generic.Dictionary.KeyCollection<float,object>
+	// System.Collections.Generic.Dictionary.KeyCollection<int,Hsenl.Network.Network.RpcInfo>
 	// System.Collections.Generic.Dictionary.KeyCollection<int,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.KeyCollection<int,int>
 	// System.Collections.Generic.Dictionary.KeyCollection<int,object>
@@ -460,6 +499,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.KeyCollection<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
+	// System.Collections.Generic.Dictionary.KeyCollection<object,System.ValueTuple<int,int>>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,int>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,object>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,uint>
@@ -467,6 +507,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.KeyCollection<uint,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.KeyCollection<uint,object>
 	// System.Collections.Generic.Dictionary.KeyCollection<ushort,object>
+	// System.Collections.Generic.Dictionary.KeyCollection<ushort,ushort>
+	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<float,object>
+	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,Hsenl.Network.Network.RpcInfo>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,int>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,object>
@@ -475,6 +518,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
+	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,System.ValueTuple<int,int>>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,int>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,object>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,uint>
@@ -482,6 +526,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<uint,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<uint,object>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<ushort,object>
+	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<ushort,ushort>
+	// System.Collections.Generic.Dictionary.ValueCollection<float,object>
+	// System.Collections.Generic.Dictionary.ValueCollection<int,Hsenl.Network.Network.RpcInfo>
 	// System.Collections.Generic.Dictionary.ValueCollection<int,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.ValueCollection<int,int>
 	// System.Collections.Generic.Dictionary.ValueCollection<int,object>
@@ -490,6 +537,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.ValueCollection<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
+	// System.Collections.Generic.Dictionary.ValueCollection<object,System.ValueTuple<int,int>>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,int>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,object>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,uint>
@@ -497,6 +545,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.ValueCollection<uint,Hsenl.Num>
 	// System.Collections.Generic.Dictionary.ValueCollection<uint,object>
 	// System.Collections.Generic.Dictionary.ValueCollection<ushort,object>
+	// System.Collections.Generic.Dictionary.ValueCollection<ushort,ushort>
+	// System.Collections.Generic.Dictionary<float,object>
+	// System.Collections.Generic.Dictionary<int,Hsenl.Network.Network.RpcInfo>
 	// System.Collections.Generic.Dictionary<int,Hsenl.Num>
 	// System.Collections.Generic.Dictionary<int,int>
 	// System.Collections.Generic.Dictionary<int,object>
@@ -505,6 +556,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.Dictionary<object,Hsenl.Num>
 	// System.Collections.Generic.Dictionary<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
+	// System.Collections.Generic.Dictionary<object,System.ValueTuple<int,int>>
 	// System.Collections.Generic.Dictionary<object,int>
 	// System.Collections.Generic.Dictionary<object,object>
 	// System.Collections.Generic.Dictionary<object,uint>
@@ -512,17 +564,17 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary<uint,Hsenl.Num>
 	// System.Collections.Generic.Dictionary<uint,object>
 	// System.Collections.Generic.Dictionary<ushort,object>
-	// System.Collections.Generic.EqualityComparer<FixedMath.ConcaveHull2.Edge>
+	// System.Collections.Generic.Dictionary<ushort,ushort>
+	// System.Collections.Generic.EqualityComparer<Hsenl.ConcaveHull2.Edge>
 	// System.Collections.Generic.EqualityComparer<Hsenl.Container.InjectionInfo>
 	// System.Collections.Generic.EqualityComparer<Hsenl.Container.ResolveInfo>
+	// System.Collections.Generic.EqualityComparer<Hsenl.Network.Network.RpcInfo>
 	// System.Collections.Generic.EqualityComparer<Hsenl.Num>
 	// System.Collections.Generic.EqualityComparer<ProtoBuf.Meta.TypeModel.KnownTypeKey>
-	// System.Collections.Generic.EqualityComparer<System.Buffers.ReadOnlySequence<byte>>
-	// System.Collections.Generic.EqualityComparer<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.Generic.EqualityComparer<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.Generic.EqualityComparer<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.EqualityComparer<System.IntPtr>
+	// System.Collections.Generic.EqualityComparer<System.ValueTuple<int,int>>
 	// System.Collections.Generic.EqualityComparer<byte>
+	// System.Collections.Generic.EqualityComparer<float>
 	// System.Collections.Generic.EqualityComparer<int>
 	// System.Collections.Generic.EqualityComparer<long>
 	// System.Collections.Generic.EqualityComparer<object>
@@ -536,17 +588,19 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.HashSetEqualityComparer<object>
 	// System.Collections.Generic.ICollection<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.ICollection<Cysharp.Text.Utf8FormatSegment>
-	// System.Collections.Generic.ICollection<FixedMath.FVector2>
-	// System.Collections.Generic.ICollection<FixedMath.FVector3>
 	// System.Collections.Generic.ICollection<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.ICollection<Hsenl.HTask<int>>
 	// System.Collections.Generic.ICollection<Hsenl.HTask<object>>
 	// System.Collections.Generic.ICollection<Hsenl.HTask>
 	// System.Collections.Generic.ICollection<Hsenl.InjectionReflectionInfo>
-	// System.Collections.Generic.ICollection<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.ICollection<Hsenl.Network.AckItem>
 	// System.Collections.Generic.ICollection<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.ICollection<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Collections.Generic.ICollection<Hsenl.Vector2>
+	// System.Collections.Generic.ICollection<Hsenl.Vector3>
 	// System.Collections.Generic.ICollection<MemoryPack.Internal.BufferSegment>
+	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<float,object>>
+	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,Hsenl.Network.Network.RpcInfo>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,Hsenl.Num>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,int>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,object>>
@@ -555,6 +609,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,Hsenl.Container.ResolveInfo>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,Hsenl.Num>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>>
+	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,uint>>
@@ -562,9 +617,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<uint,Hsenl.Num>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<uint,object>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<ushort,object>>
-	// System.Collections.Generic.ICollection<System.Threading.CancellationToken>
+	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<ushort,ushort>>
+	// System.Collections.Generic.ICollection<System.ValueTuple<int,object>>
+	// System.Collections.Generic.ICollection<System.ValueTuple<object,int>>
 	// System.Collections.Generic.ICollection<System.ValueTuple<object,object>>
-	// System.Collections.Generic.ICollection<System.ValueTuple<uint,object>>
 	// System.Collections.Generic.ICollection<System.ValueTuple<ushort,object>>
 	// System.Collections.Generic.ICollection<UnityEngine.Bounds>
 	// System.Collections.Generic.ICollection<UnityEngine.BoundsInt>
@@ -595,17 +651,19 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IComparer<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.IComparer<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.IComparer<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.IComparer<Hsenl.HTask<int>>
 	// System.Collections.Generic.IComparer<Hsenl.HTask>
 	// System.Collections.Generic.IComparer<Hsenl.Network.AckItem>
 	// System.Collections.Generic.IComparer<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.IComparer<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Collections.Generic.IComparer<Hsenl.Vector3>
 	// System.Collections.Generic.IComparer<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.IComparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IComparer<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.IComparer<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Collections.Generic.IComparer<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.IComparer<System.Threading.CancellationToken>
+	// System.Collections.Generic.IComparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.IComparer<System.ValueTuple<object,object>>
-	// System.Collections.Generic.IComparer<System.ValueTuple<uint,object>>
 	// System.Collections.Generic.IComparer<System.ValueTuple<ushort,object>>
 	// System.Collections.Generic.IComparer<UnityEngine.Bounds>
 	// System.Collections.Generic.IComparer<UnityEngine.BoundsInt>
@@ -631,24 +689,27 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IComparer<int>
 	// System.Collections.Generic.IComparer<long>
 	// System.Collections.Generic.IComparer<object>
+	// System.Collections.Generic.IComparer<uint>
 	// System.Collections.Generic.IComparer<ushort>
 	// System.Collections.Generic.IDictionary<int,object>
 	// System.Collections.Generic.IDictionary<long,object>
 	// System.Collections.Generic.IDictionary<object,object>
-	// System.Collections.Generic.IDictionary<uint,object>
 	// System.Collections.Generic.IEnumerable<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.IEnumerable<Cysharp.Text.Utf8FormatSegment>
-	// System.Collections.Generic.IEnumerable<FixedMath.ConcaveHull2.Edge>
-	// System.Collections.Generic.IEnumerable<FixedMath.FVector2>
-	// System.Collections.Generic.IEnumerable<FixedMath.FVector3>
+	// System.Collections.Generic.IEnumerable<Hsenl.ConcaveHull2.Edge>
 	// System.Collections.Generic.IEnumerable<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.IEnumerable<Hsenl.HTask<int>>
 	// System.Collections.Generic.IEnumerable<Hsenl.HTask>
 	// System.Collections.Generic.IEnumerable<Hsenl.InjectionReflectionInfo>
 	// System.Collections.Generic.IEnumerable<Hsenl.Network.AckItem>
 	// System.Collections.Generic.IEnumerable<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.IEnumerable<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Collections.Generic.IEnumerable<Hsenl.Vector2>
+	// System.Collections.Generic.IEnumerable<Hsenl.Vector3>
 	// System.Collections.Generic.IEnumerable<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<System.UIntPtr,object>>
+	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<float,object>>
+	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,Hsenl.Network.Network.RpcInfo>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,Hsenl.Num>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,int>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,object>>
@@ -657,6 +718,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,Hsenl.Container.ResolveInfo>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,Hsenl.Num>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>>
+	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,uint>>
@@ -664,9 +726,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<uint,Hsenl.Num>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<uint,object>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<ushort,object>>
-	// System.Collections.Generic.IEnumerable<System.Threading.CancellationToken>
+	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<ushort,ushort>>
+	// System.Collections.Generic.IEnumerable<System.ValueTuple<int,object>>
+	// System.Collections.Generic.IEnumerable<System.ValueTuple<object,int>>
 	// System.Collections.Generic.IEnumerable<System.ValueTuple<object,object>>
-	// System.Collections.Generic.IEnumerable<System.ValueTuple<uint,object>>
 	// System.Collections.Generic.IEnumerable<System.ValueTuple<ushort,object>>
 	// System.Collections.Generic.IEnumerable<UnityEngine.Bounds>
 	// System.Collections.Generic.IEnumerable<UnityEngine.BoundsInt>
@@ -696,17 +759,20 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<ushort>
 	// System.Collections.Generic.IEnumerator<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.IEnumerator<Cysharp.Text.Utf8FormatSegment>
-	// System.Collections.Generic.IEnumerator<FixedMath.ConcaveHull2.Edge>
-	// System.Collections.Generic.IEnumerator<FixedMath.FVector2>
-	// System.Collections.Generic.IEnumerator<FixedMath.FVector3>
+	// System.Collections.Generic.IEnumerator<Hsenl.ConcaveHull2.Edge>
 	// System.Collections.Generic.IEnumerator<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.IEnumerator<Hsenl.HTask<int>>
 	// System.Collections.Generic.IEnumerator<Hsenl.HTask>
 	// System.Collections.Generic.IEnumerator<Hsenl.InjectionReflectionInfo>
 	// System.Collections.Generic.IEnumerator<Hsenl.Network.AckItem>
 	// System.Collections.Generic.IEnumerator<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.IEnumerator<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Collections.Generic.IEnumerator<Hsenl.Vector2>
+	// System.Collections.Generic.IEnumerator<Hsenl.Vector3>
 	// System.Collections.Generic.IEnumerator<MemoryPack.Internal.BufferSegment>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<System.UIntPtr,object>>
+	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<float,object>>
+	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,Hsenl.Network.Network.RpcInfo>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,Hsenl.Num>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,int>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,object>>
@@ -715,6 +781,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,Hsenl.Container.ResolveInfo>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,Hsenl.Num>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>>
+	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,uint>>
@@ -722,10 +789,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<uint,Hsenl.Num>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<uint,object>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<ushort,object>>
-	// System.Collections.Generic.IEnumerator<System.Memory<byte>>
-	// System.Collections.Generic.IEnumerator<System.Threading.CancellationToken>
+	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<ushort,ushort>>
+	// System.Collections.Generic.IEnumerator<System.ValueTuple<int,object>>
+	// System.Collections.Generic.IEnumerator<System.ValueTuple<object,int>>
 	// System.Collections.Generic.IEnumerator<System.ValueTuple<object,object>>
-	// System.Collections.Generic.IEnumerator<System.ValueTuple<uint,object>>
 	// System.Collections.Generic.IEnumerator<System.ValueTuple<ushort,object>>
 	// System.Collections.Generic.IEnumerator<UnityEngine.Bounds>
 	// System.Collections.Generic.IEnumerator<UnityEngine.BoundsInt>
@@ -753,9 +820,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<object>
 	// System.Collections.Generic.IEnumerator<uint>
 	// System.Collections.Generic.IEnumerator<ushort>
-	// System.Collections.Generic.IEqualityComparer<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.Generic.IEqualityComparer<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.IEqualityComparer<System.Collections.Generic.KeyValuePair<object,object>>
+	// System.Collections.Generic.IEqualityComparer<float>
 	// System.Collections.Generic.IEqualityComparer<int>
 	// System.Collections.Generic.IEqualityComparer<long>
 	// System.Collections.Generic.IEqualityComparer<object>
@@ -763,22 +828,20 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEqualityComparer<ushort>
 	// System.Collections.Generic.IList<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.IList<Cysharp.Text.Utf8FormatSegment>
-	// System.Collections.Generic.IList<FixedMath.FVector2>
-	// System.Collections.Generic.IList<FixedMath.FVector3>
 	// System.Collections.Generic.IList<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.IList<Hsenl.HTask<int>>
 	// System.Collections.Generic.IList<Hsenl.HTask<object>>
 	// System.Collections.Generic.IList<Hsenl.HTask>
-	// System.Collections.Generic.IList<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.IList<Hsenl.Network.AckItem>
 	// System.Collections.Generic.IList<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.IList<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Collections.Generic.IList<Hsenl.Vector2>
+	// System.Collections.Generic.IList<Hsenl.Vector3>
 	// System.Collections.Generic.IList<MemoryPack.Internal.BufferSegment>
-	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.IList<System.Threading.CancellationToken>
+	// System.Collections.Generic.IList<System.ValueTuple<int,object>>
 	// System.Collections.Generic.IList<System.ValueTuple<object,object>>
-	// System.Collections.Generic.IList<System.ValueTuple<uint,object>>
 	// System.Collections.Generic.IList<System.ValueTuple<ushort,object>>
 	// System.Collections.Generic.IList<UnityEngine.Bounds>
 	// System.Collections.Generic.IList<UnityEngine.BoundsInt>
@@ -804,14 +867,16 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IList<int>
 	// System.Collections.Generic.IList<long>
 	// System.Collections.Generic.IList<object>
+	// System.Collections.Generic.IList<uint>
 	// System.Collections.Generic.IList<ushort>
 	// System.Collections.Generic.IReadOnlyCollection<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IReadOnlyCollection<object>
 	// System.Collections.Generic.IReadOnlyDictionary<int,object>
 	// System.Collections.Generic.IReadOnlyDictionary<object,object>
 	// System.Collections.Generic.IReadOnlyList<object>
-	// System.Collections.Generic.ISet<object>
 	// System.Collections.Generic.KeyValuePair<System.UIntPtr,object>
+	// System.Collections.Generic.KeyValuePair<float,object>
+	// System.Collections.Generic.KeyValuePair<int,Hsenl.Network.Network.RpcInfo>
 	// System.Collections.Generic.KeyValuePair<int,Hsenl.Num>
 	// System.Collections.Generic.KeyValuePair<int,int>
 	// System.Collections.Generic.KeyValuePair<int,object>
@@ -820,6 +885,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.KeyValuePair<object,Hsenl.Container.ResolveInfo>
 	// System.Collections.Generic.KeyValuePair<object,Hsenl.Num>
 	// System.Collections.Generic.KeyValuePair<object,ProtoBuf.Meta.TypeModel.KnownTypeKey>
+	// System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>
 	// System.Collections.Generic.KeyValuePair<object,int>
 	// System.Collections.Generic.KeyValuePair<object,object>
 	// System.Collections.Generic.KeyValuePair<object,uint>
@@ -827,29 +893,27 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.KeyValuePair<uint,Hsenl.Num>
 	// System.Collections.Generic.KeyValuePair<uint,object>
 	// System.Collections.Generic.KeyValuePair<ushort,object>
-	// System.Collections.Generic.LinkedList.Enumerator<FixedMath.ConcaveHull2.Edge>
+	// System.Collections.Generic.KeyValuePair<ushort,ushort>
+	// System.Collections.Generic.LinkedList.Enumerator<Hsenl.ConcaveHull2.Edge>
 	// System.Collections.Generic.LinkedList.Enumerator<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.LinkedList.Enumerator<object>
-	// System.Collections.Generic.LinkedList<FixedMath.ConcaveHull2.Edge>
+	// System.Collections.Generic.LinkedList<Hsenl.ConcaveHull2.Edge>
 	// System.Collections.Generic.LinkedList<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.LinkedList<object>
-	// System.Collections.Generic.LinkedListNode<FixedMath.ConcaveHull2.Edge>
+	// System.Collections.Generic.LinkedListNode<Hsenl.ConcaveHull2.Edge>
 	// System.Collections.Generic.LinkedListNode<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.LinkedListNode<object>
 	// System.Collections.Generic.List.Enumerator<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.List.Enumerator<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.List.Enumerator<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.List.Enumerator<Hsenl.HTask<int>>
 	// System.Collections.Generic.List.Enumerator<Hsenl.HTask>
 	// System.Collections.Generic.List.Enumerator<Hsenl.Network.AckItem>
 	// System.Collections.Generic.List.Enumerator<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.List.Enumerator<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Collections.Generic.List.Enumerator<Hsenl.Vector3>
 	// System.Collections.Generic.List.Enumerator<MemoryPack.Internal.BufferSegment>
-	// System.Collections.Generic.List.Enumerator<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.Generic.List.Enumerator<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.List.Enumerator<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Collections.Generic.List.Enumerator<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.List.Enumerator<System.Threading.CancellationToken>
+	// System.Collections.Generic.List.Enumerator<System.ValueTuple<int,object>>
 	// System.Collections.Generic.List.Enumerator<System.ValueTuple<object,object>>
-	// System.Collections.Generic.List.Enumerator<System.ValueTuple<uint,object>>
 	// System.Collections.Generic.List.Enumerator<System.ValueTuple<ushort,object>>
 	// System.Collections.Generic.List.Enumerator<UnityEngine.Bounds>
 	// System.Collections.Generic.List.Enumerator<UnityEngine.BoundsInt>
@@ -875,21 +939,22 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.Enumerator<int>
 	// System.Collections.Generic.List.Enumerator<long>
 	// System.Collections.Generic.List.Enumerator<object>
+	// System.Collections.Generic.List.Enumerator<uint>
 	// System.Collections.Generic.List.Enumerator<ushort>
 	// System.Collections.Generic.List<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.List<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.List<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.List<Hsenl.HTask<int>>
 	// System.Collections.Generic.List<Hsenl.HTask>
 	// System.Collections.Generic.List<Hsenl.Network.AckItem>
 	// System.Collections.Generic.List<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.List<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Collections.Generic.List<Hsenl.Vector3>
 	// System.Collections.Generic.List<MemoryPack.Internal.BufferSegment>
-	// System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.List<System.Threading.CancellationToken>
+	// System.Collections.Generic.List<System.ValueTuple<int,object>>
 	// System.Collections.Generic.List<System.ValueTuple<object,object>>
-	// System.Collections.Generic.List<System.ValueTuple<uint,object>>
 	// System.Collections.Generic.List<System.ValueTuple<ushort,object>>
 	// System.Collections.Generic.List<UnityEngine.Bounds>
 	// System.Collections.Generic.List<UnityEngine.BoundsInt>
@@ -915,25 +980,26 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List<int>
 	// System.Collections.Generic.List<long>
 	// System.Collections.Generic.List<object>
+	// System.Collections.Generic.List<uint>
 	// System.Collections.Generic.List<ushort>
 	// System.Collections.Generic.ObjectComparer<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.Generic.ObjectComparer<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.Generic.ObjectComparer<Hsenl.Container.MappingInfo>
+	// System.Collections.Generic.ObjectComparer<Hsenl.HTask<int>>
 	// System.Collections.Generic.ObjectComparer<Hsenl.HTask>
 	// System.Collections.Generic.ObjectComparer<Hsenl.MergeSortFloatWrap<object>>
 	// System.Collections.Generic.ObjectComparer<Hsenl.Network.AckItem>
 	// System.Collections.Generic.ObjectComparer<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.ObjectComparer<Hsenl.Num>
 	// System.Collections.Generic.ObjectComparer<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Collections.Generic.ObjectComparer<Hsenl.Vector3>
 	// System.Collections.Generic.ObjectComparer<MemoryPack.Internal.BufferSegment>
-	// System.Collections.Generic.ObjectComparer<System.Buffers.ReadOnlySequence<byte>>
 	// System.Collections.Generic.ObjectComparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ObjectComparer<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.ObjectComparer<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Collections.Generic.ObjectComparer<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.ObjectComparer<System.IntPtr>
-	// System.Collections.Generic.ObjectComparer<System.Threading.CancellationToken>
+	// System.Collections.Generic.ObjectComparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.ObjectComparer<System.ValueTuple<object,object>>
-	// System.Collections.Generic.ObjectComparer<System.ValueTuple<uint,object>>
 	// System.Collections.Generic.ObjectComparer<System.ValueTuple<ushort,object>>
 	// System.Collections.Generic.ObjectComparer<UnityEngine.Bounds>
 	// System.Collections.Generic.ObjectComparer<UnityEngine.BoundsInt>
@@ -961,17 +1027,16 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectComparer<object>
 	// System.Collections.Generic.ObjectComparer<uint>
 	// System.Collections.Generic.ObjectComparer<ushort>
-	// System.Collections.Generic.ObjectEqualityComparer<FixedMath.ConcaveHull2.Edge>
+	// System.Collections.Generic.ObjectEqualityComparer<Hsenl.ConcaveHull2.Edge>
 	// System.Collections.Generic.ObjectEqualityComparer<Hsenl.Container.InjectionInfo>
 	// System.Collections.Generic.ObjectEqualityComparer<Hsenl.Container.ResolveInfo>
+	// System.Collections.Generic.ObjectEqualityComparer<Hsenl.Network.Network.RpcInfo>
 	// System.Collections.Generic.ObjectEqualityComparer<Hsenl.Num>
 	// System.Collections.Generic.ObjectEqualityComparer<ProtoBuf.Meta.TypeModel.KnownTypeKey>
-	// System.Collections.Generic.ObjectEqualityComparer<System.Buffers.ReadOnlySequence<byte>>
-	// System.Collections.Generic.ObjectEqualityComparer<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.Generic.ObjectEqualityComparer<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.Generic.ObjectEqualityComparer<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.ObjectEqualityComparer<System.IntPtr>
+	// System.Collections.Generic.ObjectEqualityComparer<System.ValueTuple<int,int>>
 	// System.Collections.Generic.ObjectEqualityComparer<byte>
+	// System.Collections.Generic.ObjectEqualityComparer<float>
 	// System.Collections.Generic.ObjectEqualityComparer<int>
 	// System.Collections.Generic.ObjectEqualityComparer<long>
 	// System.Collections.Generic.ObjectEqualityComparer<object>
@@ -983,6 +1048,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Queue.Enumerator<Hsenl.HTask>
 	// System.Collections.Generic.Queue.Enumerator<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.Queue.Enumerator<System.ValueTuple<int,long,int>>
+	// System.Collections.Generic.Queue.Enumerator<System.ValueTuple<long,long,int>>
+	// System.Collections.Generic.Queue.Enumerator<System.ValueTuple<object,int,int,object>>
 	// System.Collections.Generic.Queue.Enumerator<System.ValueTuple<object,object>>
 	// System.Collections.Generic.Queue.Enumerator<int>
 	// System.Collections.Generic.Queue.Enumerator<long>
@@ -993,6 +1060,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Queue<Hsenl.HTask>
 	// System.Collections.Generic.Queue<Hsenl.Network.SegmentStruct>
 	// System.Collections.Generic.Queue<System.ValueTuple<int,long,int>>
+	// System.Collections.Generic.Queue<System.ValueTuple<long,long,int>>
+	// System.Collections.Generic.Queue<System.ValueTuple<object,int,int,object>>
 	// System.Collections.Generic.Queue<System.ValueTuple<object,object>>
 	// System.Collections.Generic.Queue<int>
 	// System.Collections.Generic.Queue<long>
@@ -1036,52 +1105,21 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.SortedDictionary<int,object>
 	// System.Collections.Generic.SortedDictionary<long,object>
 	// System.Collections.Generic.SortedDictionary<object,object>
-	// System.Collections.Generic.SortedList.Enumerator<object,object>
-	// System.Collections.Generic.SortedList.KeyList<object,object>
-	// System.Collections.Generic.SortedList.SortedListKeyEnumerator<object,object>
-	// System.Collections.Generic.SortedList.SortedListValueEnumerator<object,object>
-	// System.Collections.Generic.SortedList.ValueList<object,object>
-	// System.Collections.Generic.SortedList<object,object>
 	// System.Collections.Generic.SortedSet.<>c__DisplayClass52_0<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.SortedSet.<>c__DisplayClass52_0<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.Generic.SortedSet.<>c__DisplayClass52_0<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.SortedSet.<>c__DisplayClass52_0<object>
 	// System.Collections.Generic.SortedSet.<>c__DisplayClass53_0<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.SortedSet.<>c__DisplayClass53_0<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.Generic.SortedSet.<>c__DisplayClass53_0<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.SortedSet.<>c__DisplayClass53_0<object>
-	// System.Collections.Generic.SortedSet.<>c__DisplayClass85_0<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.Generic.SortedSet.<>c__DisplayClass85_0<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.SortedSet.<>c__DisplayClass85_0<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.SortedSet.<>c__DisplayClass85_0<object>
-	// System.Collections.Generic.SortedSet.<Reverse>d__94<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.Generic.SortedSet.<Reverse>d__94<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.SortedSet.<Reverse>d__94<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.SortedSet.<Reverse>d__94<object>
 	// System.Collections.Generic.SortedSet.Enumerator<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.SortedSet.Enumerator<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.Generic.SortedSet.Enumerator<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.SortedSet.Enumerator<object>
 	// System.Collections.Generic.SortedSet.Node<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.SortedSet.Node<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.Generic.SortedSet.Node<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.SortedSet.Node<object>
-	// System.Collections.Generic.SortedSet.TreeSubSet.<>c__DisplayClass9_0<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.Generic.SortedSet.TreeSubSet.<>c__DisplayClass9_0<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.SortedSet.TreeSubSet.<>c__DisplayClass9_0<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.SortedSet.TreeSubSet.<>c__DisplayClass9_0<object>
-	// System.Collections.Generic.SortedSet.TreeSubSet<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.Generic.SortedSet.TreeSubSet<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.SortedSet.TreeSubSet<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.SortedSet.TreeSubSet<object>
 	// System.Collections.Generic.SortedSet<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.SortedSet<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.Generic.SortedSet<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.SortedSet<object>
-	// System.Collections.Generic.SortedSetEqualityComparer<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.Generic.SortedSetEqualityComparer<System.Collections.Generic.KeyValuePair<long,object>>
-	// System.Collections.Generic.SortedSetEqualityComparer<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.SortedSetEqualityComparer<object>
 	// System.Collections.Generic.Stack.Enumerator<object>
 	// System.Collections.Generic.Stack<object>
 	// System.Collections.Generic.TreeSet<System.Collections.Generic.KeyValuePair<int,object>>
@@ -1090,24 +1128,20 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.TreeWalkPredicate<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.TreeWalkPredicate<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.Generic.TreeWalkPredicate<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.Generic.TreeWalkPredicate<object>
-	// System.Collections.ObjectModel.Collection<object>
-	// System.Collections.ObjectModel.ObservableCollection.SimpleMonitor<object>
-	// System.Collections.ObjectModel.ObservableCollection<object>
 	// System.Collections.ObjectModel.ReadOnlyCollection<Cysharp.Text.Utf16FormatSegment>
 	// System.Collections.ObjectModel.ReadOnlyCollection<Cysharp.Text.Utf8FormatSegment>
 	// System.Collections.ObjectModel.ReadOnlyCollection<Hsenl.Container.MappingInfo>
+	// System.Collections.ObjectModel.ReadOnlyCollection<Hsenl.HTask<int>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<Hsenl.HTask>
 	// System.Collections.ObjectModel.ReadOnlyCollection<Hsenl.Network.AckItem>
 	// System.Collections.ObjectModel.ReadOnlyCollection<Hsenl.Network.SegmentStruct>
 	// System.Collections.ObjectModel.ReadOnlyCollection<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Collections.ObjectModel.ReadOnlyCollection<Hsenl.Vector3>
 	// System.Collections.ObjectModel.ReadOnlyCollection<MemoryPack.Internal.BufferSegment>
-	// System.Collections.ObjectModel.ReadOnlyCollection<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Collections.ObjectModel.ReadOnlyCollection<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.ObjectModel.ReadOnlyCollection<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Collections.ObjectModel.ReadOnlyCollection<System.Threading.CancellationToken>
+	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<int,object>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<object,object>>
-	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<uint,object>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<ushort,object>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<UnityEngine.Bounds>
 	// System.Collections.ObjectModel.ReadOnlyCollection<UnityEngine.BoundsInt>
@@ -1133,26 +1167,26 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.ReadOnlyCollection<int>
 	// System.Collections.ObjectModel.ReadOnlyCollection<long>
 	// System.Collections.ObjectModel.ReadOnlyCollection<object>
+	// System.Collections.ObjectModel.ReadOnlyCollection<uint>
 	// System.Collections.ObjectModel.ReadOnlyCollection<ushort>
-	// System.Collections.ObjectModel.ReadOnlyObservableCollection<object>
 	// System.Comparison<Cysharp.Text.Utf16FormatSegment>
 	// System.Comparison<Cysharp.Text.Utf8FormatSegment>
 	// System.Comparison<Hsenl.Container.MappingInfo>
+	// System.Comparison<Hsenl.HTask<int>>
 	// System.Comparison<Hsenl.HTask>
 	// System.Comparison<Hsenl.MergeSortFloatWrap<object>>
 	// System.Comparison<Hsenl.Network.AckItem>
 	// System.Comparison<Hsenl.Network.SegmentStruct>
 	// System.Comparison<Hsenl.Num>
 	// System.Comparison<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Comparison<Hsenl.Vector3>
 	// System.Comparison<MemoryPack.Internal.BufferSegment>
-	// System.Comparison<System.Buffers.ReadOnlySequence<byte>>
 	// System.Comparison<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Comparison<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Comparison<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Comparison<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Comparison<System.IntPtr>
-	// System.Comparison<System.Threading.CancellationToken>
+	// System.Comparison<System.ValueTuple<int,object>>
 	// System.Comparison<System.ValueTuple<object,object>>
-	// System.Comparison<System.ValueTuple<uint,object>>
 	// System.Comparison<System.ValueTuple<ushort,object>>
 	// System.Comparison<UnityEngine.Bounds>
 	// System.Comparison<UnityEngine.BoundsInt>
@@ -1181,94 +1215,89 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Comparison<uint>
 	// System.Comparison<ushort>
 	// System.EventHandler<object>
+	// System.Func<Hsenl.HTask<int>>
+	// System.Func<Hsenl.HTask>
+	// System.Func<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>,byte>
+	// System.Func<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>,object>
 	// System.Func<System.Collections.Generic.KeyValuePair<object,object>,byte>
 	// System.Func<System.Collections.Generic.KeyValuePair<object,object>,object>
-	// System.Func<System.Threading.Tasks.VoidTaskResult>
-	// System.Func<System.ValueTuple<object,object>,object>
 	// System.Func<System.ValueTuple<ushort,object>,object>
 	// System.Func<System.ValueTuple<ushort,object>,ushort>
 	// System.Func<byte>
 	// System.Func<float,float>
 	// System.Func<float,int>
 	// System.Func<int,System.Memory<byte>>
+	// System.Func<int,System.ValueTuple<object,int,int,object>>
+	// System.Func<int,System.ValueTuple<object,int,int>>
 	// System.Func<int,object,object>
 	// System.Func<int,object>
 	// System.Func<int>
 	// System.Func<long,object,object>
 	// System.Func<long,object>
-	// System.Func<object,System.Threading.Tasks.VoidTaskResult>
+	// System.Func<object,Hsenl.HTask<byte>>
+	// System.Func<object,Hsenl.HTask<int>>
+	// System.Func<object,Hsenl.HTask>
 	// System.Func<object,System.ValueTuple<object,object,object>,byte>
 	// System.Func<object,byte>
+	// System.Func<object,int,System.ValueTuple<object,object,int,object>,byte>
 	// System.Func<object,int,int,object>
-	// System.Func<object,int,object>
+	// System.Func<object,int,object,byte>
 	// System.Func<object,int>
 	// System.Func<object,object,Hsenl.HTask>
-	// System.Func<object,object,System.ValueTuple<object,object,int,object>,byte>
-	// System.Func<object,object,System.ValueTuple<object,object,int>,byte>
 	// System.Func<object,object,byte>
 	// System.Func<object,object,object,Hsenl.HTask>
-	// System.Func<object,object,object,byte>
 	// System.Func<object,object,object>
 	// System.Func<object,object>
 	// System.Func<object>
-	// System.IComparable<FixedMath.Fixp>
+	// System.IComparable<Hsenl.Fixp>
 	// System.IComparable<Hsenl.MergeSortFloatWrap<object>>
 	// System.IComparable<object>
-	// System.IEquatable<FixedMath.FMatrix3x3>
-	// System.IEquatable<FixedMath.FMatrix4x4>
-	// System.IEquatable<FixedMath.FVector2>
-	// System.IEquatable<FixedMath.FVector3>
-	// System.IEquatable<FixedMath.FVector4>
-	// System.IEquatable<FixedMath.Fixp>
+	// System.IEquatable<Hsenl.Fixp>
+	// System.IEquatable<Hsenl.Matrix3x3>
+	// System.IEquatable<Hsenl.Matrix4x4>
+	// System.IEquatable<Hsenl.Vector2>
+	// System.IEquatable<Hsenl.Vector3>
+	// System.IEquatable<Hsenl.Vector4>
 	// System.IEquatable<object>
 	// System.IEquatable<ushort>
-	// System.Lazy<object>
 	// System.Linq.Buffer<int>
 	// System.Linq.Buffer<object>
 	// System.Linq.Buffer<uint>
 	// System.Linq.Enumerable.<ConcatIterator>d__59<object>
 	// System.Linq.Enumerable.<DistinctIterator>d__68<object>
-	// System.Linq.Enumerable.<PrependIterator>d__63<object>
-	// System.Linq.Enumerable.<ReverseIterator>d__79<object>
 	// System.Linq.Enumerable.<SelectManyIterator>d__17<object,object>
+	// System.Linq.Enumerable.Iterator<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Linq.Enumerable.Iterator<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Linq.Enumerable.Iterator<object>
+	// System.Linq.Enumerable.WhereArrayIterator<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Linq.Enumerable.WhereArrayIterator<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Linq.Enumerable.WhereArrayIterator<object>
+	// System.Linq.Enumerable.WhereEnumerableIterator<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Linq.Enumerable.WhereEnumerableIterator<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Linq.Enumerable.WhereEnumerableIterator<object>
+	// System.Linq.Enumerable.WhereListIterator<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Linq.Enumerable.WhereListIterator<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Linq.Enumerable.WhereListIterator<object>
+	// System.Linq.Enumerable.WhereSelectArrayIterator<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>,object>
 	// System.Linq.Enumerable.WhereSelectArrayIterator<System.Collections.Generic.KeyValuePair<object,object>,object>
 	// System.Linq.Enumerable.WhereSelectArrayIterator<object,object>
+	// System.Linq.Enumerable.WhereSelectEnumerableIterator<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>,object>
 	// System.Linq.Enumerable.WhereSelectEnumerableIterator<System.Collections.Generic.KeyValuePair<object,object>,object>
 	// System.Linq.Enumerable.WhereSelectEnumerableIterator<object,object>
+	// System.Linq.Enumerable.WhereSelectListIterator<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>,object>
 	// System.Linq.Enumerable.WhereSelectListIterator<System.Collections.Generic.KeyValuePair<object,object>,object>
 	// System.Linq.Enumerable.WhereSelectListIterator<object,object>
-	// System.Linq.IGrouping<object,object>
-	// System.Linq.ILookup<object,object>
 	// System.Linq.Set<object>
 	// System.Memory<byte>
-	// System.Memory<object>
 	// System.Memory<ushort>
 	// System.Nullable<Hsenl.HTask<object>>
 	// System.Nullable<Hsenl.HTask>
+	// System.Nullable<Hsenl.Vector3>
 	// System.Nullable<System.DateTime>
 	// System.Nullable<System.DateTimeOffset>
 	// System.Nullable<System.Decimal>
 	// System.Nullable<System.Guid>
-	// System.Nullable<System.IntPtr>
-	// System.Nullable<System.Numerics.Complex>
-	// System.Nullable<System.Numerics.Matrix3x2>
-	// System.Nullable<System.Numerics.Matrix4x4>
-	// System.Nullable<System.Numerics.Plane>
-	// System.Nullable<System.Numerics.Quaternion>
-	// System.Nullable<System.Numerics.Vector2>
-	// System.Nullable<System.Numerics.Vector3>
-	// System.Nullable<System.Numerics.Vector4>
 	// System.Nullable<System.TimeSpan>
-	// System.Nullable<System.UIntPtr>
-	// System.Nullable<Unity.Mathematics.float3>
 	// System.Nullable<UnityEngine.Bounds>
 	// System.Nullable<UnityEngine.BoundsInt>
 	// System.Nullable<UnityEngine.Color32>
@@ -1301,17 +1330,17 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Predicate<Cysharp.Text.Utf16FormatSegment>
 	// System.Predicate<Cysharp.Text.Utf8FormatSegment>
 	// System.Predicate<Hsenl.Container.MappingInfo>
+	// System.Predicate<Hsenl.HTask<int>>
 	// System.Predicate<Hsenl.HTask>
 	// System.Predicate<Hsenl.Network.AckItem>
 	// System.Predicate<Hsenl.Network.SegmentStruct>
 	// System.Predicate<Hsenl.ShadowFunctionManager.DelegateWrap>
+	// System.Predicate<Hsenl.Vector3>
 	// System.Predicate<MemoryPack.Internal.BufferSegment>
-	// System.Predicate<System.Collections.Generic.KeyValuePair<int,object>>
-	// System.Predicate<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Predicate<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>
 	// System.Predicate<System.Collections.Generic.KeyValuePair<object,object>>
-	// System.Predicate<System.Threading.CancellationToken>
+	// System.Predicate<System.ValueTuple<int,object>>
 	// System.Predicate<System.ValueTuple<object,object>>
-	// System.Predicate<System.ValueTuple<uint,object>>
 	// System.Predicate<System.ValueTuple<ushort,object>>
 	// System.Predicate<UnityEngine.Bounds>
 	// System.Predicate<UnityEngine.BoundsInt>
@@ -1337,274 +1366,68 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Predicate<int>
 	// System.Predicate<long>
 	// System.Predicate<object>
+	// System.Predicate<uint>
 	// System.Predicate<ushort>
 	// System.ReadOnlyMemory<byte>
-	// System.ReadOnlyMemory<object>
 	// System.ReadOnlyMemory<ushort>
-	// System.ReadOnlySpan.Enumerator<Hsenl.C2L_Login>
-	// System.ReadOnlySpan.Enumerator<Hsenl.L2C_Login>
-	// System.ReadOnlySpan.Enumerator<System.DateTime>
-	// System.ReadOnlySpan.Enumerator<System.DateTimeOffset>
-	// System.ReadOnlySpan.Enumerator<System.Decimal>
-	// System.ReadOnlySpan.Enumerator<System.Guid>
-	// System.ReadOnlySpan.Enumerator<System.IntPtr>
-	// System.ReadOnlySpan.Enumerator<System.Numerics.BigInteger>
-	// System.ReadOnlySpan.Enumerator<System.Numerics.Complex>
-	// System.ReadOnlySpan.Enumerator<System.Numerics.Matrix3x2>
-	// System.ReadOnlySpan.Enumerator<System.Numerics.Matrix4x4>
-	// System.ReadOnlySpan.Enumerator<System.Numerics.Plane>
-	// System.ReadOnlySpan.Enumerator<System.Numerics.Quaternion>
-	// System.ReadOnlySpan.Enumerator<System.Numerics.Vector2>
-	// System.ReadOnlySpan.Enumerator<System.Numerics.Vector3>
-	// System.ReadOnlySpan.Enumerator<System.Numerics.Vector4>
-	// System.ReadOnlySpan.Enumerator<System.TimeSpan>
-	// System.ReadOnlySpan.Enumerator<System.UIntPtr>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.Bounds>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.BoundsInt>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.Color32>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.Color>
+	// System.ReadOnlySpan.Enumerator<Hsenl.MergeSortFloatWrap<object>>
+	// System.ReadOnlySpan.Enumerator<Hsenl.Vector3>
 	// System.ReadOnlySpan.Enumerator<UnityEngine.GradientAlphaKey>
 	// System.ReadOnlySpan.Enumerator<UnityEngine.GradientColorKey>
 	// System.ReadOnlySpan.Enumerator<UnityEngine.Keyframe>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.LayerMask>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.Matrix4x4>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.Quaternion>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.RangeInt>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.Rect>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.RectInt>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.Vector2>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.Vector2Int>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.Vector3>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.Vector3Int>
-	// System.ReadOnlySpan.Enumerator<UnityEngine.Vector4>
 	// System.ReadOnlySpan.Enumerator<UnityEngine.jvalue>
 	// System.ReadOnlySpan.Enumerator<byte>
-	// System.ReadOnlySpan.Enumerator<double>
-	// System.ReadOnlySpan.Enumerator<float>
 	// System.ReadOnlySpan.Enumerator<int>
-	// System.ReadOnlySpan.Enumerator<long>
 	// System.ReadOnlySpan.Enumerator<object>
-	// System.ReadOnlySpan.Enumerator<sbyte>
-	// System.ReadOnlySpan.Enumerator<short>
-	// System.ReadOnlySpan.Enumerator<uint>
 	// System.ReadOnlySpan.Enumerator<ulong>
 	// System.ReadOnlySpan.Enumerator<ushort>
-	// System.ReadOnlySpan<Hsenl.C2L_Login>
-	// System.ReadOnlySpan<Hsenl.L2C_Login>
-	// System.ReadOnlySpan<System.DateTime>
-	// System.ReadOnlySpan<System.DateTimeOffset>
-	// System.ReadOnlySpan<System.Decimal>
-	// System.ReadOnlySpan<System.Guid>
-	// System.ReadOnlySpan<System.IntPtr>
-	// System.ReadOnlySpan<System.Numerics.BigInteger>
-	// System.ReadOnlySpan<System.Numerics.Complex>
-	// System.ReadOnlySpan<System.Numerics.Matrix3x2>
-	// System.ReadOnlySpan<System.Numerics.Matrix4x4>
-	// System.ReadOnlySpan<System.Numerics.Plane>
-	// System.ReadOnlySpan<System.Numerics.Quaternion>
-	// System.ReadOnlySpan<System.Numerics.Vector2>
-	// System.ReadOnlySpan<System.Numerics.Vector3>
-	// System.ReadOnlySpan<System.Numerics.Vector4>
-	// System.ReadOnlySpan<System.TimeSpan>
-	// System.ReadOnlySpan<System.UIntPtr>
-	// System.ReadOnlySpan<UnityEngine.Bounds>
-	// System.ReadOnlySpan<UnityEngine.BoundsInt>
-	// System.ReadOnlySpan<UnityEngine.Color32>
-	// System.ReadOnlySpan<UnityEngine.Color>
+	// System.ReadOnlySpan<Hsenl.MergeSortFloatWrap<object>>
+	// System.ReadOnlySpan<Hsenl.Vector3>
 	// System.ReadOnlySpan<UnityEngine.GradientAlphaKey>
 	// System.ReadOnlySpan<UnityEngine.GradientColorKey>
 	// System.ReadOnlySpan<UnityEngine.Keyframe>
-	// System.ReadOnlySpan<UnityEngine.LayerMask>
-	// System.ReadOnlySpan<UnityEngine.Matrix4x4>
-	// System.ReadOnlySpan<UnityEngine.Quaternion>
-	// System.ReadOnlySpan<UnityEngine.RangeInt>
-	// System.ReadOnlySpan<UnityEngine.Rect>
-	// System.ReadOnlySpan<UnityEngine.RectInt>
-	// System.ReadOnlySpan<UnityEngine.Vector2>
-	// System.ReadOnlySpan<UnityEngine.Vector2Int>
-	// System.ReadOnlySpan<UnityEngine.Vector3>
-	// System.ReadOnlySpan<UnityEngine.Vector3Int>
-	// System.ReadOnlySpan<UnityEngine.Vector4>
 	// System.ReadOnlySpan<UnityEngine.jvalue>
 	// System.ReadOnlySpan<byte>
-	// System.ReadOnlySpan<double>
-	// System.ReadOnlySpan<float>
 	// System.ReadOnlySpan<int>
-	// System.ReadOnlySpan<long>
 	// System.ReadOnlySpan<object>
-	// System.ReadOnlySpan<sbyte>
-	// System.ReadOnlySpan<short>
-	// System.ReadOnlySpan<uint>
 	// System.ReadOnlySpan<ulong>
 	// System.ReadOnlySpan<ushort>
-	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>
-	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<int>
-	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>
-	// System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder<object>
-	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<System.Threading.Tasks.VoidTaskResult>
-	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<int>
-	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<object>
-	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<System.Threading.Tasks.VoidTaskResult>
-	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<int>
-	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<object>
-	// System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter<int>
-	// System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter<object>
-	// System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable<int>
-	// System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable<object>
-	// System.Runtime.CompilerServices.StrongBox<int>
-	// System.Runtime.CompilerServices.TaskAwaiter<System.Threading.Tasks.VoidTaskResult>
-	// System.Runtime.CompilerServices.TaskAwaiter<int>
-	// System.Runtime.CompilerServices.TaskAwaiter<object>
-	// System.Runtime.CompilerServices.ValueTaskAwaiter<int>
-	// System.Runtime.CompilerServices.ValueTaskAwaiter<object>
-	// System.Span.Enumerator<Hsenl.C2L_Login>
-	// System.Span.Enumerator<Hsenl.L2C_Login>
-	// System.Span.Enumerator<System.DateTime>
-	// System.Span.Enumerator<System.DateTimeOffset>
-	// System.Span.Enumerator<System.Decimal>
-	// System.Span.Enumerator<System.Guid>
-	// System.Span.Enumerator<System.IntPtr>
-	// System.Span.Enumerator<System.Numerics.BigInteger>
-	// System.Span.Enumerator<System.Numerics.Complex>
-	// System.Span.Enumerator<System.Numerics.Matrix3x2>
-	// System.Span.Enumerator<System.Numerics.Matrix4x4>
-	// System.Span.Enumerator<System.Numerics.Plane>
-	// System.Span.Enumerator<System.Numerics.Quaternion>
-	// System.Span.Enumerator<System.Numerics.Vector2>
-	// System.Span.Enumerator<System.Numerics.Vector3>
-	// System.Span.Enumerator<System.Numerics.Vector4>
-	// System.Span.Enumerator<System.TimeSpan>
-	// System.Span.Enumerator<System.UIntPtr>
-	// System.Span.Enumerator<UnityEngine.Bounds>
-	// System.Span.Enumerator<UnityEngine.BoundsInt>
-	// System.Span.Enumerator<UnityEngine.Color32>
-	// System.Span.Enumerator<UnityEngine.Color>
+	// System.Span.Enumerator<Hsenl.MergeSortFloatWrap<object>>
+	// System.Span.Enumerator<Hsenl.Vector3>
 	// System.Span.Enumerator<UnityEngine.GradientAlphaKey>
 	// System.Span.Enumerator<UnityEngine.GradientColorKey>
 	// System.Span.Enumerator<UnityEngine.Keyframe>
-	// System.Span.Enumerator<UnityEngine.LayerMask>
-	// System.Span.Enumerator<UnityEngine.Matrix4x4>
-	// System.Span.Enumerator<UnityEngine.Quaternion>
-	// System.Span.Enumerator<UnityEngine.RangeInt>
-	// System.Span.Enumerator<UnityEngine.Rect>
-	// System.Span.Enumerator<UnityEngine.RectInt>
-	// System.Span.Enumerator<UnityEngine.Vector2>
-	// System.Span.Enumerator<UnityEngine.Vector2Int>
-	// System.Span.Enumerator<UnityEngine.Vector3>
-	// System.Span.Enumerator<UnityEngine.Vector3Int>
-	// System.Span.Enumerator<UnityEngine.Vector4>
 	// System.Span.Enumerator<UnityEngine.jvalue>
 	// System.Span.Enumerator<byte>
-	// System.Span.Enumerator<double>
-	// System.Span.Enumerator<float>
 	// System.Span.Enumerator<int>
-	// System.Span.Enumerator<long>
 	// System.Span.Enumerator<object>
-	// System.Span.Enumerator<sbyte>
-	// System.Span.Enumerator<short>
-	// System.Span.Enumerator<uint>
 	// System.Span.Enumerator<ulong>
 	// System.Span.Enumerator<ushort>
-	// System.Span<Hsenl.C2L_Login>
-	// System.Span<Hsenl.L2C_Login>
-	// System.Span<System.DateTime>
-	// System.Span<System.DateTimeOffset>
-	// System.Span<System.Decimal>
-	// System.Span<System.Guid>
-	// System.Span<System.IntPtr>
-	// System.Span<System.Numerics.BigInteger>
-	// System.Span<System.Numerics.Complex>
-	// System.Span<System.Numerics.Matrix3x2>
-	// System.Span<System.Numerics.Matrix4x4>
-	// System.Span<System.Numerics.Plane>
-	// System.Span<System.Numerics.Quaternion>
-	// System.Span<System.Numerics.Vector2>
-	// System.Span<System.Numerics.Vector3>
-	// System.Span<System.Numerics.Vector4>
-	// System.Span<System.TimeSpan>
-	// System.Span<System.UIntPtr>
-	// System.Span<UnityEngine.Bounds>
-	// System.Span<UnityEngine.BoundsInt>
-	// System.Span<UnityEngine.Color32>
-	// System.Span<UnityEngine.Color>
+	// System.Span<Hsenl.MergeSortFloatWrap<object>>
+	// System.Span<Hsenl.Vector3>
 	// System.Span<UnityEngine.GradientAlphaKey>
 	// System.Span<UnityEngine.GradientColorKey>
 	// System.Span<UnityEngine.Keyframe>
-	// System.Span<UnityEngine.LayerMask>
-	// System.Span<UnityEngine.Matrix4x4>
-	// System.Span<UnityEngine.Quaternion>
-	// System.Span<UnityEngine.RangeInt>
-	// System.Span<UnityEngine.Rect>
-	// System.Span<UnityEngine.RectInt>
-	// System.Span<UnityEngine.Vector2>
-	// System.Span<UnityEngine.Vector2Int>
-	// System.Span<UnityEngine.Vector3>
-	// System.Span<UnityEngine.Vector3Int>
-	// System.Span<UnityEngine.Vector4>
 	// System.Span<UnityEngine.jvalue>
 	// System.Span<byte>
-	// System.Span<double>
-	// System.Span<float>
 	// System.Span<int>
-	// System.Span<long>
 	// System.Span<object>
-	// System.Span<sbyte>
-	// System.Span<short>
-	// System.Span<uint>
 	// System.Span<ulong>
 	// System.Span<ushort>
-	// System.Threading.Tasks.ContinuationTaskFromResultTask<System.Threading.Tasks.VoidTaskResult>
-	// System.Threading.Tasks.ContinuationTaskFromResultTask<int>
-	// System.Threading.Tasks.ContinuationTaskFromResultTask<object>
-	// System.Threading.Tasks.Sources.IValueTaskSource<int>
-	// System.Threading.Tasks.Sources.IValueTaskSource<object>
-	// System.Threading.Tasks.Task<System.Threading.Tasks.VoidTaskResult>
-	// System.Threading.Tasks.Task<int>
-	// System.Threading.Tasks.Task<object>
-	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<System.Threading.Tasks.VoidTaskResult>
-	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<int>
-	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<object>
-	// System.Threading.Tasks.TaskFactory<System.Threading.Tasks.VoidTaskResult>
-	// System.Threading.Tasks.TaskFactory<int>
-	// System.Threading.Tasks.TaskFactory<object>
-	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c<int>
-	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c<object>
-	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask<int>
-	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask<object>
-	// System.Threading.Tasks.ValueTask<int>
-	// System.Threading.Tasks.ValueTask<object>
-	// System.Threading.ThreadLocal.FinalizationHelper<object>
-	// System.Threading.ThreadLocal.IdManager<object>
-	// System.Threading.ThreadLocal.LinkedSlot<object>
-	// System.Threading.ThreadLocal<object>
-	// System.Tuple<object,object,object,object,object,object,object,object>
-	// System.Tuple<object,object,object,object,object,object,object>
-	// System.Tuple<object,object,object,object,object,object>
-	// System.Tuple<object,object,object,object,object>
-	// System.Tuple<object,object,object,object>
-	// System.Tuple<object,object,object>
-	// System.Tuple<object,object>
-	// System.Tuple<object>
 	// System.ValueTuple<Hsenl.Num,Hsenl.Num>
-	// System.ValueTuple<System.Buffers.ReadOnlySequence<byte>,long,int,object>
-	// System.ValueTuple<System.IntPtr,int,int,object>
 	// System.ValueTuple<byte,uint>
+	// System.ValueTuple<float,float>
 	// System.ValueTuple<int,int>
 	// System.ValueTuple<int,long,int>
+	// System.ValueTuple<int,object>
+	// System.ValueTuple<long,long,int>
+	// System.ValueTuple<object,int,int,object>
+	// System.ValueTuple<object,int,int>
 	// System.ValueTuple<object,int>
 	// System.ValueTuple<object,object,int,object>
-	// System.ValueTuple<object,object,int>
-	// System.ValueTuple<object,object,object,object,object,object,object,object>
-	// System.ValueTuple<object,object,object,object,object,object,object>
-	// System.ValueTuple<object,object,object,object,object,object>
-	// System.ValueTuple<object,object,object,object,object>
-	// System.ValueTuple<object,object,object,object>
 	// System.ValueTuple<object,object,object>
 	// System.ValueTuple<object,object>
-	// System.ValueTuple<object>
-	// System.ValueTuple<uint,object>
 	// System.ValueTuple<uint,uint,int>
-	// System.ValueTuple<uint,uint>
 	// System.ValueTuple<ushort,object>
 	// UnityEngine.InputSystem.InputBindingComposite<UnityEngine.Vector2>
 	// UnityEngine.InputSystem.InputBindingComposite<float>
@@ -1625,54 +1448,169 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object DG.Tweening.TweenSettingsExtensions.SetEase<object>(object,DG.Tweening.Ease)
 		// object DG.Tweening.TweenSettingsExtensions.SetSpeedBased<object>(object)
 		// object DG.Tweening.TweenSettingsExtensions.SetSpeedBased<object>(object,bool)
+		// System.Collections.Generic.List<object> MemoryPack.Formatters.ListFormatter.DeserializePackable<object>(MemoryPack.MemoryPackReader&)
+		// System.Void MemoryPack.Formatters.ListFormatter.DeserializePackable<object>(MemoryPack.MemoryPackReader&,System.Collections.Generic.List<object>&)
+		// System.Void MemoryPack.Formatters.ListFormatter.SerializePackable<object,object>(MemoryPack.MemoryPackWriter<object>&,System.Collections.Generic.List<object>)
+		// System.Void MemoryPack.IMemoryPackFormatter<object>.Serialize<object>(MemoryPack.MemoryPackWriter<object>&,object&)
+		// UnityEngine.GradientAlphaKey[] MemoryPack.Internal.MemoryMarshalEx.AllocateUninitializedArray<UnityEngine.GradientAlphaKey>(int,bool)
+		// UnityEngine.GradientColorKey[] MemoryPack.Internal.MemoryMarshalEx.AllocateUninitializedArray<UnityEngine.GradientColorKey>(int,bool)
+		// UnityEngine.Keyframe[] MemoryPack.Internal.MemoryMarshalEx.AllocateUninitializedArray<UnityEngine.Keyframe>(int,bool)
+		// byte[] MemoryPack.Internal.MemoryMarshalEx.AllocateUninitializedArray<byte>(int,bool)
+		// int[] MemoryPack.Internal.MemoryMarshalEx.AllocateUninitializedArray<int>(int,bool)
+		// ulong[] MemoryPack.Internal.MemoryMarshalEx.AllocateUninitializedArray<ulong>(int,bool)
+		// UnityEngine.GradientAlphaKey& MemoryPack.Internal.MemoryMarshalEx.GetArrayDataReference<UnityEngine.GradientAlphaKey>(UnityEngine.GradientAlphaKey[])
+		// UnityEngine.GradientColorKey& MemoryPack.Internal.MemoryMarshalEx.GetArrayDataReference<UnityEngine.GradientColorKey>(UnityEngine.GradientColorKey[])
+		// UnityEngine.Keyframe& MemoryPack.Internal.MemoryMarshalEx.GetArrayDataReference<UnityEngine.Keyframe>(UnityEngine.Keyframe[])
+		// byte& MemoryPack.Internal.MemoryMarshalEx.GetArrayDataReference<byte>(byte[])
+		// int& MemoryPack.Internal.MemoryMarshalEx.GetArrayDataReference<int>(int[])
+		// ulong& MemoryPack.Internal.MemoryMarshalEx.GetArrayDataReference<ulong>(ulong[])
+		// MemoryPack.MemoryPackFormatter<object> MemoryPack.MemoryPackFormatterProvider.GetFormatter<object>()
+		// bool MemoryPack.MemoryPackFormatterProvider.IsRegistered<Hsenl.C2R_Login>()
+		// bool MemoryPack.MemoryPackFormatterProvider.IsRegistered<Hsenl.R2C_Login>()
+		// bool MemoryPack.MemoryPackFormatterProvider.IsRegistered<int>()
+		// bool MemoryPack.MemoryPackFormatterProvider.IsRegistered<object>()
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<Hsenl.C2R_Login>(MemoryPack.MemoryPackFormatter<Hsenl.C2R_Login>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<Hsenl.R2C_Login>(MemoryPack.MemoryPackFormatter<Hsenl.R2C_Login>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.Bounds>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Bounds>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.BoundsInt>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.BoundsInt>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.Color32>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Color32>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.Color>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Color>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.GradientAlphaKey>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.GradientAlphaKey>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.GradientColorKey>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.GradientColorKey>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.Keyframe>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Keyframe>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.LayerMask>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.LayerMask>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.Matrix4x4>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Matrix4x4>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.Quaternion>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Quaternion>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.RangeInt>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.RangeInt>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.Rect>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Rect>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.RectInt>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.RectInt>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.Vector2>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Vector2>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.Vector2Int>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Vector2Int>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.Vector3>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Vector3>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.Vector3Int>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Vector3Int>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<UnityEngine.Vector4>>(MemoryPack.MemoryPackFormatter<System.Nullable<UnityEngine.Vector4>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.Nullable<object>>(MemoryPack.MemoryPackFormatter<System.Nullable<object>>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<System.UIntPtr>(MemoryPack.MemoryPackFormatter<System.UIntPtr>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.Bounds>(MemoryPack.MemoryPackFormatter<UnityEngine.Bounds>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.BoundsInt>(MemoryPack.MemoryPackFormatter<UnityEngine.BoundsInt>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.Color32>(MemoryPack.MemoryPackFormatter<UnityEngine.Color32>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.Color>(MemoryPack.MemoryPackFormatter<UnityEngine.Color>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.GradientAlphaKey>(MemoryPack.MemoryPackFormatter<UnityEngine.GradientAlphaKey>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.GradientColorKey>(MemoryPack.MemoryPackFormatter<UnityEngine.GradientColorKey>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.Keyframe>(MemoryPack.MemoryPackFormatter<UnityEngine.Keyframe>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.LayerMask>(MemoryPack.MemoryPackFormatter<UnityEngine.LayerMask>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.Matrix4x4>(MemoryPack.MemoryPackFormatter<UnityEngine.Matrix4x4>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.Quaternion>(MemoryPack.MemoryPackFormatter<UnityEngine.Quaternion>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.RangeInt>(MemoryPack.MemoryPackFormatter<UnityEngine.RangeInt>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.Rect>(MemoryPack.MemoryPackFormatter<UnityEngine.Rect>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.RectInt>(MemoryPack.MemoryPackFormatter<UnityEngine.RectInt>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.Vector2>(MemoryPack.MemoryPackFormatter<UnityEngine.Vector2>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.Vector2Int>(MemoryPack.MemoryPackFormatter<UnityEngine.Vector2Int>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.Vector3>(MemoryPack.MemoryPackFormatter<UnityEngine.Vector3>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.Vector3Int>(MemoryPack.MemoryPackFormatter<UnityEngine.Vector3Int>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<UnityEngine.Vector4>(MemoryPack.MemoryPackFormatter<UnityEngine.Vector4>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<int>(MemoryPack.MemoryPackFormatter<int>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<object>(MemoryPack.MemoryPackFormatter<object>)
+		// System.Void MemoryPack.MemoryPackFormatterProvider.RegisterDictionary<object,object,object>()
+		// System.Void MemoryPack.MemoryPackReader.DangerousReadUnmanagedArray<int>(int[]&)
+		// System.Void MemoryPack.MemoryPackReader.DangerousReadUnmanagedArray<ulong>(ulong[]&)
+		// UnityEngine.GradientAlphaKey[] MemoryPack.MemoryPackReader.DangerousReadUnmanagedArray<UnityEngine.GradientAlphaKey>()
+		// UnityEngine.GradientColorKey[] MemoryPack.MemoryPackReader.DangerousReadUnmanagedArray<UnityEngine.GradientColorKey>()
+		// UnityEngine.Keyframe[] MemoryPack.MemoryPackReader.DangerousReadUnmanagedArray<UnityEngine.Keyframe>()
+		// int[] MemoryPack.MemoryPackReader.DangerousReadUnmanagedArray<int>()
+		// ulong[] MemoryPack.MemoryPackReader.DangerousReadUnmanagedArray<ulong>()
+		// MemoryPack.IMemoryPackFormatter<object> MemoryPack.MemoryPackReader.GetFormatter<object>()
+		// System.Void MemoryPack.MemoryPackReader.ReadPackable<object>(object&)
+		// object MemoryPack.MemoryPackReader.ReadPackable<object>()
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<Hsenl.Int2>(Hsenl.Int2&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<Hsenl.Vector3>(Hsenl.Vector3&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,byte,float,byte,byte>(byte&,byte&,float&,byte&,byte&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte>(byte&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<float,float>(float&,float&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<float>(float&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,Hsenl.Vector3>(int&,Hsenl.Vector3&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,byte,byte>(int&,byte&,byte&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,byte,float>(int&,byte&,float&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,byte,int,byte>(int&,byte&,int&,byte&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,byte,uint>(int&,byte&,uint&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,byte>(int&,byte&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,float,float,int>(int&,float&,float&,int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,float,int,byte>(int&,float&,int&,byte&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,float,int>(int&,float&,int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,float>(int&,float&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,int,int,byte>(int&,int&,int&,byte&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,int,int,int,int,int,int,int,int,int,int,int>(int&,int&,int&,int&,int&,int&,int&,int&,int&,int&,int&,int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,int,int,int>(int&,int&,int&,int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,int>(int&,int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int>(int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<uint>(uint&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanagedArray<int>(int[]&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanagedArray<ulong>(ulong[]&)
+		// UnityEngine.GradientAlphaKey[] MemoryPack.MemoryPackReader.ReadUnmanagedArray<UnityEngine.GradientAlphaKey>()
+		// UnityEngine.GradientColorKey[] MemoryPack.MemoryPackReader.ReadUnmanagedArray<UnityEngine.GradientColorKey>()
+		// UnityEngine.Keyframe[] MemoryPack.MemoryPackReader.ReadUnmanagedArray<UnityEngine.Keyframe>()
+		// int[] MemoryPack.MemoryPackReader.ReadUnmanagedArray<int>()
+		// ulong[] MemoryPack.MemoryPackReader.ReadUnmanagedArray<ulong>()
+		// System.Void MemoryPack.MemoryPackReader.ReadValue<object>(object&)
+		// object MemoryPack.MemoryPackReader.ReadValue<object>()
+		// int MemoryPack.MemoryPackSerializer.Deserialize<object>(System.ReadOnlySpan<byte>,object&,MemoryPack.MemoryPackSerializerOptions)
+		// object MemoryPack.MemoryPackSerializer.Deserialize<object>(System.ReadOnlySpan<byte>,MemoryPack.MemoryPackSerializerOptions)
+		// System.Void MemoryPack.MemoryPackSerializer.Serialize<object,object>(MemoryPack.MemoryPackWriter<object>&,object&)
+		// System.Void MemoryPack.MemoryPackSerializer.Serialize<object,object>(object&,object&,MemoryPack.MemoryPackSerializerOptions)
+		// byte[] MemoryPack.MemoryPackSerializer.Serialize<object>(object&,MemoryPack.MemoryPackSerializerOptions)
+		// System.Void MemoryPack.MemoryPackWriter<object>.DangerousWriteUnmanagedArray<UnityEngine.GradientAlphaKey>(UnityEngine.GradientAlphaKey[])
+		// System.Void MemoryPack.MemoryPackWriter<object>.DangerousWriteUnmanagedArray<UnityEngine.GradientColorKey>(UnityEngine.GradientColorKey[])
+		// System.Void MemoryPack.MemoryPackWriter<object>.DangerousWriteUnmanagedArray<UnityEngine.Keyframe>(UnityEngine.Keyframe[])
+		// System.Void MemoryPack.MemoryPackWriter<object>.DangerousWriteUnmanagedArray<int>(int[])
+		// System.Void MemoryPack.MemoryPackWriter<object>.DangerousWriteUnmanagedArray<ulong>(ulong[])
+		// MemoryPack.IMemoryPackFormatter<object> MemoryPack.MemoryPackWriter<object>.GetFormatter<object>()
+		// System.Void MemoryPack.MemoryPackWriter<object>.WritePackable<object>(object&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<Hsenl.Int2>(Hsenl.Int2&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<byte,byte,float,byte,byte>(byte&,byte&,float&,byte&,byte&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<byte>(byte&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<float,float>(float&,float&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<int,Hsenl.Vector3>(int&,Hsenl.Vector3&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<int,byte,int,int>(int&,byte&,int&,int&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<int,byte,int>(int&,byte&,int&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<int,byte>(int&,byte&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<int,float,int,byte>(int&,float&,int&,byte&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<int,float>(int&,float&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<int,int,int,byte>(int&,int&,int&,byte&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<int,int,int,int,int,int,int,int,int,int,int,int>(int&,int&,int&,int&,int&,int&,int&,int&,int&,int&,int&,int&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<int,int,int,int>(int&,int&,int&,int&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<int,int>(int&,int&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanaged<int>(int&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedArray<UnityEngine.GradientAlphaKey>(UnityEngine.GradientAlphaKey[])
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedArray<UnityEngine.GradientColorKey>(UnityEngine.GradientColorKey[])
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedArray<UnityEngine.Keyframe>(UnityEngine.Keyframe[])
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedArray<int>(int[])
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedArray<ulong>(ulong[])
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedWithObjectHeader<int,byte,byte>(byte,int&,byte&,byte&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedWithObjectHeader<int,byte,float>(byte,int&,byte&,float&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedWithObjectHeader<int,byte,int,byte>(byte,int&,byte&,int&,byte&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedWithObjectHeader<int,byte,uint>(byte,int&,byte&,uint&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedWithObjectHeader<int,byte>(byte,int&,byte&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedWithObjectHeader<int,float,float,int>(byte,int&,float&,float&,int&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedWithObjectHeader<int,float,int>(byte,int&,float&,int&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedWithObjectHeader<int,int,int,int>(byte,int&,int&,int&,int&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedWithObjectHeader<int,int>(byte,int&,int&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteUnmanagedWithObjectHeader<int>(byte,int&)
+		// System.Void MemoryPack.MemoryPackWriter<object>.WriteValue<object>(object&)
+		// object Sirenix.Serialization.SerializationUtility.DeserializeValue<object>(Sirenix.Serialization.IDataReader)
+		// object Sirenix.Serialization.SerializationUtility.DeserializeValue<object>(System.IO.Stream,Sirenix.Serialization.DataFormat,Sirenix.Serialization.DeserializationContext)
+		// object Sirenix.Serialization.SerializationUtility.DeserializeValue<object>(byte[],Sirenix.Serialization.DataFormat,Sirenix.Serialization.DeserializationContext)
+		// System.Void Sirenix.Serialization.SerializationUtility.SerializeValue<object>(object,Sirenix.Serialization.IDataWriter)
+		// System.Void Sirenix.Serialization.SerializationUtility.SerializeValue<object>(object,System.IO.Stream,Sirenix.Serialization.DataFormat,Sirenix.Serialization.SerializationContext)
+		// byte[] Sirenix.Serialization.SerializationUtility.SerializeValue<object>(object,Sirenix.Serialization.DataFormat,Sirenix.Serialization.SerializationContext)
+		// Sirenix.Serialization.Serializer<object> Sirenix.Serialization.Serializer.Get<object>()
 		// object System.Activator.CreateInstance<object>()
-		// Hsenl.C2L_Login[] System.Array.Empty<Hsenl.C2L_Login>()
-		// Hsenl.L2C_Login[] System.Array.Empty<Hsenl.L2C_Login>()
-		// System.DateTimeOffset[] System.Array.Empty<System.DateTimeOffset>()
-		// System.DateTime[] System.Array.Empty<System.DateTime>()
-		// System.Decimal[] System.Array.Empty<System.Decimal>()
-		// System.Guid[] System.Array.Empty<System.Guid>()
-		// System.IntPtr[] System.Array.Empty<System.IntPtr>()
-		// System.Numerics.BigInteger[] System.Array.Empty<System.Numerics.BigInteger>()
-		// System.Numerics.Complex[] System.Array.Empty<System.Numerics.Complex>()
-		// System.Numerics.Matrix3x2[] System.Array.Empty<System.Numerics.Matrix3x2>()
-		// System.Numerics.Matrix4x4[] System.Array.Empty<System.Numerics.Matrix4x4>()
-		// System.Numerics.Plane[] System.Array.Empty<System.Numerics.Plane>()
-		// System.Numerics.Quaternion[] System.Array.Empty<System.Numerics.Quaternion>()
-		// System.Numerics.Vector2[] System.Array.Empty<System.Numerics.Vector2>()
-		// System.Numerics.Vector3[] System.Array.Empty<System.Numerics.Vector3>()
-		// System.Numerics.Vector4[] System.Array.Empty<System.Numerics.Vector4>()
-		// System.TimeSpan[] System.Array.Empty<System.TimeSpan>()
-		// System.UIntPtr[] System.Array.Empty<System.UIntPtr>()
-		// UnityEngine.BoundsInt[] System.Array.Empty<UnityEngine.BoundsInt>()
-		// UnityEngine.Bounds[] System.Array.Empty<UnityEngine.Bounds>()
-		// UnityEngine.Color32[] System.Array.Empty<UnityEngine.Color32>()
-		// UnityEngine.Color[] System.Array.Empty<UnityEngine.Color>()
 		// UnityEngine.GradientAlphaKey[] System.Array.Empty<UnityEngine.GradientAlphaKey>()
 		// UnityEngine.GradientColorKey[] System.Array.Empty<UnityEngine.GradientColorKey>()
 		// UnityEngine.Keyframe[] System.Array.Empty<UnityEngine.Keyframe>()
-		// UnityEngine.LayerMask[] System.Array.Empty<UnityEngine.LayerMask>()
-		// UnityEngine.Matrix4x4[] System.Array.Empty<UnityEngine.Matrix4x4>()
-		// UnityEngine.Quaternion[] System.Array.Empty<UnityEngine.Quaternion>()
-		// UnityEngine.RangeInt[] System.Array.Empty<UnityEngine.RangeInt>()
-		// UnityEngine.RectInt[] System.Array.Empty<UnityEngine.RectInt>()
-		// UnityEngine.Rect[] System.Array.Empty<UnityEngine.Rect>()
-		// UnityEngine.Vector2Int[] System.Array.Empty<UnityEngine.Vector2Int>()
-		// UnityEngine.Vector2[] System.Array.Empty<UnityEngine.Vector2>()
-		// UnityEngine.Vector3Int[] System.Array.Empty<UnityEngine.Vector3Int>()
-		// UnityEngine.Vector3[] System.Array.Empty<UnityEngine.Vector3>()
-		// UnityEngine.Vector4[] System.Array.Empty<UnityEngine.Vector4>()
 		// byte[] System.Array.Empty<byte>()
-		// double[] System.Array.Empty<double>()
-		// float[] System.Array.Empty<float>()
 		// int[] System.Array.Empty<int>()
-		// long[] System.Array.Empty<long>()
 		// object[] System.Array.Empty<object>()
-		// sbyte[] System.Array.Empty<sbyte>()
-		// short[] System.Array.Empty<short>()
-		// uint[] System.Array.Empty<uint>()
 		// ulong[] System.Array.Empty<ulong>()
-		// ushort[] System.Array.Empty<ushort>()
 		// int System.Array.IndexOf<object>(object[],object)
 		// int System.Array.IndexOfImpl<object>(object[],object,int,int)
 		// System.Void System.Array.Reverse<object>(object[])
@@ -1681,20 +1619,16 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Array.Sort<object>(object[],System.Collections.Generic.IComparer<object>)
 		// System.Void System.Array.Sort<object>(object[],System.Comparison<object>)
 		// System.Void System.Array.Sort<object>(object[],int,int,System.Collections.Generic.IComparer<object>)
-		// System.Void System.Buffers.BuffersExtensions.CopyTo<byte>(System.Buffers.ReadOnlySequence<byte>&,System.Span<byte>)
-		// System.Void System.Buffers.BuffersExtensions.CopyToMultiSegment<byte>(System.Buffers.ReadOnlySequence<byte>&,System.Span<byte>)
 		// int System.Enum.Parse<int>(string)
 		// int System.Enum.Parse<int>(string,bool)
-		// bool System.Enum.TryParse<int>(string,bool,int&)
-		// bool System.Enum.TryParse<int>(string,int&)
 		// int System.HashCode.Combine<int,int,int,int,int>(int,int,int,int,int)
 		// int System.HashCode.Combine<int,int,int,int>(int,int,int,int)
 		// int System.HashCode.Combine<int,int,int>(int,int,int)
 		// int System.HashCode.Combine<int,int>(int,int)
+		// int System.HashCode.Combine<int,object,object,int>(int,object,object,int)
 		// int System.HashCode.Combine<long,byte>(long,byte)
 		// int System.HashCode.Combine<object,int>(object,int)
 		// int System.HashCode.Combine<object,object>(object,object)
-		// int System.HashCode.Combine<uint,object,object,int>(uint,object,object,int)
 		// bool System.Linq.Enumerable.Any<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.AsEnumerable<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Concat<object>(System.Collections.Generic.IEnumerable<object>,System.Collections.Generic.IEnumerable<object>)
@@ -1707,10 +1641,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Collections.Generic.KeyValuePair<object,object> System.Linq.Enumerable.First<System.Collections.Generic.KeyValuePair<object,object>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>)
 		// object System.Linq.Enumerable.FirstOrDefault<object>(System.Collections.Generic.IEnumerable<object>)
 		// object System.Linq.Enumerable.FirstOrDefault<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
-		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Prepend<object>(System.Collections.Generic.IEnumerable<object>,object)
-		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.PrependIterator<object>(System.Collections.Generic.IEnumerable<object>,object)
-		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Reverse<object>(System.Collections.Generic.IEnumerable<object>)
-		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.ReverseIterator<object>(System.Collections.Generic.IEnumerable<object>)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>,object>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>,System.Func<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<System.Collections.Generic.KeyValuePair<object,object>,object>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>,System.Func<System.Collections.Generic.KeyValuePair<object,object>,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.SelectMany<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,System.Collections.Generic.IEnumerable<object>>)
@@ -1718,69 +1649,28 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// int[] System.Linq.Enumerable.ToArray<int>(System.Collections.Generic.IEnumerable<int>)
 		// object[] System.Linq.Enumerable.ToArray<object>(System.Collections.Generic.IEnumerable<object>)
 		// uint[] System.Linq.Enumerable.ToArray<uint>(System.Collections.Generic.IEnumerable<uint>)
-		// System.Collections.Generic.Dictionary<object,ushort> System.Linq.Enumerable.ToDictionary<System.ValueTuple<ushort,object>,object,ushort>(System.Collections.Generic.IEnumerable<System.ValueTuple<ushort,object>>,System.Func<System.ValueTuple<ushort,object>,object>,System.Func<System.ValueTuple<ushort,object>,ushort>)
-		// System.Collections.Generic.Dictionary<object,ushort> System.Linq.Enumerable.ToDictionary<System.ValueTuple<ushort,object>,object,ushort>(System.Collections.Generic.IEnumerable<System.ValueTuple<ushort,object>>,System.Func<System.ValueTuple<ushort,object>,object>,System.Func<System.ValueTuple<ushort,object>,ushort>,System.Collections.Generic.IEqualityComparer<object>)
-		// System.Collections.Generic.Dictionary<ushort,object> System.Linq.Enumerable.ToDictionary<System.ValueTuple<ushort,object>,ushort,object>(System.Collections.Generic.IEnumerable<System.ValueTuple<ushort,object>>,System.Func<System.ValueTuple<ushort,object>,ushort>,System.Func<System.ValueTuple<ushort,object>,object>)
-		// System.Collections.Generic.Dictionary<ushort,object> System.Linq.Enumerable.ToDictionary<System.ValueTuple<ushort,object>,ushort,object>(System.Collections.Generic.IEnumerable<System.ValueTuple<ushort,object>>,System.Func<System.ValueTuple<ushort,object>,ushort>,System.Func<System.ValueTuple<ushort,object>,object>,System.Collections.Generic.IEqualityComparer<ushort>)
 		// System.Collections.Generic.List<object> System.Linq.Enumerable.ToList<object>(System.Collections.Generic.IEnumerable<object>)
+		// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>> System.Linq.Enumerable.Where<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>,System.Func<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>,bool>)
 		// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>> System.Linq.Enumerable.Where<System.Collections.Generic.KeyValuePair<object,object>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>,System.Func<System.Collections.Generic.KeyValuePair<object,object>,bool>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Where<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Iterator<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>>.Select<object>(System.Func<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<int,int>>,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Iterator<System.Collections.Generic.KeyValuePair<object,object>>.Select<object>(System.Func<System.Collections.Generic.KeyValuePair<object,object>,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Iterator<object>.Select<object>(System.Func<object,object>)
+		// System.Memory<byte> System.MemoryExtensions.AsMemory<byte>(byte[])
 		// System.Memory<byte> System.MemoryExtensions.AsMemory<byte>(byte[],int)
 		// System.Memory<byte> System.MemoryExtensions.AsMemory<byte>(byte[],int,int)
-		// System.Memory<object> System.MemoryExtensions.AsMemory<object>(System.ArraySegment<object>)
-		// System.Memory<object> System.MemoryExtensions.AsMemory<object>(object[],int,int)
 		// System.Memory<ushort> System.MemoryExtensions.AsMemory<ushort>(ushort[],int)
 		// System.Memory<ushort> System.MemoryExtensions.AsMemory<ushort>(ushort[],int,int)
-		// System.Span<Hsenl.C2L_Login> System.MemoryExtensions.AsSpan<Hsenl.C2L_Login>(Hsenl.C2L_Login[])
-		// System.Span<Hsenl.L2C_Login> System.MemoryExtensions.AsSpan<Hsenl.L2C_Login>(Hsenl.L2C_Login[])
-		// System.Span<System.DateTime> System.MemoryExtensions.AsSpan<System.DateTime>(System.DateTime[])
-		// System.Span<System.DateTimeOffset> System.MemoryExtensions.AsSpan<System.DateTimeOffset>(System.DateTimeOffset[])
-		// System.Span<System.Decimal> System.MemoryExtensions.AsSpan<System.Decimal>(System.Decimal[])
-		// System.Span<System.Guid> System.MemoryExtensions.AsSpan<System.Guid>(System.Guid[])
-		// System.Span<System.IntPtr> System.MemoryExtensions.AsSpan<System.IntPtr>(System.IntPtr[])
-		// System.Span<System.Numerics.BigInteger> System.MemoryExtensions.AsSpan<System.Numerics.BigInteger>(System.Numerics.BigInteger[])
-		// System.Span<System.Numerics.Complex> System.MemoryExtensions.AsSpan<System.Numerics.Complex>(System.Numerics.Complex[])
-		// System.Span<System.Numerics.Matrix3x2> System.MemoryExtensions.AsSpan<System.Numerics.Matrix3x2>(System.Numerics.Matrix3x2[])
-		// System.Span<System.Numerics.Matrix4x4> System.MemoryExtensions.AsSpan<System.Numerics.Matrix4x4>(System.Numerics.Matrix4x4[])
-		// System.Span<System.Numerics.Plane> System.MemoryExtensions.AsSpan<System.Numerics.Plane>(System.Numerics.Plane[])
-		// System.Span<System.Numerics.Quaternion> System.MemoryExtensions.AsSpan<System.Numerics.Quaternion>(System.Numerics.Quaternion[])
-		// System.Span<System.Numerics.Vector2> System.MemoryExtensions.AsSpan<System.Numerics.Vector2>(System.Numerics.Vector2[])
-		// System.Span<System.Numerics.Vector3> System.MemoryExtensions.AsSpan<System.Numerics.Vector3>(System.Numerics.Vector3[])
-		// System.Span<System.Numerics.Vector4> System.MemoryExtensions.AsSpan<System.Numerics.Vector4>(System.Numerics.Vector4[])
-		// System.Span<System.TimeSpan> System.MemoryExtensions.AsSpan<System.TimeSpan>(System.TimeSpan[])
-		// System.Span<System.UIntPtr> System.MemoryExtensions.AsSpan<System.UIntPtr>(System.UIntPtr[])
-		// System.Span<UnityEngine.Bounds> System.MemoryExtensions.AsSpan<UnityEngine.Bounds>(UnityEngine.Bounds[])
-		// System.Span<UnityEngine.BoundsInt> System.MemoryExtensions.AsSpan<UnityEngine.BoundsInt>(UnityEngine.BoundsInt[])
-		// System.Span<UnityEngine.Color32> System.MemoryExtensions.AsSpan<UnityEngine.Color32>(UnityEngine.Color32[])
-		// System.Span<UnityEngine.Color> System.MemoryExtensions.AsSpan<UnityEngine.Color>(UnityEngine.Color[])
+		// System.Span<Hsenl.MergeSortFloatWrap<object>> System.MemoryExtensions.AsSpan<Hsenl.MergeSortFloatWrap<object>>(Hsenl.MergeSortFloatWrap<object>[],int,int)
+		// System.Span<Hsenl.Vector3> System.MemoryExtensions.AsSpan<Hsenl.Vector3>(Hsenl.Vector3[],int,int)
 		// System.Span<UnityEngine.GradientAlphaKey> System.MemoryExtensions.AsSpan<UnityEngine.GradientAlphaKey>(UnityEngine.GradientAlphaKey[])
 		// System.Span<UnityEngine.GradientColorKey> System.MemoryExtensions.AsSpan<UnityEngine.GradientColorKey>(UnityEngine.GradientColorKey[])
 		// System.Span<UnityEngine.Keyframe> System.MemoryExtensions.AsSpan<UnityEngine.Keyframe>(UnityEngine.Keyframe[])
-		// System.Span<UnityEngine.LayerMask> System.MemoryExtensions.AsSpan<UnityEngine.LayerMask>(UnityEngine.LayerMask[])
-		// System.Span<UnityEngine.Matrix4x4> System.MemoryExtensions.AsSpan<UnityEngine.Matrix4x4>(UnityEngine.Matrix4x4[])
-		// System.Span<UnityEngine.Quaternion> System.MemoryExtensions.AsSpan<UnityEngine.Quaternion>(UnityEngine.Quaternion[])
-		// System.Span<UnityEngine.RangeInt> System.MemoryExtensions.AsSpan<UnityEngine.RangeInt>(UnityEngine.RangeInt[])
-		// System.Span<UnityEngine.Rect> System.MemoryExtensions.AsSpan<UnityEngine.Rect>(UnityEngine.Rect[])
-		// System.Span<UnityEngine.RectInt> System.MemoryExtensions.AsSpan<UnityEngine.RectInt>(UnityEngine.RectInt[])
-		// System.Span<UnityEngine.Vector2> System.MemoryExtensions.AsSpan<UnityEngine.Vector2>(UnityEngine.Vector2[])
-		// System.Span<UnityEngine.Vector2Int> System.MemoryExtensions.AsSpan<UnityEngine.Vector2Int>(UnityEngine.Vector2Int[])
-		// System.Span<UnityEngine.Vector3> System.MemoryExtensions.AsSpan<UnityEngine.Vector3>(UnityEngine.Vector3[])
-		// System.Span<UnityEngine.Vector3Int> System.MemoryExtensions.AsSpan<UnityEngine.Vector3Int>(UnityEngine.Vector3Int[])
-		// System.Span<UnityEngine.Vector4> System.MemoryExtensions.AsSpan<UnityEngine.Vector4>(UnityEngine.Vector4[])
-		// System.Span<byte> System.MemoryExtensions.AsSpan<byte>(System.ArraySegment<byte>,int)
 		// System.Span<byte> System.MemoryExtensions.AsSpan<byte>(byte[])
 		// System.Span<byte> System.MemoryExtensions.AsSpan<byte>(byte[],int)
 		// System.Span<byte> System.MemoryExtensions.AsSpan<byte>(byte[],int,int)
-		// System.Span<double> System.MemoryExtensions.AsSpan<double>(double[])
-		// System.Span<float> System.MemoryExtensions.AsSpan<float>(float[])
 		// System.Span<int> System.MemoryExtensions.AsSpan<int>(int[])
-		// System.Span<long> System.MemoryExtensions.AsSpan<long>(long[])
 		// System.Span<object> System.MemoryExtensions.AsSpan<object>(object[])
-		// System.Span<sbyte> System.MemoryExtensions.AsSpan<sbyte>(sbyte[])
-		// System.Span<short> System.MemoryExtensions.AsSpan<short>(short[])
-		// System.Span<uint> System.MemoryExtensions.AsSpan<uint>(uint[])
 		// System.Span<ulong> System.MemoryExtensions.AsSpan<ulong>(ulong[])
 		// System.Span<ushort> System.MemoryExtensions.AsSpan<ushort>(ushort[])
 		// System.Span<ushort> System.MemoryExtensions.AsSpan<ushort>(ushort[],int)
@@ -1789,76 +1679,42 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// bool System.MemoryExtensions.StartsWith<ushort>(System.ReadOnlySpan<ushort>,System.ReadOnlySpan<ushort>)
 		// object System.Reflection.CustomAttributeExtensions.GetCustomAttribute<object>(System.Reflection.MemberInfo)
 		// object System.Reflection.CustomAttributeExtensions.GetCustomAttribute<object>(System.Reflection.MemberInfo,bool)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>>(System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter&,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter,MemoryPack.Compression.BrotliCompressor.<CopyToAsync>d__11>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter&,MemoryPack.Compression.BrotliCompressor.<CopyToAsync>d__11&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter,MemoryPack.Internal.ReusableLinkedArrayBufferWriter.<WriteToAndResetAsync>d__19>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter&,MemoryPack.Internal.ReusableLinkedArrayBufferWriter.<WriteToAndResetAsync>d__19&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter&,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__9>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter&,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__9&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>>(System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter&,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter,MemoryPack.Compression.BrotliCompressor.<CopyToAsync>d__11>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter&,MemoryPack.Compression.BrotliCompressor.<CopyToAsync>d__11&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter,MemoryPack.Internal.ReusableLinkedArrayBufferWriter.<WriteToAndResetAsync>d__19>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter&,MemoryPack.Internal.ReusableLinkedArrayBufferWriter.<WriteToAndResetAsync>d__19&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter&,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__9>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter&,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__9&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter<int>,MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__15>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter<int>&,MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__15&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter<int>,MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__5<object>>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter<int>&,MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__5<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.Start<MemoryPack.Compression.BrotliCompressor.<CopyToAsync>d__11>(MemoryPack.Compression.BrotliCompressor.<CopyToAsync>d__11&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.Start<MemoryPack.Internal.ReusableLinkedArrayBufferWriter.<WriteToAndResetAsync>d__19>(MemoryPack.Internal.ReusableLinkedArrayBufferWriter.<WriteToAndResetAsync>d__19&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.Start<MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>>(MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.Start<MemoryPack.MemoryPackSerializer.<SerializeAsync>d__9>(MemoryPack.MemoryPackSerializer.<SerializeAsync>d__9&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__15>(MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__15&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__5<object>>(MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__5<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>>(System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter&,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter,MemoryPack.Compression.BrotliCompressor.<CopyToAsync>d__11>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter&,MemoryPack.Compression.BrotliCompressor.<CopyToAsync>d__11&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter,MemoryPack.Internal.ReusableLinkedArrayBufferWriter.<WriteToAndResetAsync>d__19>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter&,MemoryPack.Internal.ReusableLinkedArrayBufferWriter.<WriteToAndResetAsync>d__19&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter&,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__9>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter&,MemoryPack.MemoryPackSerializer.<SerializeAsync>d__9&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter<int>,MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__15>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter<int>&,MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__15&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter<int>,MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__5<object>>(System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable.ConfiguredValueTaskAwaiter<int>&,MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__5<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder.Start<MemoryPack.Compression.BrotliCompressor.<CopyToAsync>d__11>(MemoryPack.Compression.BrotliCompressor.<CopyToAsync>d__11&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder.Start<MemoryPack.Internal.ReusableLinkedArrayBufferWriter.<WriteToAndResetAsync>d__19>(MemoryPack.Internal.ReusableLinkedArrayBufferWriter.<WriteToAndResetAsync>d__19&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder.Start<MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>>(MemoryPack.MemoryPackSerializer.<SerializeAsync>d__21<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder.Start<MemoryPack.MemoryPackSerializer.<SerializeAsync>d__9>(MemoryPack.MemoryPackSerializer.<SerializeAsync>d__9&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder<object>.Start<MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__15>(MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__15&)
-		// System.Void System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder<object>.Start<MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__5<object>>(MemoryPack.MemoryPackSerializer.<DeserializeAsync>d__5<object>&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.AdvDefaultCheckpoints.<NextCheckpoint>d__8>(Hsenl.HTask.Awaiter&,Hsenl.AdvDefaultCheckpoints.<NextCheckpoint>d__8&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.AdvDefaultCheckpoints.<OnSceneChanged>d__9>(Hsenl.HTask.Awaiter&,Hsenl.AdvDefaultCheckpoints.<OnSceneChanged>d__9&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.MonoTimer.<TimeStart>d__0>(Hsenl.HTask.Awaiter&,Hsenl.MonoTimer.<TimeStart>d__0&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.Pickable.<LoadCollider>d__11>(Hsenl.HTask.Awaiter&,Hsenl.Pickable.<LoadCollider>d__11&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.ProcedurePreloadAssets.<OnEnter>d__0>(Hsenl.HTask.Awaiter&,Hsenl.ProcedurePreloadAssets.<OnEnter>d__0&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.PlhDie_DestoryDeadBody.<WaitForDestoryBody>d__1>(Hsenl.HTask.Awaiter&,Hsenl.PlhDie_DestoryDeadBody.<WaitForDestoryBody>d__1&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.PlhHarm_SplitBolt.<FireAsync>d__3>(Hsenl.HTask.Awaiter&,Hsenl.PlhHarm_SplitBolt.<FireAsync>d__3&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.ShadowFunctionSystemExample_Source.<Func22>d__6>(Hsenl.HTask.Awaiter&,Hsenl.ShadowFunctionSystemExample_Source.<Func22>d__6&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.ShadowFunctionSystemExample_Source.<Func2>d__1>(Hsenl.HTask.Awaiter&,Hsenl.ShadowFunctionSystemExample_Source.<Func2>d__1&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.ShadowFunctionSystemExample_Source2.<Func22>d__6>(Hsenl.HTask.Awaiter&,Hsenl.ShadowFunctionSystemExample_Source2.<Func22>d__6&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.ShadowFunctionSystemExample_Source2.<Func2>d__1>(Hsenl.HTask.Awaiter&,Hsenl.ShadowFunctionSystemExample_Source2.<Func2>d__1&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.ShadowFunctionSystemExample_Source3.<Func22>d__8<object,object>>(Hsenl.HTask.Awaiter&,Hsenl.ShadowFunctionSystemExample_Source3.<Func22>d__8<object,object>&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.ShadowFunctionSystemExample_Source3.<Func2>d__3<object,object>>(Hsenl.HTask.Awaiter&,Hsenl.ShadowFunctionSystemExample_Source3.<Func2>d__3<object,object>&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d>(Hsenl.HTask.Awaiter&,Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.TpDie.<OnTimePointTrigger>d__0>(Hsenl.HTask.Awaiter&,Hsenl.TpDie.<OnTimePointTrigger>d__0&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.TpHarmOfTargetedBolt.<Fire>d__4>(Hsenl.HTask.Awaiter&,Hsenl.TpHarmOfTargetedBolt.<Fire>d__4&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter,Hsenl.View.UIJumpMessage.<WriteText>d__10>(Hsenl.HTask.Awaiter&,Hsenl.View.UIJumpMessage.<WriteText>d__10&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter<object>,Hsenl.ProcedureAdventure_ChangeScene.<OnEnter>d__0>(Hsenl.HTask.Awaiter<object>&,Hsenl.ProcedureAdventure_ChangeScene.<OnEnter>d__0&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter<object>,Hsenl.ProcedurePreprocessing.<OnEnter>d__0>(Hsenl.HTask.Awaiter<object>&,Hsenl.ProcedurePreprocessing.<OnEnter>d__0&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter<byte>,Hsenl.AdvDefaultCheckpoints.<NextCheckpoint>d__8>(Hsenl.HTask.Awaiter<byte>&,Hsenl.AdvDefaultCheckpoints.<NextCheckpoint>d__8&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Hsenl.HTask.Awaiter<object>,Hsenl.Network.AMessageHandlerAsync.<Run>d__7<object,object>>(Hsenl.HTask.Awaiter<object>&,Hsenl.Network.AMessageHandlerAsync.<Run>d__7<object,object>&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,Hsenl.Network.KcpClient.<<ConnectAsync>g__Timeout|25_0>d>(System.Runtime.CompilerServices.TaskAwaiter&,Hsenl.Network.KcpClient.<<ConnectAsync>g__Timeout|25_0>d&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.AdvDefaultCheckpoints.<NextCheckpoint>d__8>(Hsenl.AdvDefaultCheckpoints.<NextCheckpoint>d__8&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.AdvDefaultCheckpoints.<OnSceneChanged>d__9>(Hsenl.AdvDefaultCheckpoints.<OnSceneChanged>d__9&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.MonoTimer.<TimeStart>d__0>(Hsenl.MonoTimer.<TimeStart>d__0&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.Network.AMessageHandlerAsync.<Run>d__7<object,object>>(Hsenl.Network.AMessageHandlerAsync.<Run>d__7<object,object>&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.Network.KcpClient.<<ConnectAsync>g__Timeout|25_0>d>(Hsenl.Network.KcpClient.<<ConnectAsync>g__Timeout|25_0>d&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.Pickable.<LoadCollider>d__11>(Hsenl.Pickable.<LoadCollider>d__11&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ProcedureAdventure_ChangeScene.<OnEnter>d__0>(Hsenl.ProcedureAdventure_ChangeScene.<OnEnter>d__0&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ProcedurePreloadAssets.<OnEnter>d__0>(Hsenl.ProcedurePreloadAssets.<OnEnter>d__0&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ProcedurePreprocessing.<OnEnter>d__0>(Hsenl.ProcedurePreprocessing.<OnEnter>d__0&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.PlhAbilityStageChanged_RepetitionCast.<RepetitionCast>d__1>(Hsenl.PlhAbilityStageChanged_RepetitionCast.<RepetitionCast>d__1&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.PlhDie_DestoryDeadBody.<WaitForDestoryBody>d__1>(Hsenl.PlhDie_DestoryDeadBody.<WaitForDestoryBody>d__1&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.PlhHarm_SplitBolt.<FireAsync>d__3>(Hsenl.PlhHarm_SplitBolt.<FireAsync>d__3&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ShadowFunctionSystemExample_Source.<Func22>d__6>(Hsenl.ShadowFunctionSystemExample_Source.<Func22>d__6&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ShadowFunctionSystemExample_Source.<Func2>d__1>(Hsenl.ShadowFunctionSystemExample_Source.<Func2>d__1&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ShadowFunctionSystemExample_Source2.<Func22>d__6>(Hsenl.ShadowFunctionSystemExample_Source2.<Func22>d__6&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ShadowFunctionSystemExample_Source2.<Func2>d__1>(Hsenl.ShadowFunctionSystemExample_Source2.<Func2>d__1&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ShadowFunctionSystemExample_Source3.<Func22>d__8<object,object>>(Hsenl.ShadowFunctionSystemExample_Source3.<Func22>d__8<object,object>&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.ShadowFunctionSystemExample_Source3.<Func2>d__3<object,object>>(Hsenl.ShadowFunctionSystemExample_Source3.<Func2>d__3<object,object>&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d>(Hsenl.TaskLockQueue.<>c__DisplayClass7_0.<<Wait>g__CheckTimeOut|0>d&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.TpDie.<OnTimePointTrigger>d__0>(Hsenl.TpDie.<OnTimePointTrigger>d__0&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.TpHarmOfTargetedBolt.<Fire>d__4>(Hsenl.TpHarmOfTargetedBolt.<Fire>d__4&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Hsenl.View.UIJumpMessage.<WriteText>d__10>(Hsenl.View.UIJumpMessage.<WriteText>d__10&)
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<Hsenl.C2L_Login>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<Hsenl.L2C_Login>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.Collections.Generic.KeyValuePair<int,object>>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.Collections.Generic.KeyValuePair<object,object>>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.Collections.Generic.KeyValuePair<uint,Hsenl.Num>>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.Collections.Generic.KeyValuePair<uint,object>>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.Numerics.BigInteger>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.ValueTuple<object,object,object,object,object,object,object,object>>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.ValueTuple<object,object,object,object,object,object,object>>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.ValueTuple<object,object,object,object,object,object>>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.ValueTuple<object,object,object,object,object>>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.ValueTuple<object,object,object,object>>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.ValueTuple<object,object,object>>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.ValueTuple<object,object>>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<System.ValueTuple<object>>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<int>()
 		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<object>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<ulong>()
-		// bool System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<ushort>()
 		// byte& System.Runtime.CompilerServices.Unsafe.Add<byte>(byte&,int)
 		// byte& System.Runtime.CompilerServices.Unsafe.Add<byte>(byte&,int)
 		// object& System.Runtime.CompilerServices.Unsafe.Add<object>(object&,int)
@@ -1870,52 +1726,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.DecimalEx.DecCalc& System.Runtime.CompilerServices.Unsafe.As<System.Decimal,System.DecimalEx.DecCalc>(System.Decimal&)
 		// System.DecimalEx.DecimalBits& System.Runtime.CompilerServices.Unsafe.As<System.Decimal,System.DecimalEx.DecimalBits>(System.Decimal&)
 		// System.GuidEx& System.Runtime.CompilerServices.Unsafe.As<System.Guid,System.GuidEx>(System.Guid&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<Hsenl.C2L_Login,byte>(Hsenl.C2L_Login&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<Hsenl.L2C_Login,byte>(Hsenl.L2C_Login&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.DateTime,byte>(System.DateTime&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.DateTimeOffset,byte>(System.DateTimeOffset&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Decimal,byte>(System.Decimal&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Guid,byte>(System.Guid&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.IntPtr,byte>(System.IntPtr&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Numerics.BigInteger,byte>(System.Numerics.BigInteger&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Numerics.Complex,byte>(System.Numerics.Complex&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Numerics.Matrix3x2,byte>(System.Numerics.Matrix3x2&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Numerics.Matrix4x4,byte>(System.Numerics.Matrix4x4&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Numerics.Plane,byte>(System.Numerics.Plane&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Numerics.Quaternion,byte>(System.Numerics.Quaternion&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Numerics.Vector2,byte>(System.Numerics.Vector2&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Numerics.Vector3,byte>(System.Numerics.Vector3&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.Numerics.Vector4,byte>(System.Numerics.Vector4&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.TimeSpan,byte>(System.TimeSpan&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<System.UIntPtr,byte>(System.UIntPtr&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.Bounds,byte>(UnityEngine.Bounds&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.BoundsInt,byte>(UnityEngine.BoundsInt&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.Color,byte>(UnityEngine.Color&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.Color32,byte>(UnityEngine.Color32&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.GradientAlphaKey,byte>(UnityEngine.GradientAlphaKey&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.GradientColorKey,byte>(UnityEngine.GradientColorKey&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.Keyframe,byte>(UnityEngine.Keyframe&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.LayerMask,byte>(UnityEngine.LayerMask&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.Matrix4x4,byte>(UnityEngine.Matrix4x4&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.Quaternion,byte>(UnityEngine.Quaternion&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.RangeInt,byte>(UnityEngine.RangeInt&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.Rect,byte>(UnityEngine.Rect&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.RectInt,byte>(UnityEngine.RectInt&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.Vector2,byte>(UnityEngine.Vector2&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.Vector2Int,byte>(UnityEngine.Vector2Int&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.Vector3,byte>(UnityEngine.Vector3&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.Vector3Int,byte>(UnityEngine.Vector3Int&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<UnityEngine.Vector4,byte>(UnityEngine.Vector4&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<byte,byte>(byte&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<byte,byte>(byte&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<double,byte>(double&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<float,byte>(float&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<int,byte>(int&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<long,byte>(long&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<object,byte>(object&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<sbyte,byte>(sbyte&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<short,byte>(short&)
-		// byte& System.Runtime.CompilerServices.Unsafe.As<uint,byte>(uint&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<ulong,byte>(ulong&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<ushort,byte>(ushort&)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<ushort,byte>(ushort&)
@@ -1926,355 +1741,53 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// uint& System.Runtime.CompilerServices.Unsafe.As<int,uint>(int&)
 		// ulong& System.Runtime.CompilerServices.Unsafe.As<long,ulong>(long&)
 		// ushort& System.Runtime.CompilerServices.Unsafe.As<byte,ushort>(byte&)
-		// ushort& System.Runtime.CompilerServices.Unsafe.As<byte,ushort>(byte&)
 		// System.Void* System.Runtime.CompilerServices.Unsafe.AsPointer<byte>(byte&)
 		// System.Void* System.Runtime.CompilerServices.Unsafe.AsPointer<object>(object&)
 		// System.Void* System.Runtime.CompilerServices.Unsafe.AsPointer<uint>(uint&)
-		// System.DateTime& System.Runtime.CompilerServices.Unsafe.AsRef<System.DateTime>(System.DateTime&)
-		// System.DateTimeOffset& System.Runtime.CompilerServices.Unsafe.AsRef<System.DateTimeOffset>(System.DateTimeOffset&)
-		// System.Decimal& System.Runtime.CompilerServices.Unsafe.AsRef<System.Decimal>(System.Decimal&)
-		// System.Guid& System.Runtime.CompilerServices.Unsafe.AsRef<System.Guid>(System.Guid&)
-		// System.IntPtr& System.Runtime.CompilerServices.Unsafe.AsRef<System.IntPtr>(System.IntPtr&)
-		// System.Numerics.Complex& System.Runtime.CompilerServices.Unsafe.AsRef<System.Numerics.Complex>(System.Numerics.Complex&)
-		// System.Numerics.Matrix3x2& System.Runtime.CompilerServices.Unsafe.AsRef<System.Numerics.Matrix3x2>(System.Numerics.Matrix3x2&)
-		// System.Numerics.Matrix4x4& System.Runtime.CompilerServices.Unsafe.AsRef<System.Numerics.Matrix4x4>(System.Numerics.Matrix4x4&)
-		// System.Numerics.Plane& System.Runtime.CompilerServices.Unsafe.AsRef<System.Numerics.Plane>(System.Numerics.Plane&)
-		// System.Numerics.Quaternion& System.Runtime.CompilerServices.Unsafe.AsRef<System.Numerics.Quaternion>(System.Numerics.Quaternion&)
-		// System.Numerics.Vector2& System.Runtime.CompilerServices.Unsafe.AsRef<System.Numerics.Vector2>(System.Numerics.Vector2&)
-		// System.Numerics.Vector3& System.Runtime.CompilerServices.Unsafe.AsRef<System.Numerics.Vector3>(System.Numerics.Vector3&)
-		// System.Numerics.Vector4& System.Runtime.CompilerServices.Unsafe.AsRef<System.Numerics.Vector4>(System.Numerics.Vector4&)
-		// System.TimeSpan& System.Runtime.CompilerServices.Unsafe.AsRef<System.TimeSpan>(System.TimeSpan&)
-		// System.UIntPtr& System.Runtime.CompilerServices.Unsafe.AsRef<System.UIntPtr>(System.UIntPtr&)
-		// UnityEngine.Bounds& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.Bounds>(UnityEngine.Bounds&)
-		// UnityEngine.BoundsInt& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.BoundsInt>(UnityEngine.BoundsInt&)
-		// UnityEngine.Color& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.Color>(UnityEngine.Color&)
-		// UnityEngine.Color32& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.Color32>(UnityEngine.Color32&)
-		// UnityEngine.GradientAlphaKey& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.GradientAlphaKey>(UnityEngine.GradientAlphaKey&)
-		// UnityEngine.GradientColorKey& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.GradientColorKey>(UnityEngine.GradientColorKey&)
-		// UnityEngine.Keyframe& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.Keyframe>(UnityEngine.Keyframe&)
-		// UnityEngine.LayerMask& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.LayerMask>(UnityEngine.LayerMask&)
-		// UnityEngine.Matrix4x4& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.Matrix4x4>(UnityEngine.Matrix4x4&)
-		// UnityEngine.Quaternion& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.Quaternion>(UnityEngine.Quaternion&)
-		// UnityEngine.RangeInt& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.RangeInt>(UnityEngine.RangeInt&)
-		// UnityEngine.Rect& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.Rect>(UnityEngine.Rect&)
-		// UnityEngine.RectInt& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.RectInt>(UnityEngine.RectInt&)
-		// UnityEngine.Vector2& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.Vector2>(UnityEngine.Vector2&)
-		// UnityEngine.Vector2Int& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.Vector2Int>(UnityEngine.Vector2Int&)
-		// UnityEngine.Vector3& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.Vector3>(UnityEngine.Vector3&)
-		// UnityEngine.Vector3Int& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.Vector3Int>(UnityEngine.Vector3Int&)
-		// UnityEngine.Vector4& System.Runtime.CompilerServices.Unsafe.AsRef<UnityEngine.Vector4>(UnityEngine.Vector4&)
-		// byte& System.Runtime.CompilerServices.Unsafe.AsRef<byte>(System.Void*)
-		// byte& System.Runtime.CompilerServices.Unsafe.AsRef<byte>(byte&)
-		// double& System.Runtime.CompilerServices.Unsafe.AsRef<double>(double&)
-		// float& System.Runtime.CompilerServices.Unsafe.AsRef<float>(float&)
-		// int& System.Runtime.CompilerServices.Unsafe.AsRef<int>(int&)
-		// long& System.Runtime.CompilerServices.Unsafe.AsRef<long>(long&)
 		// object& System.Runtime.CompilerServices.Unsafe.AsRef<object>(object&)
-		// sbyte& System.Runtime.CompilerServices.Unsafe.AsRef<sbyte>(sbyte&)
-		// short& System.Runtime.CompilerServices.Unsafe.AsRef<short>(short&)
-		// uint& System.Runtime.CompilerServices.Unsafe.AsRef<uint>(uint&)
-		// ulong& System.Runtime.CompilerServices.Unsafe.AsRef<ulong>(ulong&)
-		// ushort& System.Runtime.CompilerServices.Unsafe.AsRef<ushort>(ushort&)
-		// bool System.Runtime.CompilerServices.Unsafe.IsAddressLessThan<byte>(byte&,byte&)
 		// bool System.Runtime.CompilerServices.Unsafe.IsAddressLessThan<object>(object&,object&)
 		// object& System.Runtime.CompilerServices.Unsafe.NullRef<object>()
+		// Hsenl.Int2 System.Runtime.CompilerServices.Unsafe.ReadUnaligned<Hsenl.Int2>(byte&)
 		// Hsenl.Network.Kcp.SegmentHead System.Runtime.CompilerServices.Unsafe.ReadUnaligned<Hsenl.Network.Kcp.SegmentHead>(byte&)
-		// System.Collections.Generic.KeyValuePair<int,object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Collections.Generic.KeyValuePair<int,object>>(byte&)
-		// System.Collections.Generic.KeyValuePair<object,object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Collections.Generic.KeyValuePair<object,object>>(byte&)
-		// System.Collections.Generic.KeyValuePair<uint,Hsenl.Num> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Collections.Generic.KeyValuePair<uint,Hsenl.Num>>(byte&)
-		// System.Collections.Generic.KeyValuePair<uint,object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Collections.Generic.KeyValuePair<uint,object>>(byte&)
-		// System.Nullable<System.DateTime> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.DateTime>>(byte&)
-		// System.Nullable<System.DateTimeOffset> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.DateTimeOffset>>(byte&)
-		// System.Nullable<System.Decimal> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.Decimal>>(byte&)
-		// System.Nullable<System.Guid> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.Guid>>(byte&)
-		// System.Nullable<System.IntPtr> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.IntPtr>>(byte&)
-		// System.Nullable<System.Numerics.Complex> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.Numerics.Complex>>(byte&)
-		// System.Nullable<System.Numerics.Matrix3x2> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.Numerics.Matrix3x2>>(byte&)
-		// System.Nullable<System.Numerics.Matrix4x4> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.Numerics.Matrix4x4>>(byte&)
-		// System.Nullable<System.Numerics.Plane> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.Numerics.Plane>>(byte&)
-		// System.Nullable<System.Numerics.Quaternion> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.Numerics.Quaternion>>(byte&)
-		// System.Nullable<System.Numerics.Vector2> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.Numerics.Vector2>>(byte&)
-		// System.Nullable<System.Numerics.Vector3> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.Numerics.Vector3>>(byte&)
-		// System.Nullable<System.Numerics.Vector4> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.Numerics.Vector4>>(byte&)
-		// System.Nullable<System.TimeSpan> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.TimeSpan>>(byte&)
-		// System.Nullable<System.UIntPtr> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<System.UIntPtr>>(byte&)
-		// System.Nullable<UnityEngine.Bounds> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.Bounds>>(byte&)
-		// System.Nullable<UnityEngine.BoundsInt> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.BoundsInt>>(byte&)
-		// System.Nullable<UnityEngine.Color32> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.Color32>>(byte&)
-		// System.Nullable<UnityEngine.Color> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.Color>>(byte&)
-		// System.Nullable<UnityEngine.GradientAlphaKey> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.GradientAlphaKey>>(byte&)
-		// System.Nullable<UnityEngine.GradientColorKey> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.GradientColorKey>>(byte&)
-		// System.Nullable<UnityEngine.Keyframe> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.Keyframe>>(byte&)
-		// System.Nullable<UnityEngine.LayerMask> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.LayerMask>>(byte&)
-		// System.Nullable<UnityEngine.Matrix4x4> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.Matrix4x4>>(byte&)
-		// System.Nullable<UnityEngine.Quaternion> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.Quaternion>>(byte&)
-		// System.Nullable<UnityEngine.RangeInt> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.RangeInt>>(byte&)
-		// System.Nullable<UnityEngine.Rect> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.Rect>>(byte&)
-		// System.Nullable<UnityEngine.RectInt> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.RectInt>>(byte&)
-		// System.Nullable<UnityEngine.Vector2> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.Vector2>>(byte&)
-		// System.Nullable<UnityEngine.Vector2Int> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.Vector2Int>>(byte&)
-		// System.Nullable<UnityEngine.Vector3> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.Vector3>>(byte&)
-		// System.Nullable<UnityEngine.Vector3Int> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.Vector3Int>>(byte&)
-		// System.Nullable<UnityEngine.Vector4> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<UnityEngine.Vector4>>(byte&)
-		// System.Nullable<byte> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<byte>>(byte&)
-		// System.Nullable<double> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<double>>(byte&)
-		// System.Nullable<float> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<float>>(byte&)
-		// System.Nullable<int> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<int>>(byte&)
-		// System.Nullable<long> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<long>>(byte&)
-		// System.Nullable<object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<object>>(byte&)
-		// System.Nullable<sbyte> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<sbyte>>(byte&)
-		// System.Nullable<short> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<short>>(byte&)
-		// System.Nullable<uint> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<uint>>(byte&)
-		// System.Nullable<ulong> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<ulong>>(byte&)
-		// System.Nullable<ushort> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.Nullable<ushort>>(byte&)
-		// System.ValueTuple<object,object,object,object,object,object,object,object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.ValueTuple<object,object,object,object,object,object,object,object>>(byte&)
-		// System.ValueTuple<object,object,object,object,object,object,object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.ValueTuple<object,object,object,object,object,object,object>>(byte&)
-		// System.ValueTuple<object,object,object,object,object,object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.ValueTuple<object,object,object,object,object,object>>(byte&)
-		// System.ValueTuple<object,object,object,object,object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.ValueTuple<object,object,object,object,object>>(byte&)
-		// System.ValueTuple<object,object,object,object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.ValueTuple<object,object,object,object>>(byte&)
-		// System.ValueTuple<object,object,object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.ValueTuple<object,object,object>>(byte&)
-		// System.ValueTuple<object,object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.ValueTuple<object,object>>(byte&)
-		// System.ValueTuple<object> System.Runtime.CompilerServices.Unsafe.ReadUnaligned<System.ValueTuple<object>>(byte&)
+		// Hsenl.Vector3 System.Runtime.CompilerServices.Unsafe.ReadUnaligned<Hsenl.Vector3>(byte&)
 		// byte System.Runtime.CompilerServices.Unsafe.ReadUnaligned<byte>(byte&)
 		// float System.Runtime.CompilerServices.Unsafe.ReadUnaligned<float>(byte&)
 		// int System.Runtime.CompilerServices.Unsafe.ReadUnaligned<int>(byte&)
-		// long System.Runtime.CompilerServices.Unsafe.ReadUnaligned<long>(byte&)
 		// object System.Runtime.CompilerServices.Unsafe.ReadUnaligned<object>(byte&)
-		// sbyte System.Runtime.CompilerServices.Unsafe.ReadUnaligned<sbyte>(byte&)
-		// short System.Runtime.CompilerServices.Unsafe.ReadUnaligned<short>(byte&)
 		// uint System.Runtime.CompilerServices.Unsafe.ReadUnaligned<uint>(byte&)
 		// ulong System.Runtime.CompilerServices.Unsafe.ReadUnaligned<ulong>(byte&)
 		// ushort System.Runtime.CompilerServices.Unsafe.ReadUnaligned<ushort>(byte&)
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<Hsenl.C2L_Login>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<Hsenl.L2C_Login>()
+		// int System.Runtime.CompilerServices.Unsafe.SizeOf<Hsenl.Int2>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<Hsenl.Network.Kcp.SegmentHead>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Collections.Generic.KeyValuePair<int,object>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Collections.Generic.KeyValuePair<object,object>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Collections.Generic.KeyValuePair<uint,Hsenl.Num>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Collections.Generic.KeyValuePair<uint,object>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.DateTime>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.DateTimeOffset>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Decimal>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Guid>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.IntPtr>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.DateTime>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.DateTimeOffset>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.Decimal>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.Guid>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.IntPtr>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.Numerics.Complex>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.Numerics.Matrix3x2>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.Numerics.Matrix4x4>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.Numerics.Plane>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.Numerics.Quaternion>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.Numerics.Vector2>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.Numerics.Vector3>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.Numerics.Vector4>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.TimeSpan>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<System.UIntPtr>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.Bounds>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.BoundsInt>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.Color32>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.Color>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.GradientAlphaKey>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.GradientColorKey>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.Keyframe>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.LayerMask>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.Matrix4x4>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.Quaternion>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.RangeInt>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.Rect>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.RectInt>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.Vector2>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.Vector2Int>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.Vector3>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.Vector3Int>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<UnityEngine.Vector4>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<byte>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<double>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<float>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<int>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<long>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<object>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<sbyte>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<short>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<uint>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<ulong>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Nullable<ushort>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Numerics.BigInteger>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Numerics.Complex>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Numerics.Matrix3x2>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Numerics.Matrix4x4>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Numerics.Plane>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Numerics.Quaternion>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Numerics.Vector2>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Numerics.Vector3>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.Numerics.Vector4>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.TimeSpan>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.UIntPtr>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.ValueTuple<object,object,object,object,object,object,object,object>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.ValueTuple<object,object,object,object,object,object,object>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.ValueTuple<object,object,object,object,object,object>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.ValueTuple<object,object,object,object,object>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.ValueTuple<object,object,object,object>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.ValueTuple<object,object,object>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.ValueTuple<object,object>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<System.ValueTuple<object>>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.Bounds>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.BoundsInt>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.Color32>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.Color>()
+		// int System.Runtime.CompilerServices.Unsafe.SizeOf<Hsenl.Vector3>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.GradientAlphaKey>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.GradientColorKey>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.Keyframe>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.LayerMask>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.Matrix4x4>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.Quaternion>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.RangeInt>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.Rect>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.RectInt>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.Vector2>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.Vector2Int>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.Vector3>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.Vector3Int>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<UnityEngine.Vector4>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<byte>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<double>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<float>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<int>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<long>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<object>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<sbyte>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<short>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<uint>()
 		// int System.Runtime.CompilerServices.Unsafe.SizeOf<ulong>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<ushort>()
-		// int System.Runtime.CompilerServices.Unsafe.SizeOf<ushort>()
+		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<Hsenl.Int2>(byte&,Hsenl.Int2)
 		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<Hsenl.Network.Kcp.SegmentHead>(byte&,Hsenl.Network.Kcp.SegmentHead)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Collections.Generic.KeyValuePair<int,object>>(byte&,System.Collections.Generic.KeyValuePair<int,object>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Collections.Generic.KeyValuePair<object,object>>(byte&,System.Collections.Generic.KeyValuePair<object,object>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Collections.Generic.KeyValuePair<uint,Hsenl.Num>>(byte&,System.Collections.Generic.KeyValuePair<uint,Hsenl.Num>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Collections.Generic.KeyValuePair<uint,object>>(byte&,System.Collections.Generic.KeyValuePair<uint,object>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.DateTime>>(byte&,System.Nullable<System.DateTime>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.DateTimeOffset>>(byte&,System.Nullable<System.DateTimeOffset>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.Decimal>>(byte&,System.Nullable<System.Decimal>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.Guid>>(byte&,System.Nullable<System.Guid>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.IntPtr>>(byte&,System.Nullable<System.IntPtr>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.Numerics.Complex>>(byte&,System.Nullable<System.Numerics.Complex>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.Numerics.Matrix3x2>>(byte&,System.Nullable<System.Numerics.Matrix3x2>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.Numerics.Matrix4x4>>(byte&,System.Nullable<System.Numerics.Matrix4x4>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.Numerics.Plane>>(byte&,System.Nullable<System.Numerics.Plane>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.Numerics.Quaternion>>(byte&,System.Nullable<System.Numerics.Quaternion>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.Numerics.Vector2>>(byte&,System.Nullable<System.Numerics.Vector2>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.Numerics.Vector3>>(byte&,System.Nullable<System.Numerics.Vector3>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.Numerics.Vector4>>(byte&,System.Nullable<System.Numerics.Vector4>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.TimeSpan>>(byte&,System.Nullable<System.TimeSpan>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<System.UIntPtr>>(byte&,System.Nullable<System.UIntPtr>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.Bounds>>(byte&,System.Nullable<UnityEngine.Bounds>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.BoundsInt>>(byte&,System.Nullable<UnityEngine.BoundsInt>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.Color32>>(byte&,System.Nullable<UnityEngine.Color32>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.Color>>(byte&,System.Nullable<UnityEngine.Color>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.GradientAlphaKey>>(byte&,System.Nullable<UnityEngine.GradientAlphaKey>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.GradientColorKey>>(byte&,System.Nullable<UnityEngine.GradientColorKey>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.Keyframe>>(byte&,System.Nullable<UnityEngine.Keyframe>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.LayerMask>>(byte&,System.Nullable<UnityEngine.LayerMask>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.Matrix4x4>>(byte&,System.Nullable<UnityEngine.Matrix4x4>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.Quaternion>>(byte&,System.Nullable<UnityEngine.Quaternion>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.RangeInt>>(byte&,System.Nullable<UnityEngine.RangeInt>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.Rect>>(byte&,System.Nullable<UnityEngine.Rect>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.RectInt>>(byte&,System.Nullable<UnityEngine.RectInt>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.Vector2>>(byte&,System.Nullable<UnityEngine.Vector2>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.Vector2Int>>(byte&,System.Nullable<UnityEngine.Vector2Int>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.Vector3>>(byte&,System.Nullable<UnityEngine.Vector3>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.Vector3Int>>(byte&,System.Nullable<UnityEngine.Vector3Int>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<UnityEngine.Vector4>>(byte&,System.Nullable<UnityEngine.Vector4>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<byte>>(byte&,System.Nullable<byte>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<double>>(byte&,System.Nullable<double>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<float>>(byte&,System.Nullable<float>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<int>>(byte&,System.Nullable<int>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<long>>(byte&,System.Nullable<long>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<object>>(byte&,System.Nullable<object>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<sbyte>>(byte&,System.Nullable<sbyte>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<short>>(byte&,System.Nullable<short>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<uint>>(byte&,System.Nullable<uint>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<ulong>>(byte&,System.Nullable<ulong>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.Nullable<ushort>>(byte&,System.Nullable<ushort>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.ValueTuple<object,object,object,object,object,object,object,object>>(byte&,System.ValueTuple<object,object,object,object,object,object,object,object>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.ValueTuple<object,object,object,object,object,object,object>>(byte&,System.ValueTuple<object,object,object,object,object,object,object>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.ValueTuple<object,object,object,object,object,object>>(byte&,System.ValueTuple<object,object,object,object,object,object>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.ValueTuple<object,object,object,object,object>>(byte&,System.ValueTuple<object,object,object,object,object>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.ValueTuple<object,object,object,object>>(byte&,System.ValueTuple<object,object,object,object>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.ValueTuple<object,object,object>>(byte&,System.ValueTuple<object,object,object>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.ValueTuple<object,object>>(byte&,System.ValueTuple<object,object>)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<System.ValueTuple<object>>(byte&,System.ValueTuple<object>)
+		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<Hsenl.Vector3>(byte&,Hsenl.Vector3)
 		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<byte>(byte&,byte)
 		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<float>(byte&,float)
 		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<int>(byte&,int)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<long>(byte&,long)
 		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<object>(byte&,object)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<sbyte>(byte&,sbyte)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<short>(byte&,short)
 		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<uint>(byte&,uint)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<ulong>(byte&,ulong)
-		// System.Void System.Runtime.CompilerServices.Unsafe.WriteUnaligned<ushort>(byte&,ushort)
 		// System.Void System.Runtime.InteropServices.Marshal.StructureToPtr<object>(object,System.IntPtr,bool)
-		// System.ReadOnlySpan<byte> System.Runtime.InteropServices.MemoryMarshal.AsBytes<ushort>(System.ReadOnlySpan<ushort>)
-		// System.Span<byte> System.Runtime.InteropServices.MemoryMarshal.AsBytes<ushort>(System.Span<ushort>)
-		// System.ReadOnlySpan<byte> System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<byte>(byte&,int)
-		// System.ReadOnlySpan<ushort> System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<ushort>(ushort&,int)
 		// System.Span<byte> System.Runtime.InteropServices.MemoryMarshal.CreateSpan<byte>(byte&,int)
-		// System.Span<ushort> System.Runtime.InteropServices.MemoryMarshal.CreateSpan<ushort>(ushort&,int)
-		// Hsenl.C2L_Login& System.Runtime.InteropServices.MemoryMarshal.GetReference<Hsenl.C2L_Login>(System.Span<Hsenl.C2L_Login>)
-		// Hsenl.L2C_Login& System.Runtime.InteropServices.MemoryMarshal.GetReference<Hsenl.L2C_Login>(System.Span<Hsenl.L2C_Login>)
-		// System.DateTime& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.DateTime>(System.Span<System.DateTime>)
-		// System.DateTimeOffset& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.DateTimeOffset>(System.Span<System.DateTimeOffset>)
-		// System.Decimal& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.Decimal>(System.Span<System.Decimal>)
-		// System.Guid& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.Guid>(System.Span<System.Guid>)
-		// System.IntPtr& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.IntPtr>(System.Span<System.IntPtr>)
-		// System.Numerics.BigInteger& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.Numerics.BigInteger>(System.Span<System.Numerics.BigInteger>)
-		// System.Numerics.Complex& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.Numerics.Complex>(System.Span<System.Numerics.Complex>)
-		// System.Numerics.Matrix3x2& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.Numerics.Matrix3x2>(System.Span<System.Numerics.Matrix3x2>)
-		// System.Numerics.Matrix4x4& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.Numerics.Matrix4x4>(System.Span<System.Numerics.Matrix4x4>)
-		// System.Numerics.Plane& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.Numerics.Plane>(System.Span<System.Numerics.Plane>)
-		// System.Numerics.Quaternion& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.Numerics.Quaternion>(System.Span<System.Numerics.Quaternion>)
-		// System.Numerics.Vector2& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.Numerics.Vector2>(System.Span<System.Numerics.Vector2>)
-		// System.Numerics.Vector3& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.Numerics.Vector3>(System.Span<System.Numerics.Vector3>)
-		// System.Numerics.Vector4& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.Numerics.Vector4>(System.Span<System.Numerics.Vector4>)
-		// System.TimeSpan& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.TimeSpan>(System.Span<System.TimeSpan>)
-		// System.UIntPtr& System.Runtime.InteropServices.MemoryMarshal.GetReference<System.UIntPtr>(System.Span<System.UIntPtr>)
-		// UnityEngine.Bounds& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.Bounds>(System.Span<UnityEngine.Bounds>)
-		// UnityEngine.BoundsInt& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.BoundsInt>(System.Span<UnityEngine.BoundsInt>)
-		// UnityEngine.Color& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.Color>(System.Span<UnityEngine.Color>)
-		// UnityEngine.Color32& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.Color32>(System.Span<UnityEngine.Color32>)
 		// UnityEngine.GradientAlphaKey& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.GradientAlphaKey>(System.Span<UnityEngine.GradientAlphaKey>)
 		// UnityEngine.GradientColorKey& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.GradientColorKey>(System.Span<UnityEngine.GradientColorKey>)
 		// UnityEngine.Keyframe& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.Keyframe>(System.Span<UnityEngine.Keyframe>)
-		// UnityEngine.LayerMask& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.LayerMask>(System.Span<UnityEngine.LayerMask>)
-		// UnityEngine.Matrix4x4& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.Matrix4x4>(System.Span<UnityEngine.Matrix4x4>)
-		// UnityEngine.Quaternion& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.Quaternion>(System.Span<UnityEngine.Quaternion>)
-		// UnityEngine.RangeInt& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.RangeInt>(System.Span<UnityEngine.RangeInt>)
-		// UnityEngine.Rect& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.Rect>(System.Span<UnityEngine.Rect>)
-		// UnityEngine.RectInt& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.RectInt>(System.Span<UnityEngine.RectInt>)
-		// UnityEngine.Vector2& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.Vector2>(System.Span<UnityEngine.Vector2>)
-		// UnityEngine.Vector2Int& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.Vector2Int>(System.Span<UnityEngine.Vector2Int>)
-		// UnityEngine.Vector3& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.Vector3>(System.Span<UnityEngine.Vector3>)
-		// UnityEngine.Vector3Int& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.Vector3Int>(System.Span<UnityEngine.Vector3Int>)
-		// UnityEngine.Vector4& System.Runtime.InteropServices.MemoryMarshal.GetReference<UnityEngine.Vector4>(System.Span<UnityEngine.Vector4>)
 		// byte& System.Runtime.InteropServices.MemoryMarshal.GetReference<byte>(System.ReadOnlySpan<byte>)
 		// byte& System.Runtime.InteropServices.MemoryMarshal.GetReference<byte>(System.Span<byte>)
-		// double& System.Runtime.InteropServices.MemoryMarshal.GetReference<double>(System.Span<double>)
-		// float& System.Runtime.InteropServices.MemoryMarshal.GetReference<float>(System.Span<float>)
 		// int& System.Runtime.InteropServices.MemoryMarshal.GetReference<int>(System.Span<int>)
-		// long& System.Runtime.InteropServices.MemoryMarshal.GetReference<long>(System.Span<long>)
-		// object& System.Runtime.InteropServices.MemoryMarshal.GetReference<object>(System.ReadOnlySpan<object>)
-		// object& System.Runtime.InteropServices.MemoryMarshal.GetReference<object>(System.Span<object>)
-		// sbyte& System.Runtime.InteropServices.MemoryMarshal.GetReference<sbyte>(System.Span<sbyte>)
-		// short& System.Runtime.InteropServices.MemoryMarshal.GetReference<short>(System.Span<short>)
-		// uint& System.Runtime.InteropServices.MemoryMarshal.GetReference<uint>(System.Span<uint>)
 		// ulong& System.Runtime.InteropServices.MemoryMarshal.GetReference<ulong>(System.Span<ulong>)
 		// ushort& System.Runtime.InteropServices.MemoryMarshal.GetReference<ushort>(System.ReadOnlySpan<ushort>)
 		// ushort& System.Runtime.InteropServices.MemoryMarshal.GetReference<ushort>(System.Span<ushort>)
-		// bool System.Runtime.InteropServices.MemoryMarshal.TryGetArray<byte>(System.ReadOnlyMemory<byte>,System.ArraySegment<byte>&)
 		// bool System.SpanHelpers.SequenceEqual<ushort>(ushort&,ushort&,int)
 		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<UnityEngine.Vector2>(UnityEngine.Vector2&)
 		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<float>(float&)
@@ -2324,8 +1837,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// string UnityEngine._AndroidJNIHelper.GetSignature<object>(object[])
 		// YooAsset.AssetHandle YooAsset.ResourcePackage.LoadAssetSync<object>(string)
 		// YooAsset.AssetHandle YooAsset.YooAssets.LoadAssetSync<object>(string)
-		// string string.Create<System.ValueTuple<System.Buffers.ReadOnlySequence<byte>,long,int,object>>(int,System.ValueTuple<System.Buffers.ReadOnlySequence<byte>,long,int,object>,System.Buffers.SpanAction<System.Char,System.ValueTuple<System.Buffers.ReadOnlySequence<byte>,long,int,object>>)
-		// string string.Create<System.ValueTuple<System.IntPtr,int,int,object>>(int,System.ValueTuple<System.IntPtr,int,int,object>,System.Buffers.SpanAction<System.Char,System.ValueTuple<System.IntPtr,int,int,object>>)
 		// string string.Join<float>(string,System.Collections.Generic.IEnumerable<float>)
 		// string string.Join<int>(string,System.Collections.Generic.IEnumerable<int>)
 		// string string.Join<object>(string,System.Collections.Generic.IEnumerable<object>)

@@ -1,7 +1,7 @@
 ﻿using MemoryPack;
 
 namespace Hsenl {
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class AIPatrol : AIInfo<ai.PatrolInfo> {
         private Vector3 _originPosition;
         private Vector3 _targetPosition;
@@ -27,7 +27,7 @@ namespace Hsenl {
 
         protected override void Running() {
             var owner = this.manager.Bodied.MainBodied;
-            if (!owner.transform.IsNavMoveDone()) {
+            if (!owner.transform.IsMoveStop()) {
                 return;
             }
 
@@ -43,7 +43,7 @@ namespace Hsenl {
             var pos = RandomHelper.NextFloat3(min, max);
             this._targetPosition = new Vector3(pos.x, pos.y, pos.z);
             this._targetPosition.y = owner.transform.Position.y;
-            this._selfControl.SetValue(ControlCode.MoveOfPoint, this._targetPosition);
+            Shortcut.SimulatePointMove(this._selfControl, this._targetPosition);
         }
 
         protected override void Exit() { }

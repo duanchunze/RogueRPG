@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -134,7 +133,7 @@ GameObject:
   - component: {fileID: 10946812}
   - component: {fileID: 10946813}
   m_Layer: 0
-  m_Name: CheckpointManager
+  m_Name: LevelManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +151,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1630568032}
   m_Father: {fileID: 1094730588}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &10946813
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterHpRatio: 1
-  monsterRefreshManager: {fileID: 1630568033}
+  monsterRefresher: {fileID: 1630568033}
 --- !u!1 &28341482
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,9 +216,8 @@ MonoBehaviour:
   createOfAnother: 0
   configId: 20004
   mainMan: 0
-  controlable: 0
   autoSpawn: 0
-  oriCards: []
+  oriAbilites: []
 --- !u!1 &66444112
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,14 +517,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 365221540}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 710715301}
   - {fileID: 28341483}
-  m_Father: {fileID: 1630568032}
+  m_Father: {fileID: 1578652106}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &367060589
 GameObject:
@@ -586,7 +585,7 @@ Transform:
   m_GameObject: {fileID: 632141644}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.07, y: 0, z: -9.85}
+  m_LocalPosition: {x: -1.43, y: 0, z: -6.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -736,7 +735,7 @@ Transform:
   m_GameObject: {fileID: 710715300}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.72, y: 0, z: -1.51}
+  m_LocalPosition: {x: -1.56, y: 0, z: -1.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -757,9 +756,8 @@ MonoBehaviour:
   createOfAnother: 0
   configId: 20004
   mainMan: 0
-  controlable: 0
   autoSpawn: 0
-  oriCards: []
+  oriAbilites: []
 --- !u!1 &806890528
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,8 +787,8 @@ Transform:
   m_GameObject: {fileID: 806890528}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1, z: 2.5}
+  m_LocalPosition: {x: 0, y: -0, z: 1.8053}
+  m_LocalScale: {x: 1.5, y: 1, z: 2.139}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1434733366}
@@ -928,7 +926,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 10946812}
-  - {fileID: 1630568032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1434733365
@@ -964,6 +961,38 @@ Transform:
   - {fileID: 367060590}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1578652105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1578652106}
+  m_Layer: 0
+  m_Name: RefreshHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1578652106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578652105}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 365221541}
+  m_Father: {fileID: 1630568032}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1630568031
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,7 +1004,7 @@ GameObject:
   - component: {fileID: 1630568032}
   - component: {fileID: 1630568033}
   m_Layer: 0
-  m_Name: MonsterRefreshManager
+  m_Name: MonsterRefresher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -994,9 +1023,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 365221541}
+  - {fileID: 1578652106}
   - {fileID: 66444113}
-  m_Father: {fileID: 1094730588}
+  m_Father: {fileID: 10946812}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1630568033
 MonoBehaviour:
@@ -1010,8 +1039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6959d61f08e4460bb79a53647767ece0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refreshGroups:
-  - {fileID: 365221541}
+  refreshHolder: {fileID: 1578652105}
   aliveHolder: {fileID: 66444113}
   hpRatio: 1
 --- !u!1 &1977623375
@@ -1043,8 +1071,8 @@ Transform:
   m_GameObject: {fileID: 1977623375}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.4088, y: 0, z: -7.6097}
-  m_LocalScale: {x: 8.856976, y: 3, z: 8.658927}
+  m_LocalPosition: {x: -2.4088, y: -0, z: -4.219}
+  m_LocalScale: {x: 8.856976, y: 3, z: 1.8772554}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 367060590}
@@ -1166,12 +1194,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
+  - key: MonsterRefresher
+    gameObject: {fileID: 1630568031}
+  - key: LevelManager
+    gameObject: {fileID: 10946811}
   - key: OriginalPoint
     gameObject: {fileID: 632141644}
-  - key: CheckpointManager
-    gameObject: {fileID: 10946811}
-  - key: MonsterRefreshManager
-    gameObject: {fileID: 1630568031}
 --- !u!4 &2002354164
 Transform:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ namespace Hsenl {
     // 用例: 怪物AI (选择)
     // 选择行为: 攻击敌人(成功则持续攻击敌人) -> 巡逻(攻击敌人失败则进行巡逻)
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class SelectorNode<TManager, TNode> : CompositeNode<TManager, TNode> 
         where TManager : class, IBehaviorTree where TNode : class, INode<TManager> {
         public override NodeType NodeType => NodeType.Composite;
@@ -17,7 +17,7 @@ namespace Hsenl {
         }
 
         protected override NodeStatus OnNodeTick() {
-            var pos = this.position;
+            var pos = this.position; // 这是核心点, 如果这里赋值为0, 那么
             CONTINUE:
             var child = this.children[pos];
             var status = child.TickNode();
@@ -57,6 +57,6 @@ namespace Hsenl {
     }
 
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class SelectorNode : SelectorNode<BehaviorTree, Node<BehaviorTree>> { }
 }

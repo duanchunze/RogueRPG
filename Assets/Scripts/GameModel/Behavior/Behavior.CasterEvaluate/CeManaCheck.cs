@@ -1,7 +1,7 @@
 ﻿using MemoryPack;
 
 namespace Hsenl {
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class CeManaCheck : CeInfo<casterevaluate.ManaCheckInfo> {
         private Numerator _numerator;
         private Numerator _abiNumerator;
@@ -23,7 +23,7 @@ namespace Hsenl {
                     if (manaCost > 0) {
                         var mana = this._numerator.GetValue(NumericType.Mana);
                         if (mana < manaCost) {
-                            this.manager.status = CastEvaluateStatus.Mana;
+                            this.manager.castEvaluateResult.CastEvaluateState = CastEvaluateState.Mana;
                             return NodeStatus.Failure;
                         }
                     }

@@ -32,71 +32,82 @@ namespace Hsenl {
             }
         }
 
-        public bool ChangeState<T>() where T : IFsmState {
+        public async HTask<bool> ChangeState<T>() where T : IFsmState {
             var state = this.GetState<T>();
-            return this.ChangeState(state, null);
+            return await this.ChangeState(state, null);
         }
 
-        public bool ChangeState<T>(object data) where T : IFsmState {
+        public async HTask<bool> ChangeState<T>(object data) where T : IFsmState {
             var state = this.GetState<T>();
-            return this.ChangeState(state, data);
+            return await this.ChangeState(state, data);
         }
 
-        public bool ChangeState(Type type) {
+        public async HTask<bool> ChangeState(Type type) {
             var state = this.GetState(type);
-            return this.ChangeState(state, null);
+            return await this.ChangeState(state, null);
         }
 
-        public bool ChangeState(Type type, object data) {
+        public async HTask<bool> ChangeState(Type type, object data) {
             var state = this.GetState(type);
-            return this.ChangeState(state, data);
+            return await this.ChangeState(state, data);
         }
 
-        private bool ChangeState(IFsmState fsmState, object data) {
+        private async HTask<bool> ChangeState(IFsmState fsmState, object data) {
             var group = this.GetGroup(fsmState);
             if (group == null) {
                 return false;
             }
 
-            if (this._states.TryGetValue(group.GroupType, out var value)) {
-                this.ChangeState(value, null);
+            if (this._states.TryGetValue(group.GroupType, out var groupState)) {
+                if (!groupState.IsEntering) {
+                    await this.ChangeState(groupState, null);
+                }
             }
 
-            return this.ChangeState(group, fsmState, data);
+            return await this.ChangeState(group, fsmState, data);
         }
 
-        private bool ChangeState(Group group, IFsmState fsmState, object data) {
+        private async HTask<bool> ChangeState(Group group, IFsmState fsmState, object data) {
             if (group.currentState == fsmState)
                 return false;
 
-            fsmState.SetData(data);
+            if (fsmState.IsEntering)
+                return false;
 
+            fsmState.IsEntering = true;
             var prevState = group.currentState;
-            group.currentState = fsmState;
+            group.currentState = null;
             // 如果离开的状态还是一个组的话, 则把其下所有的当前状态都离开
             if (prevState != null) {
-                prevState.Leave(this, fsmState);
-                if (this._groups.TryGetValue(prevState.GetType(), out var subGroup))
-                    LeaveSubGroups(subGroup);
+                await Leave(prevState, fsmState);
             }
 
-            Log.Info($"Enter Procedure: {fsmState.GetType().Name}(Group: {group.GroupType.Name})");
-            fsmState.Enter(this, prevState);
+            fsmState.SetData(data);
+            var now = DateTimeOffset.UtcNow;
+            await fsmState.Enter(this, prevState);
+            group.currentState = fsmState;
+            fsmState.IsEntering = false;
+            Log.Info(
+                $"Enter <color=green> Procedure: {fsmState.GetType().Name}</color> (Group: {group.GroupType.Name} Time: {(DateTimeOffset.UtcNow - now).Milliseconds}ms)");
 
             return true;
 
-            void LeaveSubGroups(Group sub) {
-                if (sub.currentState != null) {
-                    sub.currentState.Leave(this, null);
-                    sub.currentState = null;
-                }
-                
-                foreach (var kv in sub.procedureStates) {
-                    if (!this._groups.TryGetValue(kv.Value.GetType(), out var g))
-                        continue;
+            async HTask Leave(IFsmState state, IFsmState next) {
+                if (state.IsLeaving)
+                    return;
 
-                    LeaveSubGroups(g);
+                state.IsLeaving = true;
+                if (this._groups.TryGetValue(state.GetType(), out var group_)) {
+                    var prev = group_.currentState;
+                    group_.currentState = null;
+                    if (prev != null) {
+                        await Leave(prev, null);
+                    }
                 }
+
+                await state.Leave(this, next);
+
+                state.IsLeaving = false;
             }
         }
 

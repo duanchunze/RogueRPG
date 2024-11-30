@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Hsenl {
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class CePrioritiesEvaluate : CeInfo<casterevaluate.PrioritiesEvaluateInfo> {
         private PriorityState _priorityState;
 
@@ -15,9 +15,9 @@ namespace Hsenl {
                 return NodeStatus.Success;
             }
 
-            var ret = this._priorityState.EvaluateState(true);
+            var ret = this._priorityState.Evaluate(true);
             if (!ret) {
-                this.manager.status = CastEvaluateStatus.PriorityStateEnterFailure;
+                this.manager.castEvaluateResult.CastEvaluateState = CastEvaluateState.PriorityStateEnterFailure;
             }
 
             return ret ? NodeStatus.Success : NodeStatus.Failure;

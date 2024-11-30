@@ -15,7 +15,7 @@ namespace Hsenl.timeline
 { 
 
 /// <summary>
-/// 剑魔的q
+/// 指定碰撞器来检测碰撞伤害
 /// </summary>
 public sealed partial class HarmOfColliderInfo :  timeline.TsHarmInfo 
 {
@@ -23,13 +23,17 @@ public sealed partial class HarmOfColliderInfo :  timeline.TsHarmInfo
     {
         { if(!_json["harm_formula"].IsObject) { throw new SerializationException(); }  HarmFormula = numeric.DamageFormulaInfo.DeserializeDamageFormulaInfo(_json["harm_formula"]);  }
         { if(!_json["collider_name"].IsString) { throw new SerializationException(); }  ColliderName = _json["collider_name"]; }
+        { if(!_json["center"].IsObject) { throw new SerializationException(); }  Center = hmath.Vector3.DeserializeVector3(_json["center"]);  }
+        { if(!_json["size"].IsObject) { throw new SerializationException(); }  Size = hmath.Vector3.DeserializeVector3(_json["size"]);  }
         PostInit();
     }
 
-    public HarmOfColliderInfo(int model, float origin, float dest, numeric.DamageFormulaInfo harm_formula, string collider_name )  : base(model,origin,dest) 
+    public HarmOfColliderInfo(int model, float origin, float dest, numeric.DamageFormulaInfo harm_formula, string collider_name, hmath.Vector3 center, hmath.Vector3 size )  : base(model,origin,dest) 
     {
         this.HarmFormula = harm_formula;
         this.ColliderName = collider_name;
+        this.Center = center;
+        this.Size = size;
         PostInit();
     }
 
@@ -43,6 +47,8 @@ public sealed partial class HarmOfColliderInfo :  timeline.TsHarmInfo
     /// 碰撞器名
     /// </summary>
     public string ColliderName { get; private set; }
+    public hmath.Vector3 Center { get; private set; }
+    public hmath.Vector3 Size { get; private set; }
 
     public const int __ID__ = 469690170;
     public override int GetTypeId() => __ID__;
@@ -51,6 +57,8 @@ public sealed partial class HarmOfColliderInfo :  timeline.TsHarmInfo
     {
         base.Resolve(_tables);
         HarmFormula?.Resolve(_tables);
+        Center?.Resolve(_tables);
+        Size?.Resolve(_tables);
         PostResolve();
     }
 
@@ -58,6 +66,8 @@ public sealed partial class HarmOfColliderInfo :  timeline.TsHarmInfo
     {
         base.TranslateText(translator);
         HarmFormula?.TranslateText(translator);
+        Center?.TranslateText(translator);
+        Size?.TranslateText(translator);
     }
 
     public override string ToString()
@@ -68,6 +78,8 @@ public sealed partial class HarmOfColliderInfo :  timeline.TsHarmInfo
         + "Dest:" + Dest + ","
         + "HarmFormula:" + HarmFormula + ","
         + "ColliderName:" + ColliderName + ","
+        + "Center:" + Center + ","
+        + "Size:" + Size + ","
         + "}";
     }
     

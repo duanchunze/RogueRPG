@@ -11,6 +11,10 @@ namespace Hsenl {
         public static void SetParent(this Component self, Entity parent) {
             self.entity.SetParent(parent);
         }
+        
+        public static void SetParent(this Component self, Entity parent, bool worldPositionStays) {
+            self.entity.SetParent(parent, worldPositionStays);
+        }
 
         public static int GetOrder(this Component self) {
             return self.entity.GetOrder();
@@ -60,23 +64,8 @@ namespace Hsenl {
             return self.entity.HasComponentsAll(typeCacher);
         }
 
-        public static T AddComponent<T>(this Component self) where T : Component {
-            return self.entity.AddComponent<T>();
-        }
-
-        public static Component AddComponent(this Component self, Type type) {
-            return self.entity.AddComponent(type);
-        }
-
         public static T GetComponent<T>(this Component self, bool polymorphic = false) where T : class {
             return self.entity.GetComponent<T>(polymorphic);
-        }
-
-        public static T GetOrAddComponent<T>(this Component self, bool polymorphic = false) where T : Component {
-            var t = self.entity.GetComponent<T>(polymorphic);
-            if (t == null)
-                t = self.entity.AddComponent<T>();
-            return t;
         }
 
         public static Component GetComponent(this Component self, int componentIndex) {

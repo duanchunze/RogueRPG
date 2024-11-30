@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class Numeric : Unbodied, INumeric {
         [MemoryPackInclude]
         public uint MaxLayer { get; private set; }

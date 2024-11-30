@@ -1,15 +1,262 @@
 [
   {
-    "id": 10100,
+    "id": 10000,
     "alias": "劈砍加伤",
     "target_ability": "劈砍",
     "precondition_patchs": [],
     "repulsion_patchs": [],
     "max_count": -1,
     "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
     "numeric_nodes": [
       {
         "type": 12,
+        "layer": 2,
+        "model": 0,
+        "value": 30,
+        "sign": ""
+      }
+    ],
+    "workers": []
+  },
+  {
+    "id": 10001,
+    "alias": "劈砍补丁1",
+    "target_ability": "劈砍",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [
+      {
+        "type": 12,
+        "layer": 2,
+        "model": 0,
+        "value": 30,
+        "sign": ""
+      }
+    ],
+    "workers": []
+  },
+  {
+    "id": 10002,
+    "alias": "劈砍补丁2",
+    "target_ability": "劈砍",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 1,
+        "sign": ""
+      }
+    ],
+    "workers": []
+  },
+  {
+    "id": 10003,
+    "alias": "劈砍补丁3",
+    "target_ability": "劈砍",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [
+      {
+        "type": 54,
+        "layer": 2,
+        "model": 0,
+        "value": -5,
+        "sign": ""
+      }
+    ],
+    "workers": []
+  },
+  {
+    "id": 10004,
+    "alias": "劈砍补丁大1",
+    "target_ability": "劈砍",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [
+      {
+        "type": 39,
+        "layer": 2,
+        "model": 0,
+        "value": 25,
+        "sign": ""
+      },
+      {
+        "type": 17,
+        "layer": 2,
+        "model": 0,
+        "value": 0.3,
+        "sign": "f"
+      }
+    ],
+    "workers": []
+  },
+  {
+    "id": 10005,
+    "alias": "劈砍补丁大2",
+    "target_ability": "",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [
+      {
+        "type": 30,
+        "layer": 2,
+        "model": 0,
+        "value": 3,
+        "sign": ""
+      }
+    ],
+    "workers": []
+  },
+  {
+    "id": 10006,
+    "alias": "劈砍补丁大3",
+    "target_ability": "",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [
+      {
+        "type": 54,
+        "layer": 2,
+        "model": 0,
+        "value": -15,
+        "sign": ""
+      }
+    ],
+    "workers": []
+  },
+  {
+    "id": 10007,
+    "alias": "劈砍补丁三选一",
+    "target_ability": "劈砍",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [
+      "劈砍补丁大1",
+      "劈砍补丁大2",
+      "劈砍补丁大3"
+    ],
+    "numeric_nodes": [],
+    "workers": []
+  },
+  {
+    "id": 10008,
+    "alias": "大风车加Dura",
+    "target_ability": "大风车",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [],
+    "workers": [
+      {
+        "$type": "AddStageDurationInfo",
+        "stage_type": 5,
+        "pct": 1,
+        "fix": 5
+      }
+    ]
+  },
+  {
+    "id": 10009,
+    "alias": "大风车加伤",
+    "target_ability": "大风车",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [
+      {
+        "type": 12,
+        "layer": 2,
+        "model": 0,
+        "value": 30,
+        "sign": ""
+      }
+    ],
+    "workers": []
+  },
+  {
+    "id": 10010,
+    "alias": "大风车冷却缩减",
+    "target_ability": "大风车",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [
+      {
+        "type": 53,
+        "layer": 2,
+        "model": 1,
+        "value": -0.3,
+        "sign": "f"
+      }
+    ],
+    "workers": []
+  },
+  {
+    "id": 10011,
+    "alias": "大风车加范围",
+    "target_ability": "大风车",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [
+      {
+        "type": 32,
         "layer": 2,
         "model": 1,
         "value": 0.3,
@@ -17,5 +264,106 @@
       }
     ],
     "workers": []
+  },
+  {
+    "id": 10012,
+    "alias": "大风车补丁1",
+    "target_ability": "大风车",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [
+      {
+        "type": 12,
+        "layer": 2,
+        "model": 0,
+        "value": 30,
+        "sign": ""
+      },
+      {
+        "type": 53,
+        "layer": 2,
+        "model": 0,
+        "value": -1.5,
+        "sign": "f"
+      }
+    ],
+    "workers": [
+      {
+        "$type": "AddStageDurationInfo",
+        "stage_type": 5,
+        "pct": 1,
+        "fix": 1
+      }
+    ]
+  },
+  {
+    "id": 10013,
+    "alias": "大风车补丁2",
+    "target_ability": "大风车",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [
+      {
+        "type": 12,
+        "layer": 2,
+        "model": 0,
+        "value": 30,
+        "sign": ""
+      },
+      {
+        "type": 27,
+        "layer": 2,
+        "model": 0,
+        "value": 0.2,
+        "sign": "f"
+      }
+    ],
+    "workers": []
+  },
+  {
+    "id": 10014,
+    "alias": "大风车补丁3",
+    "target_ability": "大风车",
+    "precondition_patchs": [],
+    "repulsion_patchs": [],
+    "max_count": -1,
+    "lowest_lv": -1,
+    "specials_lvs": [],
+    "specials_no_lvs": [],
+    "patch_candidates": [],
+    "numeric_nodes": [
+      {
+        "type": 32,
+        "layer": 2,
+        "model": 1,
+        "value": 0.3,
+        "sign": "f"
+      },
+      {
+        "type": 53,
+        "layer": 2,
+        "model": 0,
+        "value": -1.5,
+        "sign": "f"
+      }
+    ],
+    "workers": [
+      {
+        "$type": "AddStageDurationInfo",
+        "stage_type": 5,
+        "pct": 1,
+        "fix": 1.5
+      }
+    ]
   }
 ]

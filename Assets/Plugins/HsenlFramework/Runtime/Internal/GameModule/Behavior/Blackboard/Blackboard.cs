@@ -4,7 +4,7 @@ using MemoryPack;
 
 namespace Hsenl {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class Blackboard : IBlackboard {
         [MemoryPackIgnore]
         private Dictionary<string, object> _data = new();

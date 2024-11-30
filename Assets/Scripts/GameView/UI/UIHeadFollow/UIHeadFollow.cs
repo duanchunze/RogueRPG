@@ -1,6 +1,6 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Hsenl.View {
     public class UIHeadFollow : UI<UIHeadFollow> {
@@ -8,6 +8,7 @@ namespace Hsenl.View {
         public VolumeSlider healthSlider;
         public VolumeSlider energySlider;
         public VolumeSlider manaSlider;
+        public TextMeshProUGUI tempNameText;
         public UnityEngine.Transform statusHolder;
         public UIStatusSlot statusSlotTemplate;
         public UnityEngine.Transform followTarget;
@@ -26,6 +27,12 @@ namespace Hsenl.View {
                 if (UIManager.WorldToUIPosition(this._rectTransform, this.followTarget.position + (UnityEngine.Vector3)this.followOffset, out var uiWorldPos)) {
                     this._rectTransform.position = uiWorldPos;
                 }
+
+                if (this.tempNameText != null) {
+                    if (UIManager.WorldToUIPosition(this._rectTransform, this.followTarget.position, out uiWorldPos)) {
+                        this.tempNameText.transform.position = uiWorldPos;
+                    }
+                }
             }
         }
 
@@ -33,7 +40,7 @@ namespace Hsenl.View {
             this.StatusBar = statusBar;
 
             var statuses = statusBar.GetAllActiveStatuses();
-            this.statusHolder.NormalizeChildren(this.statusSlotTemplate.transform, statuses.Count);
+            this.statusHolder.MakeSureChildrenCount(this.statusSlotTemplate.transform, statuses.Count);
             for (int i = 0; i < statuses.Count; i++) {
                 var status = statuses[i];
                 var uiSlot = this.statusHolder.GetChild(i).GetComponent<UIStatusSlot>();

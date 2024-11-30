@@ -119,109 +119,133 @@ namespace Hsenl
         /// </summary>
         Mspd = 26,
         /// <summary>
+        /// 攻速快了, 除了读条和蓄力, 其他速度都会增加
+        /// </summary>
+        Aspd = 27,
+        /// <summary>
+        /// 施法速度影响读条和蓄力的速度
+        /// </summary>
+        Cspd = 28,
+        /// <summary>
         /// 法术极速(也就是传统的冷却缩减) ability haste(int转float)
         /// </summary>
-        Ahaste = 27,
+        Ahaste = 29,
         /// <summary>
         /// 目标数 target count
         /// </summary>
-        Ttc = 28,
+        Ttc = 30,
         /// <summary>
         /// 投射物速度 throwables speed
         /// </summary>
-        Tspd = 29,
+        Tspd = 31,
         /// <summary>
         /// 投射物大小 throwables size
         /// </summary>
-        Tsize = 30,
+        Tsize = 32,
         /// <summary>
         /// 投射物数量 throwables count
         /// </summary>
-        Tct = 31,
+        Tct = 33,
         /// <summary>
         /// 物理吸血
         /// </summary>
-        Pvamp = 32,
+        Pvamp = 34,
         /// <summary>
         /// 命中
         /// </summary>
-        Dex = 33,
+        Dex = 35,
         /// <summary>
         /// 闪避
         /// </summary>
-        Eva = 34,
+        Eva = 36,
         /// <summary>
         /// 格挡(int转float)
         /// </summary>
-        Blk = 35,
+        Blk = 37,
         /// <summary>
         /// 幸运(int转float)
         /// </summary>
-        Lucy = 36,
+        Lucy = 38,
         /// <summary>
         /// 攻击硬直 attack stun(int转float)
         /// </summary>
-        Astun = 37,
+        Astun = 39,
         /// <summary>
         /// 受击硬直 hurt stun(int转float)
         /// </summary>
-        Hstun = 38,
+        Hstun = 40,
+        /// <summary>
+        /// 威胁值, 对敌方的威胁程度
+        /// </summary>
+        Threat = 41,
+        /// <summary>
+        /// 警惕值, 和威胁值相互作用
+        /// </summary>
+        Vigilant = 42,
         /// <summary>
         /// 攻击欲望attack desire(int转float)
         /// </summary>
-        Ads = 39,
+        Ads = 43,
         /// <summary>
         /// 施法范围 cast range
         /// </summary>
-        Crange = 40,
+        Crange = 44,
+        /// <summary>
+        /// 检测范围 detect range
+        /// </summary>
+        Drange = 45,
         /// <summary>
         /// 侦查范围 spy range
         /// </summary>
-        Srange = 41,
+        Srange = 46,
         /// <summary>
         /// 拾取范围 pickup range
         /// </summary>
-        Prange = 42,
+        Prange = 47,
         /// <summary>
         /// EnergyCost
         /// </summary>
-        Ecost = 43,
+        Ecost = 48,
         /// <summary>
         /// EnergyAugment
         /// </summary>
-        Eaug = 44,
+        Eaug = 49,
         /// <summary>
         /// 身高
         /// </summary>
-        Height = 45,
+        Height = 50,
         /// <summary>
         /// 视度 Field of view
         /// </summary>
-        Fov = 46,
+        Fov = 51,
         /// <summary>
         /// 等级level
         /// </summary>
-        LV = 47,
+        LV = 52,
         /// <summary>
         /// 冷却时间 cooldown
         /// </summary>
-        CD = 48,
+        CD = 53,
         /// <summary>
         /// 蓝耗
         /// </summary>
-        ManaCost = 49,
+        ManaCost = 54,
         /// <summary>
         /// 最大召唤数 max summoning num
         /// </summary>
-        Msn = 50,
+        Msn = 55,
         /// <summary>
         /// 叠加层数
         /// </summary>
-        Stack = 51,
+        Stack = 56,
         /// <summary>
         /// 最大叠加层数
         /// </summary>
-        MaxStack = 52,
+        MaxStack = 57,
+        /// <summary>
+        /// 施法时要求目标的角度在范围内
+        /// </summary>
+        CastAngle = 58,
     }
 
 } 

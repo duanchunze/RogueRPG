@@ -382,8 +382,7 @@ namespace Hsenl {
         /// <param name="yPosition"></param>
         /// <param name="zPosition"></param>
         /// <param name="result">返回一个矩阵</param>
-        private static void CreateTranslation(FLOAT xPosition, FLOAT yPosition, FLOAT zPosition,
-            out Matrix4x4 result) {
+        private static void CreateTranslation(FLOAT xPosition, FLOAT yPosition, FLOAT zPosition, out Matrix4x4 result) {
             result.m11 = 1;
             result.m12 = 0;
             result.m13 = 0;
@@ -711,8 +710,7 @@ namespace Hsenl {
         /// <param name="zScale"></param>
         /// <param name="centerPoint">中心点</param>
         /// <param name="result">返回一个矩阵</param>
-        private static void CreateScale(FLOAT xScale, FLOAT yScale, FLOAT zScale, ref Vector3 centerPoint,
-            out Matrix4x4 result) {
+        private static void CreateScale(FLOAT xScale, FLOAT yScale, FLOAT zScale, ref Vector3 centerPoint, out Matrix4x4 result) {
             var tx = centerPoint.x * (1 - xScale);
             var ty = centerPoint.y * (1 - yScale);
             var tz = centerPoint.z * (1 - zScale);
@@ -1089,8 +1087,7 @@ namespace Hsenl {
         /// <param name="to">看向的位置</param>
         /// <param name="up">自己的Up轴</param>
         /// <param name="result">返回一个矩阵</param>
-        public static void CreateLookAt(ref Vector3 from, ref Vector3 to, ref Vector3 up,
-            out Matrix4x4 result) {
+        public static void CreateLookAt(ref Vector3 from, ref Vector3 to, ref Vector3 up, out Matrix4x4 result) {
             /* 
              * 旋转矩阵的推导（指向型）
              * https://blog.csdn.net/weixin_49299600/article/details/124181903
@@ -1118,15 +1115,15 @@ namespace Hsenl {
              * [0    0    0    1     ]
              */
 
-            if (up.IsZero()) {
-                throw new Exception($"<CreateLookAt方法参数中，up可为0> '{up}'");
-            }
+            // if (up.IsZero()) {
+            //     throw new ArgumentException("'Up' vector3 is zero");
+            // }
 
             var w = to - from;
             w.Normalize();
-            if (w.IsZero()) {
-                throw new Exception($"<CreateLookAt方法参数中，方向不可为0> '{w}'");
-            }
+            // if (w.IsZero()) {
+            //     throw new ArgumentException("'form' vector3 is same with 'to' vector3");
+            // }
 
             Vector3.Cross(ref up, ref w, out var u);
             u.Normalize();
@@ -1257,8 +1254,7 @@ namespace Hsenl {
         /// <param name="rotation">旋转</param>
         /// <param name="scale">缩放</param>
         /// <param name="matrix">返回一个矩阵</param>
-        public static void CreateTRS(ref Vector3 position, ref Quaternion rotation, ref Vector3 scale,
-            out Matrix4x4 matrix) {
+        public static void CreateTRS(ref Vector3 position, ref Quaternion rotation, ref Vector3 scale, out Matrix4x4 matrix) {
             CreateRotation(ref rotation, out matrix);
             matrix.m11 *= scale.x;
             matrix.m21 *= scale.x;
@@ -1277,8 +1273,7 @@ namespace Hsenl {
         /// <summary>
         /// Creates a transformation matrix. Transformation order is: scaling, moving to rotation origin, rotation, moving to translation point.
         /// </summary>
-        private static void CreateTRS(ref Vector3 position, ref Vector3 rotationOrigin, ref Quaternion rotation, ref Vector3 scale,
-            out Matrix4x4 result) {
+        private static void CreateTRS(ref Vector3 position, ref Vector3 rotationOrigin, ref Quaternion rotation, ref Vector3 scale, out Matrix4x4 result) {
             CreateRotation(ref rotation, out result);
             result.m14 = 0f - (result.m11 * rotationOrigin.x + result.m12 * rotationOrigin.y + result.m13 * rotationOrigin.z - rotationOrigin.x) +
                          position.x;
@@ -1310,8 +1305,7 @@ namespace Hsenl {
         /// <summary>
         /// Creates a transformation matrix. Transformation order is: moving to rotation origin, rotation, moving to translation point.
         /// </summary>
-        private static void CreateTR(ref Vector3 position, ref Vector3 rotationOrigin, ref Quaternion rotation,
-            out Matrix4x4 result) {
+        private static void CreateTR(ref Vector3 position, ref Vector3 rotationOrigin, ref Quaternion rotation, out Matrix4x4 result) {
             CreateRotation(ref rotation, out result);
             result.m14 = 0f -
                 (result.m11 * rotationOrigin.x + result.m12 * rotationOrigin.y + result.m13 * rotationOrigin.z -
@@ -1680,8 +1674,7 @@ namespace Hsenl {
         /// <param name="amount"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        public static void Lerp(ref Matrix4x4 matrix1, ref Matrix4x4 matrix2, FLOAT amount,
-            out Matrix4x4 result) {
+        public static void Lerp(ref Matrix4x4 matrix1, ref Matrix4x4 matrix2, FLOAT amount, out Matrix4x4 result) {
             var m11 = matrix1.m11 + (matrix2.m11 - matrix1.m11) * amount;
             var m12 = matrix1.m12 + (matrix2.m12 - matrix1.m12) * amount;
             var m13 = matrix1.m13 + (matrix2.m13 - matrix1.m13) * amount;
@@ -1847,8 +1840,7 @@ namespace Hsenl {
         /// <param name="vector"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        public static void TransposedTransformDirection(ref Matrix4x4 value1, ref Vector3 vector,
-            out Vector3 result) {
+        public static void TransposedTransformDirection(ref Matrix4x4 value1, ref Vector3 vector, out Vector3 result) {
             result.x = value1.m11 * vector.x + value1.m21 * vector.y + value1.m31 * vector.z;
             result.y = value1.m12 * vector.x + value1.m22 * vector.y + value1.m32 * vector.z;
             result.z = value1.m13 * vector.x + value1.m23 * vector.y + value1.m33 * vector.z;

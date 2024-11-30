@@ -14,19 +14,24 @@ using SimpleJSON;
 namespace Hsenl.timeline
 { 
 
+/// <summary>
+/// 类似剑魔Q的那种警示
+/// </summary>
 public sealed partial class OpenWarningBoardInfo :  timeline.TimePointInfo 
 {
     public OpenWarningBoardInfo(JSONNode _json)  : base(_json) 
     {
         { if(!_json["asset_name"].IsString) { throw new SerializationException(); }  AssetName = _json["asset_name"]; }
-        { if(!_json["type"].IsNumber) { throw new SerializationException(); }  Type = _json["type"]; }
+        { if(!_json["center"].IsObject) { throw new SerializationException(); }  Center = hmath.Vector3.DeserializeVector3(_json["center"]);  }
+        { if(!_json["size"].IsObject) { throw new SerializationException(); }  Size = hmath.Vector3.DeserializeVector3(_json["size"]);  }
         PostInit();
     }
 
-    public OpenWarningBoardInfo(int model, float point, string asset_name, int type )  : base(model,point) 
+    public OpenWarningBoardInfo(int model, float point, string asset_name, hmath.Vector3 center, hmath.Vector3 size )  : base(model,point) 
     {
         this.AssetName = asset_name;
-        this.Type = type;
+        this.Center = center;
+        this.Size = size;
         PostInit();
     }
 
@@ -39,10 +44,8 @@ public sealed partial class OpenWarningBoardInfo :  timeline.TimePointInfo
     /// 资源名
     /// </summary>
     public string AssetName { get; private set; }
-    /// <summary>
-    /// 警示标类型, 0代表剑魔q那种范围碰撞类型, 1代表ez的q那种弹道类型
-    /// </summary>
-    public int Type { get; private set; }
+    public hmath.Vector3 Center { get; private set; }
+    public hmath.Vector3 Size { get; private set; }
 
     public const int __ID__ = -303031665;
     public override int GetTypeId() => __ID__;
@@ -50,12 +53,16 @@ public sealed partial class OpenWarningBoardInfo :  timeline.TimePointInfo
     public override void Resolve(Dictionary<string, object> _tables)
     {
         base.Resolve(_tables);
+        Center?.Resolve(_tables);
+        Size?.Resolve(_tables);
         PostResolve();
     }
 
     public override void TranslateText(System.Func<string, string, string> translator)
     {
         base.TranslateText(translator);
+        Center?.TranslateText(translator);
+        Size?.TranslateText(translator);
     }
 
     public override string ToString()
@@ -64,7 +71,8 @@ public sealed partial class OpenWarningBoardInfo :  timeline.TimePointInfo
         + "Model:" + Model + ","
         + "Point:" + Point + ","
         + "AssetName:" + AssetName + ","
-        + "Type:" + Type + ","
+        + "Center:" + Center + ","
+        + "Size:" + Size + ","
         + "}";
     }
     

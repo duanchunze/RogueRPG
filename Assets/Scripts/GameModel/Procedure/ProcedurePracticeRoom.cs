@@ -1,26 +1,24 @@
 ﻿namespace Hsenl {
     [ShadowFunction]
     public partial class ProcedurePracticeRoom : AProcedureState {
-        public Actor actor;
-        public string sceneName;
-        public LoadSceneMode loadSceneMode = LoadSceneMode.Single;
-        
         [ShadowFunction]
-        protected override async void OnEnter(IFsm fsm, IFsmState prev) {
-            GameManager.Instance.SetMainMan(this.actor);
-            GameManager.Instance.SetMainControl(this.actor.GetComponent<Control>());
-            GameManager.Instance.AddControlTarget(this.actor.GetComponent<Control>());
-            GameManager.Instance.SetCameraFocus(this.actor.UnityTransform);
-            this.actor.Entity.DontDestroyOnLoadWithUnity();
-            
-            this.OnEnterShadow(fsm, prev).Tail();
-            
-            await SceneManager.LoadSceneWithUnity(this.sceneName, this.loadSceneMode);
+        protected override async HTask OnEnter(IFsm fsm, IFsmState prev) {
+            var actor = this.GetData<Actor>();
+            if (actor == null)
+                return;
+
+            GameManager.Instance.SetMainMan(actor);
+            GameManager.Instance.SetCameraFocus(actor.UnityTransform);
+            actor.Entity.DontDestroyOnLoadWithUnity();
+
+            await SceneManager.LoadSceneWithUnity("PracticeRoom", LoadSceneMode.Single);
+            await this.OnEnterShadow(fsm, prev);
         }
 
         [ShadowFunction]
-        protected override void OnLeave(IFsm fsm, IFsmState next) {
-            this.OnLeaveShadow(fsm, next);
+        protected override async HTask OnLeave(IFsm fsm, IFsmState next) {
+            await this.OnLeaveShadow(fsm, next);
+            GameManager.Instance.DestroyMainMain();
         }
     }
 }

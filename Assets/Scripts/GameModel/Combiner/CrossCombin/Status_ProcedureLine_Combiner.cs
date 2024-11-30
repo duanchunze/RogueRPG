@@ -9,7 +9,7 @@ namespace Hsenl.CrossCombiner {
                     inflictor = arg1.inflictor,
                     target = arg1.MainBodied,
                     statusAlias = arg1.Name,
-                    duration = arg1.GetComponent<TimeLine>().StageTillTime,
+                    duration = arg1.GetComponent<TimeLine>().TillTime,
                 };
 
                 arg2.StartLine(ref form);

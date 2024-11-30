@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 namespace Hsenl {
     // 重复执行, 直到子任务失败为止(inverse == false)
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class RepeaterNode<TManager, TNode> : DecoratorNode<TManager, TNode> where TManager : IBehaviorTree where TNode : class, INode<TManager> {
 #if UNITY_EDITOR
         [LabelText("是否采用\"直到真为止\""), PropertyOrder(-1)]
@@ -43,6 +43,6 @@ namespace Hsenl {
     }
 
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class RepeaterNode : RepeaterNode<BehaviorTree, Node<BehaviorTree>> { }
 }

@@ -9,11 +9,29 @@ namespace Hsenl {
                     scopeType = typeof(Ability),
                     layers = new ScopeCrossCombinFormatterTypes.Layer[] {
                         new() { // layer1
-                            types = new Type[] { typeof(AbilitesBar) },
+                            types = new[] { typeof(AbilitesBar) },
                         },
                         new() { // layer2
-                            types = new Type[] { typeof(Actor) },
+                            types = new[] { typeof(Actor) },
                         }
+                    },
+                },
+
+                new() {
+                    scopeType = typeof(AbilityTrait),
+                    layers = new ScopeCrossCombinFormatterTypes.Layer[] {
+                        new() { // layer1
+                            types = new[] { typeof(Ability) },
+                        },
+                    },
+                },
+
+                new() {
+                    scopeType = typeof(AbilityPatch),
+                    layers = new ScopeCrossCombinFormatterTypes.Layer[] {
+                        new() { // layer1
+                            types = new[] { typeof(Ability) },
+                        },
                     },
                 },
 
@@ -21,10 +39,22 @@ namespace Hsenl {
                     scopeType = typeof(Status),
                     layers = new ScopeCrossCombinFormatterTypes.Layer[] {
                         new() { // layer1
-                            types = new Type[] { typeof(StatusBar) },
+                            types = new[] { typeof(StatusBar) },
                         },
                         new() { // layer2
-                            types = new Type[] { typeof(Actor) },
+                            types = new[] { typeof(Actor) },
+                        }
+                    },
+                },
+                
+                new() {
+                    scopeType = typeof(Prop),
+                    layers = new ScopeCrossCombinFormatterTypes.Layer[] {
+                        new() { // layer1
+                            types = new[] { typeof(PropBar) },
+                        },
+                        new() { // layer2
+                            types = new[] { typeof(Actor) },
                         }
                     },
                 },

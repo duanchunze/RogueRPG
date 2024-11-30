@@ -26,13 +26,14 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         { if(!_json["caster_of_plw"].IsObject) { throw new SerializationException(); }  CasterOfPlw = procedureline.CastWorkerInfo.DeserializeCastWorkerInfo(_json["caster_of_plw"]);  }
         { var __json0 = _json["target_tags"]; if(!__json0.IsArray) { throw new SerializationException(); } TargetTags = new System.Collections.Generic.List<FactionType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { FactionType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (FactionType)__e0.AsInt; }  TargetTags.Add(__v0); }   }
         { var __json0 = _json["caster_evaluates"]; if(!__json0.IsArray) { throw new SerializationException(); } CasterEvaluates = new System.Collections.Generic.List<behavior.Info>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { behavior.Info __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = behavior.Info.DeserializeInfo(__e0);  }  CasterEvaluates.Add(__v0); }   }
+        { if(!_json["evaluate_priority_state"].IsString) { throw new SerializationException(); }  EvaluatePriorityState = _json["evaluate_priority_state"]; }
         { if(!_json["priority_state"].IsObject) { throw new SerializationException(); }  PriorityState = priority.StateInfo.DeserializeStateInfo(_json["priority_state"]);  }
         { var __json0 = _json["stages"]; if(!__json0.IsArray) { throw new SerializationException(); } Stages = new System.Collections.Generic.List<ability.AbilityStageInfo>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { ability.AbilityStageInfo __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = ability.AbilityStageInfo.DeserializeAbilityStageInfo(__e0);  }  Stages.Add(__v0); }   }
         { var __json0 = _json["traits"]; if(!__json0.IsArray) { throw new SerializationException(); } Traits = new System.Collections.Generic.List<string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string __v0;  { if(!__e0.IsString) { throw new SerializationException(); }  __v0 = __e0; }  Traits.Add(__v0); }   }
         PostInit();
     }
 
-    public AbilityConfig(int id, string alias, System.Collections.Generic.List<numeric.BasicValueInfo> numeric_infos, System.Collections.Generic.List<TagType> tags, cast.Info caster, procedureline.CastWorkerInfo caster_of_plw, System.Collections.Generic.List<FactionType> target_tags, System.Collections.Generic.List<behavior.Info> caster_evaluates, priority.StateInfo priority_state, System.Collections.Generic.List<ability.AbilityStageInfo> stages, System.Collections.Generic.List<string> traits ) 
+    public AbilityConfig(int id, string alias, System.Collections.Generic.List<numeric.BasicValueInfo> numeric_infos, System.Collections.Generic.List<TagType> tags, cast.Info caster, procedureline.CastWorkerInfo caster_of_plw, System.Collections.Generic.List<FactionType> target_tags, System.Collections.Generic.List<behavior.Info> caster_evaluates, string evaluate_priority_state, priority.StateInfo priority_state, System.Collections.Generic.List<ability.AbilityStageInfo> stages, System.Collections.Generic.List<string> traits ) 
     {
         this.Id = id;
         this.Alias = alias;
@@ -42,6 +43,7 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         this.CasterOfPlw = caster_of_plw;
         this.TargetTags = target_tags;
         this.CasterEvaluates = caster_evaluates;
+        this.EvaluatePriorityState = evaluate_priority_state;
         this.PriorityState = priority_state;
         this.Stages = stages;
         this.Traits = traits;
@@ -79,6 +81,10 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
     /// 施法器评估
     /// </summary>
     public System.Collections.Generic.List<behavior.Info> CasterEvaluates { get; private set; }
+    /// <summary>
+    /// 评估priority state
+    /// </summary>
+    public string EvaluatePriorityState { get; private set; }
     public priority.StateInfo PriorityState { get; private set; }
     public System.Collections.Generic.List<ability.AbilityStageInfo> Stages { get; private set; }
     public System.Collections.Generic.List<string> Traits { get; private set; }
@@ -118,6 +124,7 @@ public sealed partial class AbilityConfig :  Bright.Config.BeanBase
         + "CasterOfPlw:" + CasterOfPlw + ","
         + "TargetTags:" + Bright.Common.StringUtil.CollectionToString(TargetTags) + ","
         + "CasterEvaluates:" + Bright.Common.StringUtil.CollectionToString(CasterEvaluates) + ","
+        + "EvaluatePriorityState:" + EvaluatePriorityState + ","
         + "PriorityState:" + PriorityState + ","
         + "Stages:" + Bright.Common.StringUtil.CollectionToString(Stages) + ","
         + "Traits:" + Bright.Common.StringUtil.CollectionToString(Traits) + ","

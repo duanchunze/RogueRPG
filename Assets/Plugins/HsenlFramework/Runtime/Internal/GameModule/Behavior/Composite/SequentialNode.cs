@@ -7,7 +7,7 @@ namespace Hsenl {
     // 用例: 怪物AI (顺序)
     // 攻击敌人: 条件(看到敌人) -> 条件(距离够近) -> 条件(自身处于可以发动攻击状态) -> 执行(攻击目标)
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class SequentialNode<TManager, TNode> : CompositeNode<TManager, TNode> 
         where TManager : class, IBehaviorTree where TNode : class, INode<TManager> {
         public override NodeType NodeType => NodeType.Composite;
@@ -57,6 +57,6 @@ namespace Hsenl {
     }
 
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class SequentialNode : SequentialNode<BehaviorTree, Node<BehaviorTree>> { }
 }

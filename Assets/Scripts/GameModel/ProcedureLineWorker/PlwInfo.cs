@@ -1,70 +1,15 @@
 ﻿using System;
 using Hsenl.procedureline;
 using MemoryPack;
-using Sirenix.OdinInspector;
 
 namespace Hsenl {
-    public abstract class PlwInfo : IProcedureLineWorker {
-        [ShowInInspector]
-        [MemoryPackIgnore]
-        public Unbodied WorkerHolder { get; private set; }
-
-        void IProcedureLineWorker.OnAddToNode(ProcedureLineNode node) {
-            try {
-                this.WorkerHolder = node;
-                this.OnAddToNode(node);
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
-        }
-
-        void IProcedureLineWorker.OnRemoveFromNode(ProcedureLineNode node) {
-            try {
-                this.WorkerHolder = null;
-                this.OnRemoveFromNode(node);
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
-        }
-
-        void IProcedureLineWorker.OnAddToProcedureLine(ProcedureLine procedureLine) {
-            try {
-                this.WorkerHolder = procedureLine;
-                this.OnAddToProcedureLine(procedureLine);
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
-        }
-
-        void IProcedureLineWorker.OnRemoveFromProcedureLine(ProcedureLine procedureLine) {
-            try {
-                this.WorkerHolder = null;
-                this.OnRemoveFromProcedureLine(procedureLine);
-            }
-            catch (Exception e) {
-                Log.Error(e);
-            }
-        }
-
-        protected virtual void OnAddToNode(ProcedureLineNode node) { }
-
-        protected virtual void OnRemoveFromNode(ProcedureLineNode node) { }
-
-        protected virtual void OnAddToProcedureLine(ProcedureLine procedureLine) { }
-
-        protected virtual void OnRemoveFromProcedureLine(ProcedureLine procedureLine) { }
-    }
-
     [ProcedureLineWorker]
-    public abstract class PlwInfo<T> : PlwInfo, IConfigInfoInitializer<procedureline.WorkerInfo> where T : procedureline.WorkerInfo {
+    public abstract class PlwInfo<T> : Plw, IConfigInfoInitializer<procedureline.WorkerInfo> where T : procedureline.WorkerInfo {
         [MemoryPackIgnore]
         public T info;
 
         public int infoInstanceId;
-        
+
         public Type InfoType => typeof(T);
 
         protected override void OnAddToNode(ProcedureLineNode node) {
@@ -75,7 +20,7 @@ namespace Hsenl {
                 }
             }
         }
-        
+
         public void InitInfo(object configInfo) {
             if (configInfo is behavior.Info i) {
                 this.InitInfo(i);

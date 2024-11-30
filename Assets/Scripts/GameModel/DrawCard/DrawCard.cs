@@ -73,7 +73,8 @@ namespace Hsenl {
             var abiPatchs = abibar.FindBodiedsInIndividual<AbilityPatch>();
 
             // 每个技能都有自己的补丁随机池, 且只能选一个
-            var allPatchConfigs = Tables.Instance.TbAbilityPatchConfig.DataList;
+            var allPatchConfigs = Tables.Instance.TbCardSingletonConfig.AbilityPatchPool.Select(x => Tables.Instance.TbAbilityPatchConfig.GetByAlias(x))
+                .ToArray();
             foreach (var abi in abibar.ExplicitAbilies) {
                 using var weights = ListComponent<int>.Rent();
                 using var candidates = ListComponent<AbilityPatchConfig>.Rent();
@@ -140,6 +141,7 @@ namespace Hsenl {
                 if (candidates.Count != 0) {
                     var randomPatchConfigs = RandomHelper.RandomArrayOfWeight(candidates, weights, 1);
                     var patch = AbilityPatchFactory.Create(randomPatchConfigs[0]);
+                    patch.Entity.Active = false;
                     patch.RealTargetAbility = abi;
                     totalCandidates.Add(patch);
                 }
@@ -162,12 +164,14 @@ namespace Hsenl {
                     var randomConfigs = RandomHelper.RandomArrayOfWeight(list, replenishCount, 1);
                     foreach (var config in randomConfigs) {
                         var abi = AbilityFactory.Create(config);
+                        abi.Entity.Active = false;
                         totalCandidates.Add(abi);
                     }
                 }
                 else {
                     foreach (var abilityConfig in list) {
                         var abi = AbilityFactory.Create(abilityConfig);
+                        abi.Entity.Active = false;
                         totalCandidates.Add(abi);
                     }
                 }

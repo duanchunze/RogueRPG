@@ -1,5 +1,69 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &13335593667726244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2116479505911857082}
+  - component: {fileID: 6851190837481919401}
+  m_Layer: 0
+  m_Name: F8
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2116479505911857082
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13335593667726244}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6851190837481919401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13335593667726244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5f17042c-0b97-4129-b7da-6dd77b3cbd8b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 6f07b43b-c450-4bad-9220-e9f9f12adaf5
+      m_Path: <Keyboard>/f8
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 289
+  _controlIndex: 0
 --- !u!1 &273545783451313126
 GameObject:
   m_ObjectHideFlags: 0
@@ -24,13 +88,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 273545783451313126}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6206096812216926682
 MonoBehaviour:
@@ -46,23 +110,215 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 1b0e45ac-9dd2-441e-8439-5d19cf40cb0d
+    m_Id: ef47060a-9ac7-42ef-9b59-6ab279a9d7a7
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 6fdc5ef1-7893-40e7-93f6-0994610ebc71
+      m_Id: 06abddb5-9a22-40de-8ccb-0fde5f51c34b
       m_Path: <Keyboard>/2
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 50
+  _controlIndex: 0
+--- !u!1 &407999963932102316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 853843284310524966}
+  - component: {fileID: 4485828207321602934}
+  m_Layer: 0
+  m_Name: Keypad5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &853843284310524966
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407999963932102316}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4485828207321602934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407999963932102316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 213ef9ec-b7f1-4202-9036-16c56c3d272c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: e61f3b95-dae5-49e2-ab7d-c3dd0502e131
+      m_Path: <Keyboard>/numpad5
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 261
+  _controlIndex: 0
+--- !u!1 &567411697530823976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 581095352876689894}
+  - component: {fileID: 8192559796074768897}
+  m_Layer: 0
+  m_Name: F1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &581095352876689894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567411697530823976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8192559796074768897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567411697530823976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 9829f0f7-432b-4ac9-ba61-dae627f58ae2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: ecad5182-0eaf-4198-9f5a-25123e20ad9b
+      m_Path: <Keyboard>/f1
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 282
+  _controlIndex: 0
+--- !u!1 &647566208232534787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5660445126284456844}
+  - component: {fileID: 8261407714273061111}
+  m_Layer: 0
+  m_Name: KeypadMultiply
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5660445126284456844
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647566208232534787}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8261407714273061111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647566208232534787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 78cbf59a-a3c1-43e2-817b-af5460ec221b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 461ca915-866f-45d9-b5be-78890db65fe8
+      m_Path: <Keyboard>/numpadmultiply
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 268
   _controlIndex: 0
 --- !u!1 &790412974248278785
 GameObject:
@@ -88,13 +344,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 790412974248278785}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &748799127760104760
 MonoBehaviour:
@@ -110,20 +366,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 2fb461db-8349-4459-b7f0-42293fa3e64f
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: d3101674-4b9c-46cc-b155-cd57d1b58845
+      m_Id: c99b30d3-cabf-4813-b464-f76460f37bc9
       m_Path: <Keyboard>/l
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 108
@@ -152,13 +408,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913079098917638625}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8349636681194141226
 MonoBehaviour:
@@ -174,23 +430,471 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 0083a8d3-9d10-4bb8-86c3-710fb5e017f4
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: e26ed563-fed0-4ac5-b78e-5535e80bad6b
+      m_Id: eda35b59-1a67-4ce9-b076-d61533e7e573
       m_Path: <Keyboard>/x
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 120
+  _controlIndex: 0
+--- !u!1 &1138297476727386016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 290922308345610314}
+  - component: {fileID: 2401230259836201879}
+  m_Layer: 0
+  m_Name: F5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &290922308345610314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138297476727386016}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2401230259836201879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138297476727386016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0b51fa38-02c3-4d89-95ed-1e9c6d6d8b4d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 09767ce6-6abf-4321-b615-d7b3e3cb762c
+      m_Path: <Keyboard>/f5
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 286
+  _controlIndex: 0
+--- !u!1 &1188906464263202299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3259970230542324963}
+  - component: {fileID: 9152079877820200718}
+  m_Layer: 0
+  m_Name: KeypadMinus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3259970230542324963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188906464263202299}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9152079877820200718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188906464263202299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 448f2d95-fdd8-40b1-b5d3-e4d8d97d7918
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: fbf9ddb0-a715-4f82-a76a-c1cc3134539b
+      m_Path: <Keyboard>/numpadminus
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 269
+  _controlIndex: 0
+--- !u!1 &1388471068716812439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6014924756179047083}
+  - component: {fileID: 4001669891491380870}
+  m_Layer: 0
+  m_Name: KeypadPeriod
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6014924756179047083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388471068716812439}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4001669891491380870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388471068716812439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: f5526233-13a2-463e-80ad-ec912d4c2ad3
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: ce8f7d0e-6fb6-4a71-95e6-4765e776617f
+      m_Path: <Keyboard>/numpadperiod
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 266
+  _controlIndex: 0
+--- !u!1 &1389480012736888107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7605658007935973556}
+  - component: {fileID: 3917319145255991364}
+  m_Layer: 0
+  m_Name: F3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7605658007935973556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389480012736888107}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3917319145255991364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389480012736888107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 9fd67965-8b18-4d04-ba1f-b01f7df6da91
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: d2705010-2379-4ce1-8aec-8405168afb0b
+      m_Path: <Keyboard>/f3
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 284
+  _controlIndex: 0
+--- !u!1 &1405153654217461625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 623145674068272882}
+  - component: {fileID: 8206692158452964555}
+  m_Layer: 0
+  m_Name: F9
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &623145674068272882
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405153654217461625}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8206692158452964555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405153654217461625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5d51d9f4-4b2f-4aa9-a434-e14bd8b9bf83
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 3e7096a8-7b0c-4781-8434-64cc112b6cdd
+      m_Path: <Keyboard>/f9
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 290
+  _controlIndex: 0
+--- !u!1 &1419156320468668362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8960724302578992374}
+  - component: {fileID: 7249616859537781785}
+  m_Layer: 0
+  m_Name: Keypad9
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8960724302578992374
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419156320468668362}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7249616859537781785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419156320468668362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b1793755-6327-4c61-a81e-fe5afb8ec524
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: b20d293e-ed19-4d15-bdb3-783b8f8f2395
+      m_Path: <Keyboard>/numpad9
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 265
+  _controlIndex: 0
+--- !u!1 &1468818754802480126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3418631050330118944}
+  - component: {fileID: 6575113806793316017}
+  m_Layer: 0
+  m_Name: Keypad6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3418631050330118944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468818754802480126}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6575113806793316017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468818754802480126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5204ba2e-84d2-4861-bc4e-56672c3d9add
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 730d6d3d-1ee3-49dc-8a5e-f4b29c4ae05b
+      m_Path: <Keyboard>/numpad6
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 262
   _controlIndex: 0
 --- !u!1 &1606191999847082314
 GameObject:
@@ -216,13 +920,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606191999847082314}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7307332261917856231
 MonoBehaviour:
@@ -238,20 +942,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 1b0e45ac-9dd2-441e-8439-5d19cf40cb0d
+    m_Id: e0fba7fc-98d5-4288-aa72-d8f0d06c1db3
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 82efd64d-f916-4ea1-b5a0-583b3edc79d5
+      m_Id: 218f7732-a94e-4d9f-9f7e-2fe461734b3c
       m_Path: <Keyboard>/4
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 52
@@ -280,13 +984,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736296006376009540}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7197519070782212297
 MonoBehaviour:
@@ -302,20 +1006,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 7684de74-ed6c-4a52-be1a-fef87e166861
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 9694ca8e-02c7-42ab-939d-45a6f6349859
+      m_Id: cf808ef6-db25-4ec7-bed4-c9750d63c7a9
       m_Path: <Keyboard>/h
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 104
@@ -344,13 +1048,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784831123601765044}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7525386438054230806
 MonoBehaviour:
@@ -366,23 +1070,87 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 1b74bcb5-d318-45b0-a758-b1cb97cd4014
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: a77e153d-1308-4371-b3a4-2158f91ac723
+      m_Id: 673da746-eb32-4cc9-abc2-27183b2fbe1f
       m_Path: <Keyboard>/c
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 99
+  _controlIndex: 0
+--- !u!1 &1952258497964640624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3158342652737306354}
+  - component: {fileID: 1363316470804628031}
+  m_Layer: 0
+  m_Name: F6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3158342652737306354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952258497964640624}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1363316470804628031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952258497964640624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 44e48e1d-404d-498c-812a-46652c77622a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 72043935-80b4-4855-aad8-698835e6c73c
+      m_Path: <Keyboard>/f6
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 287
   _controlIndex: 0
 --- !u!1 &1952722535687173032
 GameObject:
@@ -408,13 +1176,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952722535687173032}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6272155953740103713
 MonoBehaviour:
@@ -430,23 +1198,87 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 1b0e45ac-9dd2-441e-8439-5d19cf40cb0d
+    m_Id: a25ab7f3-62de-4fef-87f8-792ead347eaa
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: d11cc81e-edd8-4cdb-b671-80f5df8c11bd
+      m_Id: f5604379-13f7-45e8-b206-17324c5c4e87
       m_Path: <Keyboard>/3
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 51
+  _controlIndex: 0
+--- !u!1 &1992996001748907562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6022183007203728354}
+  - component: {fileID: 1974989877361316533}
+  m_Layer: 0
+  m_Name: Escape
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6022183007203728354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992996001748907562}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1974989877361316533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992996001748907562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: bc221158-37ff-48b4-b5e2-d0452549d3ad
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: d1ca4648-3690-4884-a8c2-26521d566744
+      m_Path: <Keyboard>/escape
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 27
   _controlIndex: 0
 --- !u!1 &2065930745225782168
 GameObject:
@@ -472,13 +1304,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065930745225782168}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7891870500628362619
 MonoBehaviour:
@@ -494,23 +1326,151 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 7397873f-776b-40b8-affd-4db36555a005
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: a8b75a6f-0818-4f3a-821c-f4c1646741b3
+      m_Id: d16eb531-7a1b-4aab-a734-ea56384619ae
       m_Path: <Keyboard>/g
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 103
+  _controlIndex: 0
+--- !u!1 &2404284653667616430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1988704414942369381}
+  - component: {fileID: 4257080575784496256}
+  m_Layer: 0
+  m_Name: Keypad2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1988704414942369381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404284653667616430}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4257080575784496256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404284653667616430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 60b43ea6-a973-4d24-be83-0a22d79c4a4f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: b165e038-a2e0-46a9-84c5-7949b2899a0d
+      m_Path: <Keyboard>/numpad2
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 258
+  _controlIndex: 0
+--- !u!1 &2409396396963619639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5119244804731765774}
+  - component: {fileID: 3951541071628429981}
+  m_Layer: 0
+  m_Name: LeftShift
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5119244804731765774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2409396396963619639}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3951541071628429981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2409396396963619639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b8dc6908-975c-4cc5-8a42-17da6cbaeb9e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: f14a2f2c-eb3b-4b3e-9ad7-b916c98e4a43
+      m_Path: <Keyboard>/leftshift
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 304
   _controlIndex: 0
 --- !u!1 &3003562390229232212
 GameObject:
@@ -536,13 +1496,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3003562390229232212}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2712993730603902726
 MonoBehaviour:
@@ -558,23 +1518,215 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 1b0e45ac-9dd2-441e-8439-5d19cf40cb0d
+    m_Id: d2bd69b6-2a3c-49e6-ae0c-4b42cfe38a4c
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 72565736-84bc-4d53-b4a1-007b7971b3e4
+      m_Id: d28bae72-b884-40b9-bdac-57385307d0d0
       m_Path: <Keyboard>/8
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 56
+  _controlIndex: 0
+--- !u!1 &3257991140008131467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7606297529235565702}
+  - component: {fileID: 1623304870572114901}
+  m_Layer: 0
+  m_Name: KeypadEnter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7606297529235565702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3257991140008131467}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1623304870572114901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3257991140008131467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e340fdf1-7963-4110-8df4-8fc2e21be40f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 05573654-6957-40e5-9ce8-16fc84772826
+      m_Path: <Keyboard>/numpadenter
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 271
+  _controlIndex: 0
+--- !u!1 &3375140238293959242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5018421925826244193}
+  - component: {fileID: 353957323726582090}
+  m_Layer: 0
+  m_Name: F7
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5018421925826244193
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3375140238293959242}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &353957323726582090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3375140238293959242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6003b0bf-87d5-4640-be2c-74c651aa4174
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 5908cec7-563b-4b70-8834-2440daed5a5a
+      m_Path: <Keyboard>/f7
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Input
       m_Flags: 0
     m_Flags: 0
-  _inputCode: 56
+  _inputCode: 288
+  _controlIndex: 0
+--- !u!1 &3453934601596027038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8558040327687731965}
+  - component: {fileID: 3514259043816151629}
+  m_Layer: 0
+  m_Name: Keypad7
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8558040327687731965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3453934601596027038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3514259043816151629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3453934601596027038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 480a7683-a743-4706-b57c-0c17c7dfcd85
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: c5827fce-5ae9-463f-9b2c-3f5ec6088b68
+      m_Path: <Keyboard>/numpad7
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 263
   _controlIndex: 0
 --- !u!1 &3509322546779202359
 GameObject:
@@ -600,13 +1752,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3509322546779202359}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &38963256863579132
 MonoBehaviour:
@@ -622,20 +1774,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 2d6e8114-6b9f-4ef7-9cdf-23e83be3d336
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 5ef2b47c-cda6-478b-ac09-970ba0befcbc
+      m_Id: c064cbcd-cc28-482f-8165-8acc66595c95
       m_Path: <Keyboard>/f
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 102
@@ -664,6 +1816,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3573846366779655434}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -673,8 +1826,13 @@ Transform:
   - {fileID: 4848955091815352730}
   - {fileID: 8491531108785056931}
   - {fileID: 6637460883780250565}
-  - {fileID: 6528018491947704660}
   - {fileID: 7043770700609757436}
+  - {fileID: 6528018491947704660}
+  - {fileID: 6022183007203728354}
+  - {fileID: 3947458336471084889}
+  - {fileID: 4593076572431768841}
+  - {fileID: 5119244804731765774}
+  - {fileID: 3841682198288555506}
   - {fileID: 4943893086033566773}
   - {fileID: 3818795776691275526}
   - {fileID: 8967790088298691870}
@@ -701,7 +1859,6 @@ Transform:
   - {fileID: 4736216665907664413}
   - {fileID: 6495456420137919859}
   - {fileID: 7926685615966763691}
-  - {fileID: 3947458336471084889}
   - {fileID: 4266040071832612885}
   - {fileID: 2091327223370864519}
   - {fileID: 718836528202469741}
@@ -712,8 +1869,36 @@ Transform:
   - {fileID: 3443367101480634581}
   - {fileID: 3426738235382415442}
   - {fileID: 445302816604142597}
+  - {fileID: 5910364282623536883}
+  - {fileID: 616537061743091296}
+  - {fileID: 1988704414942369381}
+  - {fileID: 2839713867116447848}
+  - {fileID: 2408795325677290180}
+  - {fileID: 853843284310524966}
+  - {fileID: 3418631050330118944}
+  - {fileID: 8558040327687731965}
+  - {fileID: 6639020194325000074}
+  - {fileID: 8960724302578992374}
+  - {fileID: 7606297529235565702}
+  - {fileID: 5529705363243393379}
+  - {fileID: 3259970230542324963}
+  - {fileID: 5660445126284456844}
+  - {fileID: 363357663719787608}
+  - {fileID: 6066089353675793596}
+  - {fileID: 6014924756179047083}
+  - {fileID: 581095352876689894}
+  - {fileID: 1337508153675743134}
+  - {fileID: 7605658007935973556}
+  - {fileID: 1460307780387729032}
+  - {fileID: 290922308345610314}
+  - {fileID: 3158342652737306354}
+  - {fileID: 5018421925826244193}
+  - {fileID: 2116479505911857082}
+  - {fileID: 623145674068272882}
+  - {fileID: 6026050666472290393}
+  - {fileID: 7051931642593055974}
+  - {fileID: 7325631255193997192}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6028648150537325388
 MonoBehaviour:
@@ -752,13 +1937,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3606778362694870553}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2299672174333585134
 MonoBehaviour:
@@ -774,20 +1959,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: d50a521a-54f4-4b77-b8a1-a29ca94545c2
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: f7cf56aa-cc9e-4180-817e-3ca0f70f7b86
+      m_Id: 400a9af4-f66b-4fe9-a673-82572488938a
       m_Path: <Keyboard>/e
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 101
@@ -816,13 +2001,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3955663404546299674}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6589857089310634992
 MonoBehaviour:
@@ -838,23 +2023,87 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 31a2b47f-7b3f-4a71-98c6-6d51855fafa2
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 2079af56-8161-49c7-994e-f9f11a4d259f
+      m_Id: 35b7dede-ee8f-4355-9a16-18f17c4aa1dc
       m_Path: <Mouse>/middleButton
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 403
+  _controlIndex: 0
+--- !u!1 &3959315746018951542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4593076572431768841}
+  - component: {fileID: 1271533376909598253}
+  m_Layer: 0
+  m_Name: LeftAlt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4593076572431768841
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3959315746018951542}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1271533376909598253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3959315746018951542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 84aff858-e18e-4432-9e72-c6ded847ae7e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 7d1b1312-3590-4358-962e-9f53c9ef90b0
+      m_Path: <Keyboard>/leftalt
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 308
   _controlIndex: 0
 --- !u!1 &4126531404891404963
 GameObject:
@@ -880,13 +2129,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4126531404891404963}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6784010094234925856
 MonoBehaviour:
@@ -902,20 +2151,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: cb247ca3-ecdc-454c-a58f-c7326f5b0b99
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 3d4bb102-7e23-40db-8b87-e494675d585e
+      m_Id: ff1b407d-c32e-4450-89fe-0fd346d44f1e
       m_Path: <Keyboard>/w
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 119
@@ -944,13 +2193,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4175207054585040577}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2117223269390488899
 MonoBehaviour:
@@ -966,55 +2215,119 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 18958b86-7360-4171-af45-9bf24ea0841b
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
-    - m_Name: 2D Vector
-      m_Id: 2b04df37-b49a-4281-8ec1-d011f39607ad
+    - m_Name: 2DVector
+      m_Id: 4210c119-9e2e-4b0d-a25e-855273aa5d72
       m_Path: 2DVector
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 4
-    - m_Name: up
-      m_Id: cdd94b1b-3074-4532-851d-61bf7451ecb9
+    - m_Name: Up
+      m_Id: 117ff358-0c69-4828-90fa-74df6d8c6065
       m_Path: <Keyboard>/w
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 8
-    - m_Name: down
-      m_Id: 5931c482-1511-42d4-9530-255490cf081c
+    - m_Name: Down
+      m_Id: 4ae01782-6c07-4f25-b7cd-881a260a9aef
       m_Path: <Keyboard>/s
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 8
-    - m_Name: left
-      m_Id: 86fbf40a-6779-44ba-8a87-80a2a9add08e
+    - m_Name: Left
+      m_Id: e5193b84-58a6-4f58-b644-6e2e58f512d2
       m_Path: <Keyboard>/a
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 8
-    - m_Name: right
-      m_Id: 3730afc2-22bb-48db-bdef-4e5373d73eaa
+    - m_Name: Right
+      m_Id: acde9a12-4d44-4b79-8033-761a7bbf65a6
       m_Path: <Keyboard>/d
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 8
     m_Flags: 0
   _inputCode: 400
+  _controlIndex: 0
+--- !u!1 &4207657170890928502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6026050666472290393}
+  - component: {fileID: 4873802637964918574}
+  m_Layer: 0
+  m_Name: F10
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6026050666472290393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4207657170890928502}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4873802637964918574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4207657170890928502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8d5c855a-1e7a-4047-8295-be294ec8b695
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 37925347-2e9c-483d-9baa-e009f545af57
+      m_Path: <Keyboard>/f10
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 291
   _controlIndex: 0
 --- !u!1 &4219457191805798225
 GameObject:
@@ -1040,13 +2353,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4219457191805798225}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2312153373205137314
 MonoBehaviour:
@@ -1062,23 +2375,215 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 1b0e45ac-9dd2-441e-8439-5d19cf40cb0d
+    m_Id: 86b80eba-12ca-4571-a96a-d4770db4293b
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 3f561b32-d9ae-4cd7-b8bc-3146176e8429
+      m_Id: f55f2e35-57df-49ed-b8a7-385dcc838c41
       m_Path: <Keyboard>/6
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 54
+  _controlIndex: 0
+--- !u!1 &4240755843060829420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7325631255193997192}
+  - component: {fileID: 4206617872331614694}
+  m_Layer: 0
+  m_Name: F12
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7325631255193997192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4240755843060829420}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4206617872331614694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4240755843060829420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 10e124d0-0787-4452-985e-b4442494d561
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 401dd7aa-3a0b-4771-9e05-814b510df0bc
+      m_Path: <Keyboard>/f12
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 293
+  _controlIndex: 0
+--- !u!1 &4265406639049959213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5529705363243393379}
+  - component: {fileID: 5012726170046153588}
+  m_Layer: 0
+  m_Name: KeypadPlus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5529705363243393379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4265406639049959213}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5012726170046153588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4265406639049959213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d93ba9e8-8f21-467a-9632-cab9a572dd14
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: c2160fbc-3726-4b1b-b2df-5beef60b858e
+      m_Path: <Keyboard>/numpadplus
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 270
+  _controlIndex: 0
+--- !u!1 &4407803754181622912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 616537061743091296}
+  - component: {fileID: 870843079160591060}
+  m_Layer: 0
+  m_Name: Keypad1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &616537061743091296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4407803754181622912}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &870843079160591060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4407803754181622912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 86b3f81e-e768-4644-9dd7-620643803f22
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 3dc61847-3e2a-4e84-bd49-d89c9c391fdc
+      m_Path: <Keyboard>/numpad1
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 257
   _controlIndex: 0
 --- !u!1 &4612358788364375732
 GameObject:
@@ -1104,13 +2609,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4612358788364375732}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5218858091855885146
 MonoBehaviour:
@@ -1126,23 +2631,87 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 23e29d40-e130-4abd-a005-712b9d2be4cd
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 5e0a9189-7cea-493b-9c13-6e15f5332036
+      m_Id: 9f1b55f3-4c1a-4ee8-b8c8-498713c7ccd9
       m_Path: <Mouse>/position
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 404
+  _controlIndex: 0
+--- !u!1 &4951682841081353503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2408795325677290180}
+  - component: {fileID: 6961348317785225608}
+  m_Layer: 0
+  m_Name: Keypad4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2408795325677290180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4951682841081353503}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6961348317785225608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4951682841081353503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ead0ef99-f345-4103-800f-2ce9851e8276
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: b9c597c4-6246-4b05-8e5d-0663393b11af
+      m_Path: <Keyboard>/numpad4
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 260
   _controlIndex: 0
 --- !u!1 &5036089849285948856
 GameObject:
@@ -1168,13 +2737,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5036089849285948856}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6120994833824518646
 MonoBehaviour:
@@ -1190,23 +2759,87 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 9c839e3c-75ee-486e-a750-4f2d121eea2f
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 29684777-bc95-43aa-816a-c9f27946668a
+      m_Id: 271e3fa5-1852-4e4f-ace6-c4daf7d6f3a0
       m_Path: <Keyboard>/space
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 32
+  _controlIndex: 0
+--- !u!1 &5338006317826298281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1337508153675743134}
+  - component: {fileID: 4159490081351510583}
+  m_Layer: 0
+  m_Name: F2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1337508153675743134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5338006317826298281}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4159490081351510583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5338006317826298281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 9d470b23-2bde-4e33-850e-0dbcbd57063c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 2791759f-714e-4545-bcf9-27b15a79b260
+      m_Path: <Keyboard>/f2
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 283
   _controlIndex: 0
 --- !u!1 &5347012828229463719
 GameObject:
@@ -1232,13 +2865,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5347012828229463719}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3335467415920529737
 MonoBehaviour:
@@ -1254,20 +2887,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 1b0e45ac-9dd2-441e-8439-5d19cf40cb0d
+    m_Id: b104e374-fb7c-41f4-987c-48ffaaeadb6b
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 25bdbf58-74c1-4597-8dfc-7a0ebd56059c
+      m_Id: 67d3e5e0-dc4d-45de-8b05-5794063a76e0
       m_Path: <Keyboard>/0
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 48
@@ -1296,13 +2929,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5351566009341211009}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9009483762012205542
 MonoBehaviour:
@@ -1318,20 +2951,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 1b0e45ac-9dd2-441e-8439-5d19cf40cb0d
+    m_Id: ac451539-078a-4f2a-8548-69dcc58d8440
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 2567aa6f-b1fd-43f8-8c9c-057be01b023e
+      m_Id: 759e88a9-46d6-4c07-bfb2-79e82bca6d23
       m_Path: <Keyboard>/7
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 55
@@ -1360,13 +2993,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5455914975143031570}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4668797776838562640
 MonoBehaviour:
@@ -1382,20 +3015,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 9645e037-1d5d-402a-b97e-f6d646bd01ce
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: bbf98f09-c2a7-44fa-a06b-67202fd3aaac
+      m_Id: f3006cf7-4918-4687-8cd0-7b1e2b0a77d7
       m_Path: <Keyboard>/y
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 121
@@ -1424,13 +3057,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5573286025878698857}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7952279388012248041
 MonoBehaviour:
@@ -1446,23 +3079,87 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 1b0e45ac-9dd2-441e-8439-5d19cf40cb0d
+    m_Id: 7185ed9e-1d8b-4dcb-a2f9-f69722ca5c94
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 4464c808-6d9d-4f48-b65b-7a10763a7e4e
+      m_Id: bcea972f-8938-454a-b69c-5597071cb50d
       m_Path: <Keyboard>/5
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 53
+  _controlIndex: 0
+--- !u!1 &5597880260880502556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1460307780387729032}
+  - component: {fileID: 4680144659062934824}
+  m_Layer: 0
+  m_Name: F4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1460307780387729032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597880260880502556}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4680144659062934824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597880260880502556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5f953715-9ff8-4661-9314-cff4e591e60b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: c1268c17-720d-4db9-b03a-3d7b1642b20c
+      m_Path: <Keyboard>/f4
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Input
       m_Flags: 0
     m_Flags: 0
-  _inputCode: 53
+  _inputCode: 285
   _controlIndex: 0
 --- !u!1 &5609225663260295302
 GameObject:
@@ -1488,13 +3185,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5609225663260295302}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7779275565475727708
 MonoBehaviour:
@@ -1510,20 +3207,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: f45750ce-0eab-43c7-9a78-8ac300139eaa
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: b819289c-2e6b-4da5-909c-27284fe15894
+      m_Id: 90774eae-7cce-4253-9531-8e2777abc8f2
       m_Path: <Keyboard>/k
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 107
@@ -1552,13 +3249,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5676522767550095103}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7425998638872723401
 MonoBehaviour:
@@ -1574,20 +3271,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 97a9eb57-dfbb-4ea2-bac3-7c87ab9cc65f
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 8c0904be-e76a-474a-af8d-253acd7fb534
+      m_Id: 1f7fc09d-be04-4dab-acb8-aaf3cc40767a
       m_Path: <Keyboard>/b
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 98
@@ -1616,13 +3313,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5740237608955623411}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2353960664233392231
 MonoBehaviour:
@@ -1638,23 +3335,215 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 9a9e1773-8db5-43ac-9fa5-308728da88f9
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 838d6b74-faed-41ba-8fa0-38e2c555c1ac
+      m_Id: 01f0650e-1ed1-4681-9571-103dd8818eb7
       m_Path: <Keyboard>/a
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 97
+  _controlIndex: 0
+--- !u!1 &5777409544891832265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 363357663719787608}
+  - component: {fileID: 226138206466096370}
+  m_Layer: 0
+  m_Name: KeypadDivide
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &363357663719787608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777409544891832265}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &226138206466096370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777409544891832265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 805c8bf3-2573-40c6-9e8e-589d4fcfb4c2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: a7a38e20-a4c3-4c0c-a0a4-aa70e5d27c9e
+      m_Path: <Keyboard>/numpaddivide
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 267
+  _controlIndex: 0
+--- !u!1 &6078322842401665417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7051931642593055974}
+  - component: {fileID: 6417986243642754286}
+  m_Layer: 0
+  m_Name: F11
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7051931642593055974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6078322842401665417}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6417986243642754286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6078322842401665417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 42a31278-b5f3-44f0-9244-a15ef3b99ca8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 849e790d-72d7-4bda-81a8-2f8a0b44c613
+      m_Path: <Keyboard>/f11
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 292
+  _controlIndex: 0
+--- !u!1 &6162004860677249118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6066089353675793596}
+  - component: {fileID: 7413270457178139038}
+  m_Layer: 0
+  m_Name: KeypadEquals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6066089353675793596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162004860677249118}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7413270457178139038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162004860677249118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8ef98f1b-2a60-49ee-b6ea-d685626849ed
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 999b4d5f-2c73-46e2-a609-371ee323c67b
+      m_Path: <Keyboard>/numpadequals
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 272
   _controlIndex: 0
 --- !u!1 &6239381818515608753
 GameObject:
@@ -1680,13 +3569,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6239381818515608753}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6993993928508271136
 MonoBehaviour:
@@ -1702,20 +3591,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 1b0e45ac-9dd2-441e-8439-5d19cf40cb0d
+    m_Id: 95983d29-3388-4d83-b67f-617390a0dec7
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: c577a9dc-8888-4533-9f4c-b0eff8626384
+      m_Id: 4433e9e2-6e29-4781-aee2-b97dec4b9ddc
       m_Path: <Keyboard>/1
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 49
@@ -1744,13 +3633,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6404781288988676438}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &661425510510928339
 MonoBehaviour:
@@ -1766,20 +3655,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 2994138b-a801-4711-8756-5acd87549c14
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: b2a1b4bb-ae0d-4fbd-b03f-6830e72e970d
+      m_Id: fd530ab4-9d3b-4ac9-b92a-98fa713cbb28
       m_Path: <Keyboard>/j
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 106
@@ -1808,13 +3697,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6432627278601782464}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4712519404381019767
 MonoBehaviour:
@@ -1830,20 +3719,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 8b416cd6-f565-4f36-b6fb-9556b8f27cac
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 803876d7-4b1e-4c1c-9018-9837f77c9c64
+      m_Id: 056b1f5f-94fb-4b9d-8238-23fe63b5b54f
       m_Path: <Keyboard>/m
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 109
@@ -1872,13 +3761,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6684171994588416582}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &253889712006894099
 MonoBehaviour:
@@ -1894,20 +3783,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: f3845333-e4c2-436e-9b32-853c3b4f2279
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 2853bc6b-a757-47b9-bee3-cf89a6843787
+      m_Id: e4969647-2909-4ae3-bca6-0ec042283c1a
       m_Path: <Keyboard>/q
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 113
@@ -1923,7 +3812,7 @@ GameObject:
   - component: {fileID: 3947458336471084889}
   - component: {fileID: 6020520852853131845}
   m_Layer: 0
-  m_Name: LeftControl
+  m_Name: LeftCtrl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1936,13 +3825,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6780633585876772537}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6020520852853131845
 MonoBehaviour:
@@ -1958,20 +3847,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: bcc67fd9-318a-405c-b2d8-7831f5ef0641
+    m_Id: 94d16ffb-75c7-4004-a917-dd834d4674c7
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 34194f6d-00cc-4ffc-a6ff-89d60ebd70b6
-      m_Path: <Keyboard>/leftCtrl
+      m_Id: 52f7ed45-b9be-4e8b-bbae-505835686775
+      m_Path: <Keyboard>/leftctrl
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 306
@@ -2000,13 +3889,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6815089244468680076}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7567400050590478522
 MonoBehaviour:
@@ -2022,20 +3911,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 9d16d4fc-6862-4d72-88ba-510cb32765ac
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 3c515b27-703c-4b3e-8ec6-c57ef3d173a3
+      m_Id: 6f5e676c-91f1-46fe-945b-d8995150d458
       m_Path: <Keyboard>/p
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 112
@@ -2064,13 +3953,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7291386905035128608}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1388855166185566712
 MonoBehaviour:
@@ -2086,23 +3975,87 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 0ca7306d-b981-4bb8-8aae-d2cd09d86026
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: c79679c0-b1e6-4628-9dd8-04816b10a7de
+      m_Id: a8d1d0f7-f9e8-4f36-a5f6-337b8330be1e
       m_Path: <Mouse>/rightButton
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 402
+  _controlIndex: 0
+--- !u!1 &7415856974176011293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3841682198288555506}
+  - component: {fileID: 5000286574730665784}
+  m_Layer: 0
+  m_Name: Tab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3841682198288555506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7415856974176011293}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5000286574730665784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7415856974176011293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4437228a-8700-45bf-8fdd-4052961701b2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 9c5333cb-37e5-49ae-95c0-4323d528e66c
+      m_Path: <Keyboard>/tab
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 9
   _controlIndex: 0
 --- !u!1 &7472238857847206176
 GameObject:
@@ -2128,13 +4081,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7472238857847206176}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1992358017171486250
 MonoBehaviour:
@@ -2150,20 +4103,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 1b0e45ac-9dd2-441e-8439-5d19cf40cb0d
+    m_Id: c87f6a62-2ed9-4d20-bc53-1ec4a7dc57fd
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 4497a1a4-17e3-4d8f-94d7-50f1f14970f1
+      m_Id: 37b3cff3-0b46-489d-8c0d-6e428a617cd2
       m_Path: <Keyboard>/9
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 57
@@ -2192,13 +4145,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7603450582821972872}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3585714698570107887
 MonoBehaviour:
@@ -2214,20 +4167,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 4e4fb496-34c8-48d0-8f4f-367c61a896ef
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 9a4e7bf1-380a-4663-983f-d8d368dc30cd
+      m_Id: 02dd4b06-7e29-4438-95e6-254415df65dc
       m_Path: <Keyboard>/t
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 116
@@ -2256,13 +4209,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7748974472446607153}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2908488474417860819
 MonoBehaviour:
@@ -2278,20 +4231,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 1bc23d49-9dea-4ed5-b9da-26e44ed59e18
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 805f553e-55c2-4cd3-8c1e-c0b449930527
+      m_Id: 454c915b-7665-4f88-9635-9044d983365a
       m_Path: <Keyboard>/s
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 115
@@ -2320,13 +4273,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8057838753045858724}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3676583541899380578
 MonoBehaviour:
@@ -2342,20 +4295,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: c7bee058-24f8-4ae5-827e-088f270fa7cf
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: b198d27f-4dc0-4e3b-b3c3-5f5e68082795
+      m_Id: 3549b51b-0d69-47a0-8060-a8611595e4c6
       m_Path: <Keyboard>/u
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 117
@@ -2384,13 +4337,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8257936846317288545}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4041756710244431806
 MonoBehaviour:
@@ -2406,23 +4359,87 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 2e6a4994-624d-41f5-a95d-ac7f22e1beec
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 14d75e32-6b7d-4b4b-aa94-7724776cd478
+      m_Id: 45472691-0af3-41a8-aa9c-cc3d1a0dd262
       m_Path: <Keyboard>/o
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 111
+  _controlIndex: 0
+--- !u!1 &8290485949892897858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2839713867116447848}
+  - component: {fileID: 7449274453723142839}
+  m_Layer: 0
+  m_Name: Keypad3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2839713867116447848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8290485949892897858}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7449274453723142839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8290485949892897858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: af2182e6-39f6-4283-8add-f6f4ab729faf
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: d1e178c7-436a-495e-882e-6083ec073cfa
+      m_Path: <Keyboard>/numpad3
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 259
   _controlIndex: 0
 --- !u!1 &8425642913087749052
 GameObject:
@@ -2448,13 +4465,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8425642913087749052}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4491400298109981469
 MonoBehaviour:
@@ -2470,20 +4487,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 973df0f4-4248-4715-9512-ab960cc93ed9
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 88cc20f4-4b52-4ca9-89bf-81e7eba7ad71
+      m_Id: 8f412ed4-b9bb-41f9-9595-ad088bf903d8
       m_Path: <Keyboard>/v
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 118
@@ -2512,13 +4529,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8442307932695984978}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9032667153306855355
 MonoBehaviour:
@@ -2534,23 +4551,151 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 17033a87-c56b-4393-b249-e906bffb0680
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: efe72f74-4ae8-4f7f-b237-6c52db5286eb
+      m_Id: ecdb973e-b41b-4b09-82fe-1841890a2d20
       m_Path: <Keyboard>/i
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 105
+  _controlIndex: 0
+--- !u!1 &8493517358984737268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5910364282623536883}
+  - component: {fileID: 3131264420768874861}
+  m_Layer: 0
+  m_Name: Keypad0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5910364282623536883
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8493517358984737268}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3131264420768874861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8493517358984737268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5f174a9c-1d47-457d-b82b-1f5555b52084
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 72919fdb-ccad-4d52-9777-25829dd9f864
+      m_Path: <Keyboard>/numpad0
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 256
+  _controlIndex: 0
+--- !u!1 &8642289623885779981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6639020194325000074}
+  - component: {fileID: 1739174601177060576}
+  m_Layer: 0
+  m_Name: Keypad8
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6639020194325000074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8642289623885779981}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7446006786140226756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1739174601177060576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8642289623885779981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccd006270640dba298484a727020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stickIgnoreError: 0.5
+  _inputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: dd29f024-4b55-438c-bde5-9ceafcceda51
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: ee171c15-cf65-436f-a0ae-d43c2d72be89
+      m_Path: <Keyboard>/numpad8
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 
+      m_Flags: 0
+    m_Flags: 0
+  _inputCode: 264
   _controlIndex: 0
 --- !u!1 &8731341718493901835
 GameObject:
@@ -2576,13 +4721,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8731341718493901835}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3362507996669262710
 MonoBehaviour:
@@ -2598,20 +4743,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: abbe8d79-ee21-4ddb-be46-95b5d7c49ee5
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: bee0597b-90a3-4c7e-9c23-aa8b0c958df9
+      m_Id: fe302056-1908-4eeb-85ca-86e4f0be19ab
       m_Path: <Keyboard>/z
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 122
@@ -2640,13 +4785,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8763629627586072067}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4591054589746935100
 MonoBehaviour:
@@ -2662,20 +4807,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 95f571ac-f218-46e4-954e-c222a6bb6b62
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: a8798341-4383-4f04-b6be-3dee20293a77
+      m_Id: 6e8e0088-42f8-4ef3-b8d2-5db3e28b2f3b
       m_Path: <Mouse>/leftButton
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 401
@@ -2704,13 +4849,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8823302922460056706}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2563481380310255506
 MonoBehaviour:
@@ -2726,20 +4871,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: edac96ec-26e9-485f-b8f0-808193124d02
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 3a55f06b-4d37-479c-9a51-15956ce5fc8f
+      m_Id: f52c5924-5b50-40d7-9004-953ddc2ac519
       m_Path: <Keyboard>/d
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 100
@@ -2768,13 +4913,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8913264721246361321}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4631532611209991508
 MonoBehaviour:
@@ -2790,20 +4935,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: b4dc7ec6-ed44-4b22-a0b3-0e15f9caf7fa
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 950e8a3c-ccd7-424c-b557-d18f6b461666
+      m_Id: 2c590980-f87e-43df-b0e8-083ff6729438
       m_Path: <Keyboard>/r
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 114
@@ -2832,13 +4977,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9211189366913328429}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7446006786140226756}
-  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2312486376744937648
 MonoBehaviour:
@@ -2854,20 +4999,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickIgnoreError: 0.5
   _inputAction:
-    m_Name: Input
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13c8b919-dd12-4a57-99dd-6cda2a8bcdb5
+    m_Id: 7529e1af-3a70-4456-b7a2-ef81b84eeb41
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 33470cbe-193d-4016-abe0-261750268d63
+      m_Id: ee922d3b-58d3-4b2c-a131-9c006e1019f9
       m_Path: <Keyboard>/n
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Input
+      m_Action: 
       m_Flags: 0
     m_Flags: 0
   _inputCode: 110

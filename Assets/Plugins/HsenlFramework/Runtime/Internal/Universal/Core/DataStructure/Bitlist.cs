@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 #if UNSAFE_SERIALIZATION
@@ -31,6 +32,7 @@ namespace Hsenl {
 
         int BucketLength { get; }
 
+        int Capacity { get; }
         int Length { get; }
 
         bool Contains(int value);
@@ -107,12 +109,16 @@ namespace Hsenl {
     // 位列表, 主要用于判存, 代替List<Enum> 这种, 速度极快
     // 注意: 不要用于大数值, 那不适合. 数值从0开始, 这样不会浪费内存.
     [Serializable]
-    [MemoryPackable()]
+#if! UNSAFE_SERIALIZATION // memory pack 不支持不安全代码
+    [MemoryPackable]
+#endif
     public
 #if UNSAFE_SERIALIZATION // memory pack 不支持不安全代码
         unsafe
+#else
+        partial
 #endif
-        partial class Bitlist : IEnumerable<int>, IReadOnlyBitlist, IEquatable<Bitlist> {
+        class Bitlist : IEnumerable<int>, IReadOnlyBitlist, IEquatable<Bitlist> {
         public const int DefaultLength = 64;
         public const int SizeOfElement = 8; // masks数组里存的元素, 每个元素占几个字节大小
         public const int NumOfBits = 64; // masks数组里存的元素, 是多少位数的
@@ -121,31 +127,38 @@ namespace Hsenl {
 
 
 #if UNSAFE_SERIALIZATION
-        [MemoryPackInclude]
         protected ulong* ptr;
-#endif
-
+#else
         [NonSerialized] // unity那个 depth limit 10警告
         [MemoryPackInclude]
         protected ulong[] masks;
-
-        [MemoryPackInclude]
-        protected int capacity;
+#endif
 
 #if UNSAFE_SERIALIZATION
-        [MemoryPackInclude]
         protected int bucketLength;
         
-        [MemoryPackIgnore]
         public int BucketLength => this.bucketLength;
 #else
         [MemoryPackIgnore]
-        public int BucketLength => this.masks.Length;
+        public int BucketLength => this.masks?.Length ?? 0;
 #endif
 
         [MemoryPackIgnore]
         // Length总是64的倍数
-        public int Length => this.BucketLength * NumOfBits;
+        public int Capacity => this.BucketLength * NumOfBits;
+
+        [MemoryPackIgnore]
+        public int Length {
+            get {
+                if (this.masks == null) return 0;
+                var length = 0;
+                for (int i = 0, len = this.BucketLength; i < len; i++) {
+                    length += BitlistAssistant.GetBitOneCount(this[i]);
+                }
+
+                return length;
+            }
+        }
 
         public static bool IsNullOrEmpty(Bitlist bitlist) {
             if (bitlist == null) return true;
@@ -158,14 +171,13 @@ namespace Hsenl {
             return true;
         }
 
-        public Bitlist() : this(DefaultLength) { }
+        [MemoryPackConstructor]
+        public Bitlist() { }
 
 #if UNSAFE_SERIALIZATION
         // capacity每次拓展都是64的倍数
-        [MemoryPackConstructor]
         public BitList(int capacity) {
             if (capacity <= 0) throw new ArgumentOutOfRangeException(capacity.ToString());
-            this.capacity = capacity;
             capacity--;
             this.bucketLength = capacity / NumOfBits + 1;
             var bytelen = this.bucketLength * SizeOfElement;
@@ -176,10 +188,8 @@ namespace Hsenl {
         }
 #else
         // capacity每次拓展都是64的倍数
-        [MemoryPackConstructor]
         public Bitlist(int capacity) {
             if (capacity <= 0) throw new ArgumentOutOfRangeException(capacity.ToString());
-            this.capacity = capacity;
             capacity--;
             this.masks = new ulong[capacity / NumOfBits + 1];
         }
@@ -275,7 +285,7 @@ namespace Hsenl {
 #else
         public void Set(Bitlist other) {
             this.Resize(other.BucketLength, false);
-            Array.Copy(other.masks, this.masks, other.masks.Length);
+            Array.Copy(other.masks, this.masks, other.BucketLength);
         }
 #endif
 
@@ -291,6 +301,12 @@ namespace Hsenl {
 
             var bitIndex = value & 0x3f;
             this[bucketIndex] &= ~(One << bitIndex);
+        }
+
+        public void Remove(IList<int> values) {
+            for (int i = 0, len = values.Count; i < len; i++) {
+                this.Remove(values[i]);
+            }
         }
 
         public void Remove(Bitlist other) {
@@ -476,13 +492,19 @@ namespace Hsenl {
 #else
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void Resize(int bucketLen, bool onlyExpand = true) {
-            if (bucketLen == this.BucketLength) return;
-            if (bucketLen < this.BucketLength && onlyExpand) return;
+            var bl = this.BucketLength;
+            if (bucketLen == bl) return;
+            if (bl == 0) {
+                this.masks = new ulong[bucketLen];
+            }
+            else {
+                if (bucketLen < bl && onlyExpand) return;
 
-            var newBits = new ulong[bucketLen];
-            var copylen = bucketLen > this.BucketLength ? this.BucketLength : bucketLen;
-            Array.Copy(this.masks, newBits, copylen);
-            this.masks = newBits;
+                var newBits = new ulong[bucketLen];
+                var copylen = bucketLen > bl ? bl : bucketLen;
+                Array.Copy(this.masks, newBits, copylen);
+                this.masks = newBits;
+            }
         }
 #endif
 
@@ -502,7 +524,7 @@ namespace Hsenl {
         }
 #else
         public void ClearThorough() {
-            this.masks = Array.Empty<ulong>();
+            this.masks = null;
         }
 #endif
 
@@ -558,11 +580,10 @@ namespace Hsenl {
         public override int GetHashCode() {
             unchecked {
                 var hash = 17;
-                hash = hash * 23 + this.capacity.GetHashCode();
                 hash = hash * 23 + this.BucketLength.GetHashCode();
                 if (this.masks != null) {
-                    foreach (var item in this.masks) {
-                        hash = hash * 23 + item.GetHashCode();
+                    for (int i = 0, len = this.BucketLength; i < len; i++) {
+                        hash = hash * 23 + this.masks[i].GetHashCode();
                     }
                 }
 
@@ -698,9 +719,15 @@ namespace Hsenl {
         public static void Remove<T>(this Bitlist self, T enu) where T : Enum {
             self.Remove(enu.GetHashCode());
         }
+        
+        public static void Remove<T>(this Bitlist self, IList<T> enums) where T : Enum {
+            for (int i = 0, len = enums.Count; i < len; i++) {
+                self.Remove(enums[i].GetHashCode());
+            }
+        }
 
         public static void Set<T>(this Bitlist self, IList<T> enums) where T : Enum {
-            self.Clear();
+            self.ClearThorough();
             for (int i = 0, len = enums.Count; i < len; i++) {
                 self.Add(enums[i].GetHashCode());
             }

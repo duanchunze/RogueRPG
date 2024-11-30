@@ -152,6 +152,45 @@ namespace Hsenl {
                 }
             }
         }
+
+        /// <summary>
+        /// 获得一个值在一个顺序的数组中, 大小梯队的索引
+        /// 例如 1, 2, 3, 3, 3, 4 数组,
+        /// value为 0, 返回 0,
+        /// value为 1, 返回 0,
+        /// value为 3, 返回 2,
+        /// value为 4, 返回 3,
+        /// </summary>
+        /// <param name="array">array必须是已经按升序排过序的</param>
+        /// <param name="value">要对比的值</param>
+        /// <param name="comparer"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static int GetSortedIndex<T>(IList<T> array, T value, Comparer<T> comparer = null) {
+            comparer ??= Comparer<T>.Default;
+            var index = 0;
+            T curr = default;
+            for (int i = 0; i < array.Count; i++) {
+                if (i == 0) {
+                    curr = array[i];
+                }
+                else {
+                    var v = array[i];
+                    var compare = comparer.Compare(v, curr);
+                    if (compare == 0)
+                        continue;
+                    if (compare < 0)
+                        throw new Exception("Array must be sorted ascending");
+                    curr = v;
+                }
+
+                if (comparer.Compare(value, curr) > 0) {
+                    index++;
+                }
+            }
+
+            return index;
+        }
     }
 
     public struct MergeSortFloatWrap<T> : IComparable<MergeSortFloatWrap<T>> {

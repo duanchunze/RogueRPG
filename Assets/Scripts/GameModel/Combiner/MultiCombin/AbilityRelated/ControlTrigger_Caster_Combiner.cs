@@ -1,24 +1,29 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Hsenl.MultiCombiner {
     public class ControlTrigger_Caster_Combiner : MultiCombiner<ControlTrigger, Caster> {
         protected override void OnCombin(ControlTrigger arg1, Caster arg2) {
-            arg1.onBegin += this.EnqueueAction<Action>(() => {
-                arg2.CastStart(true); // 
+            arg1.onStart += this.EnqueueAction<Action>(() => {
+                arg1.GetValue(out var v);
+                arg2.castParameter.vector3Value = v;
+                arg2.StartCastWithKeepTrying();
             });
 
-            arg1.onFinish += this.EnqueueAction<Action>(() => { 
-                // 当施法器的模式是无限时间的时候, 才由控制器控制结束
-                if (arg2.CastModel == CastModel.InfiniteTime) {
-                    arg2.CastEnd();
+            arg1.onSustain += this.EnqueueAction<Action>(() => {
+                if (arg1.supportBurstFire) {
+                    arg1.GetValue(out var v);
+                    arg2.castParameter.vector3Value = v;
+                    arg2.StartCast();
                 }
             });
+
+            arg1.onEnd += this.EnqueueAction<Action>(arg2.StopCast);
         }
 
         protected override void OnDecombin(ControlTrigger arg1, Caster arg2) {
-            arg1.onBegin -= this.DequeueAction<Action>();
-            arg1.onFinish -= this.DequeueAction<Action>();
+            arg1.onStart -= this.DequeueAction<Action>();
+            arg1.onSustain -= this.DequeueAction<Action>();
+            arg1.onEnd -= this.DequeueAction<Action>();
         }
     }
 }

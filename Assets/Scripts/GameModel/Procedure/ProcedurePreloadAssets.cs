@@ -7,15 +7,18 @@ namespace Hsenl {
     [ShadowFunction]
     public partial class ProcedurePreloadAssets : AProcedureState {
         [ShadowFunction]
-        protected override async void OnEnter(IFsm fsm, IFsmState prev) {
-            await HTask.Completed;
+        protected override async HTask OnEnter(IFsm fsm, IFsmState prev) {
             await this.OnEnterShadow(fsm, prev);
+        }
+        
+        protected override void OnUpdate(IFsm fsm, float deltaTime) {
             fsm.ChangeState<ProcedurePreprocessing>();
         }
 
         [ShadowFunction]
-        protected override void OnLeave(IFsm fsm, IFsmState next) {
+        protected override HTask OnLeave(IFsm fsm, IFsmState next) {
             this.OnLeaveShadow(fsm, next);
+            return default;
         }
     }
 }

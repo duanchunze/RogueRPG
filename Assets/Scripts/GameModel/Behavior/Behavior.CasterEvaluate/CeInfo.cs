@@ -3,7 +3,7 @@ using Hsenl.behavior;
 
 namespace Hsenl {
     [BehaviorNode]
-    public abstract class CeInfo<T> : ActionNode<CasterEvaluate>, IConfigInfoInitializer<behavior.Info> where T : casterevaluate.CasterEvaluateInfo {
+    public abstract class CeInfo<T> : ActionNode<Caster>, IConfigInfoInitializer<behavior.Info> where T : casterevaluate.CasterEvaluateInfo {
         protected T info;
         
         public int infoInstanceId;

@@ -34,10 +34,10 @@ namespace Hsenl {
             var pl = entity.AddComponent<ProcedureLine>();
             var control = entity.AddComponent<Control>();
             var priorities = entity.AddComponent<Prioritizer>();
-            var tree = entity.AddComponent<BehaviorTree>();
+            var ai = entity.AddComponent<AIBehaviorTree>();
             var numerator = entity.AddComponent<Numerator>();
-            var selections = entity.AddComponent<Selector>();
-            var selectTarget = entity.AddComponent<SelectionTarget>();
+            var selections = entity.AddComponent<SelectorDefault>();
+            var selectTarget = entity.AddComponent<SelectionTargetDefault>();
             var harmable = entity.AddComponent<Harmable>();
             var hurtable = entity.AddComponent<Hurtable>();
             if (entity.Tags.Contains(TagType.Hero))
@@ -59,6 +59,13 @@ namespace Hsenl {
                 }
             }
 
+            Entity.Create("StatusBar", entity).AddComponent<StatusBar>();
+            foreach (var statusAlias in config.OrgStatus) {
+                Shortcut.InflictionStatus(null, actor, statusAlias);
+            }
+
+            entity.AddComponent<MinionsBar>();
+
             var abilityBar = Entity.Create("AbilityBar", entity).AddComponent<AbilitesBar>();
             abilityBar.ExplicitAbilityCapacity = 6;
             foreach (var abilityAlias in config.OrgAbilitys) {
@@ -66,25 +73,14 @@ namespace Hsenl {
                 abilityBar.EquipAbility(ability);
             }
 
-            Entity.Create("StatusBar", entity).AddComponent<StatusBar>();
+            Entity.Create("PropBar", entity).AddComponent<PropBar>();
+
             Entity.Create("DrawCard", entity).AddComponent<DrawCard>();
-            entity.AddComponent<MinionsBar>();
-            // if (entity.Tags.Contains(TagType.Hero)) {
-            //     var cardBar = Entity.Create("CardBar", entity).AddComponent<CardBar>();
-            //     var cardBackpack = Entity.Create("CardBackpack", entity).AddComponent<CardBackpack>(initializeInvoke: backpack => {
-            //         backpack.capacity = Tables.Instance.TbGameSingletonConfig.CardBackpackCap;
-            //     });
-            //
-            //     foreach (var orgCard in config.OrgCards) {
-            //         var card = CardFactory.Create(orgCard);
-            //         cardBar.PutinCard(card);
-            //     }
-            // }
 
             var aiConfig = config.AIConfig;
             if (aiConfig != null) {
-                var entryNode = BehaviorNodeFactory.CreateNodeLink<BehaviorTree>(aiConfig.Nodes);
-                tree.SetEntryNode(entryNode);
+                var entryNode = BehaviorNodeFactory.CreateNodeLink<AIBehaviorTree>(aiConfig.Nodes);
+                ai.SetEntryNode((AICompositeNode<AIBehaviorTree>)entryNode);
             }
 
             foreach (var info in config.PossibleDropsByProbability) {
@@ -118,10 +114,10 @@ namespace Hsenl {
             foreach (var basicValueInfo in numericConfig.NumericInfos) {
                 switch (basicValueInfo.Sign) {
                     case "f":
-                        numerator.SetValue(basicValueInfo.Type, basicValueInfo.Value);
+                        numerator.SetValue(basicValueInfo.Type, basicValueInfo.Value, forceSendEvent: false);
                         break;
                     default:
-                        numerator.SetValue(basicValueInfo.Type, (long)basicValueInfo.Value);
+                        numerator.SetValue(basicValueInfo.Type, (long)basicValueInfo.Value, forceSendEvent: false);
                         break;
                 }
             }
@@ -134,7 +130,7 @@ namespace Hsenl {
             var prioritizer = actor.GetComponent<Prioritizer>();
             var state = prioritizer.GetState(StatusAlias.Death);
             if (state != null) {
-                state.LeaveState();
+                state.Leave();
             }
 
             numerator.Recalculate();

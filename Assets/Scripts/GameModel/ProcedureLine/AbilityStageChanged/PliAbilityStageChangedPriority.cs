@@ -4,7 +4,9 @@
         RepetitionCast,
         // 无起手
         Wuqishou,
-        // 修改参数
-        ModifyArg
+        // 标准处理, cd等
+        StandardHandle,
+        // 
+        AddStageDuration
     }
 }

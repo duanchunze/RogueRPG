@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Hsenl {
     [DisallowMultipleComponent]
+    [DefaultExecutionOrder(-18)]
     public class TimerProxy : MonoBehaviour {
         [SerializeField, HideLabel] private TimerManager _timerManager;
 

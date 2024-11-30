@@ -16,10 +16,9 @@ namespace Hsenl {
 
         public static Pickable Create(PickableConfig config, Vector3 position, int count = 1) {
             var entity = Entity.Create(config.Alias + "(Pickable)");
-            var pickable = entity.AddComponent<Pickable>(initializeInvoke: pik => {
-                pik.configId = config.Id;
-                pik.count = count;
-            });
+            var pickable = entity.AddComponent<Pickable>();
+            pickable.configId = config.Id;
+            pickable.count = count;
             pickable.transform.Position = position;
             pickable.LoadModel(config.ModelName);
             pickable.LoadCollider(0.3f);

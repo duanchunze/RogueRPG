@@ -8,7 +8,7 @@
     "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [
-      18
+      19
     ],
     "priority_state": {
       "time_scale": 1,
@@ -20,20 +20,20 @@
         3
       ],
       "enter_pri": 1000,
-      "resist_pri": 1000,
-      "exclu_pri": 1000,
+      "obs_pri": 1000,
       "keep_pri": 1000,
-      "dis_pri": 1000,
+      "exclu_pri": 1000,
       "run_pri": 1000,
+      "dis_pri": 1000,
       "sp_pass": [
-        19
+        20
       ],
-      "sp_inter": [],
-      "sp_exclu": [],
+      "sp_obs": [],
       "sp_keep": [],
-      "sp_dis": [],
+      "sp_exclu": [],
       "sp_run": [],
-      "allow_reenter": true
+      "sp_dis": [],
+      "allow_reenter": false
     },
     "main": {
       "actions": [
@@ -49,7 +49,8 @@
           "point": 0
         }
       ]
-    }
+    },
+    "workers": []
   },
   {
     "id": 10001,
@@ -60,32 +61,29 @@
     "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [
-      19
+      20
     ],
     "priority_state": {
       "time_scale": 1,
       "duration": 0,
       "aisles": [
-        0,
-        1,
-        2,
-        3
+        0
       ],
-      "enter_pri": 0,
-      "resist_pri": 0,
-      "exclu_pri": 0,
+      "enter_pri": -1,
+      "obs_pri": 0,
       "keep_pri": 0,
-      "dis_pri": 0,
+      "exclu_pri": 0,
       "run_pri": 0,
+      "dis_pri": 0,
       "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [
-        18
-      ],
+      "sp_obs": [],
       "sp_keep": [],
-      "sp_dis": [],
+      "sp_exclu": [
+        19
+      ],
       "sp_run": [],
-      "allow_reenter": true
+      "sp_dis": [],
+      "allow_reenter": false
     },
     "main": {
       "actions": [
@@ -101,7 +99,8 @@
           "point": 0
         }
       ]
-    }
+    },
+    "workers": []
   },
   {
     "id": 10002,
@@ -112,8 +111,8 @@
     "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [
-      20,
-      21
+      21,
+      22
     ],
     "priority_state": {
       "time_scale": 1,
@@ -122,18 +121,18 @@
         0
       ],
       "enter_pri": 60,
-      "resist_pri": 59,
-      "exclu_pri": 1,
-      "keep_pri": 1,
-      "dis_pri": 0,
+      "obs_pri": 60,
+      "keep_pri": 10,
+      "exclu_pri": 10,
       "run_pri": 0,
+      "dis_pri": 0,
       "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [],
+      "sp_obs": [],
       "sp_keep": [],
-      "sp_dis": [],
+      "sp_exclu": [],
       "sp_run": [],
-      "allow_reenter": true
+      "sp_dis": [],
+      "allow_reenter": false
     },
     "main": {
       "actions": [
@@ -144,7 +143,8 @@
           "anim": "hitstun"
         }
       ]
-    }
+    },
+    "workers": []
   },
   {
     "id": 10003,
@@ -155,7 +155,7 @@
     "numeric_infos": [],
     "numeric_nodes": [],
     "tags": [
-      21
+      22
     ],
     "priority_state": {
       "time_scale": 1,
@@ -164,17 +164,17 @@
         0
       ],
       "enter_pri": 90,
-      "resist_pri": 90,
-      "exclu_pri": 1,
-      "keep_pri": 1,
-      "dis_pri": 0,
+      "obs_pri": 90,
+      "keep_pri": 10,
+      "exclu_pri": 10,
       "run_pri": 0,
+      "dis_pri": 0,
       "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [],
+      "sp_obs": [],
       "sp_keep": [],
-      "sp_dis": [],
+      "sp_exclu": [],
       "sp_run": [],
+      "sp_dis": [],
       "allow_reenter": false
     },
     "main": {
@@ -193,10 +193,11 @@
           "distance": 0.5
         }
       ]
-    }
+    },
+    "workers": []
   },
   {
-    "id": 10005,
+    "id": 10004,
     "alias": "霸体",
     "view_name": "BaTi",
     "desc": "",
@@ -211,29 +212,30 @@
         0
       ],
       "enter_pri": 70,
-      "resist_pri": 0,
+      "obs_pri": 0,
+      "keep_pri": 10,
       "exclu_pri": 0,
-      "keep_pri": 1,
-      "dis_pri": 0,
       "run_pri": 0,
+      "dis_pri": 0,
       "sp_pass": [],
-      "sp_inter": [
-        20
-      ],
-      "sp_exclu": [
-        20
+      "sp_obs": [
+        21
       ],
       "sp_keep": [],
-      "sp_dis": [],
+      "sp_exclu": [
+        21
+      ],
       "sp_run": [],
-      "allow_reenter": true
+      "sp_dis": [],
+      "allow_reenter": false
     },
     "main": {
       "actions": []
-    }
+    },
+    "workers": []
   },
   {
-    "id": 10006,
+    "id": 10005,
     "alias": "无起手",
     "view_name": "WuQishou",
     "desc": "下次释放技能时, 无起手时间, 触发后该状态消失",
@@ -248,32 +250,33 @@
         1
       ],
       "enter_pri": 1,
-      "resist_pri": 0,
-      "exclu_pri": 0,
+      "obs_pri": 0,
       "keep_pri": 0,
-      "dis_pri": 0,
+      "exclu_pri": 0,
       "run_pri": 0,
+      "dis_pri": 0,
       "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [],
+      "sp_obs": [],
       "sp_keep": [],
-      "sp_dis": [],
+      "sp_exclu": [],
       "sp_run": [],
+      "sp_dis": [],
       "allow_reenter": false
     },
     "main": {
       "actions": []
-    }
+    },
+    "workers": []
   },
   {
-    "id": 10004,
+    "id": 10006,
     "alias": "流血",
     "view_name": "流血",
     "desc": "",
-    "duration": 5,
+    "duration": 3,
     "numeric_infos": [
       {
-        "type": 52,
+        "type": 57,
         "value": 20,
         "sign": ""
       }
@@ -287,18 +290,18 @@
         1
       ],
       "enter_pri": 1,
-      "resist_pri": 0,
-      "exclu_pri": 0,
+      "obs_pri": 0,
       "keep_pri": 0,
-      "dis_pri": 0,
+      "exclu_pri": 0,
       "run_pri": 0,
+      "dis_pri": 0,
       "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [],
+      "sp_obs": [],
       "sp_keep": [],
-      "sp_dis": [],
+      "sp_exclu": [],
       "sp_run": [],
-      "allow_reenter": true
+      "sp_dis": [],
+      "allow_reenter": false
     },
     "main": {
       "actions": [
@@ -312,8 +315,8 @@
               {
                 "$type": "FormulaInfo1",
                 "type": 12,
-                "pct": 0.5,
-                "fix": 0
+                "pct": 0,
+                "fix": 50
               }
             ],
             "damage_type": 6
@@ -321,80 +324,18 @@
           "internalTime": 0.5
         }
       ]
-    }
+    },
+    "workers": []
   },
   {
     "id": 10007,
-    "alias": "燃烧",
-    "view_name": "燃烧",
+    "alias": "大出血",
+    "view_name": "大出血",
     "desc": "",
     "duration": 5,
     "numeric_infos": [
       {
-        "type": 52,
-        "value": 10,
-        "sign": ""
-      },
-      {
-        "type": 37,
-        "value": 15,
-        "sign": ""
-      }
-    ],
-    "numeric_nodes": [],
-    "tags": [],
-    "priority_state": {
-      "time_scale": 1,
-      "duration": 0,
-      "aisles": [
-        1
-      ],
-      "enter_pri": 1,
-      "resist_pri": 0,
-      "exclu_pri": 0,
-      "keep_pri": 0,
-      "dis_pri": 0,
-      "run_pri": 0,
-      "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [],
-      "sp_keep": [],
-      "sp_dis": [],
-      "sp_run": [],
-      "allow_reenter": true
-    },
-    "main": {
-      "actions": [
-        {
-          "$type": "RanshaoInfo",
-          "model": 1,
-          "origin": 0,
-          "dest": 1,
-          "harm_formula": {
-            "damage_formulas": [
-              {
-                "$type": "FormulaInfo1",
-                "type": 12,
-                "pct": 0.5,
-                "fix": 0
-              }
-            ],
-            "damage_type": 1
-          },
-          "internalTime": 1
-        }
-      ]
-    }
-  },
-  {
-    "id": 10008,
-    "alias": "瘟疫",
-    "view_name": "瘟疫",
-    "desc": "",
-    "duration": 10,
-    "numeric_infos": [
-      {
-        "type": 52,
+        "type": 57,
         "value": 1,
         "sign": ""
       }
@@ -408,18 +349,141 @@
         1
       ],
       "enter_pri": 1,
-      "resist_pri": 0,
-      "exclu_pri": 0,
+      "obs_pri": 0,
       "keep_pri": 0,
-      "dis_pri": 0,
+      "exclu_pri": 0,
       "run_pri": 0,
+      "dis_pri": 0,
       "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [],
+      "sp_obs": [],
       "sp_keep": [],
-      "sp_dis": [],
+      "sp_exclu": [],
       "sp_run": [],
-      "allow_reenter": true
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "main": {
+      "actions": [
+        {
+          "$type": "LiuXueInfo",
+          "model": 1,
+          "origin": 0,
+          "dest": 1,
+          "harm_formula": {
+            "damage_formulas": [
+              {
+                "$type": "FormulaInfo1",
+                "type": 12,
+                "pct": 0,
+                "fix": 150
+              }
+            ],
+            "damage_type": 6
+          },
+          "internalTime": 0.5
+        }
+      ]
+    },
+    "workers": []
+  },
+  {
+    "id": 10008,
+    "alias": "燃烧",
+    "view_name": "燃烧",
+    "desc": "",
+    "duration": 5,
+    "numeric_infos": [
+      {
+        "type": 57,
+        "value": 10,
+        "sign": ""
+      },
+      {
+        "type": 39,
+        "value": 15,
+        "sign": ""
+      }
+    ],
+    "numeric_nodes": [],
+    "tags": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        1
+      ],
+      "enter_pri": 1,
+      "obs_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 0,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_obs": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "main": {
+      "actions": [
+        {
+          "$type": "RanshaoInfo",
+          "model": 1,
+          "origin": 0,
+          "dest": 1,
+          "harm_formula": {
+            "damage_formulas": [
+              {
+                "$type": "FormulaInfo1",
+                "type": 12,
+                "pct": 0,
+                "fix": 50
+              }
+            ],
+            "damage_type": 1
+          },
+          "internalTime": 1
+        }
+      ]
+    },
+    "workers": []
+  },
+  {
+    "id": 10009,
+    "alias": "瘟疫",
+    "view_name": "瘟疫",
+    "desc": "",
+    "duration": 10,
+    "numeric_infos": [
+      {
+        "type": 57,
+        "value": 1,
+        "sign": ""
+      }
+    ],
+    "numeric_nodes": [],
+    "tags": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        1
+      ],
+      "enter_pri": 1,
+      "obs_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 0,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_obs": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
     },
     "main": {
       "actions": [
@@ -433,8 +497,8 @@
               {
                 "$type": "FormulaInfo1",
                 "type": 12,
-                "pct": 0.5,
-                "fix": 0
+                "pct": 0,
+                "fix": 50
               }
             ],
             "damage_type": 1
@@ -451,10 +515,11 @@
           "chuanbofanwei": 2
         }
       ]
-    }
+    },
+    "workers": []
   },
   {
-    "id": 10009,
+    "id": 10010,
     "alias": "中毒",
     "view_name": "中毒",
     "desc": "",
@@ -463,25 +528,70 @@
     "numeric_nodes": [],
     "tags": [],
     "priority_state": {
-      "time_scale": 0,
+      "time_scale": 1,
       "duration": 0,
-      "aisles": [],
-      "enter_pri": 0,
-      "resist_pri": 0,
-      "exclu_pri": 0,
+      "aisles": [
+        1
+      ],
+      "enter_pri": 1,
+      "obs_pri": 0,
       "keep_pri": 0,
-      "dis_pri": 0,
+      "exclu_pri": 0,
       "run_pri": 0,
+      "dis_pri": 0,
       "sp_pass": [],
-      "sp_inter": [],
-      "sp_exclu": [],
+      "sp_obs": [],
       "sp_keep": [],
-      "sp_dis": [],
+      "sp_exclu": [],
       "sp_run": [],
+      "sp_dis": [],
       "allow_reenter": false
     },
     "main": {
       "actions": []
-    }
+    },
+    "workers": []
+  },
+  {
+    "id": 10011,
+    "alias": "弱小",
+    "view_name": "",
+    "desc": "",
+    "duration": -1,
+    "numeric_infos": [],
+    "numeric_nodes": [
+      {
+        "type": 41,
+        "layer": 2,
+        "model": 0,
+        "value": -50,
+        "sign": ""
+      }
+    ],
+    "tags": [],
+    "priority_state": {
+      "time_scale": 1,
+      "duration": 0,
+      "aisles": [
+        1
+      ],
+      "enter_pri": 1,
+      "obs_pri": 0,
+      "keep_pri": 0,
+      "exclu_pri": 0,
+      "run_pri": 0,
+      "dis_pri": 0,
+      "sp_pass": [],
+      "sp_obs": [],
+      "sp_keep": [],
+      "sp_exclu": [],
+      "sp_run": [],
+      "sp_dis": [],
+      "allow_reenter": false
+    },
+    "main": {
+      "actions": []
+    },
+    "workers": []
   }
 ]

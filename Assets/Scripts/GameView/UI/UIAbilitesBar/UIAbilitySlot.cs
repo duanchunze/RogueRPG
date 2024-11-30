@@ -20,6 +20,8 @@ namespace Hsenl.View {
                 sl.onRunning += this.OnAbilityStageLineRunning;
             }
 
+            this.Filler.onAbilityCastEnd += this.OnAbilityCastEnd;
+
             try {
                 var viewName = LocalizationHelper.GetAbilityLocalizationName(this.Filler.Config);
                 this.text.text = viewName;
@@ -28,28 +30,43 @@ namespace Hsenl.View {
                 Log.Error(e);
             }
 
-            this.autoTriggerMask.SetActive(Shortcut.IsAbilityAutoCast(this.Filler));
+            this.autoTriggerMask.SetActive(Shortcut.GetAbilityCastMode(this.Filler) == 1);
         }
 
         protected override void OnFillerTakeout() {
             base.OnFillerTakeout();
-            var sl = this.Filler.GetComponent<StageLine>();
-            if (sl != null) {
-                sl.onRunning -= this.OnAbilityStageLineRunning;
+            if (this.Filler is { IsDisposed: false }) {
+                var sl = this.Filler.GetComponent<StageLine>();
+                if (sl != null) {
+                    sl.onRunning -= this.OnAbilityStageLineRunning;
+                }
             }
 
+            this.Filler.onAbilityCastEnd -= this.OnAbilityCastEnd;
+
+            this.cooldownMask.fillAmount = 0;
+            this.autoTriggerMask.SetActive(false);
             this.text.text = null;
         }
 
         protected override void OnButtonClick() {
-            if (Shortcut.IsAbilityAutoCast(this.Filler)) {
-                Shortcut.CloseAbilityAutoCast(this.Filler);
-            }
-            else {
-                Shortcut.OpenAbilityAutoCast(this.Filler);
+            switch (Shortcut.GetAbilityCastMode(this.Filler)) {
+                case 0: {
+                    break;
+                }
+
+                case 1: {
+                    Shortcut.CloseAbilityAutoCast(this.Filler);
+                    break;
+                }
+
+                case 2: {
+                    Shortcut.OpenAbilityAutoCast(this.Filler);
+                    break;
+                }
             }
 
-            this.autoTriggerMask.SetActive(Shortcut.IsAbilityAutoCast(this.Filler));
+            this.autoTriggerMask.SetActive(Shortcut.GetAbilityCastMode(this.Filler) == 1);
         }
 
         protected override void OnPointerEnter(PointerEventData eventData) {
@@ -73,7 +90,15 @@ namespace Hsenl.View {
                         uiAbiBar.AbilitesBar.SwapAbilites(this.Filler, uiAbilitySlot.Filler);
                     }
 
-                    break;
+                    return;
+                }
+            }
+
+            var tra = UnityHelper.UI.GetComponentInPoint<RectTransform>();
+            if (tra != null) {
+                var uicardPool = tra.GetComponentInParent<UICardPool>();
+                if (uicardPool != null) {
+                    Shortcut.SellCard(this.Filler);
                 }
             }
         }
@@ -90,6 +115,13 @@ namespace Hsenl.View {
             else {
                 UIManager.SingleClose<UICastReading>();
             }
+        }
+
+        private void OnAbilityCastEnd() {
+            if (!this.Filler.Tags.Contains(TagType.AbilityReading))
+                return; // 如果不是读条类技能, 则不处理
+
+            UIManager.SingleClose<UICastReading>();
         }
 
         private void Update() {

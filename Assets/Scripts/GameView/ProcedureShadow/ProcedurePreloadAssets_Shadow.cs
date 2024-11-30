@@ -18,8 +18,8 @@ namespace Hsenl.View {
         }
 
         [ShadowFunction]
-        private static void OnLeave(ProcedurePreloadAssets self, IFsm fsm, IFsmState prev) {
-            
+        private static HTask OnLeave(ProcedurePreloadAssets self, IFsm fsm, IFsmState prev) {
+            return default;
         }
     }
 }

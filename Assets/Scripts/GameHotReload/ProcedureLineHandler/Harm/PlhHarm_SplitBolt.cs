@@ -6,7 +6,7 @@ namespace Hsenl {
         private readonly List<SelectionTarget> _cache = new();
 
         protected override ProcedureLineHandleResult Handle(ProcedureLine procedureLine, ref PliHarmForm item, PlwSplitBoltOnHit worker, object userToken) {
-            var selector = item.harmable.GetComponent<Selector>();
+            var selector = item.harmable.GetComponent<SelectorDefault>();
             var faction = item.harmable.GetComponent<Faction>();
             IReadOnlyBitlist constrainsTags = null;
             switch (item.source) {
@@ -44,18 +44,19 @@ namespace Hsenl {
 
                     var bolt = BoltManager.Instance.Rent(worker.info.BoltAlias, false);
                     var tspd = worker.info.Speed;
+                    var tsize = worker.info.Size;
                     if (tspd <= 0) {
                         Log.Error($"bolt speed is 0 or less than 0 '{tspd}'");
                         continue;
                     }
 
-                    this.FireAsync(item, worker, bolt, hurtable, tspd);
+                    this.FireAsync(item, worker, bolt, hurtable, tspd, tsize);
                 }
             }
         }
 
-        private async void FireAsync(PliHarmForm item, PlwSplitBoltOnHit worker, Bolt bolt, Hurtable hurtable, float tspd) {
-            await TpHarmOfTargetedBolt.FireToTarget(bolt, hurtable, item.hurtable.transform.Position, tspd);
+        private async void FireAsync(PliHarmForm item, PlwSplitBoltOnHit worker, Bolt bolt, Hurtable hurtable, float tspd, float tsize) {
+            await TpHarmOfTargetedBolt.FireToTarget(bolt, hurtable, item.hurtable.transform.Position, tspd, tsize);
 
             var damageForm = new PliHarmForm() {
                 harmable = item.harmable,

@@ -22,14 +22,14 @@ public sealed partial class ControlCastInfo :  cast.Info
     public ControlCastInfo(JSONNode _json)  : base(_json) 
     {
         { if(!_json["code"].IsNumber) { throw new SerializationException(); }  Code = (ControlCode)_json["code"].AsInt; }
-        { if(!_json["support_continue"].IsBoolean) { throw new SerializationException(); }  SupportContinue = _json["support_continue"]; }
+        { if(!_json["support_burst_fire"].IsBoolean) { throw new SerializationException(); }  SupportBurstFire = _json["support_burst_fire"]; }
         PostInit();
     }
 
-    public ControlCastInfo(ControlCode code, bool support_continue )  : base() 
+    public ControlCastInfo(ControlCode code, bool support_burst_fire )  : base() 
     {
         this.Code = code;
-        this.SupportContinue = support_continue;
+        this.SupportBurstFire = support_burst_fire;
         PostInit();
     }
 
@@ -43,9 +43,9 @@ public sealed partial class ControlCastInfo :  cast.Info
     /// </summary>
     public ControlCode Code { get; private set; }
     /// <summary>
-    /// 是否支持连点, 连点就是支持按键持续按下
+    /// 是否支持连发, 连发就是按住不松就持续触发
     /// </summary>
-    public bool SupportContinue { get; private set; }
+    public bool SupportBurstFire { get; private set; }
 
     public const int __ID__ = 482044987;
     public override int GetTypeId() => __ID__;
@@ -65,7 +65,7 @@ public sealed partial class ControlCastInfo :  cast.Info
     {
         return "{ "
         + "Code:" + Code + ","
-        + "SupportContinue:" + SupportContinue + ","
+        + "SupportBurstFire:" + SupportBurstFire + ","
         + "}";
     }
     

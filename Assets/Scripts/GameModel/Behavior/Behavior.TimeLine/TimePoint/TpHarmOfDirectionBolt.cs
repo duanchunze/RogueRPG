@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Hsenl {
     // 例如ez的q
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpHarmOfDirectionBolt : TpHarm<timeline.HarmOfDirectionBoltInfo> {
         private Faction _faction;
         private string _boltBundleName;
@@ -30,44 +30,43 @@ namespace Hsenl {
             switch (this.manager.Bodied) {
                 case Ability ability: {
                     var constrainsTags = this._faction?.GetTagsOfFactionTypes(ability.factionTypes);
-                    var directions = this.manager.Blackboard.GetOrCreateData<List<Vector3>>("AbilityCastDirections");
-                    foreach (var direction in directions) {
-                        var bolt = BoltManager.Instance.Rent(this._boltConfig, false);
-                        var tspd = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Tspd);
-                        float speed = tspd + this.info.Speed;
-                        if (speed <= 0) {
-                            throw new Exception($"bolt speed is 0 or less of 0 '{speed}'");
-                        }
-
-                        var tsize = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Tsize);
-
-                        Coroutine.Start(this.FireOfDirection(
-                            bolt,
-                            this.harmable.transform.Position,
-                            direction,
-                            this.info.Distance,
-                            speed,
-                            tsize,
-                            constrainsTags)
-                        );
+                    var bolt = BoltManager.Instance.Rent(this._boltConfig, false);
+                    var tspd = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Tspd);
+                    float speed = tspd + this.info.Speed;
+                    if (speed <= 0) {
+                        throw new Exception($"bolt speed is 0 or less of 0 '{speed}'");
                     }
+
+                    var tsize = GameAlgorithm.MergeCalculateNumeric(this.numerators, NumericType.Tsize);
+                    var dir = this.manager.Bodied.MainBodied.transform.Forward;
+                    Coroutine.Start(this.FireOfDirection(
+                        bolt,
+                        this.harmable.transform.Position,
+                        dir,
+                        this.info.Distance,
+                        speed,
+                        tsize,
+                        constrainsTags)
+                    );
 
                     break;
                 }
             }
         }
 
-        private IEnumerator FireOfDirection(Bolt bolt, Vector3 origin, Vector3 dir, float distance, float speed, float size, IReadOnlyBitlist constrainsTags) {
-            bool run = true;
+        private IEnumerator FireOfDirection(Bolt bolt, Vector3 origin, Vector3 dir, float distance, float speed, float tsize, IReadOnlyBitlist constrainsTags) {
+            var run = true;
 
+            var config = bolt.Config;
+            var size = config.Size.ToVector3();
             bolt.transform.Position = origin;
-            bolt.transform.LocalScale = new Vector3(size, size, size);
+            bolt.transform.LocalScale = size * tsize;
             var maxDisSq = distance * distance;
             bolt.Entity.Active = true;
 
-            var collider = ColliderManager.Instance.Rent<SphereCollider>(active: false);
+            var collider = bolt.GetComponent<Collider>(polymorphic: true);
             collider.transform.Position = origin;
-            collider.transform.LocalScale = new Vector3(size, size, size);
+            collider.transform.LocalScale = new Vector3(tsize, tsize, tsize);
             collider.IsTrigger = true;
             collider.SetUsage(GameColliderPurpose.Detection);
             var listener = CollisionEventListener.Get(collider.Entity);
@@ -85,17 +84,17 @@ namespace Hsenl {
                 this.Harm(hurtable, this.info.HarmFormula);
                 run = false;
             };
-            collider.Entity.Active = true;
+            
+            bolt.Entity.Active = true;
 
             yield return new WhenBreak(() => {
-                ColliderManager.Instance.Return(collider);
                 BoltManager.Instance.Return(bolt);
             });
 
             while (run) {
-                collider.transform.Translate(dir * (speed * TimeInfo.DeltaTime));
-                bolt.transform.Position = collider.transform.Position;
-                if (Vector3.DistanceSquared(origin, collider.transform.Position) > maxDisSq) {
+                bolt.transform.Translate(dir * (speed * TimeInfo.DeltaTime));
+                bolt.transform.LocalScale = size * tsize;
+                if (Vector3.DistanceSquared(origin, bolt.transform.Position) > maxDisSq) {
                     yield break;
                 }
 

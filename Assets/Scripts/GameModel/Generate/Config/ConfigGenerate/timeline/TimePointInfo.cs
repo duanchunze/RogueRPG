@@ -37,6 +37,8 @@ public abstract partial class TimePointInfo :  timeline.TimeActionInfo
         {
             case "SetDataInfo": return new timeline.SetDataInfo(_json);
             case "PlayAnimInfo": return new timeline.PlayAnimInfo(_json);
+            case "LockAnimaInfo": return new timeline.LockAnimaInfo(_json);
+            case "UnlockAnimaInfo": return new timeline.UnlockAnimaInfo(_json);
             case "CureHpInfo": return new timeline.CureHpInfo(_json);
             case "ModifyPriorityInfo": return new timeline.ModifyPriorityInfo(_json);
             case "PlaySoundInfo": return new timeline.PlaySoundInfo(_json);
@@ -47,6 +49,8 @@ public abstract partial class TimePointInfo :  timeline.TimeActionInfo
             case "PlayFxInfo": return new timeline.PlayFxInfo(_json);
             case "RecordCastDirectionInfo": return new timeline.RecordCastDirectionInfo(_json);
             case "OpenWarningBoardInfo": return new timeline.OpenWarningBoardInfo(_json);
+            case "OpenWarningBoard2Info": return new timeline.OpenWarningBoard2Info(_json);
+            case "OpenWarningBoard3Info": return new timeline.OpenWarningBoard3Info(_json);
             case "CloseWarningBoardInfo": return new timeline.CloseWarningBoardInfo(_json);
             case "DieInfo": return new timeline.DieInfo(_json);
             case "ResurgenceInfo": return new timeline.ResurgenceInfo(_json);
@@ -54,6 +58,7 @@ public abstract partial class TimePointInfo :  timeline.TimeActionInfo
             case "HarmOfTargetedBoltInfo": return new timeline.HarmOfTargetedBoltInfo(_json);
             case "HarmOfDirectionBoltInfo": return new timeline.HarmOfDirectionBoltInfo(_json);
             case "HarmOfPointBoltInfo": return new timeline.HarmOfPointBoltInfo(_json);
+            case "HarmOfLiuxingluoBoltInfo": return new timeline.HarmOfLiuxingluoBoltInfo(_json);
             case "HarmOfDibozhanBoltInfo": return new timeline.HarmOfDibozhanBoltInfo(_json);
             case "SummoningMinionInfo": return new timeline.SummoningMinionInfo(_json);
             default: throw new SerializationException();

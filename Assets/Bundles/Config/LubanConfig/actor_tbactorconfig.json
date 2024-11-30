@@ -17,6 +17,7 @@
       "点击移动",
       "劈砍"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -45,6 +46,7 @@
       "点击移动",
       "劈砍"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -73,6 +75,7 @@
       "点击移动",
       "月之投射"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -101,6 +104,7 @@
       "点击移动",
       "月之投射"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -126,6 +130,7 @@
       "待机",
       "停止"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -154,6 +159,7 @@
       "点击移动",
       "怪物横砍"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -182,6 +188,7 @@
       "点击移动",
       "怪物劈砍"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -210,6 +217,7 @@
       "点击移动",
       "怪物快射"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -239,6 +247,7 @@
       "怪物横砍",
       "怪物技能"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -268,6 +277,7 @@
       "怪物劈砍",
       "怪物技能"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -296,6 +306,7 @@
       "点击移动",
       "怪物快射"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -325,6 +336,7 @@
       "怪物横砍",
       "怪物技能"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -354,6 +366,7 @@
       "怪物劈砍",
       "怪物技能"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -382,6 +395,7 @@
       "点击移动",
       "怪物快射"
     ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {
@@ -395,7 +409,38 @@
   {
     "id": 30000,
     "alias": "哥布林巫医",
-    "view_name": "zhanshi",
+    "view_name": "哥布林巫医",
+    "labels": [
+      0,
+      1
+    ],
+    "model_name": "warrior",
+    "numeric_alias": "哥布林巫医",
+    "ai_alias": "随从哥布林巫医AI",
+    "org_abilitys": [
+      "待机",
+      "停止",
+      "方向移动",
+      "点击移动",
+      "放血疗法"
+    ],
+    "org_status": [
+      "弱小"
+    ],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 30001,
+    "alias": "士兵A",
+    "view_name": "士兵A",
     "labels": [
       0,
       1
@@ -411,6 +456,32 @@
       "劈砍",
       "跳劈"
     ],
+    "org_status": [],
+    "possible_drops_by_probability": [],
+    "possible_drops_by_weight": [],
+    "possible_drop_number": {
+      "min": 0,
+      "max": 0,
+      "weights": [
+        0
+      ]
+    }
+  },
+  {
+    "id": 40000,
+    "alias": "塔1",
+    "view_name": "靶子",
+    "labels": [
+      0,
+      1
+    ],
+    "model_name": "kulou_zs",
+    "numeric_alias": "靶子战士",
+    "ai_alias": "",
+    "org_abilitys": [
+      "待机"
+    ],
+    "org_status": [],
     "possible_drops_by_probability": [],
     "possible_drops_by_weight": [],
     "possible_drop_number": {

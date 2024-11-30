@@ -13,7 +13,7 @@ namespace ShadowFunction;
 public static class Common {
     // private static readonly SHA256 _sha256 = SHA256.Create(); // 因为分析器是多线程, 所以都不提前缓存了, 比如stringbuilder, 还有这个, 多点gc无所谓
 
-    public static uint HashCodeCombine(string str1, string str2) {
+    public static int HashCodeCombine(string str1, string str2) {
         // 简单的合并哈希
         unchecked {
             var h1 = str1?.GetHashcode() ?? 0;
@@ -22,14 +22,26 @@ public static class Common {
             return hashcode;
         }
     }
+    
+    public static int HashCodeCombine(string str1, string str2, string str3) {
+        // 简单的合并哈希
+        unchecked {
+            var h1 = str1?.GetHashcode() ?? 0;
+            var h2 = str2?.GetHashcode() ?? 0;
+            var h3 = str3?.GetHashcode() ?? 0;
+            var hashcode = (h1 * 397) ^ h2;
+            hashcode = (hashcode * 397) ^ h3;
+            return hashcode;
+        }
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static uint GetHashcode(this string self) {
+    private static int GetHashcode(this string self) {
         var _sha256 = SHA256.Create();
         byte[] hashBytes = _sha256.ComputeHash(Encoding.UTF8.GetBytes(self));
         // 从哈希字节数组中提取一个确定性的整数（这里仅使用部分字节以适应int大小）
         int hashInt = BitConverter.ToInt32(hashBytes, 0);
-        return (uint)hashInt;
+        return hashInt;
     }
 
     public static void AssertNullReference<T>(T t, string? message = null) where T : class? {
@@ -63,16 +75,20 @@ public static class Common {
         return hashset.ToArray();
     }
 
-    public static string GetSourceFunctionManifestCarrierMetadataName(string assemblyName) {
-        return $"{assemblyName}.SFS_DC_SourceFunctionManifestCarrier";
+    public static string GetSourceFunctionManifestCarrierMetadataName_HashCode(string assemblyName) {
+        return $"{assemblyName}.SFS_DC_SourceFunctionManifestCarrier_HashCode";
     }
     
     public static string GetSourceFunctionManifestCarrierMetadataName_Plaintext(string assemblyName) {
         return $"{assemblyName}.SFS_DC_SourceFunctionManifestCarrier_Plaintext";
     }
+    
+    public static string GetSourceFunctionManifestCarrierMetadataName_HashCodeToIndex(string assemblyName) {
+        return $"{assemblyName}.SFS_DC_SourceFunctionManifestCarrier_HashCodeToIndex";
+    }
 
     // 获取一个类型的名字, 不带泛型参数的版本
-    public static string GetTypeNameWithoutGenericParams(INamedTypeSymbol typeSymbol) {
+    public static string GetTypeDisplayNameWithoutGenericParams(INamedTypeSymbol typeSymbol) {
         var name = typeSymbol.ToDisplayString();
         if (typeSymbol.IsGenericType) {
             // 如果是泛型的话, 就使用Class<>的形式
@@ -148,8 +164,13 @@ public static class Common {
         }
     }
     
-    // 构建一个函数的唯一名(把上面拆解后的信息组合成一个唯一的整体)
-    public static string ConstructMethodUniqueName(IMethodSymbol methodSymbol, int argStartIndex, string methodName, string returnName) {
+    // 构建一个函数的唯一码
+    public static int ConstructMethodHashCode(string assemblyName, string sourceTypeDisplayStringWithoutGenericParam, string methodCombinationName) {
+        return HashCodeCombine(assemblyName, sourceTypeDisplayStringWithoutGenericParam, methodCombinationName);
+    }
+    
+    // 构建一个函数的组合名(把上面拆解后的信息组合成一个整体)
+    public static string ConstructMethodCombinationName(IMethodSymbol methodSymbol, int argStartIndex, string methodName, string returnName) {
         StringBuilder _stringBuilder = new();
         _stringBuilder.Append(methodName); // 使用用户提供的方法名字
         for (int i = argStartIndex, len = methodSymbol.Parameters.Length; i < len; i++) {
@@ -163,8 +184,8 @@ public static class Common {
         return _stringBuilder.ToString();
     }
 
-    // 构建一个函数的包含完全参数名的唯一名(同上)
-    public static string ConstructMethodUniqueNameIncludeParaName(IMethodSymbol methodSymbol, int argStartIndex, string methodName, string returnName) {
+    // 构建一个函数的组合名(包含参数名的版本)
+    public static string ConstructMethodCombinationNameIncludeParaName(IMethodSymbol methodSymbol, int argStartIndex, string methodName, string returnName) {
         StringBuilder _stringBuilder = new();
         _stringBuilder.Append(methodName); // 使用用户提供的方法名字
         for (int i = argStartIndex, len = methodSymbol.Parameters.Length; i < len; i++) {
@@ -178,8 +199,8 @@ public static class Common {
         return _stringBuilder.ToString();
     }
 
-    // 通过唯一名拆解一个函数(把上面组合成的一个整体给拆开)
-    public static bool DeconstructMethodUniqueName(string uniqueName, out string methodReturn, out string methodName, out List<string> paramlist) {
+    // 通过组合名拆解一个函数(把上面组合成的一个整体给拆开, 上面两个方法组合的都能拆)
+    public static bool DeconstructMethodCombinationName(string uniqueName, out string methodReturn, out string methodName, out List<string> paramlist) {
         string[] splits = uniqueName.Split('-');
         if (splits.Length == 1) {
             methodReturn = null!;
@@ -188,6 +209,7 @@ public static class Common {
             return false;
         }
 
+        // 开头是名字, 最后是返回值, 中间的都是参数
         methodName = splits[0];
         methodReturn = splits[splits.Length - 1];
         paramlist = new List<string>();
@@ -245,6 +267,31 @@ public static class Common {
                 }
 
                 dict[subSplits[0]] = hashset;
+            }
+        }
+
+        return true;
+    }
+
+    public static bool ParseSourceFunctionManifest_HashcodeToIndex(INamedTypeSymbol manifestCarrierTypeSymbol, out Dictionary<string, string> dict) {
+        var manifestAttr = manifestCarrierTypeSymbol.GetAttributes().FirstOrDefault();
+        if (manifestAttr == null) {
+            dict = null!;
+            return false;
+        }
+        
+        dict = new Dictionary<string, string>();
+        var manifestData = GetArgValueInAttributeData<string>(manifestAttr, 0);
+        if (string.IsNullOrEmpty(manifestData))
+            return true;
+        
+        foreach (var split in manifestData!.Split(';')) {
+            if (string.IsNullOrEmpty(split))
+                continue;
+            
+            var subSplits = split.Split(','); // 拆分
+            if (subSplits.Length != 0) {
+                dict.Add(subSplits[0], subSplits[1]);
             }
         }
 

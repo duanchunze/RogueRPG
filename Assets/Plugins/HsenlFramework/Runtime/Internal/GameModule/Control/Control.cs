@@ -26,8 +26,10 @@ namespace Hsenl {
     }
 
     [Serializable]
-    [MemoryPackable()]
-    public partial class Control : Unbodied, ILateUpdate {
+    [MemoryPackable]
+    // 设置个小值, 让Control的Update事件在其他脚本之前执行Reset(), 以保证当前帧设置的值只会存在一帧之内
+    [ExecutionOrder(-1000)]
+    public partial class Control : Unbodied, IUpdate {
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly]
 #endif
@@ -43,7 +45,7 @@ namespace Hsenl {
             this._elementDict.Clear();
         }
 
-        public void LateUpdate() {
+        public void Update() {
             // 执行流程: Set -> 我们要做的xxx事 -> Reset
             this.ResetControl();
         }
@@ -163,10 +165,11 @@ namespace Hsenl {
             public bool isStart;
             public bool isSustained;
             public bool isEnd;
+            public Vector3? value;
             public long startFrameCount;
             public long sustainFrameCount;
             public long endFrameCount;
-            public Vector3? value;
+            public long valueFrameCount;
 
             public event Action onStart;
             public event Action onSustained;
@@ -214,8 +217,6 @@ namespace Hsenl {
             public void SetEnd() {
                 this.isEnd = true;
                 this.endFrameCount = TimeInfo.FrameCount;
-                this.isSustained = false;
-                this.value = null;
                 try {
                     this.onEnd?.Invoke();
                 }
@@ -225,8 +226,8 @@ namespace Hsenl {
             }
 
             public void SetValue(Vector3 val) {
+                this.valueFrameCount = TimeInfo.FrameCount;
                 this.value = val;
-                this.SetSustained();
             }
 
             public bool GetStart() => this.isStart;
@@ -252,11 +253,14 @@ namespace Hsenl {
 
                 if (frameCount > this.sustainFrameCount) {
                     this.isSustained = false;
-                    this.value = null;
                 }
 
                 if (frameCount > this.endFrameCount) {
                     this.isEnd = false;
+                }
+                
+                if (frameCount > this.valueFrameCount) {
+                    this.value = null;
                 }
             }
         }

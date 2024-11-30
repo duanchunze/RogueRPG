@@ -3,7 +3,7 @@ using MemoryPack;
 
 namespace Hsenl.View {
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpPlayFx : TpInfo<timeline.PlayFxInfo> {
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied) {

@@ -203,3 +203,16 @@ MonoBehaviour:
         FilterRuleName: CollectAll
         AssetTags: 
         UserData: 
+    - GroupName: Collider
+      GroupDesc: "Collider\u7EC4"
+      AssetTags: collider
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/Collider
+        CollectorGUID: ee5a47000fcf9dc4787858caed522106
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 

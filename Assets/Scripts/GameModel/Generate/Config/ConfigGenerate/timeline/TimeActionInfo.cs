@@ -33,6 +33,8 @@ public abstract partial class TimeActionInfo :  timeline.TimeLineInfo
         {
             case "SetDataInfo": return new timeline.SetDataInfo(_json);
             case "PlayAnimInfo": return new timeline.PlayAnimInfo(_json);
+            case "LockAnimaInfo": return new timeline.LockAnimaInfo(_json);
+            case "UnlockAnimaInfo": return new timeline.UnlockAnimaInfo(_json);
             case "CureHpInfo": return new timeline.CureHpInfo(_json);
             case "ModifyPriorityInfo": return new timeline.ModifyPriorityInfo(_json);
             case "PlaySoundInfo": return new timeline.PlaySoundInfo(_json);
@@ -43,6 +45,8 @@ public abstract partial class TimeActionInfo :  timeline.TimeLineInfo
             case "PlayFxInfo": return new timeline.PlayFxInfo(_json);
             case "RecordCastDirectionInfo": return new timeline.RecordCastDirectionInfo(_json);
             case "OpenWarningBoardInfo": return new timeline.OpenWarningBoardInfo(_json);
+            case "OpenWarningBoard2Info": return new timeline.OpenWarningBoard2Info(_json);
+            case "OpenWarningBoard3Info": return new timeline.OpenWarningBoard3Info(_json);
             case "CloseWarningBoardInfo": return new timeline.CloseWarningBoardInfo(_json);
             case "DieInfo": return new timeline.DieInfo(_json);
             case "ResurgenceInfo": return new timeline.ResurgenceInfo(_json);
@@ -50,22 +54,23 @@ public abstract partial class TimeActionInfo :  timeline.TimeLineInfo
             case "HarmOfTargetedBoltInfo": return new timeline.HarmOfTargetedBoltInfo(_json);
             case "HarmOfDirectionBoltInfo": return new timeline.HarmOfDirectionBoltInfo(_json);
             case "HarmOfPointBoltInfo": return new timeline.HarmOfPointBoltInfo(_json);
+            case "HarmOfLiuxingluoBoltInfo": return new timeline.HarmOfLiuxingluoBoltInfo(_json);
             case "HarmOfDibozhanBoltInfo": return new timeline.HarmOfDibozhanBoltInfo(_json);
             case "SummoningMinionInfo": return new timeline.SummoningMinionInfo(_json);
+            case "ContinuesPlayAnimInfo": return new timeline.ContinuesPlayAnimInfo(_json);
             case "MoveInfo": return new timeline.MoveInfo(_json);
             case "ModifyTagsInfo": return new timeline.ModifyTagsInfo(_json);
             case "ForceMovementInfo": return new timeline.ForceMovementInfo(_json);
             case "LeapInfo": return new timeline.LeapInfo(_json);
             case "JumpAttackInfo": return new timeline.JumpAttackInfo(_json);
             case "HarmOfColliderInfo": return new timeline.HarmOfColliderInfo(_json);
-            case "HarmOfSphereColliderInfo": return new timeline.HarmOfSphereColliderInfo(_json);
-            case "HarmOfBoxColliderInfo": return new timeline.HarmOfBoxColliderInfo(_json);
+            case "ContinuousHarmOfColliderInfo": return new timeline.ContinuousHarmOfColliderInfo(_json);
             case "TsStatusContinuousHarmInfo": return new timeline.TsStatusContinuousHarmInfo(_json);
             case "LiuXueInfo": return new timeline.LiuXueInfo(_json);
             case "RanshaoInfo": return new timeline.RanshaoInfo(_json);
             case "WenyiInfo": return new timeline.WenyiInfo(_json);
             case "WenyichuanboInfo": return new timeline.WenyichuanboInfo(_json);
-            case "DeadBodyVampirOfSphereColliderInfo": return new timeline.DeadBodyVampirOfSphereColliderInfo(_json);
+            case "DeadBodyVampirOfColliderInfo": return new timeline.DeadBodyVampirOfColliderInfo(_json);
             case "DeadAbortCheckInfo": return new timeline.DeadAbortCheckInfo(_json);
             default: throw new SerializationException();
         }

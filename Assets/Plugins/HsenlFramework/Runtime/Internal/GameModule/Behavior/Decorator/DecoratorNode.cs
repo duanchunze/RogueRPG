@@ -26,14 +26,14 @@ namespace Hsenl {
             this.child.Parent = this;
         }
 
-        public sealed override void StartNode(IBehaviorTree tree) {
+        public sealed override void AwakeNode(IBehaviorTree tree) {
             if (this.manager != null) throw new Exception("already has manager");
             if (tree == null) throw new ArgumentNullException(nameof(tree));
 
             this.manager = (TManager)tree;
-            this.child?.StartNode(this.manager);
+            this.child?.AwakeNode(this.manager);
             try {
-                this.InternalStart();
+                this.InternalAwake();
             }
             catch (Exception e) {
                 Log.Error($"<start node error> {e}");
@@ -74,10 +74,10 @@ namespace Hsenl {
             }
         }
 
-        public sealed override void ResetNode() {
-            this.child?.ResetNode();
+        public sealed override void StartNode() {
+            this.child?.StartNode();
             try {
-                this.InternalReset();
+                this.InternalStart();
             }
             catch (Exception e) {
                 Log.Error($"<reset node error> {e}");
@@ -89,22 +89,25 @@ namespace Hsenl {
             this.InternalAbort();
         }
 
-        public void AddChild(TNode node) {
-            if (node == null) return;
+        public bool AddChild(TNode node) {
+            if (node == null) return false;
+            if (this.child != null) return false;
             this.child = node;
             node.Parent = this;
 
             if (this.manager != null) {
-                node.StartNode(this.manager);
+                node.AwakeNode(this.manager);
                 if (this.manager.RealEnable) {
                     node.OpenNode();
                 }
             }
+
+            return true;
         }
 
-        public void RemoveChild(TNode node) {
-            if (node == null) return;
-            if (this.child != node) return;
+        public bool RemoveChild(TNode node) {
+            if (node == null) return false;
+            if (this.child != node) return false;
             if (this.manager != null) {
                 node.AbortNode();
                 if (this.manager.RealEnable)
@@ -114,6 +117,7 @@ namespace Hsenl {
 
             this.child = null;
             node.Parent = null;
+            return true;
         }
 
         public void Clear() {
@@ -127,19 +131,17 @@ namespace Hsenl {
             return new Iterator<INode>(this.child);
         }
 
-        public sealed override T GetNodeInChildren<T>(bool once = false) {
+        public sealed override T GetNodeInChildren<T>() {
             if (this.child == null) return default;
 
             if (this.child is T t) {
                 return t;
             }
 
-            if (once) return default;
-
             return this.child.GetNodeInChildren<T>();
         }
 
-        public sealed override T[] GetNodesInChildren<T>(bool once = false) {
+        public sealed override T[] GetNodesInChildren<T>() {
             if (this.child == null)
                 return default;
 
@@ -148,13 +150,11 @@ namespace Hsenl {
             return list.ToArray();
         }
 
-        public sealed override void GetNodesInChildren<T>(List<T> cache, bool once = false) {
+        public sealed override void GetNodesInChildren<T>(List<T> cache) {
             if (this.child == null) return;
             if (this.child is T t) {
                 cache.Add(t);
             }
-
-            if (once) return;
 
             this.child.GetNodesInChildren(cache);
         }

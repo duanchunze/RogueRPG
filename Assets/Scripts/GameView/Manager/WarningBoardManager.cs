@@ -19,7 +19,7 @@ namespace Hsenl.View {
         }
 
         public void Return(Entity wb) {
-            if (wb.IsDisposed)
+            if (wb.IsDisposing)
                 return;
 
             PoolKey key = new("WarningBoard", int.Parse(wb.Name));

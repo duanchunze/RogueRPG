@@ -1,7 +1,7 @@
 ﻿using MemoryPack;
 
 namespace Hsenl {
-    [MemoryPackable()]
+    [MemoryPackable]
     public partial class TpInflictionStatusToSelf : TpInfo<timeline.InflictionStatusToSelfInfo> {
         protected override void OnTimePointTrigger() {
             switch (this.manager.Bodied) {

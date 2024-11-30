@@ -30,6 +30,9 @@ namespace Hsenl.View {
 
             this._uiHeadFollow.followTarget = this.UnityTransform;
             this._uiHeadFollow.followOffset = new Vector3(0, this._height + 0.4f, 0);
+            if (this._uiHeadFollow.tempNameText != null) {
+                this._uiHeadFollow.tempNameText.text = this.Name;
+            }
 
             this.Refresh();
         }

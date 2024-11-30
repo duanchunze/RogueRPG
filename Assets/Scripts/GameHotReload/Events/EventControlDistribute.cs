@@ -8,15 +8,19 @@ namespace Hsenl {
                 return;
 
             foreach (var target in GameManager.Instance.ControlTargets) {
-                // 两个特殊的控制指令，需要额外处理
-                if (arg.controlCode == (int)ControlCode.Direction) { }
-
-                if (arg.controlCode == (int)ControlCode.MoveOfPoint) { }
+                // 特殊的控制指令，需要额外处理
+                if (arg.controlCode == (int)ControlCode.MoveOfPoint) {
+                    HandleMouseClick(ref arg);
+                }
 
                 Set(target, arg);
             }
 
             void Set(Control control, ControlMessage controlMessage) {
+                if (controlMessage.hasValue) {
+                    control.SetValue(controlMessage.controlCode, controlMessage.value);
+                }
+                
                 if (controlMessage.isButtonDown) {
                     control.SetStart(controlMessage.controlCode);
                 }
@@ -27,10 +31,6 @@ namespace Hsenl {
 
                 if (controlMessage.isButtonUp) {
                     control.SetEnd(controlMessage.controlCode);
-                }
-
-                if (controlMessage.hasValue) {
-                    control.SetValue(controlMessage.controlCode, controlMessage.value);
                 }
             }
         }
@@ -61,8 +61,10 @@ namespace Hsenl {
             switch (InputGroup.current.inputGroupType) {
                 case InputGroupType.Keycode:
                     var ray = Camera.main.ScreenPointToRay(InputController.GetMousePosition());
-                    if (Physics.Raycast(ray, out var hit, 1000, 1 << 6)) {
-                        inputMessage.value = new Vector3(hit.point.x, 0, hit.point.z);
+                    if (Physics.Raycast(ray, out var hit, 1000, 1 << 10)) {
+                        inputMessage.value = hit.point;
+                        inputMessage.hasValue = true;
+                        // inputMessage.value = new Vector3(hit.point.x, 0, hit.point.z);
                     }
 
                     break;

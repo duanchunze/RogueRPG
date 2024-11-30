@@ -26,9 +26,8 @@ namespace Hsenl {
 
                 ArrayHelper.MergeSort(array.AsSpan(0, len), cache.AsSpan(0, len));
 
-                if (this.count == 0) Log.Error("SelectorsOfNearest count is 0, Have you forgotten?");
-                var length = this.count > 0 ? this.count : len;
-                for (var i = 0; i < length; i++) {
+                if (this.count <= 0) Log.Error($"Select count is less than or equal to zero '{this.count}'");
+                for (var i = 0; i < this.count; i++) {
                     if (i >= len) break;
                     this.selected.Add(array[i]);
                 }

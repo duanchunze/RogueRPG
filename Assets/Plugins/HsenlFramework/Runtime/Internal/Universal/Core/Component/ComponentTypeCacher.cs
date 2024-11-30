@@ -13,7 +13,7 @@ namespace Hsenl {
     }
 
     [Serializable]
-    [MemoryPackable()]
+    [MemoryPackable]
     public sealed unsafe partial class ComponentTypeCacher : Bitlist, IReadOnlyComponentTypeCacher, IEquatable<ComponentTypeCacher> {
         [MemoryPackInclude]
         public readonly int originalIndex;

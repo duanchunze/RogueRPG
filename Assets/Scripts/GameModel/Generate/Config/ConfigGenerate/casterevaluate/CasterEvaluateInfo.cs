@@ -34,8 +34,10 @@ public abstract partial class CasterEvaluateInfo :  behavior.LeafNodeInfo
             case "CooldownCheckInfo": return new casterevaluate.CooldownCheckInfo(_json);
             case "ManaCheckInfo": return new casterevaluate.ManaCheckInfo(_json);
             case "PrioritiesEvaluateInfo": return new casterevaluate.PrioritiesEvaluateInfo(_json);
+            case "TargetEvaluateInfo": return new casterevaluate.TargetEvaluateInfo(_json);
             case "PickTargetInfo": return new casterevaluate.PickTargetInfo(_json);
-            case "PickAndApproachTargetInfo": return new casterevaluate.PickAndApproachTargetInfo(_json);
+            case "PickBackTarget": return new casterevaluate.PickBackTarget(_json);
+            case "ApproachTargetInfo": return new casterevaluate.ApproachTargetInfo(_json);
             case "HealthLowerInfo": return new casterevaluate.HealthLowerInfo(_json);
             case "CasterSummoningInfo": return new casterevaluate.CasterSummoningInfo(_json);
             default: throw new SerializationException();

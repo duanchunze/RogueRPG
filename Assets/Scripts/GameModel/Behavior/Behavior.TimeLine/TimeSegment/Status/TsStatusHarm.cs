@@ -5,7 +5,7 @@ namespace Hsenl {
     public abstract class TsStatusHarm<T> : TsHarm<T> where T : timeline.TsStatusHarmInfo {
         protected override void OnEnable() { }
 
-        protected override void OnReset() {
+        protected override void OnStart() {
             switch (this.manager.Bodied) {
                 case Status status: {
                     this.harmable = status.inflictor.GetComponent<Harmable>();

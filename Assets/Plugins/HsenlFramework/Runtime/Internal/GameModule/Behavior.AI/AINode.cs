@@ -1,8 +1,11 @@
-﻿using MemoryPack;
+﻿using System;
+using MemoryPack;
 
 namespace Hsenl {
     // 套个壳子, 好让AI类的节点更规范些
-    public abstract partial class AINode : ActionNode<BehaviorTree> {
+    [Serializable]
+    [MemoryPackable(GenerateType.NoGenerate)]
+    public abstract partial class AINode : ActionNode<AIBehaviorTree> {
         protected sealed override void OnNodeEnter() { }
         protected sealed override void OnNodeExit() { }
         

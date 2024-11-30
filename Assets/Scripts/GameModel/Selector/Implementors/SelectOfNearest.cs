@@ -20,7 +20,8 @@ namespace Hsenl {
                 nearestTarget = target;
             }
 
-            this.selected.Add(nearestTarget);
+            if (nearestTarget != null)
+                this.selected.Add(nearestTarget);
 
             return this;
         }

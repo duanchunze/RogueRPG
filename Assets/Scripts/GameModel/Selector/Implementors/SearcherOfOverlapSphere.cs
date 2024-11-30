@@ -17,9 +17,9 @@ namespace Hsenl {
             if (count == 0) return this;
 
             for (int i = 0; i < count; i++) {
-                var target = searchCaches[i].GetFrameworkComponent<SelectionTarget>();
+                var target = searchCaches[i].GetFrameworkComponent<SelectionTargetDefault>();
                 if (target == null) continue;
-                if (target.Bodied == this.selector.Bodied) continue;
+                if (target.Bodied == this.Selector.Bodied) continue;
                 this.searched.Add(target);
             }
 

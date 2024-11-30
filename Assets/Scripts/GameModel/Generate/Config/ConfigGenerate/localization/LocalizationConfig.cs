@@ -18,7 +18,6 @@ public sealed partial class LocalizationConfig :  Bright.Config.BeanBase
 {
     public LocalizationConfig(JSONNode _json) 
     {
-        { if(!_json["id"].IsNumber) { throw new SerializationException(); }  Id = _json["id"]; }
         { if(!_json["alias"].IsString) { throw new SerializationException(); }  Alias = _json["alias"]; }
         { var __json0 = _json["map"]; if(!__json0.IsArray) { throw new SerializationException(); } Map = new System.Collections.Generic.Dictionary<LocalizationKey, string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { LocalizationKey _k0;  { if(!__e0[0].IsNumber) { throw new SerializationException(); }  _k0 = (LocalizationKey)__e0[0].AsInt; } string _v0;  { if(!__e0[1].IsString) { throw new SerializationException(); }  _v0 = __e0[1]; }  Map.Add(_k0, _v0); }   }
         { var __json0 = _json["tag_type_map"]; if(!__json0.IsArray) { throw new SerializationException(); } TagTypeMap = new System.Collections.Generic.Dictionary<TagType, string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { TagType _k0;  { if(!__e0[0].IsNumber) { throw new SerializationException(); }  _k0 = (TagType)__e0[0].AsInt; } string _v0;  { if(!__e0[1].IsString) { throw new SerializationException(); }  _v0 = __e0[1]; }  TagTypeMap.Add(_k0, _v0); }   }
@@ -29,9 +28,8 @@ public sealed partial class LocalizationConfig :  Bright.Config.BeanBase
         PostInit();
     }
 
-    public LocalizationConfig(int id, string alias, System.Collections.Generic.Dictionary<LocalizationKey, string> map, System.Collections.Generic.Dictionary<TagType, string> tag_type_map, System.Collections.Generic.Dictionary<DamageType, string> damage_type_map, System.Collections.Generic.Dictionary<string, string> beans_behavior_map, System.Collections.Generic.Dictionary<string, string> beans_procedureline_map, System.Collections.Generic.Dictionary<NumericType, string> numeric_type_map ) 
+    public LocalizationConfig(string alias, System.Collections.Generic.Dictionary<LocalizationKey, string> map, System.Collections.Generic.Dictionary<TagType, string> tag_type_map, System.Collections.Generic.Dictionary<DamageType, string> damage_type_map, System.Collections.Generic.Dictionary<string, string> beans_behavior_map, System.Collections.Generic.Dictionary<string, string> beans_procedureline_map, System.Collections.Generic.Dictionary<NumericType, string> numeric_type_map ) 
     {
-        this.Id = id;
         this.Alias = alias;
         this.Map = map;
         this.TagTypeMap = tag_type_map;
@@ -47,7 +45,6 @@ public sealed partial class LocalizationConfig :  Bright.Config.BeanBase
         return new localization.LocalizationConfig(_json);
     }
 
-    public int Id { get; private set; }
     public string Alias { get; private set; }
     public System.Collections.Generic.Dictionary<LocalizationKey, string> Map { get; private set; }
     public System.Collections.Generic.Dictionary<TagType, string> TagTypeMap { get; private set; }
@@ -71,7 +68,6 @@ public sealed partial class LocalizationConfig :  Bright.Config.BeanBase
     public override string ToString()
     {
         return "{ "
-        + "Id:" + Id + ","
         + "Alias:" + Alias + ","
         + "Map:" + Bright.Common.StringUtil.CollectionToString(Map) + ","
         + "TagTypeMap:" + Bright.Common.StringUtil.CollectionToString(TagTypeMap) + ","

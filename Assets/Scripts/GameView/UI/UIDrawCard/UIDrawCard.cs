@@ -23,7 +23,7 @@ namespace Hsenl.View {
             if (patchs == null)
                 return;
 
-            this.holder.NormalizeChildren(this.elementTemplate.transform, patchs.Length);
+            this.holder.MakeSureChildrenCount(this.elementTemplate.transform, patchs.Length);
             for (int i = 0; i < patchs.Length; i++) {
                 var slot = this.holder.GetChild(i)?.GetComponent<UIDrawCardSlot>();
                 slot.FillIn(patchs[i]);

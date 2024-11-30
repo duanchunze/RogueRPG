@@ -19,7 +19,7 @@ namespace Hsenl {
         public List<FactionType> factionTypes = new();
 
         [MemoryPackIgnore]
-        public List<SelectionTarget> targets = new();
+        public List<SelectionTargetDefault> targets = new();
 
         [MemoryPackIgnore]
         private float _cooldownOrigin;
@@ -51,12 +51,20 @@ namespace Hsenl {
             this._cooldownTillTime = tillTime;
         }
 
+        public void ResetCooldown() {
+            this._cooldownOrigin = 0;
+            this._cooldownTillTime = 0;
+        }
+
         public (float originTime, float tillTime) GetCooldownInfo() {
             return (this._cooldownOrigin, this._cooldownTillTime);
         }
 
         public float GetCooldownPct() {
             var cd = this._cooldownTillTime - this._cooldownOrigin;
+            if (cd <= 0)
+                return 0;
+
             var cur = TimeInfo.Time - this._cooldownOrigin;
             var pct = cur / cd;
             return pct;
@@ -81,44 +89,25 @@ namespace Hsenl {
         }
 
         public void AddPatch(AbilityPatch patch) {
+            // var patchs = this.FindBodiedsInIndividual<AbilityPatch>();
+            // if (patchs.Length >= 6)
+            //     return;
+
             patch.SetParent(this.Entity);
         }
 
-        public void AddAssist(AbilityAssist assist) {
+        public void AddAssist(Prop assist) {
             assist.SetParent(this.Entity);
         }
 
-        protected override void OnAwake() {
-            this.MultiCombin(null);
-            this.CrossCombinForOther(this.FindScopeInParent<AbilitesBar>(), null);
-            this.CrossCombinForOther(this.FindScopeInParent<Actor>(), null);
+        protected override void OnChildAdd(Entity child) {
+            var abiPatch = child.GetComponent<AbilityPatch>();
+            if (abiPatch != null) { }
         }
 
-        protected override void OnDestroy() {
-            this.DecombinAll();
-        }
-
-        protected override void OnComponentAdd(Component component) {
-            if (component is not Element element)
-                return;
-
-            this.MultiCombin(element);
-            this.CrossCombinForOther(this.FindScopeInParent<AbilitesBar>(), element);
-            this.CrossCombinForOther(this.FindScopeInParent<Actor>(), element);
-        }
-
-        protected override void OnComponentRemove(Component component) {
-            if (component is not Element element)
-                return;
-
-            this.MultiDecombin(element);
-            this.CrossDecombinByComponent(element);
-        }
-
-        protected override void OnParentChanged(Entity previousParent) {
-            this.CrossDecombinForParents(previousParent?.GetComponentInParent<Scope>(true, true));
-            this.CrossCombinForOther(this.FindScopeInParent<AbilitesBar>(), null);
-            this.CrossCombinForOther(this.FindScopeInParent<Actor>(), null);
+        protected override void OnChildRemove(Entity child) {
+            var abiPatch = child.GetComponent<AbilityPatch>();
+            if (abiPatch != null) { }
         }
     }
 }

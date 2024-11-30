@@ -40,10 +40,10 @@ namespace Hsenl {
                     }
 
                     // 是否是偷袭攻击
-                    var hurtSelector = form.hurtable.GetComponent<Selector>();
+                    var hurtSelector = form.hurtable.GetComponent<SelectorDefault>();
                     if (hurtSelector != null) {
-                        var primarySelection = hurtSelector.PrimarySelection;
-                        if (primarySelection == null) {
+                        var primaryTarget = hurtSelector.PrimaryTarget;
+                        if (primaryTarget == null) {
                             form.sneakAtk = true;
                             // 偷袭增加0.25伤害
                             finalDamage *= 1.2f;

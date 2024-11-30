@@ -37,16 +37,21 @@ public abstract partial class LeafNodeInfo :  behavior.Info
         switch (type)
         {
             case "AbortNodeInfo": return new behavior.AbortNodeInfo(_json);
+            case "ai.PlayerPickClosestTargetInfo": return new ai.PlayerPickClosestTargetInfo(_json);
             case "ai.PlayerAutoCasterInfo": return new ai.PlayerAutoCasterInfo(_json);
             case "ai.PatrolInfo": return new ai.PatrolInfo(_json);
             case "ai.IntelligentAssaultInfo": return new ai.IntelligentAssaultInfo(_json);
             case "ai.MinionDefaultIntelligentAssaultInfo": return new ai.MinionDefaultIntelligentAssaultInfo(_json);
+            case "ai.MinionWuyiIntelligentAssaultInfo": return new ai.MinionWuyiIntelligentAssaultInfo(_json);
             case "ai.FollowMaster": return new ai.FollowMaster(_json);
+            case "ai.LoiterFollowMaster": return new ai.LoiterFollowMaster(_json);
             case "casterevaluate.CooldownCheckInfo": return new casterevaluate.CooldownCheckInfo(_json);
             case "casterevaluate.ManaCheckInfo": return new casterevaluate.ManaCheckInfo(_json);
             case "casterevaluate.PrioritiesEvaluateInfo": return new casterevaluate.PrioritiesEvaluateInfo(_json);
+            case "casterevaluate.TargetEvaluateInfo": return new casterevaluate.TargetEvaluateInfo(_json);
             case "casterevaluate.PickTargetInfo": return new casterevaluate.PickTargetInfo(_json);
-            case "casterevaluate.PickAndApproachTargetInfo": return new casterevaluate.PickAndApproachTargetInfo(_json);
+            case "casterevaluate.PickBackTarget": return new casterevaluate.PickBackTarget(_json);
+            case "casterevaluate.ApproachTargetInfo": return new casterevaluate.ApproachTargetInfo(_json);
             case "casterevaluate.HealthLowerInfo": return new casterevaluate.HealthLowerInfo(_json);
             case "casterevaluate.CasterSummoningInfo": return new casterevaluate.CasterSummoningInfo(_json);
             case "adventurescheme.DefaultCheckpointsAdventureInfo": return new adventurescheme.DefaultCheckpointsAdventureInfo(_json);

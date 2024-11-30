@@ -1,136 +1,149 @@
 ﻿using System;
-using System.Collections.Generic;
 using MemoryPack;
 
 namespace Hsenl {
-    /* 把施法器单独摘出来. 为什么要把施法器从技能里拆出来? 而不是放在一起, 因为不是只有技能才能施法, 道具也可能可以施法, 装备也可能可以施法.
-     */
     [Serializable]
-    [MemoryPackable()]
-    public partial class Caster : Unbodied, IUpdate {
-        [MemoryPackIgnore]
-        public Func<float, CastEvaluateStatus> evaluateInvokes;
+    [MemoryPackable]
+    public partial class Caster : BehaviorTree<INode<Caster>> {
+        public event Func<CastModel> getCastModelInvoke;
+
+        // ---
+
+        public event Func<float, CastEvaluateState> castEvaluateInvoke;
+        public event Func<CastEvaluateState> startCastInvoke;
+        public event Func<bool> isCastingInvoke;
+        public event Action stopCastInvoke;
+        public event Action startKeepTryInvoke;
+        public event Func<bool> isKeepTringInvoke;
+        public event Action stopKeepTringInvoke;
+
+        // ---
+
+        public event Action onCastStart;
+        public event Action<float> onCastRunning;
+        public event Action<CasterEndDetails> onCastEnd;
+
+        // ---
 
         [MemoryPackIgnore]
-        public Action castStartInvoke;
+        public CastParameter castParameter = new();
 
         [MemoryPackIgnore]
-        public Action castEndInvoke;
+        public CastEvaluateResult castEvaluateResult = new();
 
         [MemoryPackIgnore]
-        public Func<CastModel> getCastModelInvoke;
+        public CastModel CastModel => this.getCastModelInvoke?.Invoke() ?? default;
 
         [MemoryPackIgnore]
-        public Action onEnter;
+        public bool IsCasting => this.isCastingInvoke?.Invoke() ?? false;
 
-        [MemoryPackIgnore]
-        public Action<float> onUpdate;
-
-        [MemoryPackIgnore]
-        public Action onLeave;
-
-        [MemoryPackIgnore]
-        public Action<CasterLeaveDetails> onLeaveDetails;
-
-        [MemoryPackIgnore]
-        public Action<Object> onIntercepted; // 当被拦截
-
-        [MemoryPackIgnore]
-        public Action<Object> onBreak; // 当被打断
-
-        [MemoryPackIgnore]
-        public Action onFinish; // 当完成
-
-        [MemoryPackIgnore]
-        private bool _keepTrying;
-
-        [MemoryPackIgnore]
-        public CastModel CastModel => this.getCastModelInvoke?.Invoke() ?? CastModel.InfiniteTime;
-
-        public void Update() {
-            if (this._keepTrying) {
-                var evaluateStatus = this.Evaluate(TimeInfo.DeltaTime);
-                if (evaluateStatus != CastEvaluateStatus.Success) {
-                    if (evaluateStatus != CastEvaluateStatus.Trying) {
-                        // 如果评估不成功, 且没处于尝试状态, 则直接放弃, 不用再继续尝试了.
-                        this._keepTrying = false;
-                    }
-
-                    return;
-                }
-
-                this.castStartInvoke?.Invoke();
-                this._keepTrying = false;
-            }
-        }
-
-        public CastEvaluateStatus Evaluate() {
+        public CastEvaluateState Evaluate() {
             return this.Evaluate(TimeInfo.DeltaTime);
         }
 
-        public CastEvaluateStatus Evaluate(float deltaTime) {
-            if (this.evaluateInvokes == null) {
-                return CastEvaluateStatus.Success;
+        public CastEvaluateState Evaluate(float deltaTime) {
+            if (this.castEvaluateInvoke != null) {
+                return this.castEvaluateInvoke?.Invoke(deltaTime) ?? CastEvaluateState.Invalid;
             }
 
-            return this.evaluateInvokes.Invoke(deltaTime);
+            this.castEvaluateResult.Reset();
+            this.DeltaTime = deltaTime;
+            var ret = this.Tick();
+
+            // 评估行为的规则是, 成功代表true, running代表可以成功但要等一会, 其他的都是代表失败, 只是失败的类型很多, 这里使用一个变量, 由外部赋值
+            switch (ret) {
+                case NodeStatus.Success: {
+                    return CastEvaluateState.Success;
+                }
+
+                case NodeStatus.Running: {
+                    return CastEvaluateState.Trying;
+                }
+
+                default:
+                    return this.castEvaluateResult.CastEvaluateState;
+            }
         }
 
-        /// <param name="keepTrying">为true则会不断的尝试, 即便不在调用该方法, 或者CastEnd, 也不会停止, 直到caster成功, 或者尝试失败</param>
-        /// <returns></returns>
-        public CastEvaluateStatus CastStart(bool keepTrying = false) {
-            if (this._keepTrying)
-                return CastEvaluateStatus.Trying;
+        public CastEvaluateState StartCast() {
+            if (this.isKeepTringInvoke?.Invoke() ?? false)
+                this.stopKeepTringInvoke!.Invoke();
 
-            var evaluateStatus = this.Evaluate(TimeInfo.DeltaTime);
-            if (evaluateStatus != CastEvaluateStatus.Success) {
-                this._keepTrying = keepTrying && evaluateStatus == CastEvaluateStatus.Trying;
-                return evaluateStatus;
-            }
+            var evaluate = this.Evaluate();
+            if (evaluate != CastEvaluateState.Success)
+                return evaluate;
 
-            this.castStartInvoke?.Invoke();
-            return CastEvaluateStatus.Success;
+            var ret = this.startCastInvoke?.Invoke() ?? CastEvaluateState.Invalid;
+            return ret;
         }
 
         /// <summary>
-        /// 直接开始, 不进行评估
+        /// 释放, 并在符合条件的情况下, 保持尝试
         /// </summary>
-        public void CastStartDirect() {
-            this.castStartInvoke?.Invoke();
+        /// <returns></returns>
+        public CastEvaluateState StartCastWithKeepTrying() {
+            if (this.isKeepTringInvoke?.Invoke() ?? false)
+                return CastEvaluateState.Trying;
+
+            var evaluate = this.Evaluate();
+            if (evaluate != CastEvaluateState.Success) {
+                if (evaluate == CastEvaluateState.Trying) {
+                    this.startKeepTryInvoke?.Invoke();
+                }
+
+                // 评估失败
+                return evaluate;
+            }
+
+            // 开始释放
+            var ret = this.startCastInvoke?.Invoke() ?? CastEvaluateState.Invalid;
+            return ret;
         }
 
-        public void CastEnd() {
-            this.castEndInvoke?.Invoke();
+        /// <summary>
+        /// 直接释放, 跳过评估
+        /// </summary>
+        /// <returns></returns>
+        public CastEvaluateState DirectStartCast() {
+            if (this.isKeepTringInvoke?.Invoke() ?? false)
+                this.stopKeepTringInvoke!.Invoke();
+
+            return this.startCastInvoke?.Invoke() ?? CastEvaluateState.Invalid;
         }
 
-        public void OnEnter() {
-            this.onEnter?.Invoke();
+        public void StopCast() {
+            this.stopCastInvoke?.Invoke();
         }
 
-        public void OnUpdate(float deltaTime) {
-            this.onUpdate?.Invoke(deltaTime);
+        public void StopKeepTrying() {
+            this.stopKeepTringInvoke?.Invoke();
         }
 
-        public void OnLeave() {
-            this.onLeave?.Invoke();
+        public void OnCastStart() {
+            try {
+                this.onCastStart?.Invoke();
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
         }
 
-        public void OnLeaveDetail(CasterLeaveDetails leaveDetails) {
-            this.onLeaveDetails?.Invoke(leaveDetails);
+        public void OnCastRunning(float deltaTime) {
+            try {
+                this.onCastRunning?.Invoke(deltaTime);
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
         }
 
-        // 技能被拦截 (在准备阶段之前技能就被取消了, 视为被拦截, 技能并没有被真正释放, 比如一些靠普攻触发的技能, 又能触发的时候, 就把普攻中断了)
-        public void OnIntercepted(Object interceptor) {
-            this.onIntercepted?.Invoke(interceptor);
-        }
-
-        // 技能被打断了 (在准备、蓄力、释放三个阶段退出, 都视为打断)
-        public void OnBreak(Object breaker) {
-            this.onBreak?.Invoke(breaker);
-        }
-
-        public void OnFinish() {
-            this.onFinish?.Invoke();
+        public void OnCastEnd(CasterEndDetails endDetails) {
+            try {
+                this.onCastEnd?.Invoke(endDetails);
+            }
+            catch (Exception e) {
+                Log.Error(e);
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Hsenl {
         public Vector3 value;
     }
     
-    [DisallowMultipleComponent, DefaultExecutionOrder(-5)] // 让InputController的Update顺序在框架Update顺序的前面
+    [DisallowMultipleComponent, DefaultExecutionOrder(-17)] // 让InputController的Update顺序在框架Update顺序的前面
     public class InputController : UnitySingleton<InputController> {
         protected override void Awake() {
             base.Awake();

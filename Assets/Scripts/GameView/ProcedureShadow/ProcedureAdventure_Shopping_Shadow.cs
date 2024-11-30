@@ -4,7 +4,7 @@ namespace Hsenl.View {
     [ShadowFunction(typeof(ProcedureAdventure_Shopping))]
     public static partial class ProcedureAdventure_Shopping_Shadow {
         [ShadowFunction]
-        private static void OnEnter(ProcedureAdventure_Shopping self, IFsm fsm, IFsmState prev) {
+        private static HTask OnEnter(ProcedureAdventure_Shopping self, IFsm fsm, IFsmState prev) {
             // UIManager.SingleOpen<UICardStore>(UILayer.High);
             // var bar = UIManager.SingleOpen<UICardBar>(UILayer.High);
             // bar.ShowAbilityAssist();
@@ -15,10 +15,11 @@ namespace Hsenl.View {
             // CardStore.Instance.refreshFreeTime++;
             // GameManager.Instance.SetGold(Tables.Instance.TbGameSingletonConfig.CoinEach);
             // GameManager.Instance.ProcedureLine.StartLine(new PliRefreshStoreCardsForm());
+            return default;
         }
 
         [ShadowFunction]
-        private static void OnLeave(ProcedureAdventure_Shopping self, IFsm fsm, IFsmState next) {
+        private static HTask OnLeave(ProcedureAdventure_Shopping self, IFsm fsm, IFsmState next) {
             // UIManager.SingleClose<UICardStore>();
             // // UIManager.SingleClose<UICardBar>();
             // var bar = UIManager.GetSingleUI<UICardBar>();
@@ -26,6 +27,7 @@ namespace Hsenl.View {
             // UIManager.SingleClose<UICardBackpack>();
             // var uishopping = UIManager.SingleClose<UIShopping>();
             // uishopping.onShoppingFinish -= self.OnShoppingFinish;
+            return default;
         }
     }
 }

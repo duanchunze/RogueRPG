@@ -39,7 +39,7 @@ namespace Hsenl {
                 Debug.Log($"已锁定{LaunchScene}为启动场景");
                 EditorApplication.UnlockReloadAssemblies();
             }
-            
+
             _locked = !_locked;
             EditorPrefs.SetBool(prefsKey, _locked);
             Menu.SetChecked(MenuKey, _locked);
